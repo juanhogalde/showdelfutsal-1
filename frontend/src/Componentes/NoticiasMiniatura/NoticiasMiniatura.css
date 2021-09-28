@@ -1,0 +1,49 @@
+.CP-Noticias {
+  width: 100%;
+  height: 100%;
+  max-width: 800px;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem;
+  /* background-color: aquamarine; */
+}
+
+.CI-Cabecera {
+  display: flex;
+  flex-direction: column;
+}
+.CI-Cuerpo {
+  display: flex;
+  flex-direction: column;
+}
+.CI-SubCategoria-Fecha {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.CI-Categoria {
+  border-bottom: 1px solid rgb(217, 224, 109);
+  max-width: 60rem;
+  max-height: 40px;
+}
+.CI-Titulo-Copoete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  word-break: break-all;
+}
+.Copete {
+  align-items: center;
+  font-weight: 400;
+  margin-top: -0.2rem;
+}
+.fecha-NoticiaMiniatura {
+  margin-right: 1rem;
+}
+.subcategoria-NoticiaMiniatura {
+  font-weight: bold;
+}
+.imagen-Noticias-Miniatura {
+  margin-right: 1rem;
+}
