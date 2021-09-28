@@ -44,7 +44,7 @@ const Inicio = () => {
           <div className="CI-Galeria"></div>
         </div>
       </div>
-      <PieDepagina />
+      {/* <PieDepagina /> */}
     </div>
   );
 };
