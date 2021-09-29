@@ -1,0 +1,40 @@
+.CI-filtro-barra {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  margin-top: 2.5rem;
+}
+
+.filtros-cuerpo {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  margin-bottom: 2rem;
+}
+.barra-color-filtros {
+  align-self: center;
+  width: 150px;
+  height: 25px;
+  border-width: 1px;
+  display: block;
+  position: absolute;
+  z-index: 0;
+  transition: width 1.5s, height 2s, background-color 2s, transform 2s;
+}
+.texto-filtros {
+  font-family: 'Segoe UI';
+  position: absolute;
+  top: -45px;
+  left: 150px;
+  font-size: 1.6rem;
+  color: black;
+  font-weight: bold;
+  margin-left: 0.3rem;
+}
+
+.filtros-cuerpo:hover .barra-color-filtros {
+  width: 300px;
+  height: 25px;
+  transform: translateY(180deg);
+}
