@@ -2,6 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import RutasPrivadas from '../../Rutas/RutasPrivadas';
 import RutasPublicas from '../../Rutas/RutasPublicas';
+import BarraDeNavegacion from '../BarraDeNavegacion/BarraDeNavegacion';
 import Inicio from '../Inicio/Inicio';
 import PaginaSomos from '../PaginaSomos/PaginaSomos';
 
@@ -10,6 +11,7 @@ const Home = () => {
   // return <div>{logueado ? <RutasPrivadas /> : <RutasPublicas />}</div>;
   return (
     <React.Fragment>
+      <BarraDeNavegacion />
       <PaginaSomos />
     </React.Fragment>
   );

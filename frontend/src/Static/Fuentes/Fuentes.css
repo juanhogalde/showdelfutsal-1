@@ -1,5 +1,6 @@
-h1 {
-  font-size: 3.5rem;
+* h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.6rem;
 }
 h2 {
   font-size: 3.25rem;
@@ -15,13 +16,4 @@ h5 {
 }
 h6 {
   font-size: 1.25rem;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Poppins', sans-serif;
 }
