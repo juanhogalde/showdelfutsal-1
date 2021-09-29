@@ -6,16 +6,18 @@ import './Inicio.css';
 const Inicio = () => {
   return (
     <div className="LP-Inicio">
-      <BarraDeNavegacion />
+      {/* <BarraDeNavegacion /> */}
       {/* SECCION BANNER INICIO */}
       <div className="LI-Inicio seccion-somos">
         <div className="CP-Somos">
           <div className="CI-Somos"></div>
           <div className="CI-Somos"></div>
+          <div className="CI-Somos"></div>
+          <div className="CI-Somos"></div>
         </div>
       </div>
       {/* SECCION VIVO */}
-      <div className="LI-Inicio seccion-vivo">
+      <div className="LI-Inicio seccion-vivo Margen-Vivo">
         <div className="CP-Vivo">
           <div className="CI-Vivo"></div>
           <div className="CI-Vivo"></div>
@@ -30,10 +32,14 @@ const Inicio = () => {
         </div>
       </div>
       {/* SECCION NOTICIAS */}
-      <div className="LI-Inicio seccion-noticias">
+      <div className="LI-Inicio seccion-noticias  Margen-Noticias">
         <div className="CP-Noticias">
           <div className="CI-Noticias"></div>
           <div className="CI-Noticias"></div>
+          <div className="Noticias-Miniaturas">
+            <div className="Noticias"></div>
+            <div className="Noticias"></div>
+          </div>
           <div className="CI-Noticias"></div>
         </div>
       </div>
