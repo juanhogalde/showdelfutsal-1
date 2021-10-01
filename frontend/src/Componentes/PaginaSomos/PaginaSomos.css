@@ -1,75 +1,223 @@
 .LI-Nosotros {
-  margin: 0 0 0 0px;
   display: grid;
-  grid-gap: 10px;
   height: 170vh;
-  padding: 100px;
-  padding-left: 50px;
-  padding-right: 50px;
   width: 100%;
+  grid-template-columns: 100px 1fr 100px;
+  grid-template-rows: 100px 1fr 100px;
 }
 
 .seccion-nosotros {
-  background-image: url('../../Static/Img/Fondo_somos.png');
-  background-size: contain;
+  background-image: url('../../Static/Img/fondo_somos2.png');
+  background-size: auto;
   background-repeat: no-repeat;
 }
 
 .CP-Nosotros {
+  grid-column: 2/2;
+  grid-row: 2/2;
   display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-template-rows: 4fr 0.7fr;
-  gap: 1em;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 1fr 15%;
   border: 4px solid rgba(34, 207, 18, 0.8);
 }
 
-.CP-Nosotros :nth-child(3) {
-  border: 1 px solid blue;
-  grid-column: span 2;
-}
-
 .CI-Historia {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-rows: auto;
   margin: 10px;
-  border: 4px solid rgba(7, 81, 167, 0.8);
+  padding: 20px;
+  border: 4px solid rgba(201, 132, 28, 0.8);
 }
 
-.CI-Nosotros {
-  /* grid-template-rows: 2fr; */
-  padding: 10px 10px;
+.CI-Nosotros-cuerpo {
+  margin: 20px;
+  grid-column: 1/2;
+  grid-row: 1/2;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr 5fr;
   border: 4px solid rgba(216, 8, 8, 0.8);
-  column-gap: 10px;
-  margin: 20px 20px 20px 20px;
+}
+
+.I-titulo-somos {
+  margin: 10px;
+  width: auto;
+  height: auto;
+  border: 4px solid rgba(216, 8, 8, 0.8);
+}
+.I-cuerpo-somos {
+  margin: 10px;
+  width: auto;
+  height: auto;
+  border: 4px solid rgba(216, 8, 8, 0.8);
 }
 
 .CI-Nosotros-Galeria {
   display: grid;
-  grid-template-rows: repeat(2, auto);
-  border: 4px solid rgba(216, 8, 8, 0.8);
+  grid-column: 2/3;
+  margin: 15px;
+  grid-row: 1/2;
+  border: 4px solid rgba(214, 47, 25, 0.8);
+  grid-template-columns: 1fr;
+  grid-template-rows: 3fr 2fr;
+}
+
+.I-somos-slider {
+  height: 90%;
+  border: 4px solid rgba(214, 47, 25, 0.8);
   margin: 20px;
 }
 
-.CI-Slider {
-  padding: 10px 10px;
-  border: 4px solid rgba(216, 8, 8, 0.8);
-  padding: 20px;
-  font-size: 30px;
-  column-gap: 10px;
-  margin: 100px 20px 150px 20px;
+.I-somos-foto {
+  height: 90%;
+  border: 4px solid rgba(39, 184, 10, 0.8);
+  margin: 20px;
 }
 
-.descripcion {
+.CI-Nosotros-radio {
+  padding: 10px;
+  grid-column: 1/4;
+  grid-row: 2/3;
+  display: grid;
+}
+
+.I-Radio {
+  border: 4px solid rgba(214, 47, 25, 0.8);
+  column-gap: 10px;
+  margin: 10px;
+}
+
+.frase-Somos {
+  background-image: url('../../Static/Img/titulo_somos.png');
+  background-size: 50%;
+  background-repeat: no-repeat;
+  min-height: 170px;
+  width: 100%;
+  margin-left: 25px;
+  transform: rotate(-15deg);
+}
+
+.titulo-Somos {
+  border: 2px solid rgb(21, 255, 0);
+  height: 120px;
+  width: 30%;
+}
+.cuerpo-somos {
+  border: 2px solid rgb(21, 255, 0);
+}
+
+.Descripcion {
   font-size: 1.2rem;
   font-family: Georgia, 'Times New Roman', Times, serif;
   color: rgb(246, 248, 247);
 }
 
+.texto-descripcion-somos {
+  font-size: 16px;
+  line-height: 1.7rem;
+  color: white;
+  margin: 10px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ///////////////////////// MEDIA QUERIES TABLET ///////////////////////// */
+
+/* @media only screen and (min-device-width: 780px) and (max-width: 1200px) {
+  .LI-Nosotros {
+    height: 150vh;
+    padding: 10px;
+    grid-template-columns: 5px 1fr 5px;
+    background-color: red;
+  }
+} */
+
 /* ///////////////////////// MEDIA QUERIES MOVIL ///////////////////////// */
 
-@media only screen and (min-device-width: 360px) and (max-width: 768px) and (orientation: portrait) {
+@media only screen and (min-device-width: 340px) and (max-width: 760px) and (orientation: portrait) {
   .LI-Nosotros {
-    grid-gap: 10px;
+    height: 100%;
+    padding: 10px;
+    grid-template-columns: 5px 1fr 5px;
+  }
+
+  .CP-Nosotros {
+    display: grid;
+    grid-row: 1/7;
+    grid-template-rows: 1px 1fr 1px;
+    /* grid-template-columns: repeat(auto-fit, minmax(200px, 2fr)); */
+    /* grid-auto-flow: dense;
+    grid-auto-rows: unset; */
+    grid-template-columns: 5px 2fr 5px;
+    margin-top: 100px;
+    /* background-color: red; */
+  }
+
+  /*===== Contenedor descripcion =====*/
+
+  .CI-Nosotros-cuerpo {
+    grid-column: 1/3;
+    grid-auto-rows: 3fr 1fr;
+    grid-row: 2/3;
+    background-color: rgba(71, 255, 117, 0.274);
+  }
+
+  /*===== Contenedor galeria =====*/
+
+  .CI-Nosotros-Galeria {
+    grid-row: 4/6;
+    grid-template-rows: 3fr 3fr;
+  }
+
+  .I-componente-somos-slider {
+    display: grid;
+  }
+
+  .I-somos-slider {
+    grid-row: 1/2;
+    border: 4px solid rgba(146, 20, 125, 0.8);
+    margin: 20px;
+  }
+
+  .I-somos-foto {
+    /* s */
+    grid-row: 2/3;
+    border: 4px solid rgba(109, 4, 170, 0.8);
+    margin: 20px;
+  }
+
+  .I-somos-foto {
+    grid-row: 2/3;
+    height: 90%;
+    border: 4px solid rgba(155, 101, 30, 0.8);
+    margin: 20px;
+  }
+
+  .CI-Historia {
+    grid-column: 1/3;
+    grid-row: 2/3;
+    display: grid;
+    grid-template-rows: auto;
+    margin: 10px;
+    padding: 20px;
+    border: 4px solid rgba(201, 132, 28, 0.8);
+  }
+
+  /* .CI-Nosotros-cabecera {
+    grid-template-rows: 2fr 3fr;
+    padding: 10px 10px;
+    border: 4px solid rgba(216, 8, 8, 0.8);
+    column-gap: 10px;
+    margin: 20px 20px 20px 20px;
+  } */
+
+  /*===== Contenedor radio =====*/
+
+  .CI-Nosotros-radio {
+    grid-column: 1/3;
+    grid-row: 6/7;
+    margin: 10px;
+    background-color: red;
   }
 }
