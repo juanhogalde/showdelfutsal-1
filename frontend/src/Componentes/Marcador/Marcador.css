@@ -1,0 +1,126 @@
+/* max-width 1146 */
+/* max-height 717 */
+
+/* min-width:312 */
+/* min-height: 433 */
+* {
+  margin: 0;
+}
+.Marcador {
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+  width: 900px;
+  height: 500px;
+}
+.marcador-cuerpo {
+  background-color: blue;
+  width: 100%;
+  height: 100%;
+  border: 0.1rem solid #ffe35f;
+  display: grid;
+  grid-template-columns: 10% 1fr 5% 5% 1fr 5% 1fr 5% 5% 1fr 10%;
+  grid-template-rows: 10% 1fr 1fr 5% 1fr 1fr 2fr 1fr 10%;
+  background-image: url('../../Static/Img/linea_marcador.png');
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: 70%;
+  background-size: contain;
+}
+.categoria-Marcador {
+  grid-column: 1/4;
+  grid-row: 1/2;
+  color: white;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+.info-partido {
+  grid-column: 5/8;
+  grid-row: 2/5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.escudo-A {
+  grid-column: 2/5;
+  grid-row: 6/10;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.marcador-A {
+  grid-column: 4/6;
+  grid-row: 6/8;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+}
+.contenedor-resultado-Marcador-A {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+  clip-path: polygon(0 0, 61% 0, 96% 100%, 0 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.escudo-B {
+  grid-column: 8/11;
+  grid-row: 6/10;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.marcador-B {
+  grid-column: 7/9;
+  grid-row: 6/8;
+  padding-top: 20px;
+  padding-left: 18px;
+  padding-bottom: 10px;
+}
+.contenedor-resultado-Marcador-B {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+  clip-path: polygon(38% 0, 100% 0, 100% 100%, 0 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contador-B {
+  font-size: 60px;
+}
+.nombreEquipo-Marcador {
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+.nombreEquipo-A {
+  grid-column: 4/6;
+  grid-row: 8/9;
+}
+.nombreEquipo-B {
+  grid-column: 7/9;
+  grid-row: 8/9;
+}
+.img-Escudo {
+  width: 100%;
+  height: auto;
+  max-width: 180px;
+  max-height: 200px;
+}
+.penales {
+  grid-column: 5/8;
+  grid-row: 6/8;
+  /*   background-color: rgb(0, 255, 255);
+ */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
