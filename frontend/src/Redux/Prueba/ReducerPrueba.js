@@ -5,15 +5,23 @@ const pruebaInicio = {
   DatosDePruebaVideos: [
     {
       fuente: '0gIKILHYA4Y',
-      descripcion: 'Liga Nac. Femenina ',
+      descripcion: '1 UNO',
     },
     {
       fuente: 'KIBeny5wq6M',
-      descripcion: 'Campeones ligas menores',
+      descripcion: '2 DOS',
     },
     {
       fuente: 'mWBbiJKUoxQ',
-      descripcion: 'Campeones ligas menores',
+      descripcion: '3 TRES',
+    },
+    {
+      fuente: 'RvHe2-jRQrE',
+      descripcion: '4 CUATRO',
+    },
+    {
+      fuente: 'RvHe2-jRQrE',
+      descripcion: '5 CINCO',
     },
   ],
 
@@ -21,16 +29,21 @@ const pruebaInicio = {
     {
       fuente:
         'https://amp.fcbarcelonanoticias.com/mrf4u/statics/i/ps/www.fcbarcelonanoticias.com/uploads/s1/12/70/06/9/mercado-fichajes-2021.jpeg?width=1200&enable=upscale',
-      descripcion: 'Liga Nac. Femenina ',
+      descripcion: '1 UNO ',
     },
     {
       fuente: 'https://i.ytimg.com/vi/BWeWk6KhwYg/maxresdefault.jpg',
-      descripcion: 'Campeones ligas menores',
+      descripcion: '2 DOS',
     },
     {
       fuente:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkJ5eKkunzfUzU_rsCh7BO32h5a95aiX65OA&usqp=CAU',
-      descripcion: 'Campeones ligas menores',
+      descripcion: '3 TRES',
+    },
+    {
+      fuente:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkJ5eKkunzfUzU_rsCh7BO32h5a95aiX65OA&usqp=CAU',
+      descripcion: '4 CUATRO',
     },
   ],
 };

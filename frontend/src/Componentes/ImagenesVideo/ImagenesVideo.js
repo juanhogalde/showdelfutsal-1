@@ -1,17 +1,31 @@
 import React, {useState} from 'react';
 import '../ImagenesVideo/ImagenesVideo.css';
-const ImagenesVideo = ({DatosDeEntrada = {}, tipoDeSliderFlecha = true, tipoVideo = false}) => {
+const ImagenesVideo = ({DatosDeEntrada = [], tipoDeSliderFlecha = true, tipoVideo = false}) => {
   const [indiceActual, setIndiceActual] = useState(0);
+  const [ocultarFlechasVideo, setOcultarFlechasVideo] = useState(
+    DatosDeEntrada.length === 2 || DatosDeEntrada.length === 1
+      ? {
+          flechaArriba: true,
+          flechaAbajo: true,
+        }
+      : {
+          flechaArriba: false,
+          flechaAbajo: true,
+        }
+  );
   const [dataActual, setDataActual] = useState(
     DatosDeEntrada.length !== 0 ? DatosDeEntrada[0] : {}
+  );
+  const [siguientedataActual, setSiguientedataActual] = useState(
+    DatosDeEntrada.length !== 0 && DatosDeEntrada.length > 1 ? DatosDeEntrada[1] : {}
   );
   const cambioDeImagen = index => {
     setDataActual(DatosDeEntrada[index]);
     setIndiceActual(index);
   };
-  const cambioDeImagenFlecha = direccion => {
+  const cambioDeImagenVideoFlecha = (direccion, origen) => {
     let contador = indiceActual;
-    //true = derecha flase=izquierda
+
     if (direccion) {
       contador += 1;
       if (contador >= DatosDeEntrada.length) {
@@ -23,27 +37,68 @@ const ImagenesVideo = ({DatosDeEntrada = {}, tipoDeSliderFlecha = true, tipoVide
         contador = DatosDeEntrada.length - 1;
       }
     }
+    if (direccion) {
+      if (contador + 1 === DatosDeEntrada.length - 1) {
+        setOcultarFlechasVideo({flechaArriba: true, flechaAbajo: false});
+      } else {
+        setOcultarFlechasVideo({flechaArriba: false, flechaAbajo: false});
+      }
+    } else {
+      if (indiceActual - 1 === 0) {
+        setOcultarFlechasVideo({flechaArriba: false, flechaAbajo: true});
+      } else {
+        setOcultarFlechasVideo({flechaArriba: false, flechaAbajo: false});
+      }
+    }
     setIndiceActual(contador);
     setDataActual(DatosDeEntrada[contador]);
+    setSiguientedataActual(DatosDeEntrada[contador + 1]);
   };
+
+  // const cambioDeVideoFlecha = direccion =>{
+  //   let contadorVideo = indiceActual;
+  //   if (direccion) {
+  //     contadorVideo += 1;
+  //     if (contadorVideo >= DatosDeEntrada.length) {
+  //       contadorVideo = 0;
+  //     }
+  //   } else {
+  //     contadorVideo -= 1;
+  //     if (contadorVideo < 0) {
+  //       contadorVideo = DatosDeEntrada.length - 1;
+  //     }
+  //   }
+  //   setIndiceActual(contadorVideo);
+  //   setDataActual(DatosDeEntrada[contadorVideo]);
+  // }
 
   return DatosDeEntrada.length !== 0 ? (
     <div className="CP-imagenesVideo">
+      {tipoVideo && !ocultarFlechasVideo.flechaArriba && (
+        <button
+          onClick={() => {
+            cambioDeImagenVideoFlecha(true, 'video');
+          }}
+          className="flechas-diseño-arriba-imagenesVideo"
+        >
+          ▲
+        </button>
+      )}
       <div className="flechas-mas-cuerpo-imagenesVideo">
-        {tipoDeSliderFlecha && (
+        {((tipoDeSliderFlecha && !tipoVideo) || (!tipoVideo && DatosDeEntrada.length > 6)) && (
           <button
             onClick={() => {
-              cambioDeImagenFlecha(false);
+              cambioDeImagenVideoFlecha(false, 'img');
             }}
             className="flechas-diseño-izq-imagenesVideo"
           >
             🢀
           </button>
         )}
-        {tipoDeSliderFlecha && (
+        {((tipoDeSliderFlecha && !tipoVideo) || (!tipoVideo && DatosDeEntrada.length > 6)) && (
           <button
             onClick={() => {
-              cambioDeImagenFlecha(true);
+              cambioDeImagenVideoFlecha(true, 'img');
             }}
             className="flechas-diseño-der-imagenesVideo"
           >
@@ -52,11 +107,26 @@ const ImagenesVideo = ({DatosDeEntrada = {}, tipoDeSliderFlecha = true, tipoVide
         )}
         <div className="cuerpo-imagenesVideo">
           {tipoVideo ? (
-            <iframe
-              className="video-imagenesVideo"
-              src={`https://www.youtube-nocookie.com/embed/${dataActual.fuente}`}
-              title="sadasd"
-            ></iframe>
+            DatosDeEntrada.length > 1 ? (
+              <div>
+                <iframe
+                  className="video-imagenesVideo"
+                  src={`https://www.youtube-nocookie.com/embed/${dataActual.fuente}`}
+                  title="sadasd"
+                ></iframe>
+                <iframe
+                  className="video-imagenesVideo"
+                  src={`https://www.youtube-nocookie.com/embed/${siguientedataActual.fuente}`}
+                  title="sadasd"
+                ></iframe>
+              </div>
+            ) : (
+              <iframe
+                className="video-imagenesVideo"
+                src={`https://www.youtube-nocookie.com/embed/${dataActual.fuente}`}
+                title="sadasd"
+              ></iframe>
+            )
           ) : (
             <img
               src={dataActual.fuente ? dataActual.fuente : ''}
@@ -66,11 +136,33 @@ const ImagenesVideo = ({DatosDeEntrada = {}, tipoDeSliderFlecha = true, tipoVide
           )}
 
           <div className="decripcion-imagenesVideo">
-            <h3>{dataActual.descripcion}</h3>
+            <h3>{tipoVideo ? siguientedataActual.descripcion : dataActual.descripcion}</h3>
           </div>
+
+          {tipoVideo && DatosDeEntrada.length >= 2 ? (
+            <div className="decripcion-imagenesVideo2">
+              <h3>{dataActual.descripcion}</h3>
+            </div>
+          ) : (
+            tipoVideo && (
+              <div className="decripcion-imagenesVideo">
+                <h3>{tipoVideo ? dataActual.descripcion : dataActual.descripcion}</h3>
+              </div>
+            )
+          )}
         </div>
       </div>
-      {!tipoDeSliderFlecha && (
+      {tipoVideo && !ocultarFlechasVideo.flechaAbajo && (
+        <button
+          onClick={() => {
+            cambioDeImagenVideoFlecha(false, 'video');
+          }}
+          className="flechas-diseño-abajo-imagenesVideo"
+        >
+          ▼
+        </button>
+      )}
+      {!tipoDeSliderFlecha && !tipoVideo && DatosDeEntrada.length <= 6 && (
         <div className="botonera-inferior-imagenesVideo">
           {DatosDeEntrada.map(function (element, index) {
             return (
