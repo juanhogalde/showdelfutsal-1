@@ -21,7 +21,7 @@ const PaginaSomos = () => {
             <div className="texto-descripcion-somos">
               {/* <h1>HISTORIA</h1>
               <p>
-                El Show del Futsal es la marca distintiva de la disciplina en la provincia,  desde el
+                El Show del Futsal es la marca distintiva de la disciplina en la provincia, desde el
                 año 2016. En aquel entonces, un grupo de locos periodistas amantes del futsal,
                 comenzaron a trabajar en la idea de un medio de comunicación exclusivo del deporte.
                 El pitido inicial fue con nuestro programa radial, el cual rápidamente derivó en
