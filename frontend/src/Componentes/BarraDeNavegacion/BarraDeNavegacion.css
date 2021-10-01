@@ -1,0 +1,64 @@
+/* ====== CONTENEDOR DEL MENU ======*/
+.nav-container {
+  width: 100%;
+  background-image: url('../../Static/Img/barra_inicio.png');
+  /* background-color: black; */
+  height: 80px;
+  position: fixed;
+  overflow: hidden;
+  color: rgb(189, 15, 15);
+  padding: 0 0 0 0px;
+}
+
+.img-barra-inicio {
+  width: 100%;
+  height: auto;
+  max-height: 100px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ====== COMPONENTES MENU ======*/
+
+.navbar {
+  /* grid-template-columns: 1fr auto 1fr; */
+  align-items: center;
+  height: 100px;
+  width: 90%;
+  max-width: 1720px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  color: #00b173;
+}
+
+.CI-logo-inicio {
+  height: auto;
+  width: 100%;
+}
+
+.Logo-inicio {
+  width: 100%;
+  height: auto;
+  max-width: 180px;
+}
+
+.nav-menu {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  list-style: none;
+  align-items: center;
+  text-align: center;
+  /* height: 20vh; */
+  justify-self: end;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+}
+.nav-link:hover {
+  color: #00b173;
+  text-decoration: none;
+  transition: all 0.3s ease-out;
+}

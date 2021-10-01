@@ -1,0 +1,29 @@
+.FC-Footer {
+  display: flex;
+  margin: 0 0 0 0px;
+  width: 100%;
+  height: 15vh;
+  padding: 0.5rem;
+  flex-wrap: wrap;
+  background-size: cover;
+  background-color: blue;
+}
+
+.FI-Imagen {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('../../Static/Img/fondo_footer.jpg');
+}
+
+/* ------------ Footer logo ------------ */
+
+.footer {
+  margin: auto 150px auto auto;
+  display: flex;
+  width: 80%;
+  height: 100%;
+  background-color: blue;
+  background-repeat: no-repeat;
+}
+
+/* ------------ Footer etiqueta------------ */
