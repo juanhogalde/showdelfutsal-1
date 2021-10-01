@@ -1,0 +1,127 @@
+.CP-imagenesVideo {
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  max-height: 1400px;
+  display: flex;
+  flex-direction: column;
+  float: left;
+  /* width: 600px; */
+  overflow: hidden;
+  /* height: 203px; */
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.cuerpo-imagenesVideo {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.img-imagenesVideo {
+  width: 100vh;
+  height: 50vh;
+  overflow-y: hidden;
+}
+.video-imagenesVideo {
+  width: 100%;
+  height: 50vh;
+  /* overflow-y: hidden; */
+}
+
+.decripcion-imagenesVideo {
+  height: 10vh;
+  width: 100%;
+  font-size: 1rem;
+  color: white;
+
+  margin-top: -4rem;
+  background: #0000008c;
+  position: relative;
+}
+.decripcion-imagenesVideo2 {
+  height: 10vh;
+  width: 100%;
+  font-size: 1rem;
+  color: white;
+  margin-top: -25.6rem;
+  margin-bottom: 21rem;
+  background: #0000008c;
+  position: relative;
+}
+.flechas-izq-der-imagenesVideo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.botonera-inferior-imagenesVideo {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.botones-redondo-imagenesVideo {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  background: bottom;
+  font-size: 1.3rem;
+  border: none;
+}
+.flechas-diseño-izq-imagenesVideo {
+  font-weight: 800;
+  font-size: 1.5rem;
+  position: absolute;
+  left: 10px;
+  z-index: 1;
+  color: rgb(255, 255, 255);
+  top: 50%;
+  margin-top: -9px;
+  background: bottom;
+  border: none;
+}
+.flechas-diseño-der-imagenesVideo {
+  font-weight: 800;
+  font-size: 1.5rem;
+  position: absolute;
+  right: 10px;
+  z-index: 1;
+  color: rgb(255, 255, 255);
+  top: 50%;
+  margin-top: -9px;
+  background: bottom;
+  border: none;
+}
+.flechas-diseño-abajo-imagenesVideo {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  margin-top: 0.7rem;
+}
+.flechas-diseño-arriba-imagenesVideo {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  margin-bottom: 0.3rem;
+}
+.flechas-mas-cuerpo-imagenesVideo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.cuerpo-imagenesVideo:hover .decripcion-imagenesVideo {
+  display: none;
+}
+.cuerpo-imagenesVideo:hover .decripcion-imagenesVideo2 {
+  display: none;
+}
+.decripcion-imagenesVideo:active {
+  display: none;
+}
+.decripcion-imagenesVideo2:active {
+  display: none;
+}
