@@ -11,8 +11,9 @@ const Home = () => {
   // return <div>{logueado ? <RutasPrivadas /> : <RutasPublicas />}</div>;
   return (
     <React.Fragment>
-      <BarraDeNavegacion />
-      <PaginaSomos />
+      {/* <BarraDeNavegacion /> */}
+      {/* <PaginaSomos /> */}
+      <Inicio />
     </React.Fragment>
   );
 };
