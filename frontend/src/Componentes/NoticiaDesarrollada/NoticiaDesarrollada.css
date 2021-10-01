@@ -7,14 +7,14 @@
   display: flex;
   flex-direction: column;
   margin: 1rem;
-  border-left: 1px solid rgb(230, 154, 132);
+  border-left: 1px solid #ffe35f;
   padding: 1rem;
 }
-.CI-Imagen-Epigrafe {
+.CI-Imagen-Epigrafe-Noticia-Desarrollada {
   display: flex;
   flex-direction: column;
 }
-.CI-Cuerpo {
+.CI-Cuerpo-Noticia-Desarrollada {
   display: flex;
   flex-direction: column;
 }
@@ -46,6 +46,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 1px solid rgb(230, 154, 132);
-  border-top: 1px solid rgb(230, 154, 132);
+  border-bottom: 1px solid #ffe35f;
+  border-top: 1px solid #ffe35f;
 }
