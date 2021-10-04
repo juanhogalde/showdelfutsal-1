@@ -1,6 +1,12 @@
 import React, {useState} from 'react';
 import '../ImagenesVideo/ImagenesVideo.css';
-const ImagenesVideo = ({DatosDeEntrada = [], tipoDeSliderFlecha = true, tipoVideo = false}) => {
+const ImagenesVideo = ({
+  DatosDeEntrada = [],
+  tipoDeSliderFlecha = true,
+  tipoVideo = false,
+  sinDescripcion = false,
+  isConBorder = false,
+}) => {
   const [indiceActual, setIndiceActual] = useState(0);
   const [ocultarFlechasVideo, setOcultarFlechasVideo] = useState(
     DatosDeEntrada.length === 2 || DatosDeEntrada.length === 1
@@ -110,19 +116,19 @@ const ImagenesVideo = ({DatosDeEntrada = [], tipoDeSliderFlecha = true, tipoVide
             DatosDeEntrada.length > 1 ? (
               <div>
                 <iframe
-                  className="video-imagenesVideo"
+                  className={isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'}
                   src={`https://www.youtube-nocookie.com/embed/${dataActual.fuente}`}
                   title="sadasd"
                 ></iframe>
                 <iframe
-                  className="video-imagenesVideo"
+                  className={isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'}
                   src={`https://www.youtube-nocookie.com/embed/${siguientedataActual.fuente}`}
                   title="sadasd"
                 ></iframe>
               </div>
             ) : (
               <iframe
-                className="video-imagenesVideo"
+                className={isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'}
                 src={`https://www.youtube-nocookie.com/embed/${dataActual.fuente}`}
                 title="sadasd"
               ></iframe>
@@ -134,17 +140,19 @@ const ImagenesVideo = ({DatosDeEntrada = [], tipoDeSliderFlecha = true, tipoVide
               className="img-imagenesVideo"
             />
           )}
+          {!sinDescripcion && (
+            <div className="decripcion-imagenesVideo">
+              <h3>{tipoVideo ? siguientedataActual.descripcion : dataActual.descripcion}</h3>
+            </div>
+          )}
 
-          <div className="decripcion-imagenesVideo">
-            <h3>{tipoVideo ? siguientedataActual.descripcion : dataActual.descripcion}</h3>
-          </div>
-
-          {tipoVideo && DatosDeEntrada.length >= 2 ? (
+          {tipoVideo && !sinDescripcion && DatosDeEntrada.length >= 2 ? (
             <div className="decripcion-imagenesVideo2">
               <h3>{dataActual.descripcion}</h3>
             </div>
           ) : (
-            tipoVideo && (
+            tipoVideo &&
+            !sinDescripcion && (
               <div className="decripcion-imagenesVideo">
                 <h3>{tipoVideo ? dataActual.descripcion : dataActual.descripcion}</h3>
               </div>
