@@ -2,4 +2,15 @@
   max-width: 13vh;
   max-height: 10vh;
   margin-top: 3.7rem;
+  margin-right: -13rem;
+}
+.text-minuto-a-minuto {
+  width: max-content;
+  margin-left: 10rem;
+  margin-top: 5rem;
+  margin-bottom: 1rem;
+  font-family: 'Segoe UI Regular';
+  font-size: 2.5vh;
+  font-weight: bolder;
+  color: white;
 }

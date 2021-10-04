@@ -4,6 +4,7 @@ import '../ComentariosVivo/ComentariosVivo.css';
 const ComentariosVivo = ({id = '', dominio = ''}) => {
   return (
     <div className="tamaño-caja-comentariosVivo">
+      <p className="text-minuto-a-minuto">MINUTO A MINUTO</p>
       <iframe src={`https://www.youtube.com/live_chat?v=${id}&embed_domain=${dominio}`}></iframe>
     </div>
   );
