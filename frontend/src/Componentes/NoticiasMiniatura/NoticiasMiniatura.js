@@ -1,6 +1,7 @@
 import React from 'react';
 import EtiquetaCategoria from '../EtiquetaCategoria/EtiquetaCategoria';
 import './NoticiasMiniatura.css';
+import imagenNoticia from '../../Static/Img/noticia.jfif';
 /**
  * Recibe como parametros
  ** datosModelado que es un objeto con los siguiente atributo:
@@ -13,7 +14,7 @@ import './NoticiasMiniatura.css';
 const NoticiasMiniatura = ({datosModelado = {}, isSobreImagen = false}) => {
   return (
     <div className="CP-Noticias-NoticiaMiniatura">
-      <div className="CI-Cabecera-NoticiaMiniatura">
+      {/* <div className="CI-Cabecera-NoticiaMiniatura">
         <div className="CI-Categoria-NoticiaMiniatura">
           <EtiquetaCategoria categoriaId={datosModelado.categoria ? datosModelado.categoria : 0} />
         </div>
@@ -26,23 +27,16 @@ const NoticiasMiniatura = ({datosModelado = {}, isSobreImagen = false}) => {
             {datosModelado.fecha ? datosModelado.fecha : 'dd/mm/aaaa'}
           </p>
         </div>
-      </div>
+      </div> */}
       <div className="CI-Cuerpo-NoticiaMiniatura">
-        <img
-          src={
-            datosModelado.fuenteImg
-              ? datosModelado.fuenteImg
-              : 'https://www.pequenomundo.cl/wp-content/themes/childcare/images/default.png'
-          }
-          className="d-inline-block align-top"
-          alt="imagen"
-        />
-        <h2 className={isSobreImagen ? 'sobreImagen-NoticiaMiniatura' : ''}>
+        <img src={datosModelado.fuenteImg ? datosModelado.fuenteImg : imagenNoticia} alt="imagen" />
+
+        <p className={isSobreImagen ? 'sobreImagen-NoticiaMiniatura' : ''}>
           {datosModelado.titulo ? datosModelado.titulo : 'Sin titulo'}
-        </h2>
-        <h4 className="Copete-NoticiaMiniatura">
+        </p>
+        {/* <h4 className="Copete-NoticiaMiniatura">
           {datosModelado.copete ? datosModelado.copete : 'sin copete'}
-        </h4>
+        </h4> */}
       </div>
     </div>
   );

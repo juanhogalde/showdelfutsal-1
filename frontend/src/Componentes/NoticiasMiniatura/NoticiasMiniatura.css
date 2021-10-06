@@ -1,23 +1,21 @@
 .CP-Noticias-NoticiaMiniatura {
   width: 100%;
-  height: 100%;
-  max-width: 800px;
-  max-height: 400px;
-  display: flex;
-  flex-direction: column;
-  margin: 0.5rem;
+  height: 100%; /* 
+  max-height: 50%; */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 1fr;
   /* background-color: aquamarine; */
 }
 
 .CI-Cabecera-NoticiaMiniatura {
   display: flex;
   flex-direction: column;
-  padding: 0.7rem;
 }
 .CI-Cuerpo-NoticiaMiniatura {
   display: flex;
   flex-direction: column;
-  padding: 0.7rem;
+  position: relative;
 }
 .CI-SubCategoria-Fecha-NoticiaMiniatura {
   display: flex;
@@ -44,6 +42,8 @@
   margin-right: 1rem;
 }
 .sobreImagen-NoticiaMiniatura {
-  margin-top: -5rem;
+  position: absolute;
+  width: 100%;
+  bottom: 20%;
   background-color: #f0f8ff9c;
 }
