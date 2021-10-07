@@ -2,13 +2,17 @@ import React from 'react';
 import './PaginaSomos.css';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
 import Marcador from '../Marcador/Marcador';
-import foto from '../../Static/Img/publicidad corta.jpg';
+import foto from '../../Static/Img/fotos_somos.png';
+import FotoRadio from '../../Static/Img/radio_somos.png';
 import frase from '../../Static/Img/titulo_somos.png';
-
+import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {useSelector} from 'react-redux';
+import Button from '@restart/ui/esm/Button';
 
 const PaginaSomos = () => {
   const {DatosDePruebaImagenes} = useSelector(state => state.storePrueba);
+
+  console.log(DatosDePruebaImagenes);
 
   return (
     <div className="LI-Nosotros seccion-nosotros">
@@ -52,8 +56,8 @@ const PaginaSomos = () => {
         </div>
         <div className="CI-Nosotros-Galeria">
           <div className="I-componente-somos-slider">
-            <div className="I-somos-slider">
-              <ImagenesVideo />
+            <div className="componente-ImagenesVideo">
+              <ImagenesVideo DatosDeEntrada={DatosDePruebaImagenes} />
             </div>
           </div>
           <div className="I-componente-somos-fotos">
@@ -63,7 +67,11 @@ const PaginaSomos = () => {
           </div>
         </div>
         <div className="CI-Nosotros-radio">
-          <div className="I-Radio"></div>
+          <div className="I-Radio">
+            <div className="I-Componente-radio">
+              <img className="foto-radio" src={FotoRadio}></img>
+            </div>
+          </div>
         </div>
       </div>
     </div>
