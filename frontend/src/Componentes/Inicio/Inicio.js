@@ -62,34 +62,41 @@ const Inicio = () => {
       {/* SECCION NOTICIAS */}
       <div className="LI-Inicio seccion-noticias  Margen-Noticias">
         <div className="CP-Noticias">
+          <div className="titulo-Seccion-Noticias">
+            <p>NOTICIAS</p>
+          </div>
           <div className="CI-Filtros">
             <Filtros filtros={Filtro}></Filtros>
           </div>
           <div className="CI-NoticiaPrincipal">
             <div className="componenteNoticiaPrincipal">
-              <NoticiasMiniatura isSobreImagen={true}></NoticiasMiniatura>
+              <NoticiasMiniatura
+                /* datosModelado={noticia} */
+                isSeccionNoticias={true}
+                isSobreImagen={true}
+              ></NoticiasMiniatura>
             </div>
           </div>
           <div className="CI-NoticiasMini">
             <div className="noticia-Miniatura-1">
-              <NoticiasMiniatura datosModelado={noticia}></NoticiasMiniatura>
+              <NoticiasMiniatura
+                isSeccionNoticias={true}
+                datosModelado={noticia}
+              ></NoticiasMiniatura>
             </div>
             <div className="noticia-Miniatura-2">
-              <NoticiasMiniatura datosModelado={noticia}></NoticiasMiniatura>
+              <NoticiasMiniatura
+                isSeccionNoticias={true}
+                datosModelado={noticia}
+              ></NoticiasMiniatura>
             </div>
           </div>
           <div className="publicidad-Noticias">
             <img alt="" src={publicidadLarga}></img>
           </div>
-          {/* <div className="CI-Noticias"></div>
-          <div className="CI-Noticias"></div>
-          <div className="Noticias-Miniaturas">
-            <div className="Noticias"></div>
-            <div className="Noticias"></div>
-          </div>
-          <div className="CI-Noticias"></div> */}
         </div>
       </div>
+
       {/* SECCION GALERIA */}
       {/* <div className="LI-Inicio seccion-galeria">
         <div className="CP-Galeria">
