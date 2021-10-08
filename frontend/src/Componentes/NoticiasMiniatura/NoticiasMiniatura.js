@@ -16,7 +16,6 @@ const NoticiasMiniatura = ({
   isSobreImagen = false,
   isSeccionNoticias = false,
 }) => {
-  console.log(isSeccionNoticias);
   return (
     <div className="CP-Noticias-NoticiaMiniatura">
       <div className="cuerpo-NoticiaMiniatura">

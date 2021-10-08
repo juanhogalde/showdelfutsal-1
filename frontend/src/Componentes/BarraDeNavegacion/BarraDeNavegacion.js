@@ -7,7 +7,7 @@ const BarraDeNavegacion = () => {
     <div className="nav-container">
       <div className="nav-bar">
         <div className="menu-toggle" id="mobile-menu">
-          <span classNameName="bar"></span>
+          <span className="bar"></span>
           <span className="bar"></span>
           <span className="bar"></span>
         </div>
@@ -18,7 +18,7 @@ const BarraDeNavegacion = () => {
 
           <p className="nav-link">MASCULINO</p>
           <div className="CI-logo-inicio">
-            <img className="Logo-inicio" src={LogoInicio}></img>
+            <img alt="" className="Logo-inicio" src={LogoInicio}></img>
           </div>
 
           <p className="nav-link">INFERIORES</p>
