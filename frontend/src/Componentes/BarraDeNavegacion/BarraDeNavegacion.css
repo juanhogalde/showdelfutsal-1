@@ -8,6 +8,7 @@
   overflow: hidden;
   color: rgb(189, 15, 15);
   padding: 0 0 0 0px;
+  z-index: 2;
 }
 
 .img-barra-inicio {
