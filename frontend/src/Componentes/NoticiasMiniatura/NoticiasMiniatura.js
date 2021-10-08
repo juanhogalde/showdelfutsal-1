@@ -67,7 +67,7 @@ const NoticiasMiniatura = ({
               <p className={'sobreImagen-NoticiaMiniatura m-0'}>
                 {datosModelado.titulo
                   ? `${datosModelado.titulo.substring(0, 100)} ...`
-                  : 'Sin titulo largo aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}
+                  : 'Sin titulo largo aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}
               </p>
             )}
           </div>
