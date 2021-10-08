@@ -1,12 +1,11 @@
 import React from 'react';
 import BarraDeNavegacion from '../BarraDeNavegacion/BarraDeNavegacion';
 import Marcador from '../Marcador/Marcador';
-import PieDepagina from '../PieDePagina/PieDepagina';
+/* import PieDepagina from '../PieDePagina/PieDepagina'; */
 import publicidadCorta from '../../Static/Img/publicidad_corta.jpg';
 import './Inicio.css';
 import Filtros from '../Filtros/Filtros';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
-import storePrueba from '../../Redux/Prueba/ReducerPrueba';
 import {useSelector} from 'react-redux';
 import publicidadLarga from '../../Static/Img/publicidad_larga.jpg';
 const Filtro = [
@@ -17,7 +16,6 @@ const Filtro = [
 
 const Inicio = () => {
   const noticia = useSelector(state => state.storePrueba.noticias);
-  console.log(noticia);
   return (
     <div className="LP-Inicio">
       {/* <BarraDeNavegacion /> */}
@@ -31,7 +29,7 @@ const Inicio = () => {
         </div>
       </div> */}
       {/* SECCION VIVO */}
-      {/* <div className="LI-Inicio seccion-vivo Margen-Vivo">
+      {/*  <div className="LI-Inicio seccion-vivo Margen-Vivo">
         <div className="CP-Vivo">
           <div className="CI-Vivo"></div>
           <div className="CI-Vivo"></div>
@@ -39,11 +37,11 @@ const Inicio = () => {
         </div>
       </div> */}
       {/* SECCION MARCADOR */}
-      {/* <div className="LI-Inicio seccion-marcador">
+      <div className="LI-Inicio seccion-marcador margenes-Responsive-Seccion-Marcador">
         <div className="CP-Marcador">
           <div className="CI-Marcador">
             <div className="titulo-Marcador">
-              <p style={{fontSize: '80px'}}>PARTIDOS</p>
+              <p style={{fontSize: '60px'}}>PARTIDOS</p>
             </div>
             <div className="componente-Marcador">
               <Marcador />
@@ -58,7 +56,7 @@ const Inicio = () => {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
       {/* SECCION NOTICIAS */}
       <div className="LI-Inicio seccion-noticias  Margen-Noticias">
         <div className="CP-Noticias">
@@ -70,11 +68,7 @@ const Inicio = () => {
           </div>
           <div className="CI-NoticiaPrincipal">
             <div className="componenteNoticiaPrincipal">
-              <NoticiasMiniatura
-                /* datosModelado={noticia} */
-                isSeccionNoticias={true}
-                isSobreImagen={true}
-              ></NoticiasMiniatura>
+              <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true}></NoticiasMiniatura>
             </div>
           </div>
           <div className="CI-NoticiasMini">

@@ -256,6 +256,16 @@
   }
 }
 @media screen and (max-width: 1024px) {
+  /* MARCADOR */
+  .margenes-Responsive-Seccion-Marcador {
+    padding: 50px !important;
+  }
+  .titulo-Marcador {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+  }
+  /* NOTICIAS */
   .CP-Noticias {
     grid-template-columns: 5% 1fr 20% 5%;
     grid-template-rows: 10% 10% 1fr 1fr 10%;
@@ -296,9 +306,14 @@
   }
 }
 @media screen and (max-width: 480px) {
+  /* MARCADOR */
+  .margenes-Responsive-Seccion-Marcador {
+    padding: 10px !important;
+  }
+  /* NOTICIAS */
   .CP-Noticias {
     column-gap: 0;
-    grid-template-rows: 5% 5% auto auto auto 10%;
+    grid-template-rows: 5% 5% auto auto 10%;
     height: auto;
   }
   .titulo-Seccion-Noticias {
@@ -422,11 +437,14 @@
   /* ============ SECCION MARCADOR (MOVIL) ============- */
 
   .CP-Marcador {
-    grid-template-columns: 1fr;
-    grid-template-rows: 70% 30%;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 1fr;
     margin: 0;
   }
-
+  /* .componente-Marcador {
+    display: grid;
+    grid-template-columns: minmax(0, 300px);
+  } */
   .CI-Marcador {
     grid-column: 1/2;
     grid-row: 1/2;
@@ -435,7 +453,6 @@
   .CI-Publicidad-Marcador {
     grid-column: 1/2;
     grid-row: 2/3;
-
     display: grid;
     grid-template-rows: 1fr;
   }
