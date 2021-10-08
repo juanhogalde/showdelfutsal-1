@@ -1,40 +1,69 @@
 .CI-filtro-barra {
   margin: 10px;
-  display: flex;
-  flex-direction: row;
   text-decoration: none;
-  margin-top: 2.5rem;
+  /* margin-top: 2.5rem; */
 }
 
 .filtros-cuerpo {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  /* margin-right: 360px; */
   position: relative;
   margin-bottom: 2rem;
 }
 .barra-color-filtros {
   align-self: center;
-  width: 150px;
-  height: 25px;
+  width: 100px;
+  height: 20px;
   border-width: 1px;
   display: block;
   position: absolute;
   z-index: 0;
-  transition: width 1.5s, height 2s, background-color 2s, transform 2s;
+  top: -7px;
+  transition: width 0.7s, transform 2s;
 }
 .texto-filtros {
   font-family: 'Segoe UI';
   position: absolute;
-  top: -20px;
-  left: 150px;
-  font-size: 1.6rem;
+  top: -14px;
+  left: 100px;
+  font-size: 1.3rem;
   color: black;
   font-weight: bold;
   margin-left: 0.3rem;
 }
 
 .filtros-cuerpo:hover .barra-color-filtros {
-  width: 300px;
-  height: 25px;
-  transform: translateY(180deg);
+  width: 230px;
+  transform: translateX(180deg);
+}
+@media screen and (max-width: 1366px) {
+  .barra-color-filtros {
+    width: 60px;
+    height: 15px;
+    top: -7px;
+  }
+  .texto-filtros {
+    top: -12px;
+    left: 60px;
+    font-size: 1rem;
+  }
+  .filtros-cuerpo:hover .barra-color-filtros {
+    width: 160px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .barra-color-filtros {
+    width: 10px;
+    height: 20px;
+    top: -7px;
+  }
+  .texto-filtros {
+    top: -10px;
+    left: 10px;
+    font-size: 1rem;
+  }
+  .filtros-cuerpo:hover .barra-color-filtros {
+    width: 105px;
+  }
 }
