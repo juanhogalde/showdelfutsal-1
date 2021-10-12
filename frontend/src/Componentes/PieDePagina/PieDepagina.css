@@ -1,29 +1,118 @@
-.FC-Footer {
-  display: flex;
-  margin: 0 0 0 0px;
+/* ====== CONTENEDOR FOOTER ======*/
+.CP-Pie-pagina {
   width: 100%;
-  height: 15vh;
-  padding: 0.5rem;
-  flex-wrap: wrap;
-  background-size: cover;
-  background-color: blue;
-}
-
-.FI-Imagen {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url('../../Static/Img/fondo_footer.jpg');
-}
-
-/* ------------ Footer logo ------------ */
-
-.footer {
-  margin: auto 150px auto auto;
   display: flex;
-  width: 80%;
-  height: 100%;
-  background-color: blue;
-  background-repeat: no-repeat;
+  max-height: 20%;
+  /* margin-top: 50px; */
 }
 
-/* ------------ Footer etiqueta------------ */
+.Seccion-footer {
+  background-image: linear-gradient(
+    to right top,
+    #0095bc,
+    #0096b9,
+    #0098b6,
+    #0099b3,
+    #009ab0,
+    #009cad,
+    #009ea9,
+    #00a0a5,
+    #00a39f,
+    #00a697,
+    #00a98d,
+    #00ab81
+  );
+  /* background-image: url('../../Static/Img/footer2.png'); */
+  background-image: url('../../Static/Img/fondo_footer.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 150px;
+}
+
+/* ====== CONTENEDOR ITEMS DE FOOTER ======*/
+.CI-Pie-Pagina {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 5px repeat(3, 1fr) 5px;
+  grid-gap: 20px;
+  margin-bottom: 10px;
+}
+
+.I-Logo {
+  display: flex;
+  width: auto;
+  height: 80%;
+  grid-column: 2/3;
+  max-width: 300px;
+  min-width: 150px;
+  max-height: 150px;
+  min-height: 80px;
+  place-content: center;
+}
+.Logo {
+  width: auto;
+  height: auto;
+}
+.I-Redes {
+  display: flex;
+  grid-column: 4/5;
+  align-items: center;
+  place-content: center;
+}
+
+.CI-Pie-Pagina .red-social a {
+  display: inline-block;
+  text-decoration: none;
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  color: #fff;
+  margin-right: 10px;
+  border: 2px solid rgba(216, 8, 8, 0.8);
+  text-align: center;
+  transition: all 300ms ease;
+}
+.CI-Pie-Pagina .red-social a:hover {
+  color: aqua;
+}
+.grupo-2 {
+  background-color: #0a1a2a;
+  padding: 15px 10px;
+  text-align: center;
+  color: #fff;
+}
+.grupo-2 small {
+  font-size: 15px;
+}
+@media screen and (max-width: 800px) {
+  .CP-Pie-pagina {
+    width: 100%;
+    grid-template-rows: 1fr;
+    grid-gap: 5px;
+    padding: 0px;
+  }
+  .CI-Pie-Pagina {
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 10px;
+  }
+  .I-Redes {
+    grid-column: 3/5;
+    grid-template-columns: minmax(1fr 200px);
+  }
+  .I-Logo {
+    grid-column: 1/2;
+    max-width: 300px;
+    min-width: 150px;
+    max-height: 150px;
+    min-height: 80px;
+    align-items: center;
+  }
+  .Logo {
+    width: 70%;
+    height: 50%;
+  }
+}
