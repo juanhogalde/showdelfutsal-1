@@ -8,6 +8,7 @@ import Filtros from '../Filtros/Filtros';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {useSelector} from 'react-redux';
 import publicidadLarga from '../../Static/Img/publicidad_larga.jpg';
+import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},
@@ -16,6 +17,8 @@ const Filtro = [
 
 const Inicio = () => {
   const noticia = useSelector(state => state.storePrueba.noticias);
+  const DatosDePruebaVideos = useSelector(state => state.storePrueba.DatosDePruebaVideos);
+
   return (
     <div className="LP-Inicio">
       {/* <BarraDeNavegacion /> */}
@@ -29,15 +32,19 @@ const Inicio = () => {
         </div>
       </div> */}
       {/* SECCION VIVO */}
-      {/*  <div className="LI-Inicio seccion-vivo Margen-Vivo">
+      <div className="LI-Inicio seccion-vivo Margen-Vivo">
         <div className="CP-Vivo">
-          <div className="CI-Vivo"></div>
-          <div className="CI-Vivo"></div>
-          <div className="CI-Vivo"></div>
+          <div className="CI-Componente-Vivo">
+            <ImagenesVideo DatosDeEntrada={DatosDePruebaVideos} tipoVideo={true}></ImagenesVideo>
+          </div>
+          <div className="CI-Chat-Vivo"></div>
+          <div className="CI-Publicidad-Vivo">
+            <img alt="" src={publicidadLarga}></img>
+          </div>
         </div>
-      </div> */}
+      </div>
       {/* SECCION MARCADOR */}
-      <div className="LI-Inicio seccion-marcador margenes-Responsive-Seccion-Marcador">
+      {/* <div className="LI-Inicio seccion-marcador margenes-Responsive-Seccion-Marcador">
         <div className="CP-Marcador">
           <div className="CI-Marcador">
             <div className="titulo-Marcador">
@@ -56,9 +63,9 @@ const Inicio = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* SECCION NOTICIAS */}
-      <div className="LI-Inicio seccion-noticias  Margen-Noticias">
+      {/* <div className="LI-Inicio seccion-noticias  Margen-Noticias">
         <div className="CP-Noticias">
           <div className="titulo-Seccion-Noticias">
             <p>NOTICIAS</p>
@@ -89,7 +96,7 @@ const Inicio = () => {
             <img alt="" src={publicidadLarga}></img>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* SECCION GALERIA */}
       {/* <div className="LI-Inicio seccion-galeria">

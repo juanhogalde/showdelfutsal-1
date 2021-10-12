@@ -7,7 +7,7 @@ const pruebaInicio = {
       fuente: '0gIKILHYA4Y',
       descripcion: '1 UNO',
     },
-    {
+    /* {
       fuente: 'KIBeny5wq6M',
       descripcion: '2 DOS',
     },
@@ -22,7 +22,7 @@ const pruebaInicio = {
     {
       fuente: 'RvHe2-jRQrE',
       descripcion: '5 CINCO',
-    },
+    }, */
   ],
 
   DatosDePruebaImagenes: [

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import '../ImagenesVideo/ImagenesVideo.css';
+
 const ImagenesVideo = ({DatosDeEntrada = [], tipoDeSliderFlecha = true, tipoVideo = false}) => {
   const [indiceActual, setIndiceActual] = useState(0);
   const [ocultarFlechasVideo, setOcultarFlechasVideo] = useState(
