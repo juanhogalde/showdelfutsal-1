@@ -67,7 +67,7 @@
 
 .nav-item-logo {
   line-height: 40px;
-  margin-right: 1rem;
+  margin-right: 5rem;
   max-width: 150px;
   max-height: 80px;
 }
@@ -149,7 +149,7 @@
     border: none;
   } */
   .nav-links {
-    padding: 1.5rem;
+    padding: 1.1rem;
     width: 100%;
     display: table;
   }
