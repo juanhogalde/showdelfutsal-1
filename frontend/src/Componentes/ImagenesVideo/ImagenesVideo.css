@@ -24,9 +24,14 @@
 .video-imagenesVideo {
   width: 100%;
   height: 50vh;
+  border: none;
   /* overflow-y: hidden; */
 }
-
+.video-con-borde-imagenesVideo {
+  width: 100%;
+  height: 50vh;
+  border: 0.2rem solid #ffe35f;
+}
 .decripcion-imagenesVideo {
   /*  height: 10vh;
   width: 100%;

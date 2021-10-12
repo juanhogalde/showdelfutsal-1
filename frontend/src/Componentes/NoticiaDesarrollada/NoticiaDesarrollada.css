@@ -2,6 +2,7 @@
   width: 100%;
   height: 100%;
   max-width: 850px;
+  font-family: 'Segoe UI';
   max-height: 1500px;
   /* background-color: turquoise; */
   display: flex;
@@ -26,6 +27,7 @@
 .Cuerpo-Noticia-Desarrollada {
   white-space: pre-line;
   font-weight: 400;
+  font-weight: 500;
 }
 .Copete-Noticia-Desarrollada {
   font-weight: 700;

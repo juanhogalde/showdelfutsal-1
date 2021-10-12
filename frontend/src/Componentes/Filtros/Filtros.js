@@ -9,9 +9,9 @@ import {Link} from 'react-router-dom';
 //   {nombre: 'Inferiores', link: '/NoticiaDesarrollada'},
 // ];
 const Filtros = ({filtros = []}) => {
-  return filtros.map(function (element) {
+  return filtros.map(function (element, index) {
     return (
-      <Link to={element.link} className="CI-filtro-barra">
+      <Link key={index} to={element.link} className="CI-filtro-barra">
         <div className="filtros-cuerpo">
           <img src={logoBarra} alt="imagen" className="barra-color-filtros"></img>
           <p className="texto-filtros">{element.nombre}</p>

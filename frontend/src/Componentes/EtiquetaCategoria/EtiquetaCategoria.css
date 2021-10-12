@@ -1,5 +1,10 @@
 .textoEtiquetaCategoria {
   line-height: 25px;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 1vw;
+}
+@media screen and (max-width: 480px) {
+  .textoEtiquetaCategoria {
+    line-height: 25px;
+    font-size: 3.5vw;
+  }
 }

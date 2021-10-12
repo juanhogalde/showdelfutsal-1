@@ -31,7 +31,7 @@ const Marcador = () => {
   };
 
   return (
-    <React.Fragment>
+    <div className="layaout">
       <div className="Marcador">
         <div className="marcador-cuerpo">
           <div className="categoria-Marcador">
@@ -51,7 +51,7 @@ const Marcador = () => {
           </div>
           <div className="marcador-A">
             <div className="contenedor-resultado-Marcador-A">
-              <h1 className="contador-B">{partido.equipoA.resultado}</h1>
+              <h1 className="contador-Marcador">{partido.equipoA.resultado}</h1>
             </div>
           </div>
           <div className="escudo-B">
@@ -59,7 +59,7 @@ const Marcador = () => {
           </div>
           <div className="marcador-B">
             <div className="contenedor-resultado-Marcador-B">
-              <h1 className="contador-B">{partido.equipoB.resultado}</h1>
+              <h1 className="contador-Marcador">{partido.equipoB.resultado}</h1>
             </div>
           </div>
           <div className="nombreEquipo-Marcador nombreEquipo-A">
@@ -78,7 +78,7 @@ const Marcador = () => {
           )}
         </div>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 export default Marcador;

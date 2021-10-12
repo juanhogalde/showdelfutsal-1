@@ -1,0 +1,17 @@
+.marcador-etiqueta-vivo {
+  clip-path: polygon(0 17%, 100% 7%, 100% 40%, 0 40%);
+  background-color: #ffe35f;
+  height: 9rem;
+  width: 10rem;
+  width: max-content;
+  margin-bottom: -6.7rem;
+}
+
+.texto-marcador-vivo {
+  padding-top: 5vh;
+  padding-left: 2vh;
+  padding-right: 1vh;
+  font-family: 'Segoe UI Regular';
+  font-size: 2.5vh;
+  font-weight: bolder;
+}

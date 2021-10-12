@@ -1,70 +1,103 @@
 import React from 'react';
 import BarraDeNavegacion from '../BarraDeNavegacion/BarraDeNavegacion';
-import PieDepagina from '../PieDePagina/PieDepagina';
-import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
-import NoticiaDesarrollada from '../NoticiaDesarrollada/NoticiaDesarrollada';
-import PublicidadLarga from '../../Static/Img/Publicidad larga.jpg';
-import PublicidadCorta from '../../Static/Img/publicidad corta.jpg';
-import SomosFrase from '../../Static/Img/frase_inicio.png';
-import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
-import Filtros from '../Filtros/Filtros';
 import Marcador from '../Marcador/Marcador';
-
+/* import PieDepagina from '../PieDePagina/PieDepagina'; */
+import publicidadCorta from '../../Static/Img/publicidad_corta.jpg';
 import './Inicio.css';
+import Filtros from '../Filtros/Filtros';
+import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
+import {useSelector} from 'react-redux';
+import publicidadLarga from '../../Static/Img/publicidad_larga.jpg';
+import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
+const Filtro = [
+  {nombre: 'Femenino', link: '/link'},
+  {nombre: 'Masculino', link: '/link'},
+  {nombre: 'Inferiores', link: '/NoticiaDesarrollada'},
+];
 
 const Inicio = () => {
+  const noticia = useSelector(state => state.storePrueba.noticias);
+  const DatosDePruebaVideos = useSelector(state => state.storePrueba.DatosDePruebaVideos);
+
   return (
     <div className="LP-Inicio">
-      <BarraDeNavegacion />
+      {/* <BarraDeNavegacion /> */}
       {/* SECCION BANNER INICIO */}
-      <div className="LI-Inicio seccion-somos">
+      {/* <div className="LI-Inicio seccion-somos">
         <div className="CP-Somos">
           <div className="CI-Somos"></div>
-
-          <div className="CI-Somos-frase">
-            <div className="I-somos-frase">
-              <img className="Somos-frase" src={SomosFrase}></img>
-            </div>
+          <div className="CI-Somos"></div>
+          <div className="CI-Somos"></div>
+          <div className="CI-Somos"></div>
+        </div>
+      </div> */}
+      {/* SECCION VIVO */}
+      <div className="LI-Inicio seccion-vivo Margen-Vivo">
+        <div className="CP-Vivo">
+          <div className="CI-Componente-Vivo">
+            <ImagenesVideo DatosDeEntrada={DatosDePruebaVideos} tipoVideo={true}></ImagenesVideo>
           </div>
-          <div className="CI-Somos-redes"></div>
-
-          <div className="CI-Somos-radio">
-            <div className="I-somos-radio"></div>
+          <div className="CI-Chat-Vivo"></div>
+          <div className="CI-Publicidad-Vivo">
+            <img alt="" src={publicidadLarga}></img>
           </div>
         </div>
       </div>
-      {/* SECCION VIVO */}
-      {/* <div className="LI-Inicio seccion-vivo Margen-Vivo">
-        <div className="CP-Vivo">
-          <div className="CI-Vivo"></div>
-          <div className="CI-Vivo"></div>
-          <div className="CI-Vivo"></div>
-        </div>
-      </div> */}
       {/* SECCION MARCADOR */}
-      {/* <div className="LI-Inicio seccion-marcador">
+      <div className="LI-Inicio seccion-marcador margenes-Responsive-Seccion-Marcador">
         <div className="CP-Marcador">
-          <div className="CI-Marcador"></div>
           <div className="CI-Marcador">
-            <div className="I-Marcador-publicidad">
-              <div className="I-Foto-Marcador"></div>
-              <div className="I-Foto-Marcador"></div>
+            <div className="titulo-Marcador">
+              <p style={{fontSize: '60px'}}>PARTIDOS</p>
+            </div>
+            <div className="componente-Marcador">
+              <Marcador />
+            </div>
+          </div>
+          <div className="CI-Publicidad-Marcador">
+            <div>
+              <img alt="" src={publicidadCorta}></img>
+            </div>
+            <div>
+              <img alt="" src={publicidadCorta}></img>
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
       {/* SECCION NOTICIAS */}
-      {/* <div className="LI-Inicio seccion-noticias  Margen-Noticias">
+      <div className="LI-Inicio seccion-noticias  Margen-Noticias">
         <div className="CP-Noticias">
-          <div className="CI-Noticias"></div>
-          <div className="CI-Noticias"></div>
-          <div className="I-Noticias-Miniaturas">
-            <div className="I-Noticias"></div>
-            <div className="I-Noticias"></div>
+          <div className="titulo-Seccion-Noticias">
+            <p>NOTICIAS</p>
           </div>
-          <div className="CI-Noticias"></div>
+          <div className="CI-Filtros">
+            <Filtros filtros={Filtro}></Filtros>
+          </div>
+          <div className="CI-NoticiaPrincipal">
+            <div className="componenteNoticiaPrincipal">
+              <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true}></NoticiasMiniatura>
+            </div>
+          </div>
+          <div className="CI-NoticiasMini">
+            <div className="noticia-Miniatura-1">
+              <NoticiasMiniatura
+                isSeccionNoticias={true}
+                datosModelado={noticia}
+              ></NoticiasMiniatura>
+            </div>
+            <div className="noticia-Miniatura-2">
+              <NoticiasMiniatura
+                isSeccionNoticias={true}
+                datosModelado={noticia}
+              ></NoticiasMiniatura>
+            </div>
+          </div>
+          <div className="publicidad-Noticias">
+            <img alt="" src={publicidadLarga}></img>
+          </div>
         </div>
-      </div> */}
+      </div>
+
       {/* SECCION GALERIA */}
       {/* <div className="LI-Inicio seccion-galeria">
         <div className="CP-Galeria">
@@ -72,7 +105,7 @@ const Inicio = () => {
           <div className="CI-Galeria"></div>
         </div>
       </div> */}
-      <PieDepagina />
+      {/* <PieDepagina /> */}
     </div>
   );
 };

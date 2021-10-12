@@ -7,7 +7,7 @@ import Home from './Componentes/Home/Home';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-
+/* import 'bootstrap/dist/css/bootstrap.min.css'; */
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
