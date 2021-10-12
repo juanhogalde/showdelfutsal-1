@@ -44,7 +44,7 @@ const Inicio = () => {
         </div>
       </div>
       {/* SECCION MARCADOR */}
-      {/* <div className="LI-Inicio seccion-marcador margenes-Responsive-Seccion-Marcador">
+      <div className="LI-Inicio seccion-marcador margenes-Responsive-Seccion-Marcador">
         <div className="CP-Marcador">
           <div className="CI-Marcador">
             <div className="titulo-Marcador">
@@ -63,9 +63,9 @@ const Inicio = () => {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
       {/* SECCION NOTICIAS */}
-      {/* <div className="LI-Inicio seccion-noticias  Margen-Noticias">
+      <div className="LI-Inicio seccion-noticias  Margen-Noticias">
         <div className="CP-Noticias">
           <div className="titulo-Seccion-Noticias">
             <p>NOTICIAS</p>
@@ -96,7 +96,7 @@ const Inicio = () => {
             <img alt="" src={publicidadLarga}></img>
           </div>
         </div>
-      </div> */}
+      </div>
 
       {/* SECCION GALERIA */}
       {/* <div className="LI-Inicio seccion-galeria">
