@@ -285,6 +285,19 @@
   }
 }
 @media screen and (max-width: 1024px) {
+  /* VIVO */
+  .CP-Vivo {
+    grid-template-columns: 1fr;
+    grid-template-rows: 50% 40% 10%;
+  }
+  .CI-Chat-Vivo {
+    grid-column: 1/2;
+    grid-row: 2/3;
+  }
+  .CI-Publicidad-Vivo {
+    grid-column: 1/2;
+    grid-row: 3/4;
+  }
   /* MARCADOR */
   .margenes-Responsive-Seccion-Marcador {
     padding: 50px !important;
@@ -445,8 +458,8 @@
 
   /* ============ SECCION VIVO (MOVIL) ============- */
 
-  .CP-Vivo {
-    /* grid-column: 3 span 1; */
+  /*  .CP-Vivo {
+    grid-column: 3 span 1;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: 7fr 5fr 2fr;
     margin: 10px 10px 10px 10px;
@@ -461,7 +474,7 @@
     font-size: 30px;
     column-gap: 10px;
     margin: 20px 20px 20px 20px;
-  }
+  } */
 
   /* ============ SECCION MARCADOR (MOVIL) ============- */
 
