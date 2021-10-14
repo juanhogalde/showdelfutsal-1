@@ -1,8 +1,9 @@
 import {Document} from 'mongoose';
 
 export default interface IEquipos extends Document {
+  _id: string;
   nombreClub: string;
   escudo: string;
-  idCategoria: [string];
+  idCategorias: [string];
   idSubcategorias: [string];
 }

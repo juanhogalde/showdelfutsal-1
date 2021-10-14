@@ -17,10 +17,6 @@ class NoticiasRouter {
     this.router.post('/agregar', noticiasController.agregar);
   }
 }
-/*
 
-/* router.post('/crear', CrearNoticias);
-router.put('/modificar', ModificarNoticias);
-router.delete('/eliminar', EliminarNoticias); */
 const noticiasRouter = new NoticiasRouter();
 export default noticiasRouter.router;

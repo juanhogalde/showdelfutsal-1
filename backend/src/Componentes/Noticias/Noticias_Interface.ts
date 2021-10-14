@@ -5,15 +5,12 @@ export default interface INoticias extends Document {
   titulo: string;
   copete: string;
   cuerpo: string;
-  tags: string;
+  tags: Array<string>;
   idCategoria: string;
   idSubcategoria: string;
+  keyCategoria: number;
+  keySubcategoria: number;
   isDestacada: boolean;
   autor: string;
-  imagenes: [
-    {
-      imagen: string;
-      epigrafe: string;
-    }
-  ];
+  idImagen: Array<string>;
 }

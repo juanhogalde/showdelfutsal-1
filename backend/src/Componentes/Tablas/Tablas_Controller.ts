@@ -1,13 +1,13 @@
 import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
-import modeloZonas from './Zonas_Model';
-import IZonas from './Zonas_Interface';
+import modeloTablas from './Tablas_Model';
+import ITablas from './Tablas_Interface';
 
-class ZonasController {
+class TablasController {
   public async listar(req: Request, res: Response) {
     try {
-      const listadoZonas = await modeloZonas.find();
-      responder.sucess(req, res, listadoZonas);
+      const listadoTablas = await modeloTablas.find();
+      responder.sucess(req, res, listadoTablas);
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -15,8 +15,8 @@ class ZonasController {
 
   public async agregar(req: Request, res: Response) {
     try {
-      const zona: IZonas = new modeloZonas(req.body);
-      await zona.save();
+      const tabla: ITablas = new modeloTablas(req.body);
+      await tabla.save();
       responder.sucess(req, res);
     } catch (error) {
       responder.error(req, res, error);
@@ -25,9 +25,9 @@ class ZonasController {
 
   public async obtener(req: Request, res: Response) {
     try {
-      let idZona = req.params.id;
-      const zona = await modeloZonas.find({_id: idZona});
-      responder.sucess(req, res, zona);
+      let idTabla = req.params.id;
+      const tabla = await modeloTablas.find({_id: idTabla});
+      responder.sucess(req, res, tabla);
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -35,8 +35,8 @@ class ZonasController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const zona: IZonas = new modeloZonas(req.body);
-      await zona.save();
+      const tabla: ITablas = new modeloTablas(req.body);
+      await tabla.save();
       responder.sucess(req, res);
     } catch (error) {
       responder.error(req, res, error);
@@ -46,11 +46,11 @@ class ZonasController {
   public async eliminar(req: Request, res: Response) {
     try {
       let id = req.body.id;
-      const zonaEliminada = await modeloZonas.findOneAndDelete({_id: id}, {new: true});
-      responder.sucess(req, res, zonaEliminada);
+      const tablaEliminada = await modeloTablas.findOneAndDelete({_id: id}, {new: true});
+      responder.sucess(req, res, tablaEliminada);
     } catch (error) {
       responder.error(req, res, error);
     }
   }
 }
-export const zonasController = new ZonasController();
+export const tablasController = new TablasController();

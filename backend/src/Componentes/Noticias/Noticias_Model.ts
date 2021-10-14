@@ -6,23 +6,30 @@ const NoticiasSchema = new Schema({
   titulo: {type: String},
   copete: {type: String},
   cuerpo: {type: String},
-  tags: {type: String},
+  idEtiquetas: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'modeloEtiquetas',
+    },
+  ],
   idCategoria: {
     type: Schema.Types.ObjectId,
-    ref: 'categorias',
+    ref: 'modeloCategorias',
     required: true,
   },
   idSubcategoria: {
     type: Schema.Types.ObjectId,
-    ref: 'subcategorias',
+    ref: 'modeloSubcategorias',
     required: true,
   },
+  keyCategoria: {type: Number},
+  keySubcategoria: {type: Number},
   isDestacada: {type: Boolean},
   autor: {type: String},
-  imagenes: [
+  idImagen: [
     {
-      imagen: {type: String},
-      epigrafe: {type: String},
+      type: Schema.Types.ObjectId,
+      ref: 'modeloImagenes',
     },
   ],
 });
