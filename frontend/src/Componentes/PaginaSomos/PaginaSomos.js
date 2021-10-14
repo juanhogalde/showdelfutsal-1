@@ -7,7 +7,6 @@ import FotoRadio from '../../Static/Img/radio_somos.png';
 import frase from '../../Static/Img/titulo_somos.png';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {useSelector} from 'react-redux';
-import Button from '@restart/ui/esm/Button';
 
 const PaginaSomos = () => {
   const {DatosDePruebaImagenes} = useSelector(state => state.storePrueba);
