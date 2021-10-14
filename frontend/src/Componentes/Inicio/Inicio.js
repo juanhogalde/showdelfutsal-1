@@ -9,6 +9,7 @@ import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {useSelector} from 'react-redux';
 import publicidadLarga from '../../Static/Img/publicidad_larga.jpg';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
+import Vivo from '../Vivo/Vivo';
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},
@@ -17,8 +18,8 @@ const Filtro = [
 
 const Inicio = () => {
   const noticia = useSelector(state => state.storePrueba.noticias);
-  const DatosDePruebaVideos = useSelector(state => state.storePrueba.DatosDePruebaVideos);
-
+  const {DatosDePruebaImagenes, DatosDePruebaVideos} = useSelector(state => state.storePrueba);
+  const videoVivoPrueba = {fuente: 'MmysMu3mgvw'};
   return (
     <div className="LP-Inicio">
       {/* <BarraDeNavegacion /> */}
@@ -35,9 +36,12 @@ const Inicio = () => {
       <div className="LI-Inicio seccion-vivo Margen-Vivo">
         <div className="CP-Vivo">
           <div className="CI-Componente-Vivo">
-            <ImagenesVideo DatosDeEntrada={DatosDePruebaVideos} tipoVideo={true}></ImagenesVideo>
+            <Vivo video={videoVivoPrueba} />
           </div>
-          <div className="CI-Chat-Vivo"></div>
+          <div className="CI-Chat-Vivo">
+            <p>MINUTO A MINUTO</p>
+            <div className="componente-Chat-Vivo"></div>
+          </div>
           <div className="CI-Publicidad-Vivo">
             <img alt="" src={publicidadLarga}></img>
           </div>
@@ -99,12 +103,36 @@ const Inicio = () => {
       </div>
 
       {/* SECCION GALERIA */}
-      {/* <div className="LI-Inicio seccion-galeria">
+      <div className="LI-Inicio seccion-galeria margenes-Galeria">
         <div className="CP-Galeria">
-          <div className="CI-Galeria"></div>
-          <div className="CI-Galeria"></div>
+          <div className="CI-Galeria-Imagenes">
+            <p className="titulo-Galeria">GALERÍA</p>
+            <div className="galeria-Imagenes-A">
+              <ImagenesVideo
+                DatosDeEntrada={DatosDePruebaImagenes}
+                tipoDeSliderFlecha={false}
+              ></ImagenesVideo>
+            </div>
+            <div className="galeria-Imagenes-B">
+              <ImagenesVideo
+                DatosDeEntrada={DatosDePruebaImagenes}
+                tipoDeSliderFlecha={false}
+              ></ImagenesVideo>
+              <ImagenesVideo
+                DatosDeEntrada={DatosDePruebaImagenes}
+                tipoDeSliderFlecha={false}
+              ></ImagenesVideo>
+            </div>
+          </div>
+          <div className="CI-Galeria-Videos">
+            <ImagenesVideo
+              DatosDeEntrada={DatosDePruebaVideos}
+              tipoDeSliderFlecha={true}
+              tipoVideo={true}
+            ></ImagenesVideo>
+          </div>
         </div>
-      </div> */}
+      </div>
       {/* <PieDepagina /> */}
     </div>
   );

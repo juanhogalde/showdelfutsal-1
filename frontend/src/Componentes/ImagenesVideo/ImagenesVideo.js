@@ -25,10 +25,12 @@ const ImagenesVideo = ({
   const [siguientedataActual, setSiguientedataActual] = useState(
     DatosDeEntrada.length !== 0 && DatosDeEntrada.length > 1 ? DatosDeEntrada[1] : {}
   );
+
   const cambioDeImagen = index => {
     setDataActual(DatosDeEntrada[index]);
     setIndiceActual(index);
   };
+
   const cambioDeImagenVideoFlecha = (direccion, origen) => {
     let contador = indiceActual;
 
@@ -90,8 +92,9 @@ const ImagenesVideo = ({
           ▲
         </button>
       )}
+
       <div className="flechas-mas-cuerpo-imagenesVideo">
-        {((tipoDeSliderFlecha && !tipoVideo) || (!tipoVideo && DatosDeEntrada.length > 6)) && (
+        {/* {((tipoDeSliderFlecha && !tipoVideo) || (!tipoVideo && DatosDeEntrada.length > 6)) && (
           <button
             onClick={() => {
               cambioDeImagenVideoFlecha(false, 'img');
@@ -110,56 +113,63 @@ const ImagenesVideo = ({
           >
             🢂
           </button>
-        )}
+        )} */}
         <div className="cuerpo-imagenesVideo">
-          {tipoVideo ? (
-            DatosDeEntrada.length > 1 ? (
-              <div>
-                <iframe
-                  className={isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'}
-                  src={`https://www.youtube-nocookie.com/embed/${dataActual.fuente}`}
-                  title="sadasd"
-                ></iframe>
-                <iframe
-                  className={isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'}
-                  src={`https://www.youtube-nocookie.com/embed/${siguientedataActual.fuente}`}
-                  title="sadasd"
-                ></iframe>
-              </div>
+          {/* VIDEO */}
+          {tipoVideo &&
+            (DatosDeEntrada.length > 1 ? (
+              <React.Fragment>
+                <div className="CI-Videos ">
+                  <iframe
+                    className={
+                      isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'
+                    }
+                    src={`https://www.youtube-nocookie.com/embed/${dataActual.fuente}`}
+                    title="sadasd"
+                  ></iframe>
+                  <div className="decripcion-imagenesVideo2">
+                    <h3>{dataActual.descripcion}</h3>
+                  </div>
+                </div>
+                <div className="CI-Videos oculta-Video-Responsive">
+                  <iframe
+                    className={
+                      isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'
+                    }
+                    src={`https://www.youtube-nocookie.com/embed/${siguientedataActual.fuente}`}
+                    title="sadasd"
+                  ></iframe>
+                  <div className="decripcion-imagenesVideo2">
+                    <h3>{dataActual.descripcion}</h3>
+                  </div>
+                </div>
+              </React.Fragment>
             ) : (
               <iframe
                 className={isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'}
                 src={`https://www.youtube-nocookie.com/embed/${dataActual.fuente}`}
                 title="sadasd"
               ></iframe>
-            )
-          ) : (
-            <img
-              src={dataActual.fuente ? dataActual.fuente : ''}
-              alt="imagen"
-              className="img-imagenesVideo"
-            />
+            ))}
+
+          {/* IMÁGENES */}
+          {!tipoVideo && (
+            <div className="cuerpo-imagenesVideo">
+              <img
+                src={dataActual.fuente ? dataActual.fuente : ''}
+                alt="imagen"
+                className="img-imagenesVideo"
+              />
+            </div>
           )}
-          {!sinDescripcion && (
+          {!tipoVideo && (
             <div className="decripcion-imagenesVideo">
               <h3>{tipoVideo ? siguientedataActual.descripcion : dataActual.descripcion}</h3>
             </div>
           )}
-
-          {tipoVideo && !sinDescripcion && DatosDeEntrada.length >= 2 ? (
-            <div className="decripcion-imagenesVideo2">
-              <h3>{dataActual.descripcion}</h3>
-            </div>
-          ) : (
-            tipoVideo &&
-            !sinDescripcion && (
-              <div className="decripcion-imagenesVideo">
-                <h3>{tipoVideo ? dataActual.descripcion : dataActual.descripcion}</h3>
-              </div>
-            )
-          )}
         </div>
       </div>
+
       {tipoVideo && !ocultarFlechasVideo.flechaAbajo && (
         <button
           onClick={() => {
