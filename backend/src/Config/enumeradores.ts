@@ -21,3 +21,10 @@ export enum keySubcategoria {
   masculino,
   femenino,
 }
+
+export enum Rol {
+  sinAcceso,
+  Administrador,
+  Editor,
+  Arbitro,
+}
