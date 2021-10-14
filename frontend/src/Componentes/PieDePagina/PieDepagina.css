@@ -7,7 +7,7 @@
 }
 
 .Seccion-footer {
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to right top,
     #0095bc,
     #0096b9,
@@ -21,9 +21,9 @@
     #00a697,
     #00a98d,
     #00ab81
-  );
-  /* background-image: url('../../Static/Img/footer2.png'); */
-  background-image: url('../../Static/Img/fondo_footer.jpg');
+  ); */
+  background-image: url('../../Static/Img/Footer_transparente.png');
+  /* background-image: url('../../Static/Img/fondo_footer.jpg'); */
   background-repeat: no-repeat;
   background-size: cover;
   height: 150px;
@@ -86,6 +86,19 @@
 .grupo-2 small {
   font-size: 15px;
 }
+
+@media screen and (max-width: 1420px) {
+  .CP-Pie-pagina {
+    /* background-color: blue; */
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .CP-Pie-pagina {
+    /* background-color: rgb(30, 255, 0); */
+  }
+}
+
 @media screen and (max-width: 800px) {
   .CP-Pie-pagina {
     width: 100%;

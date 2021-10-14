@@ -22,7 +22,7 @@ export const PieDepagina = () => {
             <a href="#" className="">
               I
             </a>
-            <a href="#" className="">
+            <a href="#" className="MdAccessibleForward">
               Y
             </a>
           </div>
