@@ -20,9 +20,9 @@ const SeccionNoticias = ({
           <p>NOTICIAS</p>
         </div>
         <div className="I-Noticias-busqueda-buscador">
-          <div className="I-contendor-busqueda">
+          {/* <div className="I-contendor-busqueda">
             <input type="text" name="name" className="Input-busqueda" />
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -68,7 +68,13 @@ const SeccionNoticias = ({
         <div className="CI-SN-femenino-slider"></div>
       </div>
       {/* SECCION NOTICIAS INFERIORES /> */}
-      <div className=" CP-SN-Inferiores ">
+      <div className=" CP-SN-Inferiores Fondo-animacion">
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
         <div className="CI-SN-Inferiores-titulo">
           <div className="I-SN-Inferiores-titulo">
             <p>{noticias2}</p>
@@ -84,7 +90,13 @@ const SeccionNoticias = ({
         </div>
       </div>
       {/* SECCION NOTICIAS COPA Y LIGA /> */}
-      <div className=" CP-SN-Liga ">
+      <div className=" CP-SN-Liga Fondo-animacion ">
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
         <div className="CI-SN-Liga-titulo">
           <div className="I-SN-Liga-titulo">
             <p>{noticias3}</p>
