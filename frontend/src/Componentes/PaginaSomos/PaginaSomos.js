@@ -1,11 +1,9 @@
 import React from 'react';
 import './PaginaSomos.css';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
-import Marcador from '../Marcador/Marcador';
 import foto from '../../Static/Img/fotos_somos.png';
 import FotoRadio from '../../Static/Img/radio_somos.png';
 import frase from '../../Static/Img/titulo_somos.png';
-import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {useSelector} from 'react-redux';
 
 const PaginaSomos = () => {
@@ -19,7 +17,7 @@ const PaginaSomos = () => {
         <div className="CI-Nosotros-cuerpo">
           <div className="I-titulo-somos">
             <div className="I-Frase-Somos">
-              <img className="foto-frase" src={frase}></img>
+              <img alt="" className="foto-frase" src={frase}></img>
             </div>
           </div>
           <div className="I-cuerpo-somos">
@@ -61,14 +59,14 @@ const PaginaSomos = () => {
           </div>
           <div className="I-componente-somos-fotos">
             <div className="I-somos-foto">
-              <img className="foto" src={foto}></img>
+              <img alt="" className="foto" src={foto}></img>
             </div>
           </div>
         </div>
         <div className="CI-Nosotros-radio">
           <div className="I-Radio">
             <div className="I-Componente-radio">
-              <img className="foto-radio" src={FotoRadio}></img>
+              <img alt="" className="foto-radio" src={FotoRadio}></img>
             </div>
           </div>
         </div>

@@ -2,22 +2,25 @@
 
 .LP-Inicio {
   width: 100%;
-  /* height: 100vh; */
-  margin: 0 auto;
+  height: 100%;
+  /* background-color: #009fa1; */
 }
 
 /*============ CONTENENDOR PANEL  ( SECCION ) ============ */
 
 .LI-Inicio {
   margin: 0;
-  display: grid;
-  grid-gap: 10px;
+  /*   display: grid;
+  grid-gap: 10px; */
   padding: 100px;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position-y: 50%;
+  /*  background-position-y: 60%;
+  background-position-x: 50%; */
   width: 100%;
-  min-height: 100vh;
+  height: auto;
+  /*  min-height: 10vh; */
+  min-height: calc(100vh + 100px);
 }
 
 /* ============ SECCION  ( SOMOS ) ============ */
@@ -26,12 +29,9 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 2fr 1fr;
-  /* border: 4px solid rgba(34, 207, 18, 0.8); */
 }
 
 .CI-Somos {
-  /* grid-template-rows: 2fr 2fr; */
-  /* border: 4px solid rgba(216, 8, 8, 0.8); */
   margin: 20px 20px 20px 20px;
 }
 
@@ -39,7 +39,6 @@
   display: grid;
   grid-template-columns: 5px 1fr 5px;
   grid-template-rows: 5px 1fr 5px;
-  /* border: 4px solid rgba(27, 17, 170, 0.8); */
   margin: 20px 20px 20px 20px;
   min-height: 200px;
   height: 450px;
@@ -49,7 +48,6 @@
   display: flex;
   grid-column: 2/3;
   grid-row: 2/3;
-  /* border: 4px solid rgba(94, 22, 211, 0.8); */
   align-items: center;
   place-content: center;
   width: 100%;
@@ -67,7 +65,6 @@
   grid-template-rows: 5px 1fr 5px;
   grid-column: 1/2;
   grid-row: 2/3;
-  /* border: 4px solid rgba(22, 211, 79, 0.8); */
   margin: 20px 20px 20px 20px;
 }
 
@@ -75,7 +72,6 @@
   grid-column: 2/3;
   grid-row: 2/3;
   align-self: center;
-  /* border: 4px solid rgba(94, 22, 211, 0.8); */
   background-image: url('../../Static/Img/radio_somos.png');
   background-repeat: no-repeat;
   background-size: auto;
@@ -87,7 +83,6 @@
   display: flex;
   grid-column: 2/3;
   grid-row: 2/3;
-  /* border: 4px solid rgba(139, 211, 22, 0.8); */
   margin: 20px 20px 20px 20px;
 }
 
@@ -107,7 +102,6 @@
 
 .Margen-Vivo {
   padding-bottom: 0;
-  /* padding-top: 50px; */
 }
 .CI-Componente-Vivo {
   grid-column: 1/2;
@@ -120,7 +114,7 @@
   grid-row: 1/2;
   display: grid;
   grid-template-columns: 10% 1fr 10%;
-  grid-template-rows: 30% 1fr 20%;
+  grid-template-rows: 35% 1fr 5%;
 }
 .CI-Chat-Vivo p {
   grid-column: 2/3;
@@ -139,8 +133,7 @@
 .CI-Publicidad-Vivo {
   grid-column: 1/3;
   grid-row: 2/3;
-  /* display: flex;
-  justify-content: center; */
+
   width: 100%;
 }
 .CI-Publicidad-Vivo img {
@@ -149,17 +142,6 @@
   height: auto;
   object-fit: contain;
 }
-/* .CP-Vivo div:nth-child(3) {
-  grid-column-start: span 2;
-}
-
-.CI-Vivo {
-  grid-template-rows: 2fr;
-  padding: 10px 10px;
-  border: 4px solid rgba(216, 8, 8, 0.8);
-  margin: 20px 20px 20px 20px;
-} */
-
 .seccion-vivo {
   background-image: url('../../Static/Img/Fondo_vivo.png');
 }
@@ -170,22 +152,21 @@
   height: 100%;
   display: grid;
   grid-template-columns: 70% 30%;
-  /* gap: 1em; */
 }
 
 .CI-Marcador {
   grid-column: 1/2;
   display: grid;
-  grid-template-rows: 10% 90%;
+  grid-template-rows: 1fr 85%;
 }
 .titulo-Marcador {
   grid-row: 1/2;
 }
 .componente-Marcador {
-  grid-row: 2/3;
+  grid-row: 2/3; /* 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; */
 }
 
 .CI-Publicidad-Marcador {
@@ -193,15 +174,14 @@
   display: grid;
   grid-template-rows: 1fr 1fr;
   place-items: center center;
+  row-gap: 20px;
 }
 
 .CI-Publicidad-Marcador img {
   width: 100%;
   height: auto;
 }
-/* .CI-Publicidad-Marcador img:nth-child(2) {
-  display: none;
-} */
+
 .seccion-marcador {
   background-image: url('../../Static/Img/fondo_marcador.png');
 }
@@ -220,8 +200,8 @@
 .CP-Noticias {
   height: 100vh;
   display: grid;
-  grid-template-columns: 5% 1fr 20% 5%;
-  grid-template-rows: 10% 10% 1fr 10%;
+  grid-template-columns: 1fr minmax(0, 1000px) 25% 7%;
+  grid-template-rows: 20% 5% auto 15%;
   row-gap: 10px;
   column-gap: 50px;
 }
@@ -230,14 +210,14 @@
   grid-row: 1/2;
   display: flex;
   align-items: center;
-  padding-top: 30px;
-  padding-left: 150px;
+  padding-left: 140px;
+  margin-top: 20px;
 }
-.titulo-Seccion-Noticias p {
+/* .titulo-Seccion-Noticias p {
   font-size: 5vw;
   font-weight: 900;
   letter-spacing: 15px;
-}
+} */
 .CI-Filtros {
   grid-column: 2/3;
   grid-row: 2/3;
@@ -253,22 +233,23 @@
   grid-row: 3/4;
   display: grid;
   grid-template-columns: 10px 1fr 10px;
-  grid-template-rows: 10px 1fr 10px;
-  padding-bottom: 40px;
-  overflow: hidden;
-  margin-bottom: 75px;
-  /* border: 3px solid yellow; */
+  grid-template-rows: 10px auto 10px;
 }
 .componenteNoticiaPrincipal {
   grid-column: 2/3;
   grid-row: 2/3;
   width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 30px;
 }
 .CI-NoticiasMini {
   grid-column: 3/4;
   grid-row: 2/4;
   display: grid;
-  grid-template-columns: minmax(0, 300px);
+  grid-template-columns: minmax(0, 450px);
   grid-auto-rows: 50%;
   justify-self: end;
 }
@@ -292,11 +273,14 @@
   width: 100%;
   max-width: 100%;
   height: auto;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 .publicidad-Noticias img {
-  width: 80%;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 /* ============ SECCION  ( GALERIA ) ============ */
@@ -313,8 +297,11 @@
 }
 .titulo-Galeria {
   grid-row: 1/2;
-  grid-column: 2/3;
-  font-size: 7rem;
+  grid-column: 1/3;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
 }
 .galeria-Imagenes-A {
@@ -343,6 +330,7 @@
 
 .seccion-galeria {
   background-image: url('../../Static/Img/Fondo_galeria.png');
+  min-height: 90vh !important;
 }
 
 /* ///////////////////////// MEDIA QUERIES MOVIL ///////////////////////// */
@@ -357,6 +345,7 @@
     max-width: 240px;
     max-height: 240px;
   }
+  /* NOTICIAS */
   .CI-Filtros {
     margin-right: 220px;
   }
@@ -383,7 +372,6 @@
   .titulo-Galeria {
     grid-row: 1/2;
     grid-column: 1/2;
-    font-size: 5rem;
   }
   .galeria-Imagenes-A {
     grid-column: 1/2;
@@ -447,7 +435,6 @@
     grid-row: 2/3;
     grid-template-columns: 1fr;
     grid-template-rows: 15% 1fr 10%;
-    background-color: rgba(11, 68, 240, 0.308);
   }
   .CI-Chat-Vivo p {
     grid-column: 1/2;
@@ -510,6 +497,8 @@
   .publicidad-Noticias {
     grid-column: 1/5;
     grid-row: 5/6;
+    padding-left: 50px;
+    padding-right: 50px;
   }
 
   /* GALERIA */
@@ -541,7 +530,6 @@
     grid-row: 2/4;
     padding-left: 30px;
     padding-right: 30px;
-    display: grid;
   }
   .CI-Galeria-Videos {
     grid-column: 1/2;
