@@ -1,5 +1,4 @@
 import React from 'react';
-import BarraDeNavegacion from '../BarraDeNavegacion/BarraDeNavegacion';
 import Marcador from '../Marcador/Marcador';
 /* import PieDepagina from '../PieDePagina/PieDepagina'; */
 import publicidadCorta from '../../Static/Img/publicidad_corta.jpg';
@@ -11,7 +10,6 @@ import publicidadLarga from '../../Static/Img/publicidad_larga.jpg';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
 import Vivo from '../Vivo/Vivo';
 import SomosFrase from '../../Static/Img/frase_inicio.png';
-import PieDepagina from '../PieDePagina/PieDepagina';
 
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
@@ -31,7 +29,7 @@ const Inicio = () => {
 
           <div className="CI-Somos-frase">
             <div className="I-somos-frase">
-              <img className="Somos-frase" src={SomosFrase}></img>
+              <img alt="" className="Somos-frase" src={SomosFrase}></img>
             </div>
           </div>
           <div className="CI-Somos-redes"></div>

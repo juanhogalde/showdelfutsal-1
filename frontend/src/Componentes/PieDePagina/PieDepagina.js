@@ -3,6 +3,7 @@ import './PieDepagina.css';
 import LogoPieDePagina from '../../Static/Img/isologo.png';
 import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
+import {Link} from 'react-router-dom';
 export const PieDepagina = () => {
   return (
     <div className="CP-Pie-pagina Seccion-footer">
@@ -15,18 +16,18 @@ export const PieDepagina = () => {
           <div className="I-Redes">
             {/* <h3>SIGUENOS</h3> */}
             <div className="red-social">
-              <a href="#" className="">
+              <Link className="">
                 <FaFacebookF className="iconos-Redes-Sociales"></FaFacebookF>
-              </a>
-              <a href="#" className="">
+              </Link>
+              <Link className="">
                 <BsTwitter className="iconos-Redes-Sociales"></BsTwitter>
-              </a>
-              <a href="#" className="">
+              </Link>
+              <Link className="">
                 <BsInstagram className="iconos-Redes-Sociales"></BsInstagram>
-              </a>
-              <a href="#" className="MdAccessibleForward">
+              </Link>
+              <Link className="MdAccessibleForward">
                 <BsYoutube className="iconos-Redes-Sociales"></BsYoutube>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

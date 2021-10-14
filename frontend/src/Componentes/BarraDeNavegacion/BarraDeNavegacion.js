@@ -1,6 +1,5 @@
 import React from 'react';
 import './BarraDeNavegacion.css';
-import LogoInicio from '../../Static/Img/isologo.png';
 import {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 

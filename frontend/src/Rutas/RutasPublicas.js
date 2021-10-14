@@ -1,5 +1,4 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
 import {Route} from 'react-router';
 import {Switch} from 'react-router-dom';
 import PaginaSomos from '../Componentes/PaginaSomos/PaginaSomos';
