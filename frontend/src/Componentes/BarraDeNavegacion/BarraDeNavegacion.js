@@ -1,34 +1,107 @@
 import React from 'react';
 import './BarraDeNavegacion.css';
 import LogoInicio from '../../Static/Img/isologo.png';
+import {useState} from 'react';
+import {NavLink} from 'react-router-dom';
 
 const BarraDeNavegacion = () => {
+  const [click, setClick] = useState(false);
+
+  const handleClick = () => setClick(!click);
   return (
-    <div className="nav-container">
-      <div className="nav-bar">
-        <div className="menu-toggle" id="mobile-menu">
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
-        </div>
-        <div className="nav-menu">
-          <p className="nav-link">NOTICIAS</p>
-
-          <p className="nav-link">FEMENINO</p>
-
-          <p className="nav-link">MASCULINO</p>
-          <div className="CI-logo-inicio">
-            <img alt="" className="Logo-inicio" src={LogoInicio}></img>
+    <>
+      <div className="Contenedor-menu">
+        <nav className="navbar">
+          <div className="nav-container">
+            <NavLink exact to="/" className="nav-logo-movil">
+              <div className="logo-movil"></div>
+            </NavLink>
+            <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  to="/"
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={handleClick}
+                >
+                  Noticias
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  to=""
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={handleClick}
+                >
+                  Femenino
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  to=""
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={handleClick}
+                >
+                  Masculino
+                </NavLink>
+              </li>
+              <li className="nav-item-logo">
+                <NavLink
+                  exact
+                  to=""
+                  activeClassName="active"
+                  className="nav-logo"
+                  onClick={handleClick}
+                >
+                  <div className="logo"></div>
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  to=""
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={handleClick}
+                >
+                  inferiores
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  to=""
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={handleClick}
+                >
+                  Copa
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  to=""
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={handleClick}
+                >
+                  Liga
+                </NavLink>
+              </li>
+            </ul>
+            <div className="nav-icon" onClick={handleClick}>
+              <i className={click ? 'fas fa-times' : 'fas fa-bars'}> +</i>
+            </div>
           </div>
-
-          <p className="nav-link">INFERIORES</p>
-
-          <p className="nav-link">COPA</p>
-
-          <p className="nav-link">LIGA</p>
-        </div>
+        </nav>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -10,6 +10,9 @@ import {useSelector} from 'react-redux';
 import publicidadLarga from '../../Static/Img/publicidad_larga.jpg';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
 import Vivo from '../Vivo/Vivo';
+import SomosFrase from '../../Static/Img/frase_inicio.png';
+import PieDepagina from '../PieDePagina/PieDepagina';
+
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},
@@ -23,15 +26,22 @@ const Inicio = () => {
   return (
     <div className="LP-Inicio">
       {/* <BarraDeNavegacion /> */}
-      {/* SECCION BANNER INICIO */}
-      {/* <div className="LI-Inicio seccion-somos">
+      <div className="LI-Inicio seccion-somos">
         <div className="CP-Somos">
           <div className="CI-Somos"></div>
-          <div className="CI-Somos"></div>
-          <div className="CI-Somos"></div>
-          <div className="CI-Somos"></div>
+
+          <div className="CI-Somos-frase">
+            <div className="I-somos-frase">
+              <img className="Somos-frase" src={SomosFrase}></img>
+            </div>
+          </div>
+          <div className="CI-Somos-redes"></div>
+
+          <div className="CI-Somos-radio">
+            <div className="I-somos-radio"></div>
+          </div>
         </div>
-      </div> */}
+      </div>
       {/* SECCION VIVO */}
       <div className="LI-Inicio seccion-vivo Margen-Vivo">
         <div className="CP-Vivo">
@@ -133,7 +143,7 @@ const Inicio = () => {
           </div>
         </div>
       </div>
-      {/* <PieDepagina /> */}
+      <PieDepagina />
     </div>
   );
 };
