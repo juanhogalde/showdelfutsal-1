@@ -177,7 +177,7 @@ iframe {
     transform: rotate(90deg);
   }
   .cuerpo-imagenesVideo {
-    margin: 40px;
+    /* margin: 40px; */
   }
 }
 @media screen and (max-width: 480px) {

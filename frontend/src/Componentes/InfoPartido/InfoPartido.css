@@ -26,12 +26,21 @@
   grid-column: 1/2;
   grid-row: 1/2;
   clip-path: polygon(0 0, 85% 0, 97% 100%, 16% 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .slider-derecho-IP {
   grid-column: 3/4;
   grid-row: 1/2;
   clip-path: polygon(0 0, 85% 0, 97% 100%, 16% 100%);
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sinRotar {
   transform: rotateY(180deg);
 }
 .slider-InfoPartido:hover {

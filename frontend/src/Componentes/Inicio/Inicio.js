@@ -25,7 +25,6 @@ const Inicio = () => {
   const videoVivoPrueba = {fuente: 'MmysMu3mgvw'};
   return (
     <div className="LP-Inicio">
-      {/* <BarraDeNavegacion /> */}
       <div className="LI-Inicio seccion-somos">
         <div className="CP-Somos">
           <div className="CI-Somos"></div>
@@ -62,7 +61,7 @@ const Inicio = () => {
         <div className="CP-Marcador">
           <div className="CI-Marcador">
             <div className="titulo-Marcador">
-              <p style={{fontSize: '60px'}}>PARTIDOS</p>
+              <h1>PARTIDOS</h1>
             </div>
             <div className="componente-Marcador">
               <Marcador />
@@ -82,7 +81,7 @@ const Inicio = () => {
       <div className="LI-Inicio seccion-noticias  Margen-Noticias">
         <div className="CP-Noticias">
           <div className="titulo-Seccion-Noticias">
-            <p>NOTICIAS</p>
+            <h1>NOTICIAS</h1>
           </div>
           <div className="CI-Filtros">
             <Filtros filtros={Filtro}></Filtros>
@@ -116,7 +115,7 @@ const Inicio = () => {
       <div className="LI-Inicio seccion-galeria margenes-Galeria">
         <div className="CP-Galeria">
           <div className="CI-Galeria-Imagenes">
-            <p className="titulo-Galeria">GALERÍA</p>
+            <h1 className="titulo-Galeria">GALERÍA</h1>
             <div className="galeria-Imagenes-A">
               <ImagenesVideo
                 DatosDeEntrada={DatosDePruebaImagenes}
@@ -143,7 +142,6 @@ const Inicio = () => {
           </div>
         </div>
       </div>
-      <PieDepagina />
     </div>
   );
 };

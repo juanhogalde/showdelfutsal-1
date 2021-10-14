@@ -61,17 +61,7 @@ const BarraDeNavegacion = () => {
                   <div className="logo"></div>
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink
-                  exact
-                  to=""
-                  activeClassName="active"
-                  className="nav-links"
-                  onClick={handleClick}
-                >
-                  inferiores
-                </NavLink>
-              </li>
+
               <li className="nav-item">
                 <NavLink
                   exact
@@ -92,6 +82,17 @@ const BarraDeNavegacion = () => {
                   onClick={handleClick}
                 >
                   Liga
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  to="/Somos"
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={handleClick}
+                >
+                  Somos
                 </NavLink>
               </li>
             </ul>
