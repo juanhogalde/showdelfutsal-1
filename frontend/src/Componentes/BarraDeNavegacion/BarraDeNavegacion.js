@@ -1,6 +1,5 @@
 import React from 'react';
 import './BarraDeNavegacion.css';
-import LogoInicio from '../../Static/Img/isologo.png';
 import {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 
@@ -61,17 +60,7 @@ const BarraDeNavegacion = () => {
                   <div className="logo"></div>
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink
-                  exact
-                  to=""
-                  activeClassName="active"
-                  className="nav-links"
-                  onClick={handleClick}
-                >
-                  inferiores
-                </NavLink>
-              </li>
+
               <li className="nav-item">
                 <NavLink
                   exact
@@ -92,6 +81,17 @@ const BarraDeNavegacion = () => {
                   onClick={handleClick}
                 >
                   Liga
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  exact
+                  to="/Somos"
+                  activeClassName="active"
+                  className="nav-links"
+                  onClick={handleClick}
+                >
+                  Somos
                 </NavLink>
               </li>
             </ul>

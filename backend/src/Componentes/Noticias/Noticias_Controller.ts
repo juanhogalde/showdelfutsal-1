@@ -13,6 +13,15 @@ class NoticiasController {
     }
   }
 
+  public async listardestacadas(req: Request, res: Response) {
+    try {
+      const listadoNoticias = await modeloNoticias.find({isDestacada: true});
+      responder.sucess(req, res, listadoNoticias);
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+
   public async agregar(req: Request, res: Response) {
     try {
       const noticia: INoticias = new modeloNoticias(req.body);

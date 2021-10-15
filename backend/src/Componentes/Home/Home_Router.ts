@@ -11,12 +11,12 @@ class HomesRouter {
 
   routes() {
     this.router.get('/datosIniciales', homesController.obtenerDatosIniciales);
-    this.router.get('/vivo', homesController.obtenerVivo);
+    /* this.router.get('/vivo', homesController.obtenerVivo);
     this.router.get('/radio', homesController.obtenerRadio);
     this.router.get('/partidos', homesController.obtenerPartidos);
     this.router.get('/destacadas', homesController.obtenerDestacadas);
     this.router.get('/galeriasImagenes', homesController.obtenerGaleriasImagenes);
-    this.router.get('/galeriasVideos', homesController.obtenerGaleriasVideo);
+    this.router.get('/galeriasVideos', homesController.obtenerGaleriasVideo); */
   }
 }
 

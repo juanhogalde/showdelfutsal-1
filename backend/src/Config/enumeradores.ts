@@ -26,5 +26,5 @@ export enum Rol {
   sinAcceso,
   Administrador,
   Editor,
-  Arbitro,
+  Anotador,
 }

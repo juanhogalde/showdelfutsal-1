@@ -5,4 +5,5 @@ export default interface IUsuarios extends Document {
   nombreUsuario: string;
   keyRol: number;
   token: string;
+  isActivo: boolean;
 }
