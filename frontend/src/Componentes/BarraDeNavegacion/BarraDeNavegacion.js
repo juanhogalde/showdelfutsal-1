@@ -19,7 +19,7 @@ const BarraDeNavegacion = () => {
               <li className="nav-item">
                 <NavLink
                   exact
-                  to="/"
+                  to="/Noticias"
                   activeClassName="active"
                   className="nav-links"
                   onClick={handleClick}
