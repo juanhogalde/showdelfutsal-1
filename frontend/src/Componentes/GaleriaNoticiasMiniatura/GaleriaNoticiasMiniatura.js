@@ -1,9 +1,13 @@
 import React from 'react';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import './GaleriaNoticiasMiniatura.css';
+import {AiFillCaretLeft} from 'react-icons/ai';
+import {AiFillCaretRight} from 'react-icons/ai';
+import {useSelector} from 'react-redux';
 
-const GaleriaNoticiasMiniatura = ({noticias = []}) => {
-  var tamañoArregloNoticias;
+const GaleriaNoticiasMiniatura = (/* {noticias = []} */) => {
+  const noticias = useSelector(state => state.storePrueba.noticias);
+  /* var tamañoArregloNoticias;
   if (noticias.length > 4) {
     tamañoArregloNoticias = 4;
   } else {
@@ -12,34 +16,31 @@ const GaleriaNoticiasMiniatura = ({noticias = []}) => {
 
   const cambioNoticiaFlecha = (direccion, origen) => {
     console.log(`direcc: ${direccion} origen: ${origen}`);
-  };
+  }; */
 
   return (
     <div className="CP-Noticias-slider">
       <button
-        onClick={() => {
+        /* onClick={() => {
           cambioNoticiaFlecha(false, 'img');
-        }}
+        }} */
         className="I-Flechas-izq-Noticias"
       >
-        🢀
+        <AiFillCaretLeft className="flechas-Slide-GaleriaNoticias" />
       </button>
       <button
-        onClick={() => {
+        /* onClick={() => {
           cambioNoticiaFlecha(true, 'img');
-        }}
+        }} */
         className="I-Flechas-der-Noticias"
       >
-        🢂
+        <AiFillCaretRight className="flechas-Slide-GaleriaNoticias" />
       </button>
 
       <div className="CI-Noticias-slider">
-        <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true} />
-        <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true} />
-        <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true} />
-        <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true} />
-        <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true} />
-        <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true} />
+        {noticias.map((noticia, index) => {
+          return <NoticiasMiniatura key={index} datosModelado={noticia}></NoticiasMiniatura>;
+        })}
       </div>
     </div>
   );
