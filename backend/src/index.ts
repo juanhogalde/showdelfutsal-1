@@ -37,6 +37,7 @@ class Server {
     this.conectarBd();
     this.configurar();
     this.routear();
+    this.app.use(manejadorErrores);
   }
 
   conectarBd() {
@@ -51,7 +52,6 @@ class Server {
     this.app.use(compression());
     this.app.use(express.json());
     this.app.use(express.urlencoded({extended: false}));
-    this.app.use(manejadorErrores);
   }
 
   routear() {
@@ -94,3 +94,7 @@ class Server {
 ///// INICIANDO SERVIDOR
 const srv = new Server();
 srv.iniciar();
+
+process.on('uncaughtException', function (err) {
+  console.log('Error atrapado: ' + err);
+});

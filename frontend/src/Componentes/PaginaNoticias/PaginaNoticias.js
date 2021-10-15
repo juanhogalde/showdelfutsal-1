@@ -1,10 +1,10 @@
 import React from 'react';
-import '../SeccionNoticias/SeccionNoticias.css';
+import './PaginaNoticias.css';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import GaleriaNoticiasMiniatura from '../GaleriaNoticiasMiniatura/GaleriaNoticiasMiniatura';
 
 // import {useSelector} from 'react-redux';
-const SeccionNoticias = ({
+const PaginaNoticias = ({
   titulo = 'Masculino',
   noticias1 = 'Femenino',
   noticias2 = 'Inferiores',
@@ -118,4 +118,4 @@ const SeccionNoticias = ({
   );
 };
 
-export default SeccionNoticias;
+export default PaginaNoticias;
