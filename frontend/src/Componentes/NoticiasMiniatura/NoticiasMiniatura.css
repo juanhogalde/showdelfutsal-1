@@ -59,7 +59,8 @@
   background-color: #ffe35f;
   clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
   position: absolute;
-  bottom: 0;
+  bottom: 4px;
+  left: -1px;
   padding-left: 5px;
 }
 .Copete-NoticiaMiniatura {
@@ -82,28 +83,19 @@
   bottom: 10%;
   background-color: #000000c9;
   color: white;
-  font-size: 1.5vw;
   padding-right: 30px;
   word-break: break-all;
   padding: 10px;
 
   overflow: hidden;
 }
-.titulo-NoticiaMiniatura {
-  font-size: 1vw;
-  font-weight: 700;
-  padding: 10px;
-}
+
 @media screen and (max-width: 480px) {
-  .sobreImagen-NoticiaMiniatura {
-    font-size: 3.6vw;
-    font-weight: 700;
-  }
   .CI-Categoria-NoticiaMiniatura {
-    max-width: 90px;
-    height: 50px;
-    bottom: 90%;
-    padding-top: 19px;
+    height: 30px;
+    bottom: none;
+    top: 0;
+    padding-top: 5px;
   }
   .sobreImagen-NoticiaMiniatura {
     left: 0;
@@ -121,15 +113,10 @@
     bottom: 0;
     background-color: #000000c9;
     color: white;
-    font-size: 3.6vw;
     padding: 5px;
   }
 }
 @media screen and (max-width: 320px) {
-  .sobreImagen-NoticiaMiniatura {
-    font-size: 3.6vw;
-    font-weight: 700;
-  }
   .CI-Categoria-NoticiaMiniatura {
     max-width: 80px;
     max-height: 40px;
@@ -138,8 +125,5 @@
   .sobreImagen-NoticiaMiniatura {
     left: 0;
     max-height: 50px;
-  }
-  .titulo-NoticiaMiniatura {
-    font-size: 3.6vw;
   }
 }

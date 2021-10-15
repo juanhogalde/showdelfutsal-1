@@ -63,7 +63,7 @@ const NoticiasMiniatura = ({
               </div>
             )}
             {isSobreImagen && (
-              <p className={'sobreImagen-NoticiaMiniatura m-0'}>
+              <p className={'sobreImagen-NoticiaMiniatura'}>
                 {datosModelado.titulo
                   ? `${datosModelado.titulo.substring(0, 100)} ...`
                   : 'Sin titulo largo aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}
@@ -71,7 +71,7 @@ const NoticiasMiniatura = ({
             )}
           </div>
           {!isSobreImagen && (
-            <p className={'m-0 titulo-NoticiaMiniatura'}>
+            <p>
               {datosModelado.titulo
                 ? `${datosModelado.titulo.substring(0, 90)}...`
                 : 'Sin titulo largo aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}
