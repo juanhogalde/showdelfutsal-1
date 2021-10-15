@@ -16,25 +16,32 @@ const GaleriaNoticiasMiniatura = ({noticias = []}) => {
 
   return (
     <div className="CP-Noticias-slider">
-      <div className="CI-Noticias-slider">
-        <div className="I-Flechas-Noticias-cuerpo">
-          <button
-            onClick={() => {
-              cambioNoticiaFlecha(false, 'img');
-            }}
-            className="I-Flechas-izq-Noticias"
-          >
-            🢀
-          </button>
-          <button
-            onClick={() => {
-              cambioNoticiaFlecha(true, 'img');
-            }}
-            className="I-Flechas-der-Noticias"
-          >
-            🢂
-          </button>
+      <button
+        onClick={() => {
+          cambioNoticiaFlecha(false, 'img');
+        }}
+        className="I-Flechas-izq-Noticias"
+      >
+        🢀
+      </button>
+      <button
+        onClick={() => {
+          cambioNoticiaFlecha(true, 'img');
+        }}
+        className="I-Flechas-der-Noticias"
+      >
+        🢂
+      </button>
 
+      <div className="CI-Noticias-slider">
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        {/* <div className="I-Flechas-Noticias-cuerpo">
           <div className="I-Cuerpo-Noticias-slider">
             {noticias.length > 1 ? (
               noticias.map(function (x) {
@@ -52,7 +59,7 @@ const GaleriaNoticiasMiniatura = ({noticias = []}) => {
               <p>sin noticias</p>
             )}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
