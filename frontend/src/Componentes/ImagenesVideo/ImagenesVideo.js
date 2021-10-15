@@ -128,7 +128,7 @@ const ImagenesVideo = ({
                     title="sadasd"
                   ></iframe>
                   <div className="decripcion-imagenesVideo2">
-                    <h3>{dataActual.descripcion}</h3>
+                    <h4>{dataActual.descripcion}</h4>
                   </div>
                 </div>
                 <div className="CI-Videos oculta-Video-Responsive">
@@ -140,7 +140,7 @@ const ImagenesVideo = ({
                     title="sadasd"
                   ></iframe>
                   <div className="decripcion-imagenesVideo2">
-                    <h3>{dataActual.descripcion}</h3>
+                    <h4>{dataActual.descripcion}</h4>
                   </div>
                 </div>
               </React.Fragment>
@@ -164,7 +164,7 @@ const ImagenesVideo = ({
           )}
           {!tipoVideo && (
             <div className="decripcion-imagenesVideo">
-              <h3>{tipoVideo ? siguientedataActual.descripcion : dataActual.descripcion}</h3>
+              <h4>{tipoVideo ? siguientedataActual.descripcion : dataActual.descripcion}</h4>
             </div>
           )}
         </div>

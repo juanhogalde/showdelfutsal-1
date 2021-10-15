@@ -62,9 +62,7 @@
 }
 
 .texto-descripcion-somos {
-  font-size: 20px;
   padding: 20px;
-  line-height: 1.7rem;
   color: white;
   margin: 10px 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -205,7 +203,6 @@
     max-width: 17rem;
   }
   .texto-descripcion-somos {
-    font-size: 16px;
     padding-left: 0px;
     padding-right: 35px;
     padding-top: 0px;
