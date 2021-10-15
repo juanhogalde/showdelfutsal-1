@@ -4,6 +4,7 @@ import NoticiaDesarrollada from '../NoticiaDesarrollada/NoticiaDesarrollada';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
 import PieDepagina from '../PieDePagina/PieDepagina';
+import GaleriaNoticiasMiniatura from '../GaleriaNoticiasMiniatura/GaleriaNoticiasMiniatura';
 
 // import {useSelector} from 'react-redux';
 const SeccionNoticias = ({
@@ -45,7 +46,9 @@ const SeccionNoticias = ({
             <NoticiasMiniatura datosModelado={noticias3} />
           </div>
         </div>
-        <div className="CI-SN-Masculino-slider"></div>
+        <div className="CI-SN-Masculino-slider">
+          <GaleriaNoticiasMiniatura />
+        </div>
       </div>
       {/* SECCION NOTICIAS FEMENINO /> */}
       <div className=" CP-SN-Femenino Fondo-seccion-noticias">
