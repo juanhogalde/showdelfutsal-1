@@ -47,7 +47,10 @@ const SeccionNoticias = ({
           </div>
         </div>
         <div className="CI-SN-Masculino-slider">
-          <GaleriaNoticiasMiniatura />
+          <div className="I-Componente-galeria-noticias">
+            {' '}
+            <GaleriaNoticiasMiniatura />
+          </div>
         </div>
       </div>
       {/* SECCION NOTICIAS FEMENINO /> */}

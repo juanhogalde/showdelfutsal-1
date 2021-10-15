@@ -143,10 +143,18 @@
 .CI-SN-Masculino-slider {
   grid-column: 1/7;
   grid-row: 3/4;
-  background-color: rgba(8, 216, 199, 0.8);
-  margin: 20px 20px 20px 20px;
+  background-color: rgba(216, 102, 8, 0.8);
+  display: grid;
+  grid-template-columns: 5px 1fr 5px;
+  grid-template-rows: 5px 1fr 5px;
 }
 
+.I-Componente-galeria-noticias {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  display: flex;
+  align-items: center;
+}
 /* ----- ITEM NOTICIA MASCULINO ----- */
 
 .I-Noticia-masculino {

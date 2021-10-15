@@ -34,32 +34,12 @@ const GaleriaNoticiasMiniatura = ({noticias = []}) => {
       </button>
 
       <div className="CI-Noticias-slider">
-        <NoticiasMiniatura />
-        <NoticiasMiniatura />
-        <NoticiasMiniatura />
-        <NoticiasMiniatura />
-        <NoticiasMiniatura />
-        <NoticiasMiniatura />
-        <NoticiasMiniatura />
-        {/* <div className="I-Flechas-Noticias-cuerpo">
-          <div className="I-Cuerpo-Noticias-slider">
-            {noticias.length > 1 ? (
-              noticias.map(function (x) {
-                return (
-                  <div>
-                    <NoticiasMiniatura />
-                  </div>
-                );
-              })
-            ) : noticias.length !== 0 ? (
-              <div>
-                <NoticiasMiniatura />
-              </div>
-            ) : (
-              <p>sin noticias</p>
-            )}
-          </div>
-        </div> */}
+        <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true} />
+        <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true} />
+        <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true} />
+        <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true} />
+        <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true} />
+        <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true} />
       </div>
     </div>
   );
