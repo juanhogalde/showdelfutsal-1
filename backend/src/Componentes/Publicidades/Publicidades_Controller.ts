@@ -35,9 +35,28 @@ class PublicidadesController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const publicidad: IPublicidades = new modeloPublicidades(req.body);
-      await publicidad.save();
-      responder.sucess(req, res);
+      const publicidadBody = req.body;
+      if (publicidadBody._id) {
+        modeloPublicidades.findById(publicidadBody._id).then(async (publicidad: any) => {
+          if (publicidad) {
+            publicidad.nombrePublicidad = publicidadBody.nombrePublicidad;
+            publicidad.ancho = publicidadBody.ancho;
+            publicidad.alto = publicidadBody.alto;
+            publicidad.isActiva = publicidadBody.isActiva;
+            publicidad.ubicacion = publicidadBody.ubicacion;
+            publicidad.direccion = publicidadBody.direccion;
+
+            const resultado = await publicidad.save({new: true});
+            responder.sucess(req, res, resultado);
+          } else {
+            let error = new Error('Publicidad no encontrada');
+            responder.error(req, res, error);
+          }
+        });
+      } else {
+        let error = new Error('Publicidad no encontrada');
+        responder.error(req, res, error);
+      }
     } catch (error) {
       responder.error(req, res, error);
     }

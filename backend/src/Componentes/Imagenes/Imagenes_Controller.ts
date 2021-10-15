@@ -35,9 +35,28 @@ class ImagenesController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const imagen: IImagenes = new modeloImagenes(req.body);
-      await imagen.save();
-      responder.sucess(req, res);
+      const imagenBody = req.body;
+      if (imagenBody._id) {
+        modeloImagenes.findById(imagenBody._id).then(async (imagen: any) => {
+          if (imagen) {
+            imagen.fuente = imagenBody.fuente;
+            imagen.alto = imagenBody.alto;
+            imagen.ancho = imagenBody.ancho;
+            imagen.descripcion = imagenBody.descripcion;
+            imagen.galeria = imagenBody.galeria;
+            imagen.fechaCarga = imagenBody.fechaCarga;
+
+            const resultado = await imagen.save({new: true});
+            responder.sucess(req, res, resultado);
+          } else {
+            let error = new Error('Imagen no encontrada');
+            responder.error(req, res, error);
+          }
+        });
+      } else {
+        let error = new Error('Imagen no encontrada');
+        responder.error(req, res, error);
+      }
     } catch (error) {
       responder.error(req, res, error);
     }

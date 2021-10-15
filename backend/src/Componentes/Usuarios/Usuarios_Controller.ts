@@ -33,9 +33,27 @@ class UsuariosController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const usuario: IUsuarios = new modeloUsuarios(req.body);
-      await usuario.save();
-      responder.sucess(req, res);
+      const usuarioBody = req.body;
+      if (usuarioBody._id) {
+        modeloUsuarios.findById(usuarioBody._id).then(async (usuario: any) => {
+          if (usuario) {
+            usuario.nombreUsuario = usuarioBody.nombreUsuario;
+            usuario.email = usuarioBody.email;
+            usuario.keyRol = usuarioBody.keyRol;
+            usuario.token = usuarioBody.token;
+            usuario.isActivo = usuarioBody.isActivo;
+
+            const resultado = await usuario.save({new: true});
+            responder.sucess(req, res, resultado);
+          } else {
+            let error = new Error('Usuario no encontrado');
+            responder.error(req, res, error);
+          }
+        });
+      } else {
+        let error = new Error('Usuario no encontrado');
+        responder.error(req, res, error);
+      }
     } catch (error) {
       responder.error(req, res, error);
     }

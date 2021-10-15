@@ -35,9 +35,34 @@ class PartidosController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const partido: IPartidos = new modeloPartidos(req.body);
-      await partido.save();
-      responder.sucess(req, res);
+      const partidoBody = req.body;
+      if (partidoBody._id) {
+        modeloPartidos.findById(partidoBody._id).then(async (partido: any) => {
+          if (partido) {
+            partido.equipoLocal = partidoBody.equipoLocal;
+            partido.equipoVisitante = partidoBody.equipoVisitante;
+            partido.resultadoLocal = partidoBody.resultadoLocal;
+            partido.resultadoVisitante = partidoBody.resultadoVisitante;
+            partido.penalesLocal = partidoBody.penalesLocal;
+            partido.penalesVisitante = partidoBody.penalesVisitante;
+            partido.fechaPartido = partidoBody.fechaPartido;
+            partido.idEstadio = partidoBody.idEstadio;
+            partido.posicionFixture = partidoBody.posicionFixture;
+            partido.comentarios = partidoBody.comentarios;
+            partido.campeonato = partidoBody.campeonato;
+            partido.idTabla = partidoBody.idTabla;
+
+            const resultado = await partido.save({new: true});
+            responder.sucess(req, res, resultado);
+          } else {
+            let error = new Error('Partido no encontrado');
+            responder.error(req, res, error);
+          }
+        });
+      } else {
+        let error = new Error('Partido no encontrado');
+        responder.error(req, res, error);
+      }
     } catch (error) {
       responder.error(req, res, error);
     }
