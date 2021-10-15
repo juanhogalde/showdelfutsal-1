@@ -35,9 +35,23 @@ class EtiquetasController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const etiqueta: IEtiquetas = new modeloEtiquetas(req.body);
-      await etiqueta.save();
-      responder.sucess(req, res);
+      const etiquetaBody = req.body;
+      if (etiquetaBody._id) {
+        modeloEtiquetas.findById(etiquetaBody._id).then(async (etiqueta: any) => {
+          if (etiqueta) {
+            etiqueta.tag = etiquetaBody.tag;
+
+            const resultado = await etiqueta.save({new: true});
+            responder.sucess(req, res, resultado);
+          } else {
+            let error = new Error('Etiqueta no encontrada');
+            responder.error(req, res, error);
+          }
+        });
+      } else {
+        let error = new Error('Etiqueta no encontrada');
+        responder.error(req, res, error);
+      }
     } catch (error) {
       responder.error(req, res, error);
     }

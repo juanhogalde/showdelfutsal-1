@@ -35,9 +35,37 @@ class TablasController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const tabla: ITablas = new modeloTablas(req.body);
-      await tabla.save();
-      responder.sucess(req, res);
+      const tablaBody = req.body;
+      if (tablaBody._id) {
+        modeloTablas.findById(tablaBody._id).then(async (tabla: any) => {
+          if (tabla) {
+            tabla.equipo1 = tablaBody.equipo1;
+            tabla.equipo2 = tablaBody.equipo2;
+            tabla.isEquipo2Eliminado = tablaBody.isEquipo2Eliminado;
+            tabla.idCampeonato = tablaBody.idCampeonato;
+            tabla.zona = tablaBody.zona;
+            tabla.pGanados = tablaBody.pGanados;
+            tabla.pEmpatados = tablaBody.pEmpatados;
+            tabla.pPerdidos = tablaBody.pPerdidos;
+            tabla.pJugados = tablaBody.pJugados;
+            tabla.golesAFavor = tablaBody.golesAFavor;
+            tabla.golesEnContra = tablaBody.golesEnContra;
+            tabla.difGoles = tablaBody.difGoles;
+            tabla.puntos = tablaBody.puntos;
+            tabla.posicionEnTabla = tablaBody.posicionEnTabla;
+            tabla.comentarios = tablaBody.comentarios;
+
+            const resultado = await tabla.save({new: true});
+            responder.sucess(req, res, resultado);
+          } else {
+            let error = new Error('Tabla no encontrada');
+            responder.error(req, res, error);
+          }
+        });
+      } else {
+        let error = new Error('Tabla no encontrada');
+        responder.error(req, res, error);
+      }
     } catch (error) {
       responder.error(req, res, error);
     }

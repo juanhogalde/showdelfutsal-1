@@ -35,9 +35,25 @@ class CategoriasController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const categoria: ICategorias = new modeloCategorias(req.body);
-      await categoria.save();
-      responder.sucess(req, res);
+      const categoriaBody = req.body;
+      if (categoriaBody._id) {
+        modeloCategorias.findById(categoriaBody._id).then(async (categoria: any) => {
+          if (categoria) {
+            categoria.nombreCategoria = categoriaBody.nombreCategoria;
+            categoria.keyCategoria = categoriaBody.keyCategoria;
+            categoria.idSubcategorias = categoriaBody.idSubacategorias;
+
+            const resultado = await categoria.save({new: true});
+            responder.sucess(req, res, resultado);
+          } else {
+            let error = new Error('Categoría no encontrada');
+            responder.error(req, res, error);
+          }
+        });
+      } else {
+        let error = new Error('Categoría no encontrada');
+        responder.error(req, res, error);
+      }
     } catch (error) {
       responder.error(req, res, error);
     }

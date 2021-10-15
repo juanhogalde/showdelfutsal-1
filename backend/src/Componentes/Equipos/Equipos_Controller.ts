@@ -35,9 +35,26 @@ class EquiposController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const equipo: IEquipos = new modeloEquipos(req.body);
-      await equipo.save();
-      responder.sucess(req, res);
+      const equipoBody = req.body;
+      if (equipoBody._id) {
+        modeloEquipos.findById(equipoBody._id).then(async (equipo: any) => {
+          if (equipo) {
+            equipo.nombreClub = equipoBody.nombreClub;
+            equipo.escudo = equipoBody.escudo;
+            equipo.idCategorias = equipoBody.idCategorias;
+            equipo.idSubcategorias = equipoBody.idSubcategorias;
+
+            const resultado = await equipo.save({new: true});
+            responder.sucess(req, res, resultado);
+          } else {
+            let error = new Error('Equipo no encontrado');
+            responder.error(req, res, error);
+          }
+        });
+      } else {
+        let error = new Error('Equipo no encontrado');
+        responder.error(req, res, error);
+      }
     } catch (error) {
       responder.error(req, res, error);
     }
