@@ -16,16 +16,16 @@ export const PieDepagina = () => {
           <div className="I-Redes">
             {/* <h3>SIGUENOS</h3> */}
             <div className="red-social">
-              <Link className="">
+              <Link className="" to="/">
                 <FaFacebookF className="iconos-Redes-Sociales"></FaFacebookF>
               </Link>
-              <Link className="">
+              <Link className="" to="/">
                 <BsTwitter className="iconos-Redes-Sociales"></BsTwitter>
               </Link>
-              <Link className="">
+              <Link className="" to="/">
                 <BsInstagram className="iconos-Redes-Sociales"></BsInstagram>
               </Link>
-              <Link className="">
+              <Link className="" to="/">
                 <BsYoutube className="iconos-Redes-Sociales"></BsYoutube>
               </Link>
             </div>
