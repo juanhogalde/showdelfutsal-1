@@ -8,16 +8,18 @@ const Vivo = ({
   },
 }) => {
   return (
-    <div>
+    <div className="CP-Componente-Vivo">
       <div className="marcador-etiqueta-vivo">
         <p className="texto-marcador-vivo">{etiquetaMarcador}</p>
       </div>
-      <ImagenesVideo
-        DatosDeEntrada={[video]}
-        tipoVideo={true}
-        sinDescripcion={true}
-        isConBorder={true}
-      ></ImagenesVideo>
+      {
+        <ImagenesVideo
+          DatosDeEntrada={[video]}
+          tipoVideo={true}
+          sinDescripcion={true}
+          isConBorder={true}
+        ></ImagenesVideo>
+      }
     </div>
   );
 };

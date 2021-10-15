@@ -4,15 +4,15 @@ const pruebaInicio = {
   logueado: false,
   DatosDePruebaVideos: [
     {
-      fuente: '0gIKILHYA4Y',
+      fuente: 'ox7spKu7EOc',
       descripcion: '1 UNO',
     },
-    /* {
-      fuente: 'KIBeny5wq6M',
+    {
+      fuente: 'aA27Fsl2gJc',
       descripcion: '2 DOS',
     },
     {
-      fuente: 'mWBbiJKUoxQ',
+      fuente: 'NBB8PDenGJM',
       descripcion: '3 TRES',
     },
     {
@@ -22,7 +22,7 @@ const pruebaInicio = {
     {
       fuente: 'RvHe2-jRQrE',
       descripcion: '5 CINCO',
-    }, */
+    },
   ],
 
   DatosDePruebaImagenes: [
@@ -41,8 +41,7 @@ const pruebaInicio = {
       descripcion: '3 TRES',
     },
     {
-      fuente:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkJ5eKkunzfUzU_rsCh7BO32h5a95aiX65OA&usqp=CAU',
+      fuente: 'https://www.wallpapertip.com/wmimgs/53-530438_torneo-de-futsal.jpg',
       descripcion: '4 CUATRO',
     },
   ],

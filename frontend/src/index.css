@@ -2,4 +2,29 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Segoe UI';
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 9rem;
+  font-weight: 800;
+  line-height: 0;
+}
+
+@media screen and (max-width: 1600px) {
+  h1 {
+    font-size: 5rem;
+  }
+}
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 4rem;
+    line-height: 0rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  h1 {
+    font-size: 3rem;
+  }
 }
