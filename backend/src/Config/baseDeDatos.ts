@@ -1,33 +1,35 @@
 import mongoose from 'mongoose';
 
-const db = mongoose.connection;
+export class baseMongo {
+  private db = mongoose.connection;
 
-const options = {
-  useCreateIndex: true,
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 5000,
-};
+  private _options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000,
+  };
 
-const cadenaDeConexion =
-  process.env.NODE_ENV == 'desarrollo'
-    ? 'mongodb://localhost:29017/PCSSJ-Desarrollo'
-    : (process.env.DATABASE as string);
+  private _cadenaDeConexion = 'mongodb://localhost:29017/Desarrollo';
 
-mongoose
-  .connect(cadenaDeConexion, options)
-  .catch(err => console.error(`ERROR DE CONEXION A BD: ${err}`));
+  constructor(cadenaNueva?: string) {
+    this._cadenaDeConexion = cadenaNueva ? cadenaNueva : this._cadenaDeConexion;
+    this.conectar();
+    this.configEventos();
+  }
 
-//En caso de conectarse
-db.once('open', _ => {
-  console.log('BD de ' + process.env.NODE_ENV + ' conectada');
-});
+  conectar() {
+    mongoose.connect(this._cadenaDeConexion, this._options);
+  }
 
-//En caso de error
-let reintentos = 0;
-db.on('error', err => {
-  db.close();
-  console.error(`BD ERROR:${err}`);
-});
+  configEventos() {
+    this.db.once('open', _ => {
+      console.info('BD de ' + process.env.NODE_ENV + ' conectada');
+    });
 
-export default db;
+    //En caso de error
+    this.db.on('error', err => {
+      this.db.close();
+      console.error(`BD ERROR:${err}`);
+    });
+  }
+}

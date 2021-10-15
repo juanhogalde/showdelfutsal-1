@@ -6,6 +6,7 @@ const UsuariosSchema = new Schema({
   email: {type: String, unique: true},
   keyRol: Number,
   token: String,
+  isActivo: {type: Boolean, default: true},
 });
 
 export default model<IUsuarios>('modeloUsuarios', UsuariosSchema);

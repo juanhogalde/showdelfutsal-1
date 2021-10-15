@@ -9,4 +9,9 @@ export default interface IPartidos extends Document {
   posicionFixture: number;
   comentarios: Array<object>;
   campeonato: string;
+  idTabla: string;
+  resultadoLocal: number;
+  resultadoVisitante: number;
+  penalesLocal: number;
+  penalesVisitante: number;
 }

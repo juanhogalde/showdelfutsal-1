@@ -11,7 +11,7 @@ class UsuariosRouter {
 
   routes() {
     this.router.get('/listar', usuariosController.listar);
-    this.router.get('/obtener/:id', usuariosController.obtener);
+    this.router.post('/login', usuariosController.login);
     this.router.put('/modificar', usuariosController.modificar);
     this.router.delete('/eliminar', usuariosController.eliminar);
     this.router.post('/agregar', usuariosController.agregar);

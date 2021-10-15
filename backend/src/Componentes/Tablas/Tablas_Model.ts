@@ -13,7 +13,7 @@ const TablasSchema = new Schema({
   isEquipo2Eliminado: Boolean,
   idCampeonato: {
     type: Schema.Types.ObjectId,
-    ref: 'modeloCampeonato',
+    ref: 'modeloCampeonatos',
   },
   zona: String,
   tipoZona: Number,

@@ -7,6 +7,7 @@ const ImagenesSchema = new Schema({
   ancho: Number,
   descripcion: String,
   galeria: {type: String, unique: true},
+  fechaCarga: Date,
 });
 
 export default model<IImagenes>('modeloImagenes', ImagenesSchema);
