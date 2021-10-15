@@ -39,7 +39,7 @@ const GaleriaNoticiasMiniatura = (/* {noticias = []} */) => {
 
       <div className="CI-Noticias-slider">
         {noticias.map((noticia, index) => {
-          return <NoticiasMiniatura hey={index} datosModelado={noticia}></NoticiasMiniatura>;
+          return <NoticiasMiniatura key={index} datosModelado={noticia}></NoticiasMiniatura>;
         })}
       </div>
     </div>

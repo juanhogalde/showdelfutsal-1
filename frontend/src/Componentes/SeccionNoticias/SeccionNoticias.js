@@ -1,9 +1,6 @@
 import React from 'react';
 import '../SeccionNoticias/SeccionNoticias.css';
-import NoticiaDesarrollada from '../NoticiaDesarrollada/NoticiaDesarrollada';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
-import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
-import PieDepagina from '../PieDePagina/PieDepagina';
 import GaleriaNoticiasMiniatura from '../GaleriaNoticiasMiniatura/GaleriaNoticiasMiniatura';
 
 // import {useSelector} from 'react-redux';
@@ -75,12 +72,12 @@ const SeccionNoticias = ({
       </div>
       {/* SECCION NOTICIAS INFERIORES /> */}
       <div className=" CP-SN-Inferiores Fondo-animacion">
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
         <div className="CI-SN-Inferiores-titulo">
           <div className="I-SN-Inferiores-titulo">
             <p>{noticias2}</p>
@@ -97,12 +94,12 @@ const SeccionNoticias = ({
       </div>
       {/* SECCION NOTICIAS COPA Y LIGA /> */}
       <div className=" CP-SN-Liga Fondo-animacion ">
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
         <div className="CI-SN-Liga-titulo">
           <div className="I-SN-Liga-titulo">
             <p>{noticias3}</p>
