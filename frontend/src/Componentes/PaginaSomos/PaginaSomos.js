@@ -22,7 +22,7 @@ const PaginaSomos = () => {
           </div>
           <div className="I-cuerpo-somos">
             <div className="texto-descripcion-somos">
-              <h1>HISTORIA</h1>
+              <h3>HISTORIA</h3>
               <p>
                 El Show del Futsal es la marca distintiva de la disciplina en la provincia, desde el
                 año 2016. En aquel entonces, un grupo de locos periodistas amantes del futsal,

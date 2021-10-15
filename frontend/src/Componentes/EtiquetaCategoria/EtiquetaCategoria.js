@@ -17,13 +17,11 @@ const EtiquetaCategoria = ({subcategoria = false, categoriaId = 0}) => {
   return (
     <div>
       {subcategoria ? (
-        <p className="textoEtiquetaCategoria m-0">
+        <p>
           {subcategoriaSeleccionada ? subcategoriaSeleccionada.subcategoria : 'sin subcategoria'}
         </p>
       ) : (
-        <p className="textoEtiquetaCategoria m-0">
-          {categoriaSeleccionada ? categoriaSeleccionada.categoria : 'sin categoria'}
-        </p>
+        <p>{categoriaSeleccionada ? categoriaSeleccionada.categoria : 'sin categoria'}</p>
       )}
     </div>
   );

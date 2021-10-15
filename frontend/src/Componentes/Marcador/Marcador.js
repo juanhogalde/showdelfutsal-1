@@ -70,10 +70,10 @@ const Marcador = () => {
           </div>
           {partido.equipoA.penales && partido.equipoB.penales && (
             <div className="penales">
-              <h3>Penales</h3>
-              <h4>
+              <h4>Penales</h4>
+              <p>
                 ({partido.equipoA.penales}-{partido.equipoB.penales})
-              </h4>
+              </p>
             </div>
           )}
         </div>

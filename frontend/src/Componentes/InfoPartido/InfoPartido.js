@@ -9,9 +9,9 @@ const InfoPartido = props => {
   return (
     <div className="CP-InfoPartido">
       <div className="CI-InfoPartido">
-        <h2>{fecha.hora}</h2>
-        <h3>{fecha.dia}</h3>
-        <h4 className="margenSede">{sede}</h4>
+        <h3>{fecha.hora}</h3>
+        <h4 className="fecha-dia">{fecha.dia}</h4>
+        <p className="margenSede">{sede}</p>
       </div>
       <div
         style={{marginBottom: '2rem'}}

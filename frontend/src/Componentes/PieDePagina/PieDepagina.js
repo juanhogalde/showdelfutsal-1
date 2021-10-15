@@ -25,7 +25,7 @@ export const PieDepagina = () => {
               <Link className="">
                 <BsInstagram className="iconos-Redes-Sociales"></BsInstagram>
               </Link>
-              <Link className="MdAccessibleForward">
+              <Link className="">
                 <BsYoutube className="iconos-Redes-Sociales"></BsYoutube>
               </Link>
             </div>
