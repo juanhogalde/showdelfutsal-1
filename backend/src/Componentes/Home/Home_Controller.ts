@@ -68,3 +68,27 @@ class HomesController {
   }
 }
 export const homesController = new HomesController();
+
+/*
+
+Que espera el front como modelo de galeria
+[
+{
+fuente:string, // para video el id y para imagen el path
+descripcion:string
+}
+]
+
+que espera el front como modelo de partidos
+partido: {
+_id: ObjectId,
+equipoA: {
+	nombreClub: string,
+	escudo:  string (ruta a una imagen),
+	resultado:int,
+	penales: int,
+}
+}
+
+
+ */
