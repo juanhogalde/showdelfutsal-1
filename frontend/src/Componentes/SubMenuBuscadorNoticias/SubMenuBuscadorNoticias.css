@@ -1,0 +1,118 @@
+/* ============ CONTENEDOR BUSQUEDA ============- */
+
+.CP-SN-Noticias-Busquedas {
+  display: grid;
+  grid-template-columns: 50px 1fr 1fr 50px;
+  grid-template-rows: 5px 1fr 5px;
+  background-color: #ffffff;
+  height: 120px;
+  margin: 0px;
+  position: sticky;
+  top: 50px;
+  grid-column: 1/4;
+  z-index: 5;
+  box-shadow: 0px 15px 10px -15px;
+}
+
+/* --- INPUT BUSQUEDA --- */
+.I-Noticias-buscador {
+  padding-top: 30px;
+  display: flex;
+  grid-column: 3/4;
+  grid-row: 2/3;
+  height: 100%;
+  width: 100%;
+  place-content: center;
+  align-items: center;
+}
+
+.I-contendor-busqueda {
+  width: 60%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  place-content: center;
+}
+.Input-busqueda {
+  width: 500px;
+  height: 50px;
+  border-image-source: linear-gradient(21deg, #10abff, #1beabd);
+  border-width: 3pt;
+  border-image-slice: 1;
+  text-align: center;
+}
+
+/* --- TITULO --- */
+
+.I-Noticias-busqueda-titulo {
+  padding-top: 30px;
+  display: flex;
+  height: 20px;
+  grid-column: 2/3;
+  grid-row: 2/3;
+  width: 200px;
+  height: 100%;
+  width: 100%;
+  place-content: center;
+  align-items: center;
+}
+
+.I-Noticias-busqueda-titulo p {
+  font-family: 'Segoe UI';
+  font-size: 3em;
+  font-weight: 800;
+  color: rgb(0, 0, 0);
+  margin-left: 1rem;
+}
+
+@media only screen and (min-device-width: 780px) and (max-width: 1024px) {
+  /* ============ CONTENEDOR BUSQUEDA  (TABLET) ============- */
+
+  .CP-SN-Noticias-Busquedas {
+    height: 80px;
+    top: 70px;
+  }
+
+  .I-Noticias-busqueda-titulo p {
+    font-size: 2em;
+  }
+  .I-Noticias-buscador {
+    padding-top: 10px;
+    padding-right: 5px;
+  }
+  .I-Noticias-busqueda-titulo {
+    padding-top: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media only screen and (min-device-width: 320px) and (max-width: 768px) and (orientation: portrait) {
+  /* ============ CONTENEDOR BUSQUEDA  (MOVIL) ============- */
+
+  .CP-SN-Noticias-Busquedas {
+    grid-template-columns: 5px 1fr 1fr 5px;
+    grid-template-rows: 15px 1fr 5px;
+    height: 80px;
+    top: 55x;
+  }
+
+  .I-Noticias-busqueda-titulo {
+    padding-top: 10px;
+    padding-right: 10px;
+  }
+
+  .I-Noticias-busqueda-titulo p {
+    font-size: 1.5em;
+  }
+  .Input-busqueda {
+    width: auto;
+    height: auto;
+    border-image-source: linear-gradient(21deg, #10abff, #1beabd);
+    border-width: 2pt;
+    border-image-slice: 1;
+  }
+  .I-Noticias-buscador {
+    padding-top: 10px;
+    padding-right: 5px;
+  }
+}
