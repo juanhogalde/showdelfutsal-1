@@ -3,11 +3,11 @@ import IPublicidades from './Publicidades_Interface';
 
 const PublicidadesSchema = new Schema({
   nombrePublicidad: {type: String, unique: true, required: true},
-  ancho: Number,
-  alto: Number,
+  ancho: {type: Number},
+  alto: {type: Number},
   isActiva: {type: Boolean, default: false},
   ubicacion: {type: String, unique: true, required: true},
-  direccion: String,
+  direccion: {type: String},
 });
 
 export default model<IPublicidades>('modeloPublicidades', PublicidadesSchema);

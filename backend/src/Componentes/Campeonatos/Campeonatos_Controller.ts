@@ -35,9 +35,27 @@ class CampeonatosController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const campeonato: ICampeonatos = new modeloCampeonatos(req.body);
-      await campeonato.save();
-      responder.sucess(req, res);
+      const campeonatoBody = req.body;
+      if (campeonatoBody._id) {
+        modeloCampeonatos.findById(campeonatoBody._id).then(async (campeonato: any) => {
+          if (campeonato) {
+            campeonato.tituloCampeonato = campeonatoBody.tituloCampeonato;
+            campeonato.fechaInicio = campeonatoBody.fechaInicio;
+            campeonato.fechaFin = campeonatoBody.fechaFin;
+            campeonato.idCategoria = campeonatoBody.idCategoria;
+            campeonato.idSubcategoria = campeonatoBody.idSubcategoria;
+
+            const resultado = await campeonato.save({new: true});
+            responder.sucess(req, res, resultado);
+          } else {
+            let error = new Error('Campeonato no encontrado');
+            responder.error(req, res, error);
+          }
+        });
+      } else {
+        let error = new Error('Campeonato no encontrado');
+        responder.error(req, res, error);
+      }
     } catch (error) {
       responder.error(req, res, error);
     }

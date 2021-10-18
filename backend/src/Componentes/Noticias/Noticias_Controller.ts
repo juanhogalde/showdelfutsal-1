@@ -44,9 +44,34 @@ class NoticiasController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const noticia: INoticias = new modeloNoticias(req.body);
-      await noticia.save();
-      responder.sucess(req, res);
+      const noticiaBody = req.body;
+      if (noticiaBody._id) {
+        modeloNoticias.findById(noticiaBody._id).then(async (noticia: any) => {
+          if (noticia) {
+            noticia.fecha = noticiaBody.fecha;
+            noticia.titulo = noticiaBody.titulo;
+            noticia.copete = noticiaBody.copete;
+            noticia.cuerpo = noticiaBody.cuerpo;
+            noticia.idEtiquetas = noticiaBody.idEtiquetas;
+            noticia.idCategoria = noticiaBody.idCategoria;
+            noticia.idSubcategoria = noticiaBody.idSubcategoria;
+            noticia.keyCategoria = noticiaBody.keyCategoria;
+            noticia.keySubcategoria = noticiaBody.keySubcategoria;
+            noticia.isDestacada = noticiaBody.isDestacada;
+            noticia.autor = noticiaBody.autor;
+            noticia.idImagen = noticiaBody.idImagen;
+
+            const resultado = await noticia.save({new: true});
+            responder.sucess(req, res, resultado);
+          } else {
+            let error = new Error('Noticia no encontrada');
+            responder.error(req, res, error);
+          }
+        });
+      } else {
+        let error = new Error('Noticia no encontrada');
+        responder.error(req, res, error);
+      }
     } catch (error) {
       responder.error(req, res, error);
     }

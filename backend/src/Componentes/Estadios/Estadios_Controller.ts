@@ -35,9 +35,24 @@ class EstadiosController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const estadio: IEstadios = new modeloEstadios(req.body);
-      await estadio.save();
-      responder.sucess(req, res);
+      const estadioBody = req.body;
+      if (estadioBody._id) {
+        modeloEstadios.findById(estadioBody._id).then(async (estadio: any) => {
+          if (estadio) {
+            estadio.nombreEstadio = estadioBody.nombreEstadio;
+            estadio.direccion = estadioBody.direccion;
+
+            const resultado = await estadio.save({new: true});
+            responder.sucess(req, res, resultado);
+          } else {
+            let error = new Error('Estadio no encontrado');
+            responder.error(req, res, error);
+          }
+        });
+      } else {
+        let error = new Error('Estadio no encontrado');
+        responder.error(req, res, error);
+      }
     } catch (error) {
       responder.error(req, res, error);
     }
