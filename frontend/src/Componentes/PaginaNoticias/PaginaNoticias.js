@@ -1,7 +1,7 @@
 import React from 'react';
 import './PaginaNoticias.css';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
-import SliderNoticias from '../SliderNoticias/SliderNoticias';
+import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 
 // import {useSelector} from 'react-redux';
 const PaginaNoticias = ({
@@ -44,10 +44,7 @@ const PaginaNoticias = ({
           </div>
         </div>
         <div className="CI-SN-Masculino-slider">
-          <div className="I-Componente-galeria-noticias">
-            {' '}
-            <SliderNoticias />
-          </div>
+          <div className="I-Componente-galeria-noticias"></div>
         </div>
       </div>
       {/* SECCION NOTICIAS FEMENINO /> */}
@@ -89,7 +86,9 @@ const PaginaNoticias = ({
           </div>
         </div>
         <div className="CI-SN-Inferiores-miniatura">
-          <div className="CI-SN-Inferiores-slider"></div>
+          <div className="CI-SN-Inferiores-slider">
+            <SliderNoticias />
+          </div>
         </div>
       </div>
       {/* SECCION NOTICIAS COPA Y LIGA /> */}

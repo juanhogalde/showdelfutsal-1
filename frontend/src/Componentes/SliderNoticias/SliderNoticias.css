@@ -1,6 +1,8 @@
 /* ============ CONTENEDOR NOTICIAS SLIDER ============- */
 .containerSlider {
   padding: 20px;
+  background-color: transparent;
+  max-width: 1000px;
 }
 .flechaPrev {
   color: black;

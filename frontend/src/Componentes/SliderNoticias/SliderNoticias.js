@@ -25,7 +25,7 @@ function SamplePrevArrow(props) {
     </div>
   );
 }
-const SliderNoticias = (/* {noticias = []} */) => {
+export const SliderNoticias = (/* {noticias = []} */) => {
   const noticias = useSelector(state => state.storePrueba.noticias);
   /* const noticia = useSelector(state => state.storePrueba.noticias3); */
 
@@ -51,4 +51,4 @@ const SliderNoticias = (/* {noticias = []} */) => {
   );
 };
 
-export default SliderNoticias;
+/* export default SliderNoticias; */
