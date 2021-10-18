@@ -131,6 +131,13 @@
     opacity: 1;
     transition: all 0.5s ease-out;
     margin: 0px;
+    overflow-y: scroll;
+  }
+
+  .nav-item {
+    line-height: 40px;
+    margin-right: 5rem;
+    margin-left: 5rem;
   }
 
   .nav-item:hover:after {
