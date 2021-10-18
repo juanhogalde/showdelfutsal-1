@@ -3,10 +3,12 @@ import responder from '../../Middlewares/responder';
 import modeloUsuarios from './Usuarios_Model';
 import IUsuarios from './Usuarios_Interface';
 
+const proyeccion: object = {password: 0, token: 0};
+
 class UsuariosController {
   public async listar(req: Request, res: Response) {
     try {
-      const listadoUsuarios = await modeloUsuarios.find();
+      const listadoUsuarios = await modeloUsuarios.find({}, proyeccion);
       responder.sucess(req, res, listadoUsuarios);
     } catch (error) {
       responder.error(req, res, error);
@@ -25,6 +27,11 @@ class UsuariosController {
 
   public async login(req: Request, res: Response) {
     try {
+      const datosUsuario = req.body;
+      if (datosUsuario && datosUsuario.nombreUsuario) {
+      } else {
+        throw new Error('No se ingresaron datos de usuario');
+      }
       //responder.sucess(req, res, usuario); //devolver sin pass el token
     } catch (error) {
       responder.error(req, res, error);
