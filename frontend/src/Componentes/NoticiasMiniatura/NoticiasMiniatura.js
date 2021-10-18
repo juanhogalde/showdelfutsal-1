@@ -15,9 +15,15 @@ const NoticiasMiniatura = ({
   datosModelado = {},
   isSobreImagen = false,
   isSeccionNoticias = false,
+  isParaSlider = false,
 }) => {
   return (
-    <div className="CP-Noticias-NoticiaMiniatura">
+    <div
+      id="slide"
+      className={`${
+        isParaSlider ? 'CP-Noticias-NoticiaMiniatura paddingSlider' : 'CP-Noticias-NoticiaMiniatura'
+      }`}
+    >
       <div className="cuerpo-NoticiaMiniatura">
         {isSeccionNoticias && (
           <div className="CI-Cabecera-NoticiaMiniatura">

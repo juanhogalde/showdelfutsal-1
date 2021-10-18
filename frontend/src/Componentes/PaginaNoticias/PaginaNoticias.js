@@ -1,7 +1,7 @@
 import React from 'react';
 import './PaginaNoticias.css';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
-import GaleriaNoticiasMiniatura from '../GaleriaNoticiasMiniatura/GaleriaNoticiasMiniatura';
+import SliderNoticias from '../SliderNoticias/SliderNoticias';
 
 // import {useSelector} from 'react-redux';
 const PaginaNoticias = ({
@@ -46,7 +46,7 @@ const PaginaNoticias = ({
         <div className="CI-SN-Masculino-slider">
           <div className="I-Componente-galeria-noticias">
             {' '}
-            <GaleriaNoticiasMiniatura />
+            <SliderNoticias />
           </div>
         </div>
       </div>
