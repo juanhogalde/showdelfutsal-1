@@ -20,6 +20,10 @@
   z-index: 2;
 }
 
+.Icon-Menu {
+  color: #ffffff;
+  font-size: 1.5rem;
+}
 .nav-container {
   display: flex;
   justify-content: center;

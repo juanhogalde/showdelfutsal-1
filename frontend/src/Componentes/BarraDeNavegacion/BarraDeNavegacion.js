@@ -2,6 +2,7 @@ import React from 'react';
 import './BarraDeNavegacion.css';
 import {useState} from 'react';
 import {NavLink} from 'react-router-dom';
+import {AiOutlineMenu} from 'react-icons/ai';
 
 const BarraDeNavegacion = () => {
   const [click, setClick] = useState(false);
@@ -96,7 +97,7 @@ const BarraDeNavegacion = () => {
               </li>
             </ul>
             <div className="nav-icon" onClick={handleClick}>
-              <i className={click ? 'fas fa-times' : 'fas fa-bars'}> +</i>
+              <AiOutlineMenu className={click ? 'Icon-Menu' : 'Icon-Menu'}></AiOutlineMenu>
             </div>
           </div>
         </nav>
