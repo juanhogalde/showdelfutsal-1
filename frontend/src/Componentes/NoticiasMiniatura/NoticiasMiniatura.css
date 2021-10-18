@@ -49,11 +49,17 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  border-top: 1px solid #ffe35f;
 }
 .CI-Categoria-NoticiaMiniatura-Principal {
-  border-bottom: 1px solid rgb(217, 224, 109);
-  max-width: 100%;
-  max-height: 40px;
+  /* border-bottom: 1px solid #ffe35f; */
+  max-width: 150px;
+  min-height: 30px;
+  background-color: #ffe35f;
+  clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
 }
 .CI-Categoria-NoticiaMiniatura {
   border-bottom: 1px solid rgb(217, 224, 109);
@@ -70,7 +76,7 @@
 .Copete-NoticiaMiniatura {
   align-items: center;
   font-weight: 400;
-  margin-top: -0.2rem;
+  margin-top: 20px;
 }
 .fecha-NoticiaMiniatura-NoticiaMiniatura {
   margin-right: 1rem;
