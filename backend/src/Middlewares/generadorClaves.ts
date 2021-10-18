@@ -12,4 +12,9 @@ export default class generarClaves {
     let token = jwt.sign({...datos}, env.get('TOKEN_SECRET').required().asString());
     return token;
   };
+
+  compararClave = (keyBD: any, keyBody: string) => {
+    const match = bcrypt.compareSync(keyBody, keyBD);
+    return match;
+  };
 }

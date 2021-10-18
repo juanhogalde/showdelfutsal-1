@@ -2,6 +2,8 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloUsuarios from './Usuarios_Model';
 import IUsuarios from './Usuarios_Interface';
+import generarClaves from '../../Middlewares/generadorClaves';
+const genClaves = new generarClaves();
 
 const proyeccion: object = {password: 0, token: 0};
 
@@ -25,10 +27,38 @@ class UsuariosController {
     }
   }
 
+  // public async test(req: Request, res: Response) {
+  //   try {
+  //     responder.sucess(req, res, 'TODO OK loco');
+  //   } catch (error) {
+  //     responder.error(req, res, error);
+  //   }
+  // }
+
   public async login(req: Request, res: Response) {
     try {
       const datosUsuario = req.body;
-      if (datosUsuario && datosUsuario.nombreUsuario) {
+      if (datosUsuario && datosUsuario.email) {
+        const usuarioBD = await modeloUsuarios
+          .findOne({$and: [{email: datosUsuario.email}, {isActivo: true}]})
+          .exec();
+
+        if (usuarioBD) {
+          const match = genClaves.compararClave(usuarioBD.password, datosUsuario.password);
+          if (match) {
+            let {password, ...usuarioSinPass} = usuarioBD;
+            const tokenGenerado = genClaves.generarToken(usuarioSinPass);
+            if (tokenGenerado) {
+              responder.sucess(req, res, tokenGenerado);
+            } else {
+              throw new Error('Error al generar el token');
+            }
+          } else {
+            throw new Error('Clave incorrecta');
+          }
+        } else {
+          throw new Error('Usuario no encontrado o desactivado.');
+        }
       } else {
         throw new Error('No se ingresaron datos de usuario');
       }
