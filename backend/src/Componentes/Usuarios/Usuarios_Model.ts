@@ -17,10 +17,10 @@ UsuariosSchema.pre('save', function (next) {
   const data = this;
   const passwordHasheado = genClaves.hashClave(data.password);
   data.password = passwordHasheado;
-  const tokenGenerado = genClaves.generarToken(data);
-  data.token = tokenGenerado;
+  // const tokenGenerado = genClaves.generarToken(data);
+  // data.token = tokenGenerado;
 
-  if (tokenGenerado && passwordHasheado) {
+  if (passwordHasheado) {
     next();
   } else {
     throw new Error('Datos no generados');
