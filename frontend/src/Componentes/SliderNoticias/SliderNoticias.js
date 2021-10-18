@@ -25,15 +25,43 @@ function SamplePrevArrow(props) {
     </div>
   );
 }
-export const SliderNoticias = (/* {noticias = []} */) => {
+export const SliderNoticias = ({cantidadDeElementos = 4}) => {
   const noticias = useSelector(state => state.storePrueba.noticias);
   /* const noticia = useSelector(state => state.storePrueba.noticias3); */
 
   var settings = {
     speed: 1000,
-    slidesToShow: 4,
+    slidesToShow: cantidadDeElementos,
+    slidesToScroll: cantidadDeElementos,
+
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          /* dots: true, */
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (

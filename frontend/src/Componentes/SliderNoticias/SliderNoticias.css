@@ -2,7 +2,7 @@
 .containerSlider {
   padding: 20px;
   background-color: transparent;
-  max-width: 1000px;
+  max-width: 100%;
 }
 .flechaPrev {
   color: black;

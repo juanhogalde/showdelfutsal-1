@@ -3,13 +3,14 @@ import './SeccionNoticias.css';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import './SeccionNoticias.css';
 import publicidadCorta from '../../Static/Img/publicidad_corta.jpg';
+import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 
-const SeccionNoticias = () => {
+const SeccionNoticias = ({tituloSeccionNoticias = 'Título'}) => {
   return (
     <div className=" CP-SN-Noticias Fondo-seccion-noticias">
       <div className="CI-SN-Noticia-titulo">
         <div className="I-SN-Noticia-titulo">
-          <p>TITULO</p>
+          <p>{tituloSeccionNoticias}</p>
         </div>
       </div>
       <div className="CI-SN-Noticia-general">
@@ -19,14 +20,14 @@ const SeccionNoticias = () => {
       </div>
       <div className="CI-SN-Noticia-miniatura">
         <div className="I-Noticia-Componente-miniatura">
-          {/* <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true}></NoticiasMiniatura>
-          <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true}></NoticiasMiniatura> */}
-          <img alt="" src={publicidadCorta}></img>
-          <img alt="" src={publicidadCorta}></img>
+          <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true}></NoticiasMiniatura>
+          <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true}></NoticiasMiniatura>
+          {/* <img alt="" src={publicidadCorta}></img>
+          <img alt="" src={publicidadCorta}></img> */}
         </div>
       </div>
       <div className="CI-SN-Noticia-slider">
-        <div className="I-Componente-galeria-noticias">{/* <GaleriaNoticiasMiniatura /> */}</div>
+        <SliderNoticias></SliderNoticias>
       </div>
     </div>
   );
