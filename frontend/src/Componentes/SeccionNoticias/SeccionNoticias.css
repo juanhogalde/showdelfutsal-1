@@ -64,10 +64,11 @@
 }
 
 .I-Componente-galeria-noticias {
-  /* grid-column: 2/3;
-  grid-row: 2/3; */
-  /* display: flex;
-  align-items: center; */
+  grid-column: 2/3;
+  grid-row: 2/3;
+  display: flex;
+  display: -ms-flexbox;
+  align-items: center;
 }
 /* ----- ITEM NOTICIA  ----- */
 
@@ -94,6 +95,7 @@
 @media only screen and (min-device-width: 780px) and (max-width: 1024px) {
   .CP-SN-Noticias {
     padding: 10px;
+    padding-top: 50px;
   }
 }
 
@@ -102,9 +104,9 @@
 
   .CP-SN-Noticias {
     grid-template-columns: 3px 1fr 3px;
-    grid-template-rows: 100px 1fr 1fr auto;
-    /* border: 4px solid rgba(207, 18, 18, 0.8); */
+    /* grid-template-rows: 100px 1fr 1fr auto;  */
     padding: 0px;
+    padding-top: 40px;
   }
 
   /* ----- CONTENEDOR NOTICIA  TITULO (MOVIL)----- */
