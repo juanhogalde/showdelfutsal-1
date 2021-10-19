@@ -11,7 +11,7 @@ import 'slick-carousel/slick/slick-theme.css';
 function SampleNextArrow(props) {
   const {onClick} = props;
   return (
-    <div className="flechaNext" onClick={onClick}>
+    <div className={`${props.isVertical ? 'flechaNextVertical' : 'flechaNext'}`} onClick={onClick}>
       <AiFillCaretRight className="flecha"></AiFillCaretRight>
     </div>
   );
@@ -20,12 +20,12 @@ function SampleNextArrow(props) {
 function SamplePrevArrow(props) {
   const {onClick} = props;
   return (
-    <div className="flechaPrev" onClick={onClick}>
+    <div className={`${props.isVertical ? 'flechaPrevVertical' : 'flechaPrev'}`} onClick={onClick}>
       <AiFillCaretLeft className="flecha"></AiFillCaretLeft>
     </div>
   );
 }
-export const SliderNoticias = ({cantidadDeElementos = 4}) => {
+export const SliderNoticias = ({cantidadDeElementos = 4, isVertical = false}) => {
   const noticias = useSelector(state => state.storePrueba.noticias);
   /* const noticia = useSelector(state => state.storePrueba.noticias3); */
 
@@ -33,9 +33,10 @@ export const SliderNoticias = ({cantidadDeElementos = 4}) => {
     speed: 1000,
     slidesToShow: cantidadDeElementos,
     slidesToScroll: cantidadDeElementos,
-
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+    vertical: isVertical,
+    verticalSwiping: isVertical,
+    nextArrow: <SampleNextArrow isVertical={isVertical} />,
+    prevArrow: <SamplePrevArrow isVertical={isVertical} />,
     responsive: [
       {
         breakpoint: 1024,

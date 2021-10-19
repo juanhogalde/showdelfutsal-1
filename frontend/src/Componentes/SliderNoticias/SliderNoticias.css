@@ -1,6 +1,8 @@
 /* ============ CONTENEDOR NOTICIAS SLIDER ============- */
 .containerSlider {
   padding: 20px;
+  padding-top: 50px;
+  padding-bottom: 50px;
   background-color: transparent;
   max-width: 100%;
 }
@@ -18,6 +20,7 @@
   right: -30px;
   top: 40%;
 }
+
 .flecha {
   font-size: 30px;
   transition: all 0.3s;
@@ -28,4 +31,22 @@
 }
 .flechaNext:hover .flecha {
   font-size: 33px;
+}
+
+/* ============ FLECHAS VERTICALES ============- */
+
+.flechaPrevVertical {
+  color: black;
+  position: absolute;
+  top: -40px;
+  left: 45%;
+  transform: rotate(90deg);
+}
+
+.flechaNextVertical {
+  color: black;
+  position: absolute;
+  bottom: -40px;
+  left: 45%;
+  transform: rotate(90deg);
 }
