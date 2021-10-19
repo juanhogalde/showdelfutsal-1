@@ -71,5 +71,13 @@ class ImagenesController {
       responder.error(req, res, error);
     }
   }
+
+  public async obtenerGaleria(nombreGaleria: string) {
+    return modeloImagenes.find({galeria: nombreGaleria}).sort({fechaCarga: 'desc'}).limit(3);
+  }
+
+  public async obtenerGaleriaVideo(nombreGaleria: string) {
+    return modeloImagenes.find({galeriaVideo: nombreGaleria}).sort({fechaCarga: 'desc'}).limit(2);
+  }
 }
 export const imagenesController = new ImagenesController();

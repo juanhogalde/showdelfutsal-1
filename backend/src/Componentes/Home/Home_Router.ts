@@ -11,6 +11,7 @@ class HomesRouter {
 
   routes() {
     this.router.get('/datosIniciales', homesController.obtenerDatosIniciales);
+    this.router.post('/agregar', homesController.agregar);
     /* this.router.get('/vivo', homesController.obtenerVivo);
     this.router.get('/radio', homesController.obtenerRadio);
     this.router.get('/partidos', homesController.obtenerPartidos);

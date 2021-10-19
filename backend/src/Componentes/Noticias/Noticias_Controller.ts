@@ -22,6 +22,10 @@ class NoticiasController {
     }
   }
 
+  public obtenerNoticiasDestacadas() {
+    return modeloNoticias.find({isDestacada: true}).populate('idCategoria').sort({fecha: 'desc'});
+  }
+
   public async agregar(req: Request, res: Response) {
     try {
       const noticia: INoticias = new modeloNoticias(req.body);

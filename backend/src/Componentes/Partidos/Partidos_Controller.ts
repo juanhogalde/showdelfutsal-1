@@ -77,5 +77,40 @@ class PartidosController {
       responder.error(req, res, error);
     }
   }
+
+  public async obtenerPartidos() {
+    var dia = 1000 * 60 * 60 * 24;
+    var partidosARetornar: any = [];
+    var fechaActual: Date = new Date();
+    var fechaActualParse: any = new Date(
+      fechaActual.getFullYear(),
+      fechaActual.getMonth(),
+      fechaActual.getDay()
+    );
+
+    const partidos = await modeloPartidos.find({});
+    if (partidos && partidos.length) {
+      for await (const partido of partidos) {
+        let fechaPartido: Date = new Date(partido.fechaPartido);
+        let fechaPartidoParse: any = new Date(
+          fechaPartido.getFullYear(),
+          fechaPartido.getMonth(),
+          fechaPartido.getDay()
+        );
+
+        let diferenciaEntreFechasAnterior = (fechaPartidoParse - fechaActualParse) / dia;
+        if (diferenciaEntreFechasAnterior > 0 && diferenciaEntreFechasAnterior <= 30) {
+          partidosARetornar.push(partido);
+        }
+
+        let diferenciaEntreFechasPosterior = (fechaActualParse - fechaPartidoParse) / dia;
+        if (diferenciaEntreFechasPosterior >= 90) {
+          partidosARetornar.push(partido);
+        }
+      }
+    }
+
+    return partidosARetornar;
+  }
 }
 export const partidosController = new PartidosController();
