@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './PaginaSecciones.css';
 import SubMenuNoticias from '../SubMenuNoticias/SubMenuNoticias';
 import SeccionNoticias from '../SeccionNoticias/SeccionNoticias';
+import SeccionFixture from '../SeccionFixture/SeccionFixture';
 
 const PaginaSecciones = () => {
   const [isSeccionNoticias, setIsSeccionNoticias] = useState(false);
@@ -55,7 +56,7 @@ const PaginaSecciones = () => {
         )}
         {isSeccionFixture && (
           <div className="fondo-Tabla-Fixture">
-            <h5>Fixture</h5>
+            <SeccionFixture></SeccionFixture>
           </div>
         )}
         {isSeccionTabla && (

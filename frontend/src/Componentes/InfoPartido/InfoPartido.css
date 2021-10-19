@@ -25,6 +25,11 @@
   height: 35px;
   background-color: black;
   transition: all 0.5s;
+  color: white;
+  margin-bottom: 2rem;
+}
+.marginParaFixture {
+  margin-bottom: 0 !important;
 }
 .slider-izquierdo-IP {
   grid-column: 1/2;
