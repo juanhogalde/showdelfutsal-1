@@ -20,22 +20,16 @@ const PaginaNoticias = ({
       {/* <SubMenuBuscadorNoticias /> */}
       <SubMenuNoticias />
       <div className=" LI-Seccion-Noticias ">
-        <SeccionNoticias />
+        <SeccionNoticias tituloSeccionNoticias="Masculino" />
       </div>
       <div className=" LI-Seccion-Noticias ">
-        <SeccionNoticias />
+        <SeccionNoticias tituloSeccionNoticias="Femenino" />
       </div>
       {/* SECCION NOTICIAS FEMENINO /> */}
 
       {/* SECCION NOTICIAS INFERIORES /> */}
       <div className=" LI-Seccion-Noticias ">
-        <div className=" CP-SN-Inferiores Fondo-animacion">
-          <div className="cube"></div>
-          <div className="cube"></div>
-          <div className="cube"></div>
-          <div className="cube"></div>
-          <div className="cube"></div>
-          <div className="cube"></div>
+        <div className=" CP-SN-Inferiores ">
           <div className="CI-SN-Inferiores-titulo">
             <div className="I-SN-Inferiores-titulo">
               <p>{noticias2}</p>
@@ -47,24 +41,16 @@ const PaginaNoticias = ({
             </div>
           </div>
           <div className="CI-SN-Inferiores-miniatura">
-            <div className="CI-SN-Inferiores-slider"></div>
+            <SliderNoticias cantidadDeElementos={2} />
           </div>
         </div>
         <div className="CI-SN-Inferiores-miniatura">
-          <div className="CI-SN-Inferiores-slider">
-            <SliderNoticias />
-          </div>
+          <div className="CI-SN-Inferiores-slider"></div>
         </div>
       </div>
       {/* SECCION NOTICIAS COPA Y LIGA /> */}
       <div className=" LI-Seccion-Noticias ">
-        <div className=" CP-SN-Liga Fondo-animacion ">
-          <div className="cube"></div>
-          <div className="cube"></div>
-          <div className="cube"></div>
-          <div className="cube"></div>
-          <div className="cube"></div>
-          <div className="cube"></div>
+        <div className=" CP-SN-Liga  ">
           <div className="CI-SN-Liga-titulo">
             <div className="I-SN-Liga-titulo">
               <p>{noticias3}</p>
