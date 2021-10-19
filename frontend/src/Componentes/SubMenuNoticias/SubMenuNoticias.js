@@ -2,7 +2,11 @@ import React from 'react';
 import './SubMenuNoticias.css';
 import {NavLink} from 'react-router-dom';
 
-const SubMenuNoticias = () => {
+const SubMenuNoticias = ({
+  obtenerSeccion = () => {
+    console.log('No se envió función');
+  },
+}) => {
   return (
     <div className="CP-SN-Noticias-Menu">
       <div className="CI-Noticias-titulo">
@@ -44,13 +48,13 @@ const SubMenuNoticias = () => {
             </NavLink>
           </li>
         </ul> */}
-        <div className="I-Noticias-fixture">
+        <div className="I-Noticias-fixture" onClick={() => obtenerSeccion(1)}>
           <h6>Fixture</h6>
         </div>
-        <div className="I-Noticias-tabla-posiciones">
+        <div className="I-Noticias-tabla-posiciones" onClick={() => obtenerSeccion(2)}>
           <h6>Tabla de posiciones</h6>
         </div>
-        <div className="I-Noticias-categoria">
+        <div className="I-Noticias-categoria" onClick={() => obtenerSeccion(3)}>
           <h6>Noticias</h6>
         </div>
       </div>

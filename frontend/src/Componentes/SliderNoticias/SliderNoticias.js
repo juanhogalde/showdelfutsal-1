@@ -74,6 +74,8 @@ export const SliderNoticias = ({cantidadDeElementos = 4, isConCopete = false}) =
                 isConCopete={isConCopete}
                 isParaSlider={true}
                 datosModelado={noticia}
+                isSeccionNoticias={isConCopete}
+                /* isSobreImagen={isConCopete} */
               ></NoticiasMiniatura>
             </div>
           );

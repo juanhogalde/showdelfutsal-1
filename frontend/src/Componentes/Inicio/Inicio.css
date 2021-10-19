@@ -226,8 +226,9 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 20px;
   margin-right: 200px;
+  margin-bottom: 20px;
 }
 .CI-NoticiaPrincipal {
   grid-column: 2/3;

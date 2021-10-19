@@ -44,7 +44,7 @@ const PaginaNoticias = ({
             </div>
           </div>
           <div className="CI-SN-Inferiores-miniatura">
-            <SliderNoticias cantidadDeElementos={2} isConCopete></SliderNoticias>
+            <SliderNoticias cantidadDeElementos={2} isConCopete={true}></SliderNoticias>
           </div>
         </div>
         <div className="CI-SN-Inferiores-miniatura">
