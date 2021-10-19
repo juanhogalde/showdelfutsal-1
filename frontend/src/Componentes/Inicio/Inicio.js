@@ -19,6 +19,8 @@ const Filtro = [
 
 const Inicio = () => {
   const noticia = useSelector(state => state.storePrueba.noticias);
+  const {noticias1, noticias2, noticias3} = useSelector(state => state.storePrueba);
+
   const {DatosDePruebaImagenes, DatosDePruebaVideos} = useSelector(state => state.storePrueba);
   const videoVivoPrueba = {fuente: 'MmysMu3mgvw'};
   return (
@@ -86,20 +88,24 @@ const Inicio = () => {
           </div>
           <div className="CI-NoticiaPrincipal">
             <div className="componenteNoticiaPrincipal">
-              <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true}></NoticiasMiniatura>
+              <NoticiasMiniatura
+                isSeccionNoticias={true}
+                isSobreImagen={true}
+                datosModelado={noticias1}
+              ></NoticiasMiniatura>
             </div>
           </div>
           <div className="CI-NoticiasMini">
             <div className="noticia-Miniatura-1">
               <NoticiasMiniatura
                 isSeccionNoticias={true}
-                datosModelado={noticia}
+                datosModelado={noticias2}
               ></NoticiasMiniatura>
             </div>
             <div className="noticia-Miniatura-2">
               <NoticiasMiniatura
                 isSeccionNoticias={true}
-                datosModelado={noticia}
+                datosModelado={noticias3}
               ></NoticiasMiniatura>
             </div>
           </div>
