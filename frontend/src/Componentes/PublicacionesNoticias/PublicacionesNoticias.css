@@ -1,0 +1,33 @@
+/* --- CONTENEDOR PANEL --- */
+
+.CP-Publicaciones-noticias {
+  display: grid;
+  display: grid;
+  grid-template-columns: 5px 1fr 5px;
+  grid-template-rows: 5px 1fr 5px;
+  height: 300px;
+  width: 100%;
+  /* background-color: red; */
+}
+
+.CI-Panel-publicaciones {
+  padding: 10px;
+  grid-column: 2/3;
+  grid-row: 2/3;
+  display: grid;
+  grid-template-columns: 5px 1fr 5px;
+  grid-template-rows: 5px 20% 80% 5px;
+  border: 1px linear-gradient(21deg, #10abff, #1beabd);
+}
+
+.I-Cabecera-publicaciones {
+  /* background-color: coral; */
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
+.I-Fechas-publicaciones {
+  /* background-color: rgb(80, 255, 159); */
+  grid-column: 2/3;
+  grid-row: 3/4;
+}
