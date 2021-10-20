@@ -4,24 +4,18 @@ import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 import SeccionNoticias from '../SeccionNoticias/SeccionNoticias';
 import SubMenuBuscadorNoticias from '../SubMenuBuscadorNoticias/SubMenuBuscadorNoticias';
-import SubMenuNoticias from '../SubMenuNoticias/SubMenuNoticias';
-import {useSelector} from 'react-redux';
 
-// import {useSelector} from 'react-redux';
 const PaginaNoticias = ({
   titulo = 'Masculino',
   noticias1 = 'Femenino',
   noticias2 = 'Inferiores',
   noticias3 = 'Copa y Liga',
 }) => {
-  //const {noticias, noticias2, noticias3} = useSelector(state => state.storePrueba);
-  const noticias = useSelector(state => state.storePrueba.noticias);
-
   return (
     <div className="LP-Seccion-Noticias">
       {/* SECCION NOTICIAS MASCULINO /> */}
-      {/* <SubMenuBuscadorNoticias /> */}
-      <SubMenuNoticias />
+      <SubMenuBuscadorNoticias />
+
       <div className=" LI-Seccion-Noticias ">
         <SeccionNoticias tituloSeccionNoticias="Masculino" />
       </div>

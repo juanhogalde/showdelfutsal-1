@@ -1,6 +1,5 @@
 import React from 'react';
 import './SubMenuNoticias.css';
-import {NavLink} from 'react-router-dom';
 
 const SubMenuNoticias = ({
   obtenerSeccion = () => {

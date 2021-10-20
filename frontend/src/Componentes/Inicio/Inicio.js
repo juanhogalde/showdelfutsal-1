@@ -18,7 +18,6 @@ const Filtro = [
 ];
 
 const Inicio = () => {
-  const noticia = useSelector(state => state.storePrueba.noticias);
   const {noticias1, noticias2, noticias3} = useSelector(state => state.storePrueba);
 
   const {DatosDePruebaImagenes, DatosDePruebaVideos} = useSelector(state => state.storePrueba);

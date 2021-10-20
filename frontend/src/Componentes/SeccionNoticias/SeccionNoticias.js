@@ -2,7 +2,7 @@ import React from 'react';
 import './SeccionNoticias.css';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import './SeccionNoticias.css';
-import publicidadCorta from '../../Static/Img/publicidad_corta.jpg';
+/* import publicidadCorta from '../../Static/Img/publicidad_corta.jpg'; */
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 
 const SeccionNoticias = ({tituloSeccionNoticias = 'Título'}) => {
