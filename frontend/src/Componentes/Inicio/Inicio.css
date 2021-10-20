@@ -69,7 +69,7 @@
   grid-column: 1/2;
   grid-row: 2/3;
   margin: 20px 20px 20px 20px;
-  border: 2px solid #ffb45f;
+  /* border: 2px solid #ffb45f; */
 }
 
 .I-somos-radio-componente {
@@ -78,7 +78,7 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  border: 2px solid #ffcc5f;
+  /* border: 2px solid #ffcc5f; */
 }
 
 .CI-Somos-redes {
@@ -413,6 +413,13 @@
     min-height: 100%;
   }
 
+  .CP-Somos {
+    padding-top: 30px;
+    padding-bottom: 0px;
+    grid-template-columns: 5px 1fr 5px;
+    grid-template-rows: 1fr;
+  }
+
   .CI-Somos {
     display: none;
   }
@@ -431,7 +438,7 @@
     align-items: center;
   }
   .Somos-frase {
-    width: 80%;
+    width: 60%;
     height: auto;
   }
 
@@ -440,15 +447,21 @@
     grid-row: 2/3;
     border: 2px solid red;
     margin: 0px;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    margin-left: auto;
+  }
+
+  .Margen-inicio {
+    padding: 50px;
   }
 
   .I-somos-radio-componente {
     grid-column: 2/3;
     grid-row: 2/3;
-    align-items: center;
     width: 100%;
     height: 100%;
-    border: 2px solid #72ff5f;
   }
 
   .seccion-somos {
@@ -742,7 +755,7 @@
   }
 
   .CI-Somos-radio {
-    display: inline;
+    display: none;
     /* display: grid;
     grid-template-columns: 5px 1fr 5px;
     grid-template-rows: 5px 40% 5px;

@@ -13,6 +13,7 @@ import SomosFrase from '../../Static/Img/frase_inicio.png';
 import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
+import Radio from '../Radio/Radio';
 
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
@@ -27,7 +28,7 @@ const Inicio = () => {
   const videoVivoPrueba = {fuente: 'MmysMu3mgvw'};
   return (
     <div className="LP-Inicio">
-      <div className="LI-Inicio seccion-somos">
+      <div className="LI-Inicio Margen-inicio seccion-somos">
         <div className="CP-Somos">
           <div className="CI-Somos"></div>
 
@@ -57,7 +58,9 @@ const Inicio = () => {
           </div>
 
           <div className="CI-Somos-radio">
-            <div className="I-somos-radio-componente"></div>
+            <div className="I-somos-radio-componente">
+              <Radio />
+            </div>
           </div>
         </div>
       </div>
