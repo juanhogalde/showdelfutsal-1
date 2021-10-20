@@ -1,7 +1,8 @@
 .CP-SeccionFixture {
   width: 100%;
+  min-height: 100vh;
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 100px 1fr 100px;
   grid-template-rows: minmax(0, 100px) auto;
 }
 .CI-componente-InfoPartido {
@@ -19,10 +20,36 @@
 .CI-componente-TarjetaFixture {
   grid-column: 2/3;
   grid-row: 2/3;
-  padding-right: 150px;
+  padding-right: 130px;
+  max-height: 70vh;
+  overflow-y: scroll;
 }
-/* @media screen and (max-width: 1024px) {
+.CI-componente-TarjetaFixture::-webkit-scrollbar {
+  width: 5px;
+} /* 
+.CI-componente-TarjetaFixtures::-webkit-scrollbar-thumb {
+  background: #ffe35f;
+} */
+@media screen and (max-width: 1024px) {
+  .CP-SeccionFixture {
+    grid-template-columns: 50px 1fr 50px;
+  }
   .CI-componente-TarjetaFixture {
     padding-right: 100px;
+    max-height: 80vh;
   }
-} */
+}
+@media screen and (max-width: 768px) {
+  .CP-SeccionFixture {
+    grid-template-columns: 20px 1fr 20px;
+  }
+  .CI-componente-TarjetaFixture {
+    padding-right: 0;
+    max-height: 80vh;
+  }
+}
+@media screen and (max-width: 370px) {
+  .CP-SeccionFixture {
+    grid-template-columns: 5px 1fr 5px;
+  }
+}

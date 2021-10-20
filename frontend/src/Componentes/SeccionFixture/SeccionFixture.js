@@ -16,6 +16,12 @@ const SeccionFixture = () => {
       </div>
       <div className="CI-componente-TarjetaFixture">
         <TarjetaFixture></TarjetaFixture>
+        <TarjetaFixture></TarjetaFixture>
+        <TarjetaFixture></TarjetaFixture>
+        <TarjetaFixture></TarjetaFixture>
+        <TarjetaFixture></TarjetaFixture>
+        <TarjetaFixture></TarjetaFixture>
+        <TarjetaFixture></TarjetaFixture>
       </div>
     </div>
   );

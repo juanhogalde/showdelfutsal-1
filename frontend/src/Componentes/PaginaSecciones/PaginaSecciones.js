@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './PaginaSecciones.css';
-import SubMenuNoticias from '../SubMenuNoticias/SubMenuNoticias';
 import SeccionNoticias from '../SeccionNoticias/SeccionNoticias';
 import SeccionFixture from '../SeccionFixture/SeccionFixture';
 import SeccionTablaDePosiciones from '../SeccionTablaDePosiciones/SeccionTablaDePosiciones';
+import SubMenuSecciones from '../SubMenuSecciones/SubMenuSecciones';
 
 const PaginaSecciones = () => {
   const [isSeccionNoticias, setIsSeccionNoticias] = useState(false);
@@ -40,7 +40,7 @@ const PaginaSecciones = () => {
   }, []);
   return (
     <div className="CP-PaginaSecciones">
-      <SubMenuNoticias obtenerSeccion={obtenerSeccion} />
+      <SubMenuSecciones obtenerSeccion={obtenerSeccion} />
 
       <div className="CI-Cuerpo-PaginaSecciones">
         {isSeccionNoticias && (

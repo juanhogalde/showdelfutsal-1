@@ -8,8 +8,6 @@
   margin-bottom: 3px;
 }
 .CI-Cuerpo-Fixture {
-  grid-column: 1/6;
-  grid-row: 2/3;
   width: 100%;
   min-height: 80px;
   display: grid;
@@ -77,4 +75,55 @@
   grid-column: 5/6;
   grid-row: 1/2;
   flex-direction: row-reverse;
+}
+@media screen and (max-width: 768px) {
+  .CI-Cuerpo-Fixture {
+    min-height: 80px;
+    display: grid;
+    grid-template-columns: 1fr 10% 10% 1fr;
+    grid-template-rows: minmax(80px, 100px) 30px;
+  }
+  .hora-sede-Fixture {
+    grid-column: 1/6;
+    grid-row: 2/3;
+    width: 100%;
+    min-height: 30px;
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .posicion-EquipoA-Fixture {
+    grid-column: 1/2;
+  }
+  .posicion-MarcadorA-Fixture {
+    grid-column: 2/3;
+  }
+  .posicion-MarcadorB-Fixture {
+    grid-column: 3/4;
+  }
+  .posicion-Equipo-B-Fixture {
+    grid-column: 4/5;
+  }
+}
+@media screen and (max-width: 480px) {
+  .CI-Cuerpo-Fixture {
+    grid-template-columns: 1fr 15% 15% 1fr;
+    grid-template-rows: minmax(0px, 90px) 30px;
+  }
+  .marcador-Fixture {
+    min-height: 60px;
+  }
+  .equipo-Fixture img {
+    max-width: 50px;
+    max-height: 50px;
+  }
+}
+@media screen and (max-width: 370px) {
+  .hora-sede-Fixture {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }

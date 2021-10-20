@@ -24,3 +24,18 @@
   width: 100%;
   height: auto;
 }
+@media screen and (max-width: 480px) {
+  .CP-TarjetaFixture {
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  .CI-fecha-Fixture {
+    display: flex;
+    margin-left: 65px;
+    margin-right: 70px;
+  }
+  .fecha-Fixture {
+    grid-column: 1/5;
+    width: 100%;
+  }
+}
