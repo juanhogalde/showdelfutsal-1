@@ -1,7 +1,7 @@
 import React from 'react';
 import './TablaDePosiciones.css';
 import escudo_alianza from '../../Static/Img/escudo_alianza.png';
-import escudo_huarpes from '../../Static/Img/escudo_huarpes.png';
+/* import escudo_huarpes from '../../Static/Img/escudo_huarpes.png'; */
 
 var arrayTabla = [
   {clave: 1, valor: 10},

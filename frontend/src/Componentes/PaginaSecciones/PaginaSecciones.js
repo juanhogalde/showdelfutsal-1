@@ -11,29 +11,22 @@ const PaginaSecciones = () => {
   const [isSeccionTabla, setIsSeccionTabla] = useState(false);
 
   const obtenerSeccion = respuesta => {
-    console.log(respuesta);
     switch (respuesta) {
       case 1:
-        {
-          setIsSeccionFixture(true);
-          setIsSeccionNoticias(false);
-          setIsSeccionTabla(false);
-        }
+        setIsSeccionFixture(true);
+        setIsSeccionNoticias(false);
+        setIsSeccionTabla(false);
         break;
       case 2:
-        {
-          setIsSeccionTabla(true);
-          setIsSeccionFixture(false);
-          setIsSeccionNoticias(false);
-        }
+        setIsSeccionTabla(true);
+        setIsSeccionFixture(false);
+        setIsSeccionNoticias(false);
         break;
 
       case 3:
-        {
-          setIsSeccionNoticias(true);
-          setIsSeccionTabla(false);
-          setIsSeccionFixture(false);
-        }
+        setIsSeccionNoticias(true);
+        setIsSeccionTabla(false);
+        setIsSeccionFixture(false);
         break;
       default:
         console.log('default');
