@@ -4,25 +4,39 @@ import {AiFillCaretLeft} from 'react-icons/ai';
 import {AiFillCaretRight} from 'react-icons/ai';
 
 const InfoPartido = props => {
-  const {fecha, sede, siguientePartido} = props;
+  const {fecha, sede, siguientePartido, isSoloTitulo} = props;
 
   return (
     <div className="CP-InfoPartido">
       <div className="CI-InfoPartido">
-        <h3>{fecha.hora}</h3>
-        <h4 className="fecha-dia">{fecha.dia}</h4>
-        <p className="margenSede">{sede}</p>
+        {isSoloTitulo ? (
+          <React.Fragment>
+            <h3>Fecha 1</h3>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <h3>{fecha ? fecha.hora : '-'}</h3>
+            <h4 className="fecha-dia">{fecha ? fecha.dia : '-'}</h4>
+            <p className="margenSede">{sede ? sede : '-'}</p>
+          </React.Fragment>
+        )}
       </div>
       <div
-        style={{marginBottom: '2rem'}}
-        className="slider-InfoPartido slider-izquierdo-IP"
+        className={`${
+          isSoloTitulo
+            ? 'slider-InfoPartido slider-izquierdo-IP marginParaFixture'
+            : 'slider-InfoPartido slider-izquierdo-IP'
+        }`}
         onClick={() => siguientePartido(-1)}
       >
         <AiFillCaretLeft />
       </div>
       <div
-        style={{marginBottom: '2rem'}}
-        className="slider-InfoPartido slider-derecho-IP"
+        className={`${
+          isSoloTitulo
+            ? 'slider-InfoPartido slider-derecho-IP marginParaFixture'
+            : 'slider-InfoPartido slider-derecho-IP'
+        }`}
         onClick={() => siguientePartido(1)}
       >
         <AiFillCaretRight className="sinRotar" />

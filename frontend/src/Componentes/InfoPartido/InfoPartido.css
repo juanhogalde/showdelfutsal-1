@@ -1,10 +1,10 @@
 .CP-InfoPartido {
   width: 100%;
+  max-width: 400px;
   height: 100%;
   display: grid;
   grid-template-columns: 15% 1fr 15%;
-  justify-content: center;
-  align-items: center;
+  place-items: center center;
 }
 .CI-InfoPartido {
   grid-column: 2/3;
@@ -25,6 +25,11 @@
   height: 35px;
   background-color: black;
   transition: all 0.5s;
+  color: white;
+  margin-bottom: 2rem;
+}
+.marginParaFixture {
+  margin-bottom: 0 !important;
 }
 .slider-izquierdo-IP {
   grid-column: 1/2;

@@ -1,0 +1,28 @@
+.CP-SeccionFixture {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-template-rows: minmax(0, 100px) auto;
+}
+.CI-componente-InfoPartido {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  /* max-width: 400px; */
+  display: grid;
+  grid-template-columns: minmax(100px, 350px);
+  grid-template-rows: 1fr;
+  justify-self: center;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+.CI-componente-TarjetaFixture {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  padding-right: 150px;
+}
+/* @media screen and (max-width: 1024px) {
+  .CI-componente-TarjetaFixture {
+    padding-right: 100px;
+  }
+} */

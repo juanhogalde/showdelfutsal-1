@@ -25,7 +25,7 @@ function SamplePrevArrow(props) {
     </div>
   );
 }
-export const SliderNoticias = ({cantidadDeElementos = 4}) => {
+export const SliderNoticias = ({cantidadDeElementos = 4, isConCopete = false}) => {
   const noticias = useSelector(state => state.storePrueba.noticias);
   /* const noticia = useSelector(state => state.storePrueba.noticias3); */
 
@@ -70,7 +70,13 @@ export const SliderNoticias = ({cantidadDeElementos = 4}) => {
         {noticias.map((noticia, index) => {
           return (
             <div key={index}>
-              <NoticiasMiniatura isParaSlider={true} datosModelado={noticia}></NoticiasMiniatura>
+              <NoticiasMiniatura
+                isConCopete={isConCopete}
+                isParaSlider={true}
+                datosModelado={noticia}
+                isSeccionNoticias={isConCopete}
+                /* isSobreImagen={isConCopete} */
+              ></NoticiasMiniatura>
             </div>
           );
         })}

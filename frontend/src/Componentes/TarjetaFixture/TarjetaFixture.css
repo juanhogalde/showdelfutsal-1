@@ -1,0 +1,26 @@
+.CP-TarjetaFixture {
+  width: 100%;
+  padding: 20px;
+}
+.CI-fecha-Fixture {
+  display: grid;
+  grid-template-columns: 15% 1fr 10% 10% 1fr;
+  grid-template-rows: 1fr;
+  min-width: 200px;
+  max-width: 100%;
+}
+.fecha-Fixture {
+  grid-column: 3/5;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: -1px 1px 16px 5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: -1px 1px 16px 5px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: -1px 1px 16px 5px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+.CI-Cuerpo-TarjetaFixture {
+  width: 100%;
+  height: auto;
+}
