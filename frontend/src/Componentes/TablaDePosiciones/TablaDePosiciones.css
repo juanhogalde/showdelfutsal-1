@@ -1,0 +1,82 @@
+.CP-TablaDePosiciones {
+  width: 100%;
+  /*  background-color: #ffe35f; */
+
+  display: flex;
+  flex-direction: column;
+}
+.CI-Categoria-TablaDePosiciones {
+  width: 180px;
+  height: 30px;
+  background: rgb(0, 177, 115);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 177, 115, 1) 10%,
+    rgba(0, 172, 128, 1) 20%,
+    rgba(0, 159, 161, 1) 42%,
+    rgba(0, 158, 164, 1) 56%,
+    rgba(0, 149, 189, 1) 75%
+  );
+  clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%);
+  margin-bottom: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.CI-Cabecera-TablaDePosiciones {
+  width: 100%;
+  height: 35px;
+  display: grid;
+  grid-template-columns: minmax(50px, 200px) repeat(8, 1fr);
+  grid-template-rows: 1fr;
+  column-gap: 5px;
+  margin-bottom: 5px;
+}
+
+.CI-Cabecera-TablaDePosiciones p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffe35f;
+}
+.CI-Cuerpo-TablaDePosiciones {
+  width: 100%;
+  height: 50px;
+  background-color: #ffe35f;
+
+  display: grid;
+  grid-template-columns: minmax(50px, 200px) repeat(8, 1fr);
+  column-gap: 3px;
+  grid-template-rows: 1fr;
+  margin-bottom: 3px;
+  border-bottom: solid 2px lightseagreen;
+}
+.equipo-Cuerpo-Tabla {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: solid 2px lightseagreen;
+}
+.escudo-Tabla {
+  max-width: 50px;
+  max-height: 50px;
+}
+.escudo-Tabla img {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.contadores-Cuerpo-Tabla {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-bottom: solid 2px lightseagreen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

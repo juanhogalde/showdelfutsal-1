@@ -1,9 +1,6 @@
 import React from 'react';
 import './SubMenuNoticias.css';
 
-import {useState} from 'react';
-import {NavLink} from 'react-router-dom';
-
 const SubMenuNoticias = ({
   obtenerSeccion = () => {
     console.log('No se envió función');
