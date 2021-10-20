@@ -16,6 +16,7 @@ const NoticiasMiniatura = ({
   isSobreImagen = false,
   isSeccionNoticias = false,
   isParaSlider = false,
+  isConCopete = false,
 }) => {
   return (
     <div
@@ -69,24 +70,24 @@ const NoticiasMiniatura = ({
               </div>
             )}
             {isSobreImagen && (
-              <p className={'sobreImagen-NoticiaMiniatura'}>
+              <h5 className={'sobreImagen-NoticiaMiniatura'}>
                 {datosModelado.titulo
                   ? `${datosModelado.titulo.substring(0, 100)} ...`
-                  : 'Sin titulo largo aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}
-              </p>
+                  : 'Sin titulo'}
+              </h5>
             )}
           </div>
           {!isSobreImagen && (
-            <p>
-              {datosModelado.titulo
-                ? `${datosModelado.titulo.substring(0, 90)}...`
-                : 'Sin titulo largo aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'}
-            </p>
+            <h5>
+              {datosModelado.titulo ? `${datosModelado.titulo.substring(0, 90)}...` : 'Sin titulo'}
+            </h5>
           )}
 
-          {/* <h4 className="Copete-NoticiaMiniatura">
-            {datosModelado.copete ? datosModelado.copete : 'sin copete'}
-          </h4> */}
+          {isConCopete && (
+            <p className="Copete-NoticiaMiniatura">
+              {datosModelado.copete ? datosModelado.copete.substring(0, 60) : 'sin copete'}
+            </p>
+          )}
         </div>
       </div>
     </div>

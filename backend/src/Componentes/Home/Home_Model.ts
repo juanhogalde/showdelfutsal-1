@@ -4,6 +4,7 @@ import IHomes from './Home_Interface';
 const HomesSchema = new Schema({
   vivo: String,
   isVivoActivo: Boolean,
+  radio: String,
   idPublicidadesInicio: [
     {
       type: Schema.Types.ObjectId,

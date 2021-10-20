@@ -1,0 +1,16 @@
+.CP-PaginaSecciones {
+  width: 100%;
+}
+.CI-Cuerpo-PaginaSecciones {
+  margin-top: 50px;
+  min-height: 100vh;
+}
+.fondo-Tabla-Fixture {
+  background-image: url('../../Static/Img/fondo_ftabladepociciones.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position-x: 50%;
+  background-position-y: 20px;
+  min-height: 100vh;
+  width: 100%;
+}

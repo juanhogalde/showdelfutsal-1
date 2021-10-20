@@ -6,7 +6,8 @@ const ImagenesSchema = new Schema({
   alto: {type: Number},
   ancho: {type: Number},
   descripcion: {type: String},
-  galeria: {type: String, unique: true},
+  galeria: {type: String},
+  galeriaVideo: String,
   fechaCarga: {type: Date},
 });
 
