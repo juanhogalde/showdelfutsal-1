@@ -7,6 +7,14 @@ import publicidadLarga from '../../Static/Img/Publicidad larga.jpg';
 import publicidadCorta from '../../Static/Img/publicidad corta.jpg';
 
 const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollada'}) => {
+  const userAgent = navigator.userAgent;
+  const isMobileIPhone = userAgent.indexOf('iPhone');
+  const isMobileAndroid = userAgent.indexOf('Android');
+
+  console.log(isMobileIPhone);
+  console.log(isMobileAndroid);
+  // console.log(userAgent);
+
   return (
     <div className="LI-ND-Noticia-Desarrollada Fondo-seccion-noticia-desarrollada">
       <div className="CP-ND-Noticias">
@@ -25,9 +33,14 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
             <img alt="" src={publicidadCorta}></img>
           </div>
           <div className="I-ND-Noticia-Componente-Slider">
-            <SliderNoticias cantidadDeElementos={3} isVertical={true} />
+            {isMobileAndroid !== -1 ? (
+              <SliderNoticias cantidadDeElementos={3} isVertical={false} />
+            ) : (
+              <SliderNoticias cantidadDeElementos={3} isVertical={true} />
+            )}
           </div>
         </div>
+
         <div className="CI-ND-Publicidad">
           <img alt="" src={publicidadLarga}></img>
         </div>
