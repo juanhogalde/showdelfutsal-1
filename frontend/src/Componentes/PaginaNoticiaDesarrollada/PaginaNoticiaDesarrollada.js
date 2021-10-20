@@ -27,11 +27,6 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
           <div className="I-ND-Noticia-Componente-Slider">
             <SliderNoticias cantidadDeElementos={3} isVertical={true} />
           </div>
-          <div className="CI-ND-Tags">
-            <div className="I-ND-Tags">
-              <h6>COMPONENTE TAGS</h6>
-            </div>
-          </div>
         </div>
         <div className="CI-ND-Publicidad">
           <img alt="" src={publicidadLarga}></img>
