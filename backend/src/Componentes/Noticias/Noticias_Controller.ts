@@ -91,6 +91,43 @@ class NoticiasController {
     }
   }
 
+  public async destacar(req: Request, res: Response) {
+    try {
+      let cont: number = 0;
+      if (!req.body.data) {
+        responder.error(req, res, 'No se ingresaron datos');
+      } else {
+        for await (const idNoticia of req.body.data) {
+          const noticia = await modeloNoticias
+            .findById(idNoticia)
+            .then((value: any) => {
+              return value;
+            })
+            .catch((error: any) => {
+              console.log(error);
+              responder.error(req, res);
+            });
+
+          if (noticia) {
+            noticia.isDestacada = true;
+            const resultado = await noticia.save();
+            if (resultado) {
+              cont++;
+            }
+          }
+        }
+
+        if (cont) {
+          responder.sucess(req, res, `Se actualizaron ${cont} noticia/s.`);
+        } else {
+          responder.error(req, res, 'No se pudieron actualizar las noticias ingresadas.');
+        }
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+
   public async importarNoticias(datos: any, req: Request, res: Response) {
     try {
       let cantNoticiasGuardadas: number = 0;
