@@ -1,5 +1,6 @@
 import {model, Schema} from 'mongoose';
 import INoticias from './Noticias_Interface';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const NoticiasSchema = new Schema({
   fecha: {type: Date},
@@ -33,5 +34,7 @@ const NoticiasSchema = new Schema({
     },
   ],
 });
+
+NoticiasSchema.plugin(mongoosePaginate);
 
 export default model<INoticias>('modeloNoticias', NoticiasSchema);

@@ -17,6 +17,7 @@ class NoticiasRouter {
     this.router.put('/destacar', noticiasController.destacar);
     this.router.delete('/eliminar', noticiasController.eliminar);
     this.router.post('/agregar', noticiasController.agregar);
+    this.router.post('/filtrar', noticiasController.filtrar);
   }
 }
 
