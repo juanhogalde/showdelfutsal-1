@@ -29,7 +29,16 @@
 .CI-componente-TablaDePosiciones::-webkit-scrollbar-thumb {
   background: #ffe35f;
 }
+.CI-componente-TablaDePosiciones::-webkit-scrollbar:horizontal {
+  height: 5px;
+}
+
 /* .CI-componente-TablaDePosiciones::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 } */
+@media screen and (max-width: 480px) {
+  .CP-SeccionTablaDePosiciones {
+    grid-template-columns: 20px 1fr 20px;
+  }
+}

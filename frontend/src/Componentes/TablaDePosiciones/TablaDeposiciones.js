@@ -32,13 +32,14 @@ const TablaDeposiciones = () => {
       </div>
       {arrayTabla.map(() => {
         return (
-          <div className="CI-Cuerpo-TablaDePosiciones">
+          <div className="CI-Cuerpo-TablaDePosiciones  Flipped">
             <div className="equipo-Cuerpo-Tabla">
               <div className="escudo-Tabla">
                 <img alt="" src={escudo_alianza}></img>
               </div>
               <p>Club Atlético Alianza</p>
             </div>
+
             <div className="contadores-Cuerpo-Tabla">
               <p>2</p>
             </div>
