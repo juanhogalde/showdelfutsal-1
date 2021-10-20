@@ -10,6 +10,9 @@ import publicidadLarga from '../../Static/Img/publicidad_larga.jpg';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
 import Vivo from '../Vivo/Vivo';
 import SomosFrase from '../../Static/Img/frase_inicio.png';
+import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
+import {FaFacebookF} from 'react-icons/fa';
+import {Link} from 'react-router-dom';
 
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
@@ -33,10 +36,28 @@ const Inicio = () => {
               <img alt="" className="Somos-frase" src={SomosFrase}></img>
             </div>
           </div>
-          <div className="CI-Somos-redes"></div>
+          <div className="CI-Somos-redes">
+            <div className="I-Redes">
+              {/* <h3>SIGUENOS</h3> */}
+              <div className="red-social">
+                <Link className="" to="/">
+                  <FaFacebookF className="iconos-Redes-Sociales"></FaFacebookF>
+                </Link>
+                <Link className="" to="/">
+                  <BsTwitter className="iconos-Redes-Sociales"></BsTwitter>
+                </Link>
+                <Link className="" to="/">
+                  <BsInstagram className="iconos-Redes-Sociales"></BsInstagram>
+                </Link>
+                <Link className="" to="/">
+                  <BsYoutube className="iconos-Redes-Sociales"></BsYoutube>
+                </Link>
+              </div>
+            </div>
+          </div>
 
           <div className="CI-Somos-radio">
-            <div className="I-somos-radio"></div>
+            <div className="I-somos-radio-componente"></div>
           </div>
         </div>
       </div>
