@@ -44,6 +44,9 @@ p {
   h1 {
     font-size: 4rem;
   }
+  h3 {
+    font-size: 2.5rem;
+  }
 }
 @media screen and (max-width: 320px) {
   h1 {

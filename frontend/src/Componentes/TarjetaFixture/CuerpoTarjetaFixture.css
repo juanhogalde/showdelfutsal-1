@@ -24,7 +24,15 @@
   justify-content: center;
   align-items: center;
   clip-path: polygon(5% 0, 100% 0, 100% 100%, 0% 100%);
-  background-color: darkcyan;
+  background: rgb(0, 177, 115);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 177, 115, 1) 10%,
+    rgba(0, 172, 128, 1) 20%,
+    rgba(0, 159, 161, 1) 42%,
+    rgba(0, 158, 164, 1) 56%,
+    rgba(0, 149, 189, 1) 75%
+  );
   color: white;
 }
 .hora-sede-Fixture p {

@@ -27,7 +27,7 @@
 @media screen and (max-width: 480px) {
   .CP-TarjetaFixture {
     padding: 0;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
   }
   .CI-fecha-Fixture {
     display: flex;
