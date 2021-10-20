@@ -4,12 +4,12 @@ import {AiFillCaretLeft} from 'react-icons/ai';
 import {AiFillCaretRight} from 'react-icons/ai';
 
 const InfoPartido = props => {
-  const {fecha, sede, siguientePartido, isParaFixture} = props;
+  const {fecha, sede, siguientePartido, isSoloTitulo} = props;
 
   return (
     <div className="CP-InfoPartido">
       <div className="CI-InfoPartido">
-        {isParaFixture ? (
+        {isSoloTitulo ? (
           <React.Fragment>
             <h3>Fecha 1</h3>
           </React.Fragment>
@@ -23,7 +23,7 @@ const InfoPartido = props => {
       </div>
       <div
         className={`${
-          isParaFixture
+          isSoloTitulo
             ? 'slider-InfoPartido slider-izquierdo-IP marginParaFixture'
             : 'slider-InfoPartido slider-izquierdo-IP'
         }`}
@@ -33,7 +33,7 @@ const InfoPartido = props => {
       </div>
       <div
         className={`${
-          isParaFixture
+          isSoloTitulo
             ? 'slider-InfoPartido slider-derecho-IP marginParaFixture'
             : 'slider-InfoPartido slider-derecho-IP'
         }`}

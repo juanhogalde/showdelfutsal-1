@@ -11,7 +11,7 @@ const SeccionFixture = () => {
           siguientePartido={() => {
             console.log('Falta Función');
           }}
-          isParaFixture={true}
+          isSoloTitulo={true}
         ></InfoPartido>
       </div>
       <div className="CI-componente-TarjetaFixture">

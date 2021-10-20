@@ -3,6 +3,7 @@ import './PaginaSecciones.css';
 import SubMenuNoticias from '../SubMenuNoticias/SubMenuNoticias';
 import SeccionNoticias from '../SeccionNoticias/SeccionNoticias';
 import SeccionFixture from '../SeccionFixture/SeccionFixture';
+import SeccionTablaDePosiciones from '../SeccionTablaDePosiciones/SeccionTablaDePosiciones';
 
 const PaginaSecciones = () => {
   const [isSeccionNoticias, setIsSeccionNoticias] = useState(false);
@@ -61,7 +62,7 @@ const PaginaSecciones = () => {
         )}
         {isSeccionTabla && (
           <div className="fondo-Tabla-Fixture">
-            <h5>Tabla</h5>
+            <SeccionTablaDePosiciones></SeccionTablaDePosiciones>
           </div>
         )}
       </div>
