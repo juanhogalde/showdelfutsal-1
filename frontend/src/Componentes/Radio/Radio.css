@@ -1,0 +1,64 @@
+/* --- CONTENEDOR PANEL --- */
+
+.CP-Componente-Radio {
+  display: grid;
+  grid-template-columns: 5px 1fr 5px;
+  grid-template-rows: 5px 1fr 5px;
+  width: 100%;
+  height: 100%;
+  gap: 10px;
+}
+
+.CI-Radio {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 2px 2fr 2px;
+  grid-template-rows: 2px 1fr 1fr 2px;
+  /* border: 2px solid #ffe35f; */
+}
+
+.I-Radio-Titulo {
+  /* background-color: blue; */
+  grid-column: 2/3;
+  grid-row: 2/3;
+  display: flex;
+  place-content: left;
+  align-items: center;
+  color: #fff;
+  /* background-color: rgb(138, 104, 10); */
+}
+
+.I-Radio-Iconos {
+  grid-column: 3/4;
+  grid-row: 2/3;
+  display: flex;
+  place-content: left;
+  align-items: center;
+}
+
+.I-Iconos-radio-play {
+  margin-left: 10px;
+  color: #ffe35f;
+  cursor: pointer;
+}
+
+.I-Iconos-radio-pausa {
+  margin-left: 10px;
+  color: #ffe35f;
+  cursor: pointer;
+}
+
+.I-Radio-SubTitulo {
+  /* background-color: rgb(138, 10, 70); */
+  grid-column: 2/4;
+  grid-row: 3/4;
+  display: flex;
+  place-content: left;
+  align-items: center;
+}
+
+.I-Radio-SubTitulo h3 {
+  font-size: 1.5rem;
+}

@@ -6,7 +6,7 @@ import {FaFacebookF} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 export const PieDepagina = () => {
   return (
-    <div className="CP-Pie-pagina Seccion-footer">
+    <div className="CP-Pie-pagina Seccion-footer" id="PieDePagina">
       <div className="imagen-Fondo-Footer">
         <div className="CI-Pie-Pagina">
           <div className="I-Logo">

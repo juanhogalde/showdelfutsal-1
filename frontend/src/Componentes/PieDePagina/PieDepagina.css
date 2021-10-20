@@ -2,10 +2,10 @@
 .CP-Pie-pagina {
   width: 100%;
   max-height: 20%;
+  height: 150px;
 }
 
-.Seccion-footer {
-  height: 150px;
+.Seccion-footer-inicio {
   background: linear-gradient(
     90deg,
     rgba(0, 149, 189, 1) 40%,
@@ -13,6 +13,12 @@
     rgba(0, 172, 128, 1) 80%,
     rgba(0, 177, 115, 1) 100%
   );
+  position: relative;
+  z-index: -1;
+}
+
+.Seccion-footer {
+  background-color: #fff;
   position: relative;
   z-index: -1;
 }
