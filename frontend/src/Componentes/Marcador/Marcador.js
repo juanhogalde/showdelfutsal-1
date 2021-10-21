@@ -1,5 +1,7 @@
 import React from 'react';
-import escudo from '../../Static/Img/escudoA.png';
+import escudo from '../../Static/Img/escudo_huarpes.png';
+import escudoB from '../../Static/Img/escudo_alianza.png';
+
 import InfoPartido from '../InfoPartido/InfoPartido';
 import './Marcador.css';
 
@@ -55,7 +57,7 @@ const Marcador = () => {
             </div>
           </div>
           <div className="escudo-B">
-            <img alt="" src={escudo} className="img-Escudo"></img>
+            <img alt="" src={escudoB} className="img-Escudo"></img>
           </div>
           <div className="marcador-B">
             <div className="contenedor-resultado-Marcador-B">

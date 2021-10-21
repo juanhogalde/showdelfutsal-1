@@ -1,8 +1,11 @@
 import {model, Schema} from 'mongoose';
 import INoticias from './Noticias_Interface';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const NoticiasSchema = new Schema({
   fecha: {type: Date},
+  fechaModificacion: {type: Date},
+  urlNoticia: String,
   titulo: {type: String},
   copete: {type: String},
   cuerpo: {type: String},
@@ -15,12 +18,10 @@ const NoticiasSchema = new Schema({
   idCategoria: {
     type: Schema.Types.ObjectId,
     ref: 'modeloCategorias',
-    required: true,
   },
   idSubcategoria: {
     type: Schema.Types.ObjectId,
     ref: 'modeloSubcategorias',
-    required: true,
   },
   keyCategoria: {type: Number},
   keySubcategoria: {type: Number},
@@ -33,5 +34,7 @@ const NoticiasSchema = new Schema({
     },
   ],
 });
+
+NoticiasSchema.plugin(mongoosePaginate);
 
 export default model<INoticias>('modeloNoticias', NoticiasSchema);

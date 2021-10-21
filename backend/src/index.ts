@@ -22,6 +22,7 @@ import imagenesRouter from './Componentes/Imagenes/Imagenes_Router';
 import tablasRouter from './Componentes/Tablas/Tablas_Router';
 import responder from './Middlewares/responder';
 import manejadorErrores from './Middlewares/manejadorErrores';
+import {importarDatos} from './Config/importarDatos';
 
 ///// VARIABLES DE ENTORNO
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
@@ -75,6 +76,10 @@ class Server {
     });
     this.app.get('/prueba', (req: Request, res: Response) => {
       throw new Error('Error loco');
+    });
+    this.app.get('/importar', (req: Request, res: Response) => {
+      console.info('Importando BD...');
+      importarDatos(req, res);
     });
     this.app.get('*', (req: Request, res: Response) => {
       console.info(`GET 404: ${req.originalUrl}`);

@@ -1,6 +1,7 @@
 .CP-InfoPartido {
   width: 100%;
-  max-width: 400px;
+  /* min-width: 200px;
+  max-width: 400px; */
   height: 100%;
   display: grid;
   grid-template-columns: 15% 1fr 15%;
@@ -62,10 +63,15 @@
 .margenSede {
   margin-top: 1rem;
 }
+
 @media screen and (max-width: 480px) {
   .margenSede {
     margin-top: 0.5rem;
   }
+  /* .CP-InfoPartido {
+    max-width: 300px;
+  } */
+
   /* .CI-InfoPartido h1 {
     font-size: 2.5rem;
   }
