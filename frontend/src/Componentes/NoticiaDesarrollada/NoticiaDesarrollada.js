@@ -19,14 +19,16 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
     <div className="CP-Noticias-Desarrollada">
       <div className="CI-Cabecera-Noticia-Desarrollada">
         <div className="Categoria-Titulo-Noticia-Desarrollada">
-          <span className="Etiqueta-Categorias-Noticia-Desarrollada">
-            <EtiquetaCategoria
-              categoriaId={datosModelado.categoria ? datosModelado.categoria : 0}
-            />
-          </span>
-          <h1 className="Titulo-Noticia-Desarrollada">
+          <div className="Fondo-Categorias-Noticia-Desarrollada">
+            <div className="Etiqueta-Categorias-Noticia-Desarrollada ">
+              <EtiquetaCategoria
+                categoriaId={datosModelado.categoria ? datosModelado.categoria : 0}
+              />
+            </div>
+          </div>
+          <h4 className="Titulo-Noticia-Desarrollada">
             {datosModelado.titulo ? datosModelado.titulo : 'Sin titulo'}
-          </h1>
+          </h4>
         </div>
 
         <EtiquetaCategoria
@@ -60,9 +62,9 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
         </h6>
       </div>
       <div className="CI-Cuerpo-Noticia-Desarrollada">
-        <h4 className="Cuerpo-Noticia-Desarrollada">
+        <h5 className="Cuerpo-Noticia-Desarrollada">
           {datosModelado.cuerpo ? datosModelado.cuerpo : 'sin cuerpo'}
-        </h4>
+        </h5>
       </div>
     </div>
   );

@@ -3,14 +3,18 @@
   height: 100%;
   max-width: 100%;
   font-family: 'Segoe UI';
-  max-height: 1500px;
-  /* background-color: turquoise; */
+  max-height: auto;
   display: flex;
   gap: 20px;
   flex-direction: column;
   margin: 1rem;
+  margin-top: 0px;
   border-left: 1px solid #ffe35f;
   padding: 1rem;
+  padding-top: 0px;
+  text-align: justify;
+  text-justify: inter-word;
+  word-break: break-word;
 }
 .CI-Imagen-Epigrafe-Noticia-Desarrollada {
   display: flex;
@@ -32,16 +36,34 @@
 }
 .Copete-Noticia-Desarrollada {
   font-weight: 700;
+  padding-top: 15px;
+}
+
+.Titulo-Noticia-Desarrollada {
+  font-size: 1.5rem;
 }
 .Categoria-Titulo-Noticia-Desarrollada {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  padding-bottom: 15px;
 }
+
+.Fondo-Categorias-Noticia-Desarrollada {
+  clip-path: polygon(0 0, 100% 0%, 75% 100%, 0% 100%);
+  background-color: #ffe35f;
+  width: auto;
+  height: 50px;
+  min-width: 150px;
+}
+
 .Etiqueta-Categorias-Noticia-Desarrollada {
-  margin-top: 1rem;
-  background-color: rgb(241, 241, 161);
+  display: flex;
+  place-content: flex-start;
+  padding-left: 1.2rem;
+  align-items: center;
+  min-height: 100%;
 }
+
 .Titulo-Noticia-Desarrollada {
   margin-left: 2rem;
 }
@@ -53,8 +75,41 @@
   border-top: 1px solid #ffe35f;
 }
 
+@media only screen and (min-width: 770px) and (max-width: 1324px) and (orientation: portrait) {
+  .Categoria-Titulo-Noticia-Desarrollada {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-bottom: 15px;
+  }
+}
+
 @media only screen and (min-device-width: 320px) and (max-width: 768px) and (orientation: portrait) {
+  .Categoria-Titulo-Noticia-Desarrollada {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-bottom: 15px;
+  }
+  .Copete-Noticia-Desarrollada {
+    font-weight: 400;
+    padding-top: 15px;
+  }
+
+  .Fondo-Categorias-Noticia-Desarrollada {
+    display: flex;
+    align-items: left;
+    width: auto;
+    height: 50px;
+    min-width: 150px;
+  }
+
   .Titulo-Noticia-Desarrollada {
-    font-size: 2rem;
+    padding-top: 1rem;
+    margin-left: 0rem;
+    margin-right: 0rem;
+    font-size: 1.5rem;
   }
 }
