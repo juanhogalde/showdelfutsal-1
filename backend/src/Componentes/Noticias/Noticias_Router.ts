@@ -11,13 +11,13 @@ class NoticiasRouter {
 
   routes() {
     this.router.get('/listar', noticiasController.listar);
-    this.router.get('/listardestacadas', noticiasController.listardestacadas);
     this.router.get('/obtener/:id', noticiasController.obtener);
     this.router.put('/modificar', noticiasController.modificar);
     this.router.put('/destacar', noticiasController.destacar);
     this.router.delete('/eliminar', noticiasController.eliminar);
     this.router.post('/agregar', noticiasController.agregar);
     this.router.post('/filtrar', noticiasController.filtrar);
+    this.router.post('/listarDestacadas', noticiasController.listardestacadas);
   }
 }
 

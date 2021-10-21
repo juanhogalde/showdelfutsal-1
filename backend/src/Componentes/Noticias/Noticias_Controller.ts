@@ -3,6 +3,7 @@ import responder from '../../Middlewares/responder';
 import modeloNoticias from './Noticias_Model';
 import INoticias from './Noticias_Interface';
 import mongoose from 'mongoose';
+import {keyCategoria} from '../../Config/enumeradores';
 
 class NoticiasController {
   public async listar(req: Request, res: Response) {
@@ -16,8 +17,59 @@ class NoticiasController {
 
   public async listardestacadas(req: Request, res: Response) {
     try {
-      const listadoNoticias = await modeloNoticias.find({isDestacada: true});
-      responder.sucess(req, res, listadoNoticias);
+      var contNoticiaMasc: number = 0;
+      var contNoticiaFem: number = 0;
+      var contNoticiaInf: number = 0;
+      var objetoFinal = {
+        noticias: <any>[],
+      };
+
+      const filtrosBody = req.body;
+      let filtrosBD: any = {isDestacada: true};
+
+      if (filtrosBody) {
+        if (filtrosBody.idCategoria) {
+          let _id = new mongoose.Types.ObjectId(filtrosBody.idCategoria);
+          filtrosBD.idCategoria = _id;
+        }
+
+        if (filtrosBody.fecha) {
+          filtrosBD.fecha = {$gt: new Date(filtrosBody.fecha)};
+        }
+      }
+
+      // { $and: [{isDestacada: true}, {fecha: {$gt: new Date(filtrosBody.fecha)}}]}
+      const listadoNoticias = await modeloNoticias.find(filtrosBD);
+
+      if (listadoNoticias.length) {
+        for await (const noticia of listadoNoticias) {
+          if (noticia.keyCategoria) {
+            if (noticia.keyCategoria === keyCategoria.masculino) {
+              contNoticiaMasc++;
+              if (contNoticiaMasc !== 3) {
+                objetoFinal.noticias.push(noticia);
+              }
+            } else if (noticia.keyCategoria === keyCategoria.femenino) {
+              contNoticiaFem++;
+              if (contNoticiaFem !== 3) {
+                objetoFinal.noticias.push(noticia);
+              }
+            } else if (noticia.keyCategoria === keyCategoria.infantil) {
+              contNoticiaInf++;
+              if (contNoticiaInf !== 3) {
+                objetoFinal.noticias.push(noticia);
+              }
+            }
+          } else {
+            objetoFinal.noticias.push(noticia);
+          }
+        }
+
+        responder.sucess(req, res, objetoFinal);
+      } else {
+        responder.sucess(req, res, 'No hay noticias destacadas');
+      }
+      // responder.sucess(req, res, listadoNoticias);
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -132,8 +184,7 @@ class NoticiasController {
   public async filtrar(req: Request, res: Response) {
     try {
       const filtrosBody = req.body;
-      // console.log(filtrosBody);
-      // return false;
+
       let filtrosBD: any = {};
       if (filtrosBody) {
         if (filtrosBody.idCategoria) {
@@ -172,7 +223,6 @@ class NoticiasController {
     try {
       let cantNoticiasGuardadas: number = 0;
       const totalDatos: number = datos.length;
-      // let resultado: any = {error: false, msjeError: '', exito: false, totalDatosGuardados: 0};
 
       if (datos.length) {
         const buscarNoticias = await modeloNoticias.find({});
