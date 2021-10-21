@@ -3,10 +3,11 @@ import responder from '../../Middlewares/responder';
 import modeloUsuarios from './Usuarios_Model';
 import IUsuarios from './Usuarios_Interface';
 import generarClaves from '../../Middlewares/generadorClaves';
+import {envioMail} from '../../Config/gestionMail';
+import {generatePasswordRand} from '../../Config/gestionPass';
+const sendMail = new envioMail();
 const genClaves = new generarClaves();
-
 const proyeccion: object = {password: 0, token: 0};
-
 class UsuariosController {
   public async listar(req: Request, res: Response) {
     try {
@@ -101,6 +102,32 @@ class UsuariosController {
       let id = req.body.id;
       const usuarioEliminada = await modeloUsuarios.findOneAndDelete({_id: id}, {new: true});
       responder.sucess(req, res, usuarioEliminada);
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+
+  public async recuperarPassword(req: Request, res: Response) {
+    try {
+      const datosBody = req.body;
+      if (datosBody) {
+        const usuario = await modeloUsuarios.findOne({email: datosBody.email});
+        if (usuario) {
+          const nuevaContrasenia = await generatePasswordRand(8);
+          if (nuevaContrasenia && usuario.email) {
+            sendMail.recuperarPassword(usuario.email, nuevaContrasenia);
+            responder.sucess(req, res, 'Correo de reestablecimiento enviado');
+          } else {
+            console.log(usuario.email);
+            console.log(nuevaContrasenia);
+            responder.error(req, res);
+          }
+        } else {
+          responder.sucess(req, res, 'El email ingresado no está registrado.');
+        }
+      } else {
+        responder.error(req, res, 'No se ingresaron datos.');
+      }
     } catch (error) {
       responder.error(req, res, error);
     }
