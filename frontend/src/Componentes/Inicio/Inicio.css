@@ -445,7 +445,6 @@
   .CI-Somos-radio {
     grid-column: 2/3;
     grid-row: 2/3;
-    border: 2px solid red;
     margin: 0px;
     display: flex;
     flex-direction: column;
