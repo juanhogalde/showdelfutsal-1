@@ -8,8 +8,17 @@ import {keyCategoria} from '../../Config/enumeradores';
 class NoticiasController {
   public async listar(req: Request, res: Response) {
     try {
-      const listadoNoticias = await modeloNoticias.find();
-      responder.sucess(req, res, listadoNoticias);
+      const opcionesPaginado = {
+        limit: parseInt(req.body.limite ? req.body.limite : 20, 10) || 20,
+        page: parseInt(req.body.page ? req.body.page : 1, 10) || 1,
+      };
+
+      const datos = await modeloNoticias.paginate({}, opcionesPaginado);
+      if (datos.docs.length) {
+        responder.sucess(req, res, datos);
+      } else {
+        responder.sucess(req, res, 'No existen datos para los filtros ingresados');
+      }
     } catch (error) {
       responder.error(req, res, error);
     }
