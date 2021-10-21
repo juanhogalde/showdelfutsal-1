@@ -24,6 +24,28 @@ class NoticiasController {
     }
   }
 
+  public async buscar(req: Request, res: Response) {
+    try {
+      const tituloBody = req.body.titulo;
+
+      if (tituloBody) {
+        const listadoNoticias = await modeloNoticias.find({
+          titulo: {$regex: `${tituloBody}`, $options: 'i'},
+        });
+
+        if (listadoNoticias.length) {
+          responder.sucess(req, res, listadoNoticias);
+        } else {
+          responder.sucess(req, res, 'No existen coincidencias con el título ingresado.');
+        }
+      } else {
+        responder.error(req, res, 'No se ingresaron datos');
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+
   public async listardestacadas(req: Request, res: Response) {
     try {
       var contNoticiaMasc: number = 0;
@@ -43,7 +65,7 @@ class NoticiasController {
         }
 
         if (filtrosBody.fecha) {
-          filtrosBD.fecha = {$gt: new Date(filtrosBody.fecha)};
+          filtrosBD.fecha = {$gte: new Date(filtrosBody.fecha)};
         }
       }
 
@@ -202,7 +224,7 @@ class NoticiasController {
         }
 
         if (filtrosBody.fecha) {
-          filtrosBD.fecha = {$gt: new Date(filtrosBody.fecha)};
+          filtrosBD.fecha = {$gte: new Date(filtrosBody.fecha)};
         }
 
         if (filtrosBody.isDestacada) {
