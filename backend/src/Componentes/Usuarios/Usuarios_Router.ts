@@ -16,6 +16,7 @@ class UsuariosRouter {
     this.router.put('/modificar', usuariosController.modificar);
     this.router.delete('/eliminar', usuariosController.eliminar);
     this.router.post('/agregar', usuariosController.agregar);
+    this.router.post('/recuperarPass', usuariosController.recuperarPassword);
     // this.router.post('/pruebaToken', validarToken, usuariosController.test);
   }
 }
