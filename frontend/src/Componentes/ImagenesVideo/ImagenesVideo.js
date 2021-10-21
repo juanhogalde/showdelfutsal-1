@@ -94,7 +94,7 @@ const ImagenesVideo = ({
       )}
 
       <div className="flechas-mas-cuerpo-imagenesVideo">
-        {/* {((tipoDeSliderFlecha && !tipoVideo) || (!tipoVideo && DatosDeEntrada.length > 6)) && (
+        {((tipoDeSliderFlecha && !tipoVideo) || (!tipoVideo && DatosDeEntrada.length > 6)) && (
           <button
             onClick={() => {
               cambioDeImagenVideoFlecha(false, 'img');
@@ -113,7 +113,7 @@ const ImagenesVideo = ({
           >
             🢂
           </button>
-        )} */}
+        )}
         <div className="cuerpo-imagenesVideo">
           {/* VIDEO */}
           {tipoVideo &&

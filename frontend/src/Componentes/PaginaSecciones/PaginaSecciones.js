@@ -4,8 +4,10 @@ import SeccionNoticias from '../SeccionNoticias/SeccionNoticias';
 import SeccionFixture from '../SeccionFixture/SeccionFixture';
 import SeccionTablaDePosiciones from '../SeccionTablaDePosiciones/SeccionTablaDePosiciones';
 import SubMenuSecciones from '../SubMenuSecciones/SubMenuSecciones';
+import {useParams} from 'react-router';
 
 const PaginaSecciones = () => {
+  let {id} = useParams();
   const [isSeccionNoticias, setIsSeccionNoticias] = useState(false);
   const [isSeccionFixture, setIsSeccionFixture] = useState(false);
   const [isSeccionTabla, setIsSeccionTabla] = useState(false);
@@ -45,7 +47,7 @@ const PaginaSecciones = () => {
       <div className="CI-Cuerpo-PaginaSecciones">
         {isSeccionNoticias && (
           <div className="componente-SeccionNoticias">
-            <SeccionNoticias></SeccionNoticias>
+            <SeccionNoticias tituloSeccionNoticias={id}></SeccionNoticias>
           </div>
         )}
         {isSeccionFixture && (

@@ -14,7 +14,6 @@ const TarjetaFixture = () => {
       </div>
       <div className="CI-Cuerpo-TarjetaFixture">
         {array.map((element, index) => {
-          console.log(index);
           return <CuerpoTarjetaFixture></CuerpoTarjetaFixture>;
         })}
       </div>

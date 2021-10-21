@@ -46,7 +46,7 @@ const PaginaSomos = () => {
                 más alto de la escena local. El futuro, es promisorio, ya que no nos queremos quedar
                 acá. Nuestro objetivo es ofrecer la mejora calidad en información a nuestros
                 seguidores y estar en todos los lugares donde un sanjuanino esté… “PARANDOLA CON LA
-                SUELA Y DEFINIENDO DE PUNTÍN AL ARCO
+                SUELA Y DEFINIENDO DE PUNTÍN AL ARCO.
               </p>
             </div>
           </div>
@@ -54,7 +54,7 @@ const PaginaSomos = () => {
         <div className="CI-Nosotros-Galeria">
           <div className="I-componente-somos-slider">
             <div className="componente-ImagenesVideo">
-              <ImagenesVideo DatosDeEntrada={DatosDePruebaImagenes} />
+              <ImagenesVideo tipoDeSliderFlecha={false} DatosDeEntrada={DatosDePruebaImagenes} />
             </div>
           </div>
           <div className="I-componente-somos-fotos">
