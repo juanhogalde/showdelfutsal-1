@@ -1,7 +1,8 @@
 import React from 'react';
 import './BarraDeNavegacion.css';
 import {useState} from 'react';
-import {NavLink} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
+import {AiOutlineMenu} from 'react-icons/ai';
 
 const BarraDeNavegacion = () => {
   const [click, setClick] = useState(false);
@@ -28,26 +29,26 @@ const BarraDeNavegacion = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink
+                <Link
                   exact
-                  to="/Femenino"
+                  to="/Seccion/Femenino"
                   activeClassName="active"
                   className="nav-links"
                   onClick={handleClick}
                 >
                   Femenino
-                </NavLink>
+                </Link>
               </li>
               <li className="nav-item">
-                <NavLink
+                <Link
                   exact
-                  to="/Masculino"
+                  to="/Seccion/Masculino"
                   activeClassName="active"
                   className="nav-links"
                   onClick={handleClick}
                 >
                   Masculino
-                </NavLink>
+                </Link>
               </li>
               <li className="nav-item-logo">
                 <NavLink
@@ -62,20 +63,20 @@ const BarraDeNavegacion = () => {
               </li>
 
               <li className="nav-item">
-                <NavLink
+                <Link
                   exact
-                  to="/Copa"
+                  to={`/Seccion/Copa`}
                   activeClassName="active"
                   className="nav-links"
                   onClick={handleClick}
                 >
                   Copa
-                </NavLink>
+                </Link>
               </li>
               <li className="nav-item">
                 <NavLink
                   exact
-                  to="/Liga"
+                  to="/Seccion/Liga"
                   activeClassName="active"
                   className="nav-links"
                   onClick={handleClick}
@@ -96,7 +97,7 @@ const BarraDeNavegacion = () => {
               </li>
             </ul>
             <div className="nav-icon" onClick={handleClick}>
-              <i className={click ? 'fas fa-times' : 'fas fa-bars'}> +</i>
+              <AiOutlineMenu className={click ? 'Icon-Menu' : 'Icon-Menu'}></AiOutlineMenu>
             </div>
           </div>
         </nav>
