@@ -1,7 +1,8 @@
-import {Request, Response} from 'express';
+import {Request, response, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloNoticias from './Noticias_Model';
 import INoticias from './Noticias_Interface';
+import mongoose from 'mongoose';
 
 class NoticiasController {
   public async listar(req: Request, res: Response) {
@@ -86,6 +87,82 @@ class NoticiasController {
       let id = req.body.id;
       const noticiaEliminada = await modeloNoticias.findOneAndDelete({_id: id}, {new: true});
       responder.sucess(req, res, noticiaEliminada);
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+
+  public async destacar(req: Request, res: Response) {
+    try {
+      let cont: number = 0;
+      if (!req.body.data) {
+        responder.error(req, res, 'No se ingresaron datos');
+      } else {
+        for await (const idNoticia of req.body.data) {
+          const noticia = await modeloNoticias
+            .findById(idNoticia)
+            .then((value: any) => {
+              return value;
+            })
+            .catch((error: any) => {
+              console.log(error);
+              responder.error(req, res);
+            });
+
+          if (noticia) {
+            noticia.isDestacada = true;
+            const resultado = await noticia.save();
+            if (resultado) {
+              cont++;
+            }
+          }
+        }
+
+        if (cont) {
+          responder.sucess(req, res, `Se actualizaron ${cont} noticia/s.`);
+        } else {
+          responder.error(req, res, 'No se pudieron actualizar las noticias ingresadas.');
+        }
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+
+  public async filtrar(req: Request, res: Response) {
+    try {
+      const filtrosBody = req.body;
+      // console.log(filtrosBody);
+      // return false;
+      let filtrosBD: any = {};
+      if (filtrosBody) {
+        if (filtrosBody.idCategoria) {
+          let _id = new mongoose.Types.ObjectId(filtrosBody.idCategoria);
+          filtrosBD.idCategoria = _id;
+        }
+
+        if (filtrosBody.fecha) {
+          filtrosBD.fecha = {$gt: new Date(filtrosBody.fecha)};
+        }
+
+        if (filtrosBody.isDestacada) {
+          filtrosBD.isDestacada = filtrosBody.isDestacada;
+        }
+
+        const opcionesPaginado = {
+          limit: parseInt(filtrosBody.limite, 10) || 20,
+          page: parseInt(filtrosBody.page, 10) || 1,
+        };
+
+        const datos = await modeloNoticias.paginate(filtrosBD, opcionesPaginado);
+        if (datos.docs.length) {
+          responder.sucess(req, res, datos);
+        } else {
+          responder.sucess(req, res, 'No existen datos para los filtros ingresados');
+        }
+      } else {
+        responder.error(req, res, 'No se ingresaron filtros');
+      }
     } catch (error) {
       responder.error(req, res, error);
     }
