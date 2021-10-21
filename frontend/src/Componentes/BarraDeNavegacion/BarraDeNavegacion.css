@@ -95,6 +95,10 @@
 .nav-icon {
   display: none;
 }
+.Icon-Menu {
+  color: #ffffff;
+  font-size: 1.5rem;
+}
 
 @media screen and (max-width: 960px) {
   .nav-logo-movil {
@@ -128,7 +132,9 @@
     transition: all 0.5s ease-out;
     margin: 0px;
   }
-
+  .nav-item {
+    margin-right: 0;
+  }
   .nav-item:hover:after {
     width: 100%;
     background: #000000;
