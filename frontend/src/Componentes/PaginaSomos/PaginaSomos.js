@@ -2,9 +2,9 @@ import React from 'react';
 import './PaginaSomos.css';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
 import foto from '../../Static/Img/fotos_somos.png';
-import FotoRadio from '../../Static/Img/radio_somos.png';
 import frase from '../../Static/Img/titulo_somos.png';
 import {useSelector} from 'react-redux';
+import Radio from '../Radio/Radio';
 
 const PaginaSomos = () => {
   const {DatosDePruebaImagenes} = useSelector(state => state.storePrueba);
@@ -66,7 +66,7 @@ const PaginaSomos = () => {
         <div className="CI-Nosotros-radio">
           <div className="I-Radio">
             <div className="I-Componente-radio">
-              <img alt="" className="foto-radio" src={FotoRadio}></img>
+              <Radio isSeccionSomos={true}></Radio>
             </div>
           </div>
         </div>

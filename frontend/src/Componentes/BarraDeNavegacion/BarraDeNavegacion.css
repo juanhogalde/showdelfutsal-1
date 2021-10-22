@@ -140,8 +140,8 @@
 
   .nav-item {
     line-height: 40px;
-    margin-right: 5rem;
-    margin-left: 5rem;
+    margin-right: 0;
+    margin-left: 0;
   }
   .nav-item {
     margin-right: 0;
