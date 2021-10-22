@@ -11,17 +11,23 @@ const NoticiasFiltradas = () => {
         </div>
       </div>
       <div className="CI-SN-Noticia-filtrada-grilla CI-SN-Noticia-filtrada-auto-grilla">
-        <div className="I-Noticia-filtrada-grilla">
-          <NoticiasMiniatura />
-        </div>
-        <div className="I-Noticia-filtrada-grilla">
-          <NoticiasMiniatura />
-        </div>
-        <div className="I-Noticia-filtrada-grilla">
-          <NoticiasMiniatura />
-        </div>
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+        <NoticiasMiniatura />
+
+        <div className="I-Noticia-filtrada-grilla I-Noticia-filtrada-grilla-auto-grill"></div>
       </div>
-      <div className="CI-SN-Noticia-filtrada-Panel-lateral"></div>
+      {/* <div className="CI-SN-Noticia-filtrada-Panel-lateral"></div> */}
     </div>
   );
 };
