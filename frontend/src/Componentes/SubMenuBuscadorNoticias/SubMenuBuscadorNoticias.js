@@ -11,11 +11,6 @@ const SubMenuBuscadorNoticias = () => {
         className="Input-busqueda"
         placeholder="Busqueda"
       />
-      {/* <div className="I-Noticias-busqueda-titulo">
-      </div>
-      <div className="I-Noticias-buscador">
-        
-      </div> */}
     </div>
   );
 };

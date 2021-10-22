@@ -41,9 +41,9 @@ const PaginaNoticias = ({
             <SliderNoticias cantidadDeElementos={2} isConCopete={true}></SliderNoticias>
           </div>
         </div>
-        <div className="CI-SN-Inferiores-miniatura">
+        {/* <div className="CI-SN-Inferiores-miniatura">
           <div className="CI-SN-Inferiores-slider"></div>
-        </div>
+        </div> */}
       </div>
       {/* SECCION NOTICIAS COPA Y LIGA /> */}
       <div className=" LI-Seccion-Noticias ">

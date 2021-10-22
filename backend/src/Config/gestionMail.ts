@@ -4,13 +4,15 @@ import path from 'path';
 export class envioMail {
   public async recuperarPassword(emailUsuario: string, nuevaContrasenia: string) {
     const asunto: string = 'Reestablecimiento de contraseña';
-    var cuerpoDelMensaje: string = `<div style="max-width:600px;font-size:15px;margin-left:38px;margin-right:38px">
+
+    let cuerpoDelMensaje: string = `<div style="width:600px;font-size:15px;margin-left:70px;margin-right:38px">
       <dl style="margin-top:0%;margin-bottom:0%"><dd><h2>Hola</h2></dd>
       <dd>Su clave ha sido reestablecida.</dd>
       <dd>En caso de no haber solicitado un cambio de contraseña comuniquese con el administrador de sistema.</dd>
       <dd>Su nueva contraseña de usuario es: ${nuevaContrasenia}</dd></dl>
     </div>`;
-    var transporter = nodemailer.createTransport({
+
+    let transporter = nodemailer.createTransport({
       host: process.env.HOST_EMAIL_SISTEMA,
       port: process.env.PORT_EMAIL_SISTEMA,
       secure: true,
@@ -25,25 +27,26 @@ export class envioMail {
       to: emailUsuario,
       attachments: [
         {
-          filename: 'encabezado.svg',
-          path: path.join(__dirname, '../../archivos/encabezado.svg'),
+          filename: 'encabezado.png',
+          path: path.join(__dirname, '../../archivos/Encabezado_mail.png'),
           cid: 'correo-encabezado',
         },
         {
-          filename: 'piePagina.svg',
-          path: path.join(__dirname, '../../archivos/piePagina.svg'),
+          filename: 'piePagina.png',
+          path: path.join(__dirname, '../../archivos/Pie_mail.png'),
           cid: 'correo-pie',
         },
       ],
       subject: asunto,
       text: 'Pedido de reestablecimiento de contraseña',
-      //   html: `${cuerpoDelMensaje}`,
+      // html: `${cuerpoDelMensaje}`,
       html: `
-          <img src="cid:correo-encabezado"/>
+      
+          <img style="width:100%; padding-Left:100px; padding-Right:100px; max-width:600px" src="cid:correo-encabezado"/>
           ${cuerpoDelMensaje}
           <br>
-          
-          <img src="cid:correo-pie"/>`,
+
+          <img style="width:100%; padding-Left:100px; padding-Right:100px; max-width:600px" src="cid:correo-pie"/>`,
     });
   }
 }

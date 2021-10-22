@@ -127,10 +127,9 @@
 }
 .I-SN-Inferiores-titulo p {
   font-family: 'Segoe UI';
-  font-size: 4em;
+  font-size: 3.4em;
   font-weight: 800;
   color: rgb(0, 0, 0);
-  margin-left: 1rem;
 }
 
 /* ----- CONTENEDOR INFERIORES GENERAL ----- */
@@ -240,7 +239,7 @@
   }
 }
 
-@media only screen and (min-device-width: 320px) and (max-width: 768px) and (orientation: portrait) {
+@media only screen and (min-device-width: 320px) and (max-width: 768px) {
   /* ----- CONTENEDOR PANEL FEMENINO  (MOVIL)----- */
 
   .CP-SN-Femenino {
@@ -297,6 +296,10 @@
 
   /* ============ CONTENEDOR NOTICIA INFERIORES (MOVIL) ============- */
 
+  .I-SN-Inferiores-titulo p {
+    margin-left: 0;
+    font-size: 3.2rem;
+  }
   .CP-SN-Inferiores {
     grid-column: 1/4;
     grid-template-columns: 3px 1fr 3px;
@@ -304,12 +307,15 @@
     gap: 0px;
     grid-gap: 0px;
     padding: 0px;
+    margin: 20px;
+
     /* border: 4px solid rgba(81, 11, 148, 0.8); */
   }
 
   .CI-SN-Inferiores-miniatura {
     grid-column: 1/4;
     grid-row: 3/4;
+    max-width: 400px;
   }
   /*============ CONTENENDOR PANEL  ( SECCION LIGA ) ============ */
 
@@ -353,7 +359,8 @@
   /* ----- ITEM NOTICIAS LIGA ----- */
 
   .I-SN-Liga-titulo p {
-    font-size: 3em;
+    font-size: 2.8rem;
+    margin-left: 0;
   }
 
   @-webkit-keyframes cube {
