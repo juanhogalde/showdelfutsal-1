@@ -77,6 +77,17 @@
   display: grid;
 }
 
+.I-Noticia-filtrada-componente-publicidad {
+  display: flex;
+  place-content: center;
+  align-items: center;
+}
+
+.I-Noticia-filtrada-componente-publicidad img {
+  width: 70%;
+  height: auto;
+}
+
 .I-Noticia-filtrada-Panel-lateral-slider {
   grid-column: 2/3;
   grid-row: 3/4;

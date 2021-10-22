@@ -3,6 +3,7 @@ import './NoticiasFiltradas.css';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 import {useSelector} from 'react-redux';
+import publicidadCorta from '../../Static/Img/publicidad_corta.jpg';
 
 const NoticiasFiltradas = () => {
   // const userAgent = navigator.userAgent;
@@ -45,7 +46,9 @@ const NoticiasFiltradas = () => {
         </div>
         <div className="CI-SN-Noticia-filtrada-Panel-lateral">
           <div className="I-Noticia-filtrada-Panel-lateral-publicidad">
-            <div className="I-Noticia-filtrada-componente-publicidad"></div>
+            <div className="I-Noticia-filtrada-componente-publicidad">
+              <img alt="" src={publicidadCorta}></img>
+            </div>
           </div>
           <div className="I-Noticia-filtrada-Panel-lateral-slider">
             <SliderNoticias cantidadDeElementos={3} isVertical={true} />
