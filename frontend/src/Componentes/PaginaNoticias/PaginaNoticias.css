@@ -130,7 +130,6 @@
   font-size: 3.4em;
   font-weight: 800;
   color: rgb(0, 0, 0);
-  margin-left: 1rem;
 }
 
 /* ----- CONTENEDOR INFERIORES GENERAL ----- */
@@ -296,8 +295,10 @@
   }
 
   /* ============ CONTENEDOR NOTICIA INFERIORES (MOVIL) ============- */
+
   .I-SN-Inferiores-titulo p {
     margin-left: 0;
+    font-size: 3.2rem;
   }
   .CP-SN-Inferiores {
     grid-column: 1/4;
@@ -358,7 +359,8 @@
   /* ----- ITEM NOTICIAS LIGA ----- */
 
   .I-SN-Liga-titulo p {
-    font-size: 3em;
+    font-size: 2.8rem;
+    margin-left: 0;
   }
 
   @-webkit-keyframes cube {

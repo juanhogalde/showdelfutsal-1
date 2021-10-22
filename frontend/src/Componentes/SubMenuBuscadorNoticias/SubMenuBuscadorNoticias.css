@@ -42,3 +42,16 @@
     font-size: 2rem;
   }
 }
+@media only screen and (max-width: 360px) and (orientation: portrait) {
+  .Input-busqueda {
+    min-width: 90px;
+    max-width: 150px;
+    height: auto;
+    border-image-source: linear-gradient(21deg, #10abff, #1beabd);
+    border-width: 2px;
+    border-image-slice: 1;
+  }
+  .CP-SN-Noticias-Busquedas p {
+    font-size: 1.8rem;
+  }
+}

@@ -37,7 +37,7 @@ const pruebaInicio = {
     },
     {
       fuente:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkJ5eKkunzfUzU_rsCh7BO32h5a95aiX65OA&usqp=CAU',
+        'https://scontent.fmdz4-1.fna.fbcdn.net/v/t1.6435-9/241666479_4715899868420858_6789549810217285789_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=973b4a&_nc_ohc=usHNyI0zEVgAX-qAqU5&_nc_ht=scontent.fmdz4-1.fna&oh=a647f5e4f99dbc29b7c69384dddf5035&oe=619887C1',
       descripcion: '3 TRES',
     },
     {
