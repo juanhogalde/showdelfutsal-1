@@ -13,13 +13,13 @@ const SubMenuSecciones = ({
       </div>
       <div className="CI-Noticias-Menu">
         <div className="I-Noticias-fixture" onClick={() => obtenerSeccion(1)}>
-          <h6>Fixture</h6>
+          <h5>Fixture</h5>
         </div>
         <div className="I-Noticias-tabla-posiciones" onClick={() => obtenerSeccion(2)}>
-          <h6>Tabla de posiciones</h6>
+          <h5>Tabla de posiciones</h5>
         </div>
         <div className="I-Noticias-categoria" onClick={() => obtenerSeccion(3)}>
-          <h6>Noticias</h6>
+          <h5>Noticias</h5>
         </div>
       </div>
       <div className="I-Barra"></div>

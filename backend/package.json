@@ -31,6 +31,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.10",
     "mongoose-paginate-v2": "^1.4.2",
+    "nodemailer": "^6.7.0",
     "ts-node": "^10.3.0"
   },
   "devDependencies": {
@@ -45,6 +46,7 @@
     "@types/mongoose-paginate-v2": "^1.4.0",
     "@types/morgan": "^1.9.3",
     "@types/node": "^16.10.3",
+    "@types/nodemailer": "^6.4.4",
     "dotenv": "^10.0.0",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.13",
