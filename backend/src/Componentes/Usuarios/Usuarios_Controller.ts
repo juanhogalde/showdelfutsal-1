@@ -5,6 +5,7 @@ import IUsuarios from './Usuarios_Interface';
 import generarClaves from '../../Middlewares/generadorClaves';
 import {envioMail} from '../../Config/gestionMail';
 import {generatePasswordRand} from '../../Config/gestionPass';
+import {Rol} from '../../Config/enumeradores';
 const sendMail = new envioMail();
 const genClaves = new generarClaves();
 const proyeccion: object = {password: 0, token: 0};
@@ -100,8 +101,33 @@ class UsuariosController {
   public async eliminar(req: Request, res: Response) {
     try {
       let id = req.body.id;
-      const usuarioEliminada = await modeloUsuarios.findOneAndDelete({_id: id}, {new: true});
-      responder.sucess(req, res, usuarioEliminada);
+      if (!id) {
+        responder.error(req, res, 'No se ingresaron datos');
+      } else {
+        const usuario = await modeloUsuarios.findOne({_id: id});
+        if (usuario) {
+          if (usuario.keyRol === Rol.Administrador) {
+            usuario.isActivo = false;
+            const resultado = await usuario.save();
+            if (resultado) {
+              responder.sucess(req, res, 'Usuario administrador desactivado.');
+            } else {
+              console.info(resultado);
+              responder.error(req, res, 'Ocurrio un error al cambiar el estado del usuario');
+            }
+          } else {
+            const valor = await usuario.deleteOne({_id: id});
+            if (valor) {
+              responder.sucess(req, res, 'Usuario eliminado.');
+            } else {
+              console.info(valor);
+              responder.error(req, res, 'Ocurrio un error al eliminar el usuario');
+            }
+          }
+        } else {
+          responder.error(req, res, 'Usuario no encontrado');
+        }
+      }
     } catch (error) {
       responder.error(req, res, error);
     }
