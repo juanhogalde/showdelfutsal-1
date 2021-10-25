@@ -6,8 +6,8 @@
 }
 
 .CI-Categoria-TablaDePosiciones {
-  width: 180px;
-  height: 30px;
+  width: 200px;
+  height: 40px;
   background: rgb(0, 177, 115);
   background: linear-gradient(
     90deg,
@@ -22,7 +22,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  /*  color: white; */
   border-top: 2px solid #ffe35f;
   border-right: 2px solid #ffe35f;
   border-bottom: 2px solid #ffe35f;

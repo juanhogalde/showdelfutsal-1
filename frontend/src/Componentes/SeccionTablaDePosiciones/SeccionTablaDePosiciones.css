@@ -8,11 +8,14 @@
 .CI-componente-InfoPartido-SeccionTabla {
   grid-column: 2/3;
   grid-row: 1/2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr minmax(200px, 300px) 1fr;
+  grid-template-rows: auto;
 }
-
+.componente-InfoPartdo-SeccionTabla {
+  grid-row: 1/2;
+  grid-column: 2/3;
+}
 .CI-componente-TablaDePosiciones {
   grid-column: 2/3;
   grid-row: 2/3;

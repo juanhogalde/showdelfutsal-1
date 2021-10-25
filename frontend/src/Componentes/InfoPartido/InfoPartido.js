@@ -4,14 +4,14 @@ import {AiFillCaretLeft} from 'react-icons/ai';
 import {AiFillCaretRight} from 'react-icons/ai';
 
 const InfoPartido = props => {
-  const {fecha, sede, siguientePartido, isSoloTitulo} = props;
+  const {fecha, sede, siguientePartido, isSoloTitulo, isTablaDePosiciones} = props;
 
   return (
     <div className="CP-InfoPartido">
       <div className="CI-InfoPartido">
         {isSoloTitulo ? (
           <React.Fragment>
-            <h3>Fecha 1</h3>
+            {isTablaDePosiciones ? <h3>Zona A</h3> : <h3>Fecha 1</h3>}
           </React.Fragment>
         ) : (
           <React.Fragment>

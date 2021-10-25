@@ -6,13 +6,15 @@ const SeccionTablaDePosiciones = () => {
   return (
     <div className="CP-SeccionTablaDePosiciones">
       <div className="CI-componente-InfoPartido-SeccionTabla">
-        <InfoPartido isSoloTitulo={true}></InfoPartido>
+        <div className="componente-InfoPartdo-SeccionTabla">
+          <InfoPartido isSoloTitulo={true} isTablaDePosiciones={true}></InfoPartido>
+        </div>
       </div>
       <div className="CI-componente-TablaDePosiciones">
-        <TablaDeposiciones></TablaDeposiciones>
-        <TablaDeposiciones></TablaDeposiciones>
-        <TablaDeposiciones></TablaDeposiciones>
-        <TablaDeposiciones></TablaDeposiciones>
+        <TablaDeposiciones categoria="Primera"></TablaDeposiciones>
+        <TablaDeposiciones categoria="Reserva"></TablaDeposiciones>
+        {/* <TablaDeposiciones></TablaDeposiciones>
+        <TablaDeposiciones></TablaDeposiciones> */}
       </div>
     </div>
   );
