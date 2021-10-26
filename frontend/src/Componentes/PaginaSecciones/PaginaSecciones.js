@@ -42,12 +42,12 @@ const PaginaSecciones = () => {
   }, []);
   return (
     <div className="CP-PaginaSecciones">
-      <SubMenuSecciones obtenerSeccion={obtenerSeccion} />
+      <SubMenuSecciones obtenerSeccion={obtenerSeccion} categoria={id} />
 
       <div className="CI-Cuerpo-PaginaSecciones">
         {isSeccionNoticias && (
           <div className="componente-SeccionNoticias">
-            <SeccionNoticias tituloSeccionNoticias={id}></SeccionNoticias>
+            <SeccionNoticias isTitulo={false}></SeccionNoticias>
           </div>
         )}
         {isSeccionFixture && (

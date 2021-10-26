@@ -8,12 +8,18 @@
   height: 120px;
   margin: 0px;
   position: sticky;
-  top: 50px;
+  top: 70px;
   grid-column: 1/4;
   z-index: 5;
   box-shadow: 0px 15px 10px -15px;
 }
-
+.CI-Noticias-titulo h4 {
+  cursor: pointer;
+  font-size: 2.5rem;
+}
+.CP-SN-Noticias-Menu h5 {
+  cursor: pointer;
+}
 .CI-Noticias-titulo {
   grid-column: 2/3;
   grid-row: 2/3;
@@ -134,5 +140,10 @@
   }
   .I-Noticias-categoria {
     grid-column: 4/5;
+  }
+}
+@media screen and (max-width: 480px) {
+  .CI-Noticias-titulo h4 {
+    font-size: 2rem;
   }
 }

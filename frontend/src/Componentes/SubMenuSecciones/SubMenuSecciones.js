@@ -5,11 +5,12 @@ const SubMenuSecciones = ({
   obtenerSeccion = () => {
     console.log('No se envió función');
   },
+  categoria = '',
 }) => {
   return (
     <div className="CP-SN-Noticias-Menu">
       <div className="CI-Noticias-titulo">
-        <h4>CATEGORIA SECCION</h4>
+        <h4>{categoria}</h4>
       </div>
       <div className="CI-Noticias-Menu">
         <div className="I-Noticias-fixture" onClick={() => obtenerSeccion(1)}>
