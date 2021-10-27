@@ -11,8 +11,6 @@ import PieDepagina from '../PieDePagina/PieDepagina';
 const PaginaSomos = () => {
   const {DatosDePruebaImagenes} = useSelector(state => state.storePrueba);
 
-  console.log(DatosDePruebaImagenes);
-
   return (
     <div className="LI-Nosotros seccion-nosotros">
       <div className="CP-Nosotros">

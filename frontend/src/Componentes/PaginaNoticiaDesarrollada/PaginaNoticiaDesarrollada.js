@@ -11,14 +11,7 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
   const userAgent = navigator.userAgent;
   const isMobileIPhone = userAgent.indexOf('iPhone');
   const isMobileAndroid = userAgent.indexOf('Android');
-
-  console.log(isMobileIPhone);
-  // console.log(isMobileAndroid);
-
   const {noticias1} = useSelector(state => state.storePrueba);
-
-  console.log(noticias1);
-  // console.log(userAgent);
 
   return (
     <div className="LI-ND-Noticia-Desarrollada Fondo-seccion-noticia-desarrollada">

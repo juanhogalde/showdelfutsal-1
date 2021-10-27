@@ -40,11 +40,7 @@ const BarraDeNavegacion = () => {
                 Noticias
               </NavLink>
             </li>
-            <li
-              activeClassName="active"
-              className="nav-item"
-              onClick={() => abrirSubmenu('Femenino')}
-            >
+            <li className="nav-item" onClick={() => abrirSubmenu('Femenino')}>
               <div className="nav-links">
                 Femenino
                 <div className={`${isFemenenino ? 'dropdown' : 'dropdown-close'}`}>
