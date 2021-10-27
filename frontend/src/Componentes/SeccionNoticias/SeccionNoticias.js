@@ -5,14 +5,23 @@ import './SeccionNoticias.css';
 /* import publicidadCorta from '../../Static/Img/publicidad_corta.jpg'; */
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 
-const SeccionNoticias = ({tituloSeccionNoticias = 'Título'}) => {
+const SeccionNoticias = ({tituloSeccionNoticias = 'Título', isTitulo = true}) => {
   return (
-    <div className=" CP-SN-Noticias Fondo-seccion-noticias">
-      <div className="CI-SN-Noticia-titulo">
-        <div className="I-SN-Noticia-titulo">
-          <p>{tituloSeccionNoticias}</p>
+    <div
+      className={`${
+        isTitulo
+          ? ' CP-SN-Noticias Fondo-seccion-noticias'
+          : 'CP-SN-Noticias-SinTitulo Fondo-seccion-noticias'
+      }`}
+    >
+      {isTitulo && (
+        <div className="CI-SN-Noticia-titulo">
+          <div className="I-SN-Noticia-titulo">
+            <p>{tituloSeccionNoticias}</p>
+          </div>
         </div>
-      </div>
+      )}
+
       <div className="CI-SN-Noticia-general">
         <div className="I-Noticia-Componente">
           <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true}></NoticiasMiniatura>

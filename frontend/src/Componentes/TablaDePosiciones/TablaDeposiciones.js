@@ -13,11 +13,12 @@ var arrayTabla = [
   {clave: 1, valor: 10},
   {clave: 2, valor: 20},
 ];
-const TablaDeposiciones = () => {
+const TablaDeposiciones = props => {
+  const {categoria} = props;
   return (
     <div className="CP-TablaDePosiciones">
       <div className="CI-Categoria-TablaDePosiciones">
-        <p>Categoría</p>
+        <h4>{categoria ? categoria : 'Categoría'}</h4>
       </div>
       <div className="CI-Cabecera-TablaDePosiciones">
         <p>Equipo</p>

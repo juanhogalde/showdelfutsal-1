@@ -6,6 +6,8 @@ import store from './Redux/Store';
 import Home from './Componentes/Home/Home';
 
 import './index.css';
+/* import Login from './Componentes/Login/Login'; */
+
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>

@@ -146,6 +146,9 @@
   .I-cuerpo-somos h3 {
     color: white;
   }
+  .I-cuerpo-somos {
+    margin-top: 50px;
+  }
 }
 
 @media screen and (max-width: 1200px) {

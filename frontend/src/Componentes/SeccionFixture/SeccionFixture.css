@@ -20,7 +20,7 @@
 .CI-componente-TarjetaFixture {
   grid-column: 2/3;
   grid-row: 2/3;
-  padding-right: 130px;
+  /* padding-right: 130px; */
   max-height: 70vh;
   overflow-y: scroll;
 }
@@ -35,7 +35,6 @@
     grid-template-columns: 50px 1fr 50px;
   }
   .CI-componente-TarjetaFixture {
-    padding-right: 100px;
     max-height: 80vh;
   }
 }

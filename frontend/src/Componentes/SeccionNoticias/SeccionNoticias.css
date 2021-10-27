@@ -11,7 +11,15 @@
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 100px 1fr auto;
 }
-
+.CP-SN-Noticias-SinTitulo {
+  display: grid;
+  grid-column: 1/3;
+  gap: 10px;
+  padding: 100px;
+  padding-top: 50px;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1fr auto;
+}
 /* --- CONTENEDOR TITULO  --- */
 
 .CI-SN-Noticia-titulo {
@@ -110,7 +118,14 @@
     padding: 0px;
     padding-top: 40px;
   }
-
+  .CP-SN-Noticias-SinTitulo {
+    margin-top: 50px;
+    grid-template-columns: 3px 1fr 3px;
+    grid-template-rows: auto 1fr auto;
+    /* border: 4px solid rgba(207, 18, 18, 0.8); */
+    padding: 0px;
+    padding-top: 40px;
+  }
   /* ----- CONTENEDOR NOTICIA  TITULO (MOVIL)----- */
 
   .CI-SN-Noticia-titulo {
