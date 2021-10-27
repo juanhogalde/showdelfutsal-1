@@ -2,10 +2,10 @@ import React from 'react';
 import './PaginaNoticiaDesarrollada.css';
 import NoticiaDesarrollada from '../NoticiaDesarrollada/NoticiaDesarrollada';
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
-import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import publicidadLarga from '../../Static/Img/Publicidad larga.jpg';
 import publicidadCorta from '../../Static/Img/publicidad corta.jpg';
 import {useSelector} from 'react-redux';
+import PieDepagina from '../PieDePagina/PieDepagina';
 
 const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollada'}) => {
   const userAgent = navigator.userAgent;
@@ -45,6 +45,7 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
           <img alt="" src={publicidadLarga}></img>
         </div>
       </div>
+      <PieDepagina></PieDepagina>
     </div>
   );
 };

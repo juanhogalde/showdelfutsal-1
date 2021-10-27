@@ -14,6 +14,7 @@ import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 import Radio from '../Radio/Radio';
+import PieDepagina from '../PieDePagina/PieDepagina';
 
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
@@ -171,6 +172,7 @@ const Inicio = () => {
           </div>
         </div>
       </div>
+      <PieDepagina isConFondo={true}></PieDepagina>
     </div>
   );
 };

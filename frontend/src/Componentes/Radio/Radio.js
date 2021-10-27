@@ -15,7 +15,7 @@ const Radio = ({isSeccionSomos = false}) => {
           <BsFillStopCircleFill size={50} className="I-Iconos-radio-pausa" />
         </div>
         <div className="I-Radio-SubTitulo">
-          <h4>Lunes a Viernes - 15:30 hs</h4>
+          <h4>Martes y Jueves - 19 Hs.</h4>
         </div>
       </div>
     </div>

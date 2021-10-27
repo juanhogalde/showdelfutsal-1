@@ -4,9 +4,16 @@ import LogoPieDePagina from '../../Static/Img/isologo.png';
 import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
-export const PieDepagina = () => {
+export const PieDepagina = ({isConFondo = false}) => {
   return (
-    <div className="CP-Pie-pagina Seccion-footer" id="PieDePagina">
+    <div
+      className={`${
+        isConFondo
+          ? 'CP-Pie-pagina Seccion-footer Seccion-footer-inicio'
+          : 'CP-Pie-pagina Seccion-footer'
+      }`}
+      id="PieDePagina"
+    >
       <div className="imagen-Fondo-Footer">
         <div className="CI-Pie-Pagina">
           <div className="I-Logo">

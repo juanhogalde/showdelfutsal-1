@@ -5,6 +5,7 @@ import SeccionFixture from '../SeccionFixture/SeccionFixture';
 import SeccionTablaDePosiciones from '../SeccionTablaDePosiciones/SeccionTablaDePosiciones';
 import SubMenuSecciones from '../SubMenuSecciones/SubMenuSecciones';
 import {useParams} from 'react-router';
+import PieDepagina from '../PieDePagina/PieDepagina';
 
 const PaginaSecciones = () => {
   let {id} = useParams();
@@ -61,6 +62,7 @@ const PaginaSecciones = () => {
           </div>
         )}
       </div>
+      <PieDepagina></PieDepagina>
     </div>
   );
 };

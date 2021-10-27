@@ -6,6 +6,7 @@ import foto2 from '../../Static/Img/foto2.jpg';
 import frase from '../../Static/Img/titulo_somos.png';
 import {useSelector} from 'react-redux';
 import Radio from '../Radio/Radio';
+import PieDepagina from '../PieDePagina/PieDepagina';
 
 const PaginaSomos = () => {
   const {DatosDePruebaImagenes} = useSelector(state => state.storePrueba);
@@ -64,6 +65,9 @@ const PaginaSomos = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="CI-PieDePagina-Somos">
+        <PieDepagina isConFondo={true}></PieDepagina>
       </div>
     </div>
   );

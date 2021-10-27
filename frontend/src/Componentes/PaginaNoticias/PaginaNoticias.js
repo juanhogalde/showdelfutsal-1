@@ -4,6 +4,7 @@ import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 import SeccionNoticias from '../SeccionNoticias/SeccionNoticias';
 import SubMenuBuscadorNoticias from '../SubMenuBuscadorNoticias/SubMenuBuscadorNoticias';
+import PieDepagina from '../PieDePagina/PieDepagina';
 
 const PaginaNoticias = ({
   titulo = 'Masculino',
@@ -63,6 +64,7 @@ const PaginaNoticias = ({
           </div>
         </div>
       </div>
+      <PieDepagina></PieDepagina>
     </div>
   );
 };
