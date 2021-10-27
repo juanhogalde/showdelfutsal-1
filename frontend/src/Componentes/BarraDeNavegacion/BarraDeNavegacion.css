@@ -50,10 +50,9 @@
   height: 100%;
   border-bottom: 3px solid transparent;
   text-decoration: none;
+  cursor: pointer;
 }
-/* .nav-links:hover {
-  color: #ffe35f;
-} */
+
 .fa-code {
   margin-left: 1rem;
 }
@@ -86,7 +85,6 @@
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
-
 .nav-icon {
   display: none;
 }
@@ -97,10 +95,9 @@
 
 .dropdown {
   width: 100%;
-  height: 0;
+  height: 150px;
+  transition: all 0.5s ease-in-out;
   background-color: black;
-  opacity: 0;
-  visibility: hidden;
 }
 
 .dropdown h6 {
@@ -108,12 +105,11 @@
   text-decoration: none;
   padding: 0.5rem;
 }
-
-.nav-item:hover .dropdown {
-  opacity: 1;
-  height: auto;
-  visibility: visible;
+.dropdown-close {
+  height: 0;
+  transition: all 0.5s ease-in-out;
 }
+
 @media screen and (max-width: 960px) {
   .nav-logo-movil {
     display: flex;

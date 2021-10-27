@@ -13,22 +13,20 @@ const BarraDeNavegacion = () => {
   const [click, setClick] = useState(false);
   const [isMasculino, setIsMasculino] = useState(false);
   const [isFemenenino, setIsFemenenino] = useState(false);
+
   const handleClick = () => {
-    // setIsMasculino(false);
-    // setIsFemenenino(false);
+    setIsMasculino(false);
+    setIsFemenenino(false);
     setClick(!click);
-    console.log('INGRESA');
   };
 
   const abrirSubmenu = id => {
-    console.log(id);
     if (id === 'Masculino') {
       setIsMasculino(!isMasculino);
     } else {
       setIsFemenenino(!isFemenenino);
     }
   };
-  console.log(click);
   return (
     <>
       <div className="Contenedor-menu">
@@ -37,85 +35,55 @@ const BarraDeNavegacion = () => {
             <div className="logo-movil"></div>
           </NavLink>
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-            {/* <div className={isMasculino || isFemenenino ? 'nav menu active ' : 'nav-menu'}> */}
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/Noticias"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
+            <li className="nav-item" onClick={() => handleClick()}>
+              <NavLink exact to="/Noticias" activeClassName="active" className="nav-links">
                 Noticias
               </NavLink>
             </li>
-            <li className="nav-item" onClick={() => abrirSubmenu('Femenino')}>
-              <div className="nav-links" activeClassName="active">
+            <li
+              activeClassName="active"
+              className="nav-item"
+              onClick={() => abrirSubmenu('Femenino')}
+            >
+              <div className="nav-links">
                 Femenino
-                <div className="dropdown">
-                  <Menucategorias eventoApertura={isFemenenino} />
+                <div className={`${isFemenenino ? 'dropdown' : 'dropdown-close'}`}>
+                  <Menucategorias eventoApertura={isFemenenino} handleClick={handleClick} />
                 </div>
               </div>
             </li>
-            <li className="nav-item">
-              <div
-                activeClassName="active"
-                className="nav-links"
-                onClick={() => abrirSubmenu('Masculino')}
-              >
+            <li className="nav-item" onClick={() => abrirSubmenu('Masculino')}>
+              <div className="nav-links">
                 Masculino
-                <div className="dropdown">
-                  <Menucategorias eventoApertura={isMasculino} />
+                <div className={`${isMasculino ? 'dropdown' : 'dropdown-close'}`}>
+                  <Menucategorias eventoApertura={isMasculino} handleClick={handleClick} />
                 </div>
               </div>
             </li>
-            <li className="nav-item-logo">
-              <NavLink
-                exact
-                to="/"
-                activeClassName="active"
-                className="nav-logo"
-                onClick={handleClick}
-              >
+            <li className="nav-item-logo" onClick={() => handleClick()}>
+              <NavLink exact to="/" activeClassName="active" className="nav-logo">
                 <div className="logo"></div>
               </NavLink>
             </li>
 
             <li className="nav-item" onClick={() => handleClick()}>
-              <NavLink
-                exact
-                to={`/Seccion/Copa`}
-                // activeClassName="active"
-                className="nav-links"
-              >
+              <NavLink exact to={`/Seccion/Copa`} className="nav-links">
                 Copa
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/Seccion/Liga"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
+            <li className="nav-item" onClick={() => handleClick()}>
+              <NavLink exact to="/Seccion/Liga" activeClassName="active" className="nav-links">
                 Liga
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/Somos"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
+            <li className="nav-item" onClick={() => handleClick()}>
+              <NavLink exact to="/Somos" activeClassName="active" className="nav-links">
                 Somos
               </NavLink>
             </li>
             {/* </div> */}
           </ul>
-          <div className="nav-icon" onClick={handleClick}>
+          <div className="nav-icon" onClick={() => handleClick()}>
             <AiOutlineMenu className={click ? 'Icon-Menu' : 'Icon-Menu'}></AiOutlineMenu>
           </div>
         </div>
