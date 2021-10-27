@@ -111,11 +111,13 @@ const Inicio = () => {
           </div>
           <div className="CI-NoticiaPrincipal">
             <div className="componenteNoticiaPrincipal">
-              <NoticiasMiniatura
-                isSeccionNoticias={true}
-                isSobreImagen={true}
-                datosModelado={noticias1}
-              ></NoticiasMiniatura>
+              <Link to="/Noticia/Desarrollada" className="estilos-Link">
+                <NoticiasMiniatura
+                  isSeccionNoticias={true}
+                  isSobreImagen={true}
+                  datosModelado={noticias1}
+                ></NoticiasMiniatura>
+              </Link>
             </div>
           </div>
           <div className="CI-NoticiasMini">
