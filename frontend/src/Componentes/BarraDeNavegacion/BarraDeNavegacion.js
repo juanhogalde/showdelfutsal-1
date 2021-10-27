@@ -1,7 +1,7 @@
 import React from 'react';
 import './BarraDeNavegacion.css';
 import {useState} from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {AiOutlineMenu} from 'react-icons/ai';
 import Menucategorias from '../MenuCategorias/MenuCategorias';
 

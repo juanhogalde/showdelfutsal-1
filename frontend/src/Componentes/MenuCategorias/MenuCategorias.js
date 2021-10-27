@@ -1,6 +1,5 @@
 import React from 'react';
-import {Link, NavLink} from 'react-router-dom';
-import {useState} from 'react';
+import {Link} from 'react-router-dom';
 import './MenuCategorias.css';
 
 const MenuCategorias = props => {
@@ -8,21 +7,21 @@ const MenuCategorias = props => {
 
   return (
     <div className={`${eventoApertura ? 'Lista-submenu' : 'Lista-submenu-cerrada'}`}>
-      <li class="I-submenu" onClick={() => handleClick()}>
+      <div className="I-submenu" onClick={() => handleClick()}>
+        <Link className="Links-submenu" to="/">
+          <h6>Division A</h6>
+        </Link>
+      </div>
+      <div className="I-submenu" onClick={() => handleClick()}>
         <Link className="Links-submenu" to="/">
           <h6>Division B</h6>
         </Link>
-      </li>
-      <li class="I-submenu" onClick={() => handleClick()}>
+      </div>
+      <div className="I-submenu" onClick={() => handleClick()}>
         <Link className="Links-submenu" to="/">
-          <h6>Division B</h6>
+          <h6>Division C</h6>
         </Link>
-      </li>
-      <li class="I-submenu" onClick={() => handleClick()}>
-        <Link className="Links-submenu" to="/">
-          <h6>Division B</h6>
-        </Link>
-      </li>
+      </div>
     </div>
   );
 };

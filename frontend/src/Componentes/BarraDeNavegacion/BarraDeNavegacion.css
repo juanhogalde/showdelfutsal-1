@@ -111,6 +111,11 @@
 }
 
 @media screen and (max-width: 960px) {
+  .nav-menu {
+    overflow: scroll;
+    height: 100%;
+    padding-bottom: 150px;
+  }
   .nav-logo-movil {
     display: flex;
     margin-left: 20px;
@@ -133,14 +138,16 @@
     position: absolute;
     top: 70px;
     left: -110%;
-    height: 100vh;
+    min-height: 100vh;
     opacity: 1;
     transition: all 0.5s ease-out;
     margin: 0px;
     overflow-y: scroll;
     padding-top: 60px;
   }
-
+  .nav-menu::-webkit-scrollbar {
+    width: 0;
+  }
   .nav-item {
     line-height: 40px;
     margin-right: 0;
