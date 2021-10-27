@@ -11,9 +11,7 @@ import Login from './Componentes/Login/Login';
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-      {/* <Home></Home> */}
-      {/* <Login></Login> */}
-      <Login></Login>
+      <Home></Home>
     </Provider>
   </BrowserRouter>,
   document.getElementById('root')
