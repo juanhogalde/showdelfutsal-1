@@ -14,7 +14,7 @@ const RutasPublicas = () => {
         <Route exact component={PaginaSomos} path="/Somos"></Route>
         <Route exact component={PaginaNoticias} path="/Noticias"></Route>
         <Route exact component={PaginaNoticiaDesarrollada} path="/Noticia/Desarrollada"></Route>
-
+        <Route exact path="/Seccion" component={PaginaSecciones}></Route>
         <Route exact path="/Seccion/:id" component={PaginaSecciones}></Route>
       </Switch>
     </React.Fragment>
