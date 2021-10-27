@@ -6,14 +6,8 @@ import './MenuCategorias.css';
 const MenuCategorias = props => {
   const {eventoApertura} = props;
 
-  // console.log(eventoApertura);
-
-  //   const [click, setClick] = useState(false);
-
-  //   const handleClick = () => setClick(!click);
-
   return (
-    <div className={`${true ? 'Lista-submenu' : 'Lista-submenu-cerrada'}`}>
+    <div className={`${eventoApertura ? 'Lista-submenu' : 'Lista-submenu-cerrada'}`}>
       <p class="I-submenu">
         <Link className="Links-submenu">
           <h6>Division B</h6>

@@ -13,7 +13,12 @@ const BarraDeNavegacion = () => {
   const [click, setClick] = useState(false);
   const [isMasculino, setIsMasculino] = useState(false);
   const [isFemenenino, setIsFemenenino] = useState(false);
-  const handleClick = () => setClick(!click);
+  const handleClick = () => {
+    // setIsMasculino(false);
+    // setIsFemenenino(false);
+    setClick(!click);
+    console.log('INGRESA');
+  };
 
   const abrirSubmenu = id => {
     console.log(id);
@@ -23,6 +28,7 @@ const BarraDeNavegacion = () => {
       setIsFemenenino(!isFemenenino);
     }
   };
+  console.log(click);
   return (
     <>
       <div className="Contenedor-menu">
@@ -43,12 +49,8 @@ const BarraDeNavegacion = () => {
                 Noticias
               </NavLink>
             </li>
-            <li className="nav-item">
-              <div
-                className="nav-links"
-                activeClassName="active"
-                onClick={() => abrirSubmenu('Femenino')}
-              >
+            <li className="nav-item" onClick={() => abrirSubmenu('Femenino')}>
+              <div className="nav-links" activeClassName="active">
                 Femenino
                 <div className="dropdown">
                   <Menucategorias eventoApertura={isFemenenino} />
@@ -79,13 +81,12 @@ const BarraDeNavegacion = () => {
               </NavLink>
             </li>
 
-            <li className="nav-item">
+            <li className="nav-item" onClick={() => handleClick()}>
               <NavLink
                 exact
                 to={`/Seccion/Copa`}
-                activeClassName="active"
+                // activeClassName="active"
                 className="nav-links"
-                onClick={handleClick}
               >
                 Copa
               </NavLink>

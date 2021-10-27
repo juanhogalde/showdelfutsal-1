@@ -59,8 +59,9 @@
 }
 .nav-item {
   line-height: 60px;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  min-width: 100px;
 }
 .nav-item-logo {
   line-height: 40px;
@@ -109,7 +110,7 @@
 }
 
 .nav-item:hover .dropdown {
-  opacity: 1 !important;
+  opacity: 1;
   height: auto;
   visibility: visible;
 }
