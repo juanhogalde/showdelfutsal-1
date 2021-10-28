@@ -3,11 +3,23 @@ import {AiOutlineClose} from 'react-icons/ai';
 import './InputLowa.css';
 
 const InputLowa = props => {
-  const {type, onClick, placeholder, onChange, autocomplete, required, value, name, id} = props;
+  const {
+    type,
+    onClick,
+    placeholder,
+    onChange,
+    autocomplete,
+    required,
+    value,
+    name,
+    id,
+    inputConIcono,
+  } = props;
 
   const resetValue = () => {
     inputElement.current.value = '';
   };
+  console.log(inputConIcono);
   const inputElement = useRef(null);
   return (
     <div className="CP-Input">
@@ -25,7 +37,7 @@ const InputLowa = props => {
         name={name}
       ></input>
       <span className="input-Icono-Lowa" onClick={() => resetValue(name)}>
-        <AiOutlineClose></AiOutlineClose>
+        {inputConIcono ? inputConIcono : <AiOutlineClose></AiOutlineClose>}
       </span>
     </div>
   );
@@ -33,6 +45,6 @@ const InputLowa = props => {
 InputLowa.defaultProps = {
   type: 'text',
   placeholder: 'Placeholder',
-  inputIcono: false,
+  inputIcono: '',
 };
 export default InputLowa;
