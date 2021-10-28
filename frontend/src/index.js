@@ -7,13 +7,15 @@ import Home from './Componentes/Home/Home';
 
 import './index.css';
 import HomePrivada from './ComponentesAdmin/HomePrivada/HomePrivada';
+import Login from './Componentes/Login/Login';
 /* import Login from './Componentes/Login/Login'; */
 
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
       {/* <HomePrivada></HomePrivada> */}
-      <Home></Home>
+      {/* <Home></Home> */}
+      <Login></Login>
     </Provider>
   </BrowserRouter>,
   document.getElementById('root')
