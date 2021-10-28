@@ -5,6 +5,7 @@ import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 import publicidadLarga from '../../Static/Img/Publicidad larga.jpg';
 import publicidadCorta from '../../Static/Img/publicidad corta.jpg';
 import {useSelector} from 'react-redux';
+import Animaciones from '../Animaciones/Animaciones';
 import PieDepagina from '../PieDePagina/PieDepagina';
 
 const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollada'}) => {
@@ -15,6 +16,7 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
 
   return (
     <div className="LI-ND-Noticia-Desarrollada Fondo-seccion-noticia-desarrollada">
+      <Animaciones isAlineado={true} orientacion={'derecha'} />
       <div className="CP-ND-Noticias">
         <div className="CI-ND-Noticia-general">
           <div className="I-Noticia-desarrollada-Componente">
