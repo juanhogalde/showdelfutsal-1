@@ -17,7 +17,7 @@ const InfoPartido = props => {
           <React.Fragment>
             <h3>{fecha ? fecha.hora : '-'}</h3>
             <h4 className="fecha-dia">{fecha ? fecha.dia : '-'}</h4>
-            <p className="margenSede">{sede ? sede : '-'}</p>
+            <h5 className="margenSede">{sede ? sede : '-'}</h5>
           </React.Fragment>
         )}
       </div>

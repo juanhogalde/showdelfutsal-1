@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Marcador from '../Marcador/Marcador';
 /* import PieDepagina from '../PieDePagina/PieDepagina'; */
 import publicidadCorta from '../../Static/Img/publicidad_corta.jpg';
@@ -14,6 +14,7 @@ import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 import Radio from '../Radio/Radio';
+import PieDepagina from '../PieDePagina/PieDepagina';
 
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
@@ -22,10 +23,46 @@ const Filtro = [
 ];
 
 const Inicio = () => {
-  const {noticias1, noticias2, noticias3} = useSelector(state => state.storePrueba);
+  /*   const {noticias1, noticias2, noticias3} = useSelector(state => state.storePrueba);*/
+  const [noticiaP, setNoticiaP] = useState({});
+  const [noticia1, setNoticia1] = useState({});
+  const [noticia2, setNoticia2] = useState({});
 
-  const {DatosDePruebaImagenes, DatosDePruebaVideos} = useSelector(state => state.storePrueba);
+  const {
+    DatosDePruebaImagenes,
+    DatosDePruebaImagenes2,
+    DatosDePruebaImagenes3,
+    DatosDePruebaVideos,
+    noticiasFemenino,
+    noticiasMasculino,
+    noticiasInferiores,
+  } = useSelector(state => state.storePrueba);
   const videoVivoPrueba = {fuente: 'MmysMu3mgvw'};
+  const obtenerFiltro = filtro => {
+    switch (filtro) {
+      case 'Masculino':
+        console.log('Switch Masculino');
+        setNoticiaP(noticiasMasculino[0]);
+        setNoticia1(noticiasMasculino[1]);
+        setNoticia2(noticiasMasculino[2]);
+
+        break;
+      case 'Femenino':
+        console.log('Switch Femenino');
+        setNoticiaP(noticiasFemenino[0]);
+        setNoticia1(noticiasFemenino[1]);
+        setNoticia2(noticiasFemenino[2]);
+        break;
+      case 'Inferiores':
+        console.log('Switch Inferiores');
+        setNoticiaP(noticiasInferiores[0]);
+        setNoticia1(noticiasInferiores[1]);
+        setNoticia2(noticiasInferiores[2]);
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <div className="LP-Inicio">
       <div className="LI-Inicio Margen-inicio seccion-somos">
@@ -107,28 +144,30 @@ const Inicio = () => {
             <h1>NOTICIAS</h1>
           </div>
           <div className="CI-Filtros">
-            <Filtros filtros={Filtro}></Filtros>
+            <Filtros filtros={Filtro} obtenerFiltro={obtenerFiltro}></Filtros>
           </div>
           <div className="CI-NoticiaPrincipal">
             <div className="componenteNoticiaPrincipal">
-              <NoticiasMiniatura
-                isSeccionNoticias={true}
-                isSobreImagen={true}
-                datosModelado={noticias1}
-              ></NoticiasMiniatura>
+              <Link to="/Noticia/Desarrollada" className="estilos-Link">
+                <NoticiasMiniatura
+                  isSeccionNoticias={true}
+                  isSobreImagen={true}
+                  datosModelado={noticiaP}
+                ></NoticiasMiniatura>
+              </Link>
             </div>
           </div>
           <div className="CI-NoticiasMini">
             <div className="noticia-Miniatura-1">
               <NoticiasMiniatura
                 isSeccionNoticias={true}
-                datosModelado={noticias2}
+                datosModelado={noticia1}
               ></NoticiasMiniatura>
             </div>
             <div className="noticia-Miniatura-2">
               <NoticiasMiniatura
                 isSeccionNoticias={true}
-                datosModelado={noticias3}
+                datosModelado={noticia2}
               ></NoticiasMiniatura>
             </div>
           </div>
@@ -151,11 +190,11 @@ const Inicio = () => {
             </div>
             <div className="galeria-Imagenes-B">
               <ImagenesVideo
-                DatosDeEntrada={DatosDePruebaImagenes}
+                DatosDeEntrada={DatosDePruebaImagenes2}
                 tipoDeSliderFlecha={false}
               ></ImagenesVideo>
               <ImagenesVideo
-                DatosDeEntrada={DatosDePruebaImagenes}
+                DatosDeEntrada={DatosDePruebaImagenes3}
                 tipoDeSliderFlecha={false}
               ></ImagenesVideo>
             </div>
@@ -169,6 +208,7 @@ const Inicio = () => {
           </div>
         </div>
       </div>
+      <PieDepagina isConFondo={true}></PieDepagina>
     </div>
   );
 };

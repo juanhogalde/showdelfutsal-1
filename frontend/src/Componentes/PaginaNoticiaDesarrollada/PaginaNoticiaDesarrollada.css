@@ -99,7 +99,7 @@
   padding-bottom: 0px;
   display: flex;
   flex-direction: column;
-  place-content: start;
+  place-content: flex-start;
   align-items: center;
   padding-top: 50px;
 }

@@ -8,19 +8,19 @@ import './Marcador.css';
 const partido = {
   _id: {},
   equipoA: {
-    nombreClub: 'CA Jachal City',
+    nombreClub: 'Huarpes FC',
     escudo: '',
     resultado: '6',
     penales: '4',
   },
   equipoB: {
-    nombreClub: 'CA Tío Nacho',
+    nombreClub: 'CAJ Alianza',
     escudo: '',
     resultado: '6',
     penales: '2',
   },
   fecha: {dia: '30/09/2021', hora: '21:00'},
-  sede: 'Polideportivo El Masche',
+  sede: 'Estadio Aldo Cantoni',
   categoria: {
     nombre: 'Masculino',
     subcategoria: 'Reserva',
@@ -65,10 +65,10 @@ const Marcador = () => {
             </div>
           </div>
           <div className="nombreEquipo-Marcador nombreEquipo-A">
-            <p>{partido.equipoA.nombreClub}</p>
+            <h5>{partido.equipoA.nombreClub}</h5>
           </div>
           <div className="nombreEquipo-Marcador nombreEquipo-B">
-            <p>{partido.equipoB.nombreClub}</p>
+            <h5>{partido.equipoB.nombreClub}</h5>
           </div>
           {partido.equipoA.penales && partido.equipoB.penales && (
             <div className="penales">

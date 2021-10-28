@@ -4,6 +4,7 @@ import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import './SeccionNoticias.css';
 /* import publicidadCorta from '../../Static/Img/publicidad_corta.jpg'; */
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
+import {Link} from 'react-router-dom';
 
 const SeccionNoticias = ({tituloSeccionNoticias = 'Título', isTitulo = true}) => {
   return (
@@ -24,7 +25,9 @@ const SeccionNoticias = ({tituloSeccionNoticias = 'Título', isTitulo = true}) =
 
       <div className="CI-SN-Noticia-general">
         <div className="I-Noticia-Componente">
-          <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true}></NoticiasMiniatura>
+          <Link to="/Noticia/Desarrollada" className="estilos-Link">
+            <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true}></NoticiasMiniatura>
+          </Link>
         </div>
       </div>
       <div className="CI-SN-Noticia-miniatura">

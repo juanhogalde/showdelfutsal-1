@@ -2,24 +2,17 @@ import React from 'react';
 import './PaginaNoticiaDesarrollada.css';
 import NoticiaDesarrollada from '../NoticiaDesarrollada/NoticiaDesarrollada';
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
-import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import publicidadLarga from '../../Static/Img/Publicidad larga.jpg';
 import publicidadCorta from '../../Static/Img/publicidad corta.jpg';
 import {useSelector} from 'react-redux';
 import Animaciones from '../Animaciones/Animaciones';
+import PieDepagina from '../PieDePagina/PieDepagina';
 
 const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollada'}) => {
   const userAgent = navigator.userAgent;
   const isMobileIPhone = userAgent.indexOf('iPhone');
   const isMobileAndroid = userAgent.indexOf('Android');
-
-  console.log(isMobileIPhone);
-  // console.log(isMobileAndroid);
-
   const {noticias1} = useSelector(state => state.storePrueba);
-
-  console.log(noticias1);
-  // console.log(userAgent);
 
   return (
     <div className="LI-ND-Noticia-Desarrollada Fondo-seccion-noticia-desarrollada">
@@ -47,6 +40,7 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
           <img alt="" src={publicidadLarga}></img>
         </div>
       </div>
+      <PieDepagina></PieDepagina>
     </div>
   );
 };

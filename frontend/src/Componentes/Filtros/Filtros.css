@@ -1,13 +1,11 @@
 .CI-filtro-barra {
   margin: 10px;
-  text-decoration: none;
-  /* margin-top: 2.5rem; */
+  cursor: pointer;
 }
 
 .filtros-cuerpo {
   display: flex;
   align-items: center;
-  /* margin-right: 360px; */
   position: relative;
   margin-bottom: 2rem;
 }
@@ -40,8 +38,8 @@
 @media screen and (max-width: 1366px) {
   .barra-color-filtros {
     width: 60px;
-    height: 15px;
-    top: -7px;
+    height: 17px;
+    top: -8px;
   }
   .texto-filtros {
     top: -12px;
