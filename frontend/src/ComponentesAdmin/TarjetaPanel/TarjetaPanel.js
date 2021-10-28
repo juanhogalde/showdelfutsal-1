@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import './TarjetaPanel.css';
 const TarjetaPanel = ({url = '', tituloPanel = 'Titulo', linkTo = ''}) => {
   return (
