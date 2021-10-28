@@ -14,7 +14,6 @@
     rgba(0, 177, 115, 1) 100%
   );
   position: relative;
-  /* z-index: -1; */
 }
 
 .Seccion-footer {
@@ -109,18 +108,6 @@
 .iconos-Redes-Sociales {
   font-size: 20px;
 }
-
-/* @media screen and (max-width: 1420px) {
-  .CP-Pie-pagina {
-    background-color: blue;
-  }
-} */
-
-/* @media screen and (max-width: 1024px) {
-  .CP-Pie-pagina {
-    background-color: rgb(30, 255, 0);
-  }
-} */
 
 @media screen and (max-width: 800px) {
   .CP-Pie-pagina {

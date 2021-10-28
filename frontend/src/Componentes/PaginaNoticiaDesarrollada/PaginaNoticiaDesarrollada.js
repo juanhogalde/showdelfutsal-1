@@ -6,6 +6,7 @@ import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import publicidadLarga from '../../Static/Img/Publicidad larga.jpg';
 import publicidadCorta from '../../Static/Img/publicidad corta.jpg';
 import {useSelector} from 'react-redux';
+import Animaciones from '../Animaciones/Animaciones';
 
 const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollada'}) => {
   const userAgent = navigator.userAgent;
@@ -22,6 +23,7 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
 
   return (
     <div className="LI-ND-Noticia-Desarrollada Fondo-seccion-noticia-desarrollada">
+      <Animaciones isAlineado={true} orientacion={'derecha'} />
       <div className="CP-ND-Noticias">
         <div className="CI-ND-Noticia-general">
           <div className="I-Noticia-desarrollada-Componente">

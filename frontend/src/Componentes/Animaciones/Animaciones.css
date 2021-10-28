@@ -424,7 +424,7 @@
 @media only screen and (min-device-width: 320px) and (max-width: 768px) {
   .A-Pentagono {
     width: 30%;
-    height: 200px;
+    height: 100px;
   }
 
   .A-Pentagono-Amarillo {
@@ -446,8 +446,8 @@
     height: 200px;
   }
   .A-Cuadrado {
-    width: 30%;
-    height: 200px;
+    width: 20%;
+    height: 100px;
   }
 
   @keyframes pentagono {
@@ -469,7 +469,7 @@
     }
     90% {
       top: 10%;
-      left: 50%;
+      left: 40%;
     }
     100% {
       top: 0;
@@ -586,7 +586,7 @@
     }
     100% {
       top: 200px;
-      right: 90%;
+      right: 60%;
     }
   }
 

@@ -4,6 +4,7 @@ import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 import SeccionNoticias from '../SeccionNoticias/SeccionNoticias';
 import SubMenuBuscadorNoticias from '../SubMenuBuscadorNoticias/SubMenuBuscadorNoticias';
+import Animaciones from '../Animaciones/Animaciones';
 
 const PaginaNoticias = ({
   titulo = 'Masculino',
@@ -26,6 +27,7 @@ const PaginaNoticias = ({
 
       {/* SECCION NOTICIAS INFERIORES /> */}
       <div className=" LI-Seccion-Noticias ">
+        <Animaciones isAlineado={true} orientacion={'izquierda'} />
         <div className=" CP-SN-Inferiores ">
           <div className="CI-SN-Inferiores-titulo">
             <div className="I-SN-Inferiores-titulo">
@@ -47,6 +49,8 @@ const PaginaNoticias = ({
       </div>
       {/* SECCION NOTICIAS COPA Y LIGA /> */}
       <div className=" LI-Seccion-Noticias ">
+        <Animaciones isAlineado={false} />
+
         <div className=" CP-SN-Liga  ">
           <div className="CI-SN-Liga-titulo">
             <div className="I-SN-Liga-titulo">
