@@ -38,8 +38,8 @@
 .I-SN-Noticia-titulo p {
   font-family: 'Segoe UI';
   font-size: 4em;
-  font-weight: 800;
-  color: white;
+  font-weight: 800; /* 
+  color: white; */
 }
 
 /* --- CONTENEDOR NOTICIA GENERAL  --- */
