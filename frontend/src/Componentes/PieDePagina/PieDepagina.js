@@ -19,22 +19,24 @@ export const PieDepagina = ({isConFondo = false}) => {
           <div className="I-Logo">
             <img src={LogoPieDePagina} className="Logo" alt=""></img>
           </div>
-          <div></div>
-          <div className="I-Redes">
-            {/* <h3>SIGUENOS</h3> */}
-            <div className="red-social">
-              <Link className="" to="/">
-                <FaFacebookF className="iconos-Redes-Sociales"></FaFacebookF>
-              </Link>
-              <Link className="" to="/">
-                <BsTwitter className="iconos-Redes-Sociales"></BsTwitter>
-              </Link>
-              <Link className="" to="/">
-                <BsInstagram className="iconos-Redes-Sociales"></BsInstagram>
-              </Link>
-              <Link className="" to="/">
-                <BsYoutube className="iconos-Redes-Sociales"></BsYoutube>
-              </Link>
+
+          <div className="CI-redes-sociales">
+            <div className="I-Redes">
+              {/* <h3>SIGUENOS</h3> */}
+              <div className="red-social">
+                <Link className="" to="/">
+                  <FaFacebookF className="iconos-Redes-Sociales"></FaFacebookF>
+                </Link>
+                <Link className="" to="/">
+                  <BsTwitter className="iconos-Redes-Sociales"></BsTwitter>
+                </Link>
+                <Link className="" to="/">
+                  <BsInstagram className="iconos-Redes-Sociales"></BsInstagram>
+                </Link>
+                <Link className="" to="/">
+                  <BsYoutube className="iconos-Redes-Sociales"></BsYoutube>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

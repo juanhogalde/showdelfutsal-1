@@ -7,11 +7,13 @@ const HomePrivada = () => {
   return (
     <div className="LP-HomePrivada">
       <BarraDeNavegacionAdmin></BarraDeNavegacionAdmin>
-      <div className="LI-Tarjet"></div>
-      <TarjetaPanel></TarjetaPanel>
-      <TarjetaPanel></TarjetaPanel>
-      <TarjetaPanel></TarjetaPanel>
-      <TarjetaPanel></TarjetaPanel>
+      <div className="LI-Tarjetas">
+        <TarjetaPanel></TarjetaPanel>
+        <TarjetaPanel></TarjetaPanel>
+        <TarjetaPanel></TarjetaPanel>
+        <TarjetaPanel></TarjetaPanel>
+        <TarjetaPanel></TarjetaPanel>
+      </div>
     </div>
   );
 };
