@@ -5,7 +5,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 60px;
+  padding: 60px 0 60px 0;
+  font-family: Lato;
 }
 .CI-Logo-Login {
   display: flex;
@@ -32,6 +33,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.CI-Inputs-Login h4 {
+  color: #181461;
+}
+.CI-link-Login {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.link-Login {
+  color: #2a2ac0;
+  text-decoration: none;
 }
 @media screen and (min-width: 360px) {
   .marca-Login {
