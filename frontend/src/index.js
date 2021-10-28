@@ -12,8 +12,8 @@ import HomePrivada from './ComponentesAdmin/HomePrivada/HomePrivada';
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-      <HomePrivada></HomePrivada>
-      {/* <Home></Home> */}
+      {/* <HomePrivada></HomePrivada> */}
+      <Home></Home>
     </Provider>
   </BrowserRouter>,
   document.getElementById('root')
