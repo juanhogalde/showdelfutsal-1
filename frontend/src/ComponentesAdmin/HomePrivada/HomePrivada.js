@@ -7,6 +7,7 @@ const HomePrivada = () => {
   return (
     <div className="LP-HomePrivada">
       <BarraDeNavegacionAdmin></BarraDeNavegacionAdmin>
+      <div className="LI-Tarjet"></div>
       <TarjetaPanel></TarjetaPanel>
       <TarjetaPanel></TarjetaPanel>
       <TarjetaPanel></TarjetaPanel>
