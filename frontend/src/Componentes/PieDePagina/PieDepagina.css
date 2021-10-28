@@ -122,10 +122,14 @@
     grid-template-columns: repeat(2, 1fr);
     margin-bottom: 10px;
   }
+
+  .CI-redes-sociales {
+    grid-column: 3/4;
+  }
   .I-Redes {
-    grid-column: 3/5;
+    grid-column: 2/3;
     grid-template-columns: minmax(1fr 200px);
-    margin-bottom: 20px;
+    align-items: center;
   }
   .I-Logo {
     grid-column: 1/2;
@@ -139,9 +143,7 @@
     width: 70%;
     height: 50%;
   }
-  .CI-Pie-Pagina {
-    grid-template-columns: 5px repeat(3, 1fr) 5px;
-  }
+
   .CI-Pie-Pagina .red-social a {
     width: 38px;
     height: 38px;
@@ -151,6 +153,7 @@
     margin-bottom: 2px;
   }
 }
+
 @media screen and (max-width: 320px) {
   .I-Redes {
     margin-left: 70px;
