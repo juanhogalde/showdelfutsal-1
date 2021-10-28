@@ -1,0 +1,9 @@
+.CP-Navegacion-lateral {
+  width: 150px;
+  height: 100%;
+  display: grid;
+  left: 10px;
+  grid-template-columns: max-content 1fr max-content;
+  grid-template-rows: 1fr;
+  background-color: red;
+}
