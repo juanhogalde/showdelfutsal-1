@@ -8,7 +8,7 @@ const RutasPrivadas = () => {
   return (
     <React.Fragment>
       <Switch>
-        <Route exact component={Login} path="/Login"></Route>
+        <Route exact component={Login} path="/"></Route>
         <Route exact component={HomePrivada} path="/Administrador"></Route>
       </Switch>
     </React.Fragment>

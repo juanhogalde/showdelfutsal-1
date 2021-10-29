@@ -7,9 +7,7 @@ import {HomePublica} from '../HomePublica/HomePublica';
 
 const Home = () => {
   const {logueado} = useSelector(state => state.storePrueba);
-  return (
-    <React.Fragment>{logueado ? <RutasPrivadas /> : <HomePublica></HomePublica>}</React.Fragment>
-  );
+  return <React.Fragment>{true ? <RutasPrivadas /> : <HomePublica></HomePublica>}</React.Fragment>;
 };
 
 export default Home;

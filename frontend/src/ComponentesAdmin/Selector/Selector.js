@@ -32,7 +32,6 @@ const estilosPersonalizados = {
   singleValue: (provided, state) => {
     const opacity = state.isDisabled ? 0.5 : 1;
     const transition = 'opacity 300ms';
-
     return {...provided, opacity, transition};
   },
 };
@@ -46,6 +45,8 @@ const Selector = props => {
     placeholder,
     selectorConIcono,
     isDisabled,
+    isCargando,
+    isOpcionBuscar,
   } = props;
 
   const componenteConIcono = {
@@ -66,13 +67,15 @@ const Selector = props => {
       <Select
         styles={estilosPersonalizados}
         closeMenuOnSelect={!isCerrarMenuAlSeleccionar}
-        isMulti={isMultipleOpcion} //
+        isMulti={isMultipleOpcion}
         options={options}
         onChange={onChange}
         placeholder={placeholder}
         components={componenteConIcono}
-        className={`${isDisabled ? 'contenedorSelector' : ''}`}
+        className={`${isDisabled ? '' : 'contenedorSelector'}`}
         isDisabled={isDisabled}
+        isLoading={isCargando}
+        isSearchable={isOpcionBuscar}
       ></Select>
     </div>
   );
@@ -82,5 +85,7 @@ Selector.defaultProps = {
   isCerrarMenuAlSeleccionar: false,
   placeholder: 'Seleccionar',
   isDisabled: false,
+  isCargando: false,
+  isOpcionBuscar: true,
 };
 export default Selector;

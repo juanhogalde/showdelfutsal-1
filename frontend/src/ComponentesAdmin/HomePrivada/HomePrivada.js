@@ -39,15 +39,12 @@ const HomePrivada = () => {
       />
       <div className="LP-HomePrivada">
         <div className="LI-ComponenteBuscar">
-          <InputLowa
-            placeholder={'Buscar'}
-            inputConIcono={<BsSearch></BsSearch>}
-            isDisabled={true}
-          ></InputLowa>
+          <InputLowa placeholder={'Buscar'} inputConIcono={<BsSearch></BsSearch>}></InputLowa>
           <Selector
             selectorConIcono={<BsSearch />}
             onChange={obtenerDatosDeSelector}
             isCerrarMenuAlSeleccionar={false}
+            isMultipleOpcion={true}
           ></Selector>
         </div>
         <div className="LI-Tarjetas">
