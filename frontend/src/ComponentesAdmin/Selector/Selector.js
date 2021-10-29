@@ -71,7 +71,7 @@ const Selector = props => {
         onChange={onChange}
         placeholder={placeholder}
         components={componenteConIcono}
-        className="contenedorSelector"
+        className={`${isDisabled ? 'contenedorSelector' : ''}`}
         isDisabled={isDisabled}
       ></Select>
     </div>

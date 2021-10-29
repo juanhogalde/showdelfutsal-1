@@ -39,12 +39,16 @@ const HomePrivada = () => {
       />
       <div className="LP-HomePrivada">
         <div className="LI-ComponenteBuscar">
-          <InputLowa placeholder={'Buscar'} inputConIcono={<BsSearch></BsSearch>}></InputLowa>
-          {/* <Selector
-          selectorConIcono={<BsSearch />}
-          onChange={obtenerDatosDeSelector}
-          isCerrarMenuAlSeleccionar={false}
-        ></Selector> */}
+          <InputLowa
+            placeholder={'Buscar'}
+            inputConIcono={<BsSearch></BsSearch>}
+            isDisabled={true}
+          ></InputLowa>
+          <Selector
+            selectorConIcono={<BsSearch />}
+            onChange={obtenerDatosDeSelector}
+            isCerrarMenuAlSeleccionar={false}
+          ></Selector>
         </div>
         <div className="LI-Tarjetas">
           <TarjetaPanel tituloPanel={'Tabla de Posiciones'} url={img1}></TarjetaPanel>
