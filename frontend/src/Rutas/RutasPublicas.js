@@ -7,6 +7,7 @@ import PaginaNoticias from '../Componentes/PaginaNoticias/PaginaNoticias';
 import PaginaSecciones from '../Componentes/PaginaSecciones/PaginaSecciones';
 import PaginaNoticiaDesarrollada from '../Componentes/PaginaNoticiaDesarrollada/PaginaNoticiaDesarrollada';
 import Login from '../Componentes/Login/Login';
+import NoticiasFiltradas from '../Componentes/NoticiasFiltradas/NoticiasFiltradas';
 const RutasPublicas = () => {
   return (
     <React.Fragment>
@@ -18,6 +19,7 @@ const RutasPublicas = () => {
         <Route exact path="/Seccion" component={PaginaSecciones}></Route>
         <Route exact path="/Seccion/:id" component={PaginaSecciones}></Route>
         <Route exact path="/Login" component={Login}></Route>
+        <Route exact path="/Noticias/Filtradas" component={NoticiasFiltradas}></Route>
       </Switch>
     </React.Fragment>
   );
