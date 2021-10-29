@@ -1,0 +1,35 @@
+.CP-Tarjeta-Noticias-Admin {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ecf1fa;
+  cursor: pointer;
+}
+
+.CI-Tarjeta-Noticias-Admin {
+  display: grid;
+  grid-template-columns: 5px minmax(100px, 1fr) 2fr 40px 5px;
+  grid-template-rows: 5px 1fr 5px;
+  height: 300px;
+  background-color: red;
+}
+
+.I-Tarjeta-Noticias-Imagen {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  background-color: blue;
+  display: flex;
+  place-items: center;
+  place-content: center;
+}
+
+.I-Tarjeta-Noticias-Cuerpo {
+  grid-column: 3/4;
+  grid-row: 2/3;
+  background-color: green;
+}
+
+.I-Tarjeta-Noticias-Opciones {
+  grid-column: 4/5;
+  grid-row: 2/3;
+  background-color: orange;
+}
