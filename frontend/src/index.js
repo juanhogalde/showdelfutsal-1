@@ -7,6 +7,7 @@ import store from './Redux/Store';
 
 import './index.css';
 import HomePrivada from './ComponentesAdmin/HomePrivada/HomePrivada';
+import Selector from './ComponentesAdmin/Selector/Selector';
 /* import Login from './Componentes/Login/Login'; */
 
 ReactDOM.render(
@@ -14,6 +15,7 @@ ReactDOM.render(
     <Provider store={store}>
       <HomePrivada></HomePrivada>
       {/* <Home></Home> */}
+      {/* <Selector></Selector> */}
     </Provider>
   </BrowserRouter>,
   document.getElementById('root')

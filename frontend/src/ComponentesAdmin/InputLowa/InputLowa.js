@@ -19,7 +19,6 @@ const InputLowa = props => {
   const resetValue = () => {
     inputElement.current.value = '';
   };
-  console.log(inputConIcono);
   const inputElement = useRef(null);
   return (
     <div className="CP-Input">

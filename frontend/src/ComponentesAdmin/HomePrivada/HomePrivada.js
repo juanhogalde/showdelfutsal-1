@@ -9,12 +9,22 @@ import img4 from '../../Static/Admin/imgPanel4.png';
 import img5 from '../../Static/Admin/imgPanel5.png';
 import InputLowa from '../InputLowa/InputLowa';
 import {BsSearch} from 'react-icons/bs';
+import Selector from '../Selector/Selector';
+import iconoBuscar from '../../Static/Admin/iconoBuscar.svg';
 const HomePrivada = () => {
+  const obtenerDatosDeSelector = datos => {
+    console.log(datos);
+  };
   return (
     <div className="LP-HomePrivada">
       <BarraDeNavegacionAdmin></BarraDeNavegacionAdmin>
       <div className="LI-ComponenteBuscar">
         <InputLowa placeholder={'Buscar'} inputConIcono={<BsSearch></BsSearch>}></InputLowa>
+        <Selector
+          /* selectorConIcono={<BsSearch />} */
+          onChange={obtenerDatosDeSelector}
+          isCerrarMenuAlSeleccionar={false}
+        ></Selector>
       </div>
       <div className="LI-Tarjetas">
         <TarjetaPanel tituloPanel={'Tabla de Posiciones'} url={img1}></TarjetaPanel>
