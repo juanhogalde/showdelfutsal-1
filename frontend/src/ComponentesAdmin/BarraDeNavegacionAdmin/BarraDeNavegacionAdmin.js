@@ -3,10 +3,14 @@ import './BarraDeNavegacionAdmin.css';
 import iconoMenu from '../../Static/Admin/menuAdmin.svg';
 import iconoAvatar from '../../Static/Admin/iconoAvatar.svg';
 
-const BarraDeNavegacionAdmin = () => {
+const BarraDeNavegacionAdmin = ({
+  abrirMenuLateral = () => {
+    console.log('No se envió función');
+  },
+}) => {
   return (
     <div className="CP-BarraDeNavegacionAdmin">
-      <div className="CI-IconoMenu">
+      <div className="CI-IconoMenu" onClick={() => abrirMenuLateral()}>
         <img alt="" src={iconoMenu}></img>
       </div>
       <div className="CI-BarraDeNavegacion">
