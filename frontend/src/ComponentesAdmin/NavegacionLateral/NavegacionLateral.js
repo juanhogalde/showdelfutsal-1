@@ -10,6 +10,7 @@ import {BsPlusCircle} from 'react-icons/bs';
 import {BsPersonCircle} from 'react-icons/bs';
 import {BsXCircle} from 'react-icons/bs';
 import {useState} from 'react';
+import {BsPower} from 'react-icons/bs';
 
 const NavegacionLateral = props => {
   const {isMenuLateralAbierto, abrirMenuLateral} = props;
@@ -73,6 +74,14 @@ const NavegacionLateral = props => {
           <div className="I-Navegacion-Lateral-Link">
             <BsPersonCircle />
             <h6>Mi Perfil</h6>
+          </div>
+        </div>
+      </div>
+      <div className="CI-Navegacion-Sesion">
+        <div exact to="/a" className="I-Cerrar-sesion">
+          <div className="I-Navegacion-Lateral-Link">
+            <h6>Salir</h6>
+            <BsPower />
           </div>
         </div>
       </div>
