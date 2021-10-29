@@ -1,6 +1,7 @@
 import React from 'react';
 import BarraDeNavegacionAdmin from '../BarraDeNavegacionAdmin/BarraDeNavegacionAdmin';
 import TarjetaPanel from '../TarjetaPanel/TarjetaPanel';
+import NavegacionLateral from '../NavegacionLateral/NavegacionLateral';
 import './HomePrivada.css';
 import img1 from '../../Static/Admin/imgPanel.png';
 import img2 from '../../Static/Admin/imgPanel2.png';
@@ -9,10 +10,27 @@ import img4 from '../../Static/Admin/imgPanel4.png';
 import img5 from '../../Static/Admin/imgPanel5.png';
 import InputLowa from '../InputLowa/InputLowa';
 import {BsSearch} from 'react-icons/bs';
+import {useState} from 'react';
+
 const HomePrivada = () => {
+  const [isMenuLateralAbierto, setIsAperturaLateral] = useState(false);
+  const abrirMenuLateral = () => {
+    console.log('Se ejecuto funcion');
+
+    if (isMenuLateralAbierto) {
+      setIsAperturaLateral(false);
+    } else {
+      setIsAperturaLateral(true);
+    }
+  };
+
   return (
     <div className="LP-HomePrivada">
-      <BarraDeNavegacionAdmin></BarraDeNavegacionAdmin>
+      <BarraDeNavegacionAdmin abrirMenuLateral={abrirMenuLateral}></BarraDeNavegacionAdmin>
+      <NavegacionLateral
+        isMenuLateralAbierto={isMenuLateralAbierto}
+        abrirMenuLateral={abrirMenuLateral}
+      />
       <div className="LI-ComponenteBuscar">
         <InputLowa placeholder={'Buscar'} inputConIcono={<BsSearch></BsSearch>}></InputLowa>
       </div>
