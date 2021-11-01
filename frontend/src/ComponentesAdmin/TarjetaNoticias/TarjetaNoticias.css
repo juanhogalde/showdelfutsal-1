@@ -1,7 +1,8 @@
 .CP-Tarjeta-Noticias-Admin {
   width: 100%;
-  min-height: 100vh;
+  height: auto;
   background-color: #ecf1fa;
+  padding-top: 1px;
 }
 
 .CI-Tarjeta-Noticias-Admin {
