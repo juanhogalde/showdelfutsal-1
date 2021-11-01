@@ -6,19 +6,17 @@ import FiltroNoticiasAdmin from '../../ComponentesAdmin/FiltroNoticiasAdmin/Filt
 
 const PaginaNoticiasAdmin = () => {
   return (
-    <div className="LI-Pagina-Secciones-Admin">
-      <div className="CP-Pagina-Secciones-Buscador">
-        <div className="CP-Pagina-Secciones-Admin">
-          <div className="CI-Boton-Secciones-Admin">
-            <BotonLowa />
-          </div>
-          <div className="CI-Filtros-Secciones-Admin">
-            <FiltroNoticiasAdmin />
-          </div>
+    <div className="CP-Pagina-Secciones-Admin">
+      <div className="CI-Pagina-Secciones-Admin-Cabecera">
+        <div className="I-Boton-Secciones-Admin">
+          <BotonLowa />
+        </div>
+        <div className="I-Filtros-Secciones-Admin">
+          <FiltroNoticiasAdmin />
         </div>
       </div>
-      <div className="CP-Pagina-Secciones-Admin-Noticias">
-        <div className="CI-Noticias-Secciones-Admin">
+      <div className="CI-Pagina-Secciones-Admin-Noticias">
+        <div className="I-Noticias-Secciones-Admin">
           <TarjetaNoticias />
         </div>
       </div>
