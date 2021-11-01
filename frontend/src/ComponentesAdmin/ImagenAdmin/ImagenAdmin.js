@@ -6,9 +6,7 @@ const ImagenAdmin = () => {
   return (
     <div className="CP-Imagen-admin">
       <div className="CI-Imagen-admin">
-        <div className="I-Imagen-admin">
-          <img alt="" src={ImagenMiniatura} className="Img-Admin"></img>
-        </div>
+        <img alt="" src={ImagenMiniatura} className="Img-Admin"></img>
       </div>
     </div>
   );
