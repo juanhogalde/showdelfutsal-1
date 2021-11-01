@@ -1,0 +1,47 @@
+.CP-Tarjeta-Noticia-Miniatura {
+  width: 100%;
+  height: auto;
+}
+
+.CP-Tarjeta-Noticia-Miniatura-Contenedor {
+  display: grid;
+  grid-template-columns: 5px 1fr 5px;
+  grid-template-rows: 5px 1fr 5px;
+}
+
+.CI-Tarjeta-Noticia-Miniatura {
+  grid-row: 2/3;
+  grid-column: 2/3;
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  align-items: left;
+  gap: 1px;
+}
+
+.CI-Tarjeta-Noticia-Miniatura-Categoria {
+  display: flex;
+  flex-direction: row;
+}
+
+.CI-Tarjeta-Noticia-Miniatura-Cuerpo {
+  display: flex;
+  flex-direction: column;
+}
+.I-Tarjeta-Noticia-Categoria {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 5px;
+}
+
+.I-Tarjeta-Noticia-cuerpo {
+  display: inline-flex;
+  flex-direction: row;
+  display: inline-block;
+  word-break: break-word;
+}
+
+.I-Tarjeta-Noticia-cuerpo p {
+  font-size: 0.7rem;
+}
