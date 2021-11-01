@@ -9,6 +9,7 @@
   grid-template-columns: max-content 1fr max-content;
   grid-template-rows: 1fr;
   position: fixed;
+  z-index: 1;
 }
 .CI-IconoMenu {
   min-width: 50px;

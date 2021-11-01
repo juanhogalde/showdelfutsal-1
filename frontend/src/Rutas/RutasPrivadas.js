@@ -1,17 +1,15 @@
 import React from 'react';
 import {Route} from 'react-router';
 import {Switch} from 'react-router-dom';
+import Login from '../Componentes/Login/Login';
+import HomePrivada from '../ComponentesAdmin/HomePrivada/HomePrivada';
 
 const RutasPrivadas = () => {
   return (
     <React.Fragment>
       <Switch>
-        <Route exact path="/">
-          <h1>Home Ruta Privada /</h1>
-        </Route>
-        <Route exact path="/**">
-          <h1>Home Ruta Privada /</h1>
-        </Route>
+        <Route exact component={Login} path="/"></Route>
+        <Route exact component={HomePrivada} path="/Administrador"></Route>
       </Switch>
     </React.Fragment>
   );

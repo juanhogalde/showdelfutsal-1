@@ -1,0 +1,20 @@
+.CP-TextareaLowa {
+  background-color: transparent;
+  display: flex;
+  padding: 10px;
+}
+.componente-TextAreaLowa {
+  width: 100%;
+  min-width: 280px;
+  min-height: 150px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 3px 16px #00000014;
+  padding: 10px;
+  padding-left: 20px;
+  outline: none;
+}
+.componente-TextAreaLowa::placeholder {
+  font-weight: 700;
+  color: #707070;
+}

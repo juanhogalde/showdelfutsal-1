@@ -1,0 +1,33 @@
+.CP-Selector {
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.contenedorSelector {
+  border-radius: 8px;
+  background-color: white;
+}
+
+.CI-IconoSelect {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icono-Control-Selector {
+  color: #00000050;
+  transition: all 0.3s ease-in-out;
+}
+.icono-Control-Selector:hover {
+  transform: scale(1.1);
+  color: #00000080;
+}
+.icono-Control-Selector-Perzonalizado {
+  color: #00000050;
+  transition: all 0.3s ease-in-out;
+}
+.icono-Control-Selector-Perzonalizado:hover {
+  transform: scale(1.1);
+  color: #00000080;
+}
