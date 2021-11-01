@@ -29,7 +29,9 @@ const HomePrivada = () => {
       setIsAperturaLateral(true);
     }
   };
-
+  const escucharCambios = e => {
+    console.log(e);
+  };
   return (
     <React.Fragment>
       <BarraDeNavegacionAdmin abrirMenuLateral={abrirMenuLateral}></BarraDeNavegacionAdmin>
@@ -39,9 +41,14 @@ const HomePrivada = () => {
       />
       <div className="LP-HomePrivada">
         <div className="LI-ComponenteBuscar">
-          <InputLowa placeholder={'Buscar'} inputConIcono={<BsSearch></BsSearch>}></InputLowa>
+          <InputLowa
+            type="text"
+            placeholder={'Buscar'}
+            inputConIcono={<BsSearch></BsSearch>}
+            onChange={e => escucharCambios(e)}
+          ></InputLowa>
           <Selector
-            selectorConIcono={<BsSearch />}
+            /* selectorConIcono={<BsSearch />} */
             onChange={obtenerDatosDeSelector}
             isCerrarMenuAlSeleccionar={false}
             isMultipleOpcion={true}
