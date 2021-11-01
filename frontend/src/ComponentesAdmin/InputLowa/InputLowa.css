@@ -8,7 +8,9 @@
   align-items: center;
   box-shadow: 0px 3px 16px #00000014;
   background-color: white;
+  outline: none;
 }
+
 .input-Lowa {
   width: 100%;
   padding: 12px 20px;
