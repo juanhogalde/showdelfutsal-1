@@ -51,8 +51,8 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
       <div className="CI-Imagen-Epigrafe-Noticia-Desarrollada">
         <img
           src={
-            datosModelado.fuenteImg
-              ? datosModelado.fuenteImg
+            datosModelado.idImagen
+              ? datosModelado.idImagen[0].fuente
               : 'https://www.pequenomundo.cl/wp-content/themes/childcare/images/default.png'
           }
           alt="imagen"

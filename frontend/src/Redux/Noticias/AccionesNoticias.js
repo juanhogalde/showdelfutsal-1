@@ -5,6 +5,7 @@ export const cargandoBuscarNoticias = 'cargandoBuscarNoticias';
 export const buscarNoticiaExito = 'buscarNoticiaExito';
 export const buscarNoticiaError = 'buscarNoticiaError';
 export const volverProdefectoNoticiasBusqueda = 'volverProdefectoNoticiasBusqueda';
+export const guardarNoticiaSeleccionada = 'guardarNoticiaSeleccionada';
 
 //acciones buscar noticia
 export const cargandoBuscarNoticia_accion = () => {
@@ -27,6 +28,12 @@ export const buscarNoticiaError_accion = error => {
 export const volverProdefectoNoticiasBusqueda_accion = () => {
   return {
     type: volverProdefectoNoticiasBusqueda,
+  };
+};
+export const guardarNoticiaSeleccionada_accion = noticia => {
+  return {
+    type: guardarNoticiaSeleccionada,
+    noticia: noticia,
   };
 };
 

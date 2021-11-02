@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {
   buscarNoticia,
+  guardarNoticiaSeleccionada_accion,
   volverProdefectoNoticiasBusqueda_accion,
 } from '../../Redux/Noticias/AccionesNoticias';
 import './SubMenuBuscadorNoticias.css';
@@ -20,6 +22,9 @@ const SubMenuBuscadorNoticias = () => {
     if (!valorBusqueda) {
       dispatch(volverProdefectoNoticiasBusqueda_accion());
     }
+  };
+  const setearNoticiaSeleccionada = noticia => {
+    dispatch(guardarNoticiaSeleccionada_accion(noticia));
   };
   return (
     <div className="CP-SN-Noticias-Busquedas">
@@ -44,7 +49,16 @@ const SubMenuBuscadorNoticias = () => {
           <div className="CI-resultado-busqueda-noticias">
             {noticiaDeBusqueda.length !== 0 &&
               noticiaDeBusqueda.map(noticia => {
-                return <p>{noticia.titulo}</p>;
+                return (
+                  <Link
+                    to="/Noticia/Desarrollada/"
+                    className="link-buscar-noticias"
+                    onClick={() => setearNoticiaSeleccionada(noticia)}
+                    key={noticia._id}
+                  >
+                    <p>{noticia.titulo}</p>
+                  </Link>
+                );
               })}
           </div>
         )}

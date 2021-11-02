@@ -3,11 +3,13 @@ import {
   buscarNoticiaExito,
   buscarNoticiaError,
   volverProdefectoNoticiasBusqueda,
+  guardarNoticiaSeleccionada,
 } from './AccionesNoticias';
 
 const noticiaPorDefecto = {
   noticias: [],
   noticiaDeBusqueda: '',
+  noticiaSeleccionada: {},
   isCargando: {isMostrar: false, tipo: '', mensaje: ''},
   isError: {isMostrar: false, tipo: '', mensaje: ''},
 };
@@ -22,6 +24,12 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           tipo: 'cargando',
           mensaje: 'cargando',
         },
+      };
+    }
+    case guardarNoticiaSeleccionada: {
+      return {
+        ...state,
+        noticiaSeleccionada: accion.noticia,
       };
     }
     case buscarNoticiaExito: {

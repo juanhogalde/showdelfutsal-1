@@ -29,9 +29,11 @@ class NoticiasController {
       const tituloBody = req.body.titulo;
 
       if (tituloBody) {
-        const listadoNoticias = await modeloNoticias.find({
-          titulo: {$regex: `${tituloBody}`, $options: 'i'},
-        });
+        const listadoNoticias = await modeloNoticias
+          .find({
+            titulo: {$regex: `${tituloBody}`, $options: 'i'},
+          })
+          .populate('idImagen');
 
         if (listadoNoticias.length) {
           responder.sucess(req, res, listadoNoticias);

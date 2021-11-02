@@ -12,15 +12,14 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
   const userAgent = navigator.userAgent;
   const isMobileIPhone = userAgent.indexOf('iPhone');
   const isMobileAndroid = userAgent.indexOf('Android');
-  const {noticias1} = useSelector(state => state.storePrueba);
-
+  const {noticiaSeleccionada} = useSelector(state => state.storeNoticias);
   return (
     <div className="LI-ND-Noticia-Desarrollada Fondo-seccion-noticia-desarrollada">
       <Animaciones isAlineado={true} orientacion={'derecha'} />
       <div className="CP-ND-Noticias">
         <div className="CI-ND-Noticia-general">
           <div className="I-Noticia-desarrollada-Componente">
-            <NoticiaDesarrollada datosModelado={noticias1} />
+            <NoticiaDesarrollada datosModelado={noticiaSeleccionada} />
           </div>
         </div>
         <div className="CI-ND-Noticia-miniatura">
