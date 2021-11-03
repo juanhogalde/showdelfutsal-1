@@ -707,6 +707,12 @@
   }
 }
 @media screen and (max-width: 320px) {
+  .CP-Marcador {
+    padding-top: 0;
+  }
+  .CP-Noticias {
+    padding-top: 10px;
+  }
   .titulo-Galeria {
     margin-right: 20px;
   }

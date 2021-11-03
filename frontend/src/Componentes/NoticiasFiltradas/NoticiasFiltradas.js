@@ -14,7 +14,7 @@ const NoticiasFiltradas = () => {
   // console.log(isMobileAndroid);
 
   const {noticias1} = useSelector(state => state.storePrueba);
-  const noticias = useSelector(state => state.storePrueba.noticias);
+  // const noticias = useSelector(state => state.storePrueba.noticias);
 
   console.log(noticias1);
   // console.log(userAgent);
