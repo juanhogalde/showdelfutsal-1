@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import HomePrivada from '../../ComponentesAdmin/HomePrivada/HomePrivada';
 
 /* import HomePrivada from '../../ComponentesAdmin/HomePrivada/HomePrivada'; */
-import {LayoutCargaDeDatos} from '../LayoutCargaDeDatos/LayoutCargaDeDatos';
+import {LayoutCargaDeDatos} from '../../ComponentesAdmin/LayoutCargaDeDatos/LayoutCargaDeDatos';
 import Login from '../Login/Login';
 
 const Home = () => {
