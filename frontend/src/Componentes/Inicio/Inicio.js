@@ -67,16 +67,11 @@ const Inicio = () => {
     <div className="LP-Inicio">
       <div className="LI-Inicio Margen-inicio seccion-somos">
         <div className="CP-Somos">
-          <div className="CI-Somos"></div>
-
           <div className="CI-Somos-frase">
-            <div className="I-somos-frase">
-              <img alt="" className="Somos-frase" src={SomosFrase}></img>
-            </div>
+            <img alt="" src={SomosFrase}></img>
           </div>
           <div className="CI-Somos-redes">
             <div className="I-Redes">
-              {/* <h3>SIGUENOS</h3> */}
               <div className="red-social">
                 <Link className="" to="/">
                   <FaFacebookF className="iconos-Redes-Sociales"></FaFacebookF>
@@ -95,9 +90,7 @@ const Inicio = () => {
           </div>
 
           <div className="CI-Somos-radio">
-            <div className="I-somos-radio-componente">
-              <Radio />
-            </div>
+            <Radio />
           </div>
         </div>
       </div>

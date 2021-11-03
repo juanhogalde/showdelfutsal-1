@@ -1,7 +1,3 @@
-* {
-  margin: 0;
-}
-
 .Marcador {
   padding: 20px;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
@@ -9,18 +5,19 @@
 .marcador-cuerpo {
   width: 100%;
   height: 100%;
+  min-height: 550px;
   border: 0.1rem solid #ffe35f;
   display: grid;
   grid-template-columns: 10% 1fr 5% 5% 1fr 5% 1fr 5% 5% 1fr 10%;
-  grid-template-rows: 10% 1fr 1fr 5% 1fr 1fr 2fr 1fr 10%;
+  grid-template-rows: 10% 1fr 1fr 5% 1fr 2fr 1fr;
   background-image: url('../../Static/Img/linea_marcador.png');
   background-repeat: no-repeat;
   background-position-x: center;
-  background-position-y: 70%;
+  background-position-y: 60%;
   background-size: contain;
 }
 .categoria-Marcador {
-  grid-column: 1/8;
+  grid-column: 1/12;
   grid-row: 1/2;
   color: white;
   margin-top: 10px;
@@ -28,7 +25,7 @@
 }
 .info-partido {
   grid-column: 5/8;
-  grid-row: 2/5;
+  grid-row: 2/4;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,31 +34,32 @@
 }
 .escudo-A {
   grid-column: 2/5;
-  grid-row: 5/9;
+  grid-row: 4/7;
+  /* 
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-end; */
   position: relative; /* 
   background-color: white; */
   z-index: 1;
 }
 .marcador-A {
   grid-column: 3/6;
-  grid-row: 6/8;
-  padding-bottom: 10px;
+  grid-row: 5/7;
+  padding-bottom: 50px;
   padding-right: 10px;
 }
 .contenedor-resultado-Marcador-A {
   width: 100%;
   height: 100%;
   background-color: rgb(255, 255, 255);
-  clip-path: polygon(0 0, 70% 0, 96% 100%, 0 100%);
+  clip-path: polygon(0 0, 65% 0, 96% 100%, 0 100%);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .escudo-B {
   grid-column: 8/11;
-  grid-row: 5/9;
+  grid-row: 4/7;
   display: flex;
   justify-content: center;
   position: relative;
@@ -69,15 +67,15 @@
 }
 .marcador-B {
   grid-column: 7/10;
-  grid-row: 6/8;
-  padding-left: 24px;
-  padding-bottom: 10px;
+  grid-row: 5/7;
+  padding-left: 25px;
+  padding-bottom: 50px;
 }
 .contenedor-resultado-Marcador-B {
   width: 100%;
   height: 100%;
   background-color: rgb(255, 255, 255);
-  clip-path: polygon(28% 0, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(32% 0, 100% 0, 100% 100%, 0 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,16 +88,17 @@
   display: flex;
   justify-content: center;
   color: white;
+  margin-bottom: 30px;
 }
 .nombreEquipo-A {
-  grid-column: 4/6;
-  grid-row: 8/9;
+  grid-column: 2/6;
+  grid-row: 7/8;
   display: flex;
   align-items: center;
 }
 .nombreEquipo-B {
-  grid-column: 7/9;
-  grid-row: 8/9;
+  grid-column: 7/10;
+  grid-row: 7/8;
   display: flex;
   align-items: center;
 }
@@ -111,9 +110,7 @@
 }
 .penales {
   grid-column: 5/8;
-  grid-row: 6/8;
-  /*   background-color: rgb(0, 255, 255);
- */
+  grid-row: 5/7;
   color: white;
   display: flex;
   flex-direction: column;
@@ -121,98 +118,64 @@
 }
 @media screen and (max-width: 1420px) {
   .marcador-cuerpo {
+    grid-template-columns: 10% 1fr 5% 5% 1fr 5% 1fr 5% 5% 1fr 10%;
+    grid-template-rows: 10% 1fr 1fr 5% 1fr 2fr 1fr;
+    background-image: url('../../Static/Img/linea_marcador.png');
+    background-repeat: no-repeat;
+    background-position-x: center;
     background-position-y: 60%;
+    background-size: contain;
+    min-height: 350px;
   }
   .info-partido {
     grid-column: 4/9;
-  }
-  .escudo-A {
-    padding: 15px;
-  }
-  .escudo-B {
-    padding: 15px;
+    grid-row: 1/4;
+    padding-top: 20px;
   }
 
   .marcador-A {
-    padding-bottom: 40px;
-  }
-  .contenedor-resultado-Marcador-A {
-    clip-path: polygon(0 0, 65% 0, 96% 100%, 0 100%);
+    grid-row: 4/7;
+    padding-top: 25px;
   }
   .marcador-B {
-    padding-left: 18px;
-    padding-bottom: 40px;
-  }
-  .contenedor-resultado-Marcador-B {
-    clip-path: polygon(33% 0, 100% 0, 100% 100%, 0 100%);
+    grid-row: 4/7;
+    padding-top: 25px;
   }
 }
 @media screen and (max-width: 1024px) {
+  .marcador-cuerpo {
+    min-height: 400px;
+  }
   .info-partido {
+    /* grid-column: 3/10;
+    grid-row: 2/5; */
     grid-column: 3/10;
-    grid-row: 2/5;
+    padding-top: 20px;
   }
   .escudo-A {
-    padding: 15px;
     grid-column: 1/5;
   }
   .escudo-B {
-    padding: 15px;
     grid-column: 8/12;
   }
 
   .marcador-A {
     padding-right: 0;
-    padding-top: 20px;
+    padding-top: 30px;
   }
   .marcador-B {
-    padding-top: 20px;
+    padding-top: 30px;
     padding-left: 10px;
   }
-  .nombreEquipo-A {
-    grid-column: 2/6;
-    grid-row: 8/9;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-  }
-  .nombreEquipo-B {
-    grid-column: 7/11;
-    grid-row: 8/9;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-  }
 }
-@media screen and (max-width: 780px) {
-  .info-partido {
-    grid-column: 2/11;
-  }
-  .escudo-A {
-    grid-row: 6/8;
-    padding-right: 0;
-  }
-  .marcador-A {
-    grid-column: 3/7;
-    padding-top: 40px;
-    padding-right: 10px;
-    /* padding-bottom: 0; */
-  }
-  .marcador-B {
-    grid-column: 6/10;
-    padding-left: 15px;
-    padding-top: 40px;
-  }
-  .escudo-B {
-    padding-left: 0;
-    grid-column: 8/12;
-    grid-row: 6/8;
-  }
+
+@media screen and (max-width: 480px) {
   .marcador-cuerpo {
     background-image: none;
+    /* min-height: 300px; */
+    min-height: 450px;
+    grid-template-rows: 10% 1fr 1fr 5% 1fr 1fr 1fr;
   }
-}
-@media screen and (max-width: 480px) {
   .contenedor-resultado-Marcador-A {
     clip-path: none;
     background-color: transparent;
@@ -222,8 +185,9 @@
     background-color: transparent;
   }
   .info-partido {
-    grid-column: 2/11;
-    margin-right: 45px;
+    grid-column: 2/10;
+    margin-top: 20px;
+    margin-right: 80px;
   }
   .marcador-A {
     padding-right: 0;
@@ -237,28 +201,32 @@
   .escudo-B {
     padding-right: 5px;
   }
-}
-@media screen and (max-width: 375px) {
-  .info-partido {
-    margin-right: 0;
-    grid-column: 1/12;
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-  .categoria-Marcador {
-    grid-column: 1/11;
-  }
-}
-@media screen and (max-width: 330px) {
-  .info-partido {
-    margin-right: 0;
-    margin-left: 38px;
-    max-width: 10px;
-  }
   .nombreEquipo-A {
     grid-column: 1/6;
   }
   .nombreEquipo-B {
     grid-column: 7/12;
+  }
+}
+@media screen and (max-width: 375px) {
+  .info-partido {
+    margin-right: 0;
+    grid-column: 1/12;
+    margin-left: 10px;
+    margin-right: 120px;
+  }
+  .categoria-Marcador {
+    grid-column: 1/11;
+  }
+}
+@media screen and (max-width: 360px) {
+  .marcador-cuerpo {
+    min-height: 350px;
+  }
+  .nombreEquipo-A {
+    grid-row: 6/8;
+  }
+  .nombreEquipo-B {
+    grid-row: 6/8;
   }
 }

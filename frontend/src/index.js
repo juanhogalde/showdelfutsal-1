@@ -7,12 +7,14 @@ import Home from './Componentes/Home/Home';
 
 import './index.css';
 import HomePrivada from './ComponentesAdmin/HomePrivada/HomePrivada';
+import {LayoutCargaDeDatos} from './ComponentesAdmin/LayoutCargaDeDatos/LayoutCargaDeDatos';
 
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-      {/* <HomePrivada></HomePrivada> */}
       <Home></Home>
+      {/* <LayoutCargaDeDatos></LayoutCargaDeDatos> */}
+      {/* <HomePrivada></HomePrivada> */}
     </Provider>
   </BrowserRouter>,
   document.getElementById('root')

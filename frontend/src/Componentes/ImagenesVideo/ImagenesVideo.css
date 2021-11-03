@@ -152,7 +152,11 @@ iframe {
 .decripcion-imagenesVideo2:active {
   display: none;
 }
-
+@media screen and (max-width: 1420px) {
+  .video-con-borde-imagenesVideo {
+    height: 50.5vh;
+  }
+}
 @media screen and (max-width: 1024px) {
   .video-con-borde-imagenesVideo {
     height: 40vh;
