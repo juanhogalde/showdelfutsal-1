@@ -40,9 +40,7 @@ const SubMenuBuscadorNoticias = () => {
             escucharCambiosBuscar(e.target.value, true);
           }}
           onKeyPress={e => {
-            {
-              e.charCode === 13 && escucharCambiosBuscar(e, false);
-            }
+            e.charCode === 13 && escucharCambiosBuscar(e, false);
           }}
         />
         {valorBusqueda && (

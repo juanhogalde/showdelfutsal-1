@@ -6,8 +6,11 @@ import BotonLowa from '../../ComponentesAdmin/BotonLowa/BotonLowa';
 import InputLowa from '../../ComponentesAdmin/InputLowa/InputLowa';
 
 import {Link} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {login} from '../../Redux/UsuarioLogueado/AccionesUsuarioLogueado';
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [valueInput, setValueInput] = useState('');
 
   const escucharCambios = (name, value) => {
@@ -20,7 +23,9 @@ const Login = () => {
     });
   };
   const iniciarSesion = () => {
+    console.log(valueInput);
     console.log('click en botón');
+    dispatch(login(valueInput));
   };
   return (
     <div className="CP-Login">
@@ -35,13 +40,13 @@ const Login = () => {
           placeholder="Ingrese Usuario"
           autocomplete="off"
           onChange={e => escucharCambios(e.target.name, e.target.value)}
-          name="usuario"
+          name="email"
         ></InputLowa>
         <InputLowa
           type="password"
           placeholder="Contraseña"
           onChange={e => escucharCambios(e.target.name, e.target.value)}
-          name="contraseña"
+          name="password"
         ></InputLowa>
         <BotonLowa onClick={() => iniciarSesion()}></BotonLowa>
         <div className="CI-link-Login">
