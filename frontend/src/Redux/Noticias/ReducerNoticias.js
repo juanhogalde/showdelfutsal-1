@@ -10,8 +10,7 @@ const noticiaPorDefecto = {
   noticias: [],
   noticiaDeBusqueda: '',
   noticiaSeleccionada: {},
-  isCargando: {isMostrar: false, tipo: '', mensaje: ''},
-  isError: {isMostrar: false, tipo: '', mensaje: ''},
+  isObteniendoNoticia: {isMostrar: false, tipo: '', mensaje: ''},
 };
 const storeNoticias = (state = noticiaPorDefecto, accion) => {
   switch (accion.type) {
@@ -19,11 +18,7 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
     case cargandoBuscarNoticias: {
       return {
         ...state,
-        isCargando: {
-          isMostrar: true,
-          tipo: 'cargando',
-          mensaje: 'cargando',
-        },
+        isObteniendoNoticia: {isMostrar: true, tipo: 'cargando', mensaje: 'cargando'},
       };
     }
     case guardarNoticiaSeleccionada: {
@@ -39,26 +34,13 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           typeof accion.noticia.value !== 'string'
             ? accion.noticia.value
             : [{titulo: 'sin resultado'}],
-        isCargando: {
-          isMostrar: false,
-          tipo: '',
-          mensaje: '',
-        },
+        isObteniendoNoticia: {isMostrar: false, tipo: '', mensaje: ''},
       };
     }
     case buscarNoticiaError: {
       return {
         ...state,
-        isError: {
-          isMostrar: true,
-          tipo: 'error',
-          mensaje: accion.error.message,
-        },
-        isCargando: {
-          isMostrar: false,
-          tipo: '',
-          mensaje: '',
-        },
+        isObteniendoNoticia: {isMostrar: true, tipo: 'error', mensaje: accion.error.message},
       };
     }
     case volverProdefectoNoticiasBusqueda: {
