@@ -50,9 +50,11 @@ class NoticiasController {
             try {
                 const tituloBody = req.body.titulo;
                 if (tituloBody) {
-                    const listadoNoticias = yield Noticias_Model_1.default.find({
+                    const listadoNoticias = yield Noticias_Model_1.default
+                        .find({
                         titulo: { $regex: `${tituloBody}`, $options: 'i' },
-                    });
+                    })
+                        .populate('idImagen');
                     if (listadoNoticias.length) {
                         responder_1.default.sucess(req, res, listadoNoticias);
                     }
