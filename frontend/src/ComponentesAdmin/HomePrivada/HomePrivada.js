@@ -14,10 +14,11 @@ import Selector from '../Selector/Selector';
 import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {obtenerDatosIniciales} from '../../Redux/DatosInciales/AccionesDatosIniciales';
+import Cargando from '../Cargando/Cargando';
 
 const HomePrivada = () => {
   const [isMenuLateralAbierto, setIsAperturaLateral] = useState(false);
-  const {usuarioLogueado} = useSelector(state => state.sotreLogueo);
+  const {usuarioLogueado} = useSelector(state => state.storeLogueo);
   const {datosIniciales} = useSelector(state => state.sotreDatosIniciales);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -77,7 +78,8 @@ const HomePrivada = () => {
     return (
       <React.Fragment>
         {/*TODO: cambiar por otro cargando la imagen ahora va al principio antes del login */}
-        <h1>CARGANDO DATOS INICIALES</h1>
+
+        <Cargando></Cargando>
       </React.Fragment>
     );
   }
