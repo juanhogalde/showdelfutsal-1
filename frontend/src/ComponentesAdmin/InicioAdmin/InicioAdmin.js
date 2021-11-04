@@ -7,7 +7,6 @@ import img4 from '../../Static/Admin/imgPanel4.png';
 import img5 from '../../Static/Admin/imgPanel5.png';
 import InputLowa from '../InputLowa/InputLowa';
 import {BsSearch} from 'react-icons/bs';
-import Selector from '../Selector/Selector';
 import TarjetaPanel from '../TarjetaPanel/TarjetaPanel';
 import {useSelector} from 'react-redux';
 import CargandoInicioAdmin from './CargandoInicioAdmin/CargandoInicioAdmin';
@@ -18,9 +17,7 @@ const InicioAdmin = () => {
   const escucharCambios = e => {
     console.log(e);
   };
-  const obtenerDatosDeSelector = datos => {
-    console.log(datos);
-  };
+
   if (datosIniciales) {
     return (
       <React.Fragment>
