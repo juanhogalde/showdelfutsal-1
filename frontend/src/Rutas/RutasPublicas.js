@@ -9,13 +9,18 @@ import PaginaNoticiaDesarrollada from '../Componentes/PaginaNoticiaDesarrollada/
 import NoticiasFiltradas from '../Componentes/NoticiasFiltradas/NoticiasFiltradas';
 import BarraDeNavegacion from '../Componentes/BarraDeNavegacion/BarraDeNavegacion';
 import Home from '../Componentes/Home/Home';
+import RecuperarContraseña from '../Componentes/RecuperarContraseña/RecuperarContraseña';
 const RutasPublicas = () => {
   return (
     <React.Fragment>
-      {!useLocation().pathname.includes('/Administrador') && <BarraDeNavegacion />}
+      {!['/Administrador', '/RecuperarContraseña'].includes(useLocation().pathname) && (
+        <BarraDeNavegacion />
+      )}
+      {/* {!useLocation().pathname.includes('/Administrador') && <BarraDeNavegacion />} */}
       <Switch>
         <Route exact component={Inicio} path="/"></Route>
         <Route exact component={Home} path="/Administrador"></Route>
+        <Route exact component={RecuperarContraseña} path="/RecuperarContraseña"></Route>
         <Route exact component={PaginaSomos} path="/Somos"></Route>
         <Route exact component={PaginaNoticias} path="/Noticias"></Route>
         <Route exact component={PaginaNoticiaDesarrollada} path="/Noticia/Desarrollada"></Route>

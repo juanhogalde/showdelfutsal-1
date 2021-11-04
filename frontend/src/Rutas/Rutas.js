@@ -3,7 +3,7 @@ import RutasPrivadas from './RutasPrivadas';
 import {useSelector} from 'react-redux';
 import RutasPublicas from './RutasPublicas';
 const Rutas = () => {
-  const {usuarioLogueado} = useSelector(state => state.sotreLogueo);
+  const {usuarioLogueado} = useSelector(state => state.storeLogueo);
   return <React.Fragment>{usuarioLogueado ? <RutasPrivadas /> : <RutasPublicas />}</React.Fragment>;
 };
 
