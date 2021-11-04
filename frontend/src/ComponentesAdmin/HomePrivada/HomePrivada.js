@@ -14,6 +14,7 @@ import Selector from '../Selector/Selector';
 import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {obtenerDatosIniciales} from '../../Redux/DatosInciales/AccionesDatosIniciales';
+import CargandoHomePrivada from './CargandoHomePrivada/CargandoHomePrivada';
 
 const HomePrivada = () => {
   const [isMenuLateralAbierto, setIsAperturaLateral] = useState(false);
@@ -40,6 +41,7 @@ const HomePrivada = () => {
   const escucharCambios = e => {
     console.log(e);
   };
+  console.log(datosIniciales);
   if (datosIniciales) {
     return (
       <React.Fragment>
@@ -77,7 +79,9 @@ const HomePrivada = () => {
     return (
       <React.Fragment>
         {/*TODO: cambiar por otro cargando la imagen ahora va al principio antes del login */}
-        <h1>CARGANDO DATOS INICIALES</h1>
+        <CargandoHomePrivada
+          cargandoDatosIniciales={datosIniciales ? false : true}
+        ></CargandoHomePrivada>
       </React.Fragment>
     );
   }
