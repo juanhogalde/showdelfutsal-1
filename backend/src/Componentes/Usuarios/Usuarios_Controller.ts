@@ -98,6 +98,37 @@ class UsuariosController {
     }
   }
 
+  public async modificarPassword(req: Request, res: Response) {
+    try {
+      const usuarioBody = req.body;
+      if (usuarioBody.idUsuraio && usuarioBody.passwordNueva) {
+        modeloUsuarios.findById(usuarioBody.idUsuraio).then(async (usuario: any) => {
+          if (usuario) {
+            usuario.nombreUsuario = usuario.nombreUsuario;
+            usuario.email = usuario.email;
+            usuario.keyRol = usuario.keyRol;
+            usuario.token = usuario.token;
+            usuario.isActivo = usuario.isActivo;
+            usuario.password = usuarioBody.passwordNueva;
+            usuario.isRecuperarContraseña = false;
+
+            const resultado = await usuario.save({new: true});
+            const token = genClaves.generarToken({...resultado, password: ''});
+            responder.sucess(req, res, token);
+          } else {
+            let error = new Error('Usuario no encontrado');
+            responder.error(req, res, error);
+          }
+        });
+      } else {
+        let error = new Error('Faltan datos');
+        responder.error(req, res, error);
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+
   public async eliminar(req: Request, res: Response) {
     try {
       let id = req.body.id;
@@ -142,7 +173,26 @@ class UsuariosController {
           const nuevaContrasenia = await generatePasswordRand(8);
           if (nuevaContrasenia && usuario.email) {
             sendMail.recuperarPassword(usuario.email, nuevaContrasenia);
-            responder.sucess(req, res, 'Correo de reestablecimiento enviado');
+
+            //
+            modeloUsuarios.findById(usuario._id).then(async (usuario: any) => {
+              if (usuario) {
+                usuario.nombreUsuario = usuario.nombreUsuario;
+                usuario.email = usuario.email;
+                usuario.keyRol = usuario.keyRol;
+                usuario.token = usuario.token;
+                usuario.isActivo = usuario.isActivo;
+                usuario.isRecuperarContraseña = true;
+                usuario.password = nuevaContrasenia;
+                const resultado = await usuario.save({new: true});
+                responder.sucess(req, res, 'Correo de reestablecimiento enviado');
+              } else {
+                let error = new Error('Usuario no encontrado');
+                responder.error(req, res, error);
+              }
+            });
+
+            //responder.sucess(req, res, 'Correo de reestablecimiento enviado');
           } else {
             console.log(usuario.email);
             console.log(nuevaContrasenia);
