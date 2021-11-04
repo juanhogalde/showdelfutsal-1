@@ -6,13 +6,13 @@ import BotonLowa from '../../ComponentesAdmin/BotonLowa/BotonLowa';
 import InputLowa from '../../ComponentesAdmin/InputLowa/InputLowa';
 
 import {Link} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../Redux/UsuarioLogueado/AccionesUsuarioLogueado';
 
 const Login = () => {
   const dispatch = useDispatch();
   const [valueInput, setValueInput] = useState('');
-
+  const {isLogueoUsuario} = useSelector(state => state.sotreLogueo);
   const escucharCambios = (name, value) => {
     console.log(name);
     console.log(value);
@@ -48,9 +48,14 @@ const Login = () => {
           onChange={e => escucharCambios(e.target.name, e.target.value)}
           name="password"
         ></InputLowa>
+        {isLogueoUsuario.tipo === 'error' && (
+          <h6 className="CI-texto-contraseña-usurio">Usuario o Contraseña Incorrectas</h6>
+        )}
         <BotonLowa onClick={() => iniciarSesion()}></BotonLowa>
         <div className="CI-link-Login">
-          <Link className="link-Login">Cambiar Contraseña</Link>
+          <Link to="/Administrador" className="link-Login">
+            Cambiar Contraseña
+          </Link>
         </div>
       </div>
     </div>
