@@ -1,0 +1,12 @@
+.CP-CargandoHomePrivada {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ecf1fa;
+}
+.margenes-LI-Tarjetas-CargandoHomePrivada {
+  padding-top: 100px;
+}
+.Skeleton-A {
+  width: 200px;
+  height: 200px;
+}

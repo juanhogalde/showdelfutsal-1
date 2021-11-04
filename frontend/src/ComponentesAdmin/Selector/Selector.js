@@ -38,7 +38,7 @@ const estilosPersonalizados = {
 
 const Selector = props => {
   const {
-    opciones,
+    // opciones,
     isMultipleOpcion,
     isCerrarMenuAlSeleccionar,
     onChange,

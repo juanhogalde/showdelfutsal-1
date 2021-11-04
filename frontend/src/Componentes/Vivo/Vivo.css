@@ -1,6 +1,6 @@
 .CP-Componente-Vivo {
   width: 100%;
-  height: 100%;
+
   display: flex;
   flex-direction: column;
 }
@@ -22,6 +22,7 @@
   font-size: 2.5vh;
   font-weight: bolder;
 }
+
 @media screen and (max-width: 1024px) {
   .marcador-etiqueta-vivo {
     max-height: 80px;
@@ -31,7 +32,13 @@
 @media screen and (max-width: 480px) {
   .marcador-etiqueta-vivo {
     padding: 0;
-    max-height: 40px;
+    max-height: 37px;
+    clip-path: polygon(0 21%, 100% 0, 100% 100%, 0% 100%);
+  }
+}
+@media screen and (max-width: 320px) {
+  .marcador-etiqueta-vivo {
+    max-height: 30px;
     clip-path: polygon(0 21%, 100% 0, 100% 100%, 0% 100%);
   }
 }
