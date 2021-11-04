@@ -1,10 +1,9 @@
 import React from 'react';
 import BarraDeNavegacionAdmin from '../../BarraDeNavegacionAdmin/BarraDeNavegacionAdmin';
 import TarjetaPanel from '../../TarjetaPanel/TarjetaPanel';
-import './CargandoHomePrivada.css';
-import Skeleton from 'react-loading-skeleton';
+import './CargandoInicioAdmin.css';
 
-const CargandoHomePrivada = ({cargandoDatosIniciales}) => {
+const CargandoInicioAdmin = ({cargandoDatosIniciales}) => {
   return (
     <div className="CP-CargandoHomePrivada">
       <BarraDeNavegacionAdmin></BarraDeNavegacionAdmin>
@@ -33,4 +32,4 @@ const CargandoHomePrivada = ({cargandoDatosIniciales}) => {
     </div>
   );
 };
-export default CargandoHomePrivada;
+export default CargandoInicioAdmin;

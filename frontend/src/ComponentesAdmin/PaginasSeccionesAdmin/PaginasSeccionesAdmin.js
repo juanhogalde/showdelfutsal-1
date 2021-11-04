@@ -4,7 +4,7 @@ import TarjetaNoticias from '../../ComponentesAdmin/TarjetaNoticias/TarjetaNotic
 import BotonLowa from '../../ComponentesAdmin/BotonLowa/BotonLowa';
 import FiltroNoticiasAdmin from '../../ComponentesAdmin/FiltroNoticiasAdmin/FiltroNoticiasAdmin';
 
-const PaginaNoticiasAdmin = () => {
+const PaginasSeccionesAdmin = () => {
   return (
     <div className="CP-Pagina-Secciones-Admin">
       <div className="CI-Pagina-Secciones-Admin-Cabecera">
@@ -24,4 +24,4 @@ const PaginaNoticiasAdmin = () => {
   );
 };
 
-export default PaginaNoticiasAdmin;
+export default PaginasSeccionesAdmin;
