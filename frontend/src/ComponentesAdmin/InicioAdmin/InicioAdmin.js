@@ -32,19 +32,17 @@ const InicioAdmin = () => {
               inputConIcono={<BsSearch></BsSearch>}
               onChange={e => escucharCambios(e)}
             ></InputLowa>
-            <Selector
-              /* selectorConIcono={<BsSearch />} */
-              onChange={obtenerDatosDeSelector}
-              isCerrarMenuAlSeleccionar={false}
-              isMultipleOpcion={true}
-            ></Selector>
           </div>
           <div className="LI-Tarjetas">
-            <TarjetaPanel tituloPanel={'Tabla de Posiciones'} url={img1}></TarjetaPanel>
-            <TarjetaPanel tituloPanel={'Publicidad'} url={img2}></TarjetaPanel>
+            <TarjetaPanel
+              tituloPanel={'Tabla de Posiciones'}
+              url={img1}
+              linkTo="Tablas"
+            ></TarjetaPanel>
+            <TarjetaPanel tituloPanel={'Publicidad'} url={img2} linkTo="Publicidad"></TarjetaPanel>
             <TarjetaPanel tituloPanel={'Noticias'} url={img3} linkTo="Noticias"></TarjetaPanel>
-            <TarjetaPanel tituloPanel={'Galeria'} url={img4}></TarjetaPanel>
-            <TarjetaPanel tituloPanel={'Campeonato'} url={img5}></TarjetaPanel>
+            <TarjetaPanel tituloPanel={'Galeria'} url={img4} linkTo="Galería"></TarjetaPanel>
+            <TarjetaPanel tituloPanel={'Torneos'} url={img5} linkTo="Torneos"></TarjetaPanel>
           </div>
         </div>
       </React.Fragment>
