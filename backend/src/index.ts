@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import compression from 'compression';
 import cors from 'cors';
+import formData from 'express-form-data';
 import {baseMongo} from './Config/baseDeDatos';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -33,6 +34,11 @@ const deploy = 'v0.0.1';
 class Server {
   public app: express.Application;
   private _cadenaDeConexion = process.env.DATABASE || 'mongodb://localhost:29017/Desarrollo';
+  private options = {
+    uploadDir: '/imagenes',
+    autoClean: false,
+  };
+
   constructor() {
     this.app = express();
     this.conectarBd();
@@ -51,6 +57,8 @@ class Server {
     this.app.use(cors());
     this.app.use(helmet());
     this.app.use(compression());
+    this.app.use(formData.parse(this.options));
+    this.app.use(formData.union());
     this.app.use(express.json());
     this.app.use(express.urlencoded({extended: false}));
   }

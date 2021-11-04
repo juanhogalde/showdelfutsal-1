@@ -27,7 +27,7 @@ export const obtenerDatosIniciales = datosDeLogueo => {
     dispatch(cargandoDatosIniciales_accion());
     setTimeout(() => {
       dispatch(cargaDatosInicialesExito_accion({}));
-    }, 2000);
+    }, 3000);
     //TODO: descomentar API
     // API({
     //   url: '/usuarios/login',

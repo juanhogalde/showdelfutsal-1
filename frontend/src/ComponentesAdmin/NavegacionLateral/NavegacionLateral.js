@@ -13,7 +13,6 @@ import {BsPower} from 'react-icons/bs';
 const NavegacionLateral = props => {
   const {isMenuLateralAbierto, abrirMenuLateral} = props;
 
-  // console.log(isMenuLateralAbierto);
   const cerrarSesion = () => {
     localStorage.removeItem('token');
     window.location.href = '/Administrador';

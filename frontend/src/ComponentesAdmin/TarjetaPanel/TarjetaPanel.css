@@ -11,6 +11,8 @@
   background-color: white;
   cursor: pointer;
   transition: all 0.5s;
+  position: relative;
+  z-index: 0;
 }
 .imagen-TarjetaPanel {
   margin-top: auto;
@@ -19,4 +21,13 @@
 .CP-TarjetaPanel:hover {
   transform: scale(0.9);
   border: 1px solid #2a2ac0;
+}
+.imagen-TarjetaPanel-Cargando {
+  width: 100%;
+  height: 100%;
+}
+.link-Paneles {
+  text-decoration: none;
+  width: 100%;
+  color: #2a2ac0;
 }
