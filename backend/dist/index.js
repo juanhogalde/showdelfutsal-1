@@ -8,6 +8,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const helmet_1 = __importDefault(require("helmet"));
 const compression_1 = __importDefault(require("compression"));
 const cors_1 = __importDefault(require("cors"));
+const express_form_data_1 = __importDefault(require("express-form-data"));
 const baseDeDatos_1 = require("./Config/baseDeDatos");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -31,6 +32,10 @@ const deploy = 'v0.0.1';
 class Server {
     constructor() {
         this._cadenaDeConexion = process.env.DATABASE || 'mongodb://localhost:29017/Desarrollo';
+        this.options = {
+            uploadDir: '/imagenes',
+            autoClean: false,
+        };
         this.app = (0, express_1.default)();
         this.conectarBd();
         this.configurar();
@@ -46,6 +51,8 @@ class Server {
         this.app.use((0, cors_1.default)());
         this.app.use((0, helmet_1.default)());
         this.app.use((0, compression_1.default)());
+        this.app.use(express_form_data_1.default.parse(this.options));
+        this.app.use(express_form_data_1.default.union());
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: false }));
     }
