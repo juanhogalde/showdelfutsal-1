@@ -1,7 +1,9 @@
 .CP-TextareaLowa {
   background-color: transparent;
   display: flex;
-  padding: 10px;
+  /*  padding: 10px; */
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .componente-TextAreaLowa {
   width: 100%;
@@ -15,6 +17,7 @@
   outline: none;
 }
 .componente-TextAreaLowa::placeholder {
-  font-weight: 700;
+  /* 
+  font-weight: 700; */
   color: #707070;
 }
