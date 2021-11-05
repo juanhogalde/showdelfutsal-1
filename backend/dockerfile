@@ -1,0 +1,15 @@
+FROM node:14.17.1-alpine3.13
+WORKDIR /app
+COPY ["package.json","./"]
+COPY . .
+RUN npm install
+EXPOSE 4000
+ENV PORT=4000
+ENV DATABASE=mongodb://localhost:27017/FutsalDB
+ENV TOKEN_SECRET=1a2ffe36502bc61066c571867b7f458c
+ENV HOST_EMAIL_SISTEMA=c1470936.ferozo.com
+ENV EMAIL_SISTEMA=no-reply@elshowdelfutsal.com
+ENV PASS_EMAIL_SISTEMA=B4F2K3@NPY
+ENV PORT_EMAIL_SISTEMA=465
+CMD [ "npm","run","dev" ]
+VOLUME [ "/imagenes" ]

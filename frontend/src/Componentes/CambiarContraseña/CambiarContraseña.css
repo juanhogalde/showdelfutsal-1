@@ -1,0 +1,60 @@
+.CP-Login-Cambiar-Psw {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 0 60px 0;
+  font-family: Lato;
+}
+.CI-Logo-Login-Cambiar-Psw {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+.marca-Login-Cambiar-Psw {
+  min-width: 250px;
+}
+.iso-Login-Cambiar-Psw {
+  min-width: 150px;
+  position: absolute;
+  top: 65%;
+}
+.CI-Inputs-Login-Cambiar-Psw {
+  width: 100%;
+  height: 50vh;
+  margin-top: 80px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.CI-Inputs-Login-Cambiar-Psw h4 {
+  color: #181461;
+}
+.CI-texto-contraseña-usurio-Cambiar-Psw {
+  color: #181461;
+}
+.CI-texto-error-contraseña-usurio-Cambiar-Psw {
+  color: red;
+  margin-top: 0.1rem;
+}
+.CI-texto-exito-contraseña-usurio-Cambiar-Psw {
+  color: green;
+  margin-top: 0.8rem;
+}
+@media screen and (min-width: 360px) {
+  .marca-Login-Cambiar-Psw {
+    min-width: 250px;
+  }
+  .iso-Login-Cambiar-Psw {
+    min-width: 150px;
+    position: absolute;
+    top: 65%;
+  }
+}

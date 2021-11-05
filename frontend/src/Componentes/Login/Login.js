@@ -12,19 +12,14 @@ import {login} from '../../Redux/UsuarioLogueado/AccionesUsuarioLogueado';
 const Login = () => {
   const dispatch = useDispatch();
   const [valueInput, setValueInput] = useState('');
-  const {isLogueoUsuario} = useSelector(state => state.sotreLogueo);
+  const {isLogueoUsuario} = useSelector(state => state.storeLogueo);
   const escucharCambios = (name, value) => {
-    console.log(name);
-    console.log(value);
-
     setValueInput({
       ...valueInput,
       [name]: value,
     });
   };
   const iniciarSesion = () => {
-    console.log(valueInput);
-    console.log('click en botón');
     dispatch(login(valueInput));
   };
   return (
@@ -53,7 +48,7 @@ const Login = () => {
         )}
         <BotonLowa onClick={() => iniciarSesion()}></BotonLowa>
         <div className="CI-link-Login">
-          <Link to="/Administrador" className="link-Login">
+          <Link to="/RecuperarContraseña" className="link-Login">
             Cambiar Contraseña
           </Link>
         </div>

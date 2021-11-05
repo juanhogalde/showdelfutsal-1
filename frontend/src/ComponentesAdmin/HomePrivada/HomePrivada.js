@@ -10,7 +10,7 @@ import RutasPrivadas from '../../Rutas/RutasPrivadas';
 
 const HomePrivada = () => {
   const [isMenuLateralAbierto, setIsAperturaLateral] = useState(false);
-  const {usuarioLogueado} = useSelector(state => state.sotreLogueo);
+  const {usuarioLogueado} = useSelector(state => state.storeLogueo);
   const dispatch = useDispatch();
   useEffect(() => {
     if (usuarioLogueado) {
