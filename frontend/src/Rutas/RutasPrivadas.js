@@ -5,6 +5,7 @@ import {Switch} from 'react-router-dom';
 import CambiarContraseña from '../Componentes/CambiarContraseña/CambiarContraseña';
 // import HomePrivada from '../ComponentesAdmin/HomePrivada/HomePrivada';
 import InicioAdmin from '../ComponentesAdmin/InicioAdmin/InicioAdmin';
+import NuevaNoticia from '../ComponentesAdmin/NuevaNoticia/NuevaNoticia';
 import PaginaGaleriaAdmin from '../ComponentesAdmin/PaginaGaleriaAdmin/PaginaGaleriaAdmin';
 import PaginaNoticiasAdmin from '../ComponentesAdmin/PaginaNoticiasAdmin/PaginaNoticiasAdmin';
 import PaginaPublicidadAdmin from '../ComponentesAdmin/PaginaPublicidadAdmin/PaginaPublicidadAdmin';
@@ -31,7 +32,7 @@ const RutasPrivadas = () => {
           <Route exact component={PaginaGaleriaAdmin} path="/Galería"></Route>
           <Route exact component={PaginaTorneosAdmin} path="/Torneos"></Route>
           <Route exact component={PaginaTablaAdmin} path="/Tablas"></Route>
-
+          <Route exact component={NuevaNoticia} path="/Noticia/Agregar"></Route>
           <Route exact path="/fixture">
             <h1>Fixture</h1>
           </Route>
