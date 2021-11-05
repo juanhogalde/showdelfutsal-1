@@ -4,7 +4,7 @@ import marca from '../../Static/Img/marca.png';
 import iso from '../../Static/Img/iso.png';
 import BotonLowa from '../../ComponentesAdmin/BotonLowa/BotonLowa';
 import InputLowa from '../../ComponentesAdmin/InputLowa/InputLowa';
-
+import {AiFillEye, AiFillEyeInvisible} from 'react-icons/ai';
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../Redux/UsuarioLogueado/AccionesUsuarioLogueado';
@@ -12,6 +12,7 @@ import {login} from '../../Redux/UsuarioLogueado/AccionesUsuarioLogueado';
 const Login = () => {
   const dispatch = useDispatch();
   const [valueInput, setValueInput] = useState('');
+  const [type, setType] = useState('password');
   const {isLogueoUsuario} = useSelector(state => state.storeLogueo);
   const escucharCambios = (name, value) => {
     setValueInput({
@@ -21,6 +22,14 @@ const Login = () => {
   };
   const iniciarSesion = () => {
     dispatch(login(valueInput));
+  };
+  const mostrarPassword = () => {
+    console.log('ejecturo mostrarContraseña');
+    if (type === 'password') {
+      setType('text');
+    } else {
+      setType('password');
+    }
   };
   return (
     <div className="CP-Login">
@@ -38,10 +47,12 @@ const Login = () => {
           name="email"
         ></InputLowa>
         <InputLowa
-          type="password"
+          type={type}
           placeholder="Contraseña"
           onChange={e => escucharCambios(e.target.name, e.target.value)}
           name="password"
+          inputConIcono={type === 'password' ? <AiFillEyeInvisible /> : <AiFillEye />}
+          funcionDeIcono={() => mostrarPassword()}
         ></InputLowa>
         {isLogueoUsuario.tipo === 'error' && (
           <h6 className="CI-texto-contraseña-usurio">Usuario o Contraseña Incorrectas</h6>
