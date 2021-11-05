@@ -5,7 +5,7 @@ const BotonLowa = props => {
   const {onClick, tituloboton} = props;
   return (
     <button className="boton-Lowa" onClick={onClick}>
-      {tituloboton} Agregar
+      {tituloboton ? tituloboton : 'Continue'}
     </button>
   );
 };

@@ -18,7 +18,7 @@ const NuevaNoticia = () => {
         type="file"
         placeholder="Ingrese Imágen"
         inputConIcono={<BsFillArrowDownCircleFill />}
-        funciónDeIcono={funcionParaIcono}
+        funcionDeIcono={funcionParaIcono}
       ></InputLowa>
 
       <TextAreaLowa placeholder="Escriba el cuerpo de la noticia"></TextAreaLowa>
