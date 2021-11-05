@@ -58,7 +58,7 @@ const CambiarContraseña = () => {
           </h6>
         )}
 
-        <BotonLowa onClick={() => ModificarContraseña()}></BotonLowa>
+        <BotonLowa tituloboton={'Guardar'} onClick={() => ModificarContraseña()}></BotonLowa>
       </div>
     </div>
   );

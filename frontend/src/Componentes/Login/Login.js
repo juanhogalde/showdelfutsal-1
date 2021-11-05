@@ -46,7 +46,7 @@ const Login = () => {
         {isLogueoUsuario.tipo === 'error' && (
           <h6 className="CI-texto-contraseña-usurio">Usuario o Contraseña Incorrectas</h6>
         )}
-        <BotonLowa onClick={() => iniciarSesion()}></BotonLowa>
+        <BotonLowa tituloboton={'Ingresar'} onClick={() => iniciarSesion()}></BotonLowa>
         <div className="CI-link-Login">
           <Link to="/RecuperarContraseña" className="link-Login">
             Cambiar Contraseña
