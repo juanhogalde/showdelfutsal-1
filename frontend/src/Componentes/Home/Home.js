@@ -12,7 +12,7 @@ const Home = () => {
   setTimeout(() => {
     setMostrandoImagenDeInicio(false);
   }, 1000);
-  const {usuarioLogueado} = useSelector(state => state.sotreLogueo);
+  const {usuarioLogueado} = useSelector(state => state.storeLogueo);
   if (mostrandoImagenDeInicio && !usuarioLogueado) {
     return (
       <React.Fragment>

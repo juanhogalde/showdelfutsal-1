@@ -40,3 +40,6 @@
 .input-Lowa[type='file'] {
   background-color: aqua;
 }
+.input-Lowa[type='file']::-webkit-file-upload-button {
+  visibility: hidden;
+}

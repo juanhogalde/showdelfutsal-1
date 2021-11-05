@@ -33,7 +33,7 @@ export class envioMail {
         },
         {
           filename: 'piePagina.png',
-          path: path.join(__dirname, '../../archivos/Pie_mail.png'),
+          path: path.join(__dirname, '../../archivos/piePagina.png'),
           cid: 'correo-pie',
         },
       ],

@@ -7,5 +7,6 @@ export default interface IUsuarios extends Document {
   password: string;
   keyRol: number;
   token: string;
+  isRecuperarContraseña: boolean;
   isActivo: boolean;
 }
