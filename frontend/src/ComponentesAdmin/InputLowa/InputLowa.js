@@ -23,7 +23,7 @@ const InputLowa = props => {
     inputElement.current.value = '';
   };
   const inputElement = useRef(null);
-  /* return (
+  return (
     <div className="CP-Input">
       <input
         ref={inputElement}
@@ -38,54 +38,14 @@ const InputLowa = props => {
         value={value}
         name={name}
       ></input>
-      <span className="input-Icono-Lowa" onClick={() => resetValue(name)}>
+      <span
+        className="input-Icono-Lowa"
+        onClick={funcionDeIcono ? () => funcionDeIcono() : () => resetValue(name)}
+      >
         {inputConIcono ? inputConIcono : <AiOutlineClose></AiOutlineClose>}
       </span>
     </div>
-  ); */
-  if (type !== 'textarea') {
-    return (
-      <div className="CP-Input">
-        <input
-          ref={inputElement}
-          className="input-Lowa"
-          id={id}
-          placeholder={placeholder}
-          type={type}
-          onClick={onClick}
-          onChange={onChange}
-          autoComplete={autocomplete}
-          required={required}
-          value={value}
-          name={name}
-        ></input>
-        <span
-          className="input-Icono-Lowa"
-          onClick={funcionDeIcono ? () => funcionDeIcono() : () => resetValue(name)}
-        >
-          {inputConIcono ? inputConIcono : <AiOutlineClose></AiOutlineClose>}
-        </span>
-      </div>
-    );
-  } else {
-    return (
-      <div className="CP-Input-TextArea">
-        <input
-          ref={inputElement}
-          className="input-Lowa-TextArea"
-          id={id}
-          placeholder={placeholder}
-          type={type}
-          onClick={onClick}
-          onChange={onChange}
-          autoComplete={autocomplete}
-          required={required}
-          value={value}
-          name={name}
-        ></input>
-      </div>
-    );
-  }
+  );
 };
 InputLowa.defaultProps = {
   type: 'text',
