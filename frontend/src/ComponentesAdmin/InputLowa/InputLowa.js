@@ -14,6 +14,9 @@ const InputLowa = props => {
     name,
     id,
     inputConIcono,
+    funciónDeIcono = () => {
+      console.log('No se envió función de Input con Icono');
+    },
   } = props;
 
   const resetValue = () => {
@@ -56,7 +59,10 @@ const InputLowa = props => {
           value={value}
           name={name}
         ></input>
-        <span className="input-Icono-Lowa" onClick={() => resetValue(name)}>
+        <span
+          className="input-Icono-Lowa"
+          onClick={funciónDeIcono ? () => funciónDeIcono() : () => resetValue(name)}
+        >
           {inputConIcono ? inputConIcono : <AiOutlineClose></AiOutlineClose>}
         </span>
       </div>

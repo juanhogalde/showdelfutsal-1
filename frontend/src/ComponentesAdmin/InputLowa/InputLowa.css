@@ -37,9 +37,9 @@
   border: 1px solid #2a2ac0;
 }
 
-.input-Lowa[type='file'] {
+/* .input-Lowa[type='file'] {
   background-color: aqua;
 }
 .input-Lowa[type='file']::-webkit-file-upload-button {
   visibility: hidden;
-}
+} */
