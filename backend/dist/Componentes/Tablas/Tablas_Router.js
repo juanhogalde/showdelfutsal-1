@@ -14,6 +14,7 @@ class TablasRouter {
         this.router.put('/modificar', Tablas_Controller_1.tablasController.modificar);
         this.router.delete('/eliminar', Tablas_Controller_1.tablasController.eliminar);
         this.router.post('/agregar', Tablas_Controller_1.tablasController.agregar);
+        this.router.post('/equiposNoEliminados', Tablas_Controller_1.tablasController.equiposNoEliminados);
     }
 }
 const tablasRouter = new TablasRouter();

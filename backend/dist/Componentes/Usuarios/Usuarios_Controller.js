@@ -125,6 +125,40 @@ class UsuariosController {
             }
         });
     }
+    modificarPassword(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const usuarioBody = req.body;
+                if (usuarioBody.idUsuraio && usuarioBody.passwordNueva) {
+                    Usuarios_Model_1.default.findById(usuarioBody.idUsuraio).then((usuario) => __awaiter(this, void 0, void 0, function* () {
+                        if (usuario) {
+                            usuario.nombreUsuario = usuario.nombreUsuario;
+                            usuario.email = usuario.email;
+                            usuario.keyRol = usuario.keyRol;
+                            usuario.token = usuario.token;
+                            usuario.isActivo = usuario.isActivo;
+                            usuario.password = usuarioBody.passwordNueva;
+                            usuario.isRecuperarContraseña = false;
+                            const resultado = yield usuario.save({ new: true });
+                            const token = genClaves.generarToken(Object.assign(Object.assign({}, resultado), { password: '' }));
+                            responder_1.default.sucess(req, res, token);
+                        }
+                        else {
+                            let error = new Error('Usuario no encontrado');
+                            responder_1.default.error(req, res, error);
+                        }
+                    }));
+                }
+                else {
+                    let error = new Error('Faltan datos');
+                    responder_1.default.error(req, res, error);
+                }
+            }
+            catch (error) {
+                responder_1.default.error(req, res, error);
+            }
+        });
+    }
     eliminar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -177,7 +211,23 @@ class UsuariosController {
                         const nuevaContrasenia = yield (0, gestionPass_1.generatePasswordRand)(8);
                         if (nuevaContrasenia && usuario.email) {
                             sendMail.recuperarPassword(usuario.email, nuevaContrasenia);
-                            responder_1.default.sucess(req, res, 'Correo de reestablecimiento enviado');
+                            Usuarios_Model_1.default.findById(usuario._id).then((usuario) => __awaiter(this, void 0, void 0, function* () {
+                                if (usuario) {
+                                    usuario.nombreUsuario = usuario.nombreUsuario;
+                                    usuario.email = usuario.email;
+                                    usuario.keyRol = usuario.keyRol;
+                                    usuario.token = usuario.token;
+                                    usuario.isActivo = usuario.isActivo;
+                                    usuario.isRecuperarContraseña = true;
+                                    usuario.password = nuevaContrasenia;
+                                    const resultado = yield usuario.save({ new: true });
+                                    responder_1.default.sucess(req, res, 'Correo de reestablecimiento enviado');
+                                }
+                                else {
+                                    let error = new Error('Usuario no encontrado');
+                                    responder_1.default.error(req, res, error);
+                                }
+                            }));
                         }
                         else {
                             console.log(usuario.email);
