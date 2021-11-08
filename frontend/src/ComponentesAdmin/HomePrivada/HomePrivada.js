@@ -29,7 +29,9 @@ const HomePrivada = () => {
   };
   return (
     <React.Fragment>
-      <BarraDeNavegacionAdmin abrirMenuLateral={abrirMenuLateral}></BarraDeNavegacionAdmin>
+      {usuarioLogueado && !usuarioLogueado.isRecuperarContraseña && (
+        <BarraDeNavegacionAdmin abrirMenuLateral={abrirMenuLateral}></BarraDeNavegacionAdmin>
+      )}
       <NavegacionLateral
         isMenuLateralAbierto={isMenuLateralAbierto}
         abrirMenuLateral={abrirMenuLateral}

@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import {Redirect, Route} from 'react-router';
 import {Switch} from 'react-router-dom';
 import CambiarContraseña from '../Componentes/CambiarContraseña/CambiarContraseña';
-import HomePrivada from '../ComponentesAdmin/HomePrivada/HomePrivada';
+// import HomePrivada from '../ComponentesAdmin/HomePrivada/HomePrivada';
 import InicioAdmin from '../ComponentesAdmin/InicioAdmin/InicioAdmin';
 import NuevaNoticia from '../ComponentesAdmin/NuevaNoticia/NuevaNoticia';
 import PaginaGaleriaAdmin from '../ComponentesAdmin/PaginaGaleriaAdmin/PaginaGaleriaAdmin';

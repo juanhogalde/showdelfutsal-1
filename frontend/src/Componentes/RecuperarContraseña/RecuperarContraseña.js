@@ -9,8 +9,10 @@ import {
   recuperarPsw,
   volverPorDefectoRecuperarPsw_accion,
 } from '../../Redux/UsuarioLogueado/AccionesUsuarioLogueado';
+import {useHistory} from 'react-router';
 
 const RecuperarContraseña = () => {
+  const history = useHistory();
   const [valueInput, setValueInput] = useState('');
   const dispatch = useDispatch();
   const {isRecuperarContraseña, isEmailRecuperarContraseñaExito} = useSelector(
@@ -26,6 +28,11 @@ const RecuperarContraseña = () => {
     dispatch(volverPorDefectoRecuperarPsw_accion);
     return () => {};
   }, [dispatch]);
+  if (isEmailRecuperarContraseñaExito) {
+    setTimeout(() => {
+      history.push('/Administrador');
+    }, 1000);
+  }
   const recuperarContraseña = () => {
     dispatch(recuperarPsw(valueInput));
   };
@@ -49,7 +56,7 @@ const RecuperarContraseña = () => {
             {isRecuperarContraseña.mensaje}
           </h6>
         )}
-        <BotonLowa onClick={() => recuperarContraseña()}></BotonLowa>
+        <BotonLowa tituloboton={'Continuar'} onClick={() => recuperarContraseña()}></BotonLowa>
         <h6 className="CI-texto-contraseña-usurio-Recuperar-Psw">
           Se le enviara un email con una nueva clave para que pueda acceder al sistema
         </h6>
