@@ -13,8 +13,8 @@ const BarraDeNavegacionAdmin = ({
 }) => {
   const locacion = useLocation();
   const historialDeNavegacion = useHistory();
+
   const volverAtras = () => {
-    console.log('volver atrás');
     if (locacion.pathname.split('/').length > 2) {
       if (
         locacion.pathname.split('/')[1] === 'Noticia' &&
@@ -26,7 +26,7 @@ const BarraDeNavegacionAdmin = ({
       historialDeNavegacion.push('/');
     }
   };
-  console.log(locacion.pathname.split('/').length);
+
   return (
     <div className="CP-BarraDeNavegacionAdmin">
       <div
