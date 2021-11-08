@@ -18,6 +18,7 @@ const InputLowa = props => {
     inputConIcono,
     funcionDeIcono = () => {
       console.log('No se envió función de Input con Icono');
+      return false;
     },
   } = props;
 
@@ -25,7 +26,6 @@ const InputLowa = props => {
     inputElement.current.value = '';
   };
   const inputElement = useRef(null);
-
   return (
     <div className={type === 'file' ? 'CP-Input-File' : 'CP-Input'}>
       {type === 'file' && <label className="label-InputFile-Lowa">Seleccione imágen...</label>}
@@ -45,7 +45,7 @@ const InputLowa = props => {
       {type !== 'file' ? (
         <span
           className="input-Icono-Lowa"
-          onClick={funcionDeIcono ? () => funcionDeIcono() : () => resetValue(name)}
+          onClick={inputConIcono ? () => funcionDeIcono() : () => resetValue(name)}
         >
           {inputConIcono ? inputConIcono : <AiOutlineClose></AiOutlineClose>}
         </span>
