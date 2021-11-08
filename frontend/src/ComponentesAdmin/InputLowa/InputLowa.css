@@ -9,8 +9,12 @@
   box-shadow: 0px 3px 16px #00000014;
   background-color: white;
   outline: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
-
+.CP-Input:hover {
+  box-shadow: 0px 3px 16px #00000055;
+}
 .input-Lowa {
   width: 100%;
   padding: 12px 20px;
@@ -19,6 +23,7 @@
   border-radius: 8px;
   border-radius: none;
   box-sizing: border-box;
+  cursor: pointer;
 }
 .input-Icono-Lowa {
   padding: 10px;
@@ -37,9 +42,63 @@
   border: 1px solid #2a2ac0;
 }
 
-/* .input-Lowa[type='file'] {
-  background-color: aqua;
+.CP-Input-File {
+  min-width: 250px;
+  border-radius: 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 3px 16px #00000014;
+  background-color: white;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+.CP-Input-File:hover {
+  box-shadow: 0px 3px 16px #00000055;
+}
+.label-InputFile-Lowa {
+  color: #707070;
+  width: 100%;
+  padding-left: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.CP-Input-File:hover .label-InputFile-Lowa {
+  color: black;
+}
+.input-Lowa[type='file'] {
+  cursor: pointer;
+  opacity: 0;
+  position: absolute;
+  z-index: 1;
+}
+.input-Icono-File-Lowa {
+  padding: 10px;
+  color: #00000050;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.CP-Input-File:hover .input-Icono-File-Lowa {
+  transform: scale(1.2);
+  color: #00000080;
 }
 .input-Lowa[type='file']::-webkit-file-upload-button {
   visibility: hidden;
-} */
+}
+.CI-VistaPrevia-Imágen {
+  /* background-color: blue; */
+  display: flex;
+  max-width: 100px;
+  max-height: 100px;
+  padding: 10px;
+}
+.CI-VistaPrevia-Imágen img {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}

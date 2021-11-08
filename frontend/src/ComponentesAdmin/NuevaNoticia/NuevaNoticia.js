@@ -3,10 +3,12 @@ import './NuevaNoticia.css';
 import Selector from '../Selector/Selector';
 import TextAreaLowa from '../TextAreaLowa/TextAreaLowa';
 import InputLowa from '../InputLowa/InputLowa';
-import {BsFillArrowDownCircleFill} from 'react-icons/bs';
 const NuevaNoticia = () => {
   const funcionParaIcono = () => {
     console.log('EJECUTO');
+  };
+  const escucharCambios = e => {
+    console.log(e);
   };
   return (
     <div className="CP-NuevaNoticia">
@@ -14,12 +16,7 @@ const NuevaNoticia = () => {
       <Selector placeholder="Buscar Subcategoría"></Selector>
       <InputLowa placeholder="Ingrese Título..."></InputLowa>
       <InputLowa placeholder="Ingrese Copete..."></InputLowa>
-      <InputLowa
-        type="file"
-        placeholder="Ingrese Imágen"
-        inputConIcono={<BsFillArrowDownCircleFill />}
-        funcionDeIcono={funcionParaIcono}
-      ></InputLowa>
+      <InputLowa type="file" name="imagen" onChange={e => escucharCambios(e)}></InputLowa>
 
       <TextAreaLowa placeholder="Escriba el cuerpo de la noticia"></TextAreaLowa>
     </div>

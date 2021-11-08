@@ -1,8 +1,8 @@
 .CP-NuevaNoticia {
   width: 100%;
   min-height: 100vh;
-  background-color: aqua;
   padding-top: 100px;
   padding-left: 20px;
   padding-right: 20px;
+  background-color: #ecf1fa;
 }

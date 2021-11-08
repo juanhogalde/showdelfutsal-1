@@ -1,6 +1,8 @@
-import React, {useRef} from 'react';
-import {AiOutlineClose} from 'react-icons/ai';
+import React, {useEffect, useRef} from 'react';
 import './InputLowa.css';
+import {FiUpload} from 'react-icons/fi';
+import {AiOutlineClose} from 'react-icons/ai';
+import imagen from '../../Static/Admin/imgPanel.png';
 
 const InputLowa = props => {
   const {
@@ -23,8 +25,10 @@ const InputLowa = props => {
     inputElement.current.value = '';
   };
   const inputElement = useRef(null);
+
   return (
-    <div className="CP-Input">
+    <div className={type === 'file' ? 'CP-Input-File' : 'CP-Input'}>
+      {type === 'file' && <label className="label-InputFile-Lowa">Seleccione imágen...</label>}
       <input
         ref={inputElement}
         className="input-Lowa"
@@ -38,12 +42,23 @@ const InputLowa = props => {
         value={value}
         name={name}
       ></input>
-      <span
-        className="input-Icono-Lowa"
-        onClick={funcionDeIcono ? () => funcionDeIcono() : () => resetValue(name)}
-      >
-        {inputConIcono ? inputConIcono : <AiOutlineClose></AiOutlineClose>}
-      </span>
+      {type !== 'file' ? (
+        <span
+          className="input-Icono-Lowa"
+          onClick={funcionDeIcono ? () => funcionDeIcono() : () => resetValue(name)}
+        >
+          {inputConIcono ? inputConIcono : <AiOutlineClose></AiOutlineClose>}
+        </span>
+      ) : (
+        <span className="input-Icono-File-Lowa">
+          <FiUpload size={25} />
+        </span>
+      )}
+      {type === 'file' && (
+        <div className="CI-VistaPrevia-Imágen">
+          <img alt="" src={imagen}></img>
+        </div>
+      )}
     </div>
   );
 };
