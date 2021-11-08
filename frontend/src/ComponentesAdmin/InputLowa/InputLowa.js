@@ -20,6 +20,7 @@ const InputLowa = props => {
       console.log('No se envió función de Input con Icono');
       return false;
     },
+    multiple,
   } = props;
   const inputElement = useRef(null);
   const imgElement = useRef(null);
@@ -39,6 +40,11 @@ const InputLowa = props => {
     } else {
       imgElement.current.src = '';
     }
+    if (inputElement.current.files.length === 0) {
+      imgElement.current.src = imagen;
+    }
+    console.log(inputElement.current.files.length);
+
     onChange(name, inputElement.current.files);
   };
 
@@ -54,6 +60,7 @@ const InputLowa = props => {
     console.log(inputElement);
     console.log(imgElement);
   }, []); */
+
   return (
     <div className={type === 'file' ? 'CP-Input-File' : 'CP-Input'}>
       <div className="cuerpoInputFile">
@@ -70,6 +77,7 @@ const InputLowa = props => {
           required={required}
           value={value}
           name={name}
+          multiple={multiple}
           /*  files={e => obtenerArchivos(e)} */
         ></input>
         {type !== 'file' ? (
@@ -98,5 +106,6 @@ InputLowa.defaultProps = {
   type: 'text',
   placeholder: 'Placeholder',
   inputIcono: '',
+  multiple: false,
 };
 export default InputLowa;

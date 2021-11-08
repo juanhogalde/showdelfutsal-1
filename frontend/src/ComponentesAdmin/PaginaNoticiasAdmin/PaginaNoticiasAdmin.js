@@ -15,6 +15,7 @@ const PaginaNoticiasAdmin = () => {
     <div className="CP-PaginaNoticiasAdmin">
       <PaginasSeccionesAdmin
         funcionDeBotonSecciones={redireccionarNuevaNoticia}
+        tituloBotonSecciones={'Agregar'}
       ></PaginasSeccionesAdmin>
     </div>
   );

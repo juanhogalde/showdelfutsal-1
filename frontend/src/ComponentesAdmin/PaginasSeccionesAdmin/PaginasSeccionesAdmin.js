@@ -8,12 +8,13 @@ const PaginasSeccionesAdmin = ({
   funcionDeBotonSecciones = () => {
     console.log('No se envió función de botón');
   },
+  tituloBotonSecciones = '',
 }) => {
   return (
     <div className="CP-Pagina-Secciones-Admin">
       <div className="CI-Pagina-Secciones-Admin-Cabecera">
         <div className="I-Boton-Secciones-Admin">
-          <BotonLowa onClick={funcionDeBotonSecciones} />
+          <BotonLowa onClick={funcionDeBotonSecciones} tituloboton={tituloBotonSecciones} />
         </div>
         <div className="I-Filtros-Secciones-Admin">
           <FiltroNoticiasAdmin />
