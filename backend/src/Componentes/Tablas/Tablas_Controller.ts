@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloTablas from './Tablas_Model';
 import ITablas from './Tablas_Interface';
+import ICampeonatos from '../Campeonatos/Campeonatos_Interface';
 
 class TablasController {
   public async listar(req: Request, res: Response) {
@@ -80,5 +81,27 @@ class TablasController {
       responder.error(req, res, error);
     }
   }
+
+  public async equiposNoEliminados(req: Request, res: Response) {
+    try {
+      const datosBody = req.body;
+      if (!datosBody) {
+        responder.error(req, res, 'No se ingresaron datos');
+      } else {
+        modeloTablas.find({idCampeonato: datosBody.idCampeonato}, (error: any, campeonato: any) => {
+          if (error) {
+            console.log(error);
+            responder.error(req, res, 'Error al buscar el campeonato ingresado');
+          } else {
+            console.log('campeonato encontrado');
+            console.log(campeonato);
+          }
+        });
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
 }
+
 export const tablasController = new TablasController();
