@@ -58,20 +58,9 @@ class TablasController {
                 if (tablaBody._id) {
                     Tablas_Model_1.default.findById(tablaBody._id).then((tabla) => __awaiter(this, void 0, void 0, function* () {
                         if (tabla) {
-                            tabla.equipo1 = tablaBody.equipo1;
-                            tabla.equipo2 = tablaBody.equipo2;
-                            tabla.isEquipo2Eliminado = tablaBody.isEquipo2Eliminado;
                             tabla.idCampeonato = tablaBody.idCampeonato;
                             tabla.zona = tablaBody.zona;
-                            tabla.pGanados = tablaBody.pGanados;
-                            tabla.pEmpatados = tablaBody.pEmpatados;
-                            tabla.pPerdidos = tablaBody.pPerdidos;
-                            tabla.pJugados = tablaBody.pJugados;
-                            tabla.golesAFavor = tablaBody.golesAFavor;
-                            tabla.golesEnContra = tablaBody.golesEnContra;
-                            tabla.difGoles = tablaBody.difGoles;
                             tabla.puntos = tablaBody.puntos;
-                            tabla.posicionEnTabla = tablaBody.posicionEnTabla;
                             tabla.comentarios = tablaBody.comentarios;
                             const resultado = yield tabla.save({ new: true });
                             responder_1.default.sucess(req, res, resultado);
@@ -98,6 +87,32 @@ class TablasController {
                 let id = req.body.id;
                 const tablaEliminada = yield Tablas_Model_1.default.findOneAndDelete({ _id: id }, { new: true });
                 responder_1.default.sucess(req, res, tablaEliminada);
+            }
+            catch (error) {
+                responder_1.default.error(req, res, error);
+            }
+        });
+    }
+    equiposNoEliminados(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const datosBody = req.body;
+                console.log(datosBody);
+                if (!datosBody) {
+                    responder_1.default.error(req, res, 'No se ingresaron datos');
+                }
+                else {
+                    const tablaDeCampeonato = yield Tablas_Model_1.default
+                        .findOne({ idCampeonato: datosBody.idCampeonato })
+                        .populate({
+                        path: 'idCampeonato',
+                        populate: {
+                            path: 'idCategoria',
+                            populate: { path: 'idSubcategoria' },
+                        },
+                    });
+                    console.log(tablaDeCampeonato);
+                }
             }
             catch (error) {
                 responder_1.default.error(req, res, error);

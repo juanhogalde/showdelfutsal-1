@@ -13,6 +13,7 @@ export default interface IEquipos extends Document {
 	difGoles: number;
 	puntos: number;
 	posicionEnTabla: number;
+	isEliminado: boolean;
 	idCategorias: [string];
 	idSubcategorias: [string];
 }

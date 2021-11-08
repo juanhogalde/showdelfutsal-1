@@ -13,6 +13,7 @@ const EquiposSchema = new Schema({
 	difGoles: { type: Number },
 	puntos: { type: Number },
 	posicionEnTabla: { type: Number },
+	isEliminado: { type: Boolean, default: false },
 	idCategorias: [
 		{ type: Schema.Types.ObjectId, ref: 'modeloCategorias', required: true },
 	],
