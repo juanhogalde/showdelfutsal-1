@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import './InputLowa.css';
 import {FiUpload} from 'react-icons/fi';
 import {AiOutlineClose} from 'react-icons/ai';

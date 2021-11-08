@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './Selector.css';
 import Select from 'react-select';
 import {IoIosArrowDown} from 'react-icons/io';

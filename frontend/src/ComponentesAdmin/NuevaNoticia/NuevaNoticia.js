@@ -13,6 +13,9 @@ const NuevaNoticia = () => {
     console.log(name);
     console.log(value);
   };
+  /* Datos de Selector */
+  console.log(categoria);
+  console.log(subCategoria);
 
   return (
     <div className="CP-NuevaNoticia">
