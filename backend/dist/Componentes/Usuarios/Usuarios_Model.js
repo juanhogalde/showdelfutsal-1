@@ -12,6 +12,7 @@ const UsuariosSchema = new mongoose_1.Schema({
     password: String,
     keyRol: { type: Number },
     token: { type: String },
+    isRecuperarContraseña: { type: Boolean, default: false },
     isActivo: { type: Boolean, default: true },
 });
 UsuariosSchema.pre('save', function (next) {

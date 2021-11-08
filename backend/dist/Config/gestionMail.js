@@ -45,7 +45,7 @@ class envioMail {
                     },
                     {
                         filename: 'piePagina.png',
-                        path: path_1.default.join(__dirname, '../../archivos/Pie_mail.png'),
+                        path: path_1.default.join(__dirname, '../../archivos/piePagina.png'),
                         cid: 'correo-pie',
                     },
                 ],
