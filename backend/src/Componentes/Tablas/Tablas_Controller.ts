@@ -91,7 +91,7 @@ class TablasController {
 		try {
 			let equiposNoEliminados: any = [];
 			const datosBody = req.body;
-			// console.log(datosBody);
+
 			if (!datosBody) {
 				responder.error(req, res, 'No se ingresaron datos');
 			} else {
@@ -99,7 +99,6 @@ class TablasController {
 					datosBody.idCampeonato,
 					datosBody.idCategoria
 				);
-				console.log(campeonato);
 
 				if (campeonato && Object.keys(campeonato.idCategoria).length) {
 					// Traer la tabla de ese campeonato
