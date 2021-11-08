@@ -7,15 +7,16 @@ const TextAreaLowa = props => {
   return (
     <div className="CP-TextareaLowa">
       <textarea
-        id={props.id}
-        name={props.name}
-        placeholder={props.placeholder}
-        disabled={props.disabled}
-        required={props.required}
+        id={id}
+        name={name}
+        placeholder={placeholder}
+        disabled={disabled}
+        required={required}
         autoCapitalize="sentences"
         className="componente-TextAreaLowa"
-        onChange={props.onChange}
+        onChange={onChange}
         autoComplete="off"
+        autorize={autoRize}
       ></textarea>
     </div>
   );

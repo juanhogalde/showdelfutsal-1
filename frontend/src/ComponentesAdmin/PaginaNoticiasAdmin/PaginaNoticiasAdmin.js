@@ -1,11 +1,21 @@
 import React from 'react';
 import './PaginaNoticiasAdmin.css';
 import PaginasSeccionesAdmin from '../PaginasSeccionesAdmin/PaginasSeccionesAdmin';
+import {useHistory} from 'react-router';
 
 const PaginaNoticiasAdmin = () => {
+  const historialDeNavegacion = useHistory();
+  const redireccionarNuevaNoticia = respuesta => {
+    if (respuesta) {
+      historialDeNavegacion.push('/Noticia/Agregar');
+    }
+  };
+
   return (
     <div className="CP-PaginaNoticiasAdmin">
-      <PaginasSeccionesAdmin></PaginasSeccionesAdmin>
+      <PaginasSeccionesAdmin
+        funcionDeBotonSecciones={redireccionarNuevaNoticia}
+      ></PaginasSeccionesAdmin>
     </div>
   );
 };

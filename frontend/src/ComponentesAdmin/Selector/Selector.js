@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Selector.css';
 import Select from 'react-select';
 import {IoIosArrowDown} from 'react-icons/io';
@@ -47,6 +47,7 @@ const Selector = props => {
     isDisabled,
     isCargando,
     isOpcionBuscar,
+    name,
   } = props;
 
   const componenteConIcono = {
@@ -65,17 +66,21 @@ const Selector = props => {
   return (
     <div className="CP-Selector">
       <Select
+        name={name}
         styles={estilosPersonalizados}
         closeMenuOnSelect={!isCerrarMenuAlSeleccionar}
         isMulti={isMultipleOpcion}
         options={options}
         onChange={onChange}
+        /* value={opcionSeleccionada} */
         placeholder={placeholder}
         components={componenteConIcono}
         className={`${isDisabled ? '' : 'contenedorSelector'}`}
         isDisabled={isDisabled}
         isLoading={isCargando}
         isSearchable={isOpcionBuscar}
+        noOptionsMessage="No hay opciones cargadas"
+        autoFocus
       ></Select>
     </div>
   );
