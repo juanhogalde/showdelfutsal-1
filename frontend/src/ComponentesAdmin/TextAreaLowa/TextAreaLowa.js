@@ -2,7 +2,7 @@ import React from 'react';
 import './TextAreaLowa.css';
 
 const TextAreaLowa = props => {
-  const {name, id, autoRize, placeholder, disabled, required, onChange} = props;
+  const {name, value, id, autoRize, placeholder, disabled, required, onChange, readOnly} = props;
 
   return (
     <div className="CP-TextareaLowa">
@@ -16,14 +16,16 @@ const TextAreaLowa = props => {
         className="componente-TextAreaLowa"
         onChange={onChange}
         autoComplete="off"
+        value={value}
         autorize={autoRize}
+        readOnly={readOnly}
       ></textarea>
     </div>
   );
 };
 TextAreaLowa.defaultProps = {
   id: '',
-  neame: '',
+  name: '',
   placeholder: 'Placeholder',
   disabled: false,
   required: false,

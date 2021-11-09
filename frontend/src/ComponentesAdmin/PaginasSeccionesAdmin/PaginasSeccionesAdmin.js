@@ -4,6 +4,7 @@ import TarjetaNoticias from '../../ComponentesAdmin/TarjetaNoticias/TarjetaNotic
 import BotonLowa from '../../ComponentesAdmin/BotonLowa/BotonLowa';
 import FiltroNoticiasAdmin from '../../ComponentesAdmin/FiltroNoticiasAdmin/FiltroNoticiasAdmin';
 import TarjetaGaleria from '../TarjetaGaleria/TarjetaGaleria';
+import {useHistory} from 'react-router';
 
 const PaginasSeccionesAdmin = ({
   funcionDeBotonSecciones = () => {
@@ -14,6 +15,10 @@ const PaginasSeccionesAdmin = ({
   isSeccionNoticias = false,
   isSeccionGaleria = false,
 }) => {
+  const historialDeNavegacion = useHistory();
+  const editarNoticia = () => {
+    historialDeNavegacion.push(`/Noticia/Editar/${1234}`);
+  };
   return (
     <div className="CP-Pagina-Secciones-Admin">
       <div className="CI-Pagina-Secciones-Admin-Cabecera">
@@ -26,7 +31,7 @@ const PaginasSeccionesAdmin = ({
       </div>
       {isSeccionNoticias && (
         <div className="CI-Pagina-Secciones-Admin-Noticias">
-          <div className="I-Noticias-Secciones-Admin">
+          <div className="I-Noticias-Secciones-Admin" onClick={() => editarNoticia()}>
             <TarjetaNoticias />
           </div>
         </div>

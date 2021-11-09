@@ -6,7 +6,7 @@ import InputLowa from '../InputLowa/InputLowa';
 import {BsSearch, BsPlusCircle} from 'react-icons/bs';
 import BotonLowa from '../BotonLowa/BotonLowa';
 
-const NuevaNoticia = () => {
+const NuevaNoticia = ({isEditarNoticia = false}) => {
   const [categoria, setCategoria] = useState(null);
   const [subCategoria, setSubCategoria] = useState(null);
   const escucharCambios = (name, value) => {

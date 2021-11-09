@@ -13,6 +13,7 @@ import PaginaPublicidadAdmin from '../ComponentesAdmin/PaginaPublicidadAdmin/Pag
 import PaginasSeccionesAdmin from '../ComponentesAdmin/PaginasSeccionesAdmin/PaginasSeccionesAdmin';
 import PaginaTablaAdmin from '../ComponentesAdmin/PaginaTablaAdmin/PaginaTablaAdmin';
 import PaginaTorneosAdmin from '../ComponentesAdmin/PaginaTorneosAdmin/PaginaTorneosAdmin';
+import VistaPreviaNoticia from '../ComponentesAdmin/VistaPreviaNoticia/VistaPreviaNoticia';
 
 const RutasPrivadas = () => {
   const {usuarioLogueado} = useSelector(state => state.storeLogueo);
@@ -35,6 +36,7 @@ const RutasPrivadas = () => {
           <Route exact component={PaginaTablaAdmin} path="/Tablas"></Route>
           <Route exact component={NuevaNoticia} path="/Noticia/Nueva"></Route>
           <Route exact component={AgregarImagenes} path="/Galería/Nueva"></Route>
+          <Route exact component={VistaPreviaNoticia} path="/Noticia/Editar/:id"></Route>
 
           <Route exact path="/fixture">
             <h1>Fixture</h1>
