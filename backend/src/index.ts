@@ -35,7 +35,7 @@ class Server {
   public app: express.Application;
   private _cadenaDeConexion = process.env.DATABASE || 'mongodb://localhost:29017/Desarrollo';
   private options = {
-    uploadDir: '/imagenes',
+    uploadDir: 'imagenes/',
     autoClean: false,
   };
 
@@ -59,6 +59,7 @@ class Server {
     this.app.use(compression());
     this.app.use(formData.parse(this.options));
     this.app.use(formData.union());
+    this.app.use(formData.stream());
     this.app.use(express.json());
     this.app.use(express.urlencoded({extended: false}));
     this.app.use(express.static('/archivos'));
