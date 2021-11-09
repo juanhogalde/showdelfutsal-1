@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 import {Redirect, Route} from 'react-router';
 import {Switch} from 'react-router-dom';
 import CambiarContraseña from '../Componentes/CambiarContraseña/CambiarContraseña';
+import AgregarImagenes from '../ComponentesAdmin/AgregarImagenes/AgregarImagenes';
 // import HomePrivada from '../ComponentesAdmin/HomePrivada/HomePrivada';
 import InicioAdmin from '../ComponentesAdmin/InicioAdmin/InicioAdmin';
 import NuevaNoticia from '../ComponentesAdmin/NuevaNoticia/NuevaNoticia';
@@ -33,6 +34,8 @@ const RutasPrivadas = () => {
           <Route exact component={PaginaTorneosAdmin} path="/Torneos"></Route>
           <Route exact component={PaginaTablaAdmin} path="/Tablas"></Route>
           <Route exact component={NuevaNoticia} path="/Noticia/Agregar"></Route>
+          <Route exact component={AgregarImagenes} path="/Imagenes/Agregar"></Route>
+
           <Route exact path="/fixture">
             <h1>Fixture</h1>
           </Route>
