@@ -38,7 +38,7 @@ const InicioAdmin = () => {
             ></TarjetaPanel>
             <TarjetaPanel tituloPanel={'Publicidad'} url={img2} linkTo="Publicidad"></TarjetaPanel>
             <TarjetaPanel tituloPanel={'Noticias'} url={img3} linkTo="Noticias"></TarjetaPanel>
-            <TarjetaPanel tituloPanel={'Galeria'} url={img4} linkTo="Galería"></TarjetaPanel>
+            <TarjetaPanel tituloPanel={'Galerías'} url={img4} linkTo="Galerías"></TarjetaPanel>
             <TarjetaPanel tituloPanel={'Torneos'} url={img5} linkTo="Torneos"></TarjetaPanel>
           </div>
         </div>
