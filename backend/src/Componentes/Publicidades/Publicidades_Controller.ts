@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloPublicidades from './Publicidades_Model';
 import IPublicidades from './Publicidades_Interface';
+import path from 'path';
 
 class PublicidadesController {
   public async listar(req: Request, res: Response) {
@@ -69,6 +70,38 @@ class PublicidadesController {
       responder.sucess(req, res, publicidadEliminada);
     } catch (error) {
       responder.error(req, res, error);
+    }
+  }
+
+  public async desactivarPublicidad(req: Request, res: Response) {
+    try {
+      const datosBody = req.body;
+      if (!datosBody) {
+        responder.error(req, res, 'No se ingresaron datos');
+      } else {
+        const publicidad = await modeloPublicidades.findById(datosBody.idPublicidad);
+        if (publicidad) {
+          let DNS = process.env.DNS_FRONT;
+          if (publicidad.ancho <= 245 && publicidad.alto <= 245) {
+            // publicidad.direccion = path.join(DNS, 'archivos/publicidadCorta.jpg');
+            publicidad.direccion = `${DNS}/archivos/publicidadCorta.jpg`;
+          } else if (publicidad.ancho <= 1136 && publicidad.alto <= 99) {
+            // publicidad.direccion = path.join(DNS, 'archivos/publicidadLarga.jpg');
+            publicidad.direccion = `${DNS}/archivos/publicidadLarga.jpg`;
+          }
+          const resultado = await publicidad.save();
+          if (resultado) {
+            responder.sucess(req, res, resultado);
+          } else {
+            responder.error(req, res, 'Error al desactivar la publicidad');
+          }
+        } else {
+          responder.error(req, res, 'La publicidad ingresada no existe');
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      responder.error(req, res);
     }
   }
 }

@@ -56,7 +56,9 @@ class CampeonatosController {
             try {
                 const campeonatoBody = req.body;
                 if (campeonatoBody._id) {
-                    Campeonatos_Model_1.default.findById(campeonatoBody._id).then((campeonato) => __awaiter(this, void 0, void 0, function* () {
+                    Campeonatos_Model_1.default
+                        .findById(campeonatoBody._id)
+                        .then((campeonato) => __awaiter(this, void 0, void 0, function* () {
                         if (campeonato) {
                             campeonato.tituloCampeonato = campeonatoBody.tituloCampeonato;
                             campeonato.fechaInicio = campeonatoBody.fechaInicio;
@@ -93,6 +95,12 @@ class CampeonatosController {
                 responder_1.default.error(req, res, error);
             }
         });
+    }
+    obtenerCampeonato(idCampeonato) {
+        return Campeonatos_Model_1.default
+            .findById(idCampeonato)
+            .populate('idCategoria')
+            .populate('idSubcategoria');
     }
 }
 exports.campeonatosController = new CampeonatosController();
