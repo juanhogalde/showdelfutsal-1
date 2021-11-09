@@ -15,11 +15,20 @@ const BarraDeNavegacionAdmin = ({
   const historialDeNavegacion = useHistory();
 
   const volverAtras = () => {
-    if (locacion.pathname.split('/').length > 2) {
+    /* if (locacion.pathname.split('/').length > 2) {
       if (
         locacion.pathname.split('/')[1] === 'Noticia' &&
         locacion.pathname.split('/')[2] === 'Agregar'
       ) {
+        historialDeNavegacion.push('/Noticias');
+      }
+    } else {
+      historialDeNavegacion.push('/');
+    } */
+
+    if (locacion.pathname.split('/').length !== 2) {
+      console.log('sub ruta');
+      if (locacion.pathname.split('/')[1] === 'Noticia') {
         historialDeNavegacion.push('/Noticias');
       }
     } else {

@@ -7,7 +7,7 @@ const PaginaNoticiasAdmin = () => {
   const historialDeNavegacion = useHistory();
   const redireccionarNuevaNoticia = respuesta => {
     if (respuesta) {
-      historialDeNavegacion.push('/Noticia/Agregar');
+      historialDeNavegacion.push('/Noticia/Nueva');
     }
   };
 
