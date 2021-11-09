@@ -16,6 +16,8 @@ const PaginaNoticiasAdmin = () => {
       <PaginasSeccionesAdmin
         funcionDeBotonSecciones={redireccionarNuevaNoticia}
         tituloBotonSecciones={'Agregar'}
+        tituloFiltroSecciones={'Todas las noticias'}
+        isSeccionNoticias={true}
       ></PaginasSeccionesAdmin>
     </div>
   );
