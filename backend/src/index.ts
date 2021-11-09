@@ -61,6 +61,7 @@ class Server {
     this.app.use(formData.union());
     this.app.use(express.json());
     this.app.use(express.urlencoded({extended: false}));
+    this.app.use(express.static('/archivos'));
   }
 
   routear() {
