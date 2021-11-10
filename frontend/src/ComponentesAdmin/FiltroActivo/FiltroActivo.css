@@ -1,0 +1,36 @@
+.CI-FiltroActivo {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.contenedor-TituloActivo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.tituloActivo {
+  transition: all 0.3s ease-in-out;
+}
+.tituloActivo:hover {
+  font-size: 17px;
+}
+.contenedor-BarraActivo {
+  width: 100%;
+  height: 2px;
+  background-color: #0000001a;
+  overflow: hidden;
+}
+
+.barraActiva {
+  width: 60px;
+  height: 100%;
+  background-color: #2a2ac0;
+  transition: all 0.3s ease-in-out;
+}
+.barraInactiva {
+  transform: translateX(calc(100vw - 100px));
+}
