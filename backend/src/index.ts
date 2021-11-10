@@ -7,6 +7,7 @@ import formData from 'express-form-data';
 import {baseMongo} from './Config/baseDeDatos';
 import dotenv from 'dotenv';
 dotenv.config();
+import path from 'path';
 import {Request, Response, NextFunction} from 'express';
 import noticiasRouter from './Componentes/Noticias/Noticias_Router';
 import campeonatosRouter from './Componentes/Campeonatos/Campeonatos_Router';
@@ -35,7 +36,7 @@ class Server {
   public app: express.Application;
   private _cadenaDeConexion = process.env.DATABASE || 'mongodb://localhost:29017/Desarrollo';
   private options = {
-    uploadDir: 'imagenes/',
+    uploadDir: 'public/imagenes/',
     autoClean: false,
   };
 
@@ -62,7 +63,9 @@ class Server {
     this.app.use(formData.stream());
     this.app.use(express.json());
     this.app.use(express.urlencoded({extended: false}));
-    this.app.use(express.static('/archivos'));
+    this.app.use(express.static('public'));
+    // this.app.use(express.static(path.join(__dirname + '../archivos')));
+    // this.app.use(express.static(path.join(__dirname + '../imagenes')));
   }
 
   routear() {
