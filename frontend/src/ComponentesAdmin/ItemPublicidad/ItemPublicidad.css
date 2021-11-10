@@ -30,6 +30,9 @@
 }
 .iconoAcción-ItemPublicidad {
   font-size: 25px;
-  margin-left: 30px;
+  color: #2a2ac0;
+}
+.textoModificar-ItemPublicidad {
+  margin-left: 10px;
   color: #2a2ac0;
 }
