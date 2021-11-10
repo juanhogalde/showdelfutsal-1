@@ -21,7 +21,7 @@ const BarraDeNavegacionAdmin = ({
         historialDeNavegacion.push('/Noticias');
       }
       if (locacion.pathname.split('/')[1] === 'Galería') {
-        historialDeNavegacion.push('/Galería');
+        historialDeNavegacion.push('/Galerías');
       }
     } else {
       historialDeNavegacion.push('/');

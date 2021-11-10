@@ -17,7 +17,7 @@ const PaginasSeccionesAdmin = ({
 }) => {
   const historialDeNavegacion = useHistory();
   const editarNoticia = () => {
-    historialDeNavegacion.push(`/Noticia/Editar/${1234}`);
+    historialDeNavegacion.push(`/Noticia/Ver/${1234}`);
   };
   return (
     <div className="CP-Pagina-Secciones-Admin">

@@ -4,6 +4,13 @@
   /*  padding: 10px; */
   margin-top: 20px;
   margin-bottom: 20px;
+  transition: all 0.3s ease-in-out;
+}
+.CP-TextareaLowa:hover {
+  box-shadow: 0px 3px 16px #00000055;
+}
+.CP-TextareaLowa:hover .componente-TextAreaLowa::placeholder {
+  color: black;
 }
 .componente-TextAreaLowa {
   width: 100%;
@@ -16,8 +23,8 @@
   padding-left: 20px;
   outline: none;
 }
+
 .componente-TextAreaLowa::placeholder {
-  /* 
-  font-weight: 700; */
+  transition: all 0.3s ease-in-out;
   color: #707070;
 }

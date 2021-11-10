@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
-import './AgregarImagenes.css';
+import './NuevaGaleria.css';
 import {MdDeleteForever} from 'react-icons/md';
 import {FiEdit3} from 'react-icons/fi';
 
-const AgregarImagenes = () => {
+const NuevaGaleria = () => {
   const [imagenes, setImagenes] = useState([]);
   const escucharCambios = (name, value) => {
     console.log(name);
@@ -52,4 +52,4 @@ const AgregarImagenes = () => {
     </div>
   );
 };
-export default AgregarImagenes;
+export default NuevaGaleria;

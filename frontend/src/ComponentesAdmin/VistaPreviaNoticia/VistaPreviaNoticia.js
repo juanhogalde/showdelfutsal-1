@@ -13,7 +13,7 @@ const VistaPreviaNoticia = () => {
   console.log(parametros);
   const historialDeNavegacion = useHistory();
   const enviarParaEditar = () => {
-    historialDeNavegacion.push('/Noticia/Nueva');
+    historialDeNavegacion.push('/Noticia/Editar');
   };
   return (
     <div className="CP-VistaPreviaNoticia">

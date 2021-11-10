@@ -5,9 +5,19 @@
 }
 .contenedorSelector {
   border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
   background-color: white;
 }
-
+.contenedorSelector:hover {
+  box-shadow: 0px 3px 16px #00000055;
+}
+.css-14el2xx-placeholder {
+  transition: all 0.3s ease-in-out;
+}
+.contenedorSelector:hover .css-14el2xx-placeholder {
+  color: black;
+}
 .CI-IconoSelect {
   width: 45px;
   height: 45px;
