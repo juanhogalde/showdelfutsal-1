@@ -24,7 +24,7 @@ class EquiposController {
         let nameFile = '';
         if (datosBody.escudo) {
           let pathFile = datosBody.escudo.path.split('\\');
-          nameFile = pathFile[1];
+          nameFile = pathFile[2];
         }
 
         const equipo: IEquipos = new modeloEquipos();
@@ -62,32 +62,37 @@ class EquiposController {
   public async modificar(req: Request, res: Response) {
     try {
       const equipoBody = req.body;
-      console.log(equipoBody);
       if (equipoBody._id) {
         modeloEquipos.findById(equipoBody._id).then(async (equipo: any) => {
           if (equipo) {
             let nameNewFile: string = '';
             let oldFile: string = '';
-            if (equipo.escudo) {
+            if (equipo.escudo && equipoBody.escudo) {
               oldFile = equipo.escudo.split('/');
-              // console.log(path.join(__dirname, '../../../imagenes', oldFile[4]));
+
               let archivoEncontrado = fs.readFileSync(
-                path.join(__dirname, '../../../imagenes', oldFile[4])
+                path.join(__dirname, '../../../public/imagenes', oldFile[4])
               );
+
               if (archivoEncontrado) {
-                fs.unlinkSync(archivoEncontrado);
+                fs.unlinkSync(path.join(__dirname, '../../../public/imagenes', oldFile[4]));
               }
 
               let pathFile = equipoBody.escudo.path.split('\\');
-              let nameNewFile = pathFile[1];
+              nameNewFile = `${process.env.DNS_FRONT}/imagenes/${pathFile[2]}`;
+              equipo.escudo = nameNewFile;
             }
 
             equipo.nombreClub = equipoBody.nombreClub;
-            equipo.escudo = nameNewFile;
-            equipo.idCategorias = equipoBody.idCategorias;
-            equipo.idSubcategorias = equipoBody.idSubcategorias;
+            if (equipoBody.idCategorias && equipoBody.idCategorias.length) {
+              equipo.idCategorias = equipoBody.idCategorias;
+            }
 
-            const resultado = await equipo.save({new: true});
+            if (equipoBody.idSubcategorias && equipoBody.idSubcategorias.length) {
+              equipo.idSubcategorias = equipoBody.idSubcategorias;
+            }
+
+            const resultado = await equipo.save();
 
             if (resultado) {
               responder.sucess(req, res, resultado);
