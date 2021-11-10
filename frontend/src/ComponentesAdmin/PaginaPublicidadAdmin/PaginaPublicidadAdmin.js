@@ -10,10 +10,10 @@ const PaginaPublicidadAdmin = () => {
     <div className="CP-PaginaPublicidadAdmin">
       <InputLowa placeholder={'Buscar'} inputConIcono={<BsSearch></BsSearch>} />
       <FiltroActivo></FiltroActivo>
-      <ItemPublicidad></ItemPublicidad>
-      <ItemPublicidad></ItemPublicidad>
-      <ItemPublicidad></ItemPublicidad>
-      <ItemPublicidad></ItemPublicidad>
+      <ItemPublicidad ubicacion={'Inicio'} linkTo={'/Publicidad/Editar'}></ItemPublicidad>
+      <ItemPublicidad ubicacion={'Pagina 1'} linkTo={'/Publicidad/Editar'}></ItemPublicidad>
+      <ItemPublicidad ubicacion={'Pagina 2'} linkTo={'/Publicidad/Editar'}></ItemPublicidad>
+      <ItemPublicidad ubicacion={'Pagina 3'} linkTo={'/Publicidad/Editar'}></ItemPublicidad>
     </div>
   );
 };
