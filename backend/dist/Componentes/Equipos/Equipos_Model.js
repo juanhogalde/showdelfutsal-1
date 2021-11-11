@@ -13,7 +13,7 @@ const EquiposSchema = new mongoose_1.Schema({
     difGoles: { type: Number },
     puntos: { type: Number },
     posicionEnTabla: { type: Number },
-    isEliminado: { type: Boolean },
+    isEliminado: { type: Boolean, default: false },
     idCategorias: [
         { type: mongoose_1.Schema.Types.ObjectId, ref: 'modeloCategorias', required: true },
     ],

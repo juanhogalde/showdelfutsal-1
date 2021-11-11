@@ -96,9 +96,9 @@ class CampeonatosController {
             }
         });
     }
-    obtenerCampeonato(idCampeonato) {
+    obtenerCampeonato(idCampeonato, idCategoria) {
         return Campeonatos_Model_1.default
-            .findById(idCampeonato)
+            .findOne({ idCampeonato: idCampeonato, idCategoria: idCategoria })
             .populate('idCategoria')
             .populate('idSubcategoria');
     }

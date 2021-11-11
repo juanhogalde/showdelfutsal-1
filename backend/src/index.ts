@@ -7,7 +7,7 @@ import formData from 'express-form-data';
 import {baseMongo} from './Config/baseDeDatos';
 import dotenv from 'dotenv';
 dotenv.config();
-import path from 'path';
+import {argv} from 'process';
 import {Request, Response, NextFunction} from 'express';
 import noticiasRouter from './Componentes/Noticias/Noticias_Router';
 import campeonatosRouter from './Componentes/Campeonatos/Campeonatos_Router';
