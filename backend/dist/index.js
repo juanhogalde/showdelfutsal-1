@@ -33,7 +33,7 @@ class Server {
     constructor() {
         this._cadenaDeConexion = process.env.DATABASE || 'mongodb://localhost:29017/Desarrollo';
         this.options = {
-            uploadDir: '/imagenes',
+            uploadDir: 'public/imagenes/',
             autoClean: false,
         };
         this.app = (0, express_1.default)();
@@ -53,8 +53,10 @@ class Server {
         this.app.use((0, compression_1.default)());
         this.app.use(express_form_data_1.default.parse(this.options));
         this.app.use(express_form_data_1.default.union());
+        this.app.use(express_form_data_1.default.stream());
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: false }));
+        this.app.use(express_1.default.static('public'));
     }
     routear() {
         this.app.use('/campeonatos', Campeonatos_Router_1.default);

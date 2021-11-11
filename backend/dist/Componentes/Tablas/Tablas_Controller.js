@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.tablasController = void 0;
 const responder_1 = __importDefault(require("../../Middlewares/responder"));
 const Tablas_Model_1 = __importDefault(require("./Tablas_Model"));
+const Campeonatos_Controller_1 = require("../Campeonatos/Campeonatos_Controller");
+const enumeradores_1 = require("../../Config/enumeradores");
 class TablasController {
     listar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -96,22 +98,54 @@ class TablasController {
     equiposNoEliminados(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                let equiposNoEliminados = [];
                 const datosBody = req.body;
-                console.log(datosBody);
                 if (!datosBody) {
                     responder_1.default.error(req, res, 'No se ingresaron datos');
                 }
                 else {
-                    const tablaDeCampeonato = yield Tablas_Model_1.default
-                        .findOne({ idCampeonato: datosBody.idCampeonato })
-                        .populate({
-                        path: 'idCampeonato',
-                        populate: {
-                            path: 'idCategoria',
-                            populate: { path: 'idSubcategoria' },
-                        },
-                    });
-                    console.log(tablaDeCampeonato);
+                    const campeonato = yield Campeonatos_Controller_1.campeonatosController.obtenerCampeonato(datosBody.idCampeonato, datosBody.idCategoria);
+                    if (campeonato && Object.keys(campeonato.idCategoria).length) {
+                        const tablas = yield Tablas_Model_1.default
+                            .find({ idCampeonato: datosBody.idCampeonato })
+                            .populate('idEquipos');
+                        if (tablas.length) {
+                            tablas.forEach((tabla) => {
+                                if (tabla.tipoZona === enumeradores_1.TipoZona.Eliminatoria) {
+                                    if (campeonato.idSubcategoria.length) {
+                                        campeonato.idSubcategoria.forEach((item) => {
+                                            if (item._id.toString() === datosBody.idSubcategoria) {
+                                                if (tabla.idEquipos.length) {
+                                                    tabla.idEquipos.forEach((equipo) => {
+                                                        if (!equipo.isEliminado) {
+                                                            console.log(equipo.nombreEquipo);
+                                                            equiposNoEliminados.push(equipo);
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            res
+                                .status(400)
+                                .send({ message: 'El campeonato ingresado no posee tabla' });
+                        }
+                        if (equiposNoEliminados.length) {
+                            res.status(200).send(equiposNoEliminados);
+                        }
+                        else {
+                            res.status(200).send([]);
+                        }
+                    }
+                    else {
+                        res
+                            .status(400)
+                            .send({ message: 'El campeonato ingresado no existe' });
+                    }
                 }
             }
             catch (error) {

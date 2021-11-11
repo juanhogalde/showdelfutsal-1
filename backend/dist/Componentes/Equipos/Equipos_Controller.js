@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.equiposController = void 0;
 const responder_1 = __importDefault(require("../../Middlewares/responder"));
 const Equipos_Model_1 = __importDefault(require("./Equipos_Model"));
+const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
 class EquiposController {
     listar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -30,9 +32,29 @@ class EquiposController {
     agregar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const equipo = new Equipos_Model_1.default(req.body);
-                yield equipo.save();
-                responder_1.default.sucess(req, res);
+                const datosBody = req.body;
+                if (!datosBody) {
+                    responder_1.default.error(req, res, 'No se ingresaron datos');
+                }
+                else {
+                    let nameFile = '';
+                    if (datosBody.escudo) {
+                        let pathFile = datosBody.escudo.path.split('\\');
+                        nameFile = pathFile[2];
+                    }
+                    const equipo = new Equipos_Model_1.default();
+                    equipo.nombreClub = datosBody.nombreClub;
+                    equipo.escudo = `${process.env.DNS_FRONT}/imagenes/${nameFile}`;
+                    equipo.idCategorias = datosBody.idCategorias;
+                    equipo.idSubcategorias = datosBody.idSubcategorias;
+                    const resultado = yield equipo.save();
+                    if (resultado) {
+                        responder_1.default.sucess(req, res, resultado);
+                    }
+                    else {
+                        responder_1.default.error(req, res, 'Error al agregar el equipo');
+                    }
+                }
             }
             catch (error) {
                 responder_1.default.error(req, res, error);
@@ -43,8 +65,13 @@ class EquiposController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let idEquipo = req.params.id;
-                const equipo = yield Equipos_Model_1.default.find({ _id: idEquipo });
-                responder_1.default.sucess(req, res, equipo);
+                const equipo = yield Equipos_Model_1.default.findById(idEquipo);
+                if (equipo) {
+                    responder_1.default.sucess(req, res, equipo);
+                }
+                else {
+                    responder_1.default.error(req, res, equipo, 'Equipo no encontrado', 400);
+                }
             }
             catch (error) {
                 responder_1.default.error(req, res, error);
@@ -58,12 +85,33 @@ class EquiposController {
                 if (equipoBody._id) {
                     Equipos_Model_1.default.findById(equipoBody._id).then((equipo) => __awaiter(this, void 0, void 0, function* () {
                         if (equipo) {
+                            let nameNewFile = '';
+                            let oldFile = '';
+                            if (equipo.escudo && equipoBody.escudo) {
+                                oldFile = equipo.escudo.split('/');
+                                let archivoEncontrado = fs_1.default.readFileSync(path_1.default.join(__dirname, '../../../public/imagenes', oldFile[4]));
+                                if (archivoEncontrado) {
+                                    fs_1.default.unlinkSync(path_1.default.join(__dirname, '../../../public/imagenes', oldFile[4]));
+                                }
+                                let pathFile = equipoBody.escudo.path.split('\\');
+                                nameNewFile = `${process.env.DNS_FRONT}/imagenes/${pathFile[2]}`;
+                                equipo.escudo = nameNewFile;
+                            }
                             equipo.nombreClub = equipoBody.nombreClub;
-                            equipo.escudo = equipoBody.escudo;
-                            equipo.idCategorias = equipoBody.idCategorias;
-                            equipo.idSubcategorias = equipoBody.idSubcategorias;
-                            const resultado = yield equipo.save({ new: true });
-                            responder_1.default.sucess(req, res, resultado);
+                            if (equipoBody.idCategorias && equipoBody.idCategorias.length) {
+                                equipo.idCategorias = equipoBody.idCategorias;
+                            }
+                            if (equipoBody.idSubcategorias && equipoBody.idSubcategorias.length) {
+                                equipo.idSubcategorias = equipoBody.idSubcategorias;
+                            }
+                            const resultado = yield equipo.save();
+                            if (resultado) {
+                                responder_1.default.sucess(req, res, resultado);
+                            }
+                            else {
+                                let error = new Error('Error al actualizar el equipo');
+                                responder_1.default.error(req, res, error);
+                            }
                         }
                         else {
                             let error = new Error('Equipo no encontrado');
