@@ -27,6 +27,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "docker": "deployDocker.bat",
+    "subirftp": "subirftp.bat",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
