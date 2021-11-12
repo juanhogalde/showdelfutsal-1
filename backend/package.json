@@ -8,7 +8,8 @@
     "start": "tsc && node ./build/index.js",
     "debug": "nodemon --config nodemon.json --inspect-brk src/index.ts",
     "build": "tsc",
-    "docker": "deployDocker.bat"
+    "docker": "deployDocker.bat",
+    "subirftp": "subirftp.bat"
   },
   "repository": {
     "type": "git",
