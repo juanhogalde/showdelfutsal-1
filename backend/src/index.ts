@@ -6,8 +6,9 @@ import cors from 'cors';
 import formData from 'express-form-data';
 import {baseMongo} from './Config/baseDeDatos';
 import dotenv from 'dotenv';
+import imagemin from 'imagemin';
+import imageminMozjpeg from 'imagemin-mozjpeg';
 dotenv.config();
-import {argv} from 'process';
 import {Request, Response, NextFunction} from 'express';
 import noticiasRouter from './Componentes/Noticias/Noticias_Router';
 import campeonatosRouter from './Componentes/Campeonatos/Campeonatos_Router';
@@ -94,10 +95,23 @@ class Server {
       console.info('Importando BD...');
       importarDatos(req, res);
     });
+    this.app.get('/cargarImagenes', (req: Request, res: Response) => {
+      console.info('Cargando imagenes...');
+      console.log(this.cargarImagenes());
+    });
     this.app.get('*', (req: Request, res: Response) => {
       console.info(`GET 404: ${req.originalUrl}`);
       responder.noEncontrado(req, res);
     });
+  }
+
+  async cargarImagenes() {
+    const files = await imagemin(['public/imagenes/*.{jpg,png}'], {
+      destination: 'public/imagenes',
+      plugins: [imageminMozjpeg({quality: 50})],
+    });
+    return files;
+    // console.log(files);
   }
 
   iniciar() {
