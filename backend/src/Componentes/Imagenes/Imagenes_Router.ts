@@ -1,4 +1,5 @@
 import {Router} from 'express';
+import {comprimirImagen} from 'src/Middlewares/imagemin';
 const router: Router = Router();
 import {imagenesController} from './Imagenes_Controller';
 
@@ -15,6 +16,7 @@ class ImagenesRouter {
     this.router.put('/modificar', imagenesController.modificar);
     this.router.delete('/eliminar', imagenesController.eliminar);
     this.router.post('/agregar', imagenesController.agregar);
+    this.router.post('/comprimir', imagenesController.cargarImagenPrueba);
   }
 }
 
