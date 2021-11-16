@@ -23,11 +23,6 @@ export const comprimirImagen = (pathFile?: string) => {
           console.log(error);
           reject(error);
         }
-        // console.log('-------------');
-        // console.log(error);
-        // console.log(completed);
-        // console.log(statistic);
-        // console.log('-------------');
       }
     );
   });
