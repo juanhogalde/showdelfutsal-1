@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloImagenes from './Imagenes_Model';
 import IImagenes from './Imagenes_Interface';
+// import Imagenes_Model from './Imagenes_Model';
 
 class ImagenesController {
   public async listar(req: Request, res: Response) {
@@ -15,9 +16,9 @@ class ImagenesController {
 
   public async agregar(req: Request, res: Response) {
     try {
-      const imagen: IImagenes = new modeloImagenes(req.body);
+      const imagen: IImagenes = new modeloImagenes({...req.body, fuente: req.body.archivos.path});
       await imagen.save();
-      responder.sucess(req, res);
+      responder.sucess(req, res, imagen);
     } catch (error) {
       responder.error(req, res, error);
     }

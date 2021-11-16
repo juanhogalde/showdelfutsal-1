@@ -28,12 +28,12 @@ export class envioMail {
       attachments: [
         {
           filename: 'encabezado.png',
-          path: path.join(__dirname, '../../archivos/Encabezado_mail.png'),
+          path: path.join(__dirname, '../../public/archivos/Encabezado_mail.png'),
           cid: 'correo-encabezado',
         },
         {
           filename: 'piePagina.png',
-          path: path.join(__dirname, '../../archivos/piePagina.png'),
+          path: path.join(__dirname, '../../public/archivos/piePagina.png'),
           cid: 'correo-pie',
         },
       ],
