@@ -1,17 +1,14 @@
 import API from './../Configuracion/api';
 
-//buscar Noticia
 export const cargandoBuscarNoticias = 'cargandoBuscarNoticias';
 export const buscarNoticiaExito = 'buscarNoticiaExito';
 export const buscarNoticiaError = 'buscarNoticiaError';
 export const volverProdefectoNoticiasBusqueda = 'volverProdefectoNoticiasBusqueda';
 export const guardarNoticiaSeleccionada = 'guardarNoticiaSeleccionada';
-export const cargandoAgregarNoticia = 'cargandoAgregarNoticia';
-export const agregarNoticiaExito = 'agregarNoticiaExito';
-export const agregarNoticiaError = 'agregarNoticiaError';
 export const cargandoGuardarNoticia = 'cargandoGuardarNoticia';
 export const guardarNoticiaExito = 'guardarNoticiaExito';
 export const guardarNoticiaError = 'guardarNoticiaError';
+export const volverPorDefecto = 'volverPorDefecto';
 
 //acciones buscar noticia
 export const cargandoBuscarNoticia_accion = () => {
@@ -70,46 +67,6 @@ export const buscarNoticia = titulo => {
 };
 
 //acciones agregar noticia
-export const cargandoAgregarNoticia_accion = () => {
-  return {
-    type: cargandoAgregarNoticia,
-  };
-};
-export const agregarNoticiaExito_accion = data => {
-  return {
-    type: agregarNoticiaExito,
-    respuesta: data,
-  };
-};
-export const agregarNoticiaError_accion = error => {
-  return {
-    type: agregarNoticiaError,
-    error: error,
-  };
-};
-
-//async agregar noticia
-export const agregarNoticia = imagen => {
-  return dispatch => {
-    dispatch(cargandoAgregarNoticia_accion());
-    var imagenNoticia = new FormData();
-    imagenNoticia.append('archivos', imagen[0]);
-    API({
-      url: '/imagenes/agregar',
-      method: 'post',
-      data: imagenNoticia,
-    })
-      .then(res => {
-        console.log(res);
-        dispatch(agregarNoticiaExito_accion(res.data));
-      })
-      .catch(error => {
-        console.log(error);
-        dispatch(agregarNoticiaError_accion(error));
-      });
-  };
-};
-//______________________________________________________
 export const cargandoGuardarNoticia_accion = () => {
   return {
     type: cargandoGuardarNoticia,
@@ -127,18 +84,37 @@ export const GuardarNoticiaError_accion = error => {
     error: error,
   };
 };
+export const volverPorDefecto_accion = () => {
+  return {
+    type: volverPorDefecto,
+  };
+};
 
-export const guardarNoticia_accion = datos => {
+export const guardarNoticia_accion = (noticiaModelada, datosCargados) => {
   return dispatch => {
+    var imagenNoticia = new FormData();
+    imagenNoticia.append('archivos', datosCargados.imagen[0]);
     dispatch(cargandoGuardarNoticia_accion());
     API({
-      url: '/Noticias/agregar',
+      url: '/imagenes/agregar',
       method: 'post',
-      data: datos,
+      data: imagenNoticia,
     })
       .then(res => {
-        console.log(res);
-        dispatch(GuardarNoticiaExito_accion(res.data));
+        noticiaModelada.idImagen = res.data.value._id;
+        API({
+          url: '/Noticias/agregar',
+          method: 'post',
+          data: noticiaModelada,
+        })
+          .then(res => {
+            console.log(res);
+            dispatch(GuardarNoticiaExito_accion(res.data));
+          })
+          .catch(error => {
+            console.log(error);
+            dispatch(GuardarNoticiaError_accion(error));
+          });
       })
       .catch(error => {
         console.log(error);
