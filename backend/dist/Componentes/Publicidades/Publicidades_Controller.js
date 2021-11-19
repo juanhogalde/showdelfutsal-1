@@ -95,5 +95,41 @@ class PublicidadesController {
             }
         });
     }
+    desactivarPublicidad(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const datosBody = req.body;
+                if (!datosBody) {
+                    responder_1.default.error(req, res, 'No se ingresaron datos');
+                }
+                else {
+                    const publicidad = yield Publicidades_Model_1.default.findById(datosBody.idPublicidad);
+                    if (publicidad) {
+                        let DNS = process.env.DNS_FRONT;
+                        if (publicidad.ancho <= 245 && publicidad.alto <= 245) {
+                            publicidad.direccion = `${DNS}/archivos/publicidadCorta.jpg`;
+                        }
+                        else if (publicidad.ancho <= 1136 && publicidad.alto <= 99) {
+                            publicidad.direccion = `${DNS}/archivos/publicidadLarga.jpg`;
+                        }
+                        const resultado = yield publicidad.save();
+                        if (resultado) {
+                            responder_1.default.sucess(req, res, resultado);
+                        }
+                        else {
+                            responder_1.default.error(req, res, 'Error al desactivar la publicidad');
+                        }
+                    }
+                    else {
+                        responder_1.default.error(req, res, 'La publicidad ingresada no existe');
+                    }
+                }
+            }
+            catch (error) {
+                console.log(error);
+                responder_1.default.error(req, res);
+            }
+        });
+    }
 }
 exports.publicidadesController = new PublicidadesController();

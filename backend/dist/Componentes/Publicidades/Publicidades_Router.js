@@ -12,6 +12,7 @@ class PublicidadesRouter {
         this.router.get('/listar', Publicidades_Controller_1.publicidadesController.listar);
         this.router.get('/obtener/:id', Publicidades_Controller_1.publicidadesController.obtener);
         this.router.put('/modificar', Publicidades_Controller_1.publicidadesController.modificar);
+        this.router.put('/desactivar', Publicidades_Controller_1.publicidadesController.desactivarPublicidad);
         this.router.delete('/eliminar', Publicidades_Controller_1.publicidadesController.eliminar);
         this.router.post('/agregar', Publicidades_Controller_1.publicidadesController.agregar);
     }
