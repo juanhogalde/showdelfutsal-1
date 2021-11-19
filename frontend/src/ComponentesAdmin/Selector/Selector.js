@@ -3,11 +3,11 @@ import './Selector.css';
 import Select from 'react-select';
 import {IoIosArrowDown} from 'react-icons/io';
 /* import {colourOptions} from '../data'; */
-const options = [
-  {value: 'chocolate', label: 'Chocolate'},
-  {value: 'strawberry', label: 'Strawberry'},
-  {value: 'vanilla', label: 'Vanilla'},
-];
+// const options = [
+//   {value: 'chocolate', label: 'Chocolate'},
+//   {value: 'strawberry', label: 'Strawberry'},
+//   {value: 'vanilla', label: 'Vanilla'},
+// ];
 
 const estilosPersonalizados = {
   option: (provided, state) => ({
@@ -48,6 +48,7 @@ const Selector = props => {
     isCargando,
     isOpcionBuscar,
     name,
+    options,
   } = props;
 
   const componenteConIcono = {

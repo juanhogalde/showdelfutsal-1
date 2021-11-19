@@ -13,10 +13,8 @@ const HomePrivada = () => {
   const {usuarioLogueado} = useSelector(state => state.storeLogueo);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (usuarioLogueado) {
-      dispatch(obtenerDatosIniciales(usuarioLogueado));
-    }
-  }, [dispatch, usuarioLogueado]);
+    dispatch(obtenerDatosIniciales());
+  }, [dispatch]);
 
   const abrirMenuLateral = () => {
     console.log('Se ejecuto funcion');

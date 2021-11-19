@@ -4,6 +4,10 @@ import {
   buscarNoticiaError,
   volverProdefectoNoticiasBusqueda,
   guardarNoticiaSeleccionada,
+  cargandoGuardarNoticia,
+  guardarNoticiaExito,
+  guardarNoticiaError,
+  volverPorDefecto,
 } from './AccionesNoticias';
 
 const noticiaPorDefecto = {
@@ -11,6 +15,7 @@ const noticiaPorDefecto = {
   noticiaDeBusqueda: '',
   noticiaSeleccionada: {},
   isObteniendoNoticia: {isMostrar: false, tipo: '', mensaje: ''},
+  isNoticiaGurdada: {isMostrar: false, tipo: '', mensaje: '', isExito: false, isError: false},
 };
 const storeNoticias = (state = noticiaPorDefecto, accion) => {
   switch (accion.type) {
@@ -47,6 +52,55 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
       return {
         ...state,
         noticiaDeBusqueda: '',
+      };
+    }
+    case cargandoGuardarNoticia: {
+      return {
+        ...state,
+        isNoticiaGurdada: {
+          isMostrar: true,
+          tipo: 'cargando',
+          mensaje: 'cargando',
+          isExito: false,
+          isError: false,
+        },
+      };
+    }
+    case guardarNoticiaExito: {
+      return {
+        ...state,
+        isNoticiaGurdada: {
+          isMostrar: false,
+          tipo: 'success',
+          mensaje: 'Noticia Guardada',
+          isExito: true,
+          isError: false,
+        },
+        noticias: [...state.noticias, accion.respuesta.value],
+      };
+    }
+    case guardarNoticiaError: {
+      return {
+        ...state,
+        isNoticiaGurdada: {
+          isMostrar: false,
+          tipo: 'error',
+          mensaje: accion.error.message,
+          isExito: false,
+          isError: true,
+        },
+      };
+    }
+    case volverPorDefecto: {
+      return {
+        ...state,
+        isNoticiaGurdada: {
+          isMostrar: false,
+          tipo: '',
+          mensaje: '',
+          isExito: false,
+          isError: false,
+        },
       };
     }
     default:
