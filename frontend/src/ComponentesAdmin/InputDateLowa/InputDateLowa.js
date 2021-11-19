@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import './InputDateLowa.css';
 import {FaRegCalendarAlt} from 'react-icons/fa';
 
@@ -6,11 +6,9 @@ const InputDateLowa = props => {
   const {type, placeholder, onChange, required, value, name, id} = props;
 
   const [inputDateValue, setInputDateValue] = useState('');
-  const inputDateElement = useRef(null);
 
   const obtenerValue = e => {
     setInputDateValue(e.nativeEvent.srcElement.value);
-    console.log(inputDateElement);
   };
 
   return (
