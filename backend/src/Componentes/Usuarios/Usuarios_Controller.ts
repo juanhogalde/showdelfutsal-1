@@ -21,6 +21,7 @@ class UsuariosController {
 
   public async agregar(req: Request, res: Response) {
     try {
+      console.log(req.body);
       const usuario: IUsuarios = new modeloUsuarios(req.body);
       await usuario.save();
       responder.sucess(req, res);

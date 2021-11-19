@@ -21,6 +21,8 @@ const InputLowa = props => {
       return false;
     },
     multiple,
+    onFocus,
+    onBlur,
   } = props;
   const inputElement = useRef(null);
   const imgElement = useRef(null);
@@ -78,6 +80,8 @@ const InputLowa = props => {
           value={value}
           name={name}
           multiple={multiple}
+          onFocus={onFocus}
+          onBlur={onBlur}
           /*  files={e => obtenerArchivos(e)} */
         ></input>
         {type !== 'file' ? (

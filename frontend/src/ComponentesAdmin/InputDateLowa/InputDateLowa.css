@@ -1,0 +1,72 @@
+.CP-InputDateLowa {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 3px 16px #00000014;
+  background-color: white;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  position: relative;
+  padding-right: 10px;
+  min-height: 45px;
+}
+.CP-InputDateLowa:hover {
+  box-shadow: 0px 3px 16px #00000055;
+}
+.CP-InputDateLowa:hover .placeholder-InputDateLowa {
+  color: black;
+}
+.inputDate-Lowa {
+  width: 100%;
+  padding: 12px 20px;
+  display: inline-block;
+  border: none;
+  border-radius: none;
+  box-sizing: border-box;
+  outline: none;
+  cursor: pointer;
+  overflow: hidden;
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+}
+
+.placeholder-InputDateLowa {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  min-width: 200px;
+  padding-left: 20px;
+  padding-right: 20px;
+  cursor: pointer;
+  color: #00000099;
+}
+.placeholder-InputDateLowaConValue {
+  width: 100%;
+  position: relative;
+}
+.value-InputDateLowa {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #00000099;
+}
+.inputDate-Icono-Lowa {
+  margin-top: 2px;
+  padding-left: 20px;
+  padding-right: 10px;
+}
+.CP-InputDateLowa:hover .value-InputDateLowa {
+  color: black;
+}
+.inputDate-Lowa::-webkit-calendar-picker-indicator {
+  width: 100%;
+}
+.inputDate-Lowa::-webkit-inner-spin-button {
+  display: none;
+}
