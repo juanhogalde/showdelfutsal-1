@@ -26,6 +26,9 @@ const BarraDeNavegacionAdmin = ({
       if (locacion.pathname.split('/')[1] === 'Publicidad') {
         historialDeNavegacion.push('/Publicidad');
       }
+      if (locacion.pathname.split('/')[1] === 'Torneo') {
+        historialDeNavegacion.push('/Torneos');
+      }
     } else {
       historialDeNavegacion.push('/');
     }

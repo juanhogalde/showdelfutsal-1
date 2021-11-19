@@ -5,6 +5,7 @@ import BotonLowa from '../../ComponentesAdmin/BotonLowa/BotonLowa';
 import FiltroNoticiasAdmin from '../../ComponentesAdmin/FiltroNoticiasAdmin/FiltroNoticiasAdmin';
 import TarjetaGaleria from '../TarjetaGaleria/TarjetaGaleria';
 import {useHistory} from 'react-router';
+import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
 
 const PaginasSeccionesAdmin = ({
   funcionDeBotonSecciones = () => {
@@ -14,6 +15,7 @@ const PaginasSeccionesAdmin = ({
   tituloFiltroSecciones,
   isSeccionNoticias = false,
   isSeccionGaleria = false,
+  isSeccionTorneos = false,
 }) => {
   const historialDeNavegacion = useHistory();
   const editarNoticia = () => {
@@ -39,6 +41,12 @@ const PaginasSeccionesAdmin = ({
       {isSeccionGaleria && (
         <div className="CI-Pagina-Secciones-Galeria">
           <TarjetaGaleria></TarjetaGaleria>
+        </div>
+      )}
+      {isSeccionTorneos && (
+        <div className="CI-Pagina-Secciones-Torneos">
+          <TarjetaTorneo></TarjetaTorneo>
+          <TarjetaTorneo></TarjetaTorneo>
         </div>
       )}
     </div>

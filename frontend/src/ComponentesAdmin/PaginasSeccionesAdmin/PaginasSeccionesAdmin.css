@@ -17,7 +17,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1px 1fr 1px;
-  grid-template-rows: 15px 40px 40px 5px;
+  grid-template-rows: 15px 40px 60px 5px;
   gap: 5px;
   background-color: #ffffff;
   /* z-index: 15; */
@@ -47,6 +47,7 @@
 .I-Filtros-Secciones-Admin {
   grid-column: 2/3;
   grid-row: 3/4;
+  margin-top: 10px;
 }
 
 .I-Noticias-Secciones-Admin {
@@ -56,6 +57,11 @@
 }
 /* CUERPO PARA GALERIA */
 .CI-Pagina-Secciones-Galeria {
+  width: 100%;
+  height: 100%;
+}
+/* CUERPO PARA TORNEOS */
+.CI-Pagina-Secciones-Torneos {
   width: 100%;
   height: 100%;
 }
