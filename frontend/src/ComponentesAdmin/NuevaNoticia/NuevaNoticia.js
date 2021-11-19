@@ -27,9 +27,6 @@ const NuevaNoticia = () => {
   };
 
   const GuardarNuevaNoticia = () => {
-    console.log(datosCargados);
-    console.log(categoria);
-    console.log(subCategoria);
     if (datosCargados.imagen) {
       var datosNoticias = {
         fecha: new Date(),

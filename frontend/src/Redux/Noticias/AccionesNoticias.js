@@ -96,7 +96,7 @@ export const guardarNoticia_accion = (noticiaModelada, datosCargados) => {
     imagenNoticia.append('archivos', datosCargados.imagen[0]);
     dispatch(cargandoGuardarNoticia_accion());
     API({
-      url: '/imagenes/agregar',
+      url: '/imagenes/comprimir',
       method: 'post',
       data: imagenNoticia,
     })
@@ -108,7 +108,6 @@ export const guardarNoticia_accion = (noticiaModelada, datosCargados) => {
           data: noticiaModelada,
         })
           .then(res => {
-            console.log(res);
             dispatch(GuardarNoticiaExito_accion(res.data));
           })
           .catch(error => {

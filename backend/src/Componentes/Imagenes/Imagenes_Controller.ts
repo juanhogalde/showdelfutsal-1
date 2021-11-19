@@ -29,12 +29,17 @@ class ImagenesController {
       if (!req.body) {
         responder.error(req, res, 'No se ingresaron datos');
       } else {
-        let path: string = req.body.archivo.path.split('\\');
+        let path: string = req.body.archivos.path.split('\\');
         let pathFileAComprimir: string = `${path[0]}/${path[1]}/${path[2]}`;
-        const resultado = await comprimirImagen(pathFileAComprimir);
+        let resultado: any = await comprimirImagen(pathFileAComprimir);
 
         if (resultado) {
-          responder.sucess(req, res, 'Imagen insertada');
+          const imagen: IImagenes = new modeloImagenes({
+            ...req.body,
+            fuente: resultado.path_out_new,
+          });
+          await imagen.save();
+          responder.sucess(req, res, imagen);
         } else {
           responder.error(req, res, new Error('Ocurrió un error al insertar la imagen'));
         }
