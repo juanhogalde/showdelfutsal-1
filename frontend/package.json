@@ -26,7 +26,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "docker": "docker build . -t lowa/futsal-front:latest && docker push lowa/futsal-front:latest",
+    "docker": "deployDocker.bat",
+    "subirftp": "subirftp.bat",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

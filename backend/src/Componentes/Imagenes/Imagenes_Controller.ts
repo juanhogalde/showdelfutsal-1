@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloImagenes from './Imagenes_Model';
 import IImagenes from './Imagenes_Interface';
+import {comprimirImagen} from '../../Middlewares/imagemin';
 
 class ImagenesController {
   public async listar(req: Request, res: Response) {
@@ -18,6 +19,26 @@ class ImagenesController {
       const imagen: IImagenes = new modeloImagenes(req.body);
       await imagen.save();
       responder.sucess(req, res);
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+
+  public async cargarImagenPrueba(req: Request, res: Response) {
+    try {
+      if (!req.body) {
+        responder.error(req, res, 'No se ingresaron datos');
+      } else {
+        let path: string = req.body.archivo.path.split('\\');
+        let pathFileAComprimir: string = `${path[0]}/${path[1]}/${path[2]}`;
+        const resultado = await comprimirImagen(pathFileAComprimir);
+
+        if (resultado) {
+          responder.sucess(req, res, 'Imagen insertada');
+        } else {
+          responder.error(req, res, new Error('Ocurrió un error al insertar la imagen'));
+        }
+      }
     } catch (error) {
       responder.error(req, res, error);
     }

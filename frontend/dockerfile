@@ -1,7 +1,7 @@
 FROM node:14.17.1-alpine3.13
 WORKDIR /app
-COPY ["package.json","./"]
-COPY . .
-RUN npm install
+COPY ["package.json", "./"]
 EXPOSE 4000
-CMD [ "npm","start" ]
+RUN npm install
+COPY . .
+CMD npm start

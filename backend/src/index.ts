@@ -6,8 +6,10 @@ import cors from 'cors';
 import formData from 'express-form-data';
 import {baseMongo} from './Config/baseDeDatos';
 import dotenv from 'dotenv';
+// import imagemin from 'imagemin';
+// import imageminMozjpeg from 'imagemin-mozjpeg';
+
 dotenv.config();
-import path from 'path';
 import {Request, Response, NextFunction} from 'express';
 import noticiasRouter from './Componentes/Noticias/Noticias_Router';
 import campeonatosRouter from './Componentes/Campeonatos/Campeonatos_Router';
@@ -25,6 +27,7 @@ import tablasRouter from './Componentes/Tablas/Tablas_Router';
 import responder from './Middlewares/responder';
 import manejadorErrores from './Middlewares/manejadorErrores';
 import {importarDatos} from './Config/importarDatos';
+import {comprimirImagen} from './Middlewares/imagemin';
 
 ///// VARIABLES DE ENTORNO
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
@@ -36,8 +39,8 @@ class Server {
   public app: express.Application;
   private _cadenaDeConexion = process.env.DATABASE || 'mongodb://localhost:29017/Desarrollo';
   private options = {
-    uploadDir: 'public/imagenes/',
-    autoClean: false,
+    uploadDir: 'public/cargaImagenes/',
+    autoClean: true,
   };
 
   constructor() {
@@ -94,6 +97,12 @@ class Server {
       console.info('Importando BD...');
       importarDatos(req, res);
     });
+
+    this.app.get('/comprimirImagenes', (req: Request, res: Response) => {
+      console.info('comprimiendo imagenes...');
+      comprimirImagen();
+    });
+
     this.app.get('*', (req: Request, res: Response) => {
       console.info(`GET 404: ${req.originalUrl}`);
       responder.noEncontrado(req, res);
