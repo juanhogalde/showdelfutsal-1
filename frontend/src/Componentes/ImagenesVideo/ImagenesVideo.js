@@ -7,6 +7,9 @@ const ImagenesVideo = ({
   sinDescripcion = false,
   isConBorder = false,
 }) => {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  const isMobileIPhone = userAgent.indexOf('iPhone'); // para detectar si se esta desde un android o iphone
+  const isMobileAndroid = userAgent.indexOf('Android');
   const [indiceActual, setIndiceActual] = useState(0);
   const [ocultarFlechasVideo, setOcultarFlechasVideo] = useState(
     DatosDeEntrada.length === 2 || DatosDeEntrada.length === 1
@@ -46,10 +49,18 @@ const ImagenesVideo = ({
       }
     }
     if (direccion) {
-      if (contador + 1 === DatosDeEntrada.length - 1) {
-        setOcultarFlechasVideo({flechaArriba: true, flechaAbajo: false});
+      if (isMobileAndroid === -1 && isMobileIPhone === -1) {
+        if (contador + 1 === DatosDeEntrada.length - 1) {
+          setOcultarFlechasVideo({flechaArriba: true, flechaAbajo: false});
+        } else {
+          setOcultarFlechasVideo({flechaArriba: false, flechaAbajo: false});
+        }
       } else {
-        setOcultarFlechasVideo({flechaArriba: false, flechaAbajo: false});
+        if (contador + 1 === DatosDeEntrada.length) {
+          setOcultarFlechasVideo({flechaArriba: true, flechaAbajo: false});
+        } else {
+          setOcultarFlechasVideo({flechaArriba: false, flechaAbajo: false});
+        }
       }
     } else {
       if (indiceActual - 1 === 0) {
@@ -117,9 +128,9 @@ const ImagenesVideo = ({
         <div className="cuerpo-imagenesVideo">
           {/* VIDEO */}
           {tipoVideo &&
-            (DatosDeEntrada.length > 1 ? (
+            (DatosDeEntrada.length > 1 && isMobileAndroid === -1 && isMobileIPhone === -1 ? (
               <React.Fragment>
-                <div className="CI-Videos ">
+                <div className="CI-Videos">
                   <iframe
                     className={
                       isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'
@@ -140,16 +151,21 @@ const ImagenesVideo = ({
                     title="sadasd"
                   ></iframe>
                   <div className="decripcion-imagenesVideo2">
-                    <h4>{dataActual.descripcion}</h4>
+                    <h4>{siguientedataActual.descripcion}</h4>
                   </div>
                 </div>
               </React.Fragment>
             ) : (
-              <iframe
-                className={isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'}
-                src={`https://www.youtube-nocookie.com/embed/${dataActual.fuente}`}
-                title="sadasd"
-              ></iframe>
+              <div className="CI-Videos">
+                <iframe
+                  className={isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'}
+                  src={`https://www.youtube-nocookie.com/embed/${dataActual.fuente}`}
+                  title="sadasd"
+                ></iframe>
+                <div className="decripcion-imagenesVideo2">
+                  <h4>{dataActual.descripcion}</h4>
+                </div>
+              </div>
             ))}
 
           {/* IMÁGENES */}
