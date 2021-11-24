@@ -11,3 +11,6 @@
   display: inline-block;
   cursor: pointer;
 }
+.boton-Lowa:disabled {
+  background-color: #2a2ac0bb;
+}

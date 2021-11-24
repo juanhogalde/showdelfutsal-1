@@ -29,6 +29,11 @@
   padding-top: 56.25%;
   margin: 20px;
 }
+.CI-Video {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
 .video-imagenesVideo {
   position: absolute;
   top: 0;
@@ -185,6 +190,10 @@ iframe {
   }
 }
 @media screen and (max-width: 480px) {
+  .CI-Video {
+    padding-top: 56.25%;
+    margin: 20px;
+  }
   .botones-redondo-imagenesVideo {
     font-size: 2rem;
   }

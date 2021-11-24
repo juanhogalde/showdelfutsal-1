@@ -26,12 +26,17 @@ const BarraDeNavegacionAdmin = ({
         historialDeNavegacion.push('/Publicidad');
       }
       if (locacion.pathname.split('/')[1] === 'Torneo') {
-        historialDeNavegacion.push('/Torneos');
+        if (locacion.pathname.split('/')[3] === 'Campeonato') {
+          historialDeNavegacion.push('/Torneo/Nuevo');
+        } else {
+          historialDeNavegacion.push('/Torneos');
+        }
       }
     } else {
       historialDeNavegacion.push('/');
     }
   };
+  console.log(locacion.pathname.split('/'));
 
   return (
     <div className="CP-BarraDeNavegacionAdmin">

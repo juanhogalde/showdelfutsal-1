@@ -82,7 +82,6 @@ const InputLowa = props => {
           multiple={multiple}
           onFocus={onFocus}
           onBlur={onBlur}
-          /*  files={e => obtenerArchivos(e)} */
         ></input>
         {type !== 'file' ? (
           <span
