@@ -156,7 +156,7 @@ const ImagenesVideo = ({
                 </div>
               </React.Fragment>
             ) : (
-              <div className="CI-Videos">
+              <div className="CI-Video">
                 <iframe
                   className={isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'}
                   src={`https://www.youtube-nocookie.com/embed/${dataActual.fuente}`}
