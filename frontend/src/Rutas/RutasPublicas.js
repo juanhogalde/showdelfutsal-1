@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Redirect, Route, useLocation} from 'react-router';
 import {Switch} from 'react-router-dom';
 import PaginaSomos from '../Componentes/PaginaSomos/PaginaSomos';
+import {useDispatch} from 'react-redux';
 import Inicio from '../Componentes/Inicio/Inicio';
 import PaginaNoticias from '../Componentes/PaginaNoticias/PaginaNoticias';
 import PaginaSecciones from '../Componentes/PaginaSecciones/PaginaSecciones';
@@ -10,7 +11,14 @@ import NoticiasFiltradas from '../Componentes/NoticiasFiltradas/NoticiasFiltrada
 import BarraDeNavegacion from '../Componentes/BarraDeNavegacion/BarraDeNavegacion';
 import Home from '../Componentes/Home/Home';
 import RecuperarContraseña from '../Componentes/RecuperarContraseña/RecuperarContraseña';
+import {listarNoticia_accion} from '../Redux/Noticias/AccionesNoticias';
+import {obtenerDatosIniciales} from '../Redux/DatosInciales/AccionesDatosIniciales';
 const RutasPublicas = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(obtenerDatosIniciales());
+    dispatch(listarNoticia_accion());
+  }, [dispatch]);
   return (
     <React.Fragment>
       {!['/Administrador', '/RecuperarContraseña'].includes(useLocation().pathname) && (

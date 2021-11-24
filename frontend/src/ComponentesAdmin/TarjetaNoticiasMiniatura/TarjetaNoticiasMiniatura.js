@@ -1,25 +1,28 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 import './TarjetaNoticiasMiniatura.css';
 
-const TarjetaNoticiasMiniatura = () => {
+const TarjetaNoticiasMiniatura = ({noticiaRecibida}) => {
+  const {categorias} = useSelector(state => state.sotreDatosIniciales);
+  var categoriaFiltrada = categorias.find(
+    categoria => categoria.value === noticiaRecibida.idCategoria
+  );
   return (
     <div className="CP-Tarjeta-Noticia-Miniatura">
       <div className="CP-Tarjeta-Noticia-Miniatura-Contenedor">
         <div className="CI-Tarjeta-Noticia-Miniatura">
           <div className="CI-Tarjeta-Noticia-Miniatura-Titulo">
-            <h6>Titulo</h6>
+            <h6>{noticiaRecibida.titulo}</h6>
           </div>
           <div className="CI-Tarjeta-Noticia-Miniatura-Categoria">
             <div className="I-Tarjeta-Noticia-Categoria">
-              <h6>Categoria</h6> <h6>Division</h6> <h6>Fecha</h6>
+              <h6>Division</h6> <h6>{categoriaFiltrada ? categoriaFiltrada.label : ''}</h6>
+              <h6>{noticiaRecibida.fecha}</h6>
             </div>
           </div>
           <div className="CI-Tarjeta-Noticia-Miniatura-Cuerpo">
             <div className="I-Tarjeta-Noticia-cuerpo">
-              <p>
-                Molestie felis est bibendum scelerisque luctus vitae, mauris habitant fames a orci,
-                tortor aenean aliquam eget pharetra.
-              </p>
+              <p>{noticiaRecibida.copete}</p>
             </div>
           </div>
         </div>

@@ -23,10 +23,17 @@ const Filtro = [
 ];
 
 const Inicio = () => {
-  /*   const {noticias1, noticias2, noticias3} = useSelector(state => state.storePrueba);*/
-  const [noticiaP, setNoticiaP] = useState({});
-  const [noticia1, setNoticia1] = useState({});
-  const [noticia2, setNoticia2] = useState({});
+  const {noticias} = useSelector(state => state.storeNoticias);
+  // const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
+  const [noticiaP, setNoticiaP] = useState(
+    noticias.length ? noticias.filter(noticia => noticia.keyCategoria === 2) : {}
+  );
+  const [noticia1, setNoticia1] = useState(
+    noticias.length ? noticias.filter(noticia => noticia.keyCategoria === 2) : {}
+  );
+  const [noticia2, setNoticia2] = useState(
+    noticias.length ? noticias.filter(noticia => noticia.keyCategoria === 2) : {}
+  );
 
   const {
     DatosDePruebaImagenes,
@@ -146,7 +153,7 @@ const Inicio = () => {
                 <NoticiasMiniatura
                   isSeccionNoticias={true}
                   isSobreImagen={true}
-                  datosModelado={noticiaP}
+                  datosModelado={noticiaP[0]}
                 ></NoticiasMiniatura>
               </Link>
             </div>
@@ -155,13 +162,13 @@ const Inicio = () => {
             <div className="noticia-Miniatura-1">
               <NoticiasMiniatura
                 isSeccionNoticias={true}
-                datosModelado={noticia1}
+                datosModelado={noticia1[1]}
               ></NoticiasMiniatura>
             </div>
             <div className="noticia-Miniatura-2">
               <NoticiasMiniatura
                 isSeccionNoticias={true}
-                datosModelado={noticia2}
+                datosModelado={noticia2[2]}
               ></NoticiasMiniatura>
             </div>
           </div>

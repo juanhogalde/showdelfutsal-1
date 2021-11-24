@@ -8,6 +8,8 @@ import {
   guardarNoticiaExito,
   guardarNoticiaError,
   volverPorDefecto,
+  listarNoticiaExito,
+  listarNoticiaError,
 } from './AccionesNoticias';
 
 const noticiaPorDefecto = {
@@ -101,6 +103,17 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           isExito: false,
           isError: false,
         },
+      };
+    }
+    case listarNoticiaExito: {
+      return {
+        ...state,
+        noticias: [...state.noticias, ...accion.respuesta],
+      };
+    }
+    case listarNoticiaError: {
+      return {
+        ...state,
       };
     }
     default:
