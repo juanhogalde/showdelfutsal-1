@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -20,9 +11,6 @@ const cors_1 = __importDefault(require("cors"));
 const express_form_data_1 = __importDefault(require("express-form-data"));
 const baseDeDatos_1 = require("./Config/baseDeDatos");
 const dotenv_1 = __importDefault(require("dotenv"));
-const imagemin = require('imagemin');
-const imageminJpegtran = require('imagemin-jpegtran');
-const imageminPngquant = require('imagemin-pngquant');
 dotenv_1.default.config();
 const Noticias_Router_1 = __importDefault(require("./Componentes/Noticias/Noticias_Router"));
 const Campeonatos_Router_1 = __importDefault(require("./Componentes/Campeonatos/Campeonatos_Router"));
@@ -39,14 +27,15 @@ const Tablas_Router_1 = __importDefault(require("./Componentes/Tablas/Tablas_Rou
 const responder_1 = __importDefault(require("./Middlewares/responder"));
 const manejadorErrores_1 = __importDefault(require("./Middlewares/manejadorErrores"));
 const importarDatos_1 = require("./Config/importarDatos");
+const imagemin_1 = require("./Middlewares/imagemin");
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
 const deploy = 'v0.0.1';
 class Server {
     constructor() {
         this._cadenaDeConexion = process.env.DATABASE || 'mongodb://localhost:29017/Desarrollo';
         this.options = {
-            uploadDir: 'public/imagenes/',
-            autoClean: false,
+            uploadDir: 'public/cargaImagenes/',
+            autoClean: true,
         };
         this.app = (0, express_1.default)();
         this.conectarBd();
@@ -93,9 +82,9 @@ class Server {
             console.info('Importando BD...');
             (0, importarDatos_1.importarDatos)(req, res);
         });
-        this.app.get('/cargarImagenes', (req, res) => {
-            console.info('Cargando imagenes...');
-            console.log(this.cargarImagenes());
+        this.app.get('/comprimirImagenes', (req, res) => {
+            console.info('comprimiendo imagenes...');
+            (0, imagemin_1.comprimirImagen)();
         });
         this.app.get('*', (req, res) => {
             console.info(`GET 404: ${req.originalUrl}`);
@@ -105,20 +94,6 @@ class Server {
     iniciar() {
         this.app.listen(this.app.get('port'), () => {
             console.log(`⚡️[FUTSAL]: El Servidor de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`);
-        });
-    }
-    cargarImagenes() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const files = yield imagemin(['imagenes/*.{jpg,png,jpeg}'], {
-                destination: 'public/imagenes',
-                plugins: [
-                    imageminJpegtran(),
-                    imageminPngquant({
-                        quality: [0.6, 0.6],
-                    }),
-                ],
-            });
-            return files;
         });
     }
 }
