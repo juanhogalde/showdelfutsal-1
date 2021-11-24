@@ -16,7 +16,11 @@ class ImagenesController {
 
   public async agregar(req: Request, res: Response) {
     try {
-      const imagen: IImagenes = new modeloImagenes({...req.body, fuente: req.body.archivos.path});
+      const fuentePath = req.body.archivos.path.replaceAll('public', '');
+      const imagen: IImagenes = new modeloImagenes({
+        ...req.body,
+        fuente: fuentePath,
+      });
       await imagen.save();
       responder.sucess(req, res, imagen);
     } catch (error) {
@@ -36,7 +40,7 @@ class ImagenesController {
         if (resultado) {
           const imagen: IImagenes = new modeloImagenes({
             ...req.body,
-            fuente: resultado.path_out_new,
+            fuente: resultado.path_out_new.replace('public', ''),
           });
           await imagen.save();
           responder.sucess(req, res, imagen);
