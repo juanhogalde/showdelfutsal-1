@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.imagenesController = void 0;
 const responder_1 = __importDefault(require("../../Middlewares/responder"));
 const Imagenes_Model_1 = __importDefault(require("./Imagenes_Model"));
+const imagemin_1 = require("../../Middlewares/imagemin");
 class ImagenesController {
     listar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -30,9 +31,34 @@ class ImagenesController {
     agregar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const imagen = new Imagenes_Model_1.default(req.body);
+                const imagen = new Imagenes_Model_1.default(Object.assign(Object.assign({}, req.body), { fuente: req.body.archivos.path }));
                 yield imagen.save();
-                responder_1.default.sucess(req, res);
+                responder_1.default.sucess(req, res, imagen);
+            }
+            catch (error) {
+                responder_1.default.error(req, res, error);
+            }
+        });
+    }
+    cargarImagenPrueba(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (!req.body) {
+                    responder_1.default.error(req, res, 'No se ingresaron datos');
+                }
+                else {
+                    let path = req.body.archivos.path.split('\\');
+                    let pathFileAComprimir = `${path[0]}/${path[1]}/${path[2]}`;
+                    let resultado = yield (0, imagemin_1.comprimirImagen)(pathFileAComprimir);
+                    if (resultado) {
+                        const imagen = new Imagenes_Model_1.default(Object.assign(Object.assign({}, req.body), { fuente: resultado.path_out_new }));
+                        yield imagen.save();
+                        responder_1.default.sucess(req, res, imagen);
+                    }
+                    else {
+                        responder_1.default.error(req, res, new Error('Ocurrió un error al insertar la imagen'));
+                    }
+                }
             }
             catch (error) {
                 responder_1.default.error(req, res, error);

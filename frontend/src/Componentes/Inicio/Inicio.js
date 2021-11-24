@@ -19,7 +19,7 @@ import PieDepagina from '../PieDePagina/PieDepagina';
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},
-  {nombre: 'Inferiores', link: '/NoticiaDesarrollada'},
+  {nombre: 'Liga', link: '/NoticiaDesarrollada'},
 ];
 
 const Inicio = () => {
@@ -61,8 +61,7 @@ const Inicio = () => {
         setNoticia1(noticiasFemenino[1]);
         setNoticia2(noticiasFemenino[2]);
         break;
-      case 'Inferiores':
-        console.log('Switch Inferiores');
+      case 'Liga':
         setNoticiaP(noticiasInferiores[0]);
         setNoticia1(noticiasInferiores[1]);
         setNoticia2(noticiasInferiores[2]);

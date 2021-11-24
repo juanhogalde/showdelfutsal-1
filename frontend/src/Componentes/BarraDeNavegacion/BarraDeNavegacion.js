@@ -63,18 +63,23 @@ const BarraDeNavegacion = () => {
             </li>
 
             <li className="nav-item" onClick={() => handleClick()}>
-              <NavLink exact to={`/Seccion/Copa`} className="nav-links">
-                Copa
+              <NavLink exact to={`/Seccion/Liga Nacional`} className="nav-links">
+                Liga Nacional
               </NavLink>
             </li>
             <li className="nav-item" onClick={() => handleClick()}>
-              <NavLink exact to="/Seccion/Liga" activeClassName="active" className="nav-links">
-                Liga
+              <NavLink
+                exact
+                to="/Seccion/Otras Competencias"
+                activeClassName="active"
+                className="nav-links"
+              >
+                Otras Competencias
               </NavLink>
             </li>
             <li className="nav-item" onClick={() => handleClick()}>
               <NavLink exact to="/Somos" activeClassName="active" className="nav-links">
-                Somos
+                Quienes Somos
               </NavLink>
             </li>
             {/* </div> */}

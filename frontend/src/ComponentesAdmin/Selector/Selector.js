@@ -49,6 +49,7 @@ const Selector = props => {
     isOpcionBuscar,
     name,
     options,
+    noOptionsMessage,
   } = props;
 
   const componenteConIcono = {
@@ -80,7 +81,7 @@ const Selector = props => {
         isDisabled={isDisabled}
         isLoading={isCargando}
         isSearchable={isOpcionBuscar}
-        noOptionsMessage="No hay opciones cargadas"
+        noOptionsMessage={() => noOptionsMessage}
         autoFocus
       ></Select>
     </div>
@@ -93,5 +94,6 @@ Selector.defaultProps = {
   isDisabled: false,
   isCargando: false,
   isOpcionBuscar: true,
+  noOptionsMessage: 'No hay opciones',
 };
 export default Selector;

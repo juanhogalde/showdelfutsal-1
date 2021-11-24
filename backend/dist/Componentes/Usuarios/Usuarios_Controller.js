@@ -48,6 +48,7 @@ class UsuariosController {
     agregar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                console.log(req.body);
                 const usuario = new Usuarios_Model_1.default(req.body);
                 yield usuario.save();
                 responder_1.default.sucess(req, res);
