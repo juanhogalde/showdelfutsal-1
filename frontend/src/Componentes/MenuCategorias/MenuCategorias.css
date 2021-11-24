@@ -52,11 +52,6 @@ li {
   color: #fff;
 }
 
-ul {
-  max-width: 1000px;
-  padding: 0 2rem;
-}
-
 @media screen and (max-width: 960px) {
   .I-submenu {
     height: 10%;
