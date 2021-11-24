@@ -6,9 +6,6 @@ import cors from 'cors';
 import formData from 'express-form-data';
 import {baseMongo} from './Config/baseDeDatos';
 import dotenv from 'dotenv';
-// import imagemin from 'imagemin';
-// import imageminMozjpeg from 'imagemin-mozjpeg';
-
 dotenv.config();
 import {Request, Response, NextFunction} from 'express';
 import noticiasRouter from './Componentes/Noticias/Noticias_Router';
@@ -33,7 +30,7 @@ import {comprimirImagen} from './Middlewares/imagemin';
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.1';
+const deploy = 'v0.0.2';
 
 class Server {
   public app: express.Application;

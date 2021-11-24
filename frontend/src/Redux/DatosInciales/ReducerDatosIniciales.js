@@ -4,6 +4,20 @@ import {
   cargaDatosInicialesError,
 } from './AccionesDatosIniciales';
 const datosInicialesPorDefecto = {
+  linkVideosInicioGaleria: [
+    {
+      fuente: 'VfhOetA3kog',
+      descripcion: 'MAQUINA MONTERO',
+    },
+    {
+      fuente: 'I9EakpNrhz0',
+      descripcion: 'YAMILA PEREIRA',
+    },
+    {
+      fuente: '27ZPcljfgXQ',
+      descripcion: 'JACKI ACOSTA',
+    },
+  ],
   isDatosIniciales: {isMostrar: false, tipo: '', mensaje: ''},
   datosIniciales: null,
   categorias: [],

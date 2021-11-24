@@ -32,11 +32,12 @@ const Inicio = () => {
     DatosDePruebaImagenes,
     DatosDePruebaImagenes2,
     DatosDePruebaImagenes3,
-    DatosDePruebaVideos,
+    // DatosDePruebaVideos,
     noticiasFemenino,
     noticiasMasculino,
     noticiasInferiores,
   } = useSelector(state => state.storePrueba);
+  const {linkVideosInicioGaleria} = useSelector(state => state.sotreDatosIniciales);
   const videoVivoPrueba = {fuente: 'MmysMu3mgvw'};
   const obtenerFiltro = filtro => {
     switch (filtro) {
@@ -193,7 +194,7 @@ const Inicio = () => {
           </div>
           <div className="CI-Galeria-Videos">
             <ImagenesVideo
-              DatosDeEntrada={DatosDePruebaVideos}
+              DatosDeEntrada={linkVideosInicioGaleria}
               tipoDeSliderFlecha={true}
               tipoVideo={true}
             ></ImagenesVideo>
