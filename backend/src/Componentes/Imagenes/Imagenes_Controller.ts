@@ -16,14 +16,31 @@ class ImagenesController {
 
   public async agregar(req: Request, res: Response) {
     try {
-      let path: string = req.body.archivos.path.split('\\');
-      let pathFile: string = `${path[0]}/${path[1]}/${path[2]}`;
-      const imagen: IImagenes = new modeloImagenes({
-        ...req.body,
-        fuente: pathFile.replace('public', ''),
-      });
-      await imagen.save();
-      responder.sucess(req, res, imagen);
+      if (req.body.archivos.length) {
+        console.log(req.body);
+        let arregloDePath: Array<any> = [];
+        req.body.archivos.forEach((archivo: any) => {
+          let path: string = archivo.path.split('\\');
+          let pathFile: string = `${path[0]}/${path[1]}/${path[2]}`;
+          let imagen: IImagenes = new modeloImagenes({
+            ...archivo,
+            fuente: pathFile.replace('public', ''),
+            galeria: true,
+          });
+          arregloDePath.push(imagen);
+          imagen.save();
+        });
+        responder.sucess(req, res, arregloDePath);
+      } else {
+        let path: string = req.body.archivos.path.split('\\');
+        let pathFile: string = `${path[0]}/${path[1]}/${path[2]}`;
+        const imagen: IImagenes = new modeloImagenes({
+          ...req.body,
+          fuente: pathFile.replace('public', ''),
+        });
+        await imagen.save();
+        responder.sucess(req, res, imagen);
+      }
     } catch (error) {
       responder.error(req, res, error);
     }
