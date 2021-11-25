@@ -16,9 +16,11 @@ class ImagenesController {
 
   public async agregar(req: Request, res: Response) {
     try {
+      let path: string = req.body.archivos.path.split('\\');
+      let pathFile: string = `${path[0]}/${path[1]}/${path[2]}`;
       const imagen: IImagenes = new modeloImagenes({
         ...req.body,
-        fuente: req.body.archivos.path,
+        fuente: pathFile.replace('public', ''),
       });
       await imagen.save();
       responder.sucess(req, res, imagen);
