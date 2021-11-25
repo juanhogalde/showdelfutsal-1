@@ -45,8 +45,6 @@ const InputLowa = props => {
     if (inputElement.current.files.length === 0) {
       imgElement.current.src = imagen;
     }
-    console.log(inputElement.current.files.length);
-
     onChange(name, inputElement.current.files);
   };
 
