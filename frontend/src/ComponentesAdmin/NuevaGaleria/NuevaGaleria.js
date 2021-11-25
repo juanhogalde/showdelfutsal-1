@@ -6,22 +6,35 @@ import {MdDeleteForever} from 'react-icons/md';
 import {FiEdit3} from 'react-icons/fi';
 
 const NuevaGaleria = () => {
-  const [imagenes, setImagenes] = useState([]);
+  const [datosGaleria, setDatosGaleria] = useState({});
+
   const escucharCambios = (name, value) => {
-    console.log(name);
-    console.log(value);
     var arreglo = [];
-    if (value.length > 0) {
+    if (typeof value === 'string') {
+      setDatosGaleria({...datosGaleria, [name]: value});
+    } else {
       for (let index = 0; index < value.length; index++) {
         arreglo.push(value[index]);
       }
-      setImagenes(arreglo);
+      setDatosGaleria({...datosGaleria, imagenes: arreglo});
     }
   };
+  const eliminarImagen = index => {
+    var auxImagenes = [];
+    auxImagenes = datosGaleria.imagenes.slice();
+    auxImagenes.splice(index, 1);
+    console.log(auxImagenes);
+    setDatosGaleria({...datosGaleria, imagenes: auxImagenes});
+  };
+  const guardarNuevaGaleria = () => {
+    var fechaDeCarga = new Date();
+    setDatosGaleria({...datosGaleria, fechaCarga: fechaDeCarga});
+  };
+
   return (
     <div className="CP-AgregarImagenes">
       <InputLowa
-        name="titulo"
+        name="descripcion"
         placeholder="Ingrese Título"
         onChange={e => escucharCambios(e.target.name, e.target.value)}
       ></InputLowa>
@@ -32,15 +45,18 @@ const NuevaGaleria = () => {
         multiple={true}
       ></InputLowa>
 
-      {imagenes && (
+      {datosGaleria.imagenes && (
         <div className="CI-ListaImagnes">
-          {imagenes.map((imagen, index) => {
+          {datosGaleria.imagenes.map((imagen, index) => {
             return (
               <div key={index} className="filaListaImagenes">
                 <p className="nombreImagen">{imagen.name}</p>
                 <div className="accionesFilaListaImagenes">
                   <FiEdit3 className="iconoAcción-ListaImagenes"></FiEdit3>
-                  <MdDeleteForever className="iconoAcción-ListaImagenes" />
+                  <MdDeleteForever
+                    onClick={() => eliminarImagen(index)}
+                    className="iconoAcción-ListaImagenes"
+                  />
                 </div>
               </div>
             );
@@ -48,7 +64,11 @@ const NuevaGaleria = () => {
         </div>
       )}
 
-      <BotonLowa tituloboton="Agregar Imágenes"></BotonLowa>
+      <BotonLowa
+        tituloboton="Agregar Imágenes"
+        disabled={Object.keys(datosGaleria).length > 1 ? false : true}
+        onClick={() => guardarNuevaGaleria()}
+      ></BotonLowa>
     </div>
   );
 };
