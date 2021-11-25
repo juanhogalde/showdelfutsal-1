@@ -1,13 +1,21 @@
 import React, {useState} from 'react';
+import './NuevaGaleria.css';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
-import './NuevaGaleria.css';
 import {MdDeleteForever} from 'react-icons/md';
 import {FiEdit3} from 'react-icons/fi';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  agregarGaleria_accion,
+  volverPorDefectoAgregarGaleria_accion,
+} from '../../Redux/Imagenes/AccionesImagenes';
+import Alertas from '../Alertas/Alertas';
 
 const NuevaGaleria = () => {
+  const {isAgregarGaleria} = useSelector(state => state.storeImagenes);
   const [datosGaleria, setDatosGaleria] = useState({});
 
+  const dispatch = useDispatch();
   const escucharCambios = (name, value) => {
     var arreglo = [];
     if (typeof value === 'string') {
@@ -29,8 +37,14 @@ const NuevaGaleria = () => {
   const guardarNuevaGaleria = () => {
     var fechaDeCarga = new Date();
     setDatosGaleria({...datosGaleria, fechaCarga: fechaDeCarga});
+    if (datosGaleria.fechaCarga) {
+      dispatch(agregarGaleria_accion(datosGaleria));
+    }
   };
-
+  const valoresPorDefectoNuevaGaleria = () => {
+    console.log('ok');
+    dispatch(volverPorDefectoAgregarGaleria_accion());
+  };
   return (
     <div className="CP-AgregarImagenes">
       <InputLowa
@@ -69,6 +83,13 @@ const NuevaGaleria = () => {
         disabled={Object.keys(datosGaleria).length > 1 ? false : true}
         onClick={() => guardarNuevaGaleria()}
       ></BotonLowa>
+      <Alertas
+        tipoDeSweet={isAgregarGaleria.tipo}
+        mostrarSweet={
+          isAgregarGaleria.isCargando || isAgregarGaleria.isExito || isAgregarGaleria.isError
+        }
+        RespuestaDeSweet={valoresPorDefectoNuevaGaleria}
+      />
     </div>
   );
 };
