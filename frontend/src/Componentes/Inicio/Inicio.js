@@ -29,11 +29,14 @@ const Inicio = () => {
   const [noticia1, setNoticia1] = useState({});
   const [noticia2, setNoticia2] = useState({});
   const FiltrarNoticias = keyCategoria => {
-    var filtradoDeNoticia = noticias.filter(noticia => noticia.keyCategoria === keyCategoria);
-    return filtradoDeNoticia;
+    return new Promise((resolve, reject) => {
+      var filtradoDeNoticia = noticias.filter(noticia => noticia.keyCategoria === keyCategoria);
+      resolve(filtradoDeNoticia);
+    });
   };
   useLayoutEffect(() => {
-    var noticiasFiltradas = FiltrarNoticias(2);
+    console.log('entro');
+    var noticiasFiltradas = noticias.filter(noticia => noticia.keyCategoria === 2);
     if (noticiasFiltradas[0]) {
       setNoticiaP(noticiasFiltradas[0]);
     }
@@ -43,7 +46,7 @@ const Inicio = () => {
     if (noticiasFiltradas[2]) {
       setNoticia2(noticiasFiltradas[2]);
     }
-  }, [setNoticiaP, setNoticia1, setNoticia2, FiltrarNoticias]);
+  }, [setNoticiaP, setNoticia1, setNoticia2, noticias]);
 
   const {DatosDePruebaImagenes, DatosDePruebaImagenes2, DatosDePruebaImagenes3} = useSelector(
     state => state.storePrueba
@@ -54,41 +57,44 @@ const Inicio = () => {
     switch (filtro) {
       case 'Masculino':
         console.log('Switch Masculino');
-        var noticiasFiltradas = FiltrarNoticias(1);
-        if (noticiasFiltradas[0]) {
-          setNoticiaP(noticiasFiltradas[0]);
-        }
-        if (noticiasFiltradas[1]) {
-          setNoticia1(noticiasFiltradas[1]);
-        }
-        if (noticiasFiltradas[2]) {
-          setNoticia2(noticiasFiltradas[2]);
-        }
+        FiltrarNoticias(1).then(noticiasFiltradas => {
+          if (noticiasFiltradas[0]) {
+            setNoticiaP(noticiasFiltradas[0]);
+          }
+          if (noticiasFiltradas[1]) {
+            setNoticia1(noticiasFiltradas[1]);
+          }
+          if (noticiasFiltradas[2]) {
+            setNoticia2(noticiasFiltradas[2]);
+          }
+        });
         break;
       case 'Femenino':
         console.log('Switch Femenino');
-        var noticiasFiltradas = FiltrarNoticias(2);
-        if (noticiasFiltradas[0]) {
-          setNoticiaP(noticiasFiltradas[0]);
-        }
-        if (noticiasFiltradas[1]) {
-          setNoticia1(noticiasFiltradas[1]);
-        }
-        if (noticiasFiltradas[2]) {
-          setNoticia2(noticiasFiltradas[2]);
-        }
+        FiltrarNoticias(2).then(noticiasFiltradas => {
+          if (noticiasFiltradas[0]) {
+            setNoticiaP(noticiasFiltradas[0]);
+          }
+          if (noticiasFiltradas[1]) {
+            setNoticia1(noticiasFiltradas[1]);
+          }
+          if (noticiasFiltradas[2]) {
+            setNoticia2(noticiasFiltradas[2]);
+          }
+        });
         break;
       case 'Liga':
-        var noticiasFiltradas = FiltrarNoticias(3);
-        if (noticiasFiltradas[0]) {
-          setNoticiaP(noticiasFiltradas[0]);
-        }
-        if (noticiasFiltradas[1]) {
-          setNoticia1(noticiasFiltradas[1]);
-        }
-        if (noticiasFiltradas[2]) {
-          setNoticia2(noticiasFiltradas[2]);
-        }
+        FiltrarNoticias(3).then(noticiasFiltradas => {
+          if (noticiasFiltradas[0]) {
+            setNoticiaP(noticiasFiltradas[0]);
+          }
+          if (noticiasFiltradas[1]) {
+            setNoticia1(noticiasFiltradas[1]);
+          }
+          if (noticiasFiltradas[2]) {
+            setNoticia2(noticiasFiltradas[2]);
+          }
+        });
         break;
       default:
         break;
