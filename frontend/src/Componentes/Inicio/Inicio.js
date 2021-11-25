@@ -172,39 +172,27 @@ const Inicio = () => {
           </div>
           <div className="CI-NoticiaPrincipal">
             <div className="componenteNoticiaPrincipal">
-              {JSON.stringify(noticiaP) !== '{}' ? (
-                <Link to="/Noticia/Desarrollada" className="estilos-Link">
-                  <NoticiasMiniatura
-                    isSeccionNoticias={true}
-                    isSobreImagen={true}
-                    datosModelado={noticiaP}
-                  ></NoticiasMiniatura>
-                </Link>
-              ) : (
-                <img alt="" src={logoCargando} className="Img-Admin"></img>
-              )}
+              <Link to="/Noticia/Desarrollada" className="estilos-Link">
+                <NoticiasMiniatura
+                  isSeccionNoticias={true}
+                  isSobreImagen={true}
+                  datosModelado={noticiaP}
+                ></NoticiasMiniatura>
+              </Link>
             </div>
           </div>
           <div className="CI-NoticiasMini">
             <div className="noticia-Miniatura-1">
-              {JSON.stringify(noticia1) !== '{}' ? (
-                <NoticiasMiniatura
-                  isSeccionNoticias={true}
-                  datosModelado={noticia1}
-                ></NoticiasMiniatura>
-              ) : (
-                <img alt="" src={logoCargando} className="Img-Admin"></img>
-              )}
+              <NoticiasMiniatura
+                isSeccionNoticias={true}
+                datosModelado={noticia1}
+              ></NoticiasMiniatura>
             </div>
             <div className="noticia-Miniatura-2">
-              {JSON.stringify(noticia2) !== '{}' ? (
-                <NoticiasMiniatura
-                  isSeccionNoticias={true}
-                  datosModelado={noticia2}
-                ></NoticiasMiniatura>
-              ) : (
-                <img alt="" src={logoCargando} className="Img-Admin"></img>
-              )}
+              <NoticiasMiniatura
+                isSeccionNoticias={true}
+                datosModelado={noticia2}
+              ></NoticiasMiniatura>
             </div>
           </div>
           <div className="publicidad-Noticias">
