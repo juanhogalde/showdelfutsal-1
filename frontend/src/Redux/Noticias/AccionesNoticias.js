@@ -151,7 +151,6 @@ export const listarNoticia_accion = () => {
       method: 'get',
     })
       .then(res => {
-        console.log(res);
         dispatch(ListarNoticiaExito_accion(res.data.value));
       })
       .catch(error => {

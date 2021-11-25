@@ -46,7 +46,6 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
           key: subcategoria.keySubcategoria,
         };
       });
-      console.log(categorias);
       return {
         ...state,
         isDatosIniciales: {isMostrar: false, tipo: '', mensaje: ''},

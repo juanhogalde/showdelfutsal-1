@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import Marcador from '../Marcador/Marcador';
 /* import PieDepagina from '../PieDePagina/PieDepagina'; */
 import publicidadCorta from '../../Static/Img/publicidad_corta.jpg';
@@ -15,7 +15,7 @@ import {FaFacebookF} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 import Radio from '../Radio/Radio';
 import PieDepagina from '../PieDePagina/PieDepagina';
-
+import logoCargando from '../../Static/Img/marca.png';
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},
@@ -25,46 +25,70 @@ const Filtro = [
 const Inicio = () => {
   const {noticias} = useSelector(state => state.storeNoticias);
   // const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
-  const [noticiaP, setNoticiaP] = useState(
-    noticias.length ? noticias.filter(noticia => noticia.keyCategoria === 2) : {}
-  );
-  const [noticia1, setNoticia1] = useState(
-    noticias.length ? noticias.filter(noticia => noticia.keyCategoria === 2) : {}
-  );
-  const [noticia2, setNoticia2] = useState(
-    noticias.length ? noticias.filter(noticia => noticia.keyCategoria === 2) : {}
-  );
+  const [noticiaP, setNoticiaP] = useState({});
+  const [noticia1, setNoticia1] = useState({});
+  const [noticia2, setNoticia2] = useState({});
+  const FiltrarNoticias = keyCategoria => {
+    var filtradoDeNoticia = noticias.filter(noticia => noticia.keyCategoria === keyCategoria);
+    return filtradoDeNoticia;
+  };
+  useLayoutEffect(() => {
+    var noticiasFiltradas = FiltrarNoticias(2);
+    if (noticiasFiltradas[0]) {
+      setNoticiaP(noticiasFiltradas[0]);
+    }
+    if (noticiasFiltradas[1]) {
+      setNoticia1(noticiasFiltradas[1]);
+    }
+    if (noticiasFiltradas[2]) {
+      setNoticia2(noticiasFiltradas[2]);
+    }
+  }, [setNoticiaP, setNoticia1, setNoticia2, FiltrarNoticias]);
 
-  const {
-    DatosDePruebaImagenes,
-    DatosDePruebaImagenes2,
-    DatosDePruebaImagenes3,
-    // DatosDePruebaVideos,
-    noticiasFemenino,
-    noticiasMasculino,
-    noticiasInferiores,
-  } = useSelector(state => state.storePrueba);
+  const {DatosDePruebaImagenes, DatosDePruebaImagenes2, DatosDePruebaImagenes3} = useSelector(
+    state => state.storePrueba
+  );
   const {linkVideosInicioGaleria} = useSelector(state => state.sotreDatosIniciales);
   const videoVivoPrueba = {fuente: 'MmysMu3mgvw'};
   const obtenerFiltro = filtro => {
     switch (filtro) {
       case 'Masculino':
         console.log('Switch Masculino');
-        setNoticiaP(noticiasMasculino[0]);
-        setNoticia1(noticiasMasculino[1]);
-        setNoticia2(noticiasMasculino[2]);
-
+        var noticiasFiltradas = FiltrarNoticias(1);
+        if (noticiasFiltradas[0]) {
+          setNoticiaP(noticiasFiltradas[0]);
+        }
+        if (noticiasFiltradas[1]) {
+          setNoticia1(noticiasFiltradas[1]);
+        }
+        if (noticiasFiltradas[2]) {
+          setNoticia2(noticiasFiltradas[2]);
+        }
         break;
       case 'Femenino':
         console.log('Switch Femenino');
-        setNoticiaP(noticiasFemenino[0]);
-        setNoticia1(noticiasFemenino[1]);
-        setNoticia2(noticiasFemenino[2]);
+        var noticiasFiltradas = FiltrarNoticias(2);
+        if (noticiasFiltradas[0]) {
+          setNoticiaP(noticiasFiltradas[0]);
+        }
+        if (noticiasFiltradas[1]) {
+          setNoticia1(noticiasFiltradas[1]);
+        }
+        if (noticiasFiltradas[2]) {
+          setNoticia2(noticiasFiltradas[2]);
+        }
         break;
       case 'Liga':
-        setNoticiaP(noticiasInferiores[0]);
-        setNoticia1(noticiasInferiores[1]);
-        setNoticia2(noticiasInferiores[2]);
+        var noticiasFiltradas = FiltrarNoticias(3);
+        if (noticiasFiltradas[0]) {
+          setNoticiaP(noticiasFiltradas[0]);
+        }
+        if (noticiasFiltradas[1]) {
+          setNoticia1(noticiasFiltradas[1]);
+        }
+        if (noticiasFiltradas[2]) {
+          setNoticia2(noticiasFiltradas[2]);
+        }
         break;
       default:
         break;
@@ -148,27 +172,39 @@ const Inicio = () => {
           </div>
           <div className="CI-NoticiaPrincipal">
             <div className="componenteNoticiaPrincipal">
-              <Link to="/Noticia/Desarrollada" className="estilos-Link">
-                <NoticiasMiniatura
-                  isSeccionNoticias={true}
-                  isSobreImagen={true}
-                  datosModelado={noticiaP[0]}
-                ></NoticiasMiniatura>
-              </Link>
+              {JSON.stringify(noticiaP) !== '{}' ? (
+                <Link to="/Noticia/Desarrollada" className="estilos-Link">
+                  <NoticiasMiniatura
+                    isSeccionNoticias={true}
+                    isSobreImagen={true}
+                    datosModelado={noticiaP}
+                  ></NoticiasMiniatura>
+                </Link>
+              ) : (
+                <img alt="" src={logoCargando} className="Img-Admin"></img>
+              )}
             </div>
           </div>
           <div className="CI-NoticiasMini">
             <div className="noticia-Miniatura-1">
-              <NoticiasMiniatura
-                isSeccionNoticias={true}
-                datosModelado={noticia1[1]}
-              ></NoticiasMiniatura>
+              {JSON.stringify(noticia1) !== '{}' ? (
+                <NoticiasMiniatura
+                  isSeccionNoticias={true}
+                  datosModelado={noticia1}
+                ></NoticiasMiniatura>
+              ) : (
+                <img alt="" src={logoCargando} className="Img-Admin"></img>
+              )}
             </div>
             <div className="noticia-Miniatura-2">
-              <NoticiasMiniatura
-                isSeccionNoticias={true}
-                datosModelado={noticia2[2]}
-              ></NoticiasMiniatura>
+              {JSON.stringify(noticia2) !== '{}' ? (
+                <NoticiasMiniatura
+                  isSeccionNoticias={true}
+                  datosModelado={noticia2}
+                ></NoticiasMiniatura>
+              ) : (
+                <img alt="" src={logoCargando} className="Img-Admin"></img>
+              )}
             </div>
           </div>
           <div className="publicidad-Noticias">
