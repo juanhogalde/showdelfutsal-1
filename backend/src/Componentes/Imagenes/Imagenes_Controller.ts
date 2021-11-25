@@ -2,7 +2,7 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloImagenes from './Imagenes_Model';
 import IImagenes from './Imagenes_Interface';
-import {comprimirImagen} from '../../Middlewares/imagemin';
+// import { comprimirImagen } from '../../Middlewares/imagemin';
 
 class ImagenesController {
   public async listar(req: Request, res: Response) {
@@ -16,10 +16,9 @@ class ImagenesController {
 
   public async agregar(req: Request, res: Response) {
     try {
-      const fuentePath = req.body.archivos.path.replaceAll('public', '');
       const imagen: IImagenes = new modeloImagenes({
         ...req.body,
-        fuente: fuentePath,
+        fuente: req.body.archivos.path,
       });
       await imagen.save();
       responder.sucess(req, res, imagen);
@@ -28,30 +27,30 @@ class ImagenesController {
     }
   }
 
-  public async cargarImagenPrueba(req: Request, res: Response) {
-    try {
-      if (!req.body) {
-        responder.error(req, res, 'No se ingresaron datos');
-      } else {
-        let path: string = req.body.archivos.path.split('\\');
-        let pathFileAComprimir: string = `${path[0]}/${path[1]}/${path[2]}`;
-        let resultado: any = await comprimirImagen(pathFileAComprimir);
+  // public async cargarImagenPrueba(req: Request, res: Response) {
+  //   try {
+  //     if (!req.body) {
+  //       responder.error(req, res, 'No se ingresaron datos');
+  //     } else {
+  //       let path: string = req.body.archivos.path.split('\\');
+  //       let pathFileAComprimir: string = `${path[0]}/${path[1]}/${path[2]}`;
+  //       let resultado: any = await comprimirImagen(pathFileAComprimir);
 
-        if (resultado) {
-          const imagen: IImagenes = new modeloImagenes({
-            ...req.body,
-            fuente: resultado.path_out_new.replace('public', ''),
-          });
-          await imagen.save();
-          responder.sucess(req, res, imagen);
-        } else {
-          responder.error(req, res, new Error('Ocurrió un error al insertar la imagen'));
-        }
-      }
-    } catch (error) {
-      responder.error(req, res, error);
-    }
-  }
+  //       if (resultado) {
+  //         const imagen: IImagenes = new modeloImagenes({
+  //           ...req.body,
+  //           fuente: resultado.path_out_new,
+  //         });
+  //         await imagen.save();
+  //         responder.sucess(req, res, imagen);
+  //       } else {
+  //         responder.error(req, res, new Error('Ocurrió un error al insertar la imagen'));
+  //       }
+  //     }
+  //   } catch (error) {
+  //     responder.error(req, res, error);
+  //   }
+  // }
 
   public async obtener(req: Request, res: Response) {
     try {
