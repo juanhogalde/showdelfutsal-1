@@ -2,6 +2,7 @@ import React from 'react';
 import EtiquetaCategoria from '../EtiquetaCategoria/EtiquetaCategoria';
 import './NoticiasMiniatura.css';
 import imagenNoticia from '../../Static/Img/noticia.jfif';
+import Skeleton from 'react-loading-skeleton';
 /**
  * Recibe como parametros
  ** datosModelado que es un objeto con los siguiente atributo:
@@ -55,13 +56,26 @@ const NoticiasMiniatura = ({
                 : 'contenedor-Imagen-NoticiaMiniatura'
             }`}
           >
-            <img
-              className={`${
-                isSobreImagen ? 'imagenNoticia-Miniatura-Principal' : 'imagenNoticia-Miniatura'
-              }`}
-              src={datosModelado.fuenteImg ? datosModelado.fuenteImg : imagenNoticia}
-              alt="imagen"
-            />
+            {datosModelado.fuenteImg ? (
+              <img
+                className={`${
+                  isSobreImagen ? 'imagenNoticia-Miniatura-Principal' : 'imagenNoticia-Miniatura'
+                }`}
+                src={datosModelado.fuenteImg}
+                alt="imagen"
+              />
+            ) : (
+              <Skeleton
+                className={`${
+                  isSobreImagen
+                    ? 'imagenNoticiaMiniatura-Principal-Cargando'
+                    : 'imagenNoticiaMiniatura-Cargando'
+                }`}
+                baseColor="rgb(241, 241, 241)"
+                highlightColor="rgb(216, 216, 216)"
+              ></Skeleton>
+            )}
+
             {!isSobreImagen && (
               <div className="CI-Categoria-NoticiaMiniatura">
                 <EtiquetaCategoria

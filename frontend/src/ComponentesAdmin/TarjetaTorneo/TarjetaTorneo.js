@@ -5,7 +5,11 @@ import './TarjetaTorneo.css';
 
 const TarjetaTorneo = ({isCampeonato = false}) => {
   return (
-    <div className={`${isCampeonato ? 'CP-TarjetaTorneo' : 'CP-TarjetaTorneo'}`}>
+    <div
+      className={`${
+        isCampeonato ? 'CP-TarjetaTorneo CP-TarjetaTorneo-Campeonato' : 'CP-TarjetaTorneo'
+      }`}
+    >
       {!isCampeonato && (
         <div className="CI-Titulo-TarjetaTorneo">
           <h5>Torneo 2021</h5>

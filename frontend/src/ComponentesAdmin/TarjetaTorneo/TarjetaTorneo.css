@@ -6,7 +6,7 @@
   border-bottom: 1px solid #0000001a;
   display: grid;
   grid-template-columns: 1px minmax(50px, 100px) 1fr 30px 1px;
-  grid-template-rows: 5px 1fr 5px;
+  grid-template-rows: 35px 1fr 5px;
   margin-top: 20px;
   padding-bottom: 20px;
 }
