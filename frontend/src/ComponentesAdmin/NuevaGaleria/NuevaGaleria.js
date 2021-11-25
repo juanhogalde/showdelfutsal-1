@@ -17,7 +17,10 @@ const NuevaGaleria = () => {
 
   const dispatch = useDispatch();
   const escucharCambios = (name, value) => {
-    var arreglo = [];
+    console.log(value);
+    setDatosGaleria({...datosGaleria, [name]: value});
+
+    /* var arreglo = [];
     if (typeof value === 'string') {
       setDatosGaleria({...datosGaleria, [name]: value});
     } else {
@@ -25,7 +28,7 @@ const NuevaGaleria = () => {
         arreglo.push(value[index]);
       }
       setDatosGaleria({...datosGaleria, imagenes: arreglo});
-    }
+    } */
   };
   const eliminarImagen = index => {
     var auxImagenes = [];
@@ -35,11 +38,12 @@ const NuevaGaleria = () => {
     setDatosGaleria({...datosGaleria, imagenes: auxImagenes});
   };
   const guardarNuevaGaleria = () => {
-    var fechaDeCarga = new Date();
+    /* var fechaDeCarga = new Date();
     setDatosGaleria({...datosGaleria, fechaCarga: fechaDeCarga});
     if (datosGaleria.fechaCarga) {
       dispatch(agregarGaleria_accion(datosGaleria));
-    }
+    } */
+    dispatch(agregarGaleria_accion(datosGaleria));
   };
   const valoresPorDefectoNuevaGaleria = () => {
     console.log('ok');
@@ -61,7 +65,7 @@ const NuevaGaleria = () => {
 
       {datosGaleria.imagenes && (
         <div className="CI-ListaImagnes">
-          {datosGaleria.imagenes.map((imagen, index) => {
+          {Object.values(datosGaleria.imagenes).map((imagen, index) => {
             return (
               <div key={index} className="filaListaImagenes">
                 <p className="nombreImagen">{imagen.name}</p>

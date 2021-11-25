@@ -27,6 +27,13 @@ const storeImagenes = (state = imagenPorDefecto, accion) => {
     case guardarGaleriaExito: {
       return {
         ...state,
+        isAgregarGaleria: {
+          tipo: 'success',
+          mensaje: '',
+          isCargando: false,
+          isExito: true,
+          isError: false,
+        },
       };
     }
     case guardarGaleriaError: {

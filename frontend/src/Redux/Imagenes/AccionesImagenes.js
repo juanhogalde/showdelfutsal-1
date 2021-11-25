@@ -31,18 +31,25 @@ export const volverPorDefectoAgregarGaleria_accion = () => {
 };
 
 export const agregarGaleria_accion = datosGaleria => {
+  console.log(datosGaleria);
   return dispatch => {
     console.log(datosGaleria);
-    var imagenNoticia = new FormData();
-    imagenNoticia.append('archivos', datosGaleria);
+    var auxDatosGaleria = new FormData();
+    Object.values(datosGaleria.imagenes).forEach(file => {
+      console.log(file);
+      auxDatosGaleria.append('archivos', file);
+    });
+    auxDatosGaleria.append('descripcion', datosGaleria.descripcion);
+
     dispatch(cargandoGuardarGaleria_accion());
     API({
       url: '/imagenes/agregar',
       method: 'post',
-      data: imagenNoticia,
+      data: auxDatosGaleria,
     })
       .then(res => {
         console.log({res});
+        dispatch(guardarGaleriaExito_accion());
       })
       .catch(error => {
         console.log({error});
