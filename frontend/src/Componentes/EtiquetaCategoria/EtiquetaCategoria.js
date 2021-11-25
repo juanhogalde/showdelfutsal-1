@@ -9,19 +9,17 @@ import {useSelector} from 'react-redux';
  */
 const EtiquetaCategoria = ({subcategoria = false, categoriaId = 0}) => {
   const categoriaSeleccionada = useSelector(state =>
-    state.storePrueba.categorias.find(element => element.key_categoria === categoriaId)
+    state.sotreDatosIniciales.categorias.find(element => element.value === categoriaId)
   );
   const subcategoriaSeleccionada = useSelector(state =>
-    state.storePrueba.subcategorias.find(element => element.key_subcategoria === categoriaId)
+    state.sotreDatosIniciales.subcategorias.find(element => element.value === categoriaId)
   );
   return (
     <div>
       {subcategoria ? (
-        <p>
-          {subcategoriaSeleccionada ? subcategoriaSeleccionada.subcategoria : 'sin subcategoria'}
-        </p>
+        <p>{subcategoriaSeleccionada ? subcategoriaSeleccionada.label : 'sin subcategoria'}</p>
       ) : (
-        <p>{categoriaSeleccionada ? categoriaSeleccionada.categoria : 'sin categoria'}</p>
+        <p>{categoriaSeleccionada ? categoriaSeleccionada.label : 'sin categoria'}</p>
       )}
     </div>
   );

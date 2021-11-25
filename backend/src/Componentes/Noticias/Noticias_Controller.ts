@@ -8,17 +8,27 @@ import {keyCategoria} from '../../Config/enumeradores';
 class NoticiasController {
   public async listar(req: Request, res: Response) {
     try {
-      const opcionesPaginado = {
-        limit: parseInt(req.body.limite ? req.body.limite : 20, 10) || 20,
-        page: parseInt(req.body.page ? req.body.page : 1, 10) || 1,
-      };
+      //TODO: ale necesito la paginacion con el populate de idImagen
+      // const opcionesPaginado = {
+      //   limit: parseInt(req.body.limite ? req.body.limite : 20, 10) || 20,
+      //   page: parseInt(req.body.page ? req.body.page : 1, 10) || 1,
+      // };
 
-      const datos = await modeloNoticias.paginate({}, opcionesPaginado);
-      if (datos.docs.length) {
-        responder.sucess(req, res, datos);
-      } else {
-        responder.sucess(req, res, 'No existen datos para los filtros ingresados');
-      }
+      // const Noticias = await modeloNoticias.paginate({}, opcionesPaginado);
+      modeloNoticias
+        .find({})
+        .populate('idImagen')
+        .then((noticias: any[]) => {
+          responder.sucess(req, res, noticias);
+        })
+        .catch((error: any[]) => {
+          responder.error(req, res, error);
+        });
+      // if (datos.docs.length) {
+      //   responder.sucess(req, res, datos);
+      // } else {
+      //   responder.sucess(req, res, 'No existen datos para los filtros ingresados');
+      // }
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -116,7 +126,7 @@ class NoticiasController {
     try {
       const noticia: INoticias = new modeloNoticias(req.body);
       await noticia.save();
-      responder.sucess(req, res);
+      responder.sucess(req, res, noticia);
     } catch (error) {
       responder.error(req, res, error);
     }

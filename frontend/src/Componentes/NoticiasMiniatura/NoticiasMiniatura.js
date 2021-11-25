@@ -3,6 +3,8 @@ import EtiquetaCategoria from '../EtiquetaCategoria/EtiquetaCategoria';
 import './NoticiasMiniatura.css';
 import imagenNoticia from '../../Static/Img/noticia.jfif';
 import Skeleton from 'react-loading-skeleton';
+import {urlImagenes} from '../../urlImagenes';
+
 /**
  * Recibe como parametros
  ** datosModelado que es un objeto con los siguiente atributo:
@@ -32,17 +34,17 @@ const NoticiasMiniatura = ({
             {isSobreImagen && (
               <div className="CI-Categoria-NoticiaMiniatura-Principal">
                 <EtiquetaCategoria
-                  categoriaId={datosModelado.categoria ? datosModelado.categoria : 0}
+                  categoriaId={datosModelado.idCategoria ? datosModelado.idCategoria : 0}
                 />
               </div>
             )}
             <div className="CI-SubCategoria-Fecha-NoticiaMiniatura">
               <EtiquetaCategoria
                 subcategoria={true}
-                categoriaId={datosModelado.subcategoria ? datosModelado.subcategoria : 0}
+                categoriaId={datosModelado.idSubcategoria ? datosModelado.idSubcategoria : 0}
               />
               <p className="fecha-NoticiaMiniatura-NoticiaMiniatura">
-                {datosModelado.fecha ? datosModelado.fecha : 'dd/mm/aaaa'}
+                {datosModelado.fecha ? datosModelado.fecha.substr(0, 10) : 'dd/mm/aaaa'}
               </p>
             </div>
           </div>
@@ -56,12 +58,12 @@ const NoticiasMiniatura = ({
                 : 'contenedor-Imagen-NoticiaMiniatura'
             }`}
           >
-            {datosModelado.fuenteImg ? (
+            {datosModelado.idImagen ? (
               <img
                 className={`${
                   isSobreImagen ? 'imagenNoticia-Miniatura-Principal' : 'imagenNoticia-Miniatura'
                 }`}
-                src={datosModelado.fuenteImg}
+                src={urlImagenes + datosModelado.idImagen[0].fuente}
                 alt="imagen"
               />
             ) : (
@@ -79,7 +81,7 @@ const NoticiasMiniatura = ({
             {!isSobreImagen && (
               <div className="CI-Categoria-NoticiaMiniatura">
                 <EtiquetaCategoria
-                  categoriaId={datosModelado.categoria ? datosModelado.categoria : 0}
+                  categoriaId={datosModelado.idCategoria ? datosModelado.idCategoria : 0}
                 />
               </div>
             )}

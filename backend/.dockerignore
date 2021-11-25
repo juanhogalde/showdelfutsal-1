@@ -1,8 +1,6 @@
 node_modules
 package-lock.json
-/node_modules
 .env
 docker-compose.yaml
 docker-compose.yml
-dockerfile
 /data

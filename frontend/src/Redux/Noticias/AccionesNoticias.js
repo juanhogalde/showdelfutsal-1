@@ -9,6 +9,8 @@ export const cargandoGuardarNoticia = 'cargandoGuardarNoticia';
 export const guardarNoticiaExito = 'guardarNoticiaExito';
 export const guardarNoticiaError = 'guardarNoticiaError';
 export const volverPorDefecto = 'volverPorDefecto';
+export const listarNoticiaExito = 'listarNoticiaExito';
+export const listarNoticiaError = 'listarNoticiaError';
 
 //acciones buscar noticia
 export const cargandoBuscarNoticia_accion = () => {
@@ -96,7 +98,7 @@ export const guardarNoticia_accion = (noticiaModelada, datosCargados) => {
     imagenNoticia.append('archivos', datosCargados.imagen[0]);
     dispatch(cargandoGuardarNoticia_accion());
     API({
-      url: '/imagenes/comprimir',
+      url: '/imagenes/agregar',
       method: 'post',
       data: imagenNoticia,
     })
@@ -108,6 +110,7 @@ export const guardarNoticia_accion = (noticiaModelada, datosCargados) => {
           data: noticiaModelada,
         })
           .then(res => {
+            console.log(res);
             dispatch(GuardarNoticiaExito_accion(res.data));
           })
           .catch(error => {
@@ -118,6 +121,41 @@ export const guardarNoticia_accion = (noticiaModelada, datosCargados) => {
       .catch(error => {
         console.log(error);
         dispatch(GuardarNoticiaError_accion(error));
+      });
+  };
+};
+
+//listar Noticias
+// export const cargandoListarNoticia_accion = () => {
+//   return {
+//     type: cargandoGuardarNoticia,
+//   };
+// };
+export const ListarNoticiaExito_accion = noticias => {
+  return {
+    type: listarNoticiaExito,
+    respuesta: noticias,
+  };
+};
+export const ListarNoticiaError_accion = error => {
+  return {
+    type: listarNoticiaError,
+    error: error,
+  };
+};
+export const listarNoticia_accion = () => {
+  return dispatch => {
+    // dispatch(cargandoListarNoticia_accion());
+    API({
+      url: '/Noticias/listar',
+      method: 'get',
+    })
+      .then(res => {
+        dispatch(ListarNoticiaExito_accion(res.data.value));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(ListarNoticiaError_accion(error));
       });
   };
 };

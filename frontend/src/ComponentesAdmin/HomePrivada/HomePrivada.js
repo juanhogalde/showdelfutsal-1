@@ -7,6 +7,7 @@ import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {obtenerDatosIniciales} from '../../Redux/DatosInciales/AccionesDatosIniciales';
 import RutasPrivadas from '../../Rutas/RutasPrivadas';
+import {listarNoticia_accion} from '../../Redux/Noticias/AccionesNoticias';
 
 const HomePrivada = () => {
   const [isMenuLateralAbierto, setIsAperturaLateral] = useState(false);
@@ -14,6 +15,7 @@ const HomePrivada = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(obtenerDatosIniciales());
+    dispatch(listarNoticia_accion());
   }, [dispatch]);
 
   const abrirMenuLateral = () => {

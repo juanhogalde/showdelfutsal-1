@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
-import helmet from 'helmet';
-import compression from 'compression';
+// import helmet from 'helmet';
+// import compression from 'compression';
 import cors from 'cors';
 import formData from 'express-form-data';
 import {baseMongo} from './Config/baseDeDatos';
@@ -24,7 +24,7 @@ import tablasRouter from './Componentes/Tablas/Tablas_Router';
 import responder from './Middlewares/responder';
 import manejadorErrores from './Middlewares/manejadorErrores';
 import {importarDatos} from './Config/importarDatos';
-import {comprimirImagen} from './Middlewares/imagemin';
+// import { comprimirImagen } from './Middlewares/imagemin';
 
 ///// VARIABLES DE ENTORNO
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
@@ -36,8 +36,8 @@ class Server {
   public app: express.Application;
   private _cadenaDeConexion = process.env.DATABASE || 'mongodb://localhost:29017/Desarrollo';
   private options = {
-    uploadDir: 'public/cargaImagenes/',
-    autoClean: true,
+    uploadDir: 'public/imagenes/',
+    autoClean: false,
   };
 
   constructor() {
@@ -56,8 +56,8 @@ class Server {
     this.app.set('port', process.env.PORT || 4000);
     this.app.use(morgan('dev'));
     this.app.use(cors());
-    this.app.use(helmet());
-    this.app.use(compression());
+    // this.app.use(helmet());
+    // this.app.use(compression());
     this.app.use(formData.parse(this.options));
     this.app.use(formData.union());
     this.app.use(formData.stream());
@@ -95,10 +95,10 @@ class Server {
       importarDatos(req, res);
     });
 
-    this.app.get('/comprimirImagenes', (req: Request, res: Response) => {
-      console.info('comprimiendo imagenes...');
-      comprimirImagen();
-    });
+    // this.app.get('/comprimirImagenes', (req: Request, res: Response) => {
+    //   console.info('comprimiendo imagenes...');
+    //   comprimirImagen();
+    // });
 
     this.app.get('*', (req: Request, res: Response) => {
       console.info(`GET 404: ${req.originalUrl}`);
