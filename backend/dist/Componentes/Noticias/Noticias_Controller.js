@@ -28,17 +28,15 @@ class NoticiasController {
     listar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const opcionesPaginado = {
-                    limit: parseInt(req.body.limite ? req.body.limite : 20, 10) || 20,
-                    page: parseInt(req.body.page ? req.body.page : 1, 10) || 1,
-                };
-                const datos = yield Noticias_Model_1.default.paginate({}, opcionesPaginado);
-                if (datos.docs.length) {
-                    responder_1.default.sucess(req, res, datos);
-                }
-                else {
-                    responder_1.default.sucess(req, res, 'No existen datos para los filtros ingresados');
-                }
+                Noticias_Model_1.default
+                    .find({})
+                    .populate('idImagen')
+                    .then((noticias) => {
+                    responder_1.default.sucess(req, res, noticias);
+                })
+                    .catch((error) => {
+                    responder_1.default.error(req, res, error);
+                });
             }
             catch (error) {
                 responder_1.default.error(req, res, error);
@@ -148,7 +146,7 @@ class NoticiasController {
             try {
                 const noticia = new Noticias_Model_1.default(req.body);
                 yield noticia.save();
-                responder_1.default.sucess(req, res);
+                responder_1.default.sucess(req, res, noticia);
             }
             catch (error) {
                 responder_1.default.error(req, res, error);

@@ -12,10 +12,10 @@ export const cargandoGuardarGaleria_accion = isCargando => {
     type: cargandoGuardarGaleria,
   };
 };
-export const guardarGaleriaExito_accion = noticia => {
+export const guardarGaleriaExito_accion = datos => {
   return {
     type: guardarGaleriaExito,
-    respuesta: noticia,
+    datos: datos,
   };
 };
 export const guardarGaleriaError_accion = error => {
@@ -31,12 +31,9 @@ export const volverPorDefectoAgregarGaleria_accion = () => {
 };
 
 export const agregarGaleria_accion = datosGaleria => {
-  console.log(datosGaleria);
   return dispatch => {
-    console.log(datosGaleria);
     var auxDatosGaleria = new FormData();
     Object.values(datosGaleria.imagenes).forEach(file => {
-      console.log(file);
       auxDatosGaleria.append('archivos', file);
     });
     auxDatosGaleria.append('descripcion', datosGaleria.descripcion);
@@ -49,7 +46,7 @@ export const agregarGaleria_accion = datosGaleria => {
     })
       .then(res => {
         console.log({res});
-        dispatch(guardarGaleriaExito_accion());
+        dispatch(guardarGaleriaExito_accion(res.data.value));
       })
       .catch(error => {
         console.log({error});

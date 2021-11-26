@@ -14,7 +14,6 @@ class ImagenesRouter {
         this.router.put('/modificar', Imagenes_Controller_1.imagenesController.modificar);
         this.router.delete('/eliminar', Imagenes_Controller_1.imagenesController.eliminar);
         this.router.post('/agregar', Imagenes_Controller_1.imagenesController.agregar);
-        this.router.post('/comprimir', Imagenes_Controller_1.imagenesController.cargarImagenPrueba);
     }
 }
 const imagenesRouter = new ImagenesRouter();

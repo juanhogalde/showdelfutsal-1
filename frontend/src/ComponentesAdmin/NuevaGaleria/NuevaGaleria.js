@@ -16,20 +16,11 @@ const NuevaGaleria = () => {
   const [datosGaleria, setDatosGaleria] = useState({});
 
   const dispatch = useDispatch();
-  const escucharCambios = (name, value) => {
-    console.log(value);
-    setDatosGaleria({...datosGaleria, [name]: value});
 
-    /* var arreglo = [];
-    if (typeof value === 'string') {
-      setDatosGaleria({...datosGaleria, [name]: value});
-    } else {
-      for (let index = 0; index < value.length; index++) {
-        arreglo.push(value[index]);
-      }
-      setDatosGaleria({...datosGaleria, imagenes: arreglo});
-    } */
+  const escucharCambios = (name, value) => {
+    setDatosGaleria({...datosGaleria, [name]: value});
   };
+
   const eliminarImagen = index => {
     var auxImagenes = [];
     auxImagenes = datosGaleria.imagenes.slice();
@@ -93,6 +84,7 @@ const NuevaGaleria = () => {
           isAgregarGaleria.isCargando || isAgregarGaleria.isExito || isAgregarGaleria.isError
         }
         RespuestaDeSweet={valoresPorDefectoNuevaGaleria}
+        subtitulo={isAgregarGaleria.mensaje}
       />
     </div>
   );
