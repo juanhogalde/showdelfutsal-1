@@ -26,6 +26,7 @@ class ImagenesController {
             ...archivo,
             fuente: pathFile.replace('public', ''),
             galeria: true,
+            descripcion: req.body.descripcion,
           });
           arregloDePath.push(imagen);
           imagen.save();

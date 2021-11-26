@@ -1,24 +1,26 @@
 import React, {useState} from 'react';
+import './NuevaGaleria.css';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
-import './NuevaGaleria.css';
 import {MdDeleteForever} from 'react-icons/md';
 import {FiEdit3} from 'react-icons/fi';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  agregarGaleria_accion,
+  volverPorDefectoAgregarGaleria_accion,
+} from '../../Redux/Imagenes/AccionesImagenes';
+import Alertas from '../Alertas/Alertas';
 
 const NuevaGaleria = () => {
+  const {isAgregarGaleria} = useSelector(state => state.storeImagenes);
   const [datosGaleria, setDatosGaleria] = useState({});
 
+  const dispatch = useDispatch();
+
   const escucharCambios = (name, value) => {
-    var arreglo = [];
-    if (typeof value === 'string') {
-      setDatosGaleria({...datosGaleria, [name]: value});
-    } else {
-      for (let index = 0; index < value.length; index++) {
-        arreglo.push(value[index]);
-      }
-      setDatosGaleria({...datosGaleria, imagenes: arreglo});
-    }
+    setDatosGaleria({...datosGaleria, [name]: value});
   };
+
   const eliminarImagen = index => {
     var auxImagenes = [];
     auxImagenes = datosGaleria.imagenes.slice();
@@ -27,10 +29,17 @@ const NuevaGaleria = () => {
     setDatosGaleria({...datosGaleria, imagenes: auxImagenes});
   };
   const guardarNuevaGaleria = () => {
-    var fechaDeCarga = new Date();
+    /* var fechaDeCarga = new Date();
     setDatosGaleria({...datosGaleria, fechaCarga: fechaDeCarga});
+    if (datosGaleria.fechaCarga) {
+      dispatch(agregarGaleria_accion(datosGaleria));
+    } */
+    dispatch(agregarGaleria_accion(datosGaleria));
   };
-
+  const valoresPorDefectoNuevaGaleria = () => {
+    console.log('ok');
+    dispatch(volverPorDefectoAgregarGaleria_accion());
+  };
   return (
     <div className="CP-AgregarImagenes">
       <InputLowa
@@ -47,7 +56,7 @@ const NuevaGaleria = () => {
 
       {datosGaleria.imagenes && (
         <div className="CI-ListaImagnes">
-          {datosGaleria.imagenes.map((imagen, index) => {
+          {Object.values(datosGaleria.imagenes).map((imagen, index) => {
             return (
               <div key={index} className="filaListaImagenes">
                 <p className="nombreImagen">{imagen.name}</p>
@@ -69,6 +78,14 @@ const NuevaGaleria = () => {
         disabled={Object.keys(datosGaleria).length > 1 ? false : true}
         onClick={() => guardarNuevaGaleria()}
       ></BotonLowa>
+      <Alertas
+        tipoDeSweet={isAgregarGaleria.tipo}
+        mostrarSweet={
+          isAgregarGaleria.isCargando || isAgregarGaleria.isExito || isAgregarGaleria.isError
+        }
+        RespuestaDeSweet={valoresPorDefectoNuevaGaleria}
+        subtitulo={isAgregarGaleria.mensaje}
+      />
     </div>
   );
 };

@@ -5,8 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
-const helmet_1 = __importDefault(require("helmet"));
-const compression_1 = __importDefault(require("compression"));
 const cors_1 = __importDefault(require("cors"));
 const express_form_data_1 = __importDefault(require("express-form-data"));
 const baseDeDatos_1 = require("./Config/baseDeDatos");
@@ -27,15 +25,14 @@ const Tablas_Router_1 = __importDefault(require("./Componentes/Tablas/Tablas_Rou
 const responder_1 = __importDefault(require("./Middlewares/responder"));
 const manejadorErrores_1 = __importDefault(require("./Middlewares/manejadorErrores"));
 const importarDatos_1 = require("./Config/importarDatos");
-const imagemin_1 = require("./Middlewares/imagemin");
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
-const deploy = 'v0.0.1';
+const deploy = 'v0.0.2';
 class Server {
     constructor() {
         this._cadenaDeConexion = process.env.DATABASE || 'mongodb://localhost:29017/Desarrollo';
         this.options = {
-            uploadDir: 'public/cargaImagenes/',
-            autoClean: true,
+            uploadDir: 'public/imagenes/',
+            autoClean: false,
         };
         this.app = (0, express_1.default)();
         this.conectarBd();
@@ -50,8 +47,6 @@ class Server {
         this.app.set('port', process.env.PORT || 4000);
         this.app.use((0, morgan_1.default)('dev'));
         this.app.use((0, cors_1.default)());
-        this.app.use((0, helmet_1.default)());
-        this.app.use((0, compression_1.default)());
         this.app.use(express_form_data_1.default.parse(this.options));
         this.app.use(express_form_data_1.default.union());
         this.app.use(express_form_data_1.default.stream());
@@ -81,10 +76,6 @@ class Server {
         this.app.get('/importar', (req, res) => {
             console.info('Importando BD...');
             (0, importarDatos_1.importarDatos)(req, res);
-        });
-        this.app.get('/comprimirImagenes', (req, res) => {
-            console.info('comprimiendo imagenes...');
-            (0, imagemin_1.comprimirImagen)();
         });
         this.app.get('*', (req, res) => {
             console.info(`GET 404: ${req.originalUrl}`);
