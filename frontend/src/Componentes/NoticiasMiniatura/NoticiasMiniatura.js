@@ -1,7 +1,6 @@
 import React from 'react';
 import EtiquetaCategoria from '../EtiquetaCategoria/EtiquetaCategoria';
 import './NoticiasMiniatura.css';
-import imagenNoticia from '../../Static/Img/noticia.jfif';
 import Skeleton from 'react-loading-skeleton';
 import {urlImagenes} from '../../urlImagenes';
 

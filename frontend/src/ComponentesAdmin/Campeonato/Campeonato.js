@@ -2,28 +2,28 @@ import React from 'react';
 import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
 import './Campeonato.css';
 
-const arrayMasculino = [
-  {
-    categoria1: 'Divisional A',
-  },
-  {
-    categoria2: 'Divisional B',
-  },
-  {
-    categoria3: 'Divisional C',
-  },
-  {
-    categoria4: 'Divisional D',
-  },
-];
-const arrayFemenino = [
-  {
-    categoria1: 'Divisional A',
-  },
-  {
-    categoria2: 'Divisional B',
-  },
-];
+// const arrayMasculino = [
+//   {
+//     categoria1: 'Divisional A',
+//   },
+//   {
+//     categoria2: 'Divisional B',
+//   },
+//   {
+//     categoria3: 'Divisional C',
+//   },
+//   {
+//     categoria4: 'Divisional D',
+//   },
+// ];
+// const arrayFemenino = [
+//   {
+//     categoria1: 'Divisional A',
+//   },
+//   {
+//     categoria2: 'Divisional B',
+//   },
+// ];
 const Campeonato = () => {
   return (
     <div className="CP-Campeonato">

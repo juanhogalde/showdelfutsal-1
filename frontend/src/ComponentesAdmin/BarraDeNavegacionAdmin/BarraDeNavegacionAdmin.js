@@ -36,7 +36,7 @@ const BarraDeNavegacionAdmin = ({
       historialDeNavegacion.push('/');
     }
   };
-  console.log(locacion.pathname.split('/'));
+  // console.log(locacion.pathname.split('/'));
 
   return (
     <div className="CP-BarraDeNavegacionAdmin">

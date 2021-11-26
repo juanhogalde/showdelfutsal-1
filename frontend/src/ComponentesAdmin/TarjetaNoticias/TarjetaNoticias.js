@@ -10,7 +10,7 @@ export const TarjetaNoticias = () => {
 
   return noticias.map(noticia => {
     return (
-      <div className="CP-Tarjeta-Noticias-Admin">
+      <div key={noticia._id} className="CP-Tarjeta-Noticias-Admin">
         <div className="CI-Tarjeta-Noticias-Admin">
           <div className="I-Tarjeta-Noticias-Imagen">
             <ImagenAdmin noticiaImagen={noticia} />

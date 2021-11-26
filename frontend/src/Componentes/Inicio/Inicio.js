@@ -5,7 +5,7 @@ import publicidadCorta from '../../Static/Img/publicidad_corta.jpg';
 import './Inicio.css';
 import Filtros from '../Filtros/Filtros';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import publicidadLarga from '../../Static/Img/publicidad_larga.jpg';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
 import Vivo from '../Vivo/Vivo';
@@ -15,7 +15,7 @@ import {FaFacebookF} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 import Radio from '../Radio/Radio';
 import PieDepagina from '../PieDePagina/PieDepagina';
-import logoCargando from '../../Static/Img/marca.png';
+import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},
@@ -23,6 +23,7 @@ const Filtro = [
 ];
 
 const Inicio = () => {
+  const dispatch = useDispatch();
   const {noticias} = useSelector(state => state.storeNoticias);
   // const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   const [noticiaP, setNoticiaP] = useState({});
@@ -34,8 +35,10 @@ const Inicio = () => {
       resolve(filtradoDeNoticia);
     });
   };
+  const noticiaSeleccionada = noticiaRecibida => {
+    dispatch(guardarNoticiaMiniaturaSeleccionada_accion(noticiaRecibida));
+  };
   useLayoutEffect(() => {
-    console.log('entro');
     var noticiasFiltradas = noticias.filter(noticia => noticia.keyCategoria === 2);
     if (noticiasFiltradas[0]) {
       setNoticiaP(noticiasFiltradas[0]);
@@ -56,7 +59,6 @@ const Inicio = () => {
   const obtenerFiltro = filtro => {
     switch (filtro) {
       case 'Masculino':
-        console.log('Switch Masculino');
         FiltrarNoticias(1).then(noticiasFiltradas => {
           if (noticiasFiltradas[0]) {
             setNoticiaP(noticiasFiltradas[0]);
@@ -70,7 +72,6 @@ const Inicio = () => {
         });
         break;
       case 'Femenino':
-        console.log('Switch Femenino');
         FiltrarNoticias(2).then(noticiasFiltradas => {
           if (noticiasFiltradas[0]) {
             setNoticiaP(noticiasFiltradas[0]);
@@ -178,7 +179,13 @@ const Inicio = () => {
           </div>
           <div className="CI-NoticiaPrincipal">
             <div className="componenteNoticiaPrincipal">
-              <Link to="/Noticia/Desarrollada" className="estilos-Link">
+              <Link
+                to="/Noticia/Desarrollada"
+                onClick={() => {
+                  noticiaSeleccionada(noticiaP);
+                }}
+                className="estilos-Link"
+              >
                 <NoticiasMiniatura
                   isSeccionNoticias={true}
                   isSobreImagen={true}

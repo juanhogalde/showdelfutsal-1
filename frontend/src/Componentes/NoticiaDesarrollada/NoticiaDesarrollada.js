@@ -1,6 +1,7 @@
 import React from 'react';
 import EtiquetaCategoria from '../EtiquetaCategoria/EtiquetaCategoria';
 import '../NoticiaDesarrollada/NoticiaDesarrollada.css';
+import {urlImagenes} from '../../urlImagenes';
 /**
  * Recibe como parametros
  ** datosModelado que es un objeto con los siguiente atributo:
@@ -22,7 +23,7 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
           <div className="Fondo-Categorias-Noticia-Desarrollada">
             <div className="Etiqueta-Categorias-Noticia-Desarrollada ">
               <EtiquetaCategoria
-                categoriaId={datosModelado.categoria ? datosModelado.categoria : 0}
+                categoriaId={datosModelado.idCategoria ? datosModelado.idCategoria : 0}
               />
             </div>
           </div>
@@ -33,7 +34,7 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
 
         <EtiquetaCategoria
           subcategoria={true}
-          categoriaId={datosModelado.subcategoria ? datosModelado.subcategoria : 0}
+          categoriaId={datosModelado.idSubcategoria ? datosModelado.idSubcategoria : 0}
         />
 
         <div className="CI-Autor-Fecha-Noticia-Desarrollada">
@@ -52,7 +53,7 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
         <img
           src={
             datosModelado.idImagen
-              ? datosModelado.idImagen[0].fuente
+              ? urlImagenes + datosModelado.idImagen[0].fuente
               : 'https://www.pequenomundo.cl/wp-content/themes/childcare/images/default.png'
           }
           alt="imagen"

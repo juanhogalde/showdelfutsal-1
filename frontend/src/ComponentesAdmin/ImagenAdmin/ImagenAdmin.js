@@ -5,7 +5,6 @@ import logoCargando from '../../Static/Cargando.gif';
 // import ImagenMiniatura from '../../Static/Img/fondoAdmin.jpg';
 // import imagenBack from 'localhost/imagenes/yOuSjEEjLTCEqSV-J4z7fA-r.jpg';
 const ImagenAdmin = ({noticiaImagen = {}, mostrarLogoCargando = false}) => {
-  console.log(noticiaImagen);
   return (
     <div className="CP-Imagen-admin">
       <div className="CI-Imagen-admin">
