@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import '../ImagenesVideo/ImagenesVideo.css';
+import {urlImagenes} from '../../urlImagenes';
+
 const ImagenesVideo = ({
   DatosDeEntrada = [],
   tipoDeSliderFlecha = true,
@@ -172,7 +174,12 @@ const ImagenesVideo = ({
           {!tipoVideo && (
             <div className="cuerpo-imagenesVideo">
               <img
-                src={dataActual.fuente ? dataActual.fuente : ''}
+                /* src={dataActual.fuente ? dataActual.fuente : ''} */
+                src={
+                  dataActual.fuente
+                    ? urlImagenes + dataActual.fuente
+                    : urlImagenes + DatosDeEntrada[0].fuente
+                }
                 alt="imagen"
                 className="img-imagenesVideo"
               />
@@ -180,7 +187,7 @@ const ImagenesVideo = ({
           )}
           {!tipoVideo && (
             <div className="decripcion-imagenesVideo">
-              <h4>{tipoVideo ? siguientedataActual.descripcion : dataActual.descripcion}</h4>
+              <h4>{tipoVideo ? siguientedataActual.descripcion : DatosDeEntrada[0].descripcion}</h4>
             </div>
           )}
         </div>

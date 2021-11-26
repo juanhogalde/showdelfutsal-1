@@ -18,9 +18,11 @@ const PaginasSeccionesAdmin = ({
   isSeccionTorneos = false,
 }) => {
   const historialDeNavegacion = useHistory();
+
   const editarNoticia = () => {
     historialDeNavegacion.push(`/Noticia/Ver/${1234}`);
   };
+
   return (
     <div className="CP-Pagina-Secciones-Admin">
       <div className="CI-Pagina-Secciones-Admin-Cabecera">

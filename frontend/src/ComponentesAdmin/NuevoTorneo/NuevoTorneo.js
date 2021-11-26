@@ -6,7 +6,6 @@ import Selector from '../Selector/Selector';
 import './NuevoTorneo.css';
 import {BsPlusCircle} from 'react-icons/bs';
 import {useHistory} from 'react-router';
-import Cargando from '../Cargando/Cargando';
 
 const Torneo = [
   {value: 'Campeonato', label: 'Campeonato'},
@@ -18,8 +17,6 @@ const NuevoTorneo = () => {
   const history = useHistory();
 
   const [datosTorneo, setDatosTorneo] = useState({});
-  const [errorDatosTorneo, setErrorDatosTorneo] = useState({});
-  const [isErrores, setIsErrores] = useState(false);
 
   const escucharCambios = (name, value) => {
     console.log(name);
@@ -34,9 +31,6 @@ const NuevoTorneo = () => {
         return {...datosTorneo, [name]: value};
       });
     }
-    setErrorDatosTorneo(errorDatosTorneo => {
-      return {...errorDatosTorneo, [name]: false};
-    });
   };
 
   const escucharSelector = (value, name) => {
@@ -45,9 +39,6 @@ const NuevoTorneo = () => {
 
     setDatosTorneo(datosTorneo => {
       return {...datosTorneo, torneo: value};
-    });
-    setErrorDatosTorneo(errorDatosTorneo => {
-      return {...errorDatosTorneo, [name]: false};
     });
   };
 

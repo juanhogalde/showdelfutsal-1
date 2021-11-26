@@ -15,7 +15,6 @@ import {FaFacebookF} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 import Radio from '../Radio/Radio';
 import PieDepagina from '../PieDePagina/PieDepagina';
-import logoCargando from '../../Static/Img/marca.png';
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},
@@ -24,10 +23,12 @@ const Filtro = [
 
 const Inicio = () => {
   const {noticias} = useSelector(state => state.storeNoticias);
+  const {imagenes} = useSelector(state => state.storeImagenes);
   // const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   const [noticiaP, setNoticiaP] = useState({});
   const [noticia1, setNoticia1] = useState({});
   const [noticia2, setNoticia2] = useState({});
+  const [galeria, setGaleria] = useState({galeria1: [], galeria2: [], galeria3: []});
   const FiltrarNoticias = keyCategoria => {
     return new Promise((resolve, reject) => {
       var filtradoDeNoticia = noticias.filter(noticia => noticia.keyCategoria === keyCategoria);
@@ -35,6 +36,8 @@ const Inicio = () => {
     });
   };
   useLayoutEffect(() => {
+    console.log(imagenes);
+
     console.log('entro');
     var noticiasFiltradas = noticias.filter(noticia => noticia.keyCategoria === 2);
     if (noticiasFiltradas[0]) {
@@ -46,11 +49,22 @@ const Inicio = () => {
     if (noticiasFiltradas[2]) {
       setNoticia2(noticiasFiltradas[2]);
     }
-  }, [setNoticiaP, setNoticia1, setNoticia2, noticias]);
+    var auxGaleria1 = imagenes.filter(imagen => imagen.descripcion === 'La Gloria Campeón 2021');
+    var auxGaleria2 = imagenes.filter(imagen => imagen.descripcion === 'Argentina vs Brasil');
+    var auxGaleria3 = imagenes.filter(
+      imagen => imagen.descripcion === 'Finales Femenino - Apertura 2021'
+    );
+    setGaleria({
+      galeria1: [...auxGaleria1],
+      galeria2: [...auxGaleria2],
+      galeria3: [...auxGaleria3],
+    });
+  }, [setNoticiaP, setNoticia1, setNoticia2, noticias, setGaleria, imagenes]);
 
-  const {DatosDePruebaImagenes, DatosDePruebaImagenes2, DatosDePruebaImagenes3} = useSelector(
+  /* const {DatosDePruebaImagenes, DatosDePruebaImagenes2, DatosDePruebaImagenes3} = useSelector(
     state => state.storePrueba
-  );
+  ); */
+
   const {linkVideosInicioGaleria} = useSelector(state => state.sotreDatosIniciales);
   const videoVivoPrueba = {fuente: 'MmysMu3mgvw'};
   const obtenerFiltro = filtro => {
@@ -214,17 +228,17 @@ const Inicio = () => {
             <h1 className="titulo-Galeria">GALERÍA</h1>
             <div className="galeria-Imagenes-A">
               <ImagenesVideo
-                DatosDeEntrada={DatosDePruebaImagenes}
+                DatosDeEntrada={galeria.galeria2}
                 tipoDeSliderFlecha={false}
               ></ImagenesVideo>
             </div>
             <div className="galeria-Imagenes-B">
               <ImagenesVideo
-                DatosDeEntrada={DatosDePruebaImagenes2}
+                DatosDeEntrada={galeria.galeria1}
                 tipoDeSliderFlecha={false}
               ></ImagenesVideo>
               <ImagenesVideo
-                DatosDeEntrada={DatosDePruebaImagenes3}
+                DatosDeEntrada={galeria.galeria3}
                 tipoDeSliderFlecha={false}
               ></ImagenesVideo>
             </div>

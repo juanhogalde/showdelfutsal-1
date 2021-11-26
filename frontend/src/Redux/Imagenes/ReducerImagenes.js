@@ -3,6 +3,9 @@ import {
   guardarGaleriaExito,
   guardarGaleriaError,
   volverPorDefectoAgregarGaleria,
+  cargandoListarImagenes,
+  listarImagenesExito,
+  listarImagenesError,
 } from './AccionesImagenes';
 
 const imagenPorDefecto = {
@@ -52,13 +55,22 @@ const storeImagenes = (state = imagenPorDefecto, accion) => {
     case volverPorDefectoAgregarGaleria: {
       return {
         ...state,
-        isAgregarGaleria: {
-          tipo: '',
-          mensaje: '',
-          isCargando: false,
-          isExito: false,
-          isError: false,
-        },
+      };
+    }
+    case cargandoListarImagenes: {
+      return {
+        ...state,
+      };
+    }
+    case listarImagenesExito: {
+      return {
+        ...state,
+        imagenes: [...state.galeria, ...accion.datos],
+      };
+    }
+    case listarImagenesError: {
+      return {
+        ...state,
       };
     }
     default:
