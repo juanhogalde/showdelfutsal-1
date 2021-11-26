@@ -133,7 +133,7 @@ const Inicio = () => {
         </div>
       </div>
       {/* SECCION VIVO */}
-      <div className="LI-Inicio seccion-vivo Margen-Vivo">
+      {/* <div className="LI-Inicio seccion-vivo Margen-Vivo">
         <div className="CP-Vivo">
           <div className="CI-Componente-Vivo">
             <Vivo video={videoVivoPrueba} />
@@ -146,7 +146,7 @@ const Inicio = () => {
             <img alt="" src={publicidadLarga}></img>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* SECCION MARCADOR */}
       <div className="LI-Inicio seccion-marcador margenes-Responsive-Seccion-Marcador">
         <div className="CP-Marcador">
