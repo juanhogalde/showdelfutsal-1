@@ -28,9 +28,21 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
           </div>
           <div className="I-ND-Noticia-Componente-Slider">
             {isMobileAndroid !== -1 || isMobileIPhone !== -1 ? (
-              <SliderNoticias cantidadDeElementos={6} isVertical={false} />
+              <SliderNoticias
+                cantidadDeElementos={6}
+                isVertical={false}
+                categoriaNoticias={
+                  noticiaSeleccionada.keyCategoria ? noticiaSeleccionada.keyCategoria : -1
+                }
+              />
             ) : (
-              <SliderNoticias cantidadDeElementos={3} isVertical={true} />
+              <SliderNoticias
+                cantidadDeElementos={3}
+                isVertical={true}
+                categoriaNoticias={
+                  noticiaSeleccionada.keyCategoria ? noticiaSeleccionada.keyCategoria : -1
+                }
+              />
             )}
           </div>
         </div>

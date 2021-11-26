@@ -117,8 +117,37 @@ class EquiposController {
   public async eliminar(req: Request, res: Response) {
     try {
       let id = req.body.id;
-      const equipoEliminada = await modeloEquipos.findOneAndDelete({_id: id}, {new: true});
-      responder.sucess(req, res, equipoEliminada);
+      if (!id) {
+        responder.error(req, res, 'No se ingresaron datos');
+      }
+
+      const equipo: any = await modeloEquipos.findById(id);
+
+      if (!equipo) {
+        throw new Error('Equipo no encontrado');
+        // responder.error(req, res, equipo, 'Equipo no encontrado', 400);
+      }
+
+      if (equipo.escudo) {
+        let nameEscudo = equipo.escudo.split('/');
+
+        let archivoEncontrado = fs.readFileSync(
+          path.join(__dirname, '../../../public/imagenes', nameEscudo[4])
+        );
+
+        if (archivoEncontrado) {
+          fs.unlinkSync(path.join(__dirname, '../../../public/imagenes', nameEscudo[4]));
+        }
+      }
+
+      const resultado = await modeloEquipos.findByIdAndDelete(id);
+      if (!resultado) {
+        console.log(resultado);
+        throw new Error('Error al intentar eliminar el equipo');
+        // responder.error(req, res, equipo, 'Error al intentar eliminar el equipo', 500);
+      }
+
+      responder.sucess(req, res, resultado, 'Equipo eliminado correctamente');
     } catch (error) {
       responder.error(req, res, error);
     }

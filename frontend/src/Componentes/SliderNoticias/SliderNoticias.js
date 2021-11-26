@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import './SliderNoticias.css';
 import {AiFillCaretLeft} from 'react-icons/ai';
@@ -29,10 +29,21 @@ export const SliderNoticias = ({
   cantidadDeElementos = 4,
   isVertical = false,
   isConCopete = false,
+  categoriaNoticias = -1,
 }) => {
-  const noticias = useSelector(state => state.storePrueba.noticias);
+  const {noticias} = useSelector(state => state.storeNoticias);
+  const [noticiaAmostrar, setNoticiaAmostrar] = useState([]);
   /* const noticia = useSelector(state => state.storePrueba.noticias3); */
-
+  useLayoutEffect(() => {
+    if (categoriaNoticias !== -1) {
+      var noticiasFiltradas = noticias.filter(
+        noticia => noticia.keyCategoria === categoriaNoticias
+      );
+      setNoticiaAmostrar(noticiasFiltradas);
+    } else {
+      setNoticiaAmostrar(noticias);
+    }
+  }, [setNoticiaAmostrar, noticias, categoriaNoticias]);
   var settings = {
     speed: 1000,
     slidesToShow: cantidadDeElementos,
@@ -72,7 +83,7 @@ export const SliderNoticias = ({
   return (
     <div className="containerSlider">
       <Slider {...settings}>
-        {noticias.map((noticia, index) => {
+        {noticiaAmostrar.map((noticia, index) => {
           return (
             <div key={index}>
               <NoticiasMiniatura

@@ -10,6 +10,7 @@ import {
   volverPorDefecto,
   listarNoticiaExito,
   listarNoticiaError,
+  guardarNoticiaMiniaturaSeleccionada,
 } from './AccionesNoticias';
 
 const noticiaPorDefecto = {
@@ -114,6 +115,13 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
     case listarNoticiaError: {
       return {
         ...state,
+      };
+    }
+    case guardarNoticiaMiniaturaSeleccionada: {
+      console.log(accion.noticia);
+      return {
+        ...state,
+        noticiaSeleccionada: {...accion.noticia},
       };
     }
     default:

@@ -11,6 +11,7 @@ export const guardarNoticiaError = 'guardarNoticiaError';
 export const volverPorDefecto = 'volverPorDefecto';
 export const listarNoticiaExito = 'listarNoticiaExito';
 export const listarNoticiaError = 'listarNoticiaError';
+export const guardarNoticiaMiniaturaSeleccionada = 'guardarNoticiaMiniaturaSeleccionada';
 
 //acciones buscar noticia
 export const cargandoBuscarNoticia_accion = () => {
@@ -157,5 +158,12 @@ export const listarNoticia_accion = () => {
         console.log(error);
         dispatch(ListarNoticiaError_accion(error));
       });
+  };
+};
+
+export const guardarNoticiaMiniaturaSeleccionada_accion = noticiaMiniatura => {
+  return {
+    type: guardarNoticiaMiniaturaSeleccionada,
+    noticia: noticiaMiniatura,
   };
 };
