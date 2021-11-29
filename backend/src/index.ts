@@ -20,6 +20,8 @@ import estadiosRouter from './Componentes/Estadios/Estadios_Router';
 import etiquetasRouter from './Componentes/Etiquetas/Etiquetas_Router';
 import homeRouter from './Componentes/Home/Home_Router';
 import imagenesRouter from './Componentes/Imagenes/Imagenes_Router';
+import videosRouter from './Componentes/Videos/Videos_Router';
+import galeriaRouter from './Galeria/Galeria_Router';
 import tablasRouter from './Componentes/Tablas/Tablas_Router';
 import responder from './Middlewares/responder';
 import manejadorErrores from './Middlewares/manejadorErrores';
@@ -76,6 +78,8 @@ class Server {
     this.app.use('/equipos', equiposRouter);
     this.app.use('/home', homeRouter);
     this.app.use('/imagenes', imagenesRouter);
+    this.app.use('/videos', videosRouter);
+    this.app.use('/galeria', galeriaRouter);
     this.app.use('/noticias', noticiasRouter);
     this.app.use('/partidos', partidosRouter);
     this.app.use('/publicidades', publicidadesRouter);
