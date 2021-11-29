@@ -5,7 +5,6 @@ import {AiFillCaretRight} from 'react-icons/ai';
 
 const InfoPartido = props => {
   const {fecha, sede, siguientePartido, isSoloTitulo, isTablaDePosiciones} = props;
-
   return (
     <div className="CP-InfoPartido">
       <div className="CI-InfoPartido">
@@ -15,8 +14,16 @@ const InfoPartido = props => {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <h3>{fecha ? fecha.hora : '-'}</h3>
-            <h4 className="fecha-dia">{fecha ? fecha.dia : '-'}</h4>
+            <h3>{fecha ? new Date(fecha).getHours() : '-'}</h3>
+            <h4 className="fecha-dia">
+              {fecha
+                ? `${new Date(fecha).getFullYear()} 
+                  -
+                ${new Date(fecha).getMonth()} 
+                -
+               ${new Date(fecha).getDay()}`
+                : '-'}
+            </h4>
             <h5 className="margenSede">{sede ? sede : '-'}</h5>
           </React.Fragment>
         )}
