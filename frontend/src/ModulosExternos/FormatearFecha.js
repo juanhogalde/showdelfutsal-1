@@ -14,6 +14,9 @@ const FormatearFecha = (dato, formato, idiomaRegion = 'es-AR') => {
         options['timeStyle'] = 'short';
         options.concatenacion = ' hs.';
         break;
+      case 'fechaCorta':
+        options['dateStyle'] = 'short';
+        break;
       default:
         options['dateStyle'] = 'medium';
         options['timeStyle'] = 'short';
