@@ -10,7 +10,7 @@ const InputDateLowa = props => {
   const obtenerValue = e => {
     setInputDateValue(e.nativeEvent.srcElement.value);
   };
-
+  console.log(new Date().getDay());
   return (
     <div className="CP-InputDateLowa">
       <div
@@ -31,6 +31,7 @@ const InputDateLowa = props => {
         required={required}
         className={`${inputDateValue ? 'inputDate-Lowa inputDate-LowaConValue' : 'inputDate-Lowa'}`}
         onInput={e => obtenerValue(e)}
+        min={`${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`}
       ></input>
       <div className="value-InputDateLowa">
         {inputDateValue &&
