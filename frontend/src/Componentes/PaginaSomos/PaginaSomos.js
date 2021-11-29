@@ -63,6 +63,13 @@ const PaginaSomos = () => {
             </div>
           </div>
         </div>
+        <div className="CI-Nosotros-Contacto">
+          <p className="">Juan Hogalde</p>
+
+          <p className="">+54 9 2644 50-0336</p>
+          <p className="">juanhogalde@hotmail.com </p>
+          <p className="">elshowdelfutsal@gmail.com</p>
+        </div>
       </div>
       <div className="CI-PieDePagina-Somos">
         <PieDepagina isConFondo={true}></PieDepagina>
