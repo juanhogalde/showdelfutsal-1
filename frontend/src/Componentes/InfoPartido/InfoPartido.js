@@ -2,6 +2,7 @@ import React from 'react';
 import './InfoPartido.css';
 import {AiFillCaretLeft} from 'react-icons/ai';
 import {AiFillCaretRight} from 'react-icons/ai';
+import FormatearFecha from '../../ModulosExternos/FormatearFecha';
 
 const InfoPartido = props => {
   const {fecha, sede, siguientePartido, isSoloTitulo, isTablaDePosiciones} = props;
@@ -14,16 +15,8 @@ const InfoPartido = props => {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <h3>{fecha ? new Date(fecha).getHours() : '-'}</h3>
-            <h4 className="fecha-dia">
-              {fecha
-                ? `${new Date(fecha).getFullYear()} 
-                  -
-                ${new Date(fecha).getMonth()} 
-                -
-               ${new Date(fecha).getDay()}`
-                : '-'}
-            </h4>
+            <h3>{fecha ? FormatearFecha(fecha, 'hora').substr(0, 2) : '-'}</h3>
+            <h4 className="fecha-dia">{fecha ? FormatearFecha(fecha, 'fecha') : '-'}</h4>
             <h5 className="margenSede">{sede ? sede : '-'}</h5>
           </React.Fragment>
         )}
