@@ -32,4 +32,22 @@
   align-items: center;
   justify-content: center;
   padding-left: 10px;
+  position: relative;
+}
+.CI-Acciones-TarjetaGaleria {
+  background-color: white;
+  position: absolute;
+  right: 0;
+  bottom: 20%;
+  max-height: 100px;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 8px;
+  box-shadow: 0px 3px 16px #00000014;
+  padding: 15px;
+  display: none;
+}
+.CI-Acciones-TarjetaGaleria-Apertura {
+  display: flex;
 }

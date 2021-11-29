@@ -10,6 +10,7 @@
   text-decoration: none;
   display: inline-block;
   cursor: pointer;
+  box-shadow: 0px 3px 16px #00000014;
 }
 .boton-Lowa:disabled {
   background-color: #2a2ac0bb;

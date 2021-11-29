@@ -9,7 +9,6 @@ const ImagenAdmin = ({
   noticiaImagen = {},
   mostrarLogoCargando = false,
 }) => {
-  console.log(isTarjetaGaleria);
   return (
     <div className="CP-Imagen-admin">
       <div className="CI-Imagen-admin">
