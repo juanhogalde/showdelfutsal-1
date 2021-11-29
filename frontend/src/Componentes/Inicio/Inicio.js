@@ -8,7 +8,7 @@ import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {useDispatch, useSelector} from 'react-redux';
 import publicidadLarga from '../../Static/Img/publicidad_larga.jpg';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
-import Vivo from '../Vivo/Vivo';
+/* import Vivo from '../Vivo/Vivo'; */
 import SomosFrase from '../../Static/Img/frase_inicio.png';
 import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
@@ -68,7 +68,7 @@ const Inicio = () => {
   ); */
 
   const {linkVideosInicioGaleria} = useSelector(state => state.sotreDatosIniciales);
-  const videoVivoPrueba = {fuente: 'MmysMu3mgvw'};
+  /* const videoVivoPrueba = {fuente: 'MmysMu3mgvw'}; */
   const obtenerFiltro = filtro => {
     switch (filtro) {
       case 'Masculino':

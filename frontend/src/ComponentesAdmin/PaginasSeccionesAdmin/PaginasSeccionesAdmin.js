@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './PaginasSeccionesAdmin.css';
 import TarjetaNoticias from '../../ComponentesAdmin/TarjetaNoticias/TarjetaNoticias';
 import BotonLowa from '../../ComponentesAdmin/BotonLowa/BotonLowa';
@@ -40,7 +40,7 @@ const PaginasSeccionesAdmin = ({
         galeria3: [...auxGaleria3],
       });
     }
-  }, []);
+  }, [setGaleria, isSeccionGaleria, imagenes]);
   console.log(Object.keys(galeria).length);
   return (
     <div className="CP-Pagina-Secciones-Admin">
