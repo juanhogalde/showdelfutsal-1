@@ -32,7 +32,7 @@ const storeImagenes = (state = imagenPorDefecto, accion) => {
         ...state,
         isAgregarGaleria: {
           tipo: 'success',
-          mensaje: '',
+          mensaje: 'Galería cargada con exito.',
           isCargando: false,
           isExito: true,
           isError: false,

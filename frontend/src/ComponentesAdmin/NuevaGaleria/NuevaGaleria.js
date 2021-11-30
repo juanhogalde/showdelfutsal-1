@@ -37,7 +37,6 @@ const NuevaGaleria = () => {
     dispatch(agregarGaleria_accion(datosGaleria));
   };
   const valoresPorDefectoNuevaGaleria = () => {
-    console.log('ok');
     dispatch(volverPorDefectoAgregarGaleria_accion());
   };
   return (

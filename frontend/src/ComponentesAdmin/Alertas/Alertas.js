@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import logoCargando from '../../Static/Cargando.gif';
-import '../Alertas/Alertas.css';
+import BotonLowa from '../BotonLowa/BotonLowa';
+import './Alertas.css';
 /**
  ** Recive como parametros
  ** String titulo -> mensaje que se desea mostrar en el sweetAlert
@@ -48,10 +49,13 @@ const Alertas = ({
         <SweetAlert
           success
           show={mostrarSweet}
-          confirmBtnText="OK"
-          confirmBtnBsStyle="primary"
           title={titulo ? titulo : ''}
           onConfirm={() => EventoClick(true)}
+          customButtons={
+            <React.Fragment>
+              <BotonLowa onClick={() => EventoClick(true)} tituloboton={'Ok'}></BotonLowa>
+            </React.Fragment>
+          }
         >
           {subtitulo}
         </SweetAlert>
@@ -73,13 +77,13 @@ const Alertas = ({
         <SweetAlert
           danger
           show={mostrarSweet}
-          cancelBtnText="Cancelar"
-          cancelBtnBsStyle="light"
-          confirmBtnText="Ok"
-          confirmBtnBsStyle="danger"
           title={titulo ? titulo : ''}
           onConfirm={() => EventoClick(true)}
-          onCancel={() => EventoClick(false)}
+          customButtons={
+            <React.Fragment>
+              <BotonLowa onClick={() => EventoClick(true)} tituloboton={'Ok'}></BotonLowa>
+            </React.Fragment>
+          }
         >
           {subtitulo}
         </SweetAlert>
