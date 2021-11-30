@@ -146,7 +146,15 @@ class NoticiasController {
             try {
                 const noticia = new Noticias_Model_1.default(req.body);
                 yield noticia.save();
-                responder_1.default.sucess(req, res, noticia);
+                Noticias_Model_1.default
+                    .findById(noticia._id)
+                    .populate('idImagen')
+                    .then((noticiaImg) => {
+                    responder_1.default.sucess(req, res, noticiaImg);
+                })
+                    .catch((error) => {
+                    responder_1.default.error(req, res, error);
+                });
             }
             catch (error) {
                 responder_1.default.error(req, res, error);

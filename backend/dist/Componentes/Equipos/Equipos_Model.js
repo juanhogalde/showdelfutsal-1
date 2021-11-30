@@ -14,11 +14,7 @@ const EquiposSchema = new mongoose_1.Schema({
     puntos: { type: Number },
     posicionEnTabla: { type: Number },
     isEliminado: { type: Boolean, default: false },
-    idCategorias: [
-        { type: mongoose_1.Schema.Types.ObjectId, ref: 'modeloCategorias', required: true },
-    ],
-    idSubcategorias: [
-        { type: mongoose_1.Schema.Types.ObjectId, ref: 'modeloSubcategorias', required: true },
-    ],
+    idCategorias: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'modeloCategorias', required: true }],
+    idSubcategorias: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'modeloSubcategorias', required: true }],
 });
 exports.default = (0, mongoose_1.model)('modeloEquipos', EquiposSchema);

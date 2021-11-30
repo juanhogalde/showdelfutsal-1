@@ -133,8 +133,26 @@ class EquiposController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let id = req.body.id;
-                const equipoEliminada = yield Equipos_Model_1.default.findOneAndDelete({ _id: id }, { new: true });
-                responder_1.default.sucess(req, res, equipoEliminada);
+                if (!id) {
+                    responder_1.default.error(req, res, 'No se ingresaron datos');
+                }
+                const equipo = yield Equipos_Model_1.default.findById(id);
+                if (!equipo) {
+                    throw new Error('Equipo no encontrado');
+                }
+                if (equipo.escudo) {
+                    let nameEscudo = equipo.escudo.split('/');
+                    let archivoEncontrado = fs_1.default.readFileSync(path_1.default.join(__dirname, '../../../public/imagenes', nameEscudo[4]));
+                    if (archivoEncontrado) {
+                        fs_1.default.unlinkSync(path_1.default.join(__dirname, '../../../public/imagenes', nameEscudo[4]));
+                    }
+                }
+                const resultado = yield Equipos_Model_1.default.findByIdAndDelete(id);
+                if (!resultado) {
+                    console.log(resultado);
+                    throw new Error('Error al intentar eliminar el equipo');
+                }
+                responder_1.default.sucess(req, res, resultado, 'Equipo eliminado correctamente');
             }
             catch (error) {
                 responder_1.default.error(req, res, error);
