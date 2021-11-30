@@ -61,12 +61,12 @@
     top: 65%;
   }
 }
-@media screen and (max-height: 450px) {
+@media screen and (max-height: 600px) {
   .CI-Inputs-Login {
     margin-bottom: 0;
   }
   .marca-Login {
-    max-width: 160px;
+    max-width: 200px;
     min-width: 50px;
   }
   .iso-Login {
