@@ -51,7 +51,7 @@ const Inicio = () => {
     if (noticiasFiltradas[2]) {
       setNoticia2(noticiasFiltradas[2]);
     }
-    var auxGaleria1 = imagenes.filter(imagen => imagen.descripcion === 'La Gloria Campeón 2021');
+    var auxGaleria1 = imagenes.filter(imagen => imagen.descripcion === 'La liga 2021');
     var auxGaleria2 = imagenes.filter(imagen => imagen.descripcion === 'Argentina vs Brasil');
     var auxGaleria3 = imagenes.filter(
       imagen => imagen.descripcion === 'Finales Femenino - Apertura 2021'

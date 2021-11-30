@@ -700,7 +700,10 @@
     grid-row: 3/4;
     padding-bottom: 30px;
   }
-
+  .CI-Galeria-Videos {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
   .seccion-somos {
     background-image: url('../../Static/Img/Fondo_inicio_movil.jpg');
     padding-top: 100px;

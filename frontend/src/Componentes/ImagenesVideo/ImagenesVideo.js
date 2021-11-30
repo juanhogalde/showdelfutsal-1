@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import '../ImagenesVideo/ImagenesVideo.css';
 import {urlImagenes} from '../../urlImagenes';
-
+import {AiFillCaretLeft, AiFillCaretRight, AiFillCaretDown, AiFillCaretUp} from 'react-icons/ai';
 const ImagenesVideo = ({
   DatosDeEntrada = [],
   tipoDeSliderFlecha = true,
@@ -102,7 +102,7 @@ const ImagenesVideo = ({
           }}
           className="flechas-diseño-arriba-imagenesVideo"
         >
-          ▲
+          <AiFillCaretUp className="flecha-Arriba" />
         </button>
       )}
 
@@ -112,9 +112,9 @@ const ImagenesVideo = ({
             onClick={() => {
               cambioDeImagenVideoFlecha(false, 'img');
             }}
-            className="flechas-diseño-izq-imagenesVideo"
+            className="flechas-diseño-izq-imagenesVideo flechas-diseño-Active"
           >
-            🢀
+            <AiFillCaretLeft />
           </button>
         )}
         {((tipoDeSliderFlecha && !tipoVideo) || (!tipoVideo && DatosDeEntrada.length > 6)) && (
@@ -122,9 +122,9 @@ const ImagenesVideo = ({
             onClick={() => {
               cambioDeImagenVideoFlecha(true, 'img');
             }}
-            className="flechas-diseño-der-imagenesVideo"
+            className="flechas-diseño-der-imagenesVideo flechas-diseño-Active"
           >
-            🢂
+            <AiFillCaretRight />
           </button>
         )}
         <div className="cuerpo-imagenesVideo">
@@ -198,9 +198,9 @@ const ImagenesVideo = ({
           onClick={() => {
             cambioDeImagenVideoFlecha(false, 'video');
           }}
-          className="flechas-diseño-abajo-imagenesVideo"
+          className="flechas-diseño-abajo-imagenesVideo "
         >
-          ▼
+          <AiFillCaretDown className="flecha-Abajo" />
         </button>
       )}
       {!tipoDeSliderFlecha && !tipoVideo && DatosDeEntrada.length <= 6 && (
