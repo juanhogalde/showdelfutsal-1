@@ -28,7 +28,6 @@ const PaginasSeccionesAdmin = ({
 
   useEffect(() => {
     if (isSeccionGaleria) {
-      console.log('ejecutó');
       var auxGaleria1 = imagenes.filter(imagen => imagen.descripcion === 'La liga 2021');
       var auxGaleria2 = imagenes.filter(imagen => imagen.descripcion === 'Argentina vs Brasil');
       var auxGaleria3 = imagenes.filter(
@@ -41,7 +40,6 @@ const PaginasSeccionesAdmin = ({
       });
     }
   }, [setGaleria, isSeccionGaleria, imagenes]);
-  console.log(Object.keys(galeria).length);
   return (
     <div className="CP-Pagina-Secciones-Admin">
       <div className="CI-Pagina-Secciones-Admin-Cabecera">
@@ -62,12 +60,10 @@ const PaginasSeccionesAdmin = ({
       {isSeccionGaleria && (
         <div className="CI-Pagina-Secciones-Galeria">
           {Object.values(galeria).map((imagenes, index) => {
-            console.log(imagenes);
             return (
-              <React.Fragment>
+              <React.Fragment key={index}>
                 {Object.keys(imagenes).length > 0 && (
                   <TarjetaGaleria
-                    key={index}
                     datosTarjetaGaleria={imagenes}
                     tituloGaleria={imagenes[0].descripcion ? imagenes[0].descripcion : ''}
                   ></TarjetaGaleria>

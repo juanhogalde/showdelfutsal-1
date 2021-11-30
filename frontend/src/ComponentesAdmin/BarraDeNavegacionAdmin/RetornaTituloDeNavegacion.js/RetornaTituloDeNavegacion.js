@@ -3,7 +3,6 @@ import {useLocation} from 'react-router';
 
 const RetornaTituloDeNavegacion = () => {
   const locacion = useLocation();
-  console.log(locacion.pathname.split('/').length);
 
   if (locacion.pathname !== '/') {
     if (locacion.pathname.split('/').length !== 2) {
