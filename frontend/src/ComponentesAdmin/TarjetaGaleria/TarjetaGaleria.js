@@ -4,6 +4,9 @@ import './TarjetaGaleria.css';
 import {HiDotsVertical} from 'react-icons/hi';
 import {useHistory} from 'react-router';
 
+import {MdDeleteForever} from 'react-icons/md';
+import {FiEdit3} from 'react-icons/fi';
+
 const TarjetaGaleria = ({datosTarjetaGaleria = {}, tituloGaleria = 'Titulo'}) => {
   const historialDeNavegacion = useHistory();
   const [isAcciones, setIsAcciones] = useState(false);
@@ -47,8 +50,14 @@ const TarjetaGaleria = ({datosTarjetaGaleria = {}, tituloGaleria = 'Titulo'}) =>
             tabIndex="1"
             onBlur={() => ocultarAcciones()}
           >
-            <p onClick={() => editarGaleria()}>Editar</p>
-            <p onClick={() => eliminarGaleria()}>Eliminar</p>
+            <FiEdit3
+              className="iconoAcción-ListaImagenes"
+              onClick={() => editarGaleria()}
+            ></FiEdit3>
+            <MdDeleteForever
+              onClick={() => eliminarGaleria()}
+              className="iconoAcción-ListaImagenes"
+            />
           </div>
         </div>
       </div>

@@ -7,6 +7,8 @@
   margin-top: 10px;
   padding-top: 10px;
   border-bottom: 1px solid #0000001a;
+  overflow: hidden;
+  margin-bottom: 50px;
 }
 .CI-Cuerpo-TarjetaGaleria {
   width: 100%;
@@ -31,23 +33,29 @@
   display: grid;
   align-items: center;
   justify-content: center;
-  padding-left: 10px;
   position: relative;
+  cursor: pointer;
 }
 .CI-Acciones-TarjetaGaleria {
   background-color: white;
   position: absolute;
   right: 0;
-  bottom: 20%;
-  max-height: 100px;
+  bottom: -1%;
+  width: 0;
+  /* max-width: 50px; */
   height: 100%;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
   border-radius: 8px;
   box-shadow: 0px 3px 16px #00000014;
-  padding: 15px;
-  display: none;
+  display: flex;
+  transition: all 0.25s ease-in-out;
+  outline: none;
+  opacity: 0;
 }
 .CI-Acciones-TarjetaGaleria-Apertura {
-  display: flex;
+  width: 130%;
+  opacity: 1;
+  transition: all 0.25s ease-in-out;
 }
