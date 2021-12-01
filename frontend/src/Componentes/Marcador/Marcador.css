@@ -33,13 +33,12 @@
   color: white;
 }
 .escudo-A {
-  grid-column: 2/5;
+  grid-column: 2/4;
   grid-row: 4/7;
-  /* 
   display: flex;
-  justify-content: flex-end; */
-  position: relative; /* 
-  background-color: white; */
+  justify-content: center;
+  align-items: center;
+  position: relative;
   z-index: 1;
 }
 .marcador-A {
@@ -58,10 +57,11 @@
   align-items: center;
 }
 .escudo-B {
-  grid-column: 8/11;
+  grid-column: 9/11;
   grid-row: 4/7;
   display: flex;
   justify-content: center;
+  align-items: center;
   position: relative;
   z-index: 1;
 }
@@ -104,9 +104,11 @@
 }
 .img-Escudo {
   width: 100%;
-  max-width: 100%;
   height: 100%;
   object-fit: contain;
+  user-select: none;
+  max-width: 250px;
+  max-height: 250px;
 }
 .penales {
   grid-column: 5/8;
