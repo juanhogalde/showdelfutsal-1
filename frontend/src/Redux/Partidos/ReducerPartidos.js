@@ -1,15 +1,15 @@
 import {} from './AccionPartidos';
-
+import {urlImagenes} from '../../urlImagenes';
 const partidosPorDefecto = {
   partidos: [
     {
       equipoLocal: {
         nombreClub: 'Alianza',
-        escudo: 'http://localhost:4000/imagenes/zCom5ZOiRbCuBmvMuXfFFgnB.png',
+        escudo: urlImagenes + '/imagenes/zCom5ZOiRbCuBmvMuXfFFgnB.png',
       },
       equipoVisitante: {
         nombreClub: 'Trinidad',
-        escudo: 'http://localhost:4000/imagenes/yY9zTQq_fhQ565szhmE8yDZc.png',
+        escudo: urlImagenes + '/imagenes/yY9zTQq_fhQ565szhmE8yDZc.png',
       },
       resultadoLocal: 6,
       resultadoVisitante: 6,
@@ -33,11 +33,11 @@ const partidosPorDefecto = {
     {
       equipoLocal: {
         nombreClub: 'Villa Hipódromo',
-        escudo: 'http://localhost:4000/imagenes/qY7P0Olc6xtCfHvf9bL8o1nI.png',
+        escudo: urlImagenes + '/imagenes/qY7P0Olc6xtCfHvf9bL8o1nI.png',
       },
       equipoVisitante: {
         nombreClub: 'Aberastain San Lorenzo',
-        escudo: 'http://localhost:4000/imagenes/rb7mFK9aRYpvMrbiRx21CUu4.jpeg',
+        escudo: urlImagenes + '/imagenes/rb7mFK9aRYpvMrbiRx21CUu4.jpeg',
       },
       resultadoLocal: 6,
       resultadoVisitante: 6,
@@ -61,11 +61,11 @@ const partidosPorDefecto = {
     {
       equipoLocal: {
         nombreClub: 'Alianza 2',
-        escudo: 'http://localhost:4000/imagenes/BBwI4rWo3OUvFW0hjOJjFOHl.png',
+        escudo: urlImagenes + '/imagenes/BBwI4rWo3OUvFW0hjOJjFOHl.png',
       },
       equipoVisitante: {
         nombreClub: 'Trinidad 2',
-        escudo: 'http://localhost:4000/imagenes/xcDE-dLcIaiCPyCvtcx5_Vt6.png',
+        escudo: urlImagenes + '/imagenes/xcDE-dLcIaiCPyCvtcx5_Vt6.png',
       },
       resultadoLocal: 2,
       resultadoVisitante: 2,
