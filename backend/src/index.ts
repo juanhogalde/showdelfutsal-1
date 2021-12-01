@@ -32,7 +32,7 @@ import {importarDatos} from './Config/importarDatos';
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.2';
+const deploy = 'v0.0.3';
 
 class Server {
   public app: express.Application;
