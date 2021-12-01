@@ -13,5 +13,5 @@ ENV HOST_EMAIL_SISTEMA=c1470936.ferozo.com
 ENV EMAIL_SISTEMA=no-reply@elshowdelfutsal.com
 ENV PASS_EMAIL_SISTEMA=B4F2K3@NPY
 ENV PORT_EMAIL_SISTEMA=465
-CMD ["npm run dev"]
+CMD ["npm", "run", "dev"]
 VOLUME [ "/imagenes" ]
