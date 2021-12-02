@@ -21,7 +21,7 @@ class ImagenesController {
         let arregloDePath: Array<any> = [];
         req.body.archivos.forEach((archivo: any) => {
           let path: string = archivo.path.split('\\');
-          let pathFile: string = `${path[0]}/${path[1]}/${path[2]}`;
+          let pathFile: string = `${path[0]}`;
           let imagen: IImagenes = new modeloImagenes({
             ...archivo,
             fuente: pathFile.replace('public', ''),
@@ -34,7 +34,7 @@ class ImagenesController {
         responder.sucess(req, res, arregloDePath);
       } else {
         let path: string = req.body.archivos.path.split('\\');
-        let pathFile: string = `${path[0]}/${path[1]}/${path[2]}`;
+        let pathFile: string = `${path[0]}`;
         const imagen: IImagenes = new modeloImagenes({
           ...req.body,
           fuente: pathFile.replace('public', ''),
