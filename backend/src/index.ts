@@ -34,7 +34,7 @@ import {instalarBD} from './Config/instalacionInicial';
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.4';
+const deploy = 'v0.0.6';
 
 class Server {
   public app: express.Application;
