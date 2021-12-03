@@ -7,8 +7,14 @@ import path from 'path';
 class PublicidadesController {
   public async listar(req: Request, res: Response) {
     try {
-      const listadoPublicidades = await modeloPublicidades.find();
-      responder.sucess(req, res, listadoPublicidades);
+      modeloPublicidades
+        .find({})
+        .populate('idImagen')
+        .then((publicidades: any[]) => {
+          responder.sucess(req, res, publicidades);
+        });
+      // const listadoPublicidades = await modeloPublicidades.find();
+      // responder.sucess(req, res, listadoPublicidades);
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -18,7 +24,7 @@ class PublicidadesController {
     try {
       const publicidad: IPublicidades = new modeloPublicidades(req.body);
       await publicidad.save();
-      responder.sucess(req, res);
+      responder.sucess(req, res, publicidad);
     } catch (error) {
       responder.error(req, res, error);
     }

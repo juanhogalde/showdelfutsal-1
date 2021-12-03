@@ -8,4 +8,5 @@ export default interface IPublicidades extends Document {
   isActiva: boolean;
   ubicacion: string;
   direccion: string;
+  idImagen: Array<string>;
 }

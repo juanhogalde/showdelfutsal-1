@@ -8,6 +8,12 @@ const PublicidadesSchema = new Schema({
   isActiva: {type: Boolean, default: false},
   ubicacion: {type: String, unique: true, required: true},
   direccion: {type: String},
+  idImagen: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'modeloImagenes',
+    },
+  ],
 });
 
 export default model<IPublicidades>('modeloPublicidades', PublicidadesSchema);
