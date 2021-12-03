@@ -1,21 +1,22 @@
 import {} from './AccionPartidos';
-
+import {urlStaticImages} from '../../urlImagenes';
 const partidosPorDefecto = {
   partidos: [
     {
       equipoLocal: {
         nombreClub: 'Alianza',
-        escudo: 'http://localhost:4000/imagenes/zCom5ZOiRbCuBmvMuXfFFgnB.png',
+        escudo: urlStaticImages + 'escudo_alianza.png',
       },
       equipoVisitante: {
-        nombreClub: 'Trinidad',
-        escudo: 'http://localhost:4000/imagenes/yY9zTQq_fhQ565szhmE8yDZc.png',
+        nombreClub: 'huarpes',
+        escudo: urlStaticImages + 'escudo_huarpes.png',
       },
       resultadoLocal: 6,
       resultadoVisitante: 6,
       penalesLocal: '4',
       penalesVisitante: '2',
       fechaPartido: '2022-02-26T21:26:55.133',
+      fecha: 'Primera Fecha',
       idEstadio: {
         nombreEstadio: 'Estadio Aldo Cantoni',
         direccion: 'urquiza',
@@ -26,24 +27,25 @@ const partidosPorDefecto = {
         tituloCampeonato: 'final 2021',
         fechaInicio: '2021-02-26T17:58:06.719+00:00',
         fechaFin: '2021-11-26T17:58:06.719+00:00',
-        idCategoria: '617fee1ff7e3b603e4078c63',
+        keyCategoria: 2,
       },
       idTabla: {},
     },
     {
       equipoLocal: {
         nombreClub: 'Villa Hipódromo',
-        escudo: 'http://localhost:4000/imagenes/qY7P0Olc6xtCfHvf9bL8o1nI.png',
+        escudo: urlStaticImages + 'escudo_cvhd.png',
       },
       equipoVisitante: {
         nombreClub: 'Aberastain San Lorenzo',
-        escudo: 'http://localhost:4000/imagenes/rb7mFK9aRYpvMrbiRx21CUu4.jpeg',
+        escudo: urlStaticImages + 'escudo_aberastain.jpeg',
       },
       resultadoLocal: 6,
       resultadoVisitante: 6,
       penalesLocal: '4',
       penalesVisitante: '2',
       fechaPartido: '2021-12-20T16:00:00',
+      fecha: 'Primera Fecha',
       idEstadio: {
         nombreEstadio: 'Estadio Bicentenario',
         direccion: 'calle',
@@ -54,24 +56,25 @@ const partidosPorDefecto = {
         tituloCampeonato: 'copa 2021',
         fechaInicio: '2021-10-26T17:58:06.719+00:00',
         fechaFin: '2021-11-26T17:58:06.719+00:00',
-        idCategoria: '617fee4ef7e3b603e4078c65',
+        keyCategoria: 1,
       },
       idTabla: {},
     },
     {
       equipoLocal: {
-        nombreClub: 'Alianza 2',
-        escudo: 'http://localhost:4000/imagenes/BBwI4rWo3OUvFW0hjOJjFOHl.png',
+        nombreClub: 'defensores este',
+        escudo: urlStaticImages + 'escudo_defensores_del_este.png',
       },
       equipoVisitante: {
-        nombreClub: 'Trinidad 2',
-        escudo: 'http://localhost:4000/imagenes/xcDE-dLcIaiCPyCvtcx5_Vt6.png',
+        nombreClub: 'Luz y fuerza',
+        escudo: urlStaticImages + 'escudo_lusfuerza.png',
       },
       resultadoLocal: 2,
       resultadoVisitante: 2,
       penalesLocal: '0',
       penalesVisitante: '0',
       fechaPartido: '2021-12-10T22:00:00',
+      fecha: 'Primera Fecha',
       idEstadio: {
         nombreEstadio: 'Estadio Aldo Cantoni 2',
         direccion: 'urquiza 2',
@@ -82,7 +85,7 @@ const partidosPorDefecto = {
         tituloCampeonato: 'final 2021 - 2',
         fechaInicio: '2021-02-26T17:58:06.719+00:00',
         fechaFin: '2021-11-26T17:58:06.719+00:00',
-        idCategoria: '617fee1ff7e3b603e4078c63',
+        keyCategoria: 2,
       },
       idTabla: {},
     },

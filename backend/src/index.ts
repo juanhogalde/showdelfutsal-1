@@ -26,13 +26,15 @@ import tablasRouter from './Componentes/Tablas/Tablas_Router';
 import responder from './Middlewares/responder';
 import manejadorErrores from './Middlewares/manejadorErrores';
 import {importarDatos} from './Config/importarDatos';
+import modeloUsuarios from './Componentes/Usuarios/Usuarios_Model';
+import {instalarBD} from './Config/instalacionInicial';
 // import { comprimirImagen } from './Middlewares/imagemin';
 
 ///// VARIABLES DE ENTORNO
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.2';
+const deploy = 'v0.0.7';
 
 class Server {
   public app: express.Application;
@@ -97,6 +99,23 @@ class Server {
     this.app.get('/importar', (req: Request, res: Response) => {
       console.info('Importando BD...');
       importarDatos(req, res);
+    });
+    this.app.get('/instalar', (req: Request, res: Response) => {
+      //Comprobar que la BD no esta instalada
+      modeloUsuarios.findOne({}).then((elemento: any) => {
+        if (elemento) {
+          responder.sucess(req, res, 'Ya instalada');
+        } else {
+          instalarBD()
+            .then((respuesta: any) => {
+              res.status(200).send(respuesta);
+            })
+            .catch((e: any) => {
+              console.log(e);
+              res.status(500).send('ocurrio un error');
+            });
+        }
+      });
     });
 
     // this.app.get('/comprimirImagenes', (req: Request, res: Response) => {

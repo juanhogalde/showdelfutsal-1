@@ -67,7 +67,8 @@ const Marcador = () => {
             {partido.categoria.nombre} - {partido.categoria.subcategoria}
           </h4> */}
           <EtiquetaCategoria
-            categoriaId={partido.campeonato ? partido.campeonato.idCategoria : 0}
+            buscarPorKey={true}
+            categoriaId={partido.campeonato ? partido.campeonato.keyCategoria : 0}
           />
         </div>
         <div className="info-partido">
