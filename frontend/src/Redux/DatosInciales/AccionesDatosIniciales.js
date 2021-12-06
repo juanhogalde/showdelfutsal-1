@@ -42,7 +42,18 @@ export const obtenerDatosIniciales = () => {
         })
           .then(res => {
             datosIniciales = {...datosIniciales, subcategorias: res.data.value};
-            dispatch(cargaDatosInicialesExito_accion(datosIniciales));
+            API({
+              url: '/medidasPublicidad/listar',
+              method: 'get',
+            })
+              .then(res => {
+                datosIniciales = {...datosIniciales, medidasPublicidad: res.data.value};
+                dispatch(cargaDatosInicialesExito_accion(datosIniciales));
+              })
+              .catch(error => {
+                console.log(error);
+                dispatch(cargaDatosInicialesError_accion(error));
+              });
           })
           .catch(error => {
             console.log(error);

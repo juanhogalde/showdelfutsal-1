@@ -1,9 +1,11 @@
 import IUsuarios from '../Componentes/Usuarios/Usuarios_Interface';
 import ICategorias from '../Componentes/Categorias/Categorias_Interface';
 import ISubCategorias from 'src/Componentes/Subcategorias/Subcategorias_Interface';
+import IMedidasPublicidad from 'src/Componentes/MedidasPublicidad/MedidasPublicidad_Interface';
 import modeloUsuarios from '../Componentes/Usuarios/Usuarios_Model';
 import modeloCategorias from '../Componentes/Categorias/Categorias_Model';
 import modeloSubCategorias from '../Componentes/Subcategorias/Subcategorias_Model';
+import modeloMedidasPublicidad from '../Componentes/MedidasPublicidad/MedidasPublicidad_Model';
 
 let inicializarCategorias = async () => {
   const categoria1: ICategorias = new modeloCategorias({
@@ -62,11 +64,43 @@ let inicializarUsuarios = async () => {
   usuario2.save();
 };
 
+let incializarMedidasPublicitarias = async () => {
+  const medida1: IMedidasPublicidad = new modeloMedidasPublicidad({
+    ancho: 245,
+    alto: 245,
+    ubicacion: 'cuadrado',
+    direccion: 'partidos-derecha-arriba',
+  });
+  medida1.save();
+  const medida2: IMedidasPublicidad = new modeloMedidasPublicidad({
+    ancho: 245,
+    alto: 245,
+    ubicacion: 'cuadrado',
+    direccion: 'partidos-derecha-abajo',
+  });
+  medida2.save();
+  const medida3: IMedidasPublicidad = new modeloMedidasPublicidad({
+    ancho: 1136,
+    alto: 99,
+    ubicacion: 'horizontal',
+    direccion: 'noticias-inferior',
+  });
+  medida3.save();
+  const medida4: IMedidasPublicidad = new modeloMedidasPublicidad({
+    ancho: 245,
+    alto: 245,
+    ubicacion: 'cuadrado',
+    direccion: 'noticia-desarrolla-derecha-arriba',
+  });
+  medida4.save();
+};
+
 export const instalarBD = async () => {
   try {
     await inicializarCategorias();
     await inicializarSubCategorias();
     await inicializarUsuarios();
+    await incializarMedidasPublicitarias();
     console.log('instalacion finalizada');
     return 'Instalacion finalizada';
   } catch (error) {

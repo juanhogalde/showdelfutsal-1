@@ -28,6 +28,8 @@ import manejadorErrores from './Middlewares/manejadorErrores';
 import {importarDatos} from './Config/importarDatos';
 import modeloUsuarios from './Componentes/Usuarios/Usuarios_Model';
 import {instalarBD} from './Config/instalacionInicial';
+import medidasPublicidad_Router from './Componentes/MedidasPublicidad/MedidasPublicidad_Router';
+// import {medidasPublicidadRouter} from './Componentes/MedidasPublicidad/MedidasPublicidad_Router'
 // import { comprimirImagen } from './Middlewares/imagemin';
 
 ///// VARIABLES DE ENTORNO
@@ -88,6 +90,7 @@ class Server {
     this.app.use('/subcategorias', subcategoriasRouter);
     this.app.use('/tablas', tablasRouter);
     this.app.use('/usuarios', usuariosRouter);
+    this.app.use('/medidasPublicidad', medidasPublicidad_Router);
 
     //Rutas Basicas
     this.app.get('/', (req: Request, res: Response) => {

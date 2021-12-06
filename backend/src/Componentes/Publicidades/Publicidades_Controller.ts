@@ -48,11 +48,12 @@ class PublicidadesController {
         modeloPublicidades.findById(publicidadBody._id).then(async (publicidad: any) => {
           if (publicidad) {
             publicidad.nombrePublicidad = publicidadBody.nombrePublicidad;
-            publicidad.ancho = publicidadBody.ancho;
-            publicidad.alto = publicidadBody.alto;
+            // publicidad.ancho = publicidadBody.ancho;
+            // publicidad.alto = publicidadBody.alto;
             publicidad.isActiva = publicidadBody.isActiva;
-            publicidad.ubicacion = publicidadBody.ubicacion;
-            publicidad.direccion = publicidadBody.direccion;
+            publicidad.idMedidas = publicidadBody.idMedidas;
+            // publicidad.ubicacion = publicidadBody.ubicacion;
+            // publicidad.direccion = publicidadBody.direccion;
             publicidad.idImagen = publicidadBody.idImagen;
 
             const resultado = await publicidad.save({new: true});

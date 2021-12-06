@@ -22,6 +22,7 @@ const datosInicialesPorDefecto = {
   datosIniciales: null,
   categorias: [],
   subcategorias: [],
+  medidasPublicidad: [],
 };
 const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
   switch (accion.type) {
@@ -52,6 +53,7 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
         datosIniciales: {},
         categorias: categorias,
         subcategorias: subCategorias,
+        medidasPublicidad: accion.datosIniciales.medidasPublicidad,
       };
     }
     case cargaDatosInicialesError: {
