@@ -30,7 +30,7 @@ const importarDatos_1 = require("./Config/importarDatos");
 const Usuarios_Model_1 = __importDefault(require("./Componentes/Usuarios/Usuarios_Model"));
 const instalacionInicial_1 = require("./Config/instalacionInicial");
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
-const deploy = 'v0.0.4';
+const deploy = 'v0.0.7';
 class Server {
     constructor() {
         this._cadenaDeConexion = process.env.DATABASE || 'mongodb://localhost:29017/Desarrollo';
