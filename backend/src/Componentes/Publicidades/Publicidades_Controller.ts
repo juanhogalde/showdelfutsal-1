@@ -23,6 +23,7 @@ class PublicidadesController {
   public async agregar(req: Request, res: Response) {
     try {
       const publicidad: IPublicidades = new modeloPublicidades(req.body);
+      publicidad.populate('idImagen');
       await publicidad.save();
       responder.sucess(req, res, publicidad);
     } catch (error) {
@@ -52,9 +53,10 @@ class PublicidadesController {
             publicidad.isActiva = publicidadBody.isActiva;
             publicidad.ubicacion = publicidadBody.ubicacion;
             publicidad.direccion = publicidadBody.direccion;
+            publicidad.idImagen = publicidadBody.idImagen;
 
             const resultado = await publicidad.save({new: true});
-            responder.sucess(req, res, resultado);
+            responder.sucess(req, res, {...publicidadBody, _id: resultado._id});
           } else {
             let error = new Error('Publicidad no encontrada');
             responder.error(req, res, error);

@@ -13,6 +13,7 @@ const InputLowa = props => {
     autocomplete,
     required,
     value,
+    src,
     name,
     id,
     inputConIcono,
@@ -24,7 +25,8 @@ const InputLowa = props => {
     onFocus,
     onBlur,
   } = props;
-  const inputElement = useRef(null);
+
+  const inputElement = useRef();
   const imgElement = useRef(null);
   var reader = new FileReader();
 
@@ -97,7 +99,7 @@ const InputLowa = props => {
 
       {type === 'file' && (
         <div className="CI-VistaPrevia-Imágen">
-          <img ref={imgElement} alt="" src={imagen}></img>
+          <img ref={imgElement} alt="" src={src ? src : imagen}></img>
         </div>
       )}
     </div>

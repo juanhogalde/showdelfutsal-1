@@ -9,7 +9,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import Alertas from '../Alertas/Alertas';
 import {useHistory} from 'react-router';
 import InputSwitchLowa from '../InputSwitchLowa/InputSwitchLowa';
-import {guardarPublicidad} from '../../Redux/Publicidades/AccionesPublicidades';
+import {
+  guardarPublicidad,
+  volverPorDefectoPublicidad_accion,
+} from '../../Redux/Publicidades/AccionesPublicidades';
 
 const NuevaPublicidad = () => {
   const history = useHistory();
@@ -17,7 +20,6 @@ const NuevaPublicidad = () => {
   const [datosCargados, setdatosCargados] = useState({});
   const dispatch = useDispatch();
   const escucharCambios = (name, value) => {
-    console.log(name);
     setdatosCargados({...datosCargados, [name]: value});
   };
 
@@ -30,7 +32,7 @@ const NuevaPublicidad = () => {
   };
 
   const RespuestaDeAlertaVolverPorDefecto = () => {
-    // dispatch(volverPorDefecto_accion());
+    dispatch(volverPorDefectoPublicidad_accion());
     history.push('/Publicidad');
   };
   return (
@@ -39,7 +41,7 @@ const NuevaPublicidad = () => {
       <div className="CI-DesactivarPublicidad">
         <p>Desactivar</p>
         <InputSwitchLowa
-          name="checkbox"
+          name="isActiva"
           onChange={e => escucharCambios(e.target.name, e.target.checked)}
         ></InputSwitchLowa>
       </div>

@@ -2,10 +2,14 @@ import React from 'react';
 import './ItemPublicidad.css';
 import {FiEdit3} from 'react-icons/fi';
 import {useHistory} from 'react-router';
+import {buscarPublicidadAEditar_accion} from '../../Redux/Publicidades/AccionesPublicidades';
+import {useDispatch} from 'react-redux';
 
-const ItemPublicidad = ({linkTo = '/', ubicacion = 'Ubicación'}) => {
+const ItemPublicidad = ({idPublicidad = '', linkTo = '/', ubicacion = 'Ubicación'}) => {
   const historialDeNavegacion = useHistory();
+  const dispatch = useDispatch();
   const irAEditarPublicidad = () => {
+    dispatch(buscarPublicidadAEditar_accion(idPublicidad));
     historialDeNavegacion.push(linkTo);
   };
   return (

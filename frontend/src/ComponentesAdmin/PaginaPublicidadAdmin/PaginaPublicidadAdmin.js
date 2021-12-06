@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import InputLowa from '../InputLowa/InputLowa';
 import './PaginaPublicidadAdmin.css';
 import {BsSearch} from 'react-icons/bs';
@@ -10,22 +10,48 @@ import {useSelector} from 'react-redux';
 
 const PaginaPublicidadAdmin = () => {
   const {publicidades} = useSelector(state => state.storePublicidades);
+  const [isFiltroActivo, setIsFiltroActivo] = useState(true);
   const historialDeNavegacion = useHistory();
   const redireccionarNuevaPublicidad = () => {
     historialDeNavegacion.push('/Publicidad/Nueva');
+  };
+  const activarDesactivarFiltro = () => {
+    setIsFiltroActivo(!isFiltroActivo);
   };
   return (
     <div className="CP-PaginaPublicidadAdmin">
       <BotonLowa onClick={redireccionarNuevaPublicidad} tituloboton={'Agregar'} />
       <InputLowa placeholder={'Buscar'} inputConIcono={<BsSearch></BsSearch>} />
-      <FiltroActivo></FiltroActivo>
+      <FiltroActivo
+        activarDesactivarFiltro={activarDesactivarFiltro}
+        isFiltroActivo={isFiltroActivo}
+      ></FiltroActivo>
       {publicidades.map(publicidad => {
-        return (
-          <ItemPublicidad
-            ubicacion={publicidad.ubicacion ? publicidad.ubicacion : ''}
-            linkTo={'/Publicidad/Editar'}
-          ></ItemPublicidad>
-        );
+        if (isFiltroActivo) {
+          if (publicidad.isActiva) {
+            return (
+              <ItemPublicidad
+                idPublicidad={publicidad._id}
+                ubicacion={publicidad.ubicacion ? publicidad.ubicacion : ''}
+                linkTo={'/Publicidad/Editar'}
+              ></ItemPublicidad>
+            );
+          } else {
+            return <></>;
+          }
+        } else {
+          if (!publicidad.isActiva) {
+            return (
+              <ItemPublicidad
+                idPublicidad={publicidad._id}
+                ubicacion={publicidad.ubicacion ? publicidad.ubicacion : ''}
+                linkTo={'/Publicidad/Editar'}
+              ></ItemPublicidad>
+            );
+          } else {
+            return <></>;
+          }
+        }
       })}
 
       {/* <ItemPublicidad ubicacion={'Pagina 1'} linkTo={'/Publicidad/Editar'}></ItemPublicidad>
