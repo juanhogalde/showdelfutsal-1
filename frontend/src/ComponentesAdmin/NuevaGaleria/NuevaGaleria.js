@@ -25,47 +25,51 @@ const NuevaGaleria = () => {
     isExito: false,
     isError: false,
   });
+  const [isErrorAlComprimir, setIsErrorAlComprimir] = useState(false);
   const dispatch = useDispatch();
 
   const escucharCambios = async (name, value) => {
     if (name === 'imagenes') {
-      setCantidadDeArchivos(value.length);
-      setAlertaComprimir({
-        tipo: 'cargando',
-        mensaje: 'Comprimiendo Imágenes...',
-        isCargando: true,
-        isExito: false,
-        isError: false,
-      });
-      let aux = [];
+      if (value.length > 0) {
+        setCantidadDeArchivos(value.length);
+        setAlertaComprimir({
+          tipo: 'cargando',
+          mensaje: 'Comprimiendo Imágenes...',
+          isCargando: true,
+          isExito: false,
+          isError: false,
+        });
+        let aux = [];
 
-      Object.values(value).forEach(async img => {
-        const respuesta = compresorMultiple(img);
-        const resultado = await respuesta
-          .then(res => {
-            setAlertaComprimir({
-              tipo: 'success',
-              mensaje: 'Imágenes comprimidas con éxito.',
-              isCargando: false,
-              isExito: true,
-              isError: false,
+        Object.values(value).forEach(async img => {
+          const respuesta = compresorMultiple(img);
+          const resultado = await respuesta
+            .then(res => {
+              setAlertaComprimir({
+                tipo: 'success',
+                mensaje: 'Imágenes comprimidas con éxito.',
+                isCargando: false,
+                isExito: true,
+                isError: false,
+              });
+              return res;
+            })
+            .catch(error => {
+              console.log(error);
+              setAlertaComprimir({
+                tipo: 'error',
+                mensaje: 'No se logró comprimir imágenes.',
+                isCargando: false,
+                isExito: false,
+                isError: true,
+              });
+              setIsErrorAlComprimir(true);
             });
-            return res;
-          })
-          .catch(error => {
-            console.log(error);
-            setAlertaComprimir({
-              tipo: 'error',
-              mensaje: 'No se logró comprimir imágenes.',
-              isCargando: false,
-              isExito: false,
-              isError: true,
-            });
-          });
 
-        aux = [...aux, resultado];
-        setDatosGaleria({...datosGaleria, imagenes: aux});
-      });
+          aux = [...aux, resultado];
+          setDatosGaleria({...datosGaleria, imagenes: aux});
+        });
+      }
     } else {
       setDatosGaleria({...datosGaleria, [name]: value});
     }
@@ -95,6 +99,12 @@ const NuevaGaleria = () => {
         isExito: false,
         isError: false,
       });
+    }
+    if (isErrorAlComprimir) {
+      setDatosGaleria({
+        imagenes: [],
+      });
+      setIsErrorAlComprimir(false);
     }
   };
   /* useEffect(() => {
