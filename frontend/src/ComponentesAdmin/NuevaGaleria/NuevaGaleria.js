@@ -10,15 +10,65 @@ import {
   volverPorDefectoAgregarGaleria_accion,
 } from '../../Redux/Imagenes/AccionesImagenes';
 import Alertas from '../Alertas/Alertas';
+import compresorMultiple from '../../ModulosExternos/Compresor';
 
 const NuevaGaleria = () => {
   const {isAgregarGaleria} = useSelector(state => state.storeImagenes);
-  const [datosGaleria, setDatosGaleria] = useState({});
-
+  const [datosGaleria, setDatosGaleria] = useState({
+    imagenes: [],
+  });
+  const [cantidadDeArchivos, setCantidadDeArchivos] = useState(0);
+  const [alertaComprimir, setAlertaComprimir] = useState({
+    tipo: '',
+    mensaje: '',
+    isCargando: false,
+    isExito: false,
+    isError: false,
+  });
   const dispatch = useDispatch();
 
-  const escucharCambios = (name, value) => {
-    setDatosGaleria({...datosGaleria, [name]: value});
+  const escucharCambios = async (name, value) => {
+    if (name === 'imagenes') {
+      setCantidadDeArchivos(value.length);
+      setAlertaComprimir({
+        tipo: 'cargando',
+        mensaje: 'Comprimiendo Imágenes...',
+        isCargando: true,
+        isExito: false,
+        isError: false,
+      });
+      let aux = [];
+
+      Object.values(value).forEach(async img => {
+        const respuesta = compresorMultiple(img);
+        const resultado = await respuesta
+          .then(res => {
+            setAlertaComprimir({
+              tipo: 'success',
+              mensaje: 'Imágenes comprimidas con éxito.',
+              isCargando: false,
+              isExito: true,
+              isError: false,
+            });
+            return res;
+          })
+          .catch(error => {
+            console.log(error);
+            setAlertaComprimir({
+              tipo: 'error',
+              mensaje: 'No se logró comprimir imágenes.',
+              isCargando: false,
+              isExito: false,
+              isError: true,
+            });
+          });
+
+        aux = [...aux, resultado];
+        setDatosGaleria({...datosGaleria, imagenes: aux});
+      });
+    } else {
+      setDatosGaleria({...datosGaleria, [name]: value});
+    }
   };
 
   const eliminarImagen = index => {
@@ -28,17 +78,31 @@ const NuevaGaleria = () => {
     console.log(auxImagenes);
     setDatosGaleria({...datosGaleria, imagenes: auxImagenes});
   };
+
   const guardarNuevaGaleria = () => {
-    /* var fechaDeCarga = new Date();
-    setDatosGaleria({...datosGaleria, fechaCarga: fechaDeCarga});
-    if (datosGaleria.fechaCarga) {
-      dispatch(agregarGaleria_accion(datosGaleria));
-    } */
     dispatch(agregarGaleria_accion(datosGaleria));
   };
   const valoresPorDefectoNuevaGaleria = () => {
     dispatch(volverPorDefectoAgregarGaleria_accion());
   };
+  const respuestaDeSweetAlComprimir = respuesta => {
+    console.log(respuesta);
+    if (respuesta) {
+      setAlertaComprimir({
+        tipo: '',
+        mensaje: '',
+        isCargando: false,
+        isExito: false,
+        isError: false,
+      });
+    }
+  };
+  /* useEffect(() => {
+    return () => {
+      console.log('desmontó');
+      dispatch(listarImagenes_accion());
+    };
+  }, [dispatch]); */
   return (
     <div className="CP-AgregarImagenes">
       <InputLowa
@@ -53,20 +117,22 @@ const NuevaGaleria = () => {
         multiple={true}
       ></InputLowa>
 
-      {datosGaleria.imagenes && (
+      {datosGaleria.imagenes.length === cantidadDeArchivos && (
         <div className="CI-ListaImagnes">
           {Object.values(datosGaleria.imagenes).map((imagen, index) => {
             return (
-              <div key={index} className="filaListaImagenes">
-                <p className="nombreImagen">{imagen.name}</p>
-                <div className="accionesFilaListaImagenes">
-                  <FiEdit3 className="iconoAcción-ListaImagenes"></FiEdit3>
-                  <MdDeleteForever
-                    onClick={() => eliminarImagen(index)}
-                    className="iconoAcción-ListaImagenes"
-                  />
+              imagen && (
+                <div key={index} className="filaListaImagenes">
+                  <p className="nombreImagen">{imagen.name}</p>
+                  <div className="accionesFilaListaImagenes">
+                    <FiEdit3 className="iconoAcción-ListaImagenes"></FiEdit3>
+                    <MdDeleteForever
+                      onClick={() => eliminarImagen(index)}
+                      className="iconoAcción-ListaImagenes"
+                    />
+                  </div>
                 </div>
-              </div>
+              )
             );
           })}
         </div>
@@ -85,6 +151,14 @@ const NuevaGaleria = () => {
         RespuestaDeSweet={valoresPorDefectoNuevaGaleria}
         subtitulo={isAgregarGaleria.mensaje}
       />
+      <Alertas
+        tipoDeSweet={alertaComprimir.tipo}
+        mostrarSweet={
+          alertaComprimir.isCargando || alertaComprimir.isExito || alertaComprimir.isError
+        }
+        subtitulo={alertaComprimir.mensaje}
+        RespuestaDeSweet={respuestaDeSweetAlComprimir}
+      ></Alertas>
     </div>
   );
 };
