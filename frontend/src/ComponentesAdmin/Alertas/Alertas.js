@@ -113,7 +113,8 @@ const Alertas = ({
           title={titulo ? titulo : ''}
           onConfirm={() => console.log('')}
         >
-          {!titulo && 'Cargando...'}
+          {/* {!titulo && 'Cargando...'} */}
+          {subtitulo}
         </SweetAlert>
       ) : null}
       {tipoDeSweet === 'cancelar' ? (

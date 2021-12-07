@@ -16,6 +16,9 @@ import {Link} from 'react-router-dom';
 import Radio from '../Radio/Radio';
 import PieDepagina from '../PieDePagina/PieDepagina';
 import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
+import ModalLowa from '../../ComponentesAdmin/ModalLowa/ModalLowa';
+import publicidadModal from '../../Static/Img/publicidad-modal.png';
+import {controlModalPublicidad_accion} from '../../Redux/DatosInciales/AccionesDatosIniciales';
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},
@@ -25,12 +28,15 @@ const Filtro = [
 const Inicio = () => {
   const dispatch = useDispatch();
   const {noticias} = useSelector(state => state.storeNoticias);
+  const {isMostrarModalPublicidad} = useSelector(state => state.sotreDatosIniciales);
+
   const {imagenes} = useSelector(state => state.storeImagenes);
   // const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   const [noticiaP, setNoticiaP] = useState({});
   const [noticia1, setNoticia1] = useState({});
   const [noticia2, setNoticia2] = useState({});
   const [galeria, setGaleria] = useState({galeria1: [], galeria2: [], galeria3: []});
+
   const FiltrarNoticias = keyCategoria => {
     return new Promise((resolve, reject) => {
       var filtradoDeNoticia = noticias.filter(noticia => noticia.keyCategoria === keyCategoria);
@@ -113,6 +119,9 @@ const Inicio = () => {
       default:
         break;
     }
+  };
+  const cerrarModalPublicidad = () => {
+    dispatch(controlModalPublicidad_accion());
   };
   return (
     <div className="LP-Inicio">
@@ -259,6 +268,12 @@ const Inicio = () => {
         </div>
       </div>
       <PieDepagina isConFondo={true}></PieDepagina>
+      <ModalLowa
+        isMostrar={isMostrarModalPublicidad}
+        cerrarModalLowa={() => cerrarModalPublicidad()}
+      >
+        <img alt="" className="publicidadModalLowa" src={publicidadModal}></img>
+      </ModalLowa>
     </div>
   );
 };

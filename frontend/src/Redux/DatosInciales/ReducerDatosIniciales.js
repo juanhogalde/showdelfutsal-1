@@ -2,6 +2,7 @@ import {
   cargandoDatosIniciales,
   cargaDatosInicialesExito,
   cargaDatosInicialesError,
+  controlModalPublicidad,
 } from './AccionesDatosIniciales';
 const datosInicialesPorDefecto = {
   linkVideosInicioGaleria: [
@@ -23,6 +24,7 @@ const datosInicialesPorDefecto = {
   categorias: [],
   subcategorias: [],
   medidasPublicidad: [],
+  isMostrarModalPublicidad: true,
 };
 const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
   switch (accion.type) {
@@ -69,6 +71,12 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
       return {
         ...state,
         isDatosIniciales: {isMostrar: true, tipo: 'error', mensaje: accion.message},
+      };
+    }
+    case controlModalPublicidad: {
+      return {
+        ...state,
+        isMostrarModalPublicidad: !state.isMostrarModalPublicidad,
       };
     }
     default:

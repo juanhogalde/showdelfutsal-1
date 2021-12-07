@@ -23,8 +23,18 @@ const BarraDeNavegacion = () => {
   const abrirSubmenu = id => {
     if (id === 'Masculino') {
       setIsMasculino(!isMasculino);
+      setIsFemenenino(false);
     } else {
       setIsFemenenino(!isFemenenino);
+      setIsMasculino(false);
+    }
+  };
+  const eventoCerrarSubMenu = () => {
+    if (isMasculino) {
+      setIsMasculino(false);
+    }
+    if (isFemenenino) {
+      setIsFemenenino(false);
     }
   };
   return (
@@ -41,7 +51,7 @@ const BarraDeNavegacion = () => {
               </NavLink>
             </li>
             <li className="nav-item" onClick={() => abrirSubmenu('Femenino')}>
-              <div className="nav-links">
+              <div className="nav-links" tabIndex="0" onBlur={() => eventoCerrarSubMenu()}>
                 Femenino
                 <div className={`${isFemenenino ? 'dropdown' : 'dropdown-close'}`}>
                   <Menucategorias eventoApertura={isFemenenino} handleClick={handleClick} />
@@ -49,7 +59,7 @@ const BarraDeNavegacion = () => {
               </div>
             </li>
             <li className="nav-item" onClick={() => abrirSubmenu('Masculino')}>
-              <div className="nav-links">
+              <div className="nav-links" tabIndex="1" onBlur={() => eventoCerrarSubMenu()}>
                 Masculino
                 <div className={`${isMasculino ? 'dropdown' : 'dropdown-close'}`}>
                   <Menucategorias eventoApertura={isMasculino} handleClick={handleClick} />

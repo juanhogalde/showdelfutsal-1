@@ -196,18 +196,27 @@
   }
   .escudo-A {
     padding-left: 5px;
+    grid-column: 1/4;
   }
   .marcador-B {
     padding-left: 0;
   }
   .escudo-B {
     padding-right: 5px;
+    grid-column: 9/12;
+  }
+  .nombreEquipo-Marcador {
+    text-align: center;
   }
   .nombreEquipo-A {
     grid-column: 1/6;
   }
   .nombreEquipo-B {
     grid-column: 7/12;
+  }
+  .img-Escudo {
+    max-width: 100px;
+    max-height: 100px;
   }
 }
 @media screen and (max-width: 375px) {

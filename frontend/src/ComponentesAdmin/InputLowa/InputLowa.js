@@ -91,6 +91,7 @@ const InputLowa = props => {
           multiple={multiple}
           onFocus={onFocus}
           onBlur={onBlur}
+          accept={type === 'file' ? 'image/png, image/jpeg' : ''}
         ></input>
         {type !== 'file' ? (
           <span
