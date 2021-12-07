@@ -17,7 +17,6 @@ class ImagenesController {
   public async agregar(req: Request, res: Response) {
     try {
       if (req.body.archivos.length) {
-        console.log(req.body);
         let arregloDePath: Array<any> = [];
         req.body.archivos.forEach((archivo: any) => {
           let path: string = archivo.path;
@@ -33,14 +32,14 @@ class ImagenesController {
         responder.sucess(req, res, arregloDePath);
       } else {
         let path: string = req.body.archivos.path;
-        console.log('PATH');
-        console.log(path);
+        // console.log('PATH');
+        // console.log(path);
         const imagen: IImagenes = new modeloImagenes({
           ...req.body,
           fuente: path.replace('public', '').replace('\\', '/').replace('\\', '/'),
         });
-        console.log('imagen');
-        console.log(imagen);
+        // console.log('imagen');
+        // console.log(imagen);
         await imagen.save();
         responder.sucess(req, res, imagen);
       }
@@ -129,6 +128,20 @@ class ImagenesController {
 
   public async obtenerGaleriaVideo(nombreGaleria: string) {
     return modeloImagenes.find({galeriaVideo: nombreGaleria}).sort({fechaCarga: 'desc'}).limit(2);
+  }
+
+  public async insertarImagen(imagen: any) {
+    try {
+      let imagenNew: IImagenes = new modeloImagenes();
+      imagenNew.fuente = imagen.fuente;
+      imagenNew.isGaleria = imagen.isGaleria;
+      imagenNew.fechaCarga = new Date();
+
+      const resultado = await imagenNew.save();
+      return resultado;
+    } catch (error) {
+      return error;
+    }
   }
 }
 export const imagenesController = new ImagenesController();

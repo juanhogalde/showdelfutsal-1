@@ -4,7 +4,8 @@
   "description": "Show del futsal",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --config nodemon.json src/index.ts",
+    "dev_nodemon": "nodemon --config nodemon.json src/index.ts",
+    "dev": "nodemon src/index.ts",
     "start": "tsc && node ./build/index.js",
     "debug": "nodemon --config nodemon.json --inspect-brk src/index.ts",
     "build": "tsc",
