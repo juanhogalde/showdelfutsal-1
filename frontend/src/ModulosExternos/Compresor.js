@@ -1,9 +1,9 @@
 import Compressor from 'compressorjs';
 
-const compresorMultiple = async (archivos = {}) => {
+const compresor = async (archivo = {}, calidadCompresion = 0.8) => {
   return await new Promise((resolve, reject) => {
-    new Compressor(archivos, {
-      quality: 0.8,
+    new Compressor(archivo, {
+      quality: calidadCompresion,
       success(archivoComprimido) {
         resolve(archivoComprimido);
       },
@@ -13,4 +13,4 @@ const compresorMultiple = async (archivos = {}) => {
     });
   });
 };
-export default compresorMultiple;
+export default compresor;
