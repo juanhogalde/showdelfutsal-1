@@ -36,11 +36,7 @@ import medidasPublicidad_Router from './Componentes/MedidasPublicidad/MedidasPub
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
 
 ///// DEPLOY
-<<<<<<< HEAD
-const deploy = 'v0.0.3';
-=======
 const deploy = 'v0.0.8';
->>>>>>> de2c5c9c15c730315fe7b9dad536eb38ee645ccc
 
 class Server {
   public app: express.Application;
