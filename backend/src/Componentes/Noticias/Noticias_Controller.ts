@@ -256,8 +256,9 @@ class NoticiasController {
           page: parseInt(filtrosBody.page, 10) || 1,
         };
 
-        const datos = await modeloNoticias.paginate(filtrosBD, opcionesPaginado);
-        if (datos.docs.length) {
+        // const datos = await modeloNoticias.paginate(filtrosBD, opcionesPaginado);
+        const datos = await modeloNoticias.find(filtrosBD);
+        if (datos.length) {
           responder.sucess(req, res, datos);
         } else {
           responder.sucess(req, res, 'No existen datos para los filtros ingresados');

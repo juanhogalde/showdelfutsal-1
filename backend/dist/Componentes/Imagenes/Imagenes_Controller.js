@@ -34,18 +34,20 @@ class ImagenesController {
                     console.log(req.body);
                     let arregloDePath = [];
                     req.body.archivos.forEach((archivo) => {
-                        let path = archivo.path.split('\\');
-                        let pathFile = `${path[0]}/${path[1]}/${path[2]}`;
-                        let imagen = new Imagenes_Model_1.default(Object.assign(Object.assign({}, archivo), { fuente: pathFile.replace('public', ''), galeria: true, descripcion: req.body.descripcion }));
+                        let path = archivo.path;
+                        let imagen = new Imagenes_Model_1.default(Object.assign(Object.assign({}, archivo), { fuente: path.replace('public', '').replace('\\', '/').replace('\\', '/'), galeria: true, descripcion: req.body.descripcion }));
                         arregloDePath.push(imagen);
                         imagen.save();
                     });
                     responder_1.default.sucess(req, res, arregloDePath);
                 }
                 else {
-                    let path = req.body.archivos.path.split('\\');
-                    let pathFile = `${path[0]}/${path[1]}/${path[2]}`;
-                    const imagen = new Imagenes_Model_1.default(Object.assign(Object.assign({}, req.body), { fuente: pathFile.replace('public', '') }));
+                    let path = req.body.archivos.path;
+                    console.log('PATH');
+                    console.log(path);
+                    const imagen = new Imagenes_Model_1.default(Object.assign(Object.assign({}, req.body), { fuente: path.replace('public', '').replace('\\', '/').replace('\\', '/') }));
+                    console.log('imagen');
+                    console.log(imagen);
                     yield imagen.save();
                     responder_1.default.sucess(req, res, imagen);
                 }

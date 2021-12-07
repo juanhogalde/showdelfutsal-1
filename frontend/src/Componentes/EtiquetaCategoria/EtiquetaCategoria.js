@@ -7,12 +7,16 @@ import {useSelector} from 'react-redux';
  ** categoriaId:int - id de la categoria o subcategoria a buscar
  **
  */
-const EtiquetaCategoria = ({subcategoria = false, categoriaId = 0}) => {
+const EtiquetaCategoria = ({subcategoria = false, categoriaId = 0, buscarPorKey = false}) => {
   const categoriaSeleccionada = useSelector(state =>
-    state.sotreDatosIniciales.categorias.find(element => element.value === categoriaId)
+    buscarPorKey
+      ? state.sotreDatosIniciales.categorias.find(element => element.key === categoriaId)
+      : state.sotreDatosIniciales.categorias.find(element => element.value === categoriaId)
   );
   const subcategoriaSeleccionada = useSelector(state =>
-    state.sotreDatosIniciales.subcategorias.find(element => element.value === categoriaId)
+    buscarPorKey
+      ? state.sotreDatosIniciales.subcategorias.find(element => element.key === categoriaId)
+      : state.sotreDatosIniciales.subcategorias.find(element => element.value === categoriaId)
   );
   return (
     <div>

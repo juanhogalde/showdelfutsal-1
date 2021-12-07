@@ -8,7 +8,7 @@ import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {useDispatch, useSelector} from 'react-redux';
 import publicidadLarga from '../../Static/Img/publicidad_larga.jpg';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
-/* import Vivo from '../Vivo/Vivo'; */
+// import Vivo from '../Vivo/Vivo';
 import SomosFrase from '../../Static/Img/frase_inicio.png';
 import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
@@ -16,6 +16,10 @@ import {Link} from 'react-router-dom';
 import Radio from '../Radio/Radio';
 import PieDepagina from '../PieDePagina/PieDepagina';
 import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
+import ModalLowa from '../../ComponentesAdmin/ModalLowa/ModalLowa';
+import publicidadModal from '../../Static/Img/publicidad-modal.png';
+import {urlImagenes} from '../../urlImagenes';
+import {controlModalPublicidad_accion} from '../../Redux/DatosInciales/AccionesDatosIniciales';
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},
@@ -25,12 +29,17 @@ const Filtro = [
 const Inicio = () => {
   const dispatch = useDispatch();
   const {noticias} = useSelector(state => state.storeNoticias);
+  const {isMostrarModalPublicidad} = useSelector(state => state.sotreDatosIniciales);
+  const {publicidades} = useSelector(state => state.storePublicidades);
+
   const {imagenes} = useSelector(state => state.storeImagenes);
   // const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   const [noticiaP, setNoticiaP] = useState({});
   const [noticia1, setNoticia1] = useState({});
   const [noticia2, setNoticia2] = useState({});
+  const [publicaciones, setPublicaciones] = useState(null);
   const [galeria, setGaleria] = useState({galeria1: [], galeria2: [], galeria3: []});
+
   const FiltrarNoticias = keyCategoria => {
     return new Promise((resolve, reject) => {
       var filtradoDeNoticia = noticias.filter(noticia => noticia.keyCategoria === keyCategoria);
@@ -41,6 +50,45 @@ const Inicio = () => {
     dispatch(guardarNoticiaMiniaturaSeleccionada_accion(noticiaRecibida));
   };
   useLayoutEffect(() => {
+    // CARGA DE PUBLICIDADES
+    let publicidadPartidoDerecha1;
+    let publicidadPartidoDerecha2;
+    let publicidadNoticiaHorizontalBajo;
+    let publicidadModalInicio;
+    publicidades.forEach(publicidad => {
+      switch (publicidad.idMedidas[0].keyMedidas) {
+        case 1:
+          if (publicidad.isActiva) {
+            publicidadPartidoDerecha1 = publicidad;
+          }
+          break;
+        case 2:
+          if (publicidad.isActiva) {
+            publicidadPartidoDerecha2 = publicidad;
+          }
+          break;
+        case 5:
+          if (publicidad.isActiva) {
+            publicidadModalInicio = publicidad;
+          }
+          break;
+        case 6:
+          if (publicidad.isActiva) {
+            publicidadNoticiaHorizontalBajo = publicidad;
+          }
+          break;
+
+        default:
+          break;
+      }
+    });
+    setPublicaciones({
+      partidoDerecha1: publicidadPartidoDerecha1,
+      partidoDerecha2: publicidadPartidoDerecha2,
+      noticiaHorizontalBajo: publicidadNoticiaHorizontalBajo,
+      publicidadInicioModal: publicidadModalInicio,
+    });
+
     var noticiasFiltradas = noticias.filter(noticia => noticia.keyCategoria === 2);
     if (noticiasFiltradas[0]) {
       setNoticiaP(noticiasFiltradas[0]);
@@ -51,7 +99,7 @@ const Inicio = () => {
     if (noticiasFiltradas[2]) {
       setNoticia2(noticiasFiltradas[2]);
     }
-    var auxGaleria1 = imagenes.filter(imagen => imagen.descripcion === 'La liga 2021');
+    var auxGaleria1 = imagenes.filter(imagen => imagen.descripcion === 'La Gloria Campeón 2021');
     var auxGaleria2 = imagenes.filter(imagen => imagen.descripcion === 'Argentina vs Brasil');
     var auxGaleria3 = imagenes.filter(
       imagen => imagen.descripcion === 'Finales Femenino - Apertura 2021'
@@ -61,14 +109,14 @@ const Inicio = () => {
       galeria2: [...auxGaleria2],
       galeria3: [...auxGaleria3],
     });
-  }, [setNoticiaP, setNoticia1, setNoticia2, noticias, setGaleria, imagenes]);
+  }, [setNoticiaP, setNoticia1, setNoticia2, noticias, setGaleria, imagenes, publicidades]);
 
   /* const {DatosDePruebaImagenes, DatosDePruebaImagenes2, DatosDePruebaImagenes3} = useSelector(
     state => state.storePrueba
   ); */
 
   const {linkVideosInicioGaleria} = useSelector(state => state.sotreDatosIniciales);
-  /* const videoVivoPrueba = {fuente: 'MmysMu3mgvw'}; */
+  // const videoVivoPrueba = {fuente: 'MmysMu3mgvw'};
   const obtenerFiltro = filtro => {
     switch (filtro) {
       case 'Masculino':
@@ -113,6 +161,9 @@ const Inicio = () => {
       default:
         break;
     }
+  };
+  const cerrarModalPublicidad = () => {
+    dispatch(controlModalPublicidad_accion());
   };
   return (
     <div className="LP-Inicio">
@@ -173,10 +224,28 @@ const Inicio = () => {
           </div>
           <div className="CI-Publicidad-Marcador">
             <div>
-              <img alt="" src={publicidadCorta}></img>
+              <img
+                alt=""
+                src={
+                  publicaciones
+                    ? publicaciones.partidoDerecha1
+                      ? urlImagenes + publicaciones.partidoDerecha1.idImagen[0].fuente
+                      : publicidadCorta
+                    : publicidadCorta
+                }
+              ></img>
             </div>
             <div>
-              <img alt="" src={publicidadCorta}></img>
+              <img
+                alt=""
+                src={
+                  publicaciones
+                    ? publicaciones.partidoDerecha2
+                      ? urlImagenes + publicaciones.partidoDerecha2.idImagen[0].fuente
+                      : publicidadCorta
+                    : publicidadCorta
+                }
+              ></img>
             </div>
           </div>
         </div>
@@ -222,7 +291,17 @@ const Inicio = () => {
             </div>
           </div>
           <div className="publicidad-Noticias">
-            <img alt="" src={publicidadLarga}></img>
+            <img
+              alt=""
+              src={
+                publicaciones
+                  ? publicaciones.noticiaHorizontalBajo
+                    ? urlImagenes + publicaciones.noticiaHorizontalBajo.idImagen[0].fuente
+                    : publicidadLarga
+                  : publicidadLarga
+              }
+            ></img>
+            {/* publicidadLarga */}
           </div>
         </div>
       </div>
@@ -259,6 +338,22 @@ const Inicio = () => {
         </div>
       </div>
       <PieDepagina isConFondo={true}></PieDepagina>
+      <ModalLowa
+        isMostrar={isMostrarModalPublicidad}
+        cerrarModalLowa={() => cerrarModalPublicidad()}
+      >
+        <img
+          alt=""
+          className="publicidadModalLowa"
+          src={
+            publicaciones
+              ? publicaciones.publicidadInicioModal
+                ? urlImagenes + publicaciones.publicidadInicioModal.idImagen[0].fuente
+                : publicidadModal
+              : publicidadModal
+          }
+        ></img>
+      </ModalLowa>
     </div>
   );
 };

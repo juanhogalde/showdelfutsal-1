@@ -33,13 +33,12 @@
   color: white;
 }
 .escudo-A {
-  grid-column: 2/5;
+  grid-column: 2/4;
   grid-row: 4/7;
-  /* 
   display: flex;
-  justify-content: flex-end; */
-  position: relative; /* 
-  background-color: white; */
+  justify-content: center;
+  align-items: center;
+  position: relative;
   z-index: 1;
 }
 .marcador-A {
@@ -58,10 +57,11 @@
   align-items: center;
 }
 .escudo-B {
-  grid-column: 8/11;
+  grid-column: 9/11;
   grid-row: 4/7;
   display: flex;
   justify-content: center;
+  align-items: center;
   position: relative;
   z-index: 1;
 }
@@ -104,9 +104,11 @@
 }
 .img-Escudo {
   width: 100%;
-  max-width: 100%;
   height: 100%;
   object-fit: contain;
+  user-select: none;
+  max-width: 250px;
+  max-height: 250px;
 }
 .penales {
   grid-column: 5/8;
@@ -194,18 +196,27 @@
   }
   .escudo-A {
     padding-left: 5px;
+    grid-column: 1/4;
   }
   .marcador-B {
     padding-left: 0;
   }
   .escudo-B {
     padding-right: 5px;
+    grid-column: 9/12;
+  }
+  .nombreEquipo-Marcador {
+    text-align: center;
   }
   .nombreEquipo-A {
     grid-column: 1/6;
   }
   .nombreEquipo-B {
     grid-column: 7/12;
+  }
+  .img-Escudo {
+    max-width: 100px;
+    max-height: 100px;
   }
 }
 @media screen and (max-width: 375px) {

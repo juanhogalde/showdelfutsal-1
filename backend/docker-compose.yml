@@ -1,11 +1,11 @@
 version: '1.0'
 services:
-  mongodb:
-    container_name: mongodb
+  bdmongo:
+    container_name: bdmongo
     restart: always
     image: mongo
     ports:
-      - 29017:27017
+      - 27017:27017
     volumes:
       - './data/db:/data/db'
       - './data/confidb:/data/confidb'
@@ -14,7 +14,6 @@ services:
     image: lowa/futsal-front:latest
     ports:
       - 5000:3000
-
   futsal-backend:
     container_name: futsal-server
     image: lowa/futsal-backend:latest
@@ -23,13 +22,13 @@ services:
       - 4000:4000
     environment:
       - PORT=4000
-      - DATABASE=mongodb://localhost:29017/FutsalDB
+      - DATABASE=mongodb://bdmongo:27017/FutsalDB
       - TOKEN_SECRET=1a2ffe36502bc61066c571867b7f458c
       - HOST_EMAIL_SISTEMA=c1470936.ferozo.com
       - EMAIL_SISTEMA=no-reply@elshowdelfutsal.com
       - PASS_EMAIL_SISTEMA=B4F2K3@NPY
       - PORT_EMAIL_SISTEMA=465
     volumes:
-      - './imagenes/:/imagenes/'
+      - './imagenes/:/app/public/imagenes/'
     depends_on:
-      - mongodb
+      - bdmongo

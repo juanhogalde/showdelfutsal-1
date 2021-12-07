@@ -28,8 +28,8 @@ const PaginasSeccionesAdmin = ({
 
   useEffect(() => {
     if (isSeccionGaleria) {
-      var auxGaleria1 = imagenes.filter(imagen => imagen.descripcion === 'La liga 2021');
-      var auxGaleria2 = imagenes.filter(imagen => imagen.descripcion === 'Argentina vs Brasil');
+      var auxGaleria1 = imagenes.filter(imagen => imagen.descripcion === 'La Gloria Campeón 2021');
+      var auxGaleria2 = imagenes.filter(imagen => imagen.descripcion === 'Prueba compresor');
       var auxGaleria3 = imagenes.filter(
         imagen => imagen.descripcion === 'Finales Femenino - Apertura 2021'
       );

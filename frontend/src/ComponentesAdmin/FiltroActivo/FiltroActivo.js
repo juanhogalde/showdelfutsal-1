@@ -1,11 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './FiltroActivo.css';
-const FiltroActivo = () => {
-  const [isFiltroActivo, setIsFiltroActivo] = useState(false);
-
-  const activarDesactivarFiltro = () => {
-    setIsFiltroActivo(!isFiltroActivo);
-  };
+const FiltroActivo = ({activarDesactivarFiltro, isFiltroActivo}) => {
   return (
     <div className="CI-FiltroActivo">
       <div className="contenedor-TituloActivo">
@@ -17,7 +12,7 @@ const FiltroActivo = () => {
         </p>
       </div>
       <div className="contenedor-BarraActivo">
-        <div className={` barraActiva ${isFiltroActivo && 'barraInactiva'}`}></div>
+        <div className={` barraActiva ${!isFiltroActivo && 'barraInactiva'}`}></div>
       </div>
     </div>
   );

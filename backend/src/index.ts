@@ -26,13 +26,21 @@ import tablasRouter from './Componentes/Tablas/Tablas_Router';
 import responder from './Middlewares/responder';
 import manejadorErrores from './Middlewares/manejadorErrores';
 import {importarDatos} from './Config/importarDatos';
+import modeloUsuarios from './Componentes/Usuarios/Usuarios_Model';
+import {instalarBD} from './Config/instalacionInicial';
+import medidasPublicidad_Router from './Componentes/MedidasPublicidad/MedidasPublicidad_Router';
+// import {medidasPublicidadRouter} from './Componentes/MedidasPublicidad/MedidasPublicidad_Router'
 // import { comprimirImagen } from './Middlewares/imagemin';
 
 ///// VARIABLES DE ENTORNO
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
 
 ///// DEPLOY
+<<<<<<< HEAD
 const deploy = 'v0.0.3';
+=======
+const deploy = 'v0.0.8';
+>>>>>>> de2c5c9c15c730315fe7b9dad536eb38ee645ccc
 
 class Server {
   public app: express.Application;
@@ -86,6 +94,7 @@ class Server {
     this.app.use('/subcategorias', subcategoriasRouter);
     this.app.use('/tablas', tablasRouter);
     this.app.use('/usuarios', usuariosRouter);
+    this.app.use('/medidasPublicidad', medidasPublicidad_Router);
 
     //Rutas Basicas
     this.app.get('/', (req: Request, res: Response) => {
@@ -97,6 +106,23 @@ class Server {
     this.app.get('/importar', (req: Request, res: Response) => {
       console.info('Importando BD...');
       importarDatos(req, res);
+    });
+    this.app.get('/instalar', (req: Request, res: Response) => {
+      //Comprobar que la BD no esta instalada
+      modeloUsuarios.findOne({}).then((elemento: any) => {
+        if (elemento) {
+          responder.sucess(req, res, 'Ya instalada');
+        } else {
+          instalarBD()
+            .then((respuesta: any) => {
+              res.status(200).send(respuesta);
+            })
+            .catch((e: any) => {
+              console.log(e);
+              res.status(500).send('ocurrio un error');
+            });
+        }
+      });
     });
 
     // this.app.get('/comprimirImagenes', (req: Request, res: Response) => {

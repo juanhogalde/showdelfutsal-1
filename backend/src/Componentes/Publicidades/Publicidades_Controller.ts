@@ -7,8 +7,15 @@ import path from 'path';
 class PublicidadesController {
   public async listar(req: Request, res: Response) {
     try {
-      const listadoPublicidades = await modeloPublicidades.find();
-      responder.sucess(req, res, listadoPublicidades);
+      modeloPublicidades
+        .find({})
+        .populate('idImagen')
+        .populate('idMedidas')
+        .then((publicidades: any[]) => {
+          responder.sucess(req, res, publicidades);
+        });
+      // const listadoPublicidades = await modeloPublicidades.find();
+      // responder.sucess(req, res, listadoPublicidades);
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -17,8 +24,10 @@ class PublicidadesController {
   public async agregar(req: Request, res: Response) {
     try {
       const publicidad: IPublicidades = new modeloPublicidades(req.body);
+      publicidad.populate('idImagen');
+      publicidad.populate('idMedidas');
       await publicidad.save();
-      responder.sucess(req, res);
+      responder.sucess(req, res, publicidad);
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -41,14 +50,16 @@ class PublicidadesController {
         modeloPublicidades.findById(publicidadBody._id).then(async (publicidad: any) => {
           if (publicidad) {
             publicidad.nombrePublicidad = publicidadBody.nombrePublicidad;
-            publicidad.ancho = publicidadBody.ancho;
-            publicidad.alto = publicidadBody.alto;
+            // publicidad.ancho = publicidadBody.ancho;
+            // publicidad.alto = publicidadBody.alto;
             publicidad.isActiva = publicidadBody.isActiva;
-            publicidad.ubicacion = publicidadBody.ubicacion;
-            publicidad.direccion = publicidadBody.direccion;
+            publicidad.idMedidas = publicidadBody.idMedidas;
+            // publicidad.ubicacion = publicidadBody.ubicacion;
+            // publicidad.direccion = publicidadBody.direccion;
+            publicidad.idImagen = publicidadBody.idImagen;
 
             const resultado = await publicidad.save({new: true});
-            responder.sucess(req, res, resultado);
+            responder.sucess(req, res, {...publicidadBody, _id: resultado._id});
           } else {
             let error = new Error('Publicidad no encontrada');
             responder.error(req, res, error);

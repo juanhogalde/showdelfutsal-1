@@ -20,11 +20,10 @@ class ImagenesController {
         console.log(req.body);
         let arregloDePath: Array<any> = [];
         req.body.archivos.forEach((archivo: any) => {
-          let path: string = archivo.path.split('\\');
-          let pathFile: string = `${path[0]}/${path[1]}/${path[2]}`;
+          let path: string = archivo.path;
           let imagen: IImagenes = new modeloImagenes({
             ...archivo,
-            fuente: pathFile.replace('public', ''),
+            fuente: path.replace('public', '').replace('\\', '/').replace('\\', '/'),
             galeria: true,
             descripcion: req.body.descripcion,
           });
@@ -33,12 +32,15 @@ class ImagenesController {
         });
         responder.sucess(req, res, arregloDePath);
       } else {
-        let path: string = req.body.archivos.path.split('\\');
-        let pathFile: string = `${path[0]}/${path[1]}/${path[2]}`;
+        let path: string = req.body.archivos.path;
+        console.log('PATH');
+        console.log(path);
         const imagen: IImagenes = new modeloImagenes({
           ...req.body,
-          fuente: pathFile.replace('public', ''),
+          fuente: path.replace('public', '').replace('\\', '/').replace('\\', '/'),
         });
+        console.log('imagen');
+        console.log(imagen);
         await imagen.save();
         responder.sucess(req, res, imagen);
       }

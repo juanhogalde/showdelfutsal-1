@@ -21,12 +21,16 @@ const Usuarios_Router_1 = __importDefault(require("./Componentes/Usuarios/Usuari
 const Estadios_Router_1 = __importDefault(require("./Componentes/Estadios/Estadios_Router"));
 const Home_Router_1 = __importDefault(require("./Componentes/Home/Home_Router"));
 const Imagenes_Router_1 = __importDefault(require("./Componentes/Imagenes/Imagenes_Router"));
+const Videos_Router_1 = __importDefault(require("./Componentes/Videos/Videos_Router"));
+const Galeria_Router_1 = __importDefault(require("./Galeria/Galeria_Router"));
 const Tablas_Router_1 = __importDefault(require("./Componentes/Tablas/Tablas_Router"));
 const responder_1 = __importDefault(require("./Middlewares/responder"));
 const manejadorErrores_1 = __importDefault(require("./Middlewares/manejadorErrores"));
 const importarDatos_1 = require("./Config/importarDatos");
+const Usuarios_Model_1 = __importDefault(require("./Componentes/Usuarios/Usuarios_Model"));
+const instalacionInicial_1 = require("./Config/instalacionInicial");
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
-const deploy = 'v0.0.2';
+const deploy = 'v0.0.7';
 class Server {
     constructor() {
         this._cadenaDeConexion = process.env.DATABASE || 'mongodb://localhost:29017/Desarrollo';
@@ -61,6 +65,8 @@ class Server {
         this.app.use('/equipos', Equipos_Router_1.default);
         this.app.use('/home', Home_Router_1.default);
         this.app.use('/imagenes', Imagenes_Router_1.default);
+        this.app.use('/videos', Videos_Router_1.default);
+        this.app.use('/galeria', Galeria_Router_1.default);
         this.app.use('/noticias', Noticias_Router_1.default);
         this.app.use('/partidos', Partidos_Router_1.default);
         this.app.use('/publicidades', Publicidades_Router_1.default);
@@ -76,6 +82,23 @@ class Server {
         this.app.get('/importar', (req, res) => {
             console.info('Importando BD...');
             (0, importarDatos_1.importarDatos)(req, res);
+        });
+        this.app.get('/instalar', (req, res) => {
+            Usuarios_Model_1.default.findOne({}).then((elemento) => {
+                if (elemento) {
+                    responder_1.default.sucess(req, res, 'Ya instalada');
+                }
+                else {
+                    (0, instalacionInicial_1.instalarBD)()
+                        .then((respuesta) => {
+                        res.status(200).send(respuesta);
+                    })
+                        .catch((e) => {
+                        console.log(e);
+                        res.status(500).send('ocurrio un error');
+                    });
+                }
+            });
         });
         this.app.get('*', (req, res) => {
             console.info(`GET 404: ${req.originalUrl}`);

@@ -5,6 +5,7 @@ import storeLogueo from './UsuarioLogueado/ReducerUsuarioLogueado';
 import sotreDatosIniciales from './DatosInciales/ReducerDatosIniciales';
 import storeImagenes from './Imagenes/ReducerImagenes';
 import storePartidos from './Partidos/ReducerPartidos';
+import storePublicidades from './Publicidades/ReducerPublicidades';
 
 const RootReducers = combineReducers({
   storePrueba,
@@ -13,5 +14,6 @@ const RootReducers = combineReducers({
   sotreDatosIniciales,
   storeImagenes,
   storePartidos,
+  storePublicidades,
 });
 export default RootReducers;

@@ -2,6 +2,7 @@ import API from './../Configuracion/api';
 export const cargandoDatosIniciales = 'cargandoDatosIniciales';
 export const cargaDatosInicialesExito = 'cargaDatosInicialesExito';
 export const cargaDatosInicialesError = 'cargaDatosInicialesError';
+export const controlModalPublicidad = 'controlModalPublicidad';
 
 export const cargandoDatosIniciales_accion = () => {
   return {
@@ -42,7 +43,18 @@ export const obtenerDatosIniciales = () => {
         })
           .then(res => {
             datosIniciales = {...datosIniciales, subcategorias: res.data.value};
-            dispatch(cargaDatosInicialesExito_accion(datosIniciales));
+            API({
+              url: '/medidasPublicidad/listar',
+              method: 'get',
+            })
+              .then(res => {
+                datosIniciales = {...datosIniciales, medidasPublicidad: res.data.value};
+                dispatch(cargaDatosInicialesExito_accion(datosIniciales));
+              })
+              .catch(error => {
+                console.log(error);
+                dispatch(cargaDatosInicialesError_accion(error));
+              });
           })
           .catch(error => {
             console.log(error);
@@ -67,5 +79,11 @@ export const obtenerDatosIniciales = () => {
     //     console.log(error);
     //     dispatch(loginError_accion(error));
     //   });
+  };
+};
+
+export const controlModalPublicidad_accion = () => {
+  return {
+    type: controlModalPublicidad,
   };
 };

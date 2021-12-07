@@ -2,6 +2,7 @@ import {
   cargandoDatosIniciales,
   cargaDatosInicialesExito,
   cargaDatosInicialesError,
+  controlModalPublicidad,
 } from './AccionesDatosIniciales';
 const datosInicialesPorDefecto = {
   linkVideosInicioGaleria: [
@@ -22,6 +23,8 @@ const datosInicialesPorDefecto = {
   datosIniciales: null,
   categorias: [],
   subcategorias: [],
+  medidasPublicidad: [],
+  isMostrarModalPublicidad: true,
 };
 const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
   switch (accion.type) {
@@ -46,18 +49,34 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
           key: subcategoria.keySubcategoria,
         };
       });
+      var medidasPublicidad = accion.datosIniciales.medidasPublicidad.map(medidas => {
+        return {
+          value: medidas._id,
+          label: medidas.direccion + '->' + medidas.ancho + 'x' + medidas.alto,
+          key: medidas.keyMedidas,
+          ancho: medidas.ancho,
+          alto: medidas.alto,
+        };
+      });
       return {
         ...state,
         isDatosIniciales: {isMostrar: false, tipo: '', mensaje: ''},
         datosIniciales: {},
         categorias: categorias,
         subcategorias: subCategorias,
+        medidasPublicidad: medidasPublicidad,
       };
     }
     case cargaDatosInicialesError: {
       return {
         ...state,
         isDatosIniciales: {isMostrar: true, tipo: 'error', mensaje: accion.message},
+      };
+    }
+    case controlModalPublicidad: {
+      return {
+        ...state,
+        isMostrarModalPublicidad: !state.isMostrarModalPublicidad,
       };
     }
     default:
