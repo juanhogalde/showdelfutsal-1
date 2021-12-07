@@ -2,6 +2,7 @@ import React from 'react';
 import EtiquetaCategoria from '../EtiquetaCategoria/EtiquetaCategoria';
 import '../NoticiaDesarrollada/NoticiaDesarrollada.css';
 import {urlImagenes} from '../../urlImagenes';
+import formatearFecha from '../../ModulosExternos/FormatearFecha';
 /**
  * Recibe como parametros
  ** datosModelado que es un objeto con los siguiente atributo:
@@ -16,6 +17,7 @@ import {urlImagenes} from '../../urlImagenes';
  ** cuerpo: string
  **/
 const NoticiaDesarrollada = ({datosModelado = {}}) => {
+  /* const formatearFecha = formatearFecha(); */
   return (
     <div className="CP-Noticias-Desarrollada">
       <div className="CI-Cabecera-Noticia-Desarrollada">
@@ -38,11 +40,15 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
         />
 
         <div className="CI-Autor-Fecha-Noticia-Desarrollada">
-          <h4 className="Autor-Noticia-Desarrollada">
-            {datosModelado.autor ? datosModelado.autor : 'sin autor'}
-          </h4>
+          <h5 className="Autor-Noticia-Desarrollada">
+            {datosModelado.autor ? datosModelado.autor : '-'}
+          </h5>
           <p className="fecha-Noticia-Desarrollada">
-            {datosModelado.fecha ? datosModelado.fecha : 'dd/mm/aaaa'}
+            {/* {datosModelado.fecha ? datosModelado.fecha : 'dd/mm/aaaa'} */}
+            {`${formatearFecha(datosModelado.fecha, 'fecha')} ${formatearFecha(
+              datosModelado.fecha,
+              'hora'
+            )}`}
           </p>
         </div>
         <h4 className="Copete-Noticia-Desarrollada">
@@ -59,7 +65,7 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
           alt="imagen"
         />
         <h6 className="Epigrafe-NoticiaDesarrollada">
-          {datosModelado.epigrafe ? datosModelado.epigrafe : 'sin epigrafe'}
+          {datosModelado.epigrafe ? datosModelado.epigrafe : '-'}
         </h6>
       </div>
       <div className="CI-Cuerpo-Noticia-Desarrollada">
