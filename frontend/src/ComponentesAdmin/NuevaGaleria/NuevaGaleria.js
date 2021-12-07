@@ -10,7 +10,7 @@ import {
   volverPorDefectoAgregarGaleria_accion,
 } from '../../Redux/Imagenes/AccionesImagenes';
 import Alertas from '../Alertas/Alertas';
-import compresorMultiple from '../../ModulosExternos/Compresor';
+import compresor from '../../ModulosExternos/Compresor';
 
 const NuevaGaleria = () => {
   const {isAgregarGaleria} = useSelector(state => state.storeImagenes);
@@ -42,7 +42,7 @@ const NuevaGaleria = () => {
         let aux = [];
 
         Object.values(value).forEach(async img => {
-          const respuesta = compresorMultiple(img);
+          const respuesta = compresor(img);
           const resultado = await respuesta
             .then(res => {
               setAlertaComprimir({
