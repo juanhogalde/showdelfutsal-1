@@ -2,6 +2,7 @@ import API from './../Configuracion/api';
 export const cargandoDatosIniciales = 'cargandoDatosIniciales';
 export const cargaDatosInicialesExito = 'cargaDatosInicialesExito';
 export const cargaDatosInicialesError = 'cargaDatosInicialesError';
+export const controlModalPublicidad = 'controlModalPublicidad';
 
 export const cargandoDatosIniciales_accion = () => {
   return {
@@ -67,5 +68,11 @@ export const obtenerDatosIniciales = () => {
     //     console.log(error);
     //     dispatch(loginError_accion(error));
     //   });
+  };
+};
+
+export const controlModalPublicidad_accion = () => {
+  return {
+    type: controlModalPublicidad,
   };
 };
