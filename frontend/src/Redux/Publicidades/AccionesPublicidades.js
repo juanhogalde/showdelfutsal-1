@@ -118,7 +118,7 @@ export const publicidadEditadaError_accion = error => {
 
 export const guardarPublicidadEditada = datosCargados => {
   return dispatch => {
-    if (datosCargados.imagen) {
+    if (datosCargados.imagen && datosCargados.imagen[0].type) {
       var imagenPublicidad = new FormData();
       imagenPublicidad.append('archivos', datosCargados.imagen[0]);
       dispatch(cargandoGuardarPublicidadEditada_accion());

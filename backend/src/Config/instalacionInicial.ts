@@ -69,30 +69,42 @@ let incializarMedidasPublicitarias = async () => {
     ancho: 245,
     alto: 245,
     ubicacion: 'cuadrado',
-    direccion: 'partidos-derecha-arriba',
+    direccion: 'Inicio->Partidos->Derecha1',
+    keyMedidas: 1,
   });
   medida1.save();
   const medida2: IMedidasPublicidad = new modeloMedidasPublicidad({
     ancho: 245,
     alto: 245,
     ubicacion: 'cuadrado',
-    direccion: 'partidos-derecha-abajo',
+    direccion: 'Inicio->Partidos->Derecha2',
+    keyMedidas: 2,
   });
   medida2.save();
   const medida3: IMedidasPublicidad = new modeloMedidasPublicidad({
     ancho: 1136,
     alto: 99,
     ubicacion: 'horizontal',
-    direccion: 'noticias-inferior',
+    direccion: 'Inicio->Vivo->Abajo',
+    keyMedidas: 3,
   });
   medida3.save();
   const medida4: IMedidasPublicidad = new modeloMedidasPublicidad({
     ancho: 245,
     alto: 245,
     ubicacion: 'cuadrado',
-    direccion: 'noticia-desarrolla-derecha-arriba',
+    direccion: 'Desarrollada->Noticia->Derecha1',
+    keyMedidas: 4,
   });
   medida4.save();
+  const medida5: IMedidasPublicidad = new modeloMedidasPublicidad({
+    ancho: 300,
+    alto: 300,
+    ubicacion: 'modal',
+    direccion: 'Inicio->Modal->xxxxxxx',
+    keyMedidas: 5,
+  });
+  medida5.save();
 };
 
 export const instalarBD = async () => {

@@ -47,13 +47,22 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
           key: subcategoria.keySubcategoria,
         };
       });
+      var medidasPublicidad = accion.datosIniciales.medidasPublicidad.map(medidas => {
+        return {
+          value: medidas._id,
+          label: medidas.direccion + '->' + medidas.ancho + 'x' + medidas.alto,
+          key: medidas.keyMedidas,
+          ancho: medidas.ancho,
+          alto: medidas.alto,
+        };
+      });
       return {
         ...state,
         isDatosIniciales: {isMostrar: false, tipo: '', mensaje: ''},
         datosIniciales: {},
         categorias: categorias,
         subcategorias: subCategorias,
-        medidasPublicidad: accion.datosIniciales.medidasPublicidad,
+        medidasPublicidad: medidasPublicidad,
       };
     }
     case cargaDatosInicialesError: {

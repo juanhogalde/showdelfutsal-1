@@ -17,6 +17,11 @@ const InputLowa = props => {
     name,
     id,
     inputConIcono,
+    disabled,
+    ocultarIconoLateral = false,
+    funcionObtenerTamanioImagen = () => {
+      console.log('');
+    },
     funcionDeIcono = () => {
       console.log('No se envió función de Input con Icono');
       return false;
@@ -38,7 +43,6 @@ const InputLowa = props => {
     reader.onloadend = function () {
       imgElement.current.src = reader.result;
     };
-
     if (inputElement.current.files[0]) {
       reader.readAsDataURL(inputElement.current.files[0]);
     } else {
@@ -48,6 +52,10 @@ const InputLowa = props => {
       imgElement.current.src = imagen;
     }
     onChange(name, inputElement.current.files);
+
+    if (funcionObtenerTamanioImagen) {
+      funcionObtenerTamanioImagen(imgElement.current.clientHeight, imgElement.current.clientWidth);
+    }
   };
 
   /* useEffect(() => {
@@ -79,6 +87,7 @@ const InputLowa = props => {
           required={required}
           value={value}
           name={name}
+          disabled={disabled}
           multiple={multiple}
           onFocus={onFocus}
           onBlur={onBlur}
@@ -86,9 +95,19 @@ const InputLowa = props => {
         {type !== 'file' ? (
           <span
             className="input-Icono-Lowa"
-            onClick={inputConIcono ? () => funcionDeIcono() : () => resetValue(name)}
+            onClick={
+              inputConIcono
+                ? () => funcionDeIcono()
+                : !ocultarIconoLateral
+                ? () => resetValue(name)
+                : null
+            }
           >
-            {inputConIcono ? inputConIcono : <AiOutlineClose></AiOutlineClose>}
+            {inputConIcono ? (
+              inputConIcono
+            ) : !ocultarIconoLateral ? (
+              <AiOutlineClose></AiOutlineClose>
+            ) : null}
           </span>
         ) : (
           <span className="input-Icono-File-Lowa">

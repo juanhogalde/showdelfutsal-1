@@ -17,6 +17,14 @@ const EditarPublicidad = () => {
   const [datosCargados, setdatosCargados] = useState({});
   const history = useHistory();
   const {publicidadSeleccionadaEdit, isPublicidad} = useSelector(state => state.storePublicidades);
+  const [tamañoImagenCargada, setTamañoImagenCargada] = useState({alto: '', ancho: ''});
+
+  const [advertenciaCargadoDeDatos, setAdvertenciaCargadoDeDatos] = useState({
+    mostrar: false,
+    mensaje: '',
+    tipo: '',
+  });
+
   useLayoutEffect(() => {
     setdatosCargados(publicidadSeleccionadaEdit);
   }, [setdatosCargados, publicidadSeleccionadaEdit]);
@@ -26,11 +34,28 @@ const EditarPublicidad = () => {
     setdatosCargados({...datosCargados, [name]: value});
   };
   const guardarPublicidad = () => {
-    dispatch(guardarPublicidadEditada({...datosCargados, _id: publicidadSeleccionadaEdit._id}));
+    if (
+      tamañoImagenCargada.alto <= datosCargados.idMedidas[0].alto &&
+      tamañoImagenCargada.ancho <= datosCargados.idMedidas[0].ancho
+    ) {
+      dispatch(guardarPublicidadEditada({...datosCargados, _id: publicidadSeleccionadaEdit._id}));
+    } else {
+      setAdvertenciaCargadoDeDatos({
+        mostrar: true,
+        mensaje: 'verifique el tamaño de la imagen cargada',
+        tipo: 'warning',
+      });
+    }
   };
   const RespuestaDeAlertaVolverPorDefecto = () => {
     dispatch(volverPorDefectoPublicidad_accion());
     history.push('/Publicidad');
+  };
+  const funcionObtenerTamanioImagen = (h, w) => {
+    setTamañoImagenCargada({alto: h, ancho: w});
+  };
+  const RespuestaDeAlerta = () => {
+    setAdvertenciaCargadoDeDatos({mostrar: false, mensaje: '', tipo: ''});
   };
   return (
     <div className="CP-EditarPublicidad">
@@ -45,39 +70,34 @@ const EditarPublicidad = () => {
       </div>
       <InputLowa
         name="nombrePublicidad"
+        disabled={true}
+        ocultarIconoLateral={true}
         value={datosCargados.nombrePublicidad ? datosCargados.nombrePublicidad : ''}
-        placeholder="Ingrese nombre de publicidad..."
-        onChange={e => escucharCambios(e.target.name, e.target.value)}
       ></InputLowa>
       <InputLowa
-        name="ancho"
-        type="number"
-        value={datosCargados.ancho ? datosCargados.ancho : ''}
-        placeholder="Ingrese ancho de la publicidad..."
-        onChange={e => escucharCambios(e.target.name, e.target.value)}
+        name="medidaPublicidad"
+        disabled={true}
+        ocultarIconoLateral={true}
+        value={datosCargados.idMedidas ? datosCargados.idMedidas[0].direccion : ''}
       ></InputLowa>
       <InputLowa
-        name="alto"
-        type="number"
-        value={datosCargados.alto ? datosCargados.alto : ''}
-        placeholder="Ingrese alto de la publicidad..."
-        onChange={e => escucharCambios(e.target.name, e.target.value)}
-      ></InputLowa>
-      <InputLowa
-        name="ubicacion"
-        value={datosCargados.ubicacion ? datosCargados.ubicacion : ''}
-        placeholder="Ingrese ubicacion de la publicidad..."
-        onChange={e => escucharCambios(e.target.name, e.target.value)}
-      ></InputLowa>
-      <InputLowa
-        name="direccion"
-        value={datosCargados.direccion ? datosCargados.direccion : ''}
-        placeholder="Ingrese direccion de la publicidad..."
-        onChange={e => escucharCambios(e.target.name, e.target.value)}
+        name="medidaPublicidad"
+        disabled={true}
+        ocultarIconoLateral={true}
+        value={
+          datosCargados.idMedidas
+            ? datosCargados.idMedidas[0].ubicacion +
+              '->' +
+              datosCargados.idMedidas[0].ancho +
+              'x' +
+              datosCargados.idMedidas[0].alto
+            : ''
+        }
       ></InputLowa>
       <InputLowa
         name="imagen"
         type="file"
+        funcionObtenerTamanioImagen={funcionObtenerTamanioImagen}
         src={datosCargados.idImagen ? urlImagenes + datosCargados.idImagen[0].fuente : ''}
         onChange={(name, value) => escucharCambios(name, value)}
       ></InputLowa>
@@ -88,6 +108,12 @@ const EditarPublicidad = () => {
         titulo={isPublicidad.mensaje}
         tipoDeSweet={isPublicidad.tipo}
         RespuestaDeSweet={RespuestaDeAlertaVolverPorDefecto}
+      />
+      <Alertas
+        mostrarSweet={advertenciaCargadoDeDatos.mostrar}
+        titulo={advertenciaCargadoDeDatos.mensaje}
+        tipoDeSweet={advertenciaCargadoDeDatos.tipo}
+        RespuestaDeSweet={RespuestaDeAlerta}
       />
     </div>
   );

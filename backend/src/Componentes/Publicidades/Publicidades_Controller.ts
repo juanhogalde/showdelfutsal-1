@@ -10,6 +10,7 @@ class PublicidadesController {
       modeloPublicidades
         .find({})
         .populate('idImagen')
+        .populate('idMedidas')
         .then((publicidades: any[]) => {
           responder.sucess(req, res, publicidades);
         });
@@ -24,6 +25,7 @@ class PublicidadesController {
     try {
       const publicidad: IPublicidades = new modeloPublicidades(req.body);
       publicidad.populate('idImagen');
+      publicidad.populate('idMedidas');
       await publicidad.save();
       responder.sucess(req, res, publicidad);
     } catch (error) {
