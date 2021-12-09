@@ -23,7 +23,8 @@ class PublicidadesController {
 
   public async agregar(req: Request, res: Response) {
     try {
-      const publicidad: IPublicidades = new modeloPublicidades(req.body);
+      var fechaActual = new Date();
+      const publicidad: IPublicidades = new modeloPublicidades({...req.body, fecha: fechaActual});
       publicidad.populate('idImagen');
       publicidad.populate('idMedidas');
       await publicidad.save();

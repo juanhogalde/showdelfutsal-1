@@ -20,6 +20,7 @@ const PublicidadesSchema = new Schema({
       ref: 'modeloImagenes',
     },
   ],
+  fecha: {type: Date},
 });
 
 export default model<IPublicidades>('modeloPublicidades', PublicidadesSchema);

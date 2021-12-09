@@ -9,4 +9,6 @@ export default interface IPublicidades extends Document {
   ubicacion: string;
   direccion: string;
   idImagen: Array<string>;
+  fecha: Date;
+  idMedidas: Array<string>;
 }
