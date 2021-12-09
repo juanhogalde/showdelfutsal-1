@@ -17,7 +17,7 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
         ...state,
         isAgregarGaleria: {
           tipo: 'cargando',
-          mensaje: '',
+          mensaje: 'Guardando Nueva Galería...',
           isCargando: true,
           isExito: false,
           isError: false,

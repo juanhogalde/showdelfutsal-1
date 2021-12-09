@@ -5,12 +5,10 @@ import InputLowa from '../InputLowa/InputLowa';
 import {MdDeleteForever} from 'react-icons/md';
 import {FiEdit3} from 'react-icons/fi';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  agregarGaleria_accion,
-  volverPorDefectoAgregarGaleria_accion,
-} from '../../Redux/Galerias/AccionesGalerias';
+
 import Alertas from '../Alertas/Alertas';
 import compresor from '../../ModulosExternos/Compresor';
+import {agregarGaleria_accion} from '../../Redux/Galerias/AccionesGalerias';
 
 const NuevaGaleria = () => {
   const {isAgregarGaleria} = useSelector(state => state.storeGalerias);
@@ -84,13 +82,13 @@ const NuevaGaleria = () => {
   };
 
   const guardarNuevaGaleria = () => {
+    /*  dispatch(agregarGaleria_accion(datosGaleria)); */
     dispatch(agregarGaleria_accion(datosGaleria));
   };
   const valoresPorDefectoNuevaGaleria = () => {
-    dispatch(volverPorDefectoAgregarGaleria_accion());
+    /* dispatch(volverPorDefectoAgregarGaleria_accion()); */
   };
   const respuestaDeSweetAlComprimir = respuesta => {
-    console.log(respuesta);
     if (respuesta) {
       setAlertaComprimir({
         tipo: '',
