@@ -8,12 +8,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   agregarGaleria_accion,
   volverPorDefectoAgregarGaleria_accion,
-} from '../../Redux/Imagenes/AccionesImagenes';
+} from '../../Redux/Galerias/AccionesGalerias';
 import Alertas from '../Alertas/Alertas';
 import compresor from '../../ModulosExternos/Compresor';
 
 const NuevaGaleria = () => {
-  const {isAgregarGaleria} = useSelector(state => state.storeImagenes);
+  const {isAgregarGaleria} = useSelector(state => state.storeGalerias);
   const [datosGaleria, setDatosGaleria] = useState({
     imagenes: [],
   });

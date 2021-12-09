@@ -1,21 +1,18 @@
 import {
-  /* cargandoGuardarGaleria,
-  guardarGaleriaExito,
-  guardarGaleriaError,
-  volverPorDefectoAgregarGaleria, */
-  cargandoListarImagenes,
-  listarImagenesExito,
-  listarImagenesError,
-} from './AccionesImagenes';
+  cargandoAgregarGaleria,
+  agregarGaleriaExito,
+  agregarGaleriaError,
+  volverPorDefectoAgregarGaleria,
+} from './AccionesGalerias';
 
-const imagenPorDefecto = {
-  imagenes: [],
-  /* galeria: [],
-  isAgregarGaleria: {tipo: '', mensaje: '', isCargando: false, isExito: false, isError: false}, */
+const galeriaPorDefecto = {
+  galerias: [],
+  isAgregarGaleria: {tipo: '', mensaje: '', isCargando: false, isExito: false, isError: false},
 };
-const storeImagenes = (state = imagenPorDefecto, accion) => {
+
+const storeGalerias = (state = galeriaPorDefecto, accion) => {
   switch (accion.type) {
-    /* case cargandoGuardarGaleria: {
+    case cargandoAgregarGaleria: {
       return {
         ...state,
         isAgregarGaleria: {
@@ -27,7 +24,7 @@ const storeImagenes = (state = imagenPorDefecto, accion) => {
         },
       };
     }
-    case guardarGaleriaExito: {
+    case agregarGaleriaExito: {
       return {
         ...state,
         isAgregarGaleria: {
@@ -40,7 +37,7 @@ const storeImagenes = (state = imagenPorDefecto, accion) => {
         galeria: [...state.galeria, ...accion.datos],
       };
     }
-    case guardarGaleriaError: {
+    case agregarGaleriaError: {
       return {
         ...state,
         isAgregarGaleria: {
@@ -63,25 +60,9 @@ const storeImagenes = (state = imagenPorDefecto, accion) => {
           isError: false,
         },
       };
-    } */
-    case cargandoListarImagenes: {
-      return {
-        ...state,
-      };
-    }
-    case listarImagenesExito: {
-      return {
-        ...state,
-        imagenes: [...state.galeria, ...accion.datos],
-      };
-    }
-    case listarImagenesError: {
-      return {
-        ...state,
-      };
     }
     default:
       return state;
   }
 };
-export default storeImagenes;
+export default storeGalerias;

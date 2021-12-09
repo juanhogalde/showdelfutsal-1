@@ -1,9 +1,9 @@
 import API from './../Configuracion/api';
 
-export const cargandoGuardarGaleria = 'cargandoGuardarGaleria';
+/* export const cargandoGuardarGaleria = 'cargandoGuardarGaleria';
 export const guardarGaleriaExito = 'guardarGaleriaExito';
 export const guardarGaleriaError = 'guardarGaleriaError';
-export const volverPorDefectoAgregarGaleria = 'volverPorDefectoAgregarGaleria';
+export const volverPorDefectoAgregarGaleria = 'volverPorDefectoAgregarGaleria'; */
 
 export const cargandoListarImagenes = 'cargandoListarImagenes';
 export const listarImagenesExito = 'listarImagenesExito';
@@ -11,7 +11,7 @@ export const listarImagenesError = 'listarImagenesError';
 //
 
 /* ACCIONES AGREGAR GALERIA (MAXI) */
-export const cargandoGuardarGaleria_accion = isCargando => {
+/* export const cargandoGuardarGaleria_accion = isCargando => {
   return {
     type: cargandoGuardarGaleria,
   };
@@ -58,7 +58,7 @@ export const agregarGaleria_accion = datosGaleria => {
       });
   };
 };
-
+ */
 /* ACCIONES LISTAR IMAGENES (MAXI) */
 export const cargandoListarImagenes_accion = isCargando => {
   return {
