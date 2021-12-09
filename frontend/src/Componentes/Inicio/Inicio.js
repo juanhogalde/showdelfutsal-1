@@ -18,6 +18,7 @@ import PieDepagina from '../PieDePagina/PieDepagina';
 import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
 import ModalLowa from '../../ComponentesAdmin/ModalLowa/ModalLowa';
 import publicidadModal from '../../Static/Img/publicidad-modal.png';
+import {urlImagenes} from '../../urlImagenes';
 import {controlModalPublicidad_accion} from '../../Redux/DatosInciales/AccionesDatosIniciales';
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
@@ -29,12 +30,14 @@ const Inicio = () => {
   const dispatch = useDispatch();
   const {noticias} = useSelector(state => state.storeNoticias);
   const {isMostrarModalPublicidad} = useSelector(state => state.sotreDatosIniciales);
+  const {publicidades} = useSelector(state => state.storePublicidades);
 
   const {imagenes} = useSelector(state => state.storeImagenes);
   // const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   const [noticiaP, setNoticiaP] = useState({});
   const [noticia1, setNoticia1] = useState({});
   const [noticia2, setNoticia2] = useState({});
+  const [publicaciones, setPublicaciones] = useState(null);
   const [galeria, setGaleria] = useState({galeria1: [], galeria2: [], galeria3: []});
 
   const FiltrarNoticias = keyCategoria => {
@@ -47,6 +50,45 @@ const Inicio = () => {
     dispatch(guardarNoticiaMiniaturaSeleccionada_accion(noticiaRecibida));
   };
   useLayoutEffect(() => {
+    // CARGA DE PUBLICIDADES
+    let publicidadPartidoDerecha1;
+    let publicidadPartidoDerecha2;
+    let publicidadNoticiaHorizontalBajo;
+    let publicidadModalInicio;
+    publicidades.forEach(publicidad => {
+      switch (publicidad.idMedidas[0].keyMedidas) {
+        case 1:
+          if (publicidad.isActiva) {
+            publicidadPartidoDerecha1 = publicidad;
+          }
+          break;
+        case 2:
+          if (publicidad.isActiva) {
+            publicidadPartidoDerecha2 = publicidad;
+          }
+          break;
+        case 5:
+          if (publicidad.isActiva) {
+            publicidadModalInicio = publicidad;
+          }
+          break;
+        case 6:
+          if (publicidad.isActiva) {
+            publicidadNoticiaHorizontalBajo = publicidad;
+          }
+          break;
+
+        default:
+          break;
+      }
+    });
+    setPublicaciones({
+      partidoDerecha1: publicidadPartidoDerecha1,
+      partidoDerecha2: publicidadPartidoDerecha2,
+      noticiaHorizontalBajo: publicidadNoticiaHorizontalBajo,
+      publicidadInicioModal: publicidadModalInicio,
+    });
+
     var noticiasFiltradas = noticias.filter(noticia => noticia.keyCategoria === 2);
     if (noticiasFiltradas[0]) {
       setNoticiaP(noticiasFiltradas[0]);
@@ -67,7 +109,7 @@ const Inicio = () => {
       galeria2: [...auxGaleria2],
       galeria3: [...auxGaleria3],
     });
-  }, [setNoticiaP, setNoticia1, setNoticia2, noticias, setGaleria, imagenes]);
+  }, [setNoticiaP, setNoticia1, setNoticia2, noticias, setGaleria, imagenes, publicidades]);
 
   /* const {DatosDePruebaImagenes, DatosDePruebaImagenes2, DatosDePruebaImagenes3} = useSelector(
     state => state.storePrueba
@@ -182,10 +224,28 @@ const Inicio = () => {
           </div>
           <div className="CI-Publicidad-Marcador">
             <div>
-              <img alt="" src={publicidadCorta}></img>
+              <img
+                alt=""
+                src={
+                  publicaciones
+                    ? publicaciones.partidoDerecha1
+                      ? urlImagenes + publicaciones.partidoDerecha1.idImagen[0].fuente
+                      : publicidadCorta
+                    : publicidadCorta
+                }
+              ></img>
             </div>
             <div>
-              <img alt="" src={publicidadCorta}></img>
+              <img
+                alt=""
+                src={
+                  publicaciones
+                    ? publicaciones.partidoDerecha2
+                      ? urlImagenes + publicaciones.partidoDerecha2.idImagen[0].fuente
+                      : publicidadCorta
+                    : publicidadCorta
+                }
+              ></img>
             </div>
           </div>
         </div>
@@ -231,7 +291,17 @@ const Inicio = () => {
             </div>
           </div>
           <div className="publicidad-Noticias">
-            <img alt="" src={publicidadLarga}></img>
+            <img
+              alt=""
+              src={
+                publicaciones
+                  ? publicaciones.noticiaHorizontalBajo
+                    ? urlImagenes + publicaciones.noticiaHorizontalBajo.idImagen[0].fuente
+                    : publicidadLarga
+                  : publicidadLarga
+              }
+            ></img>
+            {/* publicidadLarga */}
           </div>
         </div>
       </div>
@@ -272,7 +342,17 @@ const Inicio = () => {
         isMostrar={isMostrarModalPublicidad}
         cerrarModalLowa={() => cerrarModalPublicidad()}
       >
-        <img alt="" className="publicidadModalLowa" src={publicidadModal}></img>
+        <img
+          alt=""
+          className="publicidadModalLowa"
+          src={
+            publicaciones
+              ? publicaciones.publicidadInicioModal
+                ? urlImagenes + publicaciones.publicidadInicioModal.idImagen[0].fuente
+                : publicidadModal
+              : publicidadModal
+          }
+        ></img>
       </ModalLowa>
     </div>
   );

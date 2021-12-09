@@ -98,13 +98,21 @@ let incializarMedidasPublicitarias = async () => {
   });
   medida4.save();
   const medida5: IMedidasPublicidad = new modeloMedidasPublicidad({
-    ancho: 300,
-    alto: 300,
+    ancho: 700,
+    alto: 500,
     ubicacion: 'modal',
-    direccion: 'Inicio->Modal->xxxxxxx',
+    direccion: 'Inicio->Modal',
     keyMedidas: 5,
   });
   medida5.save();
+  const medida6: IMedidasPublicidad = new modeloMedidasPublicidad({
+    ancho: 1136,
+    alto: 99,
+    ubicacion: 'horizontal',
+    direccion: 'Inicio->Noticia->Abajo',
+    keyMedidas: 6,
+  });
+  medida6.save();
 };
 
 export const instalarBD = async () => {

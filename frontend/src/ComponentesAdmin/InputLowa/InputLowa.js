@@ -52,9 +52,10 @@ const InputLowa = props => {
       imgElement.current.src = imagen;
     }
     onChange(name, inputElement.current.files);
-
     if (funcionObtenerTamanioImagen) {
-      funcionObtenerTamanioImagen(imgElement.current.clientHeight, imgElement.current.clientWidth);
+      setTimeout(() => {
+        funcionObtenerTamanioImagen(imgElement);
+      }, 500);
     }
   };
 

@@ -34,3 +34,7 @@
 .barraInactiva {
   transform: translateX(calc(100vw - 100px));
 }
+
+.textoActiva {
+  color: #2a2ac0;
+}
