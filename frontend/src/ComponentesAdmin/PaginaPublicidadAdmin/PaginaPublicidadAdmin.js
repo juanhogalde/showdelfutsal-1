@@ -40,8 +40,7 @@ const PaginaPublicidadAdmin = () => {
           if (publicidad.isActiva) {
             return (
               <ItemPublicidad
-                idPublicidad={publicidad._id}
-                ubicacion={publicidad.ubicacion ? publicidad.ubicacion : ''}
+                publicidad={publicidad}
                 linkTo={'/Publicidad/Editar'}
               ></ItemPublicidad>
             );
@@ -52,8 +51,7 @@ const PaginaPublicidadAdmin = () => {
           if (!publicidad.isActiva) {
             return (
               <ItemPublicidad
-                idPublicidad={publicidad._id}
-                ubicacion={publicidad.ubicacion ? publicidad.ubicacion : ''}
+                publicidad={publicidad}
                 linkTo={'/Publicidad/Editar'}
               ></ItemPublicidad>
             );
