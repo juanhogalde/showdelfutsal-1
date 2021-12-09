@@ -4,6 +4,7 @@ import {
   cargaDatosInicialesError,
   controlModalPublicidad,
 } from './AccionesDatosIniciales';
+import {actualizarDisponibilidadMedidasPublicidad} from '../Publicidades/AccionesPublicidades';
 const datosInicialesPorDefecto = {
   linkVideosInicioGaleria: [
     {
@@ -77,6 +78,12 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
       return {
         ...state,
         isMostrarModalPublicidad: !state.isMostrarModalPublicidad,
+      };
+    }
+    case actualizarDisponibilidadMedidasPublicidad: {
+      console.log(accion.medidas);
+      return {
+        ...state,
       };
     }
     default:
