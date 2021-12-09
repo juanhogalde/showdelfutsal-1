@@ -51,8 +51,8 @@ const EditarPublicidad = () => {
     dispatch(volverPorDefectoPublicidad_accion());
     history.push('/Publicidad');
   };
-  const funcionObtenerTamanioImagen = (h, w) => {
-    setTamañoImagenCargada({alto: h, ancho: w});
+  const funcionObtenerTamanioImagen = img => {
+    setTamañoImagenCargada({alto: img.current.naturalHeight, ancho: img.current.naturalWidth});
   };
   const RespuestaDeAlerta = () => {
     setAdvertenciaCargadoDeDatos({mostrar: false, mensaje: '', tipo: ''});

@@ -1,13 +1,27 @@
 import React from 'react';
 import './FiltroActivo.css';
-const FiltroActivo = ({activarDesactivarFiltro, isFiltroActivo}) => {
+const FiltroActivo = ({
+  activarDesactivarFiltro,
+  isFiltroActivo,
+  isFiltroActivoParrafo = {activo: true, desactivado: false},
+}) => {
   return (
     <div className="CI-FiltroActivo">
       <div className="contenedor-TituloActivo">
-        <p className="tituloActivo" onClick={() => activarDesactivarFiltro()}>
+        <p
+          className={` textoInactiva ${
+            isFiltroActivoParrafo.activo && ' textoActiva'
+          } tituloActivo`}
+          onClick={() => activarDesactivarFiltro()}
+        >
           Activo
         </p>
-        <p className="tituloActivo" onClick={() => activarDesactivarFiltro()}>
+        <p
+          className={` textoInactiva  ${
+            isFiltroActivoParrafo.desactivado && 'textoActiva'
+          } tituloActivo`}
+          onClick={() => activarDesactivarFiltro()}
+        >
           Inactivo
         </p>
       </div>
