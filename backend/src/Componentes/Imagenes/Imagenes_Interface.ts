@@ -6,6 +6,7 @@ export default interface IImagenes extends Document {
   alto: number;
   ancho: number;
   descripcion: string;
+  isGaleria: boolean;
   // galeria: string;
   fechaCarga: Date;
 }

@@ -17,7 +17,6 @@ class ImagenesController {
   public async agregar(req: Request, res: Response) {
     try {
       if (req.body.archivos.length) {
-        console.log(req.body);
         let arregloDePath: Array<any> = [];
         req.body.archivos.forEach((archivo: any) => {
           let path: string = archivo.path;
@@ -33,14 +32,14 @@ class ImagenesController {
         responder.sucess(req, res, arregloDePath);
       } else {
         let path: string = req.body.archivos.path;
-        console.log('PATH');
-        console.log(path);
+        // console.log('PATH');
+        // console.log(path);
         const imagen: IImagenes = new modeloImagenes({
           ...req.body,
           fuente: path.replace('public', '').replace('\\', '/').replace('\\', '/'),
         });
-        console.log('imagen');
-        console.log(imagen);
+        // console.log('imagen');
+        // console.log(imagen);
         await imagen.save();
         responder.sucess(req, res, imagen);
       }
@@ -123,12 +122,46 @@ class ImagenesController {
     }
   }
 
+  public async eliminarImagen(idImagen: any) {
+    try {
+      console.log('eliminando imagen...');
+      const pr = new Promise(async (resolve: any, reject: any) => {
+        const imagen = await modeloImagenes.findOneAndDelete({_id: idImagen}, {new: true});
+        // responder.sucess(req, res, imagenEliminada);
+        if (imagen) {
+          resolve(imagen);
+        } else {
+          reject(new Error('No se encontro imagen'));
+        }
+      });
+      return pr;
+    } catch (error) {
+      return error;
+      // throw new Error(`Error: ${error}`);
+      // responder.error(req, res, error);
+    }
+  }
+
   public async obtenerGaleria(nombreGaleria: string) {
     return modeloImagenes.find({galeria: nombreGaleria}).sort({fechaCarga: 'desc'}).limit(3);
   }
 
   public async obtenerGaleriaVideo(nombreGaleria: string) {
     return modeloImagenes.find({galeriaVideo: nombreGaleria}).sort({fechaCarga: 'desc'}).limit(2);
+  }
+
+  public async insertarImagen(imagen: any) {
+    try {
+      let imagenNew: IImagenes = new modeloImagenes();
+      imagenNew.fuente = imagen.fuente;
+      imagenNew.isGaleria = imagen.isGaleria;
+      imagenNew.fechaCarga = new Date();
+
+      const resultado = await imagenNew.save();
+      return resultado;
+    } catch (error) {
+      return error;
+    }
   }
 }
 export const imagenesController = new ImagenesController();
