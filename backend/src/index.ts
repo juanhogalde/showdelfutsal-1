@@ -21,7 +21,7 @@ import etiquetasRouter from './Componentes/Etiquetas/Etiquetas_Router';
 import homeRouter from './Componentes/Home/Home_Router';
 import imagenesRouter from './Componentes/Imagenes/Imagenes_Router';
 import videosRouter from './Componentes/Videos/Videos_Router';
-import galeriaRouter from './Galeria/Galeria_Router';
+import galeriaRouter from './Componentes/Galeria/Galeria_Router';
 import tablasRouter from './Componentes/Tablas/Tablas_Router';
 import responder from './Middlewares/responder';
 import manejadorErrores from './Middlewares/manejadorErrores';
