@@ -44,7 +44,7 @@ export const agregarGaleria_accion = datosGaleria => {
 
     dispatch(cargandoGuardarGaleria_accion());
     API({
-      url: '/imagenes/agregar',
+      url: '/galeria/agregar',
       method: 'post',
       data: auxDatosGaleria,
     })

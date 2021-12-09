@@ -251,10 +251,10 @@ class NoticiasController {
           filtrosBD.isDestacada = filtrosBody.isDestacada;
         }
 
-        const opcionesPaginado = {
-          limit: parseInt(filtrosBody.limite, 10) || 20,
-          page: parseInt(filtrosBody.page, 10) || 1,
-        };
+        // const opcionesPaginado = {
+        //   limit: parseInt(filtrosBody.limite, 10) || 20,
+        //   page: parseInt(filtrosBody.page, 10) || 1,
+        // };
 
         // const datos = await modeloNoticias.paginate(filtrosBD, opcionesPaginado);
         const datos = await modeloNoticias.find(filtrosBD);
