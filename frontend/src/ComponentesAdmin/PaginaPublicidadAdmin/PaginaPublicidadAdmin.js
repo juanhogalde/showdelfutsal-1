@@ -11,12 +11,20 @@ import {useSelector} from 'react-redux';
 const PaginaPublicidadAdmin = () => {
   const {publicidades} = useSelector(state => state.storePublicidades);
   const [isFiltroActivo, setIsFiltroActivo] = useState(true);
+  const [isFiltroActivoParrafo, setIsFiltroActivoParrafo] = useState({
+    activo: true,
+    desactivado: false,
+  });
   const historialDeNavegacion = useHistory();
   const redireccionarNuevaPublicidad = () => {
     historialDeNavegacion.push('/Publicidad/Nueva');
   };
   const activarDesactivarFiltro = () => {
     setIsFiltroActivo(!isFiltroActivo);
+    setIsFiltroActivoParrafo({
+      activo: !isFiltroActivoParrafo.activo,
+      desactivado: !isFiltroActivoParrafo.desactivado,
+    });
   };
   return (
     <div className="CP-PaginaPublicidadAdmin">
@@ -25,6 +33,7 @@ const PaginaPublicidadAdmin = () => {
       <FiltroActivo
         activarDesactivarFiltro={activarDesactivarFiltro}
         isFiltroActivo={isFiltroActivo}
+        isFiltroActivoParrafo={isFiltroActivoParrafo}
       ></FiltroActivo>
       {publicidades.map(publicidad => {
         if (isFiltroActivo) {
