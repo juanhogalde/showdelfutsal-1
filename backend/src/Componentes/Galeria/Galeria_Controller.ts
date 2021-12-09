@@ -30,6 +30,7 @@ class GaleriaController {
 
   public async agregar(req: Request, res: Response) {
     try {
+      let datosARetornar = {tituloGaleria: '', _id: '', arregloDePaths: <any>[]};
       let datosAEnviar = {fuente: '', isGaleria: false};
       let pathFile: string = '';
       let arrayImagenes: Array<string> = [];
@@ -76,9 +77,13 @@ class GaleriaController {
         nuevaGaleria.imagenesId = [...arrayImagenes];
         nuevaGaleria.fechaCarga = new Date();
 
-        const resultadoOperacion: any = nuevaGaleria.save();
+        const resultadoOperacion: any = await nuevaGaleria.save();
+
         if (resultadoOperacion) {
-          responder.sucess(req, res, arrayDePath);
+          datosARetornar.tituloGaleria = resultadoOperacion.tituloGaleria;
+          datosARetornar._id = resultadoOperacion._id;
+          datosARetornar.arregloDePaths = [...resultadoOperacion.imagenesId];
+          responder.sucess(req, res, datosARetornar);
         } else {
           console.log(resultadoOperacion);
           responder.error(req, res, new Error('Error al insertar la galería'));
