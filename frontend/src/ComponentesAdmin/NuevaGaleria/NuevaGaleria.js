@@ -8,7 +8,10 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import Alertas from '../Alertas/Alertas';
 import compresor from '../../ModulosExternos/Compresor';
-import {agregarGaleria_accion} from '../../Redux/Galerias/AccionesGalerias';
+import {
+  agregarGaleria_accion,
+  volverPorDefectoAgregarGaleria_accion,
+} from '../../Redux/Galerias/AccionesGalerias';
 
 const NuevaGaleria = () => {
   const {isAgregarGaleria} = useSelector(state => state.storeGalerias);
@@ -86,7 +89,7 @@ const NuevaGaleria = () => {
     dispatch(agregarGaleria_accion(datosGaleria));
   };
   const valoresPorDefectoNuevaGaleria = () => {
-    /* dispatch(volverPorDefectoAgregarGaleria_accion()); */
+    dispatch(volverPorDefectoAgregarGaleria_accion());
   };
   const respuestaDeSweetAlComprimir = respuesta => {
     if (respuesta) {

@@ -44,11 +44,12 @@ export const agregarGaleria_accion = datosGaleria => {
     })
       .then(res => {
         console.log({res});
-        /* dispatch(agregarGaleriaExito_accion(res.data.value)); */
+
+        dispatch(agregarGaleriaExito_accion(res.data.value));
       })
       .catch(error => {
         console.log({error});
-        /* dispatch(agregarGaleriaError_accion()); */
+        dispatch(agregarGaleriaError_accion());
       });
   };
 };

@@ -34,7 +34,7 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
           isExito: true,
           isError: false,
         },
-        galeria: [...state.galeria, ...accion.datos],
+        galerias: [...state.galerias, accion.datos],
       };
     }
     case agregarGaleriaError: {
@@ -42,7 +42,7 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
         ...state,
         isAgregarGaleria: {
           tipo: 'error',
-          mensaje: 'En este momento no podemos agregar imágenes.',
+          mensaje: 'Lo sentimos, en este momento no podemos agregar su galería.',
           isCargando: false,
           isExito: false,
           isError: true,
