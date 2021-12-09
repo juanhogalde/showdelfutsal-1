@@ -63,8 +63,8 @@ const NuevaPublicidad = () => {
   const RespuestaDeAlerta = () => {
     setAdvertenciaCargadoDeDatos({mostrar: false, mensaje: '', tipo: ''});
   };
-  const funcionObtenerTamanioImagen = (h, w) => {
-    setTamañoImagenCargada({alto: h, ancho: w});
+  const funcionObtenerTamanioImagen = img => {
+    setTamañoImagenCargada({alto: img.current.naturalHeight, ancho: img.current.naturalWidth});
   };
   return (
     <div className="CP-NuevaPublicidad">
