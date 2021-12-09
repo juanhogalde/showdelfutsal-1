@@ -122,6 +122,26 @@ class ImagenesController {
     }
   }
 
+  public async eliminarImagen(idImagen: any) {
+    try {
+      console.log('eliminando imagen...');
+      const pr = new Promise(async (resolve: any, reject: any) => {
+        const imagen = await modeloImagenes.findOneAndDelete({_id: idImagen}, {new: true});
+        // responder.sucess(req, res, imagenEliminada);
+        if (imagen) {
+          resolve(imagen);
+        } else {
+          reject(new Error('No se encontro imagen'));
+        }
+      });
+      return pr;
+    } catch (error) {
+      return error;
+      // throw new Error(`Error: ${error}`);
+      // responder.error(req, res, error);
+    }
+  }
+
   public async obtenerGaleria(nombreGaleria: string) {
     return modeloImagenes.find({galeria: nombreGaleria}).sort({fechaCarga: 'desc'}).limit(3);
   }
