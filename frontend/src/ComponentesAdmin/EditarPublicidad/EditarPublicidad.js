@@ -70,9 +70,9 @@ const EditarPublicidad = () => {
       </div>
       <InputLowa
         name="nombrePublicidad"
-        disabled={true}
         ocultarIconoLateral={true}
         value={datosCargados.nombrePublicidad ? datosCargados.nombrePublicidad : ''}
+        onChange={e => escucharCambios(e.target.name, e.target.value)}
       ></InputLowa>
       <InputLowa
         name="medidaPublicidad"
