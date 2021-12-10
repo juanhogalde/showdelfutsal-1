@@ -83,7 +83,8 @@ class GaleriaController {
         if (resultadoOperacion) {
           datosARetornar.tituloGaleria = resultadoOperacion.tituloGaleria;
           datosARetornar._id = resultadoOperacion._id;
-          datosARetornar.imagenesId = [...resultadoOperacion.imagenesId];
+          datosARetornar.imagenesId = [...arrayDePath];
+          // datosARetornar.imagenesId = [...resultadoOperacion.imagenesId];
 
           responder.sucess(req, res, datosARetornar);
         } else {
