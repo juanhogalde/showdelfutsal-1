@@ -12,6 +12,7 @@ class GaleriaController {
     try {
       modeloGaleria
         .find({})
+        .populate('imagenesId')
         .then((galerias: any) => {
           if (galerias && galerias.length) {
             responder.sucess(req, res, galerias);
