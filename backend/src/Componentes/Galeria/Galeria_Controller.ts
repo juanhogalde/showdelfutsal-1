@@ -12,6 +12,7 @@ class GaleriaController {
     try {
       modeloGaleria
         .find({})
+        .populate('imagenesId')
         .then((galerias: any) => {
           if (galerias && galerias.length) {
             responder.sucess(req, res, galerias);
@@ -30,6 +31,7 @@ class GaleriaController {
 
   public async agregar(req: Request, res: Response) {
     try {
+      let datosARetornar = {tituloGaleria: '', _id: '', imagenesId: <any>[]};
       let datosAEnviar = {fuente: '', isGaleria: false};
       let pathFile: string = '';
       let arrayImagenes: Array<string> = [];
@@ -76,9 +78,14 @@ class GaleriaController {
         nuevaGaleria.imagenesId = [...arrayImagenes];
         nuevaGaleria.fechaCarga = new Date();
 
-        const resultadoOperacion: any = nuevaGaleria.save();
+        const resultadoOperacion: any = await nuevaGaleria.save();
+
         if (resultadoOperacion) {
-          responder.sucess(req, res, arrayDePath);
+          datosARetornar.tituloGaleria = resultadoOperacion.tituloGaleria;
+          datosARetornar._id = resultadoOperacion._id;
+          datosARetornar.imagenesId = [...resultadoOperacion.imagenesId];
+
+          responder.sucess(req, res, datosARetornar);
         } else {
           console.log(resultadoOperacion);
           responder.error(req, res, new Error('Error al insertar la galería'));
@@ -121,6 +128,7 @@ class GaleriaController {
       } else {
         modeloGaleria
           .findById(req.params.id)
+          .populate('imagenesId')
           .then((galeria: any) => {
             if (galeria) {
               responder.sucess(req, res, galeria);
@@ -140,6 +148,25 @@ class GaleriaController {
 
   public async modificar(req: Request, res: Response) {
     try {
+      const datosBody = req.body;
+      if (!datosBody) {
+        responder.error(req, res, 'No se ingresaron datos');
+      } else {
+        modeloGaleria
+          .findById(datosBody._id)
+          .populate('imagenesId')
+          .then((galeria: any) => {
+            if (galeria) {
+              console.log(galeria);
+            } else {
+              responder.error(req, res, '', 'Galería no encontrada', 400);
+            }
+          })
+          .catch((error: any) => {
+            console.log(error);
+            responder.error(req, res);
+          });
+      }
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -165,7 +192,6 @@ class GaleriaController {
                     '../../../public',
                     imagenEliminadaBD.fuente
                   );
-                  // console.log(pathArchivoEliminar);
                   fs.unlinkSync(pathArchivoEliminar);
                 }
               }
