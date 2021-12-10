@@ -134,12 +134,11 @@ export const eliminarGaleria_accion = id => {
     API({
       url: '/galeria/eliminar',
       method: 'delete',
-      data: `${id}`,
+      data: {_id: id},
     })
       .then(res => {
         console.log({res});
-
-        /* dispatch(eliminarGaleriaExito_accion(res.data.value)); */
+        dispatch(eliminarGaleriaExito_accion(id));
       })
       .catch(error => {
         console.log({error});

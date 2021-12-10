@@ -12,8 +12,11 @@ import {
   volverPorDefectoAgregarGaleria_accion,
 } from '../../Redux/Galerias/AccionesGalerias';
 import ImagenAdmin from '../ImagenAdmin/ImagenAdmin';
+import {useHistory} from 'react-router';
 
 const NuevaGaleria = ({datosParaEditar = {}}) => {
+  const historialDeNavegacion = useHistory();
+
   const {isAgregarGaleria} = useSelector(state => state.storeGalerias);
   const [datosGaleria, setDatosGaleria] = useState({
     imagenes: [],
@@ -90,6 +93,7 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
 
   const valoresPorDefectoNuevaGaleria = () => {
     dispatch(volverPorDefectoAgregarGaleria_accion());
+    historialDeNavegacion.push('/Galerías');
   };
 
   const respuestaDeSweetAlComprimir = respuesta => {
