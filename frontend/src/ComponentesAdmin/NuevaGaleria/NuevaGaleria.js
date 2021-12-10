@@ -32,7 +32,7 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
   const escucharCambios = async (name, value) => {
     if (name === 'imagenes') {
       if (value.length > 0) {
-        setCantidadDeArchivos(value.length);
+        setCantidadDeArchivos(value.length + datosGaleria.imagenes.length);
         setAlertaComprimir({
           tipo: 'cargando',
           mensaje: 'Comprimiendo Imágenes...',
@@ -65,7 +65,9 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
               });
               setIsErrorAlComprimir(true);
             });
-          aux = [...aux, resultado];
+
+          aux = [...aux, ...datosGaleria.imagenes, resultado];
+
           setDatosGaleria({...datosGaleria, imagenes: aux});
         });
       }
