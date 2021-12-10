@@ -19,8 +19,13 @@ class PublicidadesController {
     listar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const listadoPublicidades = yield Publicidades_Model_1.default.find();
-                responder_1.default.sucess(req, res, listadoPublicidades);
+                Publicidades_Model_1.default
+                    .find({})
+                    .populate('idImagen')
+                    .populate('idMedidas')
+                    .then((publicidades) => {
+                    responder_1.default.sucess(req, res, publicidades);
+                });
             }
             catch (error) {
                 responder_1.default.error(req, res, error);
@@ -31,8 +36,10 @@ class PublicidadesController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const publicidad = new Publicidades_Model_1.default(req.body);
+                publicidad.populate('idImagen');
+                publicidad.populate('idMedidas');
                 yield publicidad.save();
-                responder_1.default.sucess(req, res);
+                responder_1.default.sucess(req, res, publicidad);
             }
             catch (error) {
                 responder_1.default.error(req, res, error);
@@ -59,13 +66,11 @@ class PublicidadesController {
                     Publicidades_Model_1.default.findById(publicidadBody._id).then((publicidad) => __awaiter(this, void 0, void 0, function* () {
                         if (publicidad) {
                             publicidad.nombrePublicidad = publicidadBody.nombrePublicidad;
-                            publicidad.ancho = publicidadBody.ancho;
-                            publicidad.alto = publicidadBody.alto;
                             publicidad.isActiva = publicidadBody.isActiva;
-                            publicidad.ubicacion = publicidadBody.ubicacion;
-                            publicidad.direccion = publicidadBody.direccion;
+                            publicidad.idMedidas = publicidadBody.idMedidas;
+                            publicidad.idImagen = publicidadBody.idImagen;
                             const resultado = yield publicidad.save({ new: true });
-                            responder_1.default.sucess(req, res, resultado);
+                            responder_1.default.sucess(req, res, Object.assign(Object.assign({}, publicidadBody), { _id: resultado._id }));
                         }
                         else {
                             let error = new Error('Publicidad no encontrada');

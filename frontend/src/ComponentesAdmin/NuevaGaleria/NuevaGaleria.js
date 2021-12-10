@@ -3,17 +3,18 @@ import './NuevaGaleria.css';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
 import {MdDeleteForever} from 'react-icons/md';
-import {FiEdit3} from 'react-icons/fi';
 import {useDispatch, useSelector} from 'react-redux';
+
+import Alertas from '../Alertas/Alertas';
+import compresor from '../../ModulosExternos/Compresor';
 import {
   agregarGaleria_accion,
   volverPorDefectoAgregarGaleria_accion,
-} from '../../Redux/Imagenes/AccionesImagenes';
-import Alertas from '../Alertas/Alertas';
-import compresor from '../../ModulosExternos/Compresor';
+} from '../../Redux/Galerias/AccionesGalerias';
+import ImagenAdmin from '../ImagenAdmin/ImagenAdmin';
 
-const NuevaGaleria = () => {
-  const {isAgregarGaleria} = useSelector(state => state.storeImagenes);
+const NuevaGaleria = ({datosParaEditar = {}}) => {
+  const {isAgregarGaleria} = useSelector(state => state.storeGalerias);
   const [datosGaleria, setDatosGaleria] = useState({
     imagenes: [],
   });
@@ -31,7 +32,7 @@ const NuevaGaleria = () => {
   const escucharCambios = async (name, value) => {
     if (name === 'imagenes') {
       if (value.length > 0) {
-        setCantidadDeArchivos(value.length);
+        setCantidadDeArchivos(value.length + datosGaleria.imagenes.length);
         setAlertaComprimir({
           tipo: 'cargando',
           mensaje: 'Comprimiendo Imágenes...',
@@ -40,7 +41,6 @@ const NuevaGaleria = () => {
           isError: false,
         });
         let aux = [];
-
         Object.values(value).forEach(async img => {
           const respuesta = compresor(img);
           const resultado = await respuesta
@@ -66,7 +66,8 @@ const NuevaGaleria = () => {
               setIsErrorAlComprimir(true);
             });
 
-          aux = [...aux, resultado];
+          aux = [...aux, ...datosGaleria.imagenes, resultado];
+
           setDatosGaleria({...datosGaleria, imagenes: aux});
         });
       }
@@ -86,11 +87,12 @@ const NuevaGaleria = () => {
   const guardarNuevaGaleria = () => {
     dispatch(agregarGaleria_accion(datosGaleria));
   };
+
   const valoresPorDefectoNuevaGaleria = () => {
     dispatch(volverPorDefectoAgregarGaleria_accion());
   };
+
   const respuestaDeSweetAlComprimir = respuesta => {
-    console.log(respuesta);
     if (respuesta) {
       setAlertaComprimir({
         tipo: '',
@@ -107,18 +109,19 @@ const NuevaGaleria = () => {
       setIsErrorAlComprimir(false);
     }
   };
-  /* useEffect(() => {
-    return () => {
-      console.log('desmontó');
-      dispatch(listarImagenes_accion());
-    };
-  }, [dispatch]); */
+
+  const obtenerUrldeImagen = img => {
+    let auxUrlImg = URL.createObjectURL(img);
+    return auxUrlImg;
+  };
+
   return (
     <div className="CP-AgregarImagenes">
       <InputLowa
         name="descripcion"
         placeholder="Ingrese Título"
         onChange={e => escucharCambios(e.target.name, e.target.value)}
+        value={datosParaEditar ? datosParaEditar.tituloGaleria : ''}
       ></InputLowa>
       <InputLowa
         name="imagenes"
@@ -133,9 +136,32 @@ const NuevaGaleria = () => {
             return (
               imagen && (
                 <div key={index} className="filaListaImagenes">
-                  <p className="nombreImagen">{imagen.name}</p>
+                  <div className="CI-Imagen-Lista">
+                    <img alt="" className="nuevaImagenLista" src={obtenerUrldeImagen(imagen)}></img>
+                  </div>
                   <div className="accionesFilaListaImagenes">
-                    <FiEdit3 className="iconoAcción-ListaImagenes"></FiEdit3>
+                    <MdDeleteForever
+                      onClick={() => eliminarImagen(index)}
+                      className="iconoAcción-ListaImagenes"
+                    />
+                  </div>
+                </div>
+              )
+            );
+          })}
+        </div>
+      )}
+
+      {Object.keys(datosParaEditar).length > 0 && (
+        <div className="CI-ListaImagnes">
+          {Object.values(datosParaEditar.imagenesId).map((imagen, index) => {
+            return (
+              imagen && (
+                <div key={index} className="filaListaImagenes">
+                  <div className="CI-Imagen-Lista">
+                    <ImagenAdmin noticiaImagen={imagen} isTarjetaGaleria={true}></ImagenAdmin>
+                  </div>
+                  <div className="accionesFilaListaImagenes">
                     <MdDeleteForever
                       onClick={() => eliminarImagen(index)}
                       className="iconoAcción-ListaImagenes"
