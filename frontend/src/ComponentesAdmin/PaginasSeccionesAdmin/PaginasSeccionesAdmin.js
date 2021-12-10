@@ -28,7 +28,7 @@ const PaginasSeccionesAdmin = ({
 
   useEffect(() => {
     if (isSeccionGaleria) {
-      var auxGaleria1 = imagenes.filter(imagen => imagen.descripcion === 'La Gloria Campeón 2021');
+      /* var auxGaleria1 = imagenes.filter(imagen => imagen.descripcion === 'La Gloria Campeón 2021');
       var auxGaleria2 = imagenes.filter(imagen => imagen.descripcion === 'Prueba compresor');
       var auxGaleria3 = imagenes.filter(
         imagen => imagen.descripcion === 'Finales Femenino - Apertura 2021'
@@ -37,7 +37,7 @@ const PaginasSeccionesAdmin = ({
         galeria1: [...auxGaleria1],
         galeria2: [...auxGaleria2],
         galeria3: [...auxGaleria3],
-      });
+      }); */
     }
   }, [setGaleria, isSeccionGaleria, imagenes]);
   return (

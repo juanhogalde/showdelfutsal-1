@@ -3,6 +3,9 @@ import {
   agregarGaleriaExito,
   agregarGaleriaError,
   volverPorDefectoAgregarGaleria,
+  cargandoListarGalerias,
+  listarGaleriasExito,
+  listarGaleriasError,
 } from './AccionesGalerias';
 
 const galeriaPorDefecto = {
@@ -59,6 +62,22 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
           isExito: false,
           isError: false,
         },
+      };
+    }
+    case cargandoListarGalerias: {
+      return {
+        ...state,
+      };
+    }
+    case listarGaleriasExito: {
+      return {
+        ...state,
+        galerias: [...state.galerias, ...accion.datos],
+      };
+    }
+    case listarGaleriasError: {
+      return {
+        ...state,
       };
     }
     default:
