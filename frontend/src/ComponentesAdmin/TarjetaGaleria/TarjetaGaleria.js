@@ -6,10 +6,12 @@ import {useHistory} from 'react-router';
 
 import {MdDeleteForever} from 'react-icons/md';
 import {FiEdit3} from 'react-icons/fi';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {eliminarGaleria_accion} from '../../Redux/Galerias/AccionesGalerias';
 
-const TarjetaGaleria = ({datosTarjetaGaleria = {}, tituloGaleria = 'Titulo'}) => {
+const TarjetaGaleria = () => {
   const {galerias} = useSelector(state => state.storeGalerias);
+  const dispatch = useDispatch();
 
   const historialDeNavegacion = useHistory();
   const [isAcciones, setIsAcciones] = useState(false);
@@ -22,11 +24,12 @@ const TarjetaGaleria = ({datosTarjetaGaleria = {}, tituloGaleria = 'Titulo'}) =>
   const ocultarAcciones = () => {
     setIsAcciones(false);
   };
-  const editarGaleria = () => {
-    historialDeNavegacion.push(`/Galería/Editar/:${1234}`);
+  const editarGaleria = id => {
+    historialDeNavegacion.push(`/Galería/Editar/${id}`);
   };
-  const eliminarGaleria = () => {
+  const eliminarGaleria = id => {
     console.log('Eliminar Galeria');
+    dispatch(eliminarGaleria_accion(id));
   };
   console.log(galerias);
   return galerias.map((galeria, index) => {
@@ -60,10 +63,10 @@ const TarjetaGaleria = ({datosTarjetaGaleria = {}, tituloGaleria = 'Titulo'}) =>
             >
               <FiEdit3
                 className="iconoAcción-ListaImagenes"
-                onClick={() => editarGaleria()}
+                onClick={() => editarGaleria(galeria._id)}
               ></FiEdit3>
               <MdDeleteForever
-                onClick={() => eliminarGaleria()}
+                onClick={() => eliminarGaleria(galeria._id)}
                 className="iconoAcción-ListaImagenes"
               />
             </div>

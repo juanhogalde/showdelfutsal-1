@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './PaginasSeccionesAdmin.css';
 import TarjetaNoticias from '../../ComponentesAdmin/TarjetaNoticias/TarjetaNoticias';
 import BotonLowa from '../../ComponentesAdmin/BotonLowa/BotonLowa';
