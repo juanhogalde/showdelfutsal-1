@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloImagenes from './Imagenes_Model';
 import IImagenes from './Imagenes_Interface';
+import {resolve} from 'path';
 // import { comprimirImagen } from '../../Middlewares/imagemin';
 
 class ImagenesController {
@@ -155,12 +156,37 @@ class ImagenesController {
       let imagenNew: IImagenes = new modeloImagenes();
       imagenNew.fuente = imagen.fuente;
       imagenNew.isGaleria = imagen.isGaleria;
+      imagenNew.galeriaId = imagen.galeriaId;
       imagenNew.fechaCarga = new Date();
 
       const resultado = await imagenNew.save();
       return resultado;
     } catch (error) {
       return error;
+    }
+  }
+
+  public async listarImagenesGaleria(idGaleria: string) {
+    try {
+      let arrayImagenes = <any>[];
+      const pr = new Promise(async (resolve: any, reject: any) => {
+        const imagenes = await modeloImagenes.find({
+          $and: [{galeriaId: idGaleria, isGaleria: true}],
+        });
+        if (imagenes && imagenes.length) {
+          for await (const imagen of imagenes) {
+            arrayImagenes.push(imagen);
+          }
+          resolve(arrayImagenes);
+        } else {
+          reject(new Error('La galería no posee imagenes'));
+        }
+      });
+      return pr;
+    } catch (error) {
+      return new Promise((reject: any) => {
+        reject(error);
+      });
     }
   }
 }

@@ -29,7 +29,58 @@ class GaleriaController {
     }
   }
 
-  public async insertarImagenes(files: any) {}
+  // public async insertarImagenes(files: any, idGaleria?: string) {
+  //   try {
+  //     let datosAEnviar = {fuente: '', isGaleria: false};
+  //     let pathFile: string = '';
+  //     let arrayInsercionesImagenes: Array<any> = [];
+  //     let arrayIdImagenes = [];
+  //     let arrayDePath = [];
+  //     const pr = new Promise(async (resolve: any, reject: any) => {
+  //       if (files) {
+  //         if (files.length) {
+  //           for await (const archivo of files) {
+  //             //TODO: Ir cargando cada imagen en la coleccion imagenes
+  //             pathFile = archivo.path;
+
+  //             datosAEnviar.fuente = pathFile
+  //               .replace('public', '')
+  //               .replace('\\', '/')
+  //               .replace('\\', '/');
+  //             datosAEnviar.isGaleria = true;
+  //             const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
+  //             if (resultado) {
+  //               arrayInsercionesImagenes.push(resultado);
+  //               arrayIdImagenes.push(resultado._id);
+  //               arrayDePath.push(resultado.fuente);
+  //             }
+  //           }
+  //         } else {
+  //           pathFile = files.path;
+  //           datosAEnviar.fuente = pathFile
+  //             .replace('public', '')
+  //             .replace('\\', '/')
+  //             .replace('\\', '/');
+  //           datosAEnviar.isGaleria = true;
+  //           const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
+  //           if (resultado) {
+  //             arrayInsercionesImagenes.push(resultado);
+  //             arrayIdImagenes.push(resultado._id);
+  //             arrayDePath.push(resultado.fuente);
+  //           }
+  //         }
+  //         resolve(arrayInsercionesImagenes);
+  //       } else {
+  //         reject(new Error('No se ingresaron archivos'));
+  //       }
+  //     });
+  //     return pr;
+  //   } catch (error) {
+  //     return new Promise((reject: any) => {
+  //       reject(error);
+  //     });
+  //   }
+  // }
 
   public async agregar(req: Request, res: Response) {
     try {
@@ -156,10 +207,12 @@ class GaleriaController {
   public async modificar(req: Request, res: Response) {
     try {
       let datosARetornar = {tituloGaleria: '', _id: '', imagenesId: <any>[]};
-      let datosAEnviar = {fuente: '', isGaleria: false};
+      let datosAEnviar = {fuente: '', isGaleria: false, galeriaId: ''};
       let pathFile: string = '';
-      let arrayImagenes: Array<string> = [];
+      let arrayInsercionesImagenes = [];
+      let arrayIdImagenes = [];
       let arrayDePath: Array<string> = [];
+
       const datosBody = req.body;
       if (!datosBody) {
         responder.error(req, res, 'No se ingresaron datos');
@@ -169,30 +222,23 @@ class GaleriaController {
           .populate('imagenesId')
           .then(async (galeria: any) => {
             if (galeria) {
-              // console.log(galeria);
-              if (galeria.imagenesId && galeria.imagenesId.length) {
-                //TODO tiene imagenes, las reemplazo
-                for await (const imagen of galeria.imagenesId) {
-                  fs.unlinkSync(path.join(__dirname, '../../../public', imagen.fuente));
-                  imagen.fuente = '';
-                  await galeria.save();
-                }
-
-                // const imagenesInsertadas = await this.insertarImagenes()
+              if (datosBody.archivos) {
+                datosAEnviar.isGaleria = true;
+                datosAEnviar.galeriaId = galeria._id;
                 if (datosBody.archivos.length) {
                   for await (const archivo of datosBody.archivos) {
-                    //TODO: Ir cargando cada imagen en la coleccion imagenes
                     pathFile = archivo.path;
 
                     datosAEnviar.fuente = pathFile
                       .replace('public', '')
                       .replace('\\', '/')
                       .replace('\\', '/');
-                    datosAEnviar.isGaleria = true;
+
                     const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
                     if (resultado) {
-                      arrayImagenes.push(resultado._id);
-                      arrayDePath.push(resultado.fuente);
+                      arrayInsercionesImagenes.push(resultado);
+                      arrayIdImagenes.push(resultado._id);
+                      // arrayDePath.push(resultado.fuente);
                     }
                   }
                 } else {
@@ -201,16 +247,28 @@ class GaleriaController {
                     .replace('public', '')
                     .replace('\\', '/')
                     .replace('\\', '/');
-                  datosAEnviar.isGaleria = true;
+                  // datosAEnviar.isGaleria = true;
                   const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
                   if (resultado) {
-                    arrayImagenes.push(resultado._id);
-                    arrayDePath.push(resultado.fuente);
+                    arrayInsercionesImagenes.push(resultado);
+                    arrayIdImagenes.push(resultado._id);
+                    // arrayDePath.push(resultado.fuente);
                   }
                 }
-              } else {
-                //las agrego
               }
+
+              galeria.tituloGaleria = datosBody.tituloGaleria;
+              galeria.fechaModificacion = new Date();
+              const resultadoActualizar = await galeria.save();
+              if (resultadoActualizar) {
+                const imagenesGaleria = await imagenesController.listarImagenesGaleria(galeria._id);
+                console.log(imagenesGaleria);
+                return false;
+              }
+
+              // else {
+              //   responder.error(req, res, '', 'No se ingresaron archivos para agregar');
+              // }
             } else {
               responder.error(req, res, '', 'Galería no encontrada', 400);
             }
