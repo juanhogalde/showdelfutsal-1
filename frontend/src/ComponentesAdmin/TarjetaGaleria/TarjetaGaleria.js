@@ -6,8 +6,11 @@ import {useHistory} from 'react-router';
 
 import {MdDeleteForever} from 'react-icons/md';
 import {FiEdit3} from 'react-icons/fi';
+import {useSelector} from 'react-redux';
 
 const TarjetaGaleria = ({datosTarjetaGaleria = {}, tituloGaleria = 'Titulo'}) => {
+  const {galerias} = useSelector(state => state.storeGalerias);
+
   const historialDeNavegacion = useHistory();
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
@@ -25,43 +28,49 @@ const TarjetaGaleria = ({datosTarjetaGaleria = {}, tituloGaleria = 'Titulo'}) =>
   const eliminarGaleria = () => {
     console.log('Eliminar Galeria');
   };
-
-  return (
-    <div className="CP-TarjetaGaleria">
-      <p>{tituloGaleria}</p>
-      <div className="CI-Cuerpo-TarjetaGaleria">
-        <div className="imagenes-TarjetaGaleria">
-          {datosTarjetaGaleria.map((imagen, index) => {
-            return (
-              <ImagenAdmin key={index} noticiaImagen={imagen} isTarjetaGaleria={true}></ImagenAdmin>
-            );
-          })}
-        </div>
-        <div className="acciones-TarjetaGaleria">
-          <HiDotsVertical onClick={() => mostrarAcciones()} />
-          <div
-            ref={elementoAcciones}
-            id="acciones-TarjetaGaleria"
-            className={`${
-              isAcciones
-                ? 'CI-Acciones-TarjetaGaleria CI-Acciones-TarjetaGaleria-Apertura'
-                : 'CI-Acciones-TarjetaGaleria'
-            }`}
-            tabIndex="1"
-            onBlur={() => ocultarAcciones()}
-          >
-            <FiEdit3
-              className="iconoAcción-ListaImagenes"
-              onClick={() => editarGaleria()}
-            ></FiEdit3>
-            <MdDeleteForever
-              onClick={() => eliminarGaleria()}
-              className="iconoAcción-ListaImagenes"
-            />
+  console.log(galerias);
+  return galerias.map((galeria, index) => {
+    return (
+      <div key={index} className="CP-TarjetaGaleria">
+        <p>{galeria.tituloGaleria}</p>
+        <div className="CI-Cuerpo-TarjetaGaleria">
+          <div className="imagenes-TarjetaGaleria">
+            {galeria.imagenesId.map((imagen, index) => {
+              return (
+                <ImagenAdmin
+                  key={index}
+                  noticiaImagen={imagen}
+                  isTarjetaGaleria={true}
+                ></ImagenAdmin>
+              );
+            })}
+          </div>
+          <div className="acciones-TarjetaGaleria">
+            <HiDotsVertical onClick={() => mostrarAcciones()} />
+            <div
+              ref={elementoAcciones}
+              id="acciones-TarjetaGaleria"
+              className={`${
+                isAcciones
+                  ? 'CI-Acciones-TarjetaGaleria CI-Acciones-TarjetaGaleria-Apertura'
+                  : 'CI-Acciones-TarjetaGaleria'
+              }`}
+              tabIndex="1"
+              onBlur={() => ocultarAcciones()}
+            >
+              <FiEdit3
+                className="iconoAcción-ListaImagenes"
+                onClick={() => editarGaleria()}
+              ></FiEdit3>
+              <MdDeleteForever
+                onClick={() => eliminarGaleria()}
+                className="iconoAcción-ListaImagenes"
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  });
 };
 export default TarjetaGaleria;
