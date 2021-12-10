@@ -85,7 +85,11 @@ const NuevaPublicidad = () => {
         name="idMedidas"
         placeholder="Seleccione medida y ubicación"
         selectorConIcono={<BsPlusCircle />}
-        options={medidasPublicidad ? medidasPublicidad : []}
+        options={
+          medidasPublicidad.length !== 0
+            ? medidasPublicidad.filter(medida => medida.disponible)
+            : []
+        }
         onChange={setMedidasDePublicidad}
       ></Selector>
       <InputLowa
