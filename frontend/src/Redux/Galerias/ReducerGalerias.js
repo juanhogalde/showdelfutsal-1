@@ -6,6 +6,9 @@ import {
   cargandoListarGalerias,
   listarGaleriasExito,
   listarGaleriasError,
+  cargandoEliminarGaleria,
+  eliminarGaleriaExito,
+  eliminarGaleriaError,
 } from './AccionesGalerias';
 
 const galeriaPorDefecto = {
@@ -76,6 +79,21 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
       };
     }
     case listarGaleriasError: {
+      return {
+        ...state,
+      };
+    }
+    case cargandoEliminarGaleria: {
+      return {
+        ...state,
+      };
+    }
+    case eliminarGaleriaExito: {
+      return {
+        ...state,
+      };
+    }
+    case eliminarGaleriaError: {
       return {
         ...state,
       };

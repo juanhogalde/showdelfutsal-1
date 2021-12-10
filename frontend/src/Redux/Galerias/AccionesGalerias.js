@@ -9,6 +9,10 @@ export const cargandoListarGalerias = 'cargandoListarGalerias';
 export const listarGaleriasExito = 'listarGaleriasExito';
 export const listarGaleriasError = 'listarGaleriasError';
 
+export const cargandoEliminarGaleria = 'cargandoEliminarGaleria';
+export const eliminarGaleriaExito = 'eliminarGaleriaExito';
+export const eliminarGaleriaError = 'eliminarGaleriaError';
+
 /****** AGREGAR GALERIA ******/
 export const cargandoAgregarGaleria_accion = isCargando => {
   return {
@@ -98,6 +102,48 @@ export const listarGalerias_accion = () => {
       .catch(error => {
         console.log({error});
         /* dispatch(listarGaleriasError_accion()); */
+      });
+  };
+};
+
+/****** ELIMINAR GALERIAS ******/
+export const cargandoEliminarGaleria_accion = isCargando => {
+  return {
+    type: cargandoEliminarGaleria,
+  };
+};
+
+export const eliminarGaleriaExito_accion = datos => {
+  return {
+    type: eliminarGaleriaExito,
+    datos: datos,
+  };
+};
+
+export const eliminarGaleriaError_accion = error => {
+  return {
+    type: eliminarGaleriaError,
+    error: error,
+  };
+};
+
+export const eliminarGaleria_accion = id => {
+  return dispatch => {
+    console.log(id);
+    dispatch(cargandoEliminarGaleria_accion());
+    API({
+      url: '/galeria/eliminar',
+      method: 'delete',
+      data: `${id}`,
+    })
+      .then(res => {
+        console.log({res});
+
+        /* dispatch(eliminarGaleriaExito_accion(res.data.value)); */
+      })
+      .catch(error => {
+        console.log({error});
+        /* dispatch(eliminarGaleriaError_accion()); */
       });
   };
 };
