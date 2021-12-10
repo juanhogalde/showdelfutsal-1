@@ -7,4 +7,5 @@ export default interface IMedidasPublicidad extends Document {
   ubicacion: string;
   direccion: string;
   keyMedidas: number;
+  disponible: boolean;
 }

@@ -10,6 +10,7 @@ import {useSelector} from 'react-redux';
 
 const PaginaPublicidadAdmin = () => {
   const {publicidades} = useSelector(state => state.storePublicidades);
+  const {medidasPublicidad} = useSelector(state => state.sotreDatosIniciales);
   const [isFiltroActivo, setIsFiltroActivo] = useState(true);
   const [isFiltroActivoParrafo, setIsFiltroActivoParrafo] = useState({
     activo: true,
@@ -28,7 +29,10 @@ const PaginaPublicidadAdmin = () => {
   };
   return (
     <div className="CP-PaginaPublicidadAdmin">
-      <BotonLowa onClick={redireccionarNuevaPublicidad} tituloboton={'Agregar'} />
+      {medidasPublicidad.length &&
+      medidasPublicidad.filter(element => element.disponible).length ? (
+        <BotonLowa onClick={redireccionarNuevaPublicidad} tituloboton={'Agregar'} />
+      ) : null}
       <InputLowa placeholder={'Buscar'} inputConIcono={<BsSearch></BsSearch>} />
       <FiltroActivo
         activarDesactivarFiltro={activarDesactivarFiltro}

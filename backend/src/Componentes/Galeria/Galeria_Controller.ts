@@ -29,12 +29,15 @@ class GaleriaController {
     }
   }
 
+  public async insertarImagenes(files: any) {}
+
   public async agregar(req: Request, res: Response) {
     try {
       let datosARetornar = {tituloGaleria: '', _id: '', imagenesId: <any>[]};
       let datosAEnviar = {fuente: '', isGaleria: false};
       let pathFile: string = '';
-      let arrayImagenes: Array<string> = [];
+      let arrayInsercionesImagenes = [];
+      let arrayIdImagenes = [];
       let arrayDePath: Array<string> = [];
       const datosBody = req.body;
       if (!datosBody) {
@@ -57,8 +60,9 @@ class GaleriaController {
           datosAEnviar.isGaleria = true;
           const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
           if (resultado) {
-            arrayImagenes.push(resultado._id);
-            arrayDePath.push(resultado.fuente);
+            arrayInsercionesImagenes.push(resultado);
+            arrayIdImagenes.push(resultado._id);
+            // arrayDePath.push(resultado.fuente);
           }
         }
       } else {
@@ -67,15 +71,18 @@ class GaleriaController {
         datosAEnviar.isGaleria = true;
         const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
         if (resultado) {
-          arrayImagenes.push(resultado._id);
-          arrayDePath.push(resultado.fuente);
+          arrayInsercionesImagenes.push(resultado);
+          arrayIdImagenes.push(resultado._id);
+          // arrayDePath.push(resultado.fuente);
         }
       }
 
-      if (arrayImagenes.length) {
+      // console.log(arrayImagenes);
+      // return false;
+      if (arrayInsercionesImagenes.length) {
         const nuevaGaleria: IGaleria = new modeloGaleria();
         nuevaGaleria.tituloGaleria = datosBody.descripcion;
-        nuevaGaleria.imagenesId = [...arrayImagenes];
+        nuevaGaleria.imagenesId = [...arrayIdImagenes];
         nuevaGaleria.fechaCarga = new Date();
 
         const resultadoOperacion: any = await nuevaGaleria.save();
@@ -83,8 +90,7 @@ class GaleriaController {
         if (resultadoOperacion) {
           datosARetornar.tituloGaleria = resultadoOperacion.tituloGaleria;
           datosARetornar._id = resultadoOperacion._id;
-          datosARetornar.imagenesId = [...arrayDePath];
-          // datosARetornar.imagenesId = [...resultadoOperacion.imagenesId];
+          datosARetornar.imagenesId = [...arrayInsercionesImagenes];
 
           responder.sucess(req, res, datosARetornar);
         } else {
@@ -149,6 +155,11 @@ class GaleriaController {
 
   public async modificar(req: Request, res: Response) {
     try {
+      let datosARetornar = {tituloGaleria: '', _id: '', imagenesId: <any>[]};
+      let datosAEnviar = {fuente: '', isGaleria: false};
+      let pathFile: string = '';
+      let arrayImagenes: Array<string> = [];
+      let arrayDePath: Array<string> = [];
       const datosBody = req.body;
       if (!datosBody) {
         responder.error(req, res, 'No se ingresaron datos');
@@ -156,9 +167,50 @@ class GaleriaController {
         modeloGaleria
           .findById(datosBody._id)
           .populate('imagenesId')
-          .then((galeria: any) => {
+          .then(async (galeria: any) => {
             if (galeria) {
-              console.log(galeria);
+              // console.log(galeria);
+              if (galeria.imagenesId && galeria.imagenesId.length) {
+                //TODO tiene imagenes, las reemplazo
+                for await (const imagen of galeria.imagenesId) {
+                  fs.unlinkSync(path.join(__dirname, '../../../public', imagen.fuente));
+                  imagen.fuente = '';
+                  await galeria.save();
+                }
+
+                // const imagenesInsertadas = await this.insertarImagenes()
+                if (datosBody.archivos.length) {
+                  for await (const archivo of datosBody.archivos) {
+                    //TODO: Ir cargando cada imagen en la coleccion imagenes
+                    pathFile = archivo.path;
+
+                    datosAEnviar.fuente = pathFile
+                      .replace('public', '')
+                      .replace('\\', '/')
+                      .replace('\\', '/');
+                    datosAEnviar.isGaleria = true;
+                    const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
+                    if (resultado) {
+                      arrayImagenes.push(resultado._id);
+                      arrayDePath.push(resultado.fuente);
+                    }
+                  }
+                } else {
+                  pathFile = datosBody.archivos.path;
+                  datosAEnviar.fuente = pathFile
+                    .replace('public', '')
+                    .replace('\\', '/')
+                    .replace('\\', '/');
+                  datosAEnviar.isGaleria = true;
+                  const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
+                  if (resultado) {
+                    arrayImagenes.push(resultado._id);
+                    arrayDePath.push(resultado.fuente);
+                  }
+                }
+              } else {
+                //las agrego
+              }
             } else {
               responder.error(req, res, '', 'Galería no encontrada', 400);
             }
