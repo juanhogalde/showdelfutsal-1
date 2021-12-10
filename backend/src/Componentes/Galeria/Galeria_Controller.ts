@@ -31,7 +31,7 @@ class GaleriaController {
 
   public async agregar(req: Request, res: Response) {
     try {
-      let datosARetornar = {tituloGaleria: '', _id: '', arregloDePaths: <any>[]};
+      let datosARetornar = {tituloGaleria: '', _id: '', imagenesId: <any>[]};
       let datosAEnviar = {fuente: '', isGaleria: false};
       let pathFile: string = '';
       let arrayImagenes: Array<string> = [];
@@ -83,7 +83,8 @@ class GaleriaController {
         if (resultadoOperacion) {
           datosARetornar.tituloGaleria = resultadoOperacion.tituloGaleria;
           datosARetornar._id = resultadoOperacion._id;
-          datosARetornar.arregloDePaths = [...resultadoOperacion.imagenesId];
+          datosARetornar.imagenesId = [...resultadoOperacion.imagenesId];
+
           responder.sucess(req, res, datosARetornar);
         } else {
           console.log(resultadoOperacion);
@@ -127,6 +128,7 @@ class GaleriaController {
       } else {
         modeloGaleria
           .findById(req.params.id)
+          .populate('imagenesId')
           .then((galeria: any) => {
             if (galeria) {
               responder.sucess(req, res, galeria);
@@ -146,6 +148,25 @@ class GaleriaController {
 
   public async modificar(req: Request, res: Response) {
     try {
+      const datosBody = req.body;
+      if (!datosBody) {
+        responder.error(req, res, 'No se ingresaron datos');
+      } else {
+        modeloGaleria
+          .findById(datosBody._id)
+          .populate('imagenesId')
+          .then((galeria: any) => {
+            if (galeria) {
+              console.log(galeria);
+            } else {
+              responder.error(req, res, '', 'Galería no encontrada', 400);
+            }
+          })
+          .catch((error: any) => {
+            console.log(error);
+            responder.error(req, res);
+          });
+      }
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -171,7 +192,6 @@ class GaleriaController {
                     '../../../public',
                     imagenEliminadaBD.fuente
                   );
-                  // console.log(pathArchivoEliminar);
                   fs.unlinkSync(pathArchivoEliminar);
                 }
               }
