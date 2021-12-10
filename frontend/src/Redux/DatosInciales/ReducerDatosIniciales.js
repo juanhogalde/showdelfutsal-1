@@ -4,6 +4,7 @@ import {
   cargaDatosInicialesError,
   controlModalPublicidad,
 } from './AccionesDatosIniciales';
+import {actualizarDisponibilidadMedidasPublicidad} from '../Publicidades/AccionesPublicidades';
 const datosInicialesPorDefecto = {
   linkVideosInicioGaleria: [
     {
@@ -56,6 +57,7 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
           key: medidas.keyMedidas,
           ancho: medidas.ancho,
           alto: medidas.alto,
+          disponible: medidas.disponible,
         };
       });
       return {
@@ -77,6 +79,14 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
       return {
         ...state,
         isMostrarModalPublicidad: !state.isMostrarModalPublicidad,
+      };
+    }
+    case actualizarDisponibilidadMedidasPublicidad: {
+      return {
+        ...state,
+        medidasPublicidad: state.medidasPublicidad.filter(
+          element => element.value !== accion.medidas.value._id
+        ),
       };
     }
     default:

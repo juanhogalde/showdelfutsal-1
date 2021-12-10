@@ -21,5 +21,28 @@ class MedidasPublicidadController {
       responder.error(req, res, error);
     }
   }
+
+  public async editar(req: Request, res: Response) {
+    try {
+      const medidasBody = req.body;
+      if (medidasBody._id) {
+        modeloMedidasPublicidad.findById(medidasBody._id).then(async (medidasPublicidad: any) => {
+          if (medidasPublicidad) {
+            medidasPublicidad.disponible = false;
+            const resultado = await medidasPublicidad.save();
+            responder.sucess(req, res, resultado);
+          } else {
+            let error = new Error('Medida No encontrada');
+            responder.error(req, res, error);
+          }
+        });
+      } else {
+        let error = new Error('No se envio medida');
+        responder.error(req, res, error);
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
 }
 export const medidasPublicidadController = new MedidasPublicidadController();
