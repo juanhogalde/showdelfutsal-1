@@ -102,18 +102,22 @@ const NuevaPublicidad = () => {
         tituloboton={'Guardar Publicidad'}
         onClick={() => GuardarNuevaPublicidad()}
       ></BotonLowa>
-      <Alertas mostrarSweet={isPublicidad.isMostrar} tipoDeSweet={isPublicidad.tipo} />
+      <Alertas
+        mostrarSweet={isPublicidad.isMostrar}
+        tipoDeSweet={isPublicidad.tipo}
+        subtitulo={isPublicidad.mensaje}
+      />
       <Alertas
         mostrarSweet={
           isPublicidad.isExito || isPublicidad.isError || advertenciaCargadoDeDatos.mostrar
         }
-        titulo={isPublicidad.mensaje || advertenciaCargadoDeDatos.mensaje}
+        subtitulo={isPublicidad.mensaje || advertenciaCargadoDeDatos.mensaje}
         tipoDeSweet={isPublicidad.tipo || advertenciaCargadoDeDatos.tipo}
         RespuestaDeSweet={RespuestaDeAlertaVolverPorDefecto}
       />
       <Alertas
         mostrarSweet={advertenciaCargadoDeDatos.mostrar}
-        titulo={advertenciaCargadoDeDatos.mensaje}
+        subtitulo={advertenciaCargadoDeDatos.mensaje}
         tipoDeSweet={advertenciaCargadoDeDatos.tipo}
         RespuestaDeSweet={RespuestaDeAlerta}
       />
