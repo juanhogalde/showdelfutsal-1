@@ -14,6 +14,8 @@ export const cargandoEliminarImagen = 'cargandoEliminarImagen';
 export const eliminarImagenExito = 'eliminarImagenExito';
 export const eliminarImagenError = 'eliminarImagenError';
 export const volverPorDefectoEliminarImagen = 'volverPorDefectoEliminarImagen';
+export const actualizarGaleriaEliminarImagenExito = 'actualizarGaleriaEliminarImagenExito';
+
 //
 
 /* ACCIONES AGREGAR GALERIA (MAXI) */
@@ -109,10 +111,11 @@ export const listarImagenes_accion = () => {
 };
 
 /* ACCIONES ELIMINAR IMAGENES (MAXI) */
-export const consultarEliminarImagen_accion = dato => {
+export const consultarEliminarImagen_accion = (dato, isNuevaImagen) => {
   return {
     type: consultarEliminarImagen,
     datos: dato,
+    isNuevaImagen: isNuevaImagen,
   };
 };
 export const cargandoEliminarImagen_accion = isCargando => {
@@ -120,10 +123,9 @@ export const cargandoEliminarImagen_accion = isCargando => {
     type: cargandoEliminarImagen,
   };
 };
-export const eliminarImagenExito_accion = datos => {
+export const eliminarImagenExito_accion = () => {
   return {
     type: eliminarImagenExito,
-    datos: datos,
   };
 };
 export const eliminarImagenError_accion = error => {
@@ -138,11 +140,19 @@ export const volverPorDefectoEliminarImagen_accion = () => {
   };
 };
 
+export const actualizarGaleriaEliminarImagenExito_accion = (indiceImg, idGaleria) => {
+  return {
+    type: actualizarGaleriaEliminarImagenExito,
+    indiceImg: indiceImg,
+    idGaleria: idGaleria,
+  };
+};
+
 export const eliminarImagen_accion = (index, idImg, idGaleria) => {
-  console.log(index);
+  /* console.log(index);
 
   console.log(idImg);
-  console.log(idGaleria);
+  console.log(idGaleria); */
   return dispatch => {
     dispatch(cargandoEliminarImagen_accion());
     API({
@@ -152,7 +162,8 @@ export const eliminarImagen_accion = (index, idImg, idGaleria) => {
     })
       .then(res => {
         console.log({res});
-        /*  dispatch(eliminarImagenExito_accion(res.data.value)); */
+        dispatch(eliminarImagenExito_accion());
+        dispatch(actualizarGaleriaEliminarImagenExito_accion(index, idGaleria));
       })
       .catch(error => {
         console.log({error});

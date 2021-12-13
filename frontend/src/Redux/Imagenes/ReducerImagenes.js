@@ -16,10 +16,10 @@ import {
 const imagenPorDefecto = {
   imagenes: [],
   isEliminarImagen: {
+    isNuevaImagen: false,
     tipo: '',
     mensaje: '',
     dato: '',
-
     isConsulta: false,
     isCargando: false,
     isExito: false,
@@ -99,6 +99,7 @@ const storeImagenes = (state = imagenPorDefecto, accion) => {
       return {
         ...state,
         isEliminarImagen: {
+          isNuevaImagen: accion.isNuevaImagen,
           tipo: 'warning',
           mensaje: '¿Desea eliminar la imágen?',
           isConsulta: true,
@@ -126,6 +127,16 @@ const storeImagenes = (state = imagenPorDefecto, accion) => {
     case eliminarImagenExito: {
       return {
         ...state,
+        isEliminarImagen: {
+          isNuevaImagen: false,
+          tipo: 'success',
+          mensaje: 'Imágen eliminada...',
+          isConsulta: false,
+          isCargando: false,
+          isExito: true,
+          isError: false,
+          dato: '',
+        },
       };
     }
     case eliminarImagenError: {
@@ -137,6 +148,7 @@ const storeImagenes = (state = imagenPorDefecto, accion) => {
       return {
         ...state,
         isEliminarImagen: {
+          isNuevaImagen: false,
           tipo: '',
           mensaje: '',
           isConsulta: false,

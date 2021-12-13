@@ -4,7 +4,6 @@ import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
 import {MdDeleteForever} from 'react-icons/md';
 import {useDispatch, useSelector} from 'react-redux';
-
 import Alertas from '../Alertas/Alertas';
 import compresor from '../../ModulosExternos/Compresor';
 import {
@@ -40,15 +39,6 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
     isError: false,
   });
   const [isErrorAlComprimir, setIsErrorAlComprimir] = useState(false);
-  /* const [alertaEliminarImagen, setAlertaEliminarImagen] = useState({
-    tipo: '',
-    mensaje: '',
-    isConsulta: false,
-    isCargando: false,
-    isExito: false,
-    isError: false,
-    dato: '',
-  }); */
 
   const escucharCambios = async (name, value) => {
     if (name === 'imagenes') {
@@ -98,11 +88,19 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
   };
 
   const eliminarImagen = index => {
+    var auxImagenes = [];
     if (isEditarGaleria) {
-      dispatch(eliminarImagen_accion(index, datosParaEditar.imagenesId[0]._id, id));
+      if (isEliminarImagen.isNuevaImagen) {
+        dispatch(volverPorDefectoEliminarImagen_accion());
+        auxImagenes = datosGaleria.imagenes.slice();
+        auxImagenes.splice(index, 1);
+        console.log(auxImagenes);
+        setDatosGaleria({...datosGaleria, imagenes: auxImagenes});
+      } else {
+        dispatch(eliminarImagen_accion(index, datosParaEditar.imagenesId[0]._id, id));
+      }
     } else {
       dispatch(volverPorDefectoEliminarImagen_accion());
-      var auxImagenes = [];
       auxImagenes = datosGaleria.imagenes.slice();
       auxImagenes.splice(index, 1);
       console.log(auxImagenes);
@@ -110,12 +108,18 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
     }
   };
 
-  const consultaEliminarImagen = index => {
-    dispatch(consultarEliminarImagen_accion(index));
+  const consultaEliminarImagen = (index, isNuevaImagen) => {
+    dispatch(consultarEliminarImagen_accion(index, isNuevaImagen));
   };
   const respuestaDeAlertaEliminarImagen = respuesta => {
+    console.log(respuesta);
     if (respuesta) {
-      eliminarImagen(isEliminarImagen.dato);
+      if (isEliminarImagen.isExito) {
+        dispatch(volverPorDefectoEliminarImagen_accion());
+      }
+      if (isEliminarImagen.isConsulta) {
+        eliminarImagen(isEliminarImagen.dato);
+      }
     } else {
       dispatch(volverPorDefectoEliminarImagen_accion());
     }
@@ -181,11 +185,14 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
               imagen && (
                 <div key={index} className="filaListaImagenes">
                   <div className="CI-Imagen-Lista">
-                    <img alt="" className="nuevaImagenLista" src={obtenerUrldeImagen(imagen)}></img>
+                    <ImagenAdmin
+                      noticiaImagen={obtenerUrldeImagen(imagen)}
+                      isTarjetaGaleria={true}
+                    ></ImagenAdmin>
                   </div>
                   <div className="accionesFilaListaImagenes">
                     <MdDeleteForever
-                      onClick={() => consultaEliminarImagen(index)}
+                      onClick={() => consultaEliminarImagen(index, true)}
                       className="iconoAcción-ListaImagenes"
                     />
                   </div>
@@ -207,7 +214,7 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
                   </div>
                   <div className="accionesFilaListaImagenes">
                     <MdDeleteForever
-                      onClick={() => consultaEliminarImagen(index)}
+                      onClick={() => consultaEliminarImagen(index, false)}
                       className="iconoAcción-ListaImagenes"
                     />
                   </div>

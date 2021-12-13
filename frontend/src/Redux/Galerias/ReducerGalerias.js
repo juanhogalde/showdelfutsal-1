@@ -10,6 +10,7 @@ import {
   eliminarGaleriaExito,
   eliminarGaleriaError,
 } from './AccionesGalerias';
+import {actualizarGaleriaEliminarImagenExito} from '../Imagenes/AccionesImagenes';
 
 const galeriaPorDefecto = {
   galerias: [],
@@ -98,6 +99,21 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
     case eliminarGaleriaError: {
       return {
         ...state,
+      };
+    }
+    case actualizarGaleriaEliminarImagenExito: {
+      console.log(accion.indiceImg);
+      console.log(accion.idGaleria);
+      let auxGalerias = [];
+      auxGalerias = state.galerias.map(galeria => {
+        if (galeria._id === accion.idGaleria) {
+          galeria.imagenesId.splice(accion.index, 1);
+        }
+        return galeria;
+      });
+      return {
+        ...state,
+        galerias: auxGalerias,
       };
     }
     default:
