@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import './NuevaGaleria.css';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
@@ -12,12 +12,22 @@ import {
   volverPorDefectoAgregarGaleria_accion,
 } from '../../Redux/Galerias/AccionesGalerias';
 import ImagenAdmin from '../ImagenAdmin/ImagenAdmin';
-import {useHistory} from 'react-router';
+import {useHistory, useLocation, useParams} from 'react-router';
+import {
+  consultarEliminarImagen_accion,
+  eliminarImagen_accion,
+  volverPorDefectoEliminarImagen_accion,
+} from '../../Redux/Imagenes/AccionesImagenes';
 
 const NuevaGaleria = ({datosParaEditar = {}}) => {
   const historialDeNavegacion = useHistory();
+  const locacion = useLocation();
+  const {id} = useParams();
+  const dispatch = useDispatch();
 
+  const [isEditarGaleria, setIsEditarGaleria] = useState(false);
   const {isAgregarGaleria} = useSelector(state => state.storeGalerias);
+  const {isEliminarImagen} = useSelector(state => state.storeImagenes);
   const [datosGaleria, setDatosGaleria] = useState({
     imagenes: [],
   });
@@ -30,7 +40,15 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
     isError: false,
   });
   const [isErrorAlComprimir, setIsErrorAlComprimir] = useState(false);
-  const dispatch = useDispatch();
+  /* const [alertaEliminarImagen, setAlertaEliminarImagen] = useState({
+    tipo: '',
+    mensaje: '',
+    isConsulta: false,
+    isCargando: false,
+    isExito: false,
+    isError: false,
+    dato: '',
+  }); */
 
   const escucharCambios = async (name, value) => {
     if (name === 'imagenes') {
@@ -80,20 +98,27 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
   };
 
   const eliminarImagen = index => {
-    var auxImagenes = [];
-    auxImagenes = datosGaleria.imagenes.slice();
-    auxImagenes.splice(index, 1);
-    console.log(auxImagenes);
-    setDatosGaleria({...datosGaleria, imagenes: auxImagenes});
+    if (isEditarGaleria) {
+      dispatch(eliminarImagen_accion(index, datosParaEditar.imagenesId[0]._id, id));
+    } else {
+      dispatch(volverPorDefectoEliminarImagen_accion());
+      var auxImagenes = [];
+      auxImagenes = datosGaleria.imagenes.slice();
+      auxImagenes.splice(index, 1);
+      console.log(auxImagenes);
+      setDatosGaleria({...datosGaleria, imagenes: auxImagenes});
+    }
   };
 
-  const guardarNuevaGaleria = () => {
-    dispatch(agregarGaleria_accion(datosGaleria));
+  const consultaEliminarImagen = index => {
+    dispatch(consultarEliminarImagen_accion(index));
   };
-
-  const valoresPorDefectoNuevaGaleria = () => {
-    dispatch(volverPorDefectoAgregarGaleria_accion());
-    historialDeNavegacion.push('/Galerías');
+  const respuestaDeAlertaEliminarImagen = respuesta => {
+    if (respuesta) {
+      eliminarImagen(isEliminarImagen.dato);
+    } else {
+      dispatch(volverPorDefectoEliminarImagen_accion());
+    }
   };
 
   const respuestaDeSweetAlComprimir = respuesta => {
@@ -118,6 +143,21 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
     let auxUrlImg = URL.createObjectURL(img);
     return auxUrlImg;
   };
+  const valoresPorDefectoNuevaGaleria = () => {
+    dispatch(volverPorDefectoAgregarGaleria_accion());
+    historialDeNavegacion.push('/Galerías');
+  };
+  const guardarNuevaGaleria = () => {
+    dispatch(agregarGaleria_accion(datosGaleria));
+  };
+  useLayoutEffect(() => {
+    if (locacion.pathname.split('/')[2] === 'Editar') {
+      setIsEditarGaleria(true);
+    }
+    return () => {
+      setIsEditarGaleria(false);
+    };
+  }, [locacion.pathname]);
 
   return (
     <div className="CP-AgregarImagenes">
@@ -134,7 +174,7 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
         multiple={true}
       ></InputLowa>
 
-      {datosGaleria.imagenes.length === cantidadDeArchivos && (
+      {datosGaleria.imagenes.length <= cantidadDeArchivos && (
         <div className="CI-ListaImagnes">
           {Object.values(datosGaleria.imagenes).map((imagen, index) => {
             return (
@@ -145,7 +185,7 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
                   </div>
                   <div className="accionesFilaListaImagenes">
                     <MdDeleteForever
-                      onClick={() => eliminarImagen(index)}
+                      onClick={() => consultaEliminarImagen(index)}
                       className="iconoAcción-ListaImagenes"
                     />
                   </div>
@@ -167,7 +207,7 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
                   </div>
                   <div className="accionesFilaListaImagenes">
                     <MdDeleteForever
-                      onClick={() => eliminarImagen(index)}
+                      onClick={() => consultaEliminarImagen(index)}
                       className="iconoAcción-ListaImagenes"
                     />
                   </div>
@@ -183,6 +223,17 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
         disabled={Object.keys(datosGaleria).length > 1 ? false : true}
         onClick={() => guardarNuevaGaleria()}
       ></BotonLowa>
+      <Alertas
+        tipoDeSweet={isEliminarImagen.tipo}
+        mostrarSweet={
+          isEliminarImagen.isConsulta ||
+          isEliminarImagen.isCargando ||
+          isEliminarImagen.isExito ||
+          isEliminarImagen.isError
+        }
+        subtitulo={isEliminarImagen.mensaje}
+        RespuestaDeSweet={respuestaDeAlertaEliminarImagen}
+      />
       <Alertas
         tipoDeSweet={isAgregarGaleria.tipo}
         mostrarSweet={

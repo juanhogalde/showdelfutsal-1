@@ -6,3 +6,9 @@
   height: 50px;
   background-color: tomato;
 }
+.customButtonsWarning {
+  width: 100%;
+}
+.estilosCancelarWarning {
+  cursor: pointer;
+}

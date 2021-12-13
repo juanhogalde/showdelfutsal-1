@@ -6,10 +6,25 @@ import {
   cargandoListarImagenes,
   listarImagenesExito,
   listarImagenesError,
+  consultarEliminarImagen,
+  cargandoEliminarImagen,
+  eliminarImagenExito,
+  eliminarImagenError,
+  volverPorDefectoEliminarImagen,
 } from './AccionesImagenes';
 
 const imagenPorDefecto = {
   imagenes: [],
+  isEliminarImagen: {
+    tipo: '',
+    mensaje: '',
+    dato: '',
+
+    isConsulta: false,
+    isCargando: false,
+    isExito: false,
+    isError: false,
+  },
   /* galeria: [],
   isAgregarGaleria: {tipo: '', mensaje: '', isCargando: false, isExito: false, isError: false}, */
 };
@@ -78,6 +93,58 @@ const storeImagenes = (state = imagenPorDefecto, accion) => {
     case listarImagenesError: {
       return {
         ...state,
+      };
+    }
+    case consultarEliminarImagen: {
+      return {
+        ...state,
+        isEliminarImagen: {
+          tipo: 'warning',
+          mensaje: '¿Desea eliminar la imágen?',
+          isConsulta: true,
+          isCargando: false,
+          isExito: false,
+          isError: false,
+          dato: accion.datos,
+        },
+      };
+    }
+    case cargandoEliminarImagen: {
+      return {
+        ...state,
+        isEliminarImagen: {
+          tipo: 'cargando',
+          mensaje: 'Eliminando imágen...',
+          isConsulta: false,
+          isCargando: true,
+          isExito: false,
+          isError: false,
+          dato: accion.datos,
+        },
+      };
+    }
+    case eliminarImagenExito: {
+      return {
+        ...state,
+      };
+    }
+    case eliminarImagenError: {
+      return {
+        ...state,
+      };
+    }
+    case volverPorDefectoEliminarImagen: {
+      return {
+        ...state,
+        isEliminarImagen: {
+          tipo: '',
+          mensaje: '',
+          isConsulta: false,
+          isCargando: false,
+          isExito: false,
+          isError: false,
+          dato: accion.datos,
+        },
       };
     }
     default:

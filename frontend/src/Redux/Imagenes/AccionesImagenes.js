@@ -8,6 +8,12 @@ export const volverPorDefectoAgregarGaleria = 'volverPorDefectoAgregarGaleria'; 
 export const cargandoListarImagenes = 'cargandoListarImagenes';
 export const listarImagenesExito = 'listarImagenesExito';
 export const listarImagenesError = 'listarImagenesError';
+
+export const consultarEliminarImagen = 'consultarEliminarImagen';
+export const cargandoEliminarImagen = 'cargandoEliminarImagen';
+export const eliminarImagenExito = 'eliminarImagenExito';
+export const eliminarImagenError = 'eliminarImagenError';
+export const volverPorDefectoEliminarImagen = 'volverPorDefectoEliminarImagen';
 //
 
 /* ACCIONES AGREGAR GALERIA (MAXI) */
@@ -98,6 +104,59 @@ export const listarImagenes_accion = () => {
       .catch(error => {
         console.log({error});
         /* dispatch(listarImagenesError_accion()); */
+      });
+  };
+};
+
+/* ACCIONES ELIMINAR IMAGENES (MAXI) */
+export const consultarEliminarImagen_accion = dato => {
+  return {
+    type: consultarEliminarImagen,
+    datos: dato,
+  };
+};
+export const cargandoEliminarImagen_accion = isCargando => {
+  return {
+    type: cargandoEliminarImagen,
+  };
+};
+export const eliminarImagenExito_accion = datos => {
+  return {
+    type: eliminarImagenExito,
+    datos: datos,
+  };
+};
+export const eliminarImagenError_accion = error => {
+  return {
+    type: eliminarImagenError,
+    error: error,
+  };
+};
+export const volverPorDefectoEliminarImagen_accion = () => {
+  return {
+    type: volverPorDefectoEliminarImagen,
+  };
+};
+
+export const eliminarImagen_accion = (index, idImg, idGaleria) => {
+  console.log(index);
+
+  console.log(idImg);
+  console.log(idGaleria);
+  return dispatch => {
+    dispatch(cargandoEliminarImagen_accion());
+    API({
+      url: '/imagenes/eliminar',
+      method: 'delete',
+      data: {id: idImg, idGaleria: idGaleria},
+    })
+      .then(res => {
+        console.log({res});
+        /*  dispatch(eliminarImagenExito_accion(res.data.value)); */
+      })
+      .catch(error => {
+        console.log({error});
+        /* dispatch(eliminarImagenError_accion()); */
       });
   };
 };
