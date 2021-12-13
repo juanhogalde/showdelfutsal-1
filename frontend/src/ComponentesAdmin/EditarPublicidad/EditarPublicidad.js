@@ -102,16 +102,20 @@ const EditarPublicidad = () => {
         onChange={(name, value) => escucharCambios(name, value)}
       ></InputLowa>
       <BotonLowa tituloboton={'Guardar Publicidad'} onClick={() => guardarPublicidad()}></BotonLowa>
-      <Alertas mostrarSweet={isPublicidad.isMostrar} tipoDeSweet={isPublicidad.tipo} />
+      <Alertas
+        mostrarSweet={isPublicidad.isMostrar}
+        tipoDeSweet={isPublicidad.tipo}
+        subtitulo={isPublicidad.mensaje}
+      />
       <Alertas
         mostrarSweet={isPublicidad.isExito || isPublicidad.isError}
-        titulo={isPublicidad.mensaje}
+        subtitulo={isPublicidad.mensaje}
         tipoDeSweet={isPublicidad.tipo}
         RespuestaDeSweet={RespuestaDeAlertaVolverPorDefecto}
       />
       <Alertas
         mostrarSweet={advertenciaCargadoDeDatos.mostrar}
-        titulo={advertenciaCargadoDeDatos.mensaje}
+        subtitulo={advertenciaCargadoDeDatos.mensaje}
         tipoDeSweet={advertenciaCargadoDeDatos.tipo}
         RespuestaDeSweet={RespuestaDeAlerta}
       />
