@@ -12,6 +12,9 @@ export const volverPorDefecto = 'volverPorDefecto';
 export const listarNoticiaExito = 'listarNoticiaExito';
 export const listarNoticiaError = 'listarNoticiaError';
 export const guardarNoticiaMiniaturaSeleccionada = 'guardarNoticiaMiniaturaSeleccionada';
+export const cargandoEditarNoticia = 'cargandoEditarNoticia';
+export const edicionNoticiaExito = 'edicionNoticiaExito';
+export const edicionNoticiaError = 'edicionNoticiaError';
 
 //acciones buscar noticia
 export const cargandoBuscarNoticia_accion = () => {
@@ -112,7 +115,6 @@ export const guardarNoticia_accion = (noticiaModelada, datosCargados) => {
           data: noticiaModelada,
         })
           .then(res => {
-            console.log(res);
             dispatch(GuardarNoticiaExito_accion(res.data));
           })
           .catch(error => {
@@ -166,5 +168,79 @@ export const guardarNoticiaMiniaturaSeleccionada_accion = noticiaMiniatura => {
   return {
     type: guardarNoticiaMiniaturaSeleccionada,
     noticia: noticiaMiniatura,
+  };
+};
+
+export const guardarNoticiaParaEditar_accion = noticiaEditar => {
+  return {
+    type: guardarNoticiaSeleccionada,
+    noticia: noticiaEditar,
+  };
+};
+
+export const cargandoEditarNoticia_accion = (mensaje = 'Cargando...') => {
+  return {
+    type: cargandoEditarNoticia,
+    mensaje: mensaje,
+  };
+};
+export const EdicionNoticiaExito_accion = noticia => {
+  return {
+    type: edicionNoticiaExito,
+    noticia: noticia,
+  };
+};
+export const EdicionNoticiaError_accion = error => {
+  return {
+    type: edicionNoticiaError,
+    error: error,
+  };
+};
+
+export const editarNoticia_accion = (noticiaModelada, datosCargados) => {
+  return dispatch => {
+    if (datosCargados.imagen && datosCargados.imagen[0].type) {
+      var imagenNoticia = new FormData();
+      imagenNoticia.append('archivos', datosCargados.imagen[0]);
+      dispatch(cargandoEditarNoticia_accion('Editnado...'));
+      API({
+        url: '/imagenes/agregar',
+        method: 'post',
+        data: imagenNoticia,
+      })
+        .then(res => {
+          noticiaModelada.idImagen = res.data.value._id;
+          API({
+            url: '/Noticias/modificar',
+            method: 'put',
+            data: noticiaModelada,
+          })
+            .then(res => {
+              dispatch(EdicionNoticiaExito_accion(res.data));
+            })
+            .catch(error => {
+              console.log(error);
+              dispatch(EdicionNoticiaError_accion(error));
+            });
+        })
+        .catch(error => {
+          console.log(error);
+          dispatch(EdicionNoticiaError_accion(error));
+        });
+    } else {
+      dispatch(cargandoEditarNoticia_accion('Editando...'));
+      API({
+        url: '/Noticias/modificar',
+        method: 'put',
+        data: {...noticiaModelada, idImagen: datosCargados.idImagen},
+      })
+        .then(res => {
+          dispatch(EdicionNoticiaExito_accion(res.data));
+        })
+        .catch(error => {
+          console.log(error);
+          dispatch(EdicionNoticiaError_accion(error));
+        });
+    }
   };
 };
