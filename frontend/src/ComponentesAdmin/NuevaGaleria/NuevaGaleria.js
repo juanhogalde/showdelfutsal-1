@@ -14,6 +14,7 @@ import ImagenAdmin from '../ImagenAdmin/ImagenAdmin';
 import {useHistory, useLocation, useParams} from 'react-router';
 import {
   consultarEliminarImagen_accion,
+  eliminarImagenExito_accion,
   eliminarImagen_accion,
   volverPorDefectoEliminarImagen_accion,
 } from '../../Redux/Imagenes/AccionesImagenes';
@@ -91,16 +92,16 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
     var auxImagenes = [];
     if (isEditarGaleria) {
       if (isEliminarImagen.isNuevaImagen) {
-        dispatch(volverPorDefectoEliminarImagen_accion());
         auxImagenes = datosGaleria.imagenes.slice();
         auxImagenes.splice(index, 1);
         console.log(auxImagenes);
         setDatosGaleria({...datosGaleria, imagenes: auxImagenes});
+        dispatch(eliminarImagenExito_accion());
       } else {
         dispatch(eliminarImagen_accion(index, datosParaEditar.imagenesId[0]._id, id));
       }
     } else {
-      dispatch(volverPorDefectoEliminarImagen_accion());
+      dispatch(eliminarImagenExito_accion());
       auxImagenes = datosGaleria.imagenes.slice();
       auxImagenes.splice(index, 1);
       console.log(auxImagenes);
