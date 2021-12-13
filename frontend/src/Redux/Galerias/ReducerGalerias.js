@@ -89,8 +89,10 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
       };
     }
     case eliminarGaleriaExito: {
+      let auxGalerias = state.galerias.filter(galeria => galeria._id !== accion.datos);
       return {
         ...state,
+        galerias: auxGalerias,
       };
     }
     case eliminarGaleriaError: {
