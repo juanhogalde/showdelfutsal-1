@@ -18,7 +18,7 @@ class ImagenesController {
     try {
       if (req.body.archivos.length) {
         let arregloDePath: Array<any> = [];
-        req.body.archivos.forEach((archivo: any) => {
+        req.body.archivos.forEach(async (archivo: any) => {
           let path: string = archivo.path;
           let imagen: IImagenes = new modeloImagenes({
             ...archivo,
@@ -27,7 +27,8 @@ class ImagenesController {
             descripcion: req.body.descripcion,
           });
           arregloDePath.push(imagen);
-          imagen.save();
+          
+          await imagen.save();
         });
         responder.sucess(req, res, arregloDePath);
       } else {
@@ -155,6 +156,9 @@ class ImagenesController {
       let imagenNew: IImagenes = new modeloImagenes();
       imagenNew.fuente = imagen.fuente;
       imagenNew.isGaleria = imagen.isGaleria;
+      if(imagen.galeriaId){
+        imagenNew.galeriaId = imagen.galeriaId;
+      }
       imagenNew.fechaCarga = new Date();
 
       const resultado = await imagenNew.save();
@@ -162,6 +166,10 @@ class ImagenesController {
     } catch (error) {
       return error;
     }
+  }
+
+  public async obtenerImagenesGaleria(){
+    return modeloImagenes.find({galeriaId:{$exists:true}}).populate('galeriaId');
   }
 }
 export const imagenesController = new ImagenesController();
