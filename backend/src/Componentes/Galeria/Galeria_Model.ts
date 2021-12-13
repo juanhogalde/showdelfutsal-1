@@ -3,7 +3,7 @@ import IGaleria from './Galeria_Interface';
 
 const GaleriaSchema = new Schema({
   tituloGaleria: String,
-  imagenesId: [{type: Schema.Types.ObjectId, ref: 'modeloImagenes'}],
+  // imagenesId: [{type: Schema.Types.ObjectId, ref: 'modeloImagenes'}],
   fechaCarga: Date,
   fechaModificacion: Date,
 });

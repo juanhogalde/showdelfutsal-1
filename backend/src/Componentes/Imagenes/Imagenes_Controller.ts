@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloImagenes from './Imagenes_Model';
 import IImagenes from './Imagenes_Interface';
+import {resolve} from 'path';
 // import { comprimirImagen } from '../../Middlewares/imagemin';
 
 class ImagenesController {
@@ -117,7 +118,7 @@ class ImagenesController {
     try {
       let id = req.body.id;
       const imagenEliminada = await modeloImagenes.findOneAndDelete({_id: id}, {new: true});
-      responder.sucess(req, res, imagenEliminada);
+      responder.sucess(req, res, '','Imagen eliminada');
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -125,7 +126,7 @@ class ImagenesController {
 
   public async eliminarImagen(idImagen: any) {
     try {
-      console.log('eliminando imagen...');
+      // console.log('eliminando imagen...');
       const pr = new Promise(async (resolve: any, reject: any) => {
         const imagen = await modeloImagenes.findOneAndDelete({_id: idImagen}, {new: true});
         // responder.sucess(req, res, imagenEliminada);
@@ -153,6 +154,7 @@ class ImagenesController {
 
   public async insertarImagen(imagen: any) {
     try {
+      
       let imagenNew: IImagenes = new modeloImagenes();
       imagenNew.fuente = imagen.fuente;
       imagenNew.isGaleria = imagen.isGaleria;
@@ -168,8 +170,35 @@ class ImagenesController {
     }
   }
 
+  public async listarImagenesGaleria(idGaleria: string) {
+    try {
+      let arrayImagenes = <any>[];
+      const pr = new Promise(async (resolve: any, reject: any) => {
+        const imagenes = await modeloImagenes.find({
+          $and: [{galeriaId: idGaleria, isGaleria: true}],
+        });
+        if (imagenes && imagenes.length) {
+          for await (const imagen of imagenes) {
+            arrayImagenes.push(imagen);
+          }
+          resolve(arrayImagenes);
+        } else {
+          reject(new Error('La galería no posee imagenes'));
+        }
+      });
+      return pr;
+    } catch (error) {
+      return new Promise((reject: any) => {
+        reject(error);
+      });
+    }
+  }
+
   public async obtenerImagenesGaleria(){
     return modeloImagenes.find({galeriaId:{$exists:true}}).populate('galeriaId');
+  }
+  public async obtenerGaleriaPorId(id:string){
+    return modeloImagenes.find({galeriaId:id})
   }
 }
 export const imagenesController = new ImagenesController();
