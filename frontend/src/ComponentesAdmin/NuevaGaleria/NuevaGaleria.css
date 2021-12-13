@@ -32,6 +32,7 @@
 .accionesFilaListaImagenes {
   width: 50%;
   display: flex;
+  align-items: center;
   justify-content: flex-end;
 }
 .iconoAcción-ListaImagenes {
@@ -40,4 +41,19 @@
   margin-right: 20px;
   color: #0000008f;
   cursor: pointer;
+}
+.CI-Imagen-Lista {
+  width: 100%;
+  max-width: 100px;
+  height: 100%;
+}
+.CI-ListaImagnes::-webkit-scrollbar{
+  display: none;
+}
+.nuevaImagenLista {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-size: auto;
+  border-radius: 10px;
 }

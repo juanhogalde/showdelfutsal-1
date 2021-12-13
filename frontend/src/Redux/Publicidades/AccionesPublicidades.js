@@ -8,6 +8,9 @@ export const buscarPublicidadAEditar = 'buscarPublicidadAEditar';
 export const publicidadEditadaExito = 'publicidadEditadaExito';
 export const volverPorDefectoPublicidad = 'volverPorDefectoPublicidad';
 
+export const actualizarDisponibilidadMedidasPublicidad =
+  'actualizarDisponibilidadMedidasPublicidad';
+
 export const buscarPublicidadAEditar_accion = idPublicidad => {
   return {
     type: buscarPublicidadAEditar,
@@ -19,9 +22,10 @@ export const volverPorDefectoPublicidad_accion = () => {
     type: volverPorDefectoPublicidad,
   };
 };
-export const cargandoPublicidad_accion = () => {
+export const cargandoPublicidad_accion = (mensaje = 'Cargando...') => {
   return {
     type: cargandoPublicidad,
+    mensaje: mensaje,
   };
 };
 export const publicidadExito_accion = data => {
@@ -36,12 +40,18 @@ export const publicidadError_accion = error => {
     error: error,
   };
 };
-
+export const actializarMedidasPublicidades_Accion = datos => {
+  return {
+    type: actualizarDisponibilidadMedidasPublicidad,
+    medidas: datos,
+  };
+};
 export const guardarPublicidad = datosCargados => {
+  console.log(datosCargados);
   return dispatch => {
     var imagenPublicidad = new FormData();
     imagenPublicidad.append('archivos', datosCargados.imagen[0]);
-    dispatch(cargandoPublicidad_accion());
+    dispatch(cargandoPublicidad_accion('Guardando...'));
     API({
       url: '/imagenes/agregar',
       method: 'post',
@@ -55,7 +65,20 @@ export const guardarPublicidad = datosCargados => {
           data: datosCargados,
         })
           .then(res => {
-            dispatch(publicidadExito_accion(res.data));
+            var respuestaExitoGuardarPublicidad = res.data;
+            API({
+              url: '/medidasPublicidad/editar',
+              method: 'put',
+              data: {_id: datosCargados.idMedidas},
+            })
+              .then(res => {
+                console.log(res);
+                dispatch(actializarMedidasPublicidades_Accion(res.data));
+                dispatch(publicidadExito_accion(respuestaExitoGuardarPublicidad));
+              })
+              .catch(error => {
+                dispatch(publicidadError_accion(error));
+              });
           })
           .catch(error => {
             console.log(error);
@@ -98,9 +121,10 @@ export const listarPublicidades_accion = () => {
   };
 };
 
-export const cargandoGuardarPublicidadEditada_accion = () => {
+export const cargandoGuardarPublicidadEditada_accion = (mensaje = 'Cargando...') => {
   return {
     type: cargandoPublicidad,
+    mensaje: mensaje,
   };
 };
 export const publicidadEditadaExito_accion = data => {
@@ -121,7 +145,7 @@ export const guardarPublicidadEditada = datosCargados => {
     if (datosCargados.imagen && datosCargados.imagen[0].type) {
       var imagenPublicidad = new FormData();
       imagenPublicidad.append('archivos', datosCargados.imagen[0]);
-      dispatch(cargandoGuardarPublicidadEditada_accion());
+      dispatch(cargandoGuardarPublicidadEditada_accion('Editando...'));
       API({
         url: '/imagenes/agregar',
         method: 'post',
@@ -147,6 +171,7 @@ export const guardarPublicidadEditada = datosCargados => {
           dispatch(publicidadEditadaError_accion(error));
         });
     } else {
+      dispatch(cargandoGuardarPublicidadEditada_accion('Editando...'));
       API({
         url: '/publicidades/modificar',
         method: 'put',

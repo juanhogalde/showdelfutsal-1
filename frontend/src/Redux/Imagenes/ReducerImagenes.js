@@ -1,8 +1,8 @@
 import {
-  cargandoGuardarGaleria,
+  /* cargandoGuardarGaleria,
   guardarGaleriaExito,
   guardarGaleriaError,
-  volverPorDefectoAgregarGaleria,
+  volverPorDefectoAgregarGaleria, */
   cargandoListarImagenes,
   listarImagenesExito,
   listarImagenesError,
@@ -10,12 +10,12 @@ import {
 
 const imagenPorDefecto = {
   imagenes: [],
-  galeria: [],
-  isAgregarGaleria: {tipo: '', mensaje: '', isCargando: false, isExito: false, isError: false},
+  /* galeria: [],
+  isAgregarGaleria: {tipo: '', mensaje: '', isCargando: false, isExito: false, isError: false}, */
 };
 const storeImagenes = (state = imagenPorDefecto, accion) => {
   switch (accion.type) {
-    case cargandoGuardarGaleria: {
+    /* case cargandoGuardarGaleria: {
       return {
         ...state,
         isAgregarGaleria: {
@@ -63,7 +63,7 @@ const storeImagenes = (state = imagenPorDefecto, accion) => {
           isError: false,
         },
       };
-    }
+    } */
     case cargandoListarImagenes: {
       return {
         ...state,

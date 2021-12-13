@@ -29,8 +29,9 @@ const manejadorErrores_1 = __importDefault(require("./Middlewares/manejadorError
 const importarDatos_1 = require("./Config/importarDatos");
 const Usuarios_Model_1 = __importDefault(require("./Componentes/Usuarios/Usuarios_Model"));
 const instalacionInicial_1 = require("./Config/instalacionInicial");
+const MedidasPublicidad_Router_1 = __importDefault(require("./Componentes/MedidasPublicidad/MedidasPublicidad_Router"));
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
-const deploy = 'v0.0.7';
+const deploy = 'v0.0.8';
 class Server {
     constructor() {
         this._cadenaDeConexion = process.env.DATABASE || 'mongodb://localhost:29017/Desarrollo';
@@ -73,6 +74,7 @@ class Server {
         this.app.use('/subcategorias', Subcategorias_Router_1.default);
         this.app.use('/tablas', Tablas_Router_1.default);
         this.app.use('/usuarios', Usuarios_Router_1.default);
+        this.app.use('/medidasPublicidad', MedidasPublicidad_Router_1.default);
         this.app.get('/', (req, res) => {
             res.send('iniciado');
         });

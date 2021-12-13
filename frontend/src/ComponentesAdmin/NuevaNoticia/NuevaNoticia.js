@@ -22,7 +22,6 @@ const NuevaNoticia = () => {
   const [datosCargados, setdatosCargados] = useState({});
   const dispatch = useDispatch();
   const escucharCambios = (name, value) => {
-    console.log(name);
     setdatosCargados({...datosCargados, [name]: value});
   };
 
@@ -86,10 +85,14 @@ const NuevaNoticia = () => {
         onChange={e => escucharCambios(e.target.name, e.target.value)}
       ></TextAreaLowa>
       <BotonLowa onClick={() => GuardarNuevaNoticia()} tituloboton={'Guardar Noticia'}></BotonLowa>
-      <Alertas mostrarSweet={isNoticiaGurdada.isMostrar} tipoDeSweet={isNoticiaGurdada.tipo} />
+      <Alertas
+        mostrarSweet={isNoticiaGurdada.isMostrar}
+        tipoDeSweet={isNoticiaGurdada.tipo}
+        subtitulo={isNoticiaGurdada.mensaje}
+      />
       <Alertas
         mostrarSweet={isNoticiaGurdada.isExito || isNoticiaGurdada.isError}
-        titulo={isNoticiaGurdada.mensaje}
+        subtitulo={isNoticiaGurdada.mensaje}
         tipoDeSweet={isNoticiaGurdada.tipo}
         RespuestaDeSweet={RespuestaDeAlertaVolverPorDefecto}
       />

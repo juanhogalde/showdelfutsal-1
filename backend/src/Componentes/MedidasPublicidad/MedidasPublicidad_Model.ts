@@ -6,5 +6,6 @@ const MedidasPublicidadSchema = new Schema({
   ubicacion: {type: String},
   direccion: {type: String},
   keyMedidas: {type: Number},
+  disponible: {type: Boolean, default: true},
 });
 export default model<IMedidasPublicidad>('modeloMedidasPublicidad', MedidasPublicidadSchema);

@@ -30,7 +30,7 @@ const storePublicidades = (state = noticiaPorDefecto, accion) => {
         isPublicidad: {
           isMostrar: true,
           tipo: 'cargando',
-          mensaje: 'cargando',
+          mensaje: accion.mensaje,
           isExito: false,
           isError: false,
           isPublicidadSeleccionada: false,
@@ -58,7 +58,7 @@ const storePublicidades = (state = noticiaPorDefecto, accion) => {
         isPublicidad: {
           isMostrar: false,
           tipo: 'success',
-          mensaje: 'publicidad generada exitosamente',
+          mensaje: 'Publicidad generada exitosamente',
           isExito: true,
           isError: false,
           isPublicidadSeleccionada: false,

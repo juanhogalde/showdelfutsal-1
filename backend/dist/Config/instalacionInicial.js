@@ -16,6 +16,7 @@ exports.instalarBD = void 0;
 const Usuarios_Model_1 = __importDefault(require("../Componentes/Usuarios/Usuarios_Model"));
 const Categorias_Model_1 = __importDefault(require("../Componentes/Categorias/Categorias_Model"));
 const Subcategorias_Model_1 = __importDefault(require("../Componentes/Subcategorias/Subcategorias_Model"));
+const MedidasPublicidad_Model_1 = __importDefault(require("../Componentes/MedidasPublicidad/MedidasPublicidad_Model"));
 let inicializarCategorias = () => __awaiter(void 0, void 0, void 0, function* () {
     const categoria1 = new Categorias_Model_1.default({
         nombreCategoria: 'Femenino',
@@ -70,11 +71,54 @@ let inicializarUsuarios = () => __awaiter(void 0, void 0, void 0, function* () {
     });
     usuario2.save();
 });
+let incializarMedidasPublicitarias = () => __awaiter(void 0, void 0, void 0, function* () {
+    const medida1 = new MedidasPublicidad_Model_1.default({
+        ancho: 245,
+        alto: 245,
+        ubicacion: 'cuadrado',
+        direccion: 'Inicio->Partidos->Derecha1',
+        keyMedidas: 1,
+    });
+    medida1.save();
+    const medida2 = new MedidasPublicidad_Model_1.default({
+        ancho: 245,
+        alto: 245,
+        ubicacion: 'cuadrado',
+        direccion: 'Inicio->Partidos->Derecha2',
+        keyMedidas: 2,
+    });
+    medida2.save();
+    const medida3 = new MedidasPublicidad_Model_1.default({
+        ancho: 1136,
+        alto: 99,
+        ubicacion: 'horizontal',
+        direccion: 'Inicio->Vivo->Abajo',
+        keyMedidas: 3,
+    });
+    medida3.save();
+    const medida4 = new MedidasPublicidad_Model_1.default({
+        ancho: 245,
+        alto: 245,
+        ubicacion: 'cuadrado',
+        direccion: 'Desarrollada->Noticia->Derecha1',
+        keyMedidas: 4,
+    });
+    medida4.save();
+    const medida5 = new MedidasPublicidad_Model_1.default({
+        ancho: 300,
+        alto: 300,
+        ubicacion: 'modal',
+        direccion: 'Inicio->Modal->xxxxxxx',
+        keyMedidas: 5,
+    });
+    medida5.save();
+});
 const instalarBD = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield inicializarCategorias();
         yield inicializarSubCategorias();
         yield inicializarUsuarios();
+        yield incializarMedidasPublicitarias();
         console.log('instalacion finalizada');
         return 'Instalacion finalizada';
     }

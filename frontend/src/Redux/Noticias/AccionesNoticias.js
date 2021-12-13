@@ -70,9 +70,10 @@ export const buscarNoticia = titulo => {
 };
 
 //acciones agregar noticia
-export const cargandoGuardarNoticia_accion = () => {
+export const cargandoGuardarNoticia_accion = (mensaje = 'Cargando...') => {
   return {
     type: cargandoGuardarNoticia,
+    mensaje: mensaje,
   };
 };
 export const GuardarNoticiaExito_accion = noticia => {
@@ -97,7 +98,7 @@ export const guardarNoticia_accion = (noticiaModelada, datosCargados) => {
   return dispatch => {
     var imagenNoticia = new FormData();
     imagenNoticia.append('archivos', datosCargados.imagen[0]);
-    dispatch(cargandoGuardarNoticia_accion());
+    dispatch(cargandoGuardarNoticia_accion('Guardando...'));
     API({
       url: '/imagenes/agregar',
       method: 'post',

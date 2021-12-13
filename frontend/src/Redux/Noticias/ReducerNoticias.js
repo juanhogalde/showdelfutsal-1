@@ -63,7 +63,7 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
         isNoticiaGurdada: {
           isMostrar: true,
           tipo: 'cargando',
-          mensaje: 'cargando',
+          mensaje: accion.mensaje,
           isExito: false,
           isError: false,
         },
@@ -118,7 +118,6 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
       };
     }
     case guardarNoticiaMiniaturaSeleccionada: {
-      console.log(accion.noticia);
       return {
         ...state,
         noticiaSeleccionada: {...accion.noticia},

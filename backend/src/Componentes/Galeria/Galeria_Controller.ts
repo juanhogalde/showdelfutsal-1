@@ -10,20 +10,27 @@ import fs from 'fs';
 class GaleriaController {
   public async listar(req: Request, res: Response) {
     try {
-      modeloGaleria
-        .find({})
-        .populate('imagenesId')
-        .then((galerias: any) => {
-          if (galerias && galerias.length) {
-            responder.sucess(req, res, galerias);
-          } else {
-            responder.sucess(req, res, [], 'No hay galerías para mostrar');
-          }
-        })
-        .catch((error: any) => {
-          console.log(error);
-          responder.error(req, res, error);
-        });
+      const listadoImagenes = await imagenesController.obtenerImagenesGaleria();
+      if(listadoImagenes && listadoImagenes.length){
+      responder.sucess(req, res, listadoImagenes);
+      }else{
+      responder.sucess(req, res, [], 'No hay galerías para mostrar');
+      }
+      // console.log(listadoImagenes);return false;
+      // modeloGaleria
+      //   .find({})
+      //   .populate('imagenesId')
+      //   .then((galerias: any) => {
+      //     if (galerias && galerias.length) {
+      //       responder.sucess(req, res, galerias);
+      //     } else {
+      //       responder.sucess(req, res, [], 'No hay galerías para mostrar');
+      //     }
+      //   })
+      //   .catch((error: any) => {
+      //     console.log(error);
+      //     responder.error(req, res, error);
+      //   });
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -85,7 +92,7 @@ class GaleriaController {
   public async agregar(req: Request, res: Response) {
     try {
       let datosARetornar = {tituloGaleria: '', _id: '', imagenesId: <any>[]};
-      let datosAEnviar = {fuente: '', isGaleria: false};
+      let datosAEnviar = {fuente: '', isGaleria: false,galeriaId:''};
       let pathFile: string = '';
       let arrayInsercionesImagenes = [];
       let arrayIdImagenes = [];
@@ -99,7 +106,9 @@ class GaleriaController {
         throw new Error('No hay archivos para cargar');
       }
 
+      let nuevaGaleria: IGaleria = new modeloGaleria();
       if (datosBody.archivos.length) {
+        datosAEnviar.galeriaId = nuevaGaleria._id;
         for await (const archivo of datosBody.archivos) {
           //TODO: Ir cargando cada imagen en la coleccion imagenes
           pathFile = archivo.path;
@@ -131,7 +140,7 @@ class GaleriaController {
       // console.log(arrayImagenes);
       // return false;
       if (arrayInsercionesImagenes.length) {
-        const nuevaGaleria: IGaleria = new modeloGaleria();
+        // const nuevaGaleria: IGaleria = new modeloGaleria();
         nuevaGaleria.tituloGaleria = datosBody.descripcion;
         nuevaGaleria.imagenesId = [...arrayIdImagenes];
         nuevaGaleria.fechaCarga = new Date();
@@ -207,12 +216,10 @@ class GaleriaController {
   public async modificar(req: Request, res: Response) {
     try {
       let datosARetornar = {tituloGaleria: '', _id: '', imagenesId: <any>[]};
-      let datosAEnviar = {fuente: '', isGaleria: false, galeriaId: ''};
+      let datosAEnviar = {fuente: '', isGaleria: false, galeriaId:''};
       let pathFile: string = '';
-      let arrayInsercionesImagenes = [];
-      let arrayIdImagenes = [];
-      let arrayDePath: Array<string> = [];
-
+      let arrayInsercionesImagenes: Array<string> = [];
+      let arrayIdImagenes: Array<string> = [];
       const datosBody = req.body;
       if (!datosBody) {
         responder.error(req, res, 'No se ingresaron datos');
@@ -222,27 +229,13 @@ class GaleriaController {
           .populate('imagenesId')
           .then(async (galeria: any) => {
             if (galeria) {
-              if (datosBody.archivos) {
-                datosAEnviar.isGaleria = true;
-                datosAEnviar.galeriaId = galeria._id;
-                if (datosBody.archivos.length) {
-                  for await (const archivo of datosBody.archivos) {
-                    pathFile = archivo.path;
-
-                    datosAEnviar.fuente = pathFile
-                      .replace('public', '')
-                      .replace('\\', '/')
-                      .replace('\\', '/');
-
-                    const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
-                    if (resultado) {
-                      arrayInsercionesImagenes.push(resultado);
-                      arrayIdImagenes.push(resultado._id);
-                      // arrayDePath.push(resultado.fuente);
-                    }
-                  }
-                } else {
-                  pathFile = datosBody.archivos.path;
+              datosAEnviar.galeriaId = galeria._id;
+              if (datosBody.archivos && datosBody.archivos.length) {
+                console.log('ENTRO POR EL IF')
+                for await (const archivo of datosBody.archivos) {
+                  //TODO: Ir cargando cada imagen en la coleccion imagenes
+                  pathFile = archivo.path;
+        
                   datosAEnviar.fuente = pathFile
                     .replace('public', '')
                     .replace('\\', '/')
@@ -255,6 +248,28 @@ class GaleriaController {
                     // arrayDePath.push(resultado.fuente);
                   }
                 }
+              } else {
+                console.log('ENTRO POR EL ELSE')
+                pathFile = datosBody.archivos.path;
+                datosAEnviar.fuente = pathFile.replace('public', '').replace('\\', '/').replace('\\', '/');
+                datosAEnviar.isGaleria = true;
+                const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
+                if (resultado) {
+                  arrayInsercionesImagenes.push(resultado);
+                  arrayIdImagenes.push(resultado._id);
+                  // arrayDePath.push(resultado.fuente);
+                }
+              }
+
+              galeria.tituloGaleria = datosBody.tituloGaleria;
+              galeria.fechaModificacion = new Date();
+
+              const resultado = await galeria.save();
+              if(resultado){
+                responder.sucess(req,res,resultado,'Galeria actualizada');
+              }else{
+                console.log(resultado);
+                responder.error(req,res,'','Ocurrio un error al intentar actualizar la galería',500)
               }
 
               galeria.tituloGaleria = datosBody.tituloGaleria;
