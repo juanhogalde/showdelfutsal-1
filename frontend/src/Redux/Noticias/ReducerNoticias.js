@@ -14,6 +14,10 @@ import {
   cargandoEditarNoticia,
   edicionNoticiaExito,
   edicionNoticiaError,
+  cargandoEliminarNoticia,
+  eliminarNoticiaExito,
+  eliminarNoticiaError,
+  actualizarListaNoticias,
 } from './AccionesNoticias';
 
 const noticiaPorDefecto = {
@@ -28,6 +32,7 @@ const noticiaPorDefecto = {
     isExito: false,
     isError: false,
     isEditada: false,
+    isEliminado: false,
   },
 };
 const storeNoticias = (state = noticiaPorDefecto, accion) => {
@@ -77,6 +82,7 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           isExito: false,
           isError: false,
           isEditada: false,
+          isEliminado: false,
         },
       };
     }
@@ -90,6 +96,7 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           isExito: true,
           isError: false,
           isEditada: false,
+          isEliminado: false,
         },
         noticias: [...state.noticias, accion.respuesta.value],
       };
@@ -104,6 +111,7 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           isExito: false,
           isError: true,
           isEditada: false,
+          isEliminado: false,
         },
       };
     }
@@ -117,6 +125,7 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           isExito: false,
           isError: false,
           isEditada: false,
+          isEliminado: false,
         },
       };
     }
@@ -147,6 +156,7 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           isExito: false,
           isError: false,
           isEditada: false,
+          isEliminado: false,
         },
       };
     }
@@ -163,6 +173,7 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           isExito: false,
           isError: false,
           isEditada: true,
+          isEliminado: false,
         },
         noticias: copia,
       };
@@ -177,6 +188,66 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           isExito: false,
           isError: true,
           isEditada: false,
+          isEliminado: false,
+        },
+      };
+    }
+    case cargandoEliminarNoticia: {
+      return {
+        ...state,
+        isNoticiaGurdada: {
+          isMostrar: true,
+          tipo: 'cargando',
+          mensaje: 'Eliminando',
+          isExito: false,
+          isError: false,
+          isEditada: false,
+          isEliminado: false,
+        },
+      };
+    }
+    case eliminarNoticiaExito: {
+      return {
+        ...state,
+
+        isNoticiaGurdada: {
+          isMostrar: false,
+          tipo: 'success',
+          mensaje: 'Noticia eliminada',
+          isExito: false,
+          isError: false,
+          isEditada: false,
+          isEliminado: true,
+        },
+      };
+    }
+    case eliminarNoticiaError: {
+      return {
+        ...state,
+        isNoticiaGurdada: {
+          isMostrar: false,
+          tipo: 'error',
+          mensaje: accion.error.message,
+          isExito: false,
+          isError: true,
+          isEditada: false,
+          isEliminado: false,
+        },
+      };
+    }
+    case actualizarListaNoticias: {
+      let copia = state.noticias.filter(element => element._id !== accion.id);
+      return {
+        ...state,
+        noticias: copia,
+        isNoticiaGurdada: {
+          isMostrar: false,
+          tipo: '',
+          mensaje: '',
+          isExito: false,
+          isError: false,
+          isEditada: false,
+          isEliminado: false,
         },
       };
     }
