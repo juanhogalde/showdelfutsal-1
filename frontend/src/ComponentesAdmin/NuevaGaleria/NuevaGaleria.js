@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './NuevaGaleria.css';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
@@ -8,10 +8,11 @@ import Alertas from '../Alertas/Alertas';
 import compresor from '../../ModulosExternos/Compresor';
 import {
   agregarGaleria_accion,
+  modificarGaleria_accion,
   volverPorDefectoAgregarGaleria_accion,
 } from '../../Redux/Galerias/AccionesGalerias';
 import ImagenAdmin from '../ImagenAdmin/ImagenAdmin';
-import {useHistory, useLocation, useParams} from 'react-router';
+import {useHistory, useParams} from 'react-router';
 import {
   consultarEliminarImagen_accion,
   eliminarImagenExito_accion,
@@ -19,13 +20,11 @@ import {
   volverPorDefectoEliminarImagen_accion,
 } from '../../Redux/Imagenes/AccionesImagenes';
 
-const NuevaGaleria = ({datosParaEditar = {}}) => {
+const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
   const historialDeNavegacion = useHistory();
-  const locacion = useLocation();
   const {id} = useParams();
   const dispatch = useDispatch();
 
-  const [isEditarGaleria, setIsEditarGaleria] = useState(false);
   const {isAgregarGaleria} = useSelector(state => state.storeGalerias);
   const {isEliminarImagen} = useSelector(state => state.storeImagenes);
   const [datosGaleria, setDatosGaleria] = useState({
@@ -152,17 +151,13 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
     dispatch(volverPorDefectoAgregarGaleria_accion());
     historialDeNavegacion.push('/Galerías');
   };
-  const guardarNuevaGaleria = () => {
-    dispatch(agregarGaleria_accion(datosGaleria));
-  };
-  useLayoutEffect(() => {
-    if (locacion.pathname.split('/')[2] === 'Editar') {
-      setIsEditarGaleria(true);
+  const guardarDatosDeGaleria = () => {
+    if (isEditarGaleria) {
+      dispatch(modificarGaleria_accion());
+    } else {
+      dispatch(agregarGaleria_accion(datosGaleria));
     }
-    return () => {
-      setIsEditarGaleria(false);
-    };
-  }, [locacion.pathname]);
+  };
 
   return (
     <div className="CP-AgregarImagenes">
@@ -229,7 +224,7 @@ const NuevaGaleria = ({datosParaEditar = {}}) => {
       <BotonLowa
         tituloboton="Agregar Imágenes"
         disabled={Object.keys(datosGaleria).length > 1 ? false : true}
-        onClick={() => guardarNuevaGaleria()}
+        onClick={() => guardarDatosDeGaleria()}
       ></BotonLowa>
       <Alertas
         tipoDeSweet={isEliminarImagen.tipo}

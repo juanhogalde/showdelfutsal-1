@@ -16,13 +16,14 @@ const PaginasSeccionesAdmin = ({
   isSeccionNoticias = false,
   isSeccionGaleria = false,
   isSeccionTorneos = false,
+  datosDeSeccion = {},
 }) => {
   const historialDeNavegacion = useHistory();
 
   const editarNoticia = () => {
     historialDeNavegacion.push(`/Noticia/Ver/${1234}`);
   };
-  console.log(isSeccionGaleria);
+
   return (
     <div className="CP-Pagina-Secciones-Admin">
       <div className="CI-Pagina-Secciones-Admin-Cabecera">
@@ -42,7 +43,9 @@ const PaginasSeccionesAdmin = ({
       )}
       {isSeccionGaleria && (
         <div className="CI-Pagina-Secciones-Galeria">
-          <TarjetaGaleria />
+          {datosDeSeccion.map((galeria, index) => {
+            return <TarjetaGaleria key={index} galeria={galeria} />;
+          })}
         </div>
       )}
       {isSeccionTorneos && (
