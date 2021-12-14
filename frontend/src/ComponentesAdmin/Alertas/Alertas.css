@@ -12,3 +12,9 @@
 .estilosCancelarWarning {
   cursor: pointer;
 }
+.CP-botones-confirmacion {
+  display: flex;
+}
+.CI-botones-confirmacion-si {
+  margin-right: 0.5rem;
+}

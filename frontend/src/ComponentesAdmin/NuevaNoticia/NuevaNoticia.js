@@ -16,7 +16,7 @@ import {useHistory} from 'react-router';
 import {useLayoutEffect} from 'react';
 import {urlImagenes} from '../../urlImagenes';
 
-const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true}) => {
+const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = false}) => {
   const history = useHistory();
   const {isNoticiaGurdada, noticiaSeleccionada} = useSelector(state => state.storeNoticias);
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
@@ -74,6 +74,7 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true}) => {
         name="categoria"
         placeholder="Seleccione Categoría"
         opcionSeleccionada={categoria}
+        isDisabled={isConsulta}
         selectorConIcono={<BsPlusCircle />}
         options={categorias ? categorias : []}
         onChange={setCategoria}
@@ -81,25 +82,33 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true}) => {
       <Selector
         name="subcategoria"
         placeholder="Buscar Subcategoría"
+        isDisabled={isConsulta}
         opcionSeleccionada={subCategoria}
+        ocultarIconoLateral={isConsulta}
         selectorConIcono={<BsSearch />}
         options={subcategorias ? subcategorias : []}
         onChange={setSubCategoria}
       ></Selector>
       <InputLowa
         name="titulo"
+        ocultarIconoLateral={isConsulta}
+        disabled={isConsulta}
         placeholder="Ingrese Título..."
         value={datosCargados.titulo ? datosCargados.titulo : ''}
         onChange={e => escucharCambios(e.target.name, e.target.value)}
       ></InputLowa>
       <InputLowa
         name="copete"
+        disabled={isConsulta}
+        ocultarIconoLateral={isConsulta}
         value={datosCargados.copete ? datosCargados.copete : ''}
         placeholder="Ingrese Copete..."
         onChange={e => escucharCambios(e.target.name, e.target.value)}
       ></InputLowa>
       <InputLowa
         type="file"
+        disabled={isConsulta}
+        ocultarIconoLateral={isConsulta}
         name="imagen"
         src={datosCargados.idImagen ? urlImagenes + datosCargados.idImagen[0].fuente : ''}
         onChange={(name, value) => escucharCambios(name, value)}
@@ -107,11 +116,14 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true}) => {
       {/* {isImagenNoticiaNueva.isMostrar && <Cargando />} */}
       <TextAreaLowa
         name="cuerpo"
+        readOnly={isConsulta}
         value={datosCargados.cuerpo ? datosCargados.cuerpo : ''}
         placeholder="Escriba el cuerpo de la noticia"
         onChange={e => escucharCambios(e.target.name, e.target.value)}
       ></TextAreaLowa>
-      <BotonLowa onClick={() => eventoGuardar()} tituloboton={tituloBoton}></BotonLowa>
+      {!isConsulta && (
+        <BotonLowa onClick={() => eventoGuardar()} tituloboton={tituloBoton}></BotonLowa>
+      )}
       <Alertas
         mostrarSweet={isNoticiaGurdada.isMostrar}
         tipoDeSweet={isNoticiaGurdada.tipo}
