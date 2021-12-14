@@ -1,4 +1,12 @@
 import {prueba, obtenerNoticiasFiltradas} from './AccionesPrueba';
+import imgSomos1 from '../../Static/Img/ImgSomos/01.jpeg';
+import imgSomos2 from '../../Static/Img/ImgSomos/02.jpeg';
+import imgSomos3 from '../../Static/Img/ImgSomos/03.jpeg';
+import imgSomos4 from '../../Static/Img/ImgSomos/04.jpeg';
+import imgSomos5 from '../../Static/Img/ImgSomos/05.jpeg';
+import imgSomos6 from '../../Static/Img/ImgSomos/06.jpeg';
+import imgSomos7 from '../../Static/Img/ImgSomos/07.jpeg';
+import imgSomos8 from '../../Static/Img/ImgSomos/08.jpeg';
 
 const pruebaInicio = {
   logueado: false,
@@ -25,24 +33,38 @@ const pruebaInicio = {
     },
   ],
 
-  DatosDePruebaImagenes: [
+  ImagenesSomos: [
     {
-      fuente:
-        'https://amp.fcbarcelonanoticias.com/mrf4u/statics/i/ps/www.fcbarcelonanoticias.com/uploads/s1/12/70/06/9/mercado-fichajes-2021.jpeg?width=1200&enable=upscale',
-      descripcion: '1 UNO ',
+      fuente: imgSomos1,
+      descripcion: 'El Show del Futsal',
     },
     {
-      fuente: 'https://i.ytimg.com/vi/BWeWk6KhwYg/maxresdefault.jpg',
-      descripcion: '2 DOS',
+      fuente: imgSomos2,
+      descripcion: 'El Show del Futsal',
     },
     {
-      fuente:
-        'https://scontent.fmdz4-1.fna.fbcdn.net/v/t1.6435-9/241666479_4715899868420858_6789549810217285789_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=973b4a&_nc_ohc=usHNyI0zEVgAX-qAqU5&_nc_ht=scontent.fmdz4-1.fna&oh=a647f5e4f99dbc29b7c69384dddf5035&oe=619887C1',
-      descripcion: '3 TRES',
+      fuente: imgSomos3,
+      descripcion: 'El Show del Futsal',
     },
     {
-      fuente: 'https://www.wallpapertip.com/wmimgs/53-530438_torneo-de-futsal.jpg',
-      descripcion: '4 CUATRO',
+      fuente: imgSomos4,
+      descripcion: 'El Show del Futsal',
+    },
+    {
+      fuente: imgSomos5,
+      descripcion: 'El Show del Futsal',
+    },
+    {
+      fuente: imgSomos6,
+      descripcion: 'El Show del Futsal',
+    },
+    {
+      fuente: imgSomos7,
+      descripcion: 'El Show del Futsal',
+    },
+    {
+      fuente: imgSomos8,
+      descripcion: 'El Show del Futsal',
     },
   ],
   DatosDePruebaImagenes2: [

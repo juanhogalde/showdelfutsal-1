@@ -9,7 +9,7 @@ import Radio from '../Radio/Radio';
 import PieDepagina from '../PieDePagina/PieDepagina';
 
 const PaginaSomos = () => {
-  const {DatosDePruebaImagenes} = useSelector(state => state.storePrueba);
+  const {ImagenesSomos} = useSelector(state => state.storePrueba);
 
   return (
     <div className="LI-Nosotros seccion-nosotros">
@@ -49,7 +49,11 @@ const PaginaSomos = () => {
         </div>
         <div className="CI-Nosotros-Galeria">
           <div className="I-componente-somos-slider">
-            <ImagenesVideo tipoDeSliderFlecha={false} DatosDeEntrada={DatosDePruebaImagenes} />
+            <ImagenesVideo
+              isDatosStatic={true}
+              tipoDeSliderFlecha={false}
+              DatosDeEntrada={ImagenesSomos}
+            />
           </div>
           <div className="I-componente-somos-fotos">
             <img alt="" className="foto" src={foto}></img>
