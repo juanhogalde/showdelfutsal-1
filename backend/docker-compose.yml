@@ -29,6 +29,6 @@ services:
       - PASS_EMAIL_SISTEMA=B4F2K3@NPY
       - PORT_EMAIL_SISTEMA=465
     volumes:
-      - './imagenes/:/app/public/imagenes/'
+      - './public/imagenes/:/app/public/imagenes/'
     depends_on:
       - bdmongo
