@@ -13,7 +13,11 @@ const ImagenAdmin = ({
     <div className="CP-Imagen-admin">
       <div className="CI-Imagen-admin">
         {isTarjetaGaleria ? (
-          <img alt="" src={urlImagenes + noticiaImagen.fuente} className="Img-Admin"></img>
+          <img
+            alt=""
+            src={noticiaImagen.fuente ? urlImagenes + noticiaImagen.fuente : noticiaImagen}
+            className="Img-Admin"
+          ></img>
         ) : mostrarLogoCargando ? (
           <img alt="" src={logoCargando} className="Img-Admin"></img>
         ) : (

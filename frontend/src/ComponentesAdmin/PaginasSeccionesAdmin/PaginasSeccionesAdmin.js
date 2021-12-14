@@ -4,10 +4,8 @@ import TarjetaNoticias from '../../ComponentesAdmin/TarjetaNoticias/TarjetaNotic
 import BotonLowa from '../../ComponentesAdmin/BotonLowa/BotonLowa';
 import FiltroNoticiasAdmin from '../../ComponentesAdmin/FiltroNoticiasAdmin/FiltroNoticiasAdmin';
 import TarjetaGaleria from '../TarjetaGaleria/TarjetaGaleria';
-import {useHistory} from 'react-router';
+
 import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
-import {useSelector, useDispatch} from 'react-redux';
-import {guardarNoticiaParaEditar_accion} from '../../Redux/Noticias/AccionesNoticias';
 
 const PaginasSeccionesAdmin = ({
   funcionDeBotonSecciones = () => {
@@ -18,15 +16,8 @@ const PaginasSeccionesAdmin = ({
   isSeccionNoticias = false,
   isSeccionGaleria = false,
   isSeccionTorneos = false,
+  datosDeSeccion = [],
 }) => {
-  const historialDeNavegacion = useHistory();
-  const dispatch = useDispatch();
-  const {noticias} = useSelector(state => state.storeNoticias);
-  const editarNoticia = noticia => {
-    dispatch(guardarNoticiaParaEditar_accion(noticia));
-    historialDeNavegacion.push(`/Noticia/Editar`);
-  };
-
   return (
     <div className="CP-Pagina-Secciones-Admin">
       <div className="CI-Pagina-Secciones-Admin-Cabecera">
@@ -40,13 +31,9 @@ const PaginasSeccionesAdmin = ({
       {isSeccionNoticias && (
         <div className="CI-Pagina-Secciones-Admin-Noticias">
           <div className="I-Noticias-Secciones-Admin">
-            {noticias.map(noticia => {
+            {datosDeSeccion.map(noticia => {
               return (
-                <div
-                  key={noticia._id}
-                  className="I-Noticias-Secciones-Admin"
-                  onClick={() => editarNoticia(noticia)}
-                >
+                <div key={noticia._id} className="I-Noticias-Secciones-Admin">
                   <TarjetaNoticias noticia={noticia} />
                 </div>
               );
@@ -56,7 +43,9 @@ const PaginasSeccionesAdmin = ({
       )}
       {isSeccionGaleria && (
         <div className="CI-Pagina-Secciones-Galeria">
-          <TarjetaGaleria />
+          {datosDeSeccion.map((galeria, index) => {
+            return <TarjetaGaleria key={index} galeria={galeria} />;
+          })}
         </div>
       )}
       {isSeccionTorneos && (

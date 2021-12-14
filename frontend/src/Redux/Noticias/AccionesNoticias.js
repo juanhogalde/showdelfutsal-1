@@ -15,6 +15,10 @@ export const guardarNoticiaMiniaturaSeleccionada = 'guardarNoticiaMiniaturaSelec
 export const cargandoEditarNoticia = 'cargandoEditarNoticia';
 export const edicionNoticiaExito = 'edicionNoticiaExito';
 export const edicionNoticiaError = 'edicionNoticiaError';
+export const cargandoEliminarNoticia = 'cargandoEliminarNoticia';
+export const eliminarNoticiaExito = 'eliminarNoticiaExito';
+export const eliminarNoticiaError = 'eliminarNoticiaError';
+export const actualizarListaNoticias = 'actualizarListaNoticias';
 
 //acciones buscar noticia
 export const cargandoBuscarNoticia_accion = () => {
@@ -242,5 +246,56 @@ export const editarNoticia_accion = (noticiaModelada, datosCargados) => {
           dispatch(EdicionNoticiaError_accion(error));
         });
     }
+  };
+};
+
+export const cargandoEliminarNoticia_accion = (mensaje = 'Cargando...') => {
+  return {
+    type: cargandoEliminarNoticia,
+    mensaje: mensaje,
+  };
+};
+export const eliminarNoticiaExito_accion = () => {
+  return {
+    type: eliminarNoticiaExito,
+  };
+};
+export const eliminarNoticiaError_accion = error => {
+  return {
+    type: eliminarNoticiaError,
+    error: error,
+  };
+};
+export const actualizarListaNoticias_accion = id => {
+  return {
+    type: actualizarListaNoticias,
+    id: id,
+  };
+};
+export const eliminarNoticia_accion = noticia => {
+  return dispatch => {
+    dispatch(cargandoEliminarNoticia_accion('Eliminando'));
+    API({
+      url: '/Noticias/eliminar',
+      method: 'delete',
+      data: {id: noticia._id},
+    })
+      .then(res => {
+        API({
+          url: '/imagenes/eliminar',
+          method: 'delete',
+          data: {id: noticia.idImagen[0]._id},
+        })
+          .then(res => {
+            dispatch(eliminarNoticiaExito_accion());
+          })
+          .catch(error => {
+            dispatch(eliminarNoticiaError_accion(error));
+          });
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(eliminarNoticiaError_accion(error));
+      });
   };
 };

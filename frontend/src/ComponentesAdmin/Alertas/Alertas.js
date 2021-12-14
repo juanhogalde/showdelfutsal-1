@@ -22,6 +22,7 @@ const Alertas = ({
   tipoDeSweet = 'info',
 }) => {
   const EventoClick = seleccion => {
+    console.log(seleccion);
     RespuestaDeSweet(seleccion);
   };
 
@@ -92,13 +93,18 @@ const Alertas = ({
         <SweetAlert
           warning
           show={mostrarSweet}
-          cancelBtnText="Cancelar"
-          cancelBtnBsStyle="light"
-          confirmBtnText="De Acuerdo"
-          confirmBtnBsStyle="warning"
           title={titulo ? titulo : ''}
-          onConfirm={() => EventoClick(false)}
+          onConfirm={() => EventoClick(true)}
           onCancel={() => EventoClick(false)}
+          customButtons={
+            <div className="customButtonsWarning">
+              <p className="estilosCancelarWarning" onClick={() => EventoClick(false)}>
+                Cancelar
+              </p>
+
+              <BotonLowa onClick={() => EventoClick(true)} tituloboton={'Ok'}></BotonLowa>
+            </div>
+          }
         >
           {subtitulo}
         </SweetAlert>

@@ -8,7 +8,6 @@ import Cargando from '../Cargando/Cargando';
 
 const EditarGaleria = () => {
   const {id} = useParams();
-  console.log(id);
 
   const galeria = useSelector(state =>
     state.storeGalerias.galerias.find(galeria => galeria._id === id)
@@ -16,7 +15,7 @@ const EditarGaleria = () => {
   if (galeria) {
     return (
       <div className="CP-EditarGaleria">
-        <NuevaGaleria datosParaEditar={galeria}></NuevaGaleria>
+        <NuevaGaleria datosParaEditar={galeria} isEditarGaleria={true}></NuevaGaleria>
       </div>
     );
   } else {

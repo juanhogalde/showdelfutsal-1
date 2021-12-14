@@ -17,8 +17,10 @@ const TarjetaNoticiasMiniatura = ({noticiaRecibida}) => {
           <div className="CI-Tarjeta-Noticia-Miniatura-Categoria">
             <div className="I-Tarjeta-Noticia-Categoria">
               <h6>Division</h6> <h6>{categoriaFiltrada ? categoriaFiltrada.label : ''}</h6>
-              <h6>{noticiaRecibida.fecha.substr(0, 10)}</h6>
             </div>
+          </div>
+          <div>
+            <h6>{noticiaRecibida.fecha.substr(0, 10)}</h6>
           </div>
           <div className="CI-Tarjeta-Noticia-Miniatura-Cuerpo">
             <div className="I-Tarjeta-Noticia-cuerpo">
