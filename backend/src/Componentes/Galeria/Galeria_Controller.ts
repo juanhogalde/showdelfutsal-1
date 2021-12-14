@@ -142,6 +142,7 @@ class GaleriaController {
 
   public async modificar(req: Request, res: Response) {
     try {
+      console.log(req.body);
       let datosARetornar = {tituloGaleria: '', _id: '', imagenesId: <any>[]};
       let datosAEnviar = {fuente: '', isGaleria: false, galeriaId: ''};
       let pathFile: string = '';

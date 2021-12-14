@@ -100,7 +100,6 @@ export const listarGalerias_accion = () => {
       method: 'get',
     })
       .then(res => {
-        console.log({res});
         dispatch(listarGaleriasExito_accion(res.data.value));
       })
       .catch(error => {
@@ -157,7 +156,6 @@ export const eliminarGaleria_accion = id => {
       data: {_id: id},
     })
       .then(res => {
-        console.log({res});
         dispatch(eliminarGaleriaExito_accion(id));
       })
       .catch(error => {
@@ -198,10 +196,14 @@ export const modificarGaleria_accion = datosGaleria => {
   console.log(datosGaleria);
   return dispatch => {
     var auxDatosGaleria = new FormData();
-    Object.values(datosGaleria.imagenes).forEach(file => {
-      auxDatosGaleria.append('archivos', file);
-    });
+    auxDatosGaleria.append('_id', datosGaleria.id);
     auxDatosGaleria.append('descripcion', datosGaleria.descripcion);
+
+    Object.values(datosGaleria.imagenes).forEach(file => {
+      if (file instanceof Blob) {
+        auxDatosGaleria.append('archivos', file);
+      }
+    });
 
     dispatch(cargandoModificarGaleria_accion());
     API({
@@ -216,7 +218,7 @@ export const modificarGaleria_accion = datosGaleria => {
       })
       .catch(error => {
         console.log({error});
-        /* dispatch(modificarGaleriaError_accion()); */
+        dispatch(modificarGaleriaError_accion());
       });
   };
 };

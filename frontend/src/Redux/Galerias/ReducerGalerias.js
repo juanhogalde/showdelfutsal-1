@@ -147,7 +147,6 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
     }
     case actualizarListaDeGalerias: {
       let auxGalerias = state.galerias.filter(galeria => galeria._id !== accion.datos);
-      console.log(accion.datos);
       return {
         ...state,
         galerias: auxGalerias,

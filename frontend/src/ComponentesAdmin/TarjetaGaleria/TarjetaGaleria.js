@@ -37,7 +37,6 @@ const TarjetaGaleria = ({galeria = {}}) => {
     dispatch(consultaEliminarGaleria_accion(id));
   };
   const obtenerRespuestaDeAlertas = respuesta => {
-    console.log(respuesta);
     if (respuesta) {
       if (isEliminarGaleria.isConsulta) {
         eliminarGaleria(isEliminarGaleria.datos);
