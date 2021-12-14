@@ -50,6 +50,7 @@ const Selector = props => {
     name,
     options,
     noOptionsMessage,
+    opcionSeleccionada,
   } = props;
 
   const componenteConIcono = {
@@ -74,7 +75,7 @@ const Selector = props => {
         isMulti={isMultipleOpcion}
         options={options}
         onChange={onChange}
-        /* value={opcionSeleccionada} */
+        value={opcionSeleccionada}
         placeholder={placeholder}
         components={componenteConIcono}
         className={`${isDisabled ? '' : 'contenedorSelector'}`}

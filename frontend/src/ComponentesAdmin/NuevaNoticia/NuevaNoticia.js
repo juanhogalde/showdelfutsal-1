@@ -7,26 +7,43 @@ import {BsSearch, BsPlusCircle} from 'react-icons/bs';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import {useDispatch, useSelector} from 'react-redux';
 import {
+  editarNoticia_accion,
   guardarNoticia_accion,
   volverPorDefecto_accion,
 } from '../../Redux/Noticias/AccionesNoticias';
 import Alertas from '../Alertas/Alertas';
 import {useHistory} from 'react-router';
+import {useLayoutEffect} from 'react';
+import {urlImagenes} from '../../urlImagenes';
 
-const NuevaNoticia = () => {
+const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true}) => {
   const history = useHistory();
-  const {isNoticiaGurdada} = useSelector(state => state.storeNoticias);
+  const {isNoticiaGurdada, noticiaSeleccionada} = useSelector(state => state.storeNoticias);
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
-  const [categoria, setCategoria] = useState(null);
-  const [subCategoria, setSubCategoria] = useState(null);
+  const [categoria, setCategoria] = useState();
+  const [subCategoria, setSubCategoria] = useState();
   const [datosCargados, setdatosCargados] = useState({});
   const dispatch = useDispatch();
   const escucharCambios = (name, value) => {
     setdatosCargados({...datosCargados, [name]: value});
   };
-
-  const GuardarNuevaNoticia = () => {
-    if (datosCargados.imagen) {
+  useLayoutEffect(() => {
+    if (!isNueva) {
+      setdatosCargados(noticiaSeleccionada);
+      setCategoria(
+        noticiaSeleccionada.idCategoria
+          ? categorias.find(elemnt => elemnt.value === noticiaSeleccionada.idCategoria)
+          : ''
+      );
+      setSubCategoria(
+        noticiaSeleccionada.idSubcategoria
+          ? subcategorias.find(elemnt => elemnt.value === noticiaSeleccionada.idSubcategoria)
+          : ''
+      );
+    }
+  }, [noticiaSeleccionada, setCategoria, setSubCategoria, isNueva, categorias, subcategorias]);
+  const eventoGuardar = () => {
+    if (datosCargados.imagen || datosCargados.idImagen) {
       var datosNoticias = {
         fecha: new Date(),
         titulo: datosCargados.titulo ? datosCargados.titulo : '',
@@ -37,7 +54,11 @@ const NuevaNoticia = () => {
         keyCategoria: categoria ? categoria.key : '',
         keySubcategoria: subCategoria ? subCategoria.key : '',
       };
-      dispatch(guardarNoticia_accion(datosNoticias, datosCargados));
+      if (isNueva) {
+        dispatch(guardarNoticia_accion(datosNoticias, datosCargados));
+      } else {
+        dispatch(editarNoticia_accion({...datosNoticias, _id: datosCargados._id}, datosCargados));
+      }
     } else {
       alert('atencion no ingreso imagen');
     }
@@ -52,6 +73,7 @@ const NuevaNoticia = () => {
       <Selector
         name="categoria"
         placeholder="Seleccione Categoría"
+        opcionSeleccionada={categoria}
         selectorConIcono={<BsPlusCircle />}
         options={categorias ? categorias : []}
         onChange={setCategoria}
@@ -59,6 +81,7 @@ const NuevaNoticia = () => {
       <Selector
         name="subcategoria"
         placeholder="Buscar Subcategoría"
+        opcionSeleccionada={subCategoria}
         selectorConIcono={<BsSearch />}
         options={subcategorias ? subcategorias : []}
         onChange={setSubCategoria}
@@ -66,32 +89,38 @@ const NuevaNoticia = () => {
       <InputLowa
         name="titulo"
         placeholder="Ingrese Título..."
+        value={datosCargados.titulo ? datosCargados.titulo : ''}
         onChange={e => escucharCambios(e.target.name, e.target.value)}
       ></InputLowa>
       <InputLowa
         name="copete"
+        value={datosCargados.copete ? datosCargados.copete : ''}
         placeholder="Ingrese Copete..."
         onChange={e => escucharCambios(e.target.name, e.target.value)}
       ></InputLowa>
       <InputLowa
         type="file"
         name="imagen"
+        src={datosCargados.idImagen ? urlImagenes + datosCargados.idImagen[0].fuente : ''}
         onChange={(name, value) => escucharCambios(name, value)}
       ></InputLowa>
       {/* {isImagenNoticiaNueva.isMostrar && <Cargando />} */}
       <TextAreaLowa
         name="cuerpo"
+        value={datosCargados.cuerpo ? datosCargados.cuerpo : ''}
         placeholder="Escriba el cuerpo de la noticia"
         onChange={e => escucharCambios(e.target.name, e.target.value)}
       ></TextAreaLowa>
-      <BotonLowa onClick={() => GuardarNuevaNoticia()} tituloboton={'Guardar Noticia'}></BotonLowa>
+      <BotonLowa onClick={() => eventoGuardar()} tituloboton={tituloBoton}></BotonLowa>
       <Alertas
         mostrarSweet={isNoticiaGurdada.isMostrar}
         tipoDeSweet={isNoticiaGurdada.tipo}
         subtitulo={isNoticiaGurdada.mensaje}
       />
       <Alertas
-        mostrarSweet={isNoticiaGurdada.isExito || isNoticiaGurdada.isError}
+        mostrarSweet={
+          isNoticiaGurdada.isExito || isNoticiaGurdada.isError || isNoticiaGurdada.isEditada
+        }
         subtitulo={isNoticiaGurdada.mensaje}
         tipoDeSweet={isNoticiaGurdada.tipo}
         RespuestaDeSweet={RespuestaDeAlertaVolverPorDefecto}

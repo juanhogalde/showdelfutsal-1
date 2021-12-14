@@ -5,7 +5,7 @@ import './EditarNoticia.css';
 const EditarNoticia = () => {
   return (
     <div className="CP-EditarNoticia">
-      <NuevaNoticia></NuevaNoticia>
+      <NuevaNoticia tituloBoton="Editar Noticia" isNueva={false}></NuevaNoticia>
     </div>
   );
 };

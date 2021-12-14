@@ -6,6 +6,8 @@ import FiltroNoticiasAdmin from '../../ComponentesAdmin/FiltroNoticiasAdmin/Filt
 import TarjetaGaleria from '../TarjetaGaleria/TarjetaGaleria';
 import {useHistory} from 'react-router';
 import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
+import {useSelector, useDispatch} from 'react-redux';
+import {guardarNoticiaParaEditar_accion} from '../../Redux/Noticias/AccionesNoticias';
 
 const PaginasSeccionesAdmin = ({
   funcionDeBotonSecciones = () => {
@@ -18,11 +20,13 @@ const PaginasSeccionesAdmin = ({
   isSeccionTorneos = false,
 }) => {
   const historialDeNavegacion = useHistory();
-
-  const editarNoticia = () => {
-    historialDeNavegacion.push(`/Noticia/Ver/${1234}`);
+  const dispatch = useDispatch();
+  const {noticias} = useSelector(state => state.storeNoticias);
+  const editarNoticia = noticia => {
+    dispatch(guardarNoticiaParaEditar_accion(noticia));
+    historialDeNavegacion.push(`/Noticia/Editar`);
   };
-  console.log(isSeccionGaleria);
+
   return (
     <div className="CP-Pagina-Secciones-Admin">
       <div className="CI-Pagina-Secciones-Admin-Cabecera">
@@ -35,8 +39,18 @@ const PaginasSeccionesAdmin = ({
       </div>
       {isSeccionNoticias && (
         <div className="CI-Pagina-Secciones-Admin-Noticias">
-          <div className="I-Noticias-Secciones-Admin" onClick={() => editarNoticia()}>
-            <TarjetaNoticias />
+          <div className="I-Noticias-Secciones-Admin">
+            {noticias.map(noticia => {
+              return (
+                <div
+                  key={noticia._id}
+                  className="I-Noticias-Secciones-Admin"
+                  onClick={() => editarNoticia(noticia)}
+                >
+                  <TarjetaNoticias noticia={noticia} />
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
