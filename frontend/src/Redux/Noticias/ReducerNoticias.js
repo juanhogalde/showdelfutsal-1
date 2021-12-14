@@ -11,6 +11,9 @@ import {
   listarNoticiaExito,
   listarNoticiaError,
   guardarNoticiaMiniaturaSeleccionada,
+  cargandoEditarNoticia,
+  edicionNoticiaExito,
+  edicionNoticiaError,
 } from './AccionesNoticias';
 
 const noticiaPorDefecto = {
@@ -18,7 +21,14 @@ const noticiaPorDefecto = {
   noticiaDeBusqueda: '',
   noticiaSeleccionada: {},
   isObteniendoNoticia: {isMostrar: false, tipo: '', mensaje: ''},
-  isNoticiaGurdada: {isMostrar: false, tipo: '', mensaje: '', isExito: false, isError: false},
+  isNoticiaGurdada: {
+    isMostrar: false,
+    tipo: '',
+    mensaje: '',
+    isExito: false,
+    isError: false,
+    isEditada: false,
+  },
 };
 const storeNoticias = (state = noticiaPorDefecto, accion) => {
   switch (accion.type) {
@@ -63,9 +73,10 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
         isNoticiaGurdada: {
           isMostrar: true,
           tipo: 'cargando',
-          mensaje: 'cargando',
+          mensaje: accion.mensaje,
           isExito: false,
           isError: false,
+          isEditada: false,
         },
       };
     }
@@ -78,6 +89,7 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           mensaje: 'Noticia Guardada',
           isExito: true,
           isError: false,
+          isEditada: false,
         },
         noticias: [...state.noticias, accion.respuesta.value],
       };
@@ -91,6 +103,7 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           mensaje: accion.error.message,
           isExito: false,
           isError: true,
+          isEditada: false,
         },
       };
     }
@@ -103,6 +116,7 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           mensaje: '',
           isExito: false,
           isError: false,
+          isEditada: false,
         },
       };
     }
@@ -118,10 +132,52 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
       };
     }
     case guardarNoticiaMiniaturaSeleccionada: {
-      console.log(accion.noticia);
       return {
         ...state,
         noticiaSeleccionada: {...accion.noticia},
+      };
+    }
+    case cargandoEditarNoticia: {
+      return {
+        ...state,
+        isNoticiaGurdada: {
+          isMostrar: true,
+          tipo: 'cargando',
+          mensaje: accion.mensaje,
+          isExito: false,
+          isError: false,
+          isEditada: false,
+        },
+      };
+    }
+    case edicionNoticiaExito: {
+      let index = state.noticias.findIndex(element => element._id === accion.noticia.value._id);
+      let copia = [...state.noticias];
+      copia[index] = accion.noticia.value;
+      return {
+        ...state,
+        isNoticiaGurdada: {
+          isMostrar: false,
+          tipo: 'success',
+          mensaje: 'Noticia editada',
+          isExito: false,
+          isError: false,
+          isEditada: true,
+        },
+        noticias: copia,
+      };
+    }
+    case edicionNoticiaError: {
+      return {
+        ...state,
+        isNoticiaGurdada: {
+          isMostrar: false,
+          tipo: 'error',
+          mensaje: accion.error.message,
+          isExito: false,
+          isError: true,
+          isEditada: false,
+        },
       };
     }
     default:
