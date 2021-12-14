@@ -1,64 +1,16 @@
 import API from './../Configuracion/api';
 
-/* export const cargandoGuardarGaleria = 'cargandoGuardarGaleria';
-export const guardarGaleriaExito = 'guardarGaleriaExito';
-export const guardarGaleriaError = 'guardarGaleriaError';
-export const volverPorDefectoAgregarGaleria = 'volverPorDefectoAgregarGaleria'; */
-
 export const cargandoListarImagenes = 'cargandoListarImagenes';
 export const listarImagenesExito = 'listarImagenesExito';
 export const listarImagenesError = 'listarImagenesError';
-//
 
-/* ACCIONES AGREGAR GALERIA (MAXI) */
-/* export const cargandoGuardarGaleria_accion = isCargando => {
-  return {
-    type: cargandoGuardarGaleria,
-  };
-};
-export const guardarGaleriaExito_accion = datos => {
-  return {
-    type: guardarGaleriaExito,
-    datos: datos,
-  };
-};
-export const guardarGaleriaError_accion = error => {
-  return {
-    type: guardarGaleriaError,
-    error: error,
-  };
-};
-export const volverPorDefectoAgregarGaleria_accion = () => {
-  return {
-    type: volverPorDefectoAgregarGaleria,
-  };
-};
+export const consultarEliminarImagen = 'consultarEliminarImagen';
+export const cargandoEliminarImagen = 'cargandoEliminarImagen';
+export const eliminarImagenExito = 'eliminarImagenExito';
+export const eliminarImagenError = 'eliminarImagenError';
+export const volverPorDefectoEliminarImagen = 'volverPorDefectoEliminarImagen';
+export const actualizarGaleriaEliminarImagenExito = 'actualizarGaleriaEliminarImagenExito';
 
-export const agregarGaleria_accion = datosGaleria => {
-  return dispatch => {
-    var auxDatosGaleria = new FormData();
-    Object.values(datosGaleria.imagenes).forEach(file => {
-      auxDatosGaleria.append('archivos', file);
-    });
-    auxDatosGaleria.append('descripcion', datosGaleria.descripcion);
-
-    dispatch(cargandoGuardarGaleria_accion());
-    API({
-      url: '/galeria/agregar',
-      method: 'post',
-      data: auxDatosGaleria,
-    })
-      .then(res => {
-        console.log({res});
-        dispatch(guardarGaleriaExito_accion(res.data.value));
-      })
-      .catch(error => {
-        console.log({error});
-        dispatch(guardarGaleriaError_accion());
-      });
-  };
-};
- */
 /* ACCIONES LISTAR IMAGENES (MAXI) */
 export const cargandoListarImagenes_accion = isCargando => {
   return {
@@ -77,11 +29,6 @@ export const listarImagenesError_accion = error => {
     error: error,
   };
 };
-/* export const volverPorDefectoAgregarGaleria_accion = () => {
-  return {
-    type: volverPorDefectoAgregarGaleria,
-  };
-}; */
 
 export const listarImagenes_accion = () => {
   return dispatch => {
@@ -89,7 +36,6 @@ export const listarImagenes_accion = () => {
     API({
       url: '/imagenes/listar',
       method: 'get',
-      /* data: auxDatosGaleria, */
     })
       .then(res => {
         console.log({res});
@@ -98,6 +44,64 @@ export const listarImagenes_accion = () => {
       .catch(error => {
         console.log({error});
         /* dispatch(listarImagenesError_accion()); */
+      });
+  };
+};
+
+/* ACCIONES ELIMINAR IMAGENES (MAXI) */
+export const consultarEliminarImagen_accion = (dato, isNuevaImagen) => {
+  return {
+    type: consultarEliminarImagen,
+    datos: dato,
+    isNuevaImagen: isNuevaImagen,
+  };
+};
+export const cargandoEliminarImagen_accion = isCargando => {
+  return {
+    type: cargandoEliminarImagen,
+  };
+};
+export const eliminarImagenExito_accion = () => {
+  return {
+    type: eliminarImagenExito,
+  };
+};
+export const eliminarImagenError_accion = error => {
+  return {
+    type: eliminarImagenError,
+    error: error,
+  };
+};
+export const volverPorDefectoEliminarImagen_accion = () => {
+  return {
+    type: volverPorDefectoEliminarImagen,
+  };
+};
+
+export const actualizarGaleriaEliminarImagenExito_accion = (indiceImg, idGaleria) => {
+  return {
+    type: actualizarGaleriaEliminarImagenExito,
+    indiceImg: indiceImg,
+    idGaleria: idGaleria,
+  };
+};
+
+export const eliminarImagen_accion = (index, idImg, idGaleria) => {
+  return dispatch => {
+    dispatch(cargandoEliminarImagen_accion());
+    API({
+      url: '/imagenes/eliminar',
+      method: 'delete',
+      data: {id: idImg, idGaleria: idGaleria},
+    })
+      .then(res => {
+        console.log({res});
+        dispatch(eliminarImagenExito_accion());
+        dispatch(actualizarGaleriaEliminarImagenExito_accion(index, idGaleria));
+      })
+      .catch(error => {
+        console.log({error});
+        /* dispatch(eliminarImagenError_accion()); */
       });
   };
 };
