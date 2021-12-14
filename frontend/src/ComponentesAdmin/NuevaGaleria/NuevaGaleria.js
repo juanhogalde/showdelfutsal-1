@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import './NuevaGaleria.css';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
@@ -150,25 +150,40 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
     let auxUrlImg = URL.createObjectURL(img);
     return auxUrlImg;
   };
+
   const valoresPorDefectoNuevaGaleria = () => {
     dispatch(volverPorDefectoAgregarGaleria_accion());
     historialDeNavegacion.push('/Galerías');
   };
   const guardarDatosDeGaleria = () => {
     if (isEditarGaleria) {
-      dispatch(modificarGaleria_accion());
+      dispatch(modificarGaleria_accion(datosGaleria));
     } else {
       dispatch(agregarGaleria_accion(datosGaleria));
     }
   };
-
+  useLayoutEffect(() => {
+    if (isEditarGaleria) {
+      setDatosGaleria({
+        id: datosParaEditar._id,
+        descripcion: datosParaEditar.tituloGaleria,
+        imagenes: datosParaEditar.imagenesId,
+      });
+    }
+    return () => {};
+  }, [
+    datosParaEditar._id,
+    datosParaEditar.tituloGaleria,
+    datosParaEditar.imagenesId,
+    isEditarGaleria,
+  ]);
   return (
     <div className="CP-AgregarImagenes">
       <InputLowa
         name="descripcion"
         placeholder="Ingrese Título"
         onChange={e => escucharCambios(e.target.name, e.target.value)}
-        value={datosParaEditar ? datosParaEditar.tituloGaleria : ''}
+        value={datosGaleria.descripcion ? datosGaleria.descripcion : ''}
       ></InputLowa>
       <InputLowa
         name="imagenes"
@@ -181,7 +196,8 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
         <div className="CI-ListaImagnes">
           {Object.values(datosGaleria.imagenes).map((imagen, index) => {
             return (
-              imagen && (
+              imagen &&
+              imagen instanceof Blob && (
                 <div key={index} className="filaListaImagenes">
                   <div className="CI-Imagen-Lista">
                     <ImagenAdmin
@@ -226,7 +242,7 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
 
       <BotonLowa
         tituloboton="Agregar Imágenes"
-        disabled={Object.keys(datosGaleria).length > 1 ? false : true}
+        /* disabled={Object.keys(datosGaleria).length > 1 ? false : true} */
         onClick={() => guardarDatosDeGaleria()}
       ></BotonLowa>
       <Alertas
