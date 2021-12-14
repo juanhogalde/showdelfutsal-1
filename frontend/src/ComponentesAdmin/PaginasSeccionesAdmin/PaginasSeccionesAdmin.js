@@ -43,7 +43,9 @@ const PaginasSeccionesAdmin = ({
       )}
       {isSeccionGaleria && (
         <div className="CI-Pagina-Secciones-Galeria">
-          <TarjetaGaleria />
+          {datosDeSeccion.map((galeria, index) => {
+            return <TarjetaGaleria key={index} galeria={galeria} />;
+          })}
         </div>
       )}
       {isSeccionTorneos && (

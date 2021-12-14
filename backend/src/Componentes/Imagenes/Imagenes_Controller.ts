@@ -2,7 +2,8 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloImagenes from './Imagenes_Model';
 import IImagenes from './Imagenes_Interface';
-import {resolve} from 'path';
+import path from 'path';
+import fs from 'fs';
 // import { comprimirImagen } from '../../Middlewares/imagemin';
 
 class ImagenesController {
@@ -117,7 +118,14 @@ class ImagenesController {
   public async eliminar(req: Request, res: Response) {
     try {
       let id = req.body.id;
-      const imagenEliminada = await modeloImagenes.findOneAndDelete({_id: id}, {new: true});
+      const imagenEliminada: any = await modeloImagenes.findOneAndDelete({_id: id}, {new: true});
+      if (imagenEliminada && imagenEliminada.fuente) {
+        let pathFile: string = path.join(__dirname, '../../../public', imagenEliminada.fuente);
+        if (fs.existsSync(pathFile)) {
+          fs.unlinkSync(pathFile);
+        }
+      }
+
       responder.sucess(req, res, '', 'Imagen eliminada');
     } catch (error) {
       responder.error(req, res, error);
@@ -129,8 +137,15 @@ class ImagenesController {
       // console.log('eliminando imagen...');
       const pr = new Promise(async (resolve: any, reject: any) => {
         const imagen = await modeloImagenes.findOneAndDelete({_id: idImagen}, {new: true});
+
         // responder.sucess(req, res, imagenEliminada);
         if (imagen) {
+          if (imagen.fuente) {
+            let pathFile: string = path.join(__dirname, '../../../public', imagen.fuente);
+            if (fs.existsSync(pathFile)) {
+              fs.unlinkSync(pathFile);
+            }
+          }
           resolve(imagen);
         } else {
           reject(new Error('No se encontro imagen'));

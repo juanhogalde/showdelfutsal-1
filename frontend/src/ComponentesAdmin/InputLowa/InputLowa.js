@@ -20,7 +20,7 @@ const InputLowa = props => {
     disabled,
     ocultarIconoLateral = false,
     funcionObtenerTamanioImagen = () => {
-      console.log('');
+      console.log('No se envió función');
     },
     funcionDeIcono = () => {
       console.log('No se envió función de Input con Icono');

@@ -8,6 +8,7 @@ const ImagenesVideo = ({
   tipoVideo = false,
   sinDescripcion = false,
   isConBorder = false,
+  isDatosStatic = false,
 }) => {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   const isMobileIPhone = userAgent.indexOf('iPhone'); // para detectar si se esta desde un android o iphone
@@ -173,16 +174,23 @@ const ImagenesVideo = ({
           {/* IMÁGENES */}
           {!tipoVideo && (
             <div className="cuerpo-imagenesVideo">
-              <img
-                /* src={dataActual.fuente ? dataActual.fuente : ''} */
-                src={
-                  dataActual.fuente
-                    ? urlImagenes + dataActual.fuente
-                    : urlImagenes + DatosDeEntrada[0].fuente
-                }
-                alt="imagen"
-                className="img-imagenesVideo"
-              />
+              {isDatosStatic ? (
+                <img
+                  className="img-imagenesVideo"
+                  alt=""
+                  src={dataActual.fuente ? dataActual.fuente : ''}
+                ></img>
+              ) : (
+                <img
+                  src={
+                    dataActual.fuente
+                      ? urlImagenes + dataActual.fuente
+                      : urlImagenes + DatosDeEntrada[0].fuente
+                  }
+                  alt="imagen"
+                  className="img-imagenesVideo"
+                />
+              )}
             </div>
           )}
           {!tipoVideo && (

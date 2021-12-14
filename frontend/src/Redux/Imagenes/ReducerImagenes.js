@@ -6,10 +6,25 @@ import {
   cargandoListarImagenes,
   listarImagenesExito,
   listarImagenesError,
+  consultarEliminarImagen,
+  cargandoEliminarImagen,
+  eliminarImagenExito,
+  eliminarImagenError,
+  volverPorDefectoEliminarImagen,
 } from './AccionesImagenes';
 
 const imagenPorDefecto = {
   imagenes: [],
+  isEliminarImagen: {
+    isNuevaImagen: false,
+    tipo: '',
+    mensaje: '',
+    dato: '',
+    isConsulta: false,
+    isCargando: false,
+    isExito: false,
+    isError: false,
+  },
   /* galeria: [],
   isAgregarGaleria: {tipo: '', mensaje: '', isCargando: false, isExito: false, isError: false}, */
 };
@@ -78,6 +93,70 @@ const storeImagenes = (state = imagenPorDefecto, accion) => {
     case listarImagenesError: {
       return {
         ...state,
+      };
+    }
+    case consultarEliminarImagen: {
+      return {
+        ...state,
+        isEliminarImagen: {
+          isNuevaImagen: accion.isNuevaImagen,
+          tipo: 'warning',
+          mensaje: '¿Desea eliminar la imágen?',
+          isConsulta: true,
+          isCargando: false,
+          isExito: false,
+          isError: false,
+          dato: accion.datos,
+        },
+      };
+    }
+    case cargandoEliminarImagen: {
+      return {
+        ...state,
+        isEliminarImagen: {
+          tipo: 'cargando',
+          mensaje: 'Eliminando imágen...',
+          isConsulta: false,
+          isCargando: true,
+          isExito: false,
+          isError: false,
+          dato: accion.datos,
+        },
+      };
+    }
+    case eliminarImagenExito: {
+      return {
+        ...state,
+        isEliminarImagen: {
+          isNuevaImagen: false,
+          tipo: 'success',
+          mensaje: 'Imágen eliminada...',
+          isConsulta: false,
+          isCargando: false,
+          isExito: true,
+          isError: false,
+          dato: '',
+        },
+      };
+    }
+    case eliminarImagenError: {
+      return {
+        ...state,
+      };
+    }
+    case volverPorDefectoEliminarImagen: {
+      return {
+        ...state,
+        isEliminarImagen: {
+          isNuevaImagen: false,
+          tipo: '',
+          mensaje: '',
+          isConsulta: false,
+          isCargando: false,
+          isExito: false,
+          isError: false,
+          dato: accion.datos,
+        },
       };
     }
     default:
