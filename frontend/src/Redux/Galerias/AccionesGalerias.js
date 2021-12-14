@@ -96,6 +96,7 @@ export const listarGalerias_accion = () => {
       method: 'get',
     })
       .then(res => {
+        console.log({res});
         dispatch(listarGaleriasExito_accion(res.data.value));
       })
       .catch(error => {
