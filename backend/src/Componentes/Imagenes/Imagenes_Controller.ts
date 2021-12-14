@@ -28,7 +28,7 @@ class ImagenesController {
             descripcion: req.body.descripcion,
           });
           arregloDePath.push(imagen);
-          
+
           await imagen.save();
         });
         responder.sucess(req, res, arregloDePath);
@@ -118,7 +118,7 @@ class ImagenesController {
     try {
       let id = req.body.id;
       const imagenEliminada = await modeloImagenes.findOneAndDelete({_id: id}, {new: true});
-      responder.sucess(req, res, '','Imagen eliminada');
+      responder.sucess(req, res, '', 'Imagen eliminada');
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -154,11 +154,10 @@ class ImagenesController {
 
   public async insertarImagen(imagen: any) {
     try {
-      
       let imagenNew: IImagenes = new modeloImagenes();
       imagenNew.fuente = imagen.fuente;
       imagenNew.isGaleria = imagen.isGaleria;
-      if(imagen.galeriaId){
+      if (imagen.galeriaId) {
         imagenNew.galeriaId = imagen.galeriaId;
       }
       imagenNew.fechaCarga = new Date();
@@ -194,11 +193,17 @@ class ImagenesController {
     }
   }
 
-  public async obtenerImagenesGaleria(){
-    return modeloImagenes.find({galeriaId:{$exists:true}}).populate('galeriaId');
+  public async obtenerImagenesGaleria() {
+    return modeloImagenes.find({galeriaId: {$exists: true}}).populate('galeriaId');
   }
-  public async obtenerGaleriaPorId(id:string){
-    return modeloImagenes.find({galeriaId:id})
+  public async obtenerImagenesGaleriaPorId(galeriaId: string) {
+    return modeloImagenes.find(
+      {$and: [{galeriaId: {$exists: true}}, {galeriaId: galeriaId}]},
+      {galeriaId: 0}
+    );
+  }
+  public async obtenerGaleriaPorId(id: string) {
+    return modeloImagenes.find({galeriaId: id});
   }
 }
 export const imagenesController = new ImagenesController();
