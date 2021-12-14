@@ -33,13 +33,25 @@ const Alertas = ({
           info
           show={mostrarSweet}
           showCancel
-          confirmBtnText="SI"
-          cancelBtnText="No"
-          confirmBtnBsStyle="primary"
-          cancelBtnBsStyle="primary"
+          customButtons={
+            <React.Fragment>
+              <div className="CP-botones-confirmacion">
+                <div className="CI-botones-confirmacion-si">
+                  <BotonLowa onClick={() => EventoClick(true)} tituloboton={'SI'}></BotonLowa>
+                </div>
+                <div>
+                  <BotonLowa onClick={() => EventoClick(false)} tituloboton={'NO'}></BotonLowa>
+                </div>
+              </div>
+            </React.Fragment>
+          }
+          // confirmBtnText="SI"
+          // cancelBtnText="No"
+          // confirmBtnBsStyle="primary"
+          // cancelBtnBsStyle="primary"
           title={titulo ? titulo : ''}
-          onConfirm={() => EventoClick(true)}
-          onCancel={() => EventoClick(false)}
+          // onConfirm={() => EventoClick(true)}
+          // onCancel={() => EventoClick(false)}
         >
           {subtitulo}
         </SweetAlert>

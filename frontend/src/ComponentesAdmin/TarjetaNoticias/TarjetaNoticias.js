@@ -12,7 +12,7 @@ import {
   volverPorDefecto_accion,
 } from '../../Redux/Noticias/AccionesNoticias';
 import {useRef} from 'react';
-import {FiEdit3} from 'react-icons/fi';
+import {FiEdit3, FiEye} from 'react-icons/fi';
 import {MdDeleteForever} from 'react-icons/md';
 import {HiDotsVertical} from 'react-icons/hi';
 import Alertas from '../Alertas/Alertas';
@@ -39,6 +39,10 @@ export const TarjetaNoticias = ({noticia = {}}) => {
     } else {
       setMostrarAlertEliminar(true);
     }
+  };
+  const consultarNoticia = () => {
+    dispatch(guardarNoticiaParaEditar_accion(noticia));
+    historialDeNavegacion.push(`/Noticia/Ver`);
   };
   const opcionSeleccionada = respuesta => {
     if (respuesta) {
@@ -82,6 +86,7 @@ export const TarjetaNoticias = ({noticia = {}}) => {
               className="iconoAcción-ListaImagenes"
               onClick={() => accionesOpciones('editar')}
             ></FiEdit3>
+            <FiEye className="iconoAcción-ListaImagenes" onClick={() => consultarNoticia()}></FiEye>
             <MdDeleteForever
               onClick={() => accionesOpciones('eliminar')}
               className="iconoAcción-ListaImagenes"
