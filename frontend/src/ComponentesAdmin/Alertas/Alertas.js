@@ -22,6 +22,7 @@ const Alertas = ({
   tipoDeSweet = 'info',
 }) => {
   const EventoClick = seleccion => {
+    console.log(seleccion);
     RespuestaDeSweet(seleccion);
   };
 

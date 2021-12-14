@@ -9,9 +9,13 @@ export const cargandoListarGalerias = 'cargandoListarGalerias';
 export const listarGaleriasExito = 'listarGaleriasExito';
 export const listarGaleriasError = 'listarGaleriasError';
 
+export const consultaEliminarGaleria = 'consultaEliminarGaleria';
 export const cargandoEliminarGaleria = 'cargandoEliminarGaleria';
 export const eliminarGaleriaExito = 'eliminarGaleriaExito';
 export const eliminarGaleriaError = 'eliminarGaleriaError';
+export const volverPorDefectoEliminarGaleria = 'volverPorDefectoEliminarGaleria';
+
+export const actualizarListaDeGalerias = 'actualizarListaDeGalerias';
 
 export const cargandoModificarGaleria = 'cargandoModificarGaleria';
 export const modificarGaleriaExito = 'modificarGaleriaExito';
@@ -107,6 +111,13 @@ export const listarGalerias_accion = () => {
 };
 
 /****** ELIMINAR GALERIAS ******/
+export const consultaEliminarGaleria_accion = datos => {
+  return {
+    type: consultaEliminarGaleria,
+    datos: datos,
+  };
+};
+
 export const cargandoEliminarGaleria_accion = isCargando => {
   return {
     type: cargandoEliminarGaleria,
@@ -119,14 +130,23 @@ export const eliminarGaleriaExito_accion = datos => {
     datos: datos,
   };
 };
-
+export const actualizarListaDeGalerias_accion = datos => {
+  return {
+    type: actualizarListaDeGalerias,
+    datos: datos,
+  };
+};
 export const eliminarGaleriaError_accion = error => {
   return {
     type: eliminarGaleriaError,
     error: error,
   };
 };
-
+export const volverPorDefectoEliminarGaleria_accion = () => {
+  return {
+    type: volverPorDefectoEliminarGaleria,
+  };
+};
 export const eliminarGaleria_accion = id => {
   return dispatch => {
     console.log(id);
@@ -142,7 +162,7 @@ export const eliminarGaleria_accion = id => {
       })
       .catch(error => {
         console.log({error});
-        /* dispatch(eliminarGaleriaError_accion()); */
+        dispatch(eliminarGaleriaError_accion());
       });
   };
 };

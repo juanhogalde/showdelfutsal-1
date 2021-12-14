@@ -120,6 +120,9 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
       if (isEliminarImagen.isConsulta) {
         eliminarImagen(isEliminarImagen.dato);
       }
+      if (isEliminarImagen.isError) {
+        dispatch(volverPorDefectoEliminarImagen_accion());
+      }
     } else {
       dispatch(volverPorDefectoEliminarImagen_accion());
     }
