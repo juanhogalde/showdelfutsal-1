@@ -193,7 +193,7 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
       let auxGalerias = [];
       auxGalerias = state.galerias.map(galeria => {
         if (galeria._id === accion.idGaleria) {
-          galeria.imagenesId.splice(accion.index, 1);
+          galeria.imagenesId.splice(accion.indiceImg, 1);
         }
         return galeria;
       });
