@@ -21,7 +21,7 @@ class GaleriaController {
             tituloGaleria: item.tituloGaleria,
             fechaCarga: item.fechaCarga,
             fechaModificacion: item.fechaModificacion,
-            imagenesId: [...imagenes],
+            imagenesId: imagenes.length ? [...imagenes] : [],
           };
           datosARetornar.push(galeria);
         }
@@ -156,44 +156,52 @@ class GaleriaController {
           .then(async (galeria: any) => {
             if (galeria) {
               datosAEnviar.galeriaId = galeria._id;
-              if (datosBody.archivos && datosBody.archivos.length) {
-                for await (const archivo of datosBody.archivos) {
-                  //TODO: Ir cargando cada imagen en la coleccion imagenes
-                  pathFile = archivo.path;
+              if (datosBody.archivos) {
+                if (datosBody.archivos.length) {
+                  for await (const archivo of datosBody.archivos) {
+                    pathFile = archivo.path;
 
+                    datosAEnviar.fuente = pathFile
+                      .replace('public', '')
+                      .replace('\\', '/')
+                      .replace('\\', '/');
+
+                    const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
+                    if (resultado) {
+                      arrayInsercionesImagenes.push(resultado);
+                      arrayIdImagenes.push(resultado._id);
+                    }
+                  }
+                } else {
+                  pathFile = datosBody.archivos.path;
                   datosAEnviar.fuente = pathFile
                     .replace('public', '')
                     .replace('\\', '/')
                     .replace('\\', '/');
-                  // datosAEnviar.isGaleria = true;
+                  datosAEnviar.isGaleria = true;
                   const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
                   if (resultado) {
                     arrayInsercionesImagenes.push(resultado);
                     arrayIdImagenes.push(resultado._id);
-                    // arrayDePath.push(resultado.fuente);
                   }
-                }
-              } else {
-                pathFile = datosBody.archivos.path;
-                datosAEnviar.fuente = pathFile
-                  .replace('public', '')
-                  .replace('\\', '/')
-                  .replace('\\', '/');
-                datosAEnviar.isGaleria = true;
-                const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
-                if (resultado) {
-                  arrayInsercionesImagenes.push(resultado);
-                  arrayIdImagenes.push(resultado._id);
-                  // arrayDePath.push(resultado.fuente);
                 }
               }
 
-              galeria.tituloGaleria = datosBody.tituloGaleria;
+              galeria.tituloGaleria = datosBody.descripcion;
               galeria.fechaModificacion = new Date();
 
               const resultado = await galeria.save();
+
               if (resultado) {
-                responder.sucess(req, res, resultado, 'Galeria actualizada');
+                const imagenes = await imagenesController.obtenerImagenesGaleriaPorId(galeria._id);
+                let dato = {
+                  _id: resultado._id,
+                  tituloGaleria: resultado.tituloGaleria,
+                  fechaCarga: resultado.fechaCarga,
+                  fechaModificacion: resultado.fechaModificacion,
+                  imagenesId: imagenes.length ? [...imagenes] : [],
+                };
+                responder.sucess(req, res, dato, 'Galeria actualizada');
               } else {
                 console.log(resultado);
                 responder.error(
@@ -203,15 +211,6 @@ class GaleriaController {
                   'Ocurrio un error al intentar actualizar la galería',
                   500
                 );
-              }
-
-              galeria.tituloGaleria = datosBody.tituloGaleria;
-              galeria.fechaModificacion = new Date();
-              const resultadoActualizar = await galeria.save();
-              if (resultadoActualizar) {
-                const imagenesGaleria = await imagenesController.listarImagenesGaleria(galeria._id);
-                console.log(imagenesGaleria);
-                return false;
               }
             } else {
               responder.error(req, res, '', 'Galería no encontrada', 400);
