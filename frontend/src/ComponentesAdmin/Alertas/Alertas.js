@@ -50,7 +50,7 @@ const Alertas = ({
           // confirmBtnBsStyle="primary"
           // cancelBtnBsStyle="primary"
           title={titulo ? titulo : ''}
-          // onConfirm={() => EventoClick(true)}
+          onConfirm={() => EventoClick(true)}
           // onCancel={() => EventoClick(false)}
         >
           {subtitulo}
