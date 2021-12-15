@@ -170,7 +170,9 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
         imagenes: datosParaEditar.imagenesId,
       });
     }
-    return () => {};
+    return () => {
+      setDatosGaleria({imagenes: []});
+    };
   }, [
     datosParaEditar._id,
     datosParaEditar.tituloGaleria,
@@ -241,7 +243,7 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
       )}
 
       <BotonLowa
-        tituloboton="Agregar Imágenes"
+        tituloboton={isEditarGaleria ? 'Editar Galería' : 'Agregar Galería'}
         /* disabled={Object.keys(datosGaleria).length > 1 ? false : true} */
         onClick={() => guardarDatosDeGaleria()}
       ></BotonLowa>

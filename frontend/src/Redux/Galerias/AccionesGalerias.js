@@ -214,7 +214,7 @@ export const modificarGaleria_accion = datosGaleria => {
       .then(res => {
         console.log({res});
 
-        /* dispatch(modificarGaleriaExito_accion(res.data.value)); */
+        dispatch(modificarGaleriaExito_accion(res.data.value));
       })
       .catch(error => {
         console.log({error});
