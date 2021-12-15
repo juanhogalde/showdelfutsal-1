@@ -9,11 +9,6 @@ services:
     volumes:
       - './data/db:/data/db'
       - './data/confidb:/data/confidb'
-  futsal-front:
-    container_name: futsal-front
-    image: lowa/futsal-front:latest
-    ports:
-      - 5000:3000
   futsal-backend:
     container_name: futsal-server
     image: lowa/futsal-backend:latest
