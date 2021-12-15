@@ -45,8 +45,11 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
   }, [noticiaSeleccionada, setCategoria, setSubCategoria, isNueva, categorias, subcategorias]);
   const eventoGuardar = () => {
     if ((datosCargados.imagen || datosCargados.idImagen) && categoria && subCategoria) {
+      var TresHoraMilisegundos = 1000 * 60 * 60 * 3;
+      var fechaActual = new Date();
+      var fechaMenosTresHoras = fechaActual.getTime() - TresHoraMilisegundos;
       var datosNoticias = {
-        fecha: new Date(),
+        fecha: new Date(fechaMenosTresHoras),
         titulo: datosCargados.titulo ? datosCargados.titulo : '',
         copete: datosCargados.copete ? datosCargados.copete : '',
         cuerpo: datosCargados.cuerpo ? datosCargados.cuerpo : '',

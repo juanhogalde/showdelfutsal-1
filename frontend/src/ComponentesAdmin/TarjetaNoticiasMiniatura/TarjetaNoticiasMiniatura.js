@@ -20,7 +20,7 @@ const TarjetaNoticiasMiniatura = ({noticiaRecibida}) => {
             </div>
           </div>
           <div>
-            <span>{noticiaRecibida.fecha.substr(0, 10)}</span>
+            <span>{noticiaRecibida.fecha.substr(0, 19).replaceAll('T', '~')}</span>
           </div>
           <div className="CI-Tarjeta-Noticia-Miniatura-Cuerpo">
             <div className="I-Tarjeta-Noticia-cuerpo">
