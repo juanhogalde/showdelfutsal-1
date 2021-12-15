@@ -8,11 +8,17 @@ const ModalLowa = props => {
     cerrarModalLowa = () => {
       console.log('No se envió función de cierre');
     },
+    isPlasmarImagen = false,
   } = props;
+
   return (
     <div className={`${isMostrar ? 'CP-ModalLowa CP-ModalLowa-Mostrar' : 'CP-ModalLowa'}`}>
       <div className="CI-IconoCerrar" onClick={() => cerrarModalLowa()}>
-        <AiOutlineCloseCircle className="iconoCerrar-ModalLowa"></AiOutlineCloseCircle>
+        <AiOutlineCloseCircle
+          className={
+            isPlasmarImagen ? ' iconoCerrar-ModalLowa iconoCerrarPlasmar' : 'iconoCerrar-ModalLowa'
+          }
+        ></AiOutlineCloseCircle>
       </div>
       <div className="CI-Contenido-ModalLowa">{props.children}</div>
     </div>

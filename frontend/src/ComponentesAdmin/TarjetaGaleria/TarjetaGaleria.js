@@ -14,6 +14,8 @@ import {
   volverPorDefectoEliminarGaleria_accion,
 } from '../../Redux/Galerias/AccionesGalerias';
 import Alertas from '../Alertas/Alertas';
+import PlasmarImagen from '../PlasmarImagen/PlasmarImagen';
+import ModalLowa from '../ModalLowa/ModalLowa';
 
 const TarjetaGaleria = ({galeria = {}}) => {
   const {isEliminarGaleria} = useSelector(state => state.storeGalerias);
@@ -21,6 +23,7 @@ const TarjetaGaleria = ({galeria = {}}) => {
 
   const historialDeNavegacion = useHistory();
   const [isAcciones, setIsAcciones] = useState(false);
+  const [isMostrarModal, setIsMostrarModal] = useState('');
   const elementoAcciones = useRef();
 
   const mostrarAcciones = () => {
@@ -54,7 +57,16 @@ const TarjetaGaleria = ({galeria = {}}) => {
   const eliminarGaleria = id => {
     dispatch(eliminarGaleria_accion(id));
   };
-
+  const mostrarModalImagen = (respuesta, imagen) => {
+    let auxDatosImg = {
+      isMostrar: respuesta,
+      datos: imagen,
+    };
+    setIsMostrarModal(auxDatosImg);
+  };
+  const cerrarModalImagen = () => {
+    setIsMostrarModal({isMostrar: false, datos: {}});
+  };
   return (
     <React.Fragment>
       <div className="CP-TarjetaGaleria">
@@ -67,6 +79,7 @@ const TarjetaGaleria = ({galeria = {}}) => {
                   key={index}
                   noticiaImagen={imagen}
                   isTarjetaGaleria={true}
+                  mostrarModalImagen={mostrarModalImagen}
                 ></ImagenAdmin>
               );
             })}
@@ -107,6 +120,13 @@ const TarjetaGaleria = ({galeria = {}}) => {
         subtitulo={isEliminarGaleria.mensaje}
         RespuestaDeSweet={obtenerRespuestaDeAlertas}
       ></Alertas>
+      <ModalLowa
+        isMostrar={isMostrarModal.isMostrar}
+        cerrarModalLowa={cerrarModalImagen}
+        isPlasmarImagen={true}
+      >
+        <PlasmarImagen datosImagen={isMostrarModal.datos}></PlasmarImagen>
+      </ModalLowa>
     </React.Fragment>
   );
 };
