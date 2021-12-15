@@ -3,8 +3,10 @@ import './PieDepagina.css';
 import LogoPieDePagina from '../../Static/Img/isologo.png';
 import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
-import {Link} from 'react-router-dom';
 export const PieDepagina = ({isConFondo = false}) => {
+  const redireccionar = url => {
+    window.open(url);
+  };
   return (
     <div
       className={`${
@@ -24,18 +26,22 @@ export const PieDepagina = ({isConFondo = false}) => {
             <div className="I-Redes">
               {/* <h3>SIGUENOS</h3> */}
               <div className="red-social">
-                <Link className="" to="/">
+                <div onClick={() => redireccionar('https://www.facebook.com/ElShowdelFutsal')}>
                   <FaFacebookF className="iconos-Redes-Sociales"></FaFacebookF>
-                </Link>
-                <Link className="" to="/">
+                </div>
+                <div onClick={() => redireccionar()}>
                   <BsTwitter className="iconos-Redes-Sociales"></BsTwitter>
-                </Link>
-                <Link className="" to="/">
+                </div>
+                <div onClick={() => redireccionar('https://www.instagram.com/elshowdelfutsal/')}>
                   <BsInstagram className="iconos-Redes-Sociales"></BsInstagram>
-                </Link>
-                <Link className="" to="/">
+                </div>
+                <div
+                  onClick={() =>
+                    redireccionar('https://www.youtube.com/channel/UCPigWjVAL4yAFBbXOyElpmA')
+                  }
+                >
                   <BsYoutube className="iconos-Redes-Sociales"></BsYoutube>
-                </Link>
+                </div>
               </div>
             </div>
           </div>

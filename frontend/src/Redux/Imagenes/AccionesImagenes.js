@@ -101,7 +101,7 @@ export const eliminarImagen_accion = (index, idImg, idGaleria) => {
       })
       .catch(error => {
         console.log({error});
-        /* dispatch(eliminarImagenError_accion()); */
+        dispatch(eliminarImagenError_accion());
       });
   };
 };

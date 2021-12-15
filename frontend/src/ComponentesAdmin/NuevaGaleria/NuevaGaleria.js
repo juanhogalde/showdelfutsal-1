@@ -30,7 +30,7 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
   const [datosGaleria, setDatosGaleria] = useState({
     imagenes: [],
   });
-  const [cantidadDeArchivos, setCantidadDeArchivos] = useState(0);
+  /* const [cantidadDeArchivos, setCantidadDeArchivos] = useState(0); */
   const [alertaComprimir, setAlertaComprimir] = useState({
     tipo: '',
     mensaje: '',
@@ -43,7 +43,7 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
   const escucharCambios = async (name, value) => {
     if (name === 'imagenes') {
       if (value.length > 0) {
-        setCantidadDeArchivos(value.length + datosGaleria.imagenes.length);
+        /* setCantidadDeArchivos(value.length + datosGaleria.imagenes.length); */
         setAlertaComprimir({
           tipo: 'cargando',
           mensaje: 'Comprimiendo Imágenes...',
@@ -97,7 +97,7 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
         setDatosGaleria({...datosGaleria, imagenes: auxImagenes});
         dispatch(eliminarImagenExito_accion());
       } else {
-        dispatch(eliminarImagen_accion(index, datosParaEditar.imagenesId[0]._id, id));
+        dispatch(eliminarImagen_accion(index, datosGaleria.imagenes[index]._id, id));
       }
     } else {
       dispatch(eliminarImagenExito_accion());
@@ -109,10 +109,12 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
   };
 
   const consultaEliminarImagen = (index, isNuevaImagen) => {
+    console.log(index);
+    console.log(isNuevaImagen);
+
     dispatch(consultarEliminarImagen_accion(index, isNuevaImagen));
   };
   const respuestaDeAlertaEliminarImagen = respuesta => {
-    console.log(respuesta);
     if (respuesta) {
       if (isEliminarImagen.isExito) {
         dispatch(volverPorDefectoEliminarImagen_accion());
@@ -194,44 +196,25 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
         multiple={true}
       ></InputLowa>
 
-      {datosGaleria.imagenes.length <= cantidadDeArchivos && (
+      {datosGaleria.imagenes.length > 0 && (
         <div className="CI-ListaImagnes">
           {Object.values(datosGaleria.imagenes).map((imagen, index) => {
             return (
-              imagen &&
-              imagen instanceof Blob && (
+              imagen && (
                 <div key={index} className="filaListaImagenes">
                   <div className="CI-Imagen-Lista">
                     <ImagenAdmin
-                      noticiaImagen={obtenerUrldeImagen(imagen)}
+                      noticiaImagen={imagen instanceof Blob ? obtenerUrldeImagen(imagen) : imagen}
                       isTarjetaGaleria={true}
                     ></ImagenAdmin>
                   </div>
                   <div className="accionesFilaListaImagenes">
                     <MdDeleteForever
-                      onClick={() => consultaEliminarImagen(index, true)}
-                      className="iconoAcción-ListaImagenes"
-                    />
-                  </div>
-                </div>
-              )
-            );
-          })}
-        </div>
-      )}
-
-      {Object.keys(datosParaEditar).length > 0 && (
-        <div className="CI-ListaImagnes">
-          {Object.values(datosParaEditar.imagenesId).map((imagen, index) => {
-            return (
-              imagen && (
-                <div key={index} className="filaListaImagenes">
-                  <div className="CI-Imagen-Lista">
-                    <ImagenAdmin noticiaImagen={imagen} isTarjetaGaleria={true}></ImagenAdmin>
-                  </div>
-                  <div className="accionesFilaListaImagenes">
-                    <MdDeleteForever
-                      onClick={() => consultaEliminarImagen(index, false)}
+                      onClick={() =>
+                        imagen instanceof Blob
+                          ? consultaEliminarImagen(index, true)
+                          : consultaEliminarImagen(index, false)
+                      }
                       className="iconoAcción-ListaImagenes"
                     />
                   </div>

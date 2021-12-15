@@ -165,6 +165,9 @@ const Inicio = () => {
   const cerrarModalPublicidad = () => {
     dispatch(controlModalPublicidad_accion());
   };
+  const redireccionar = url => {
+    window.open(url);
+  };
   return (
     <div className="LP-Inicio">
       <div className="LI-Inicio Margen-inicio seccion-somos">
@@ -175,18 +178,22 @@ const Inicio = () => {
           <div className="CI-Somos-redes">
             <div className="I-Redes">
               <div className="red-social">
-                <Link className="" to="/">
+                <div onClick={() => redireccionar('https://www.facebook.com/ElShowdelFutsal')}>
                   <FaFacebookF className="iconos-Redes-Sociales"></FaFacebookF>
-                </Link>
-                <Link className="" to="/">
+                </div>
+                <div onClick={() => redireccionar()}>
                   <BsTwitter className="iconos-Redes-Sociales"></BsTwitter>
-                </Link>
-                <Link className="" to="/">
+                </div>
+                <div onClick={() => redireccionar('https://www.instagram.com/elshowdelfutsal/')}>
                   <BsInstagram className="iconos-Redes-Sociales"></BsInstagram>
-                </Link>
-                <Link className="" to="/">
+                </div>
+                <div
+                  onClick={() =>
+                    redireccionar('https://www.youtube.com/channel/UCPigWjVAL4yAFBbXOyElpmA')
+                  }
+                >
                   <BsYoutube className="iconos-Redes-Sociales"></BsYoutube>
-                </Link>
+                </div>
               </div>
             </div>
           </div>

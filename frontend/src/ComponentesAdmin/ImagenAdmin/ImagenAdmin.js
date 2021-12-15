@@ -8,9 +8,16 @@ const ImagenAdmin = ({
   isTarjetaGaleria = false,
   noticiaImagen = {},
   mostrarLogoCargando = false,
+  mostrarModalImagen = () => {
+    console.log('');
+  },
 }) => {
   return (
-    <div className="CP-Imagen-admin">
+    <div
+      className="CP-Imagen-admin"
+      tabIndex="1"
+      onFocus={() => mostrarModalImagen(true, noticiaImagen)}
+    >
       <div className="CI-Imagen-admin">
         {isTarjetaGaleria ? (
           <img
