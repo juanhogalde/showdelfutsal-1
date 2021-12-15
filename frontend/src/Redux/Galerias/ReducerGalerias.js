@@ -227,7 +227,6 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
         ...state,
         isAgregarGaleria: {
           tipo: 'success',
-          mensaje: 'Guardando Nueva Galería...',
           mensaje: 'Galería editada con exito.',
           isCargando: false,
           isExito: true,

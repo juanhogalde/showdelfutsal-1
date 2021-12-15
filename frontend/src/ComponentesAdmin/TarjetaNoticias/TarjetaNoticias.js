@@ -7,15 +7,18 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {
   actualizarListaNoticias_accion,
+  desestacarNoticia_accion,
+  destacarNoticia_accion,
   eliminarNoticia_accion,
   guardarNoticiaParaEditar_accion,
   volverPorDefecto_accion,
 } from '../../Redux/Noticias/AccionesNoticias';
 import {useRef} from 'react';
-import {FiEdit3, FiEye} from 'react-icons/fi';
+import {FiEdit3, FiEye, FiStar} from 'react-icons/fi';
 import {MdDeleteForever} from 'react-icons/md';
 import {HiDotsVertical} from 'react-icons/hi';
 import Alertas from '../Alertas/Alertas';
+import {BsStarFill} from 'react-icons/bs';
 // import {useSelector} from 'react-redux';
 
 export const TarjetaNoticias = ({noticia = {}}) => {
@@ -31,6 +34,12 @@ export const TarjetaNoticias = ({noticia = {}}) => {
   };
   const ocultarAcciones = () => {
     setIsAcciones(false);
+  };
+  const desestacar = noticia => {
+    dispatch(desestacarNoticia_accion(noticia));
+  };
+  const destacar = noticia => {
+    dispatch(destacarNoticia_accion(noticia));
   };
   const accionesOpciones = tipoAccion => {
     if (tipoAccion === 'editar') {
@@ -69,6 +78,15 @@ export const TarjetaNoticias = ({noticia = {}}) => {
         <div className="I-Tarjeta-Noticias-Cuerpo">
           <TarjetaNoticiasMiniatura noticiaRecibida={noticia} />
         </div>
+        {noticia.isDestacada ? (
+          <div className="I-Tarjeta-Noticias-Destacada I-Tarjeta-Noticias-Destacada-Dorada">
+            <BsStarFill onClick={() => desestacar(noticia)} size={18}></BsStarFill>
+          </div>
+        ) : (
+          <div className="I-Tarjeta-Noticias-Destacada">
+            <FiStar onClick={() => destacar(noticia)}></FiStar>
+          </div>
+        )}
         <div className="acciones-TarjetaNoticia">
           <HiDotsVertical onClick={() => mostrarAcciones()} />
           <div

@@ -64,7 +64,7 @@
   place-content: center;
 }
 
-.CI-Pie-Pagina .red-social a {
+.CI-Pie-Pagina .red-social div {
   display: inline-block;
   text-decoration: none;
   width: 45px;
@@ -79,7 +79,7 @@
   margin: 5px;
 }
 
-.red-social a:hover {
+.red-social div:hover {
   background-color: #ffe35f;
 }
 

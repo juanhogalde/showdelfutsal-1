@@ -165,7 +165,7 @@ class NoticiasController {
             noticia.idSubcategoria = noticiaBody.idSubcategoria;
             noticia.keyCategoria = noticiaBody.keyCategoria;
             noticia.keySubcategoria = noticiaBody.keySubcategoria;
-            // noticia.isDestacada = noticiaBody.isDestacada;
+            noticia.isDestacada = noticiaBody.isDestacada;
             // noticia.autor = noticiaBody.autor;
             noticia.idImagen = noticiaBody.idImagen;
 
@@ -240,7 +240,58 @@ class NoticiasController {
       responder.error(req, res, error);
     }
   }
-
+  public async destacarNoticia(req: Request, res: Response) {
+    try {
+      const noticiaBody = req.body;
+      if (!noticiaBody._id) {
+        responder.error(req, res, 'No se ingresaron datos');
+      } else {
+        modeloNoticias.findById(noticiaBody._id).then(async (noticia: any) => {
+          if (noticia) {
+            noticia.isDestacada = true;
+            const resultado = await noticia.save({new: true});
+            modeloNoticias
+              .findById(resultado._id)
+              .populate('idImagen')
+              .then((noticia: any) => {
+                responder.sucess(req, res, noticia);
+              })
+              .catch((error: any) => {
+                responder.error(req, res, error);
+              });
+          }
+        });
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+  public async desestacarNoticia(req: Request, res: Response) {
+    try {
+      const noticiaBody = req.body;
+      if (!noticiaBody._id) {
+        responder.error(req, res, 'No se ingresaron datos');
+      } else {
+        modeloNoticias.findById(noticiaBody._id).then(async (noticia: any) => {
+          if (noticia) {
+            noticia.isDestacada = false;
+            const resultado = await noticia.save({new: true});
+            modeloNoticias
+              .findById(resultado._id)
+              .populate('idImagen')
+              .then((noticia: any) => {
+                responder.sucess(req, res, noticia);
+              })
+              .catch((error: any) => {
+                responder.error(req, res, error);
+              });
+          }
+        });
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
   public async filtrar(req: Request, res: Response) {
     try {
       const filtrosBody = req.body;

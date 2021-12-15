@@ -18,6 +18,11 @@ import {
   eliminarNoticiaExito,
   eliminarNoticiaError,
   actualizarListaNoticias,
+  cargandoDestacarNoticia,
+  desestacarNoticiaExito,
+  desestacarNoticiaError,
+  destacarNoticiaExito,
+  destacarNoticiaError,
 } from './AccionesNoticias';
 
 const noticiaPorDefecto = {
@@ -246,6 +251,85 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           mensaje: '',
           isExito: false,
           isError: false,
+          isEditada: false,
+          isEliminado: false,
+        },
+      };
+    }
+    case cargandoDestacarNoticia: {
+      return {
+        ...state,
+        isNoticiaGurdada: {
+          isMostrar: true,
+          tipo: 'cargando',
+          mensaje: accion.mensaje,
+          isExito: false,
+          isError: false,
+          isEditada: false,
+          isEliminado: false,
+          isDestacada: false,
+        },
+      };
+    }
+    case desestacarNoticiaExito: {
+      let index = state.noticias.findIndex(element => element._id === accion.noticia._id);
+      let copia = [...state.noticias];
+      copia[index] = accion.noticia;
+      return {
+        ...state,
+        noticias: copia,
+        isNoticiaGurdada: {
+          isMostrar: false,
+          tipo: '',
+          mensaje: '',
+          isExito: false,
+          isError: false,
+          isEditada: false,
+          isEliminado: false,
+        },
+      };
+    }
+    case desestacarNoticiaError: {
+      return {
+        ...state,
+        isNoticiaGurdada: {
+          isMostrar: false,
+          tipo: 'error',
+          mensaje: accion.error.message,
+          isExito: false,
+          isError: true,
+          isEditada: false,
+          isEliminado: false,
+        },
+      };
+    }
+    case destacarNoticiaExito: {
+      let index = state.noticias.findIndex(element => element._id === accion.noticia._id);
+      let copia = [...state.noticias];
+      copia[index] = accion.noticia;
+      return {
+        ...state,
+        noticias: copia,
+        isNoticiaGurdada: {
+          isMostrar: false,
+          tipo: '',
+          mensaje: '',
+          isExito: false,
+          isError: false,
+          isEditada: false,
+          isEliminado: false,
+        },
+      };
+    }
+    case destacarNoticiaError: {
+      return {
+        ...state,
+        isNoticiaGurdada: {
+          isMostrar: false,
+          tipo: 'error',
+          mensaje: accion.error.message,
+          isExito: false,
+          isError: true,
           isEditada: false,
           isEliminado: false,
         },

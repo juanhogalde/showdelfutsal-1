@@ -19,6 +19,11 @@ export const cargandoEliminarNoticia = 'cargandoEliminarNoticia';
 export const eliminarNoticiaExito = 'eliminarNoticiaExito';
 export const eliminarNoticiaError = 'eliminarNoticiaError';
 export const actualizarListaNoticias = 'actualizarListaNoticias';
+export const cargandoDestacarNoticia = 'cargandoDestacarNoticia';
+export const desestacarNoticiaExito = 'desestacarNoticiaExito';
+export const desestacarNoticiaError = 'desestacarNoticiaError';
+export const destacarNoticiaExito = 'destacatNoticiaExito';
+export const destacarNoticiaError = 'destacarNoticiaError';
 
 //acciones buscar noticia
 export const cargandoBuscarNoticia_accion = () => {
@@ -296,6 +301,71 @@ export const eliminarNoticia_accion = noticia => {
       .catch(error => {
         console.log(error);
         dispatch(eliminarNoticiaError_accion(error));
+      });
+  };
+};
+
+export const cargandoDestacarNoticia_accion = (mensaje = '') => {
+  return {
+    type: cargandoDestacarNoticia,
+    mensaje: mensaje,
+  };
+};
+export const desestacarNoticiaExito_accion = noticia => {
+  return {
+    type: desestacarNoticiaExito,
+    noticia: noticia,
+  };
+};
+export const desestacarNoticiaError_accion = error => {
+  return {
+    type: desestacarNoticiaError,
+    error: error,
+  };
+};
+export const destacarNoticiaExito_accion = noticia => {
+  return {
+    type: destacarNoticiaExito,
+    noticia: noticia,
+  };
+};
+export const destacarNoticiaError_accion = error => {
+  return {
+    type: destacarNoticiaError,
+    error: error,
+  };
+};
+export const desestacarNoticia_accion = noticia => {
+  return dispatch => {
+    dispatch(cargandoDestacarNoticia_accion('Espere...'));
+    API({
+      url: '/Noticias/desestacar',
+      method: 'put',
+      data: noticia,
+    })
+      .then(res => {
+        dispatch(desestacarNoticiaExito_accion(res.data.value));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(desestacarNoticiaError_accion(error));
+      });
+  };
+};
+export const destacarNoticia_accion = noticia => {
+  return dispatch => {
+    dispatch(cargandoDestacarNoticia_accion('Destacando...'));
+    API({
+      url: '/Noticias/destacar',
+      method: 'put',
+      data: noticia,
+    })
+      .then(res => {
+        dispatch(destacarNoticiaExito_accion(res.data.value));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(destacarNoticiaError_accion(error));
       });
   };
 };

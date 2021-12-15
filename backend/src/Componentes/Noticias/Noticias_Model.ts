@@ -25,7 +25,7 @@ const NoticiasSchema = new Schema({
   },
   keyCategoria: {type: Number},
   keySubcategoria: {type: Number},
-  isDestacada: {type: Boolean},
+  isDestacada: {type: Boolean, default: false},
   autor: {type: String},
   idImagen: [
     {

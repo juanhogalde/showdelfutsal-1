@@ -53,6 +53,7 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
         idSubcategoria: subCategoria ? subCategoria.value : '',
         keyCategoria: categoria ? categoria.key : '',
         keySubcategoria: subCategoria ? subCategoria.key : '',
+        isDestacada: datosCargados.isDestacada ? datosCargados.isDestacada : false,
       };
       if (isNueva) {
         dispatch(guardarNoticia_accion(datosNoticias, datosCargados));
