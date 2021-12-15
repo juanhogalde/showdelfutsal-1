@@ -51,7 +51,6 @@
   transition: all 0.25s ease;
   outline: none;
   opacity: 0;
-  z-index: 2;
 }
 .CI-Acciones-TarjetaGaleria-Apertura {
   width: 80px;
