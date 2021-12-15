@@ -194,44 +194,21 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
         multiple={true}
       ></InputLowa>
 
-      {datosGaleria.imagenes.length <= cantidadDeArchivos && (
+      {datosGaleria.imagenes.length /* <= cantidadDeArchivos */ && (
         <div className="CI-ListaImagnes">
           {Object.values(datosGaleria.imagenes).map((imagen, index) => {
             return (
-              imagen &&
-              imagen instanceof Blob && (
+              imagen && (
                 <div key={index} className="filaListaImagenes">
                   <div className="CI-Imagen-Lista">
                     <ImagenAdmin
-                      noticiaImagen={obtenerUrldeImagen(imagen)}
+                      noticiaImagen={imagen instanceof Blob ? obtenerUrldeImagen(imagen) : imagen}
                       isTarjetaGaleria={true}
                     ></ImagenAdmin>
                   </div>
                   <div className="accionesFilaListaImagenes">
                     <MdDeleteForever
                       onClick={() => consultaEliminarImagen(index, true)}
-                      className="iconoAcción-ListaImagenes"
-                    />
-                  </div>
-                </div>
-              )
-            );
-          })}
-        </div>
-      )}
-
-      {Object.keys(datosParaEditar).length > 0 && (
-        <div className="CI-ListaImagnes">
-          {Object.values(datosParaEditar.imagenesId).map((imagen, index) => {
-            return (
-              imagen && (
-                <div key={index} className="filaListaImagenes">
-                  <div className="CI-Imagen-Lista">
-                    <ImagenAdmin noticiaImagen={imagen} isTarjetaGaleria={true}></ImagenAdmin>
-                  </div>
-                  <div className="accionesFilaListaImagenes">
-                    <MdDeleteForever
-                      onClick={() => consultaEliminarImagen(index, false)}
                       className="iconoAcción-ListaImagenes"
                     />
                   </div>
