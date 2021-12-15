@@ -142,7 +142,6 @@ class GaleriaController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      console.log(req.body);
       let datosARetornar = {tituloGaleria: '', _id: '', imagenesId: <any>[]};
       let datosAEnviar = {fuente: '', isGaleria: false, galeriaId: ''};
       let pathFile: string = '';
@@ -160,19 +159,17 @@ class GaleriaController {
               if (datosBody.archivos) {
                 if (datosBody.archivos.length) {
                   for await (const archivo of datosBody.archivos) {
-                    //TODO: Ir cargando cada imagen en la coleccion imagenes
                     pathFile = archivo.path;
 
                     datosAEnviar.fuente = pathFile
                       .replace('public', '')
                       .replace('\\', '/')
                       .replace('\\', '/');
-                    // datosAEnviar.isGaleria = true;
+
                     const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
                     if (resultado) {
                       arrayInsercionesImagenes.push(resultado);
                       arrayIdImagenes.push(resultado._id);
-                      // arrayDePath.push(resultado.fuente);
                     }
                   }
                 } else {
@@ -186,7 +183,6 @@ class GaleriaController {
                   if (resultado) {
                     arrayInsercionesImagenes.push(resultado);
                     arrayIdImagenes.push(resultado._id);
-                    // arrayDePath.push(resultado.fuente);
                   }
                 }
               }
@@ -195,6 +191,7 @@ class GaleriaController {
               galeria.fechaModificacion = new Date();
 
               const resultado = await galeria.save();
+
               if (resultado) {
                 const imagenes = await imagenesController.obtenerImagenesGaleriaPorId(galeria._id);
                 let dato = {
@@ -214,15 +211,6 @@ class GaleriaController {
                   'Ocurrio un error al intentar actualizar la galería',
                   500
                 );
-              }
-
-              galeria.tituloGaleria = datosBody.tituloGaleria;
-              galeria.fechaModificacion = new Date();
-              const resultadoActualizar = await galeria.save();
-              if (resultadoActualizar) {
-                const imagenesGaleria = await imagenesController.listarImagenesGaleria(galeria._id);
-                console.log(imagenesGaleria);
-                return false;
               }
             } else {
               responder.error(req, res, '', 'Galería no encontrada', 400);
