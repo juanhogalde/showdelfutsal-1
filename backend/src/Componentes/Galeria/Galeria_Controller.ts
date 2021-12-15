@@ -191,7 +191,7 @@ class GaleriaController {
                 }
               }
 
-              galeria.tituloGaleria = datosBody.tituloGaleria;
+              galeria.tituloGaleria = datosBody.descripcion;
               galeria.fechaModificacion = new Date();
 
               const resultado = await galeria.save();

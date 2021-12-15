@@ -205,16 +205,47 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
     case cargandoModificarGaleria: {
       return {
         ...state,
+        isAgregarGaleria: {
+          tipo: 'cargando',
+          mensaje: 'Guardando Nueva Galería...',
+          isCargando: true,
+          isExito: false,
+          isError: false,
+        },
       };
     }
     case modificarGaleriaExito: {
+      console.log(accion.datos);
+      let auxGalerias = state.galerias.map(galeria => {
+        if (galeria._id === accion.datos._id) {
+          return accion.datos;
+        } else {
+          return galeria;
+        }
+      });
       return {
         ...state,
+        isAgregarGaleria: {
+          tipo: 'success',
+          mensaje: 'Guardando Nueva Galería...',
+          mensaje: 'Galería editada con exito.',
+          isCargando: false,
+          isExito: true,
+          isError: false,
+        },
+        galerias: auxGalerias,
       };
     }
     case modificarGaleriaError: {
       return {
         ...state,
+        isAgregarGaleria: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, en este momento no podemos agregar su galería.',
+          isCargando: false,
+          isExito: false,
+          isError: true,
+        },
       };
     }
     default:
