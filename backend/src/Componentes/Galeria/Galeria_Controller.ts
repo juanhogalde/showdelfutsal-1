@@ -191,10 +191,11 @@ class GaleriaController {
                 }
               }
 
-              galeria.tituloGaleria = datosBody.tituloGaleria;
+              galeria.tituloGaleria = datosBody.descripcion;
               galeria.fechaModificacion = new Date();
 
               const resultado = await galeria.save();
+
               if (resultado) {
                 const imagenes = await imagenesController.obtenerImagenesGaleriaPorId(galeria._id);
                 let dato = {
@@ -214,15 +215,6 @@ class GaleriaController {
                   'Ocurrio un error al intentar actualizar la galería',
                   500
                 );
-              }
-
-              galeria.tituloGaleria = datosBody.tituloGaleria;
-              galeria.fechaModificacion = new Date();
-              const resultadoActualizar = await galeria.save();
-              if (resultadoActualizar) {
-                const imagenesGaleria = await imagenesController.listarImagenesGaleria(galeria._id);
-                console.log(imagenesGaleria);
-                return false;
               }
             } else {
               responder.error(req, res, '', 'Galería no encontrada', 400);
