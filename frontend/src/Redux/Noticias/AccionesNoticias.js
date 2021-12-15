@@ -260,9 +260,10 @@ export const cargandoEliminarNoticia_accion = (mensaje = 'Cargando...') => {
     mensaje: mensaje,
   };
 };
-export const eliminarNoticiaExito_accion = () => {
+export const eliminarNoticiaExito_accion = noticia => {
   return {
     type: eliminarNoticiaExito,
+    noticia: noticia,
   };
 };
 export const eliminarNoticiaError_accion = error => {
@@ -292,7 +293,7 @@ export const eliminarNoticia_accion = noticia => {
           data: {id: noticia.idImagen[0]._id},
         })
           .then(res => {
-            dispatch(eliminarNoticiaExito_accion());
+            dispatch(eliminarNoticiaExito_accion(noticia));
           })
           .catch(error => {
             dispatch(eliminarNoticiaError_accion(error));

@@ -24,6 +24,11 @@ let inicializarCategorias = async () => {
       keyCategoria: 3,
       idSubcategorias: [],
     },
+    {
+      nombreCategoria: 'Otras Competiciones',
+      keyCategoria: 4,
+      idSubcategorias: [],
+    },
   ];
   for await (const categoria of categoriaArray) {
     modeloCategorias
