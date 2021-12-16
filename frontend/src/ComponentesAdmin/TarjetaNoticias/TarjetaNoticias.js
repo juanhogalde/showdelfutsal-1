@@ -25,7 +25,8 @@ export const TarjetaNoticias = ({noticia = {}}) => {
   const historialDeNavegacion = useHistory();
   const dispatch = useDispatch();
   const [isAcciones, setIsAcciones] = useState(false);
-  const {isNoticiaGurdada} = useSelector(state => state.storeNoticias);
+  const [noticiaSeleccionada, setNoticiaSeleccionada] = useState({});
+  const {isNoticiaGurdada, noticiaEliminada} = useSelector(state => state.storeNoticias);
   const [mostrarAlertEliminar, setMostrarAlertEliminar] = useState(false);
   const elementoAcciones = useRef();
   const mostrarAcciones = () => {
@@ -41,7 +42,8 @@ export const TarjetaNoticias = ({noticia = {}}) => {
   const destacar = noticia => {
     dispatch(destacarNoticia_accion(noticia));
   };
-  const accionesOpciones = tipoAccion => {
+  const accionesOpciones = (tipoAccion, noticia) => {
+    setNoticiaSeleccionada(noticia);
     if (tipoAccion === 'editar') {
       dispatch(guardarNoticiaParaEditar_accion(noticia));
       historialDeNavegacion.push(`/Noticia/Editar`);
@@ -56,14 +58,14 @@ export const TarjetaNoticias = ({noticia = {}}) => {
   const opcionSeleccionada = respuesta => {
     if (respuesta) {
       setMostrarAlertEliminar(false);
-      dispatch(eliminarNoticia_accion(noticia));
+      dispatch(eliminarNoticia_accion(noticiaSeleccionada));
     } else {
       setMostrarAlertEliminar(false);
     }
   };
   const respuestaDeAlerta = () => {
     if (isNoticiaGurdada.isEliminado) {
-      dispatch(actualizarListaNoticias_accion(noticia._id));
+      dispatch(actualizarListaNoticias_accion(noticiaEliminada._id));
     } else {
       dispatch(volverPorDefecto_accion());
     }
@@ -102,11 +104,11 @@ export const TarjetaNoticias = ({noticia = {}}) => {
           >
             <FiEdit3
               className="iconoAcción-ListaImagenes"
-              onClick={() => accionesOpciones('editar')}
+              onClick={() => accionesOpciones('editar', noticia)}
             ></FiEdit3>
             <FiEye className="iconoAcción-ListaImagenes" onClick={() => consultarNoticia()}></FiEye>
             <MdDeleteForever
-              onClick={() => accionesOpciones('eliminar')}
+              onClick={() => accionesOpciones('eliminar', noticia)}
               className="iconoAcción-ListaImagenes"
             />
           </div>

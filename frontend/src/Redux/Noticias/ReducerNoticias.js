@@ -30,6 +30,7 @@ const noticiaPorDefecto = {
   noticiaDeBusqueda: '',
   noticiaSeleccionada: {},
   isObteniendoNoticia: {isMostrar: false, tipo: '', mensaje: ''},
+  noticiaEliminada: {},
   isNoticiaGurdada: {
     isMostrar: false,
     tipo: '',
@@ -214,7 +215,7 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
     case eliminarNoticiaExito: {
       return {
         ...state,
-
+        noticiaEliminada: accion.noticia,
         isNoticiaGurdada: {
           isMostrar: false,
           tipo: 'success',

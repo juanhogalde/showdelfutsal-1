@@ -20,6 +20,7 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
   const history = useHistory();
   const {isNoticiaGurdada, noticiaSeleccionada} = useSelector(state => state.storeNoticias);
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
+  const [datosRequeridos, setDatosRequeridos] = useState(false);
   const [categoria, setCategoria] = useState();
   const [subCategoria, setSubCategoria] = useState();
   const [datosCargados, setdatosCargados] = useState({});
@@ -43,9 +44,12 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
     }
   }, [noticiaSeleccionada, setCategoria, setSubCategoria, isNueva, categorias, subcategorias]);
   const eventoGuardar = () => {
-    if (datosCargados.imagen || datosCargados.idImagen) {
+    if ((datosCargados.imagen || datosCargados.idImagen) && categoria && subCategoria) {
+      var TresHoraMilisegundos = 1000 * 60 * 60 * 3;
+      var fechaActual = new Date();
+      var fechaMenosTresHoras = fechaActual.getTime() - TresHoraMilisegundos;
       var datosNoticias = {
-        fecha: new Date(),
+        fecha: new Date(fechaMenosTresHoras),
         titulo: datosCargados.titulo ? datosCargados.titulo : '',
         copete: datosCargados.copete ? datosCargados.copete : '',
         cuerpo: datosCargados.cuerpo ? datosCargados.cuerpo : '',
@@ -61,10 +65,12 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
         dispatch(editarNoticia_accion({...datosNoticias, _id: datosCargados._id}, datosCargados));
       }
     } else {
-      alert('atencion no ingreso imagen');
+      setDatosRequeridos(true);
     }
   };
-
+  const RespuestaDeFaltaDatosRequeridos = () => {
+    setDatosRequeridos(false);
+  };
   const RespuestaDeAlertaVolverPorDefecto = () => {
     dispatch(volverPorDefecto_accion());
     history.push('/Noticias');
@@ -129,6 +135,12 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
         mostrarSweet={isNoticiaGurdada.isMostrar}
         tipoDeSweet={isNoticiaGurdada.tipo}
         subtitulo={isNoticiaGurdada.mensaje}
+      />
+      <Alertas
+        mostrarSweet={datosRequeridos}
+        tipoDeSweet="warning"
+        subtitulo="Faltan datos requeridos"
+        RespuestaDeSweet={RespuestaDeFaltaDatosRequeridos}
       />
       <Alertas
         mostrarSweet={
