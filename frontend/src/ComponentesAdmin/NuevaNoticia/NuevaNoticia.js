@@ -21,6 +21,8 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
   const history = useHistory();
   const {isNoticiaGurdada, noticiaSeleccionada} = useSelector(state => state.storeNoticias);
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
+  const [arregloDeCategorias, setArregloDeCategorias] = useState([]);
+  const [arregloDeSubCategorias, setArregloDeSubCategorias] = useState([]);
   const [datosRequeridos, setDatosRequeridos] = useState(false);
   const [categoria, setCategoria] = useState();
   const [subCategoria, setSubCategoria] = useState();
@@ -112,6 +114,23 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
           : ''
       );
     }
+    switch (noticiaSeleccionada.keyCategoria) {
+      case 2:
+        let subcategoriasParaFemenino = [];
+        subcategorias.forEach(element => {
+          if (element.key === 1 || element.key === 2) {
+            subcategoriasParaFemenino = [...subcategoriasParaFemenino, element];
+          }
+        });
+        setArregloDeSubCategorias(subcategoriasParaFemenino);
+        setArregloDeCategorias(categorias);
+        break;
+
+      default:
+        setArregloDeCategorias(categorias);
+        setArregloDeSubCategorias(subcategorias);
+        break;
+    }
   }, [noticiaSeleccionada, setCategoria, setSubCategoria, isNueva, categorias, subcategorias]);
   const eventoGuardar = () => {
     if ((datosCargados.imagen || datosCargados.idImagen) && categoria && subCategoria) {
@@ -145,6 +164,26 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
     dispatch(volverPorDefecto_accion());
     history.push('/Noticias');
   };
+  const funcionSetCategoria = respuestaCategoria => {
+    setCategoria(respuestaCategoria);
+    switch (respuestaCategoria.key) {
+      case 2:
+        let subcategoriasParaFemenino = [];
+        subcategorias.forEach(element => {
+          if (element.key === 1 || element.key === 2) {
+            subcategoriasParaFemenino = [...subcategoriasParaFemenino, element];
+          }
+        });
+        setArregloDeSubCategorias(subcategoriasParaFemenino);
+        setSubCategoria(null);
+        break;
+
+      default:
+        setArregloDeSubCategorias(subcategorias);
+        break;
+    }
+  };
+
   return (
     <div className="CP-NuevaNoticia">
       <Selector
@@ -153,8 +192,8 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
         opcionSeleccionada={categoria}
         isDisabled={isConsulta}
         selectorConIcono={<BsPlusCircle />}
-        options={categorias ? categorias : []}
-        onChange={setCategoria}
+        options={arregloDeCategorias ? arregloDeCategorias : []}
+        onChange={funcionSetCategoria}
       ></Selector>
       <Selector
         name="subcategoria"
@@ -163,7 +202,7 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
         opcionSeleccionada={subCategoria}
         ocultarIconoLateral={isConsulta}
         selectorConIcono={<BsSearch />}
-        options={subcategorias ? subcategorias : []}
+        options={arregloDeSubCategorias ? arregloDeSubCategorias : []}
         onChange={setSubCategoria}
       ></Selector>
       <InputLowa
