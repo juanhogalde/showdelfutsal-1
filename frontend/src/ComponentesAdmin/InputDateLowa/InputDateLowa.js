@@ -10,7 +10,6 @@ const InputDateLowa = props => {
   const obtenerValue = e => {
     setInputDateValue(e.nativeEvent.srcElement.value);
   };
-  console.log(new Date().getDay());
   return (
     <div className="CP-InputDateLowa">
       <div
