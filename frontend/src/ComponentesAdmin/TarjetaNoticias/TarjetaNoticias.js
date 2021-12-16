@@ -19,6 +19,8 @@ import {MdDeleteForever} from 'react-icons/md';
 import {HiDotsVertical} from 'react-icons/hi';
 import Alertas from '../Alertas/Alertas';
 import {BsStarFill} from 'react-icons/bs';
+import ModalLowa from '../ModalLowa/ModalLowa';
+import PlasmarImagen from '../PlasmarImagen/PlasmarImagen';
 // import {useSelector} from 'react-redux';
 
 export const TarjetaNoticias = ({noticia = {}}) => {
@@ -26,6 +28,7 @@ export const TarjetaNoticias = ({noticia = {}}) => {
   const dispatch = useDispatch();
   const [isAcciones, setIsAcciones] = useState(false);
   const [noticiaSeleccionada, setNoticiaSeleccionada] = useState({});
+  const [isMostrarModal, setIsMostrarModal] = useState('');
   const {isNoticiaGurdada, noticiaEliminada} = useSelector(state => state.storeNoticias);
   const [mostrarAlertEliminar, setMostrarAlertEliminar] = useState(false);
   const elementoAcciones = useRef();
@@ -70,12 +73,22 @@ export const TarjetaNoticias = ({noticia = {}}) => {
       dispatch(volverPorDefecto_accion());
     }
   };
-
+  const mostrarModalImagen = (respuesta, imagen) => {
+    console.log(imagen);
+    let auxDatosImg = {
+      isMostrar: respuesta,
+      datos: imagen.idImagen[0],
+    };
+    setIsMostrarModal(auxDatosImg);
+  };
+  const cerrarModalImagen = () => {
+    setIsMostrarModal({isMostrar: false, datos: {}});
+  };
   return (
     <div key={noticia._id} className="CP-Tarjeta-Noticias-Admin">
       <div className="CI-Tarjeta-Noticias-Admin ">
         <div className="I-Tarjeta-Noticias-Imagen">
-          <ImagenAdmin noticiaImagen={noticia} />
+          <ImagenAdmin noticiaImagen={noticia} mostrarModalImagen={mostrarModalImagen} />
         </div>
         <div className="I-Tarjeta-Noticias-Cuerpo">
           <TarjetaNoticiasMiniatura noticiaRecibida={noticia} />
@@ -128,6 +141,13 @@ export const TarjetaNoticias = ({noticia = {}}) => {
         subtitulo={isNoticiaGurdada.mensaje}
         RespuestaDeSweet={respuestaDeAlerta}
       />
+      <ModalLowa
+        isMostrar={isMostrarModal.isMostrar}
+        cerrarModalLowa={cerrarModalImagen}
+        isPlasmarImagen={true}
+      >
+        <PlasmarImagen datosImagen={isMostrarModal.datos}></PlasmarImagen>
+      </ModalLowa>
     </div>
   );
 };
