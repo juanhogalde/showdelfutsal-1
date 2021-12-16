@@ -1,9 +1,28 @@
-import React from 'react';
-import {HiDotsVertical} from 'react-icons/hi';
-import ImagenAdmin from '../ImagenAdmin/ImagenAdmin';
+import React, {useState} from 'react';
 import './TarjetaTorneo.css';
+import ImagenAdmin from '../ImagenAdmin/ImagenAdmin';
+import {HiDotsVertical} from 'react-icons/hi';
+import {MdDeleteForever} from 'react-icons/md';
+import {FiEdit3} from 'react-icons/fi';
+import {useRef} from 'react';
+import {useHistory} from 'react-router-dom';
 
 const TarjetaTorneo = ({isCampeonato = false}) => {
+  const [isAcciones, setIsAcciones] = useState(false);
+  const elementoAcciones = useRef();
+  const historialDeNavegacion = useHistory();
+  const mostrarAcciones = () => {
+    setIsAcciones(!isAcciones);
+    elementoAcciones.current.focus();
+  };
+  const ocultarAcciones = () => {
+    setIsAcciones(false);
+  };
+  const editarTorneo = () => {
+    historialDeNavegacion.push(`/Torneo/Editar/${1234}`);
+  };
+  const consultaPorEliminarTorneo = () => {};
+
   return (
     <div
       className={`${
@@ -24,8 +43,25 @@ const TarjetaTorneo = ({isCampeonato = false}) => {
         <p>Divisional A</p>
       </div>
 
-      <div className="CI-Acciones-TarjetaTorneo">
+      <div className="CI-Acciones-TarjetaTorneo" onClick={() => mostrarAcciones()}>
         <HiDotsVertical />
+      </div>
+      <div
+        ref={elementoAcciones}
+        id="acciones-TarjetaGaleria"
+        className={`${
+          isAcciones
+            ? 'CI-Acciones-TarjetaGaleria CI-Acciones-TarjetaGaleria-Apertura'
+            : 'CI-Acciones-TarjetaGaleria'
+        }`}
+        tabIndex="1"
+        onBlur={() => ocultarAcciones()}
+      >
+        <FiEdit3 className="iconoAcción-ListaImagenes" onClick={() => editarTorneo()}></FiEdit3>
+        <MdDeleteForever
+          onClick={() => consultaPorEliminarTorneo()}
+          className="iconoAcción-ListaImagenes"
+        />
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ const Torneo = [
   {value: 'Copa', label: 'Copa'},
 ];
 
-const NuevoTorneo = () => {
+const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
   const history = useHistory();
 
   const [datosTorneo, setDatosTorneo] = useState({});

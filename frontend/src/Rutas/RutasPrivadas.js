@@ -20,6 +20,7 @@ import EditarPublicidad from '../ComponentesAdmin/EditarPublicidad/EditarPublici
 import NuevoTorneo from '../ComponentesAdmin/NuevoTorneo/NuevoTorneo';
 import Campeonato from '../ComponentesAdmin/Campeonato/Campeonato';
 import NuevaPublicidad from '../ComponentesAdmin/NuevaPublicidad/NuevaPublicidad';
+import EditarTorneo from '../ComponentesAdmin/EditarTorneo/EditarTorneo';
 
 const RutasPrivadas = () => {
   const {usuarioLogueado} = useSelector(state => state.storeLogueo);
@@ -42,6 +43,8 @@ const RutasPrivadas = () => {
 
           <Route exact component={PaginaTorneosAdmin} path="/Torneos"></Route>
           <Route exact component={NuevoTorneo} path="/Torneo/Nuevo"></Route>
+          <Route exact component={EditarTorneo} path="/Torneo/Editar/:id"></Route>
+
           <Route exact component={Campeonato} path="/Torneo/Nuevo/Campeonato"></Route>
 
           <Route exact component={PaginaTablaAdmin} path="/Tablas"></Route>
