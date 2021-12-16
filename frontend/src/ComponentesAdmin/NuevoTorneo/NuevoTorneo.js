@@ -6,6 +6,7 @@ import Selector from '../Selector/Selector';
 import './NuevoTorneo.css';
 import {BsPlusCircle} from 'react-icons/bs';
 import {useHistory} from 'react-router';
+import Alertas from '../Alertas/Alertas';
 
 const Torneo = [
   {value: 'Campeonato', label: 'Campeonato'},
@@ -13,15 +14,15 @@ const Torneo = [
   {value: 'Copa', label: 'Copa'},
 ];
 
-const NuevoTorneo = () => {
+const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
   const history = useHistory();
 
   const [datosTorneo, setDatosTorneo] = useState({});
+  const [alertaFechas, setAlertaFechas] = useState(false);
 
   const escucharCambios = (name, value) => {
     console.log(name);
     console.log(value);
-
     if (name === 'fechaInicio' || name === 'fechaFin') {
       setDatosTorneo(datosTorneo => {
         return {...datosTorneo, [name]: new Date(value)};
@@ -52,15 +53,20 @@ const NuevoTorneo = () => {
         break;
     }
   };
-  const validarCampos = () => {
-    console.log('Validar');
 
+  const validarCampos = () => {
     var auxFechaInicio = datosTorneo.fechaInicio.getTime();
     var auxFechaFin = datosTorneo.fechaFin.getTime();
     if (auxFechaFin < auxFechaInicio) {
       alert('Fechas Inválidas- Fin menor a Inicio');
+      setAlertaFechas(true);
     } else {
       siguientePantallaNuevoTorneo(datosTorneo.torneo);
+    }
+  };
+  const respuestaAlertaFechas = respuesta => {
+    if (respuesta) {
+      setAlertaFechas(false);
     }
   };
   return (
@@ -73,7 +79,6 @@ const NuevoTorneo = () => {
         noOptionsMessage={'No hay torneos cargados.'}
         onChange={(opcion, selector) => escucharSelector(opcion.value, selector.name)}
       ></Selector>
-      {/* {isErrores && errorDatosTorneo.torneo ? <p>Complete este campo</p> : null} */}
       <InputLowa
         type="text"
         name="tituloTorneo"
@@ -95,11 +100,10 @@ const NuevoTorneo = () => {
       />
       <BotonLowa
         tituloboton={'Siguiente'}
-        /* onClick={() => siguientePantallaNuevoTorneo(datosTorneo && datosTorneo.torneo)} */
         onClick={() => validarCampos()}
         disabled={Object.keys(datosTorneo).length === 4 ? false : true}
       ></BotonLowa>
-      {/* <Cargando /> */}
+      <Alertas mostrarSweet={alertaFechas} RespuestaDeSweet={respuestaAlertaFechas}></Alertas>
     </div>
   );
 };

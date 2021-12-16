@@ -7,6 +7,7 @@ import storeImagenes from './Imagenes/ReducerImagenes';
 import storePartidos from './Partidos/ReducerPartidos';
 import storePublicidades from './Publicidades/ReducerPublicidades';
 import storeGalerias from './Galerias/ReducerGalerias';
+import storeTorneos from './Torneos/ReducerTorneos';
 
 const RootReducers = combineReducers({
   storePrueba,
@@ -17,5 +18,6 @@ const RootReducers = combineReducers({
   storePartidos,
   storePublicidades,
   storeGalerias,
+  storeTorneos,
 });
 export default RootReducers;
