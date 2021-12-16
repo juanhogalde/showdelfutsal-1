@@ -59,19 +59,6 @@ const InputLowa = props => {
     }
   };
 
-  /* useEffect(() => {
-    console.log('Effects');
-
-    console.log(inputElement);
-    console.log(imgElement);
-  }, []);
-
-  useLayoutEffect(() => {
-    console.log('Layaout Effects');
-    console.log(inputElement);
-    console.log(imgElement);
-  }, []); */
-
   return (
     <div className={type === 'file' ? 'CP-Input-File' : 'CP-Input'}>
       <div className="cuerpoInputFile">

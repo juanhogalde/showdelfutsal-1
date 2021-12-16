@@ -23,9 +23,9 @@ export const PieDepagina = ({isConFondo = false}) => {
           </div>
 
           <div className="CI-redes-sociales">
-            <div className="I-Redes">
+            <div className="I-Redes ">
               {/* <h3>SIGUENOS</h3> */}
-              <div className="red-social">
+              <div className="red-social red-social-PieDePagina">
                 <div onClick={() => redireccionar('https://www.facebook.com/ElShowdelFutsal')}>
                   <FaFacebookF className="iconos-Redes-Sociales"></FaFacebookF>
                 </div>

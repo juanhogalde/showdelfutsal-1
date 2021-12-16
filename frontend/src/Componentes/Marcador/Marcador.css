@@ -235,9 +235,20 @@
     min-height: 350px;
   }
   .nombreEquipo-A {
+    margin-top: 30px;
     grid-row: 6/8;
   }
   .nombreEquipo-B {
+    margin-top: 30px;
     grid-row: 6/8;
+  }
+  .info-partido {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .info-partido {
+    margin-right: 80px;
   }
 }

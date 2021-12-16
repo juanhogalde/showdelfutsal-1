@@ -710,6 +710,17 @@
     padding-top: 100px;
   }
 }
+@media screen and (max-width: 360px) {
+  .CI-Somos-redes {
+    padding-bottom: 0;
+    padding-left: 180px;
+    margin-left: 40px;
+  }
+  .margenes-Responsive-Seccion-Marcador {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+}
 @media screen and (max-width: 320px) {
   .CP-Marcador {
     padding-top: 0;
