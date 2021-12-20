@@ -7,7 +7,7 @@ import {FiEdit3} from 'react-icons/fi';
 import {useRef} from 'react';
 import {useHistory} from 'react-router-dom';
 
-const TarjetaTorneo = ({isCampeonato = false}) => {
+const TarjetaTorneo = ({isCampeonato = false, datos = ''}) => {
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
   const historialDeNavegacion = useHistory();
@@ -40,7 +40,7 @@ const TarjetaTorneo = ({isCampeonato = false}) => {
       </div>
       <div className="CI-Cuerpo-TarjetaTorneo">
         {!isCampeonato && <p>07/07/2021 - 08/08/2021</p>}
-        <p>Divisional A</p>
+        <p>{datos}</p>
       </div>
 
       <div className="CI-Acciones-TarjetaTorneo" onClick={() => mostrarAcciones()}>
