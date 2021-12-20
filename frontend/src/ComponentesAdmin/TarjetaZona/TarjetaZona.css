@@ -1,0 +1,39 @@
+.CP-TarjetaZona {
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+  /* background-color: white; */
+  display: grid;
+  grid-template-columns: minmax(30px, 60px) 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+.CI-Indice {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  display: flex;
+  align-items: center;
+}
+.CI-Cuerpo-TarjetaZona {
+  border-top: 2px solid #0000001a;
+  grid-column: 2/4;
+  grid-row: 1/2;
+  display: flex;
+}
+.Zona-Tipo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.Categoria-Division {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+.Categoria-Division p {
+  color: #00000080;
+}
