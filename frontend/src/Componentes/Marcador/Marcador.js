@@ -63,9 +63,6 @@ const Marcador = () => {
     <div className="Marcador">
       <div className="marcador-cuerpo">
         <div className="categoria-Marcador">
-          {/* <h4>
-            {partido.categoria.nombre} - {partido.categoria.subcategoria}
-          </h4> */}
           <EtiquetaCategoria
             buscarPorKey={true}
             categoriaId={partido.campeonato ? partido.campeonato.keyCategoria : 0}
