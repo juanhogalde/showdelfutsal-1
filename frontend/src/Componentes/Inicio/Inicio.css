@@ -149,12 +149,15 @@
   max-height: 100%;
   display: grid;
   grid-template-columns: 70% 30%;
+  grid-template-rows: 1fr;
 }
 
 .CI-Marcador {
   grid-column: 1/2;
   display: grid;
-  grid-template-rows: 1fr 85%;
+  grid-template-columns: 1fr;
+  grid-template-rows: 150px 1fr;
+  padding-bottom: 15px;
 }
 .titulo-Marcador {
   grid-row: 1/2;
@@ -348,6 +351,10 @@
   }
   .seccion-marcador {
     background-position-y: 100%;
+  }
+  .CI-Marcador {
+    grid-template-rows: 90px 1fr;
+    padding-bottom: 15px;
   }
   .CI-Publicidad-Marcador div {
     max-width: 240px;
