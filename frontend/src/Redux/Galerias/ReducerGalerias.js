@@ -15,6 +15,9 @@ import {
   cargandoModificarGaleria,
   modificarGaleriaExito,
   modificarGaleriaError,
+  cargandoAgregarGaleriaVideo,
+  agregarGaleriaVideoExito,
+  agregarGaleriaVideoError,
 } from './AccionesGalerias';
 import {actualizarGaleriaEliminarImagenExito} from '../Imagenes/AccionesImagenes';
 
@@ -236,6 +239,46 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
       };
     }
     case modificarGaleriaError: {
+      return {
+        ...state,
+        isAgregarGaleria: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, en este momento no podemos agregar su galería.',
+          isCargando: false,
+          isExito: false,
+          isError: true,
+        },
+      };
+    }
+    case cargandoAgregarGaleriaVideo: {
+      return {
+        ...state,
+        isAgregarGaleria: {
+          tipo: 'cargando',
+          mensaje: 'Guardando Nueva Galería De Video...',
+          isCargando: true,
+          isExito: false,
+          isError: false,
+        },
+      };
+    }
+    case agregarGaleriaVideoExito: {
+      console.log(accion.datos);
+      let data = state.galerias.slice();
+      data = [...data, {tituloGaleria: accion.datosGaleria.tituloGaleria, videos: accion.videos}];
+      return {
+        ...state,
+        galerias: data,
+        isAgregarGaleria: {
+          tipo: 'success',
+          mensaje: 'Galería de video creada con exito.',
+          isCargando: false,
+          isExito: true,
+          isError: false,
+        },
+      };
+    }
+    case agregarGaleriaVideoError: {
       return {
         ...state,
         isAgregarGaleria: {

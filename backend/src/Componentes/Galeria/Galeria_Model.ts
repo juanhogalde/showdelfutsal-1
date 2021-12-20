@@ -6,6 +6,7 @@ const GaleriaSchema = new Schema({
   // imagenesId: [{type: Schema.Types.ObjectId, ref: 'modeloImagenes'}],
   fechaCarga: Date,
   fechaModificacion: Date,
+  // videosId: [{type: Schema.Types.ObjectId, ref: 'modeloVideos'}],
 });
 
 export default model<IGaleria>('modeloGaleria', GaleriaSchema);

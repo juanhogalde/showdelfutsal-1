@@ -6,6 +6,8 @@ import logoCargando from '../../Static/Cargando.gif';
 // import imagenBack from 'localhost/imagenes/yOuSjEEjLTCEqSV-J4z7fA-r.jpg';
 const ImagenAdmin = ({
   isTarjetaGaleria = false,
+  isVideo = false,
+  dataVideo = {},
   noticiaImagen = {},
   mostrarLogoCargando = false,
   mostrarModalImagen = () => {
@@ -20,11 +22,21 @@ const ImagenAdmin = ({
     >
       <div className="CI-Imagen-admin">
         {isTarjetaGaleria ? (
-          <img
-            alt=""
-            src={noticiaImagen.fuente ? urlImagenes + noticiaImagen.fuente : noticiaImagen}
-            className="Img-Admin"
-          ></img>
+          !isVideo ? (
+            <img
+              alt=""
+              src={noticiaImagen.fuente ? urlImagenes + noticiaImagen.fuente : noticiaImagen}
+              className="Img-Admin"
+            ></img>
+          ) : (
+            <div>
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${dataVideo.fuente}`}
+                title={dataVideo.tituloVideo}
+              ></iframe>
+              <h5>{dataVideo.tituloVideo}</h5>
+            </div>
+          )
         ) : mostrarLogoCargando ? (
           <img alt="" src={logoCargando} className="Img-Admin"></img>
         ) : (

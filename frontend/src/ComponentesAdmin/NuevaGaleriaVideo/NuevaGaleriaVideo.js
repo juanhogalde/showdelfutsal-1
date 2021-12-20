@@ -4,36 +4,69 @@ import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
 import '../NuevaGaleriaVideo/NuevaGaleriaVideo.css';
 import {MdDeleteForever} from 'react-icons/md';
+import {useDispatch} from 'react-redux';
+import Alertas from '../Alertas/Alertas';
+import {guardarGaleriaVideo_accion} from '../../Redux/Galerias/AccionesGalerias';
 const NuevaGaleriaVideo = () => {
   const [videosCargados, setVideosCargados] = useState([]);
+  const dispatch = useDispatch();
   const [datosGaleria, setDatosGaleria] = useState({});
   const escucharCambios = async (name, value) => {
     setDatosGaleria({...datosGaleria, [name]: value});
   };
+  const [advertenciaFaltanDatos, setAdvertenciaFaltanDatos] = useState({
+    mostrar: false,
+    mensaje: '',
+    tipo: '',
+  });
   const AgregarVideo = () => {
-    if (datosGaleria.enlaceUrl && datosGaleria.tituloVideo && datosGaleria.descripcion) {
+    if (datosGaleria.enlaceUrl && datosGaleria.descripcion) {
+      setVideosCargados([
+        ...videosCargados,
+        {fuente: datosGaleria.enlaceUrl, descripcion: datosGaleria.descripcion},
+      ]);
+    } else {
+      setAdvertenciaFaltanDatos({
+        mostrar: true,
+        mensaje: 'Faltan datos requeridos para agregar videos',
+        tipo: 'warning',
+      });
     }
-    setVideosCargados([
-      ...videosCargados,
-      {fuente: datosGaleria.enlaceUrl, tituloVideo: datosGaleria.tituloVideo},
-    ]);
+  };
+  const guardarGaleria = () => {
+    if (datosGaleria !== {}) {
+      var TresHoraMilisegundos = 1000 * 60 * 60 * 3;
+      var fechaActual = new Date();
+      var fechaMenosTresHoras = fechaActual.getTime() - TresHoraMilisegundos;
+      dispatch(
+        guardarGaleriaVideo_accion(
+          {...datosGaleria, fechaCarga: fechaMenosTresHoras},
+          videosCargados
+        )
+      );
+    } else {
+      setAdvertenciaFaltanDatos({
+        mostrar: true,
+        mensaje: 'Faltan datos requeridos para agregar videos',
+        tipo: 'warning',
+      });
+    }
+  };
+  const RespuestaDeAlerta = () => {
+    setAdvertenciaFaltanDatos({mostrar: false, mensaje: '', tipo: ''});
   };
   const eliminarVideoCargado = index => {
-    console.log(index);
-    console.log(videosCargados);
     var copiaVideos = videosCargados.slice();
-    console.log(copiaVideos);
     let elementoEliminado = copiaVideos.splice(1, index);
-    console.log(elementoEliminado);
     setVideosCargados(elementoEliminado);
   };
   return (
     <div className="CP-AgregarVideos">
       <InputLowa
-        name="descripcion"
+        name="tituloGaleria"
         placeholder="Ingrese Título de galeria"
         onChange={e => escucharCambios(e.target.name, e.target.value)}
-        value={datosGaleria.descripcion ? datosGaleria.descripcion : ''}
+        value={datosGaleria.tituloGaleria ? datosGaleria.tituloGaleria : ''}
       ></InputLowa>
       <InputLowa
         name="enlaceUrl"
@@ -42,10 +75,10 @@ const NuevaGaleriaVideo = () => {
         value={datosGaleria.enlaceUrl ? datosGaleria.enlaceUrl : ''}
       ></InputLowa>
       <InputLowa
-        name="tituloVideo"
-        placeholder="Ingrese titulo de video"
+        name="descripcion"
+        placeholder="Ingrese descripcion del video"
         onChange={e => escucharCambios(e.target.name, e.target.value)}
-        value={datosGaleria.tituloVideo ? datosGaleria.tituloVideo : ''}
+        value={datosGaleria.descripcion ? datosGaleria.descripcion : ''}
       ></InputLowa>
       <div className="CP-Agregar-Un-Video" onClick={() => AgregarVideo()}>
         <BsFillCameraReelsFill
@@ -54,7 +87,7 @@ const NuevaGaleriaVideo = () => {
         ></BsFillCameraReelsFill>
         <h6>Agregar video</h6>
       </div>
-      <BotonLowa tituloboton={'Guardar Galeria'} />
+      <BotonLowa onClick={() => guardarGaleria()} tituloboton={'Guardar Galeria'} />
       {/* <InputLowa
           name="imagenes"
           type="file"
@@ -87,6 +120,12 @@ const NuevaGaleriaVideo = () => {
           })}
         </div>
       )}
+      <Alertas
+        mostrarSweet={advertenciaFaltanDatos.mostrar}
+        subtitulo={advertenciaFaltanDatos.mensaje}
+        tipoDeSweet={advertenciaFaltanDatos.tipo}
+        RespuestaDeSweet={RespuestaDeAlerta}
+      />
     </div>
   );
 };

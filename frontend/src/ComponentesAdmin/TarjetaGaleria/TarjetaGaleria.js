@@ -16,6 +16,7 @@ import {
 import Alertas from '../Alertas/Alertas';
 import PlasmarImagen from '../PlasmarImagen/PlasmarImagen';
 import ModalLowa from '../ModalLowa/ModalLowa';
+import VideosAdmin from '../VideosAdmin/VideosAdmin';
 
 const TarjetaGaleria = ({galeria = {}}) => {
   const {isEliminarGaleria} = useSelector(state => state.storeGalerias);
@@ -73,16 +74,30 @@ const TarjetaGaleria = ({galeria = {}}) => {
         <p>{galeria.tituloGaleria}</p>
         <div className="CI-Cuerpo-TarjetaGaleria">
           <div className="imagenes-TarjetaGaleria">
-            {galeria.imagenesId.map((imagen, index) => {
-              return (
-                <ImagenAdmin
-                  key={index}
-                  noticiaImagen={imagen}
-                  isTarjetaGaleria={true}
-                  mostrarModalImagen={mostrarModalImagen}
-                ></ImagenAdmin>
-              );
-            })}
+            {galeria.imagenesId.length
+              ? galeria.imagenesId.map((imagen, index) => {
+                  return (
+                    <ImagenAdmin
+                      key={index}
+                      noticiaImagen={imagen}
+                      isTarjetaGaleria={true}
+                      mostrarModalImagen={mostrarModalImagen}
+                    ></ImagenAdmin>
+                  );
+                })
+              : galeria.videosId.length
+              ? galeria.videosId.map((videos, index) => {
+                  return (
+                    <ImagenAdmin
+                      key={index}
+                      isVideo={true}
+                      dataVideo={videos}
+                      isTarjetaGaleria={true}
+                      mostrarModalImagen={mostrarModalImagen}
+                    ></ImagenAdmin>
+                  );
+                })
+              : null}
           </div>
           <div className="acciones-TarjetaGaleria" onClick={() => mostrarAcciones()}>
             <HiDotsVertical />

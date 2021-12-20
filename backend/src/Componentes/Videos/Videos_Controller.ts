@@ -16,31 +16,19 @@ class VideosController {
 
   public async agregar(req: Request, res: Response) {
     try {
-      if (req.body.archivos.length) {
-        console.log(req.body);
-        let arregloDePath: Array<any> = [];
-        req.body.archivos.forEach((archivo: any) => {
-          let path: string = archivo.path.split('\\');
-          let pathFile: string = `${path[0]}/${path[1]}/${path[2]}`;
-          let imagen: IVideos = new modeloVideos({
+      if (req.body.videos.length) {
+        let videosAgregados: Array<any> = [];
+        req.body.videos.forEach(async (archivo: any) => {
+          const video: IVideos = new modeloVideos({
             ...archivo,
-            fuente: pathFile.replace('public', ''),
-            galeria: true,
-            descripcion: req.body.descripcion,
+            idGaleria: req.body.idGaleria,
           });
-          arregloDePath.push(imagen);
-          imagen.save();
+          videosAgregados.push(video);
+          await video.save();
         });
-        responder.sucess(req, res, arregloDePath);
+        responder.sucess(req, res);
       } else {
-        let path: string = req.body.archivos.path.split('\\');
-        let pathFile: string = `${path[0]}/${path[1]}/${path[2]}`;
-        const imagen: IVideos = new modeloVideos({
-          ...req.body,
-          fuente: pathFile.replace('public', ''),
-        });
-        await imagen.save();
-        responder.sucess(req, res, imagen);
+        responder.error(req, res, 'sin datos');
       }
     } catch (error) {
       responder.error(req, res, error);
@@ -127,6 +115,12 @@ class VideosController {
 
   public async obtenerGaleriaVideo(nombreGaleria: string) {
     return modeloVideos.find({galeriaVideo: nombreGaleria}).sort({fechaCarga: 'desc'}).limit(2);
+  }
+  public async obtenerVideosGaleriaPorId(galeriaId: string) {
+    return modeloVideos.find(
+      {$and: [{idGaleria: {$exists: true}}, {idGaleria: galeriaId}]},
+      {idGaleria: 0}
+    );
   }
 }
 export const videosController = new VideosController();
