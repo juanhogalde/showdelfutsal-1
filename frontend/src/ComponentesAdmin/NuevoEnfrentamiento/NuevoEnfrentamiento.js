@@ -1,5 +1,4 @@
 import React from 'react';
-import Marcador from '../../Componentes/Marcador/Marcador';
 import Enfrentamiento from '../Enfrentamiento/Enfrentamiento';
 import TarjetaEnfrentamiento from '../TarjetaEnfrentamiento/TarjetaEnfrentamiento';
 import './NuevoEnfrentamiento.css';

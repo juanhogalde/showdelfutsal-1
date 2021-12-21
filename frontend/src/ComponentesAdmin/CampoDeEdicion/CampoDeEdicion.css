@@ -1,0 +1,34 @@
+.CP-TextareaLowa-EditarCampo {
+  background-color: transparent;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+.componente-TextAreaLowa-EditarCampo {
+  width: 100%;
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid black;
+  resize: none;
+  outline: none;
+}
+.botonOk-CampoDeEdicion {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  border: 2px solid rgb(51, 255, 0);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
