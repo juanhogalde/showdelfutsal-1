@@ -1,0 +1,62 @@
+.CP-Enfrentamiento {
+  width: 100%;
+  height: 100%;
+  min-height: 45px;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  cursor: pointer;
+  box-shadow: 0px 3px 16px #00000014;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  background-color: white;
+}
+.CP-Enfrentamiento:hover {
+  box-shadow: 0px 3px 16px #00000055;
+}
+
+.CP-Enfrentamiento:hover .CI-Cabecera-Enfrentamiento p {
+  color: black;
+}
+.CI-Cabecera-Enfrentamiento {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+.CI-Cabecera-Enfrentamiento p {
+  color: #00000080;
+  font-weight: 400;
+  transition: all 0.3s ease-in-out;
+}
+.borde {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #00000025;
+}
+.iconoFlecha-Enfrentamiento {
+  width: 15px;
+  height: 15px;
+  transform: rotate(270deg);
+}
+.iconoFlecha-Enfrentamiento-Apertura {
+  width: 15px;
+  height: 15px;
+  transform: rotate(90deg);
+}
+
+.CI-Cuerpo-Enfrentamiento {
+  width: 100%;
+  height: 0;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+}
+.aperutra-Enfrentamiento {
+  height: 300px;
+}
+.I-Datos-Enfrentamiento {
+  padding: 20px;
+}
