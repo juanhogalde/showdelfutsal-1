@@ -3,7 +3,7 @@ import './InputDateLowa.css';
 import {FaRegCalendarAlt} from 'react-icons/fa';
 
 const InputDateLowa = props => {
-  const {type, placeholder, onChange, required, value, name, id} = props;
+  const {placeholder, onChange, required, value, name, id} = props;
 
   const [inputDateValue, setInputDateValue] = useState('');
 
@@ -24,7 +24,7 @@ const InputDateLowa = props => {
       <input
         id={id}
         name={name}
-        type={type}
+        type="date"
         onChange={onChange}
         value={value}
         required={required}
