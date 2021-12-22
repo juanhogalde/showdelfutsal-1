@@ -30,7 +30,15 @@ const CampoDeEdicion = props => {
         mensaje: 'No se aceptan valores negativos...',
       });
     } else {
-      return respuestaDeComponente(inputCampo.current.name, inputCampo.current.value, false);
+      if (inputCampo.current.value > 20) {
+        console.log('Campo inválido');
+        setValor({
+          isInvalido: true,
+          mensaje: 'Valor supera el límite...',
+        });
+      } else {
+        return respuestaDeComponente(inputCampo.current.name, inputCampo.current.value, false);
+      }
     }
   };
   const valoresPorDefectoAlertaCampoDeEdicion = respuesta => {
