@@ -15,6 +15,7 @@ import {
   volverPorDefectoPublicidad_accion,
 } from '../../Redux/Publicidades/AccionesPublicidades';
 import Selector from '../Selector/Selector';
+import compresor from '../../ModulosExternos/Compresor';
 
 const NuevaPublicidad = () => {
   const history = useHistory();
@@ -27,12 +28,80 @@ const NuevaPublicidad = () => {
     mensaje: '',
     tipo: '',
   });
+  const [alertaComprimir, setAlertaComprimir] = useState({
+    tipo: '',
+    mensaje: '',
+    isCargando: false,
+    isExito: false,
+    isError: false,
+  });
+  const [isErrorAlComprimir, setIsErrorAlComprimir] = useState(false);
   const [datosCargados, setdatosCargados] = useState({});
   const dispatch = useDispatch();
   const escucharCambios = (name, value) => {
-    setdatosCargados({...datosCargados, [name]: value});
-  };
+    if (name === 'imagen') {
+      if (value.length > 0) {
+        /* setCantidadDeArchivos(value.length + datosGaleria.imagenes.length); */
+        setAlertaComprimir({
+          tipo: 'cargando',
+          mensaje: 'Comprimiendo Imagen...',
+          isCargando: true,
+          isExito: false,
+          isError: false,
+        });
+        let aux = [];
+        Object.values(value).forEach(async img => {
+          const respuesta = compresor(img);
+          const resultado = await respuesta
+            .then(res => {
+              setAlertaComprimir({
+                tipo: 'success',
+                mensaje: 'Imagen comprimida con éxito.',
+                isCargando: false,
+                isExito: true,
+                isError: false,
+              });
+              return res;
+            })
+            .catch(error => {
+              console.log(error);
+              setAlertaComprimir({
+                tipo: 'error',
+                mensaje: 'No se logró comprimir la imagen.',
+                isCargando: false,
+                isExito: false,
+                isError: true,
+              });
+              setIsErrorAlComprimir(true);
+            });
 
+          aux = [...aux, resultado];
+
+          setdatosCargados({...datosCargados, imagen: aux});
+        });
+      }
+    } else {
+      setdatosCargados({...datosCargados, [name]: value});
+    }
+  };
+  const respuestaDeSweetAlComprimir = respuesta => {
+    if (respuesta) {
+      setAlertaComprimir({
+        tipo: '',
+        mensaje: '',
+        isCargando: false,
+        isExito: false,
+        isError: false,
+      });
+    }
+    if (isErrorAlComprimir) {
+      setdatosCargados({
+        ...datosCargados,
+        imagen: [],
+      });
+      setIsErrorAlComprimir(false);
+    }
+  };
   const GuardarNuevaPublicidad = () => {
     if (datosCargados.imagen && datosCargados.nombrePublicidad && medidasDePublicidad) {
       if (
@@ -121,6 +190,14 @@ const NuevaPublicidad = () => {
         tipoDeSweet={advertenciaCargadoDeDatos.tipo}
         RespuestaDeSweet={RespuestaDeAlerta}
       />
+      <Alertas
+        tipoDeSweet={alertaComprimir.tipo}
+        mostrarSweet={
+          alertaComprimir.isCargando || alertaComprimir.isExito || alertaComprimir.isError
+        }
+        subtitulo={alertaComprimir.mensaje}
+        RespuestaDeSweet={respuestaDeSweetAlComprimir}
+      ></Alertas>
     </div>
   );
 };
