@@ -52,7 +52,7 @@ const RutasPrivadas = () => {
 
           <Route exact component={PaginaGaleriaAdmin} path="/Galerías"></Route>
           <Route exact component={NuevaGaleria} path="/Galería/Nueva"></Route>
-          <Route exact component={NuevaGaleriaVideo} path="/Galería/Viedeo"></Route>
+          <Route exact component={NuevaGaleriaVideo} path="/Galería/Viedeo/:tipo"></Route>
           <Route exact component={EditarGaleria} path="/Galería/Editar/:id"></Route>
 
           <Route exact component={PaginaNoticiasAdmin} path="/Noticias"></Route>

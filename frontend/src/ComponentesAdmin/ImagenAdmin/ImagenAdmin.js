@@ -18,7 +18,7 @@ const ImagenAdmin = ({
     <div
       className="CP-Imagen-admin"
       tabIndex="1"
-      onFocus={() => mostrarModalImagen(true, noticiaImagen)}
+      onFocus={() => mostrarModalImagen(true, noticiaImagen, isVideo, dataVideo)}
     >
       <div className="CI-Imagen-admin">
         {isTarjetaGaleria ? (
@@ -29,12 +29,14 @@ const ImagenAdmin = ({
               className="Img-Admin"
             ></img>
           ) : (
-            <div>
+            <div className="CP-video-galeria-admin">
               <iframe
                 src={`https://www.youtube-nocookie.com/embed/${dataVideo.fuente}`}
-                title={dataVideo.tituloVideo}
+                width="230"
+                title={dataVideo.descripcion}
+                height="115"
+                className="Video-galeria-Admin"
               ></iframe>
-              <h5>{dataVideo.tituloVideo}</h5>
             </div>
           )
         ) : mostrarLogoCargando ? (

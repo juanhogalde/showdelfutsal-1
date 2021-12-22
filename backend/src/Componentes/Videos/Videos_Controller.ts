@@ -19,14 +19,18 @@ class VideosController {
       if (req.body.videos.length) {
         let videosAgregados: Array<any> = [];
         req.body.videos.forEach(async (archivo: any) => {
-          const video: IVideos = new modeloVideos({
-            ...archivo,
-            idGaleria: req.body.idGaleria,
-          });
-          videosAgregados.push(video);
-          await video.save();
+          if (!archivo._id) {
+            const video: IVideos = new modeloVideos({
+              ...archivo,
+              idGaleria: req.body.idGaleria,
+            });
+            videosAgregados.push(video);
+            await video.save();
+          } else {
+            videosAgregados.push(archivo);
+          }
         });
-        responder.sucess(req, res);
+        responder.sucess(req, res, videosAgregados);
       } else {
         responder.error(req, res, 'sin datos');
       }
@@ -102,8 +106,8 @@ class VideosController {
   public async eliminar(req: Request, res: Response) {
     try {
       let id = req.body.id;
-      const imagenEliminada = await modeloVideos.findOneAndDelete({_id: id}, {new: true});
-      responder.sucess(req, res, imagenEliminada);
+      const videoEliminado = await modeloVideos.findOneAndDelete({_id: id}, {new: true});
+      responder.sucess(req, res, videoEliminado);
     } catch (error) {
       responder.error(req, res, error);
     }

@@ -1,15 +1,27 @@
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {BsFillCameraReelsFill} from 'react-icons/bs';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
+import {useHistory} from 'react-router';
 import '../NuevaGaleriaVideo/NuevaGaleriaVideo.css';
 import {MdDeleteForever} from 'react-icons/md';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Alertas from '../Alertas/Alertas';
-import {guardarGaleriaVideo_accion} from '../../Redux/Galerias/AccionesGalerias';
+import {useParams} from 'react-router-dom';
+import {
+  editarGaleriaVideo_accion,
+  eliminarVideo_accion,
+  guardarGaleriaVideo_accion,
+  volverPorDefectoAgregarGaleria_accion,
+} from '../../Redux/Galerias/AccionesGalerias';
 const NuevaGaleriaVideo = () => {
+  const {tipo} = useParams();
   const [videosCargados, setVideosCargados] = useState([]);
+  const history = useHistory();
   const dispatch = useDispatch();
+  const {videoGaleriaEditar, isAgregarGaleria, isEditarGaleria} = useSelector(
+    state => state.storeGalerias
+  );
   const [datosGaleria, setDatosGaleria] = useState({});
   const escucharCambios = async (name, value) => {
     setDatosGaleria({...datosGaleria, [name]: value});
@@ -19,6 +31,15 @@ const NuevaGaleriaVideo = () => {
     mensaje: '',
     tipo: '',
   });
+  useLayoutEffect(() => {
+    if (videoGaleriaEditar.videosId) {
+      setDatosGaleria({...videoGaleriaEditar, _id: videoGaleriaEditar._id});
+      setVideosCargados(videoGaleriaEditar.videosId);
+    } else {
+      setVideosCargados([]);
+      setDatosGaleria({});
+    }
+  }, [videoGaleriaEditar]);
   const AgregarVideo = () => {
     if (datosGaleria.enlaceUrl && datosGaleria.descripcion) {
       setVideosCargados([
@@ -33,17 +54,35 @@ const NuevaGaleriaVideo = () => {
       });
     }
   };
-  const guardarGaleria = () => {
-    if (datosGaleria !== {}) {
+  const guardarGaleria = tipo => {
+    console.log(datosGaleria);
+    if (Object.values(datosGaleria).length) {
       var TresHoraMilisegundos = 1000 * 60 * 60 * 3;
       var fechaActual = new Date();
       var fechaMenosTresHoras = fechaActual.getTime() - TresHoraMilisegundos;
-      dispatch(
-        guardarGaleriaVideo_accion(
-          {...datosGaleria, fechaCarga: fechaMenosTresHoras},
-          videosCargados
-        )
-      );
+      if (tipo === 'editar') {
+        dispatch(
+          editarGaleriaVideo_accion(
+            {...datosGaleria, fechaModificacion: fechaMenosTresHoras},
+            videosCargados
+          )
+        );
+      } else {
+        if (videosCargados.length) {
+          dispatch(
+            guardarGaleriaVideo_accion(
+              {...datosGaleria, fechaCarga: fechaMenosTresHoras},
+              videosCargados
+            )
+          );
+        } else {
+          setAdvertenciaFaltanDatos({
+            mostrar: true,
+            mensaje: 'Faltan  agregar videos',
+            tipo: 'warning',
+          });
+        }
+      }
     } else {
       setAdvertenciaFaltanDatos({
         mostrar: true,
@@ -57,8 +96,17 @@ const NuevaGaleriaVideo = () => {
   };
   const eliminarVideoCargado = index => {
     var copiaVideos = videosCargados.slice();
-    let elementoEliminado = copiaVideos.splice(1, index);
-    setVideosCargados(elementoEliminado);
+    var videoAEliminar = videosCargados.find(video => video._id === videosCargados[index]._id);
+    console.log(videoAEliminar);
+    if (videoAEliminar._id) {
+      dispatch(eliminarVideo_accion(videoAEliminar));
+    }
+    copiaVideos.splice(index, 1);
+    setVideosCargados(copiaVideos);
+  };
+  const RespuestaDeAlertaVolverPorDefecto = () => {
+    dispatch(volverPorDefectoAgregarGaleria_accion());
+    history.push('/Galerías');
   };
   return (
     <div className="CP-AgregarVideos">
@@ -87,7 +135,10 @@ const NuevaGaleriaVideo = () => {
         ></BsFillCameraReelsFill>
         <h6>Agregar video</h6>
       </div>
-      <BotonLowa onClick={() => guardarGaleria()} tituloboton={'Guardar Galeria'} />
+      <BotonLowa
+        onClick={() => guardarGaleria(tipo)}
+        tituloboton={tipo === 'editar' ? 'Guardar Cambios' : 'Guardar Galeria'}
+      />
       {/* <InputLowa
           name="imagenes"
           type="file"
@@ -105,6 +156,8 @@ const NuevaGaleriaVideo = () => {
                     <iframe
                       src={`https://www.youtube-nocookie.com/embed/${videos.fuente}`}
                       title={videos.tituloVideo}
+                      width="260"
+                      height="200"
                     ></iframe>
                     <h5>{videos.tituloVideo}</h5>
                   </div>
@@ -125,6 +178,22 @@ const NuevaGaleriaVideo = () => {
         subtitulo={advertenciaFaltanDatos.mensaje}
         tipoDeSweet={advertenciaFaltanDatos.tipo}
         RespuestaDeSweet={RespuestaDeAlerta}
+      />
+      <Alertas
+        mostrarSweet={isAgregarGaleria.isCargando || isEditarGaleria.isCargando}
+        tipoDeSweet={isAgregarGaleria.tipo || isEditarGaleria.tipo}
+        subtitulo={isAgregarGaleria.mensaje || isEditarGaleria.mensaje}
+      />
+      <Alertas
+        mostrarSweet={
+          isAgregarGaleria.isExito ||
+          isAgregarGaleria.isError ||
+          isEditarGaleria.isExito ||
+          isEditarGaleria.isError
+        }
+        subtitulo={isAgregarGaleria.mensaje || isEditarGaleria.mensaje}
+        tipoDeSweet={isAgregarGaleria.tipo || isEditarGaleria.tipo}
+        RespuestaDeSweet={RespuestaDeAlertaVolverPorDefecto}
       />
     </div>
   );

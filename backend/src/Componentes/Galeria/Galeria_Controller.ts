@@ -65,6 +65,27 @@ class GaleriaController {
       responder.error(req, res, error);
     }
   }
+  public async editarGaleriaParaVideo(req: Request, res: Response) {
+    try {
+      const galeriaBody = req.body;
+      if (galeriaBody._id) {
+        modeloGaleria.findById(galeriaBody._id).then(async (galeria: any) => {
+          if (galeria) {
+            galeria.tituloGaleria = galeriaBody.tituloGaleria;
+            galeria.fechaModificacion = galeriaBody.fechaModificacion;
+            const resultado = await galeria.save({new: true});
+            responder.sucess(req, res, resultado);
+          } else {
+            responder.error(req, res, 'galeria no encontrada');
+          }
+        });
+      } else {
+        responder.error(req, res, 'faltan datos');
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
   public async agregar(req: Request, res: Response) {
     try {
       let datosARetornar = {tituloGaleria: '', _id: '', imagenesId: <any>[]};
