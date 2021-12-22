@@ -1,6 +1,7 @@
 .CP-TarjetaEnfrentamiento {
   width: 100%;
   height: 100%;
+  /* max-width: max-content; */
   min-height: 200px;
   max-height: 300px;
   box-shadow: 0px 3px 16px #00000014;
@@ -8,7 +9,7 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  padding: 10px;
+  padding: 5px;
   position: relative;
 }
 
@@ -41,6 +42,13 @@
   opacity: 1;
   transition: all 0.25s ease-in-out;
 }
+.iconoAcción-TarjetaEnfrentamiento {
+  font-size: 25px;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: #0000008f;
+  cursor: pointer;
+}
 .CP-TarjetaEnfrentamiento img {
   max-width: 60px;
   max-height: 60px;
@@ -49,6 +57,7 @@
   object-fit: contain;
 }
 .CI-Cuerpo-TarjetaEnfrentamiento {
+  margin-top: 10px;
   width: 100%;
   min-height: 100%;
   display: grid;
@@ -56,9 +65,18 @@
   grid-template-rows: repeat(3, 1fr);
   position: relative;
   z-index: -10;
+  background-color: #ecf1fa;
+  border-radius: 10px;
+  padding: 5px;
 }
 .habilitarEdicion {
   z-index: 0;
+  background-color: rgb(255, 255, 255);
+}
+.Zona-TarjetaEnfrentamiento {
+  background-color: #2a2ac0;
+  color: white;
+  padding-bottom: 2px;
 }
 .equipo-Local {
   grid-column: 1/2;
@@ -69,7 +87,11 @@
 .nombre-Equipo-Local {
   grid-column: 1/2;
   grid-row: 3/4;
-  padding: 20px;
+  padding: 10px;
+}
+.textoContenido {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .equipo-Visitante {
   grid-column: 3/4;
@@ -80,7 +102,7 @@
 .nombre-Equipo-Visitante {
   grid-column: 3/4;
   grid-row: 3/4;
-  padding: 20px;
+  padding: 10px;
 }
 .datos-Partido {
   grid-column: 2/3;
@@ -89,7 +111,28 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.comentarios {
+  /* max-width: 100px; */
+  max-height: 50px;
+  word-wrap: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .CI-Resultados {
   display: flex;
   justify-content: space-around;
+}
+@media screen and (max-width: 480px) {
+  .comentarios {
+    max-width: 99px;
+  }
+  .estadio-TarjetaEnfrentamiento {
+    max-height: 50px;
+    word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 99px;
+  }
 }

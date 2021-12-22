@@ -39,7 +39,7 @@ const Enfrentamiento = () => {
           <InputDateLowa type="date" placeholder="Fecha de Enfrentamiento"></InputDateLowa>
           <InputDateLowa type="time" placeholder="Hora de Enfrentamiento"></InputDateLowa>
 
-          <Selector></Selector>
+          <Selector placeholder="Seleccione Estadio"></Selector>
           <BotonLowa></BotonLowa>
         </div>
       </div>
