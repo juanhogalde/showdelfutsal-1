@@ -7,7 +7,13 @@ import {FiEdit3} from 'react-icons/fi';
 import {useRef} from 'react';
 import {useHistory} from 'react-router-dom';
 
-const TarjetaTorneo = ({isCampeonato = false, datos = ''}) => {
+const TarjetaTorneo = ({
+  isCampeonato = false,
+  datos = '',
+  redireccioarZona = () => {
+    console.log('');
+  },
+}) => {
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
   const historialDeNavegacion = useHistory();
@@ -28,6 +34,7 @@ const TarjetaTorneo = ({isCampeonato = false, datos = ''}) => {
       className={`${
         isCampeonato ? 'CP-TarjetaTorneo CP-TarjetaTorneo-Campeonato' : 'CP-TarjetaTorneo'
       }`}
+      onClick={redireccioarZona}
     >
       {!isCampeonato && (
         <div className="CI-Titulo-TarjetaTorneo">

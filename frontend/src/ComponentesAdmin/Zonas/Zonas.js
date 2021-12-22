@@ -5,6 +5,7 @@ import Selector from '../Selector/Selector';
 import TarjetaZona from '../TarjetaZona/TarjetaZona';
 import './Zonas.css';
 import {BsPlusCircle} from 'react-icons/bs';
+import {useHistory} from 'react-router-dom';
 
 const options = [
   {value: 'Eliminatoria', label: 'Eliminatoria'},
@@ -12,6 +13,8 @@ const options = [
   {value: 'Eliminatoria con Dif. Goles', label: 'Eliminatoria con Dif. Goles'},
 ];
 const Zonas = () => {
+  const history = useHistory();
+
   const [datosZona, setDatosZona] = useState('');
   const [tipo, setTipo] = useState('');
   const [arrayZonasCreadas, setArrayZonasCreadas] = useState('');
@@ -27,6 +30,10 @@ const Zonas = () => {
     auxDatosZona.tituloZona = datosZona.tituloZona;
     auxDatosZona.tipo = tipo.value;
     setArrayZonasCreadas([...arrayZonasCreadas, auxDatosZona]);
+  };
+  const redireccionarEnfrentamiento = () => {
+    console.log('redireccionar enfrentamiento');
+    history.push('/Torneo/Nuevo/Campeonato/Zonas/Enfrentamiento');
   };
   return (
     <div className="CP-Zonas">
@@ -50,7 +57,14 @@ const Zonas = () => {
 
             {arrayZonasCreadas.map((zona, index) => {
               console.log(zona);
-              return <TarjetaZona key={index} indice={index} datos={zona}></TarjetaZona>;
+              return (
+                <TarjetaZona
+                  redireccionarEnfrentamiento={redireccionarEnfrentamiento}
+                  key={index}
+                  indice={index}
+                  datos={zona}
+                ></TarjetaZona>
+              );
             })}
           </div>
         )}

@@ -1,11 +1,18 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
 import './Campeonato.css';
 
 const Campeonato = () => {
+  const history = useHistory();
+
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
 
+  const redireccioarZona = () => {
+    console.log('redireccioarZona');
+    history.push('/Torneo/Nuevo/Campeonato/Zonas');
+  };
   if (categorias.length > 0 && subcategorias.length > 0) {
     return (
       <div className="CP-Campeonato">
@@ -17,6 +24,7 @@ const Campeonato = () => {
                 datos={subcategoria.label}
                 key={index}
                 isCampeonato={true}
+                redireccioarZona={redireccioarZona}
               ></TarjetaTorneo>
             );
           })}
@@ -30,6 +38,7 @@ const Campeonato = () => {
                   datos={subcategoria.label}
                   key={index}
                   isCampeonato={true}
+                  redireccioarZona={redireccioarZona}
                 ></TarjetaTorneo>
               );
             } else return '';

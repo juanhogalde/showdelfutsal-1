@@ -1,9 +1,15 @@
 import React from 'react';
 import './TarjetaZona.css';
 
-const TarjetaZona = ({indice = '', datos = ''}) => {
+const TarjetaZona = ({
+  indice = '',
+  datos = '',
+  redireccionarEnfrentamiento = () => {
+    console.log('');
+  },
+}) => {
   return (
-    <div className="CP-TarjetaZona">
+    <div className="CP-TarjetaZona" onClick={redireccionarEnfrentamiento}>
       <div className="CI-Indice">
         <h3>{indice + 1}</h3>
       </div>

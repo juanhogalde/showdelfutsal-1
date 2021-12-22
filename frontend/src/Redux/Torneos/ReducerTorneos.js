@@ -19,6 +19,7 @@ import {
 
 const torneoPorDefecto = {
   torneos: [],
+  torneo: {},
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
   switch (accion.type) {
@@ -30,6 +31,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
     case agregarTorneoExito: {
       return {
         ...state,
+        torneos: [...state.torneos, ...accion.datos],
       };
     }
     case agregarTorneoError: {

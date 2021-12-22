@@ -7,6 +7,8 @@ import './NuevoTorneo.css';
 import {BsPlusCircle} from 'react-icons/bs';
 import {useHistory} from 'react-router';
 import Alertas from '../Alertas/Alertas';
+import {useDispatch, useSelector} from 'react-redux';
+import {agregarTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
 
 const Torneo = [
   {value: 'Campeonato', label: 'Campeonato'},
@@ -16,7 +18,7 @@ const Torneo = [
 
 const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
   const history = useHistory();
-
+  const dispatch = useDispatch();
   const [datosTorneo, setDatosTorneo] = useState({});
   const [alertaFechas, setAlertaFechas] = useState(false);
 
@@ -35,17 +37,15 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
   };
 
   const escucharSelector = (value, name) => {
-    console.log(name);
-    console.log(value);
-
     setDatosTorneo(datosTorneo => {
       return {...datosTorneo, torneo: value};
     });
   };
 
-  const siguientePantallaNuevoTorneo = pantalla => {
-    switch (pantalla) {
+  const siguientePantallaNuevoTorneo = datosTorneo => {
+    switch (datosTorneo.torneo) {
       case 'Campeonato':
+        dispatch(agregarTorneo_accion(datosTorneo));
         history.push('/Torneo/Nuevo/Campeonato');
         break;
 
@@ -61,7 +61,7 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
       alert('Fechas Inválidas- Fin menor a Inicio');
       setAlertaFechas(true);
     } else {
-      siguientePantallaNuevoTorneo(datosTorneo.torneo);
+      siguientePantallaNuevoTorneo(datosTorneo);
     }
   };
   const respuestaAlertaFechas = respuesta => {

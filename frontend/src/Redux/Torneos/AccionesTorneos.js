@@ -20,7 +20,7 @@ export const listarTorneoExito = 'listarTorneoExito';
 export const listarTorneoError = 'listarTorneoError';
 export const volverPorDefectoListarTorneo = 'volverPorDefectoListarTorneo';
 
-/****** AGREGAR GALERIA ******/
+/****** AGREGAR TORNEO ******/
 export const cargandoAgregarTorneo_accion = () => {
   return {
     type: cargandoAgregarTorneo,
@@ -48,6 +48,8 @@ export const volverPorDefectoAgregarTorneo_accion = () => {
 };
 
 export const agregarTorneo_accion = datosTorneo => {
+  console.log(datosTorneo);
+
   return dispatch => {
     dispatch(cargandoAgregarTorneo_accion());
     API({
@@ -58,6 +60,7 @@ export const agregarTorneo_accion = datosTorneo => {
       .then(res => {
         console.log({res});
         /* dispatch(agregarTorneoExito_accion(res.data.value)); */
+        dispatch(agregarTorneoExito_accion(datosTorneo));
       })
       .catch(error => {
         console.log({error});
@@ -66,7 +69,7 @@ export const agregarTorneo_accion = datosTorneo => {
   };
 };
 
-/****** EDITAR GALERIA ******/
+/****** EDITAR TORNEO ******/
 export const cargandoEditarTorneo_accion = () => {
   return {
     type: cargandoEditarTorneo,
@@ -112,7 +115,7 @@ export const editarTorneo_accion = datosTorneo => {
   };
 };
 
-/****** ELIMINAR GALERIA ******/
+/****** ELIMINAR TORNEO ******/
 export const cargandoEliminarTorneo_accion = () => {
   return {
     type: cargandoEliminarTorneo,
@@ -158,7 +161,7 @@ export const eliminarTorneo_accion = datosTorneo => {
   };
 };
 
-/****** LISTAR GALERIA ******/
+/****** LISTAR TORNEO ******/
 export const cargandoListarTorneo_accion = () => {
   return {
     type: cargandoListarTorneo,
