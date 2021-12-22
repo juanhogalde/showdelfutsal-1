@@ -742,3 +742,7 @@
     display: none;
   }
 }
+.tamañoPublicidadDerechaInicio {
+  width: 67%;
+  height: 100%;
+}

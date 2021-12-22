@@ -12,10 +12,12 @@ import {
   actualizarListaDeGalerias_accion,
   eliminarGaleria_accion,
   volverPorDefectoEliminarGaleria_accion,
+  cargarVideoGaleriaParaEditar_accion,
 } from '../../Redux/Galerias/AccionesGalerias';
 import Alertas from '../Alertas/Alertas';
 import PlasmarImagen from '../PlasmarImagen/PlasmarImagen';
 import ModalLowa from '../ModalLowa/ModalLowa';
+// import VideosAdmin from '../VideosAdmin/VideosAdmin';
 
 const TarjetaGaleria = ({galeria = {}}) => {
   const {isEliminarGaleria} = useSelector(state => state.storeGalerias);
@@ -33,8 +35,15 @@ const TarjetaGaleria = ({galeria = {}}) => {
   const ocultarAcciones = () => {
     setIsAcciones(false);
   };
-  const editarGaleria = id => {
-    historialDeNavegacion.push(`/Galería/Editar/${id}`);
+  const editarGaleria = galeria => {
+    if (galeria.imagenesId.length !== 0) {
+      historialDeNavegacion.push(`/Galería/Editar/${galeria._id}`);
+    } else {
+      if (galeria.videosId.length !== 0) {
+        dispatch(cargarVideoGaleriaParaEditar_accion(galeria));
+        historialDeNavegacion.push(`/Galería/Viedeo/${'editar'}`);
+      }
+    }
   };
   const consultaPorEliminarGaleria = id => {
     dispatch(consultaEliminarGaleria_accion(id));
@@ -57,11 +66,21 @@ const TarjetaGaleria = ({galeria = {}}) => {
   const eliminarGaleria = id => {
     dispatch(eliminarGaleria_accion(id));
   };
-  const mostrarModalImagen = (respuesta, imagen) => {
-    let auxDatosImg = {
-      isMostrar: respuesta,
-      datos: imagen,
-    };
+  const mostrarContenidoEnModal = (respuesta, imagen, isVideo, video) => {
+    var auxDatosImg = {};
+    if (isVideo) {
+      auxDatosImg = {
+        isMostrar: respuesta,
+        datos: video,
+        isVideo: isVideo,
+      };
+    } else {
+      auxDatosImg = {
+        isMostrar: respuesta,
+        datos: imagen,
+        isVideo: isVideo,
+      };
+    }
     setIsMostrarModal(auxDatosImg);
   };
   const cerrarModalImagen = () => {
@@ -73,16 +92,30 @@ const TarjetaGaleria = ({galeria = {}}) => {
         <p>{galeria.tituloGaleria}</p>
         <div className="CI-Cuerpo-TarjetaGaleria">
           <div className="imagenes-TarjetaGaleria">
-            {galeria.imagenesId.map((imagen, index) => {
-              return (
-                <ImagenAdmin
-                  key={index}
-                  noticiaImagen={imagen}
-                  isTarjetaGaleria={true}
-                  mostrarModalImagen={mostrarModalImagen}
-                ></ImagenAdmin>
-              );
-            })}
+            {galeria.imagenesId.length
+              ? galeria.imagenesId.map((imagen, index) => {
+                  return (
+                    <ImagenAdmin
+                      key={index}
+                      noticiaImagen={imagen}
+                      isTarjetaGaleria={true}
+                      mostrarModalImagen={mostrarContenidoEnModal}
+                    ></ImagenAdmin>
+                  );
+                })
+              : galeria.videosId.length
+              ? galeria.videosId.map((videos, index) => {
+                  return (
+                    <ImagenAdmin
+                      key={index}
+                      isVideo={true}
+                      dataVideo={videos}
+                      isTarjetaGaleria={true}
+                      mostrarModalImagen={mostrarContenidoEnModal}
+                    ></ImagenAdmin>
+                  );
+                })
+              : null}
           </div>
           <div className="acciones-TarjetaGaleria" onClick={() => mostrarAcciones()}>
             <HiDotsVertical />
@@ -100,7 +133,7 @@ const TarjetaGaleria = ({galeria = {}}) => {
           >
             <FiEdit3
               className="iconoAcción-ListaImagenes"
-              onClick={() => editarGaleria(galeria._id)}
+              onClick={() => editarGaleria(galeria)}
             ></FiEdit3>
             <MdDeleteForever
               onClick={() => consultaPorEliminarGaleria(galeria._id)}
@@ -125,7 +158,10 @@ const TarjetaGaleria = ({galeria = {}}) => {
         cerrarModalLowa={cerrarModalImagen}
         isPlasmarImagen={true}
       >
-        <PlasmarImagen datosImagen={isMostrarModal.datos}></PlasmarImagen>
+        <PlasmarImagen
+          datosImagen={isMostrarModal.datos}
+          isVideo={isMostrarModal.isVideo}
+        ></PlasmarImagen>
       </ModalLowa>
     </React.Fragment>
   );

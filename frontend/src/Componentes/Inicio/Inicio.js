@@ -234,7 +234,7 @@ const Inicio = () => {
             </div>
           </div>
           <div className="CI-Publicidad-Marcador">
-            <div>
+            <div className="tamañoPublicidadDerechaInicio">
               <img
                 alt=""
                 src={
@@ -246,7 +246,7 @@ const Inicio = () => {
                 }
               ></img>
             </div>
-            <div>
+            <div className="tamañoPublicidadDerechaInicio">
               <img
                 alt=""
                 src={

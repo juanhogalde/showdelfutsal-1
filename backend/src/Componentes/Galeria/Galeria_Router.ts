@@ -16,6 +16,9 @@ class GaleriasRouter {
     this.router.put('/modificar', galeriaController.modificar);
     this.router.delete('/eliminar', galeriaController.eliminar);
     this.router.post('/agregar', galeriaController.agregar);
+    this.router.post('/agregar/galeriaVideo', galeriaController.agregarGaleriaParaVideo);
+    this.router.put('/modificar/galeriaVideo', galeriaController.editarGaleriaParaVideo);
+    this.router.get('/listarGaleriaVideos', galeriaController.listarGaleriaVideos);
     // this.router.post('/comprimir', galeriaController.cargarImagenPrueba);
   }
 }

@@ -20,7 +20,24 @@ export const actualizarListaDeGalerias = 'actualizarListaDeGalerias';
 export const cargandoModificarGaleria = 'cargandoModificarGaleria';
 export const modificarGaleriaExito = 'modificarGaleriaExito';
 export const modificarGaleriaError = 'modificarGaleriaError';
+
+export const cargandoAgregarGaleriaVideo = 'cargandoAgregarGaleriaVideo';
+export const agregarGaleriaVideoExito = 'agregarGaleriaVideoExito';
+export const agregarGaleriaVideoError = 'agregarGaleriaVideoError';
+export const cargarVideoGaleriaParaEditar = 'cargarVideoGaleriaParaEditar';
+export const cargandoEditarGaleriaVideo = 'cargandoEditarGaleriaVideo';
+export const editarGaleriaVideoExito = 'editarGaleriaVideoExito';
+export const editarGaleriaVideoError = 'editarGaleriaVideoError';
+export const eliminarVideoExito = 'eliminarVideoExito';
+export const eliminarVideoError = 'eliminarVideoError';
 /****** AGREGAR GALERIA ******/
+export const cargarVideoGaleriaParaEditar_accion = galeriaVideo => {
+  return {
+    type: cargarVideoGaleriaParaEditar,
+    datos: galeriaVideo,
+  };
+};
+
 export const cargandoAgregarGaleria_accion = () => {
   return {
     type: cargandoAgregarGaleria,
@@ -219,6 +236,155 @@ export const modificarGaleria_accion = datosGaleria => {
       .catch(error => {
         console.log({error});
         dispatch(modificarGaleriaError_accion());
+      });
+  };
+};
+
+/****** AGREGAR GALERIA VIDEO ******/
+export const cargandoAgregarGaleriaVideo_accion = (mensaje = 'Cargando') => {
+  return {
+    type: cargandoAgregarGaleriaVideo,
+    mensaje: mensaje,
+  };
+};
+
+export const agregarGaleriaVideoExito_accion = datos => {
+  return {
+    type: agregarGaleriaVideoExito,
+    datos: datos,
+  };
+};
+
+export const agregarGaleriaVideoError_accion = error => {
+  return {
+    type: agregarGaleriaVideoError,
+    error: error,
+  };
+};
+export const guardarGaleriaVideo_accion = (datosGaleria, videosCargados) => {
+  return dispatch => {
+    dispatch(cargandoAgregarGaleriaVideo_accion('agregando galeria de video'));
+    API({
+      url: '/galeria/agregar/galeriaVideo',
+      method: 'post',
+      data: {tituloGaleria: datosGaleria.tituloGaleria, fechaCarga: datosGaleria.fechaCarga},
+    })
+      .then(res => {
+        console.log({res});
+        var respuestaAgregarGaleria = res.data.value;
+        API({
+          url: '/videos/agregar',
+          method: 'post',
+          data: {videos: videosCargados, idGaleria: res.data.value._id},
+        })
+          .then(res => {
+            console.log({res});
+            dispatch(
+              agregarGaleriaVideoExito_accion({
+                videos: res.data.value,
+                galeria: respuestaAgregarGaleria,
+              })
+            );
+          })
+          .catch(error => {
+            console.log({error});
+            dispatch(agregarGaleriaVideoError_accion(error));
+          });
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(agregarGaleriaVideoError_accion(error));
+      });
+  };
+};
+
+/****** EDITAR GALERIA VIDEO ******/
+export const cargandoEditarGaleriaVideo_accion = (mensaje = 'Cargando') => {
+  return {
+    type: cargandoEditarGaleriaVideo,
+    mensaje: mensaje,
+  };
+};
+
+export const editarGaleriaVideoExito_accion = datos => {
+  return {
+    type: editarGaleriaVideoExito,
+    datos: datos,
+  };
+};
+
+export const editarGaleriaVideoError_accion = error => {
+  return {
+    type: editarGaleriaVideoError,
+    error: error,
+  };
+};
+export const editarGaleriaVideo_accion = (datosGaleria, videosCargados) => {
+  return dispatch => {
+    dispatch(cargandoEditarGaleriaVideo_accion('agregando galeria de video'));
+    API({
+      url: '/galeria/modificar/galeriaVideo',
+      method: 'put',
+      data: {
+        _id: datosGaleria._id,
+        tituloGaleria: datosGaleria.tituloGaleria,
+        fechaModificacion: datosGaleria.fechaModificacion,
+      },
+    })
+      .then(res => {
+        var respuestaEditarGaleria = res.data.value;
+        API({
+          url: '/videos/agregar',
+          method: 'post',
+          data: {videos: videosCargados, idGaleria: res.data.value._id},
+        })
+          .then(res => {
+            dispatch(
+              editarGaleriaVideoExito_accion({
+                videos: res.data.value,
+                galeria: respuestaEditarGaleria,
+              })
+            );
+          })
+          .catch(error => {
+            console.log({error});
+            dispatch(editarGaleriaVideoError_accion(error));
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+
+export const eliminarVideoExito_accion = data => {
+  return {
+    type: eliminarVideoExito,
+    video: data,
+  };
+};
+
+export const eliminarVideoError_accion = error => {
+  return {
+    type: eliminarVideoError,
+    error: error,
+  };
+};
+export const eliminarVideo_accion = video => {
+  return dispatch => {
+    dispatch(cargandoEditarGaleriaVideo_accion('eliminando video'));
+    API({
+      url: '/videos/eliminar',
+      method: 'delete',
+      data: {
+        id: video._id,
+      },
+    })
+      .then(res => {
+        dispatch(eliminarVideoExito_accion(res.data.value));
+      })
+      .catch(error => {
+        dispatch(eliminarVideoError_accion(error));
       });
   };
 };
