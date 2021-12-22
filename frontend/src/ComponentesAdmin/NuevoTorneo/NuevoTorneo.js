@@ -7,7 +7,7 @@ import './NuevoTorneo.css';
 import {BsPlusCircle} from 'react-icons/bs';
 import {useHistory} from 'react-router';
 import Alertas from '../Alertas/Alertas';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {agregarTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
 
 const Torneo = [

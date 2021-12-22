@@ -1,5 +1,4 @@
 const FormatearFecha = (dato, formato, idiomaRegion = 'es-AR') => {
-  console.log(dato);
   if (dato) {
     const options = {
       hour12: false,
