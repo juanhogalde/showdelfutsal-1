@@ -32,7 +32,8 @@ const Inicio = () => {
   const {isMostrarModalPublicidad} = useSelector(state => state.sotreDatosIniciales);
   const {publicidades} = useSelector(state => state.storePublicidades);
 
-  const {imagenes} = useSelector(state => state.storeImagenes);
+  const {galerias} = useSelector(state => state.storeGalerias);
+
   // const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   const [noticiaP, setNoticiaP] = useState({});
   const [noticia1, setNoticia1] = useState({});
@@ -99,17 +100,20 @@ const Inicio = () => {
     if (noticiasFiltradas[2]) {
       setNoticia2(noticiasFiltradas[2]);
     }
-    var auxGaleria1 = imagenes.filter(imagen => imagen.descripcion === 'La Gloria Campeón 2021');
-    var auxGaleria2 = imagenes.filter(imagen => imagen.descripcion === 'Argentina vs Brasil');
-    var auxGaleria3 = imagenes.filter(
-      imagen => imagen.descripcion === 'Finales Femenino - Apertura 2021'
-    );
-    setGaleria({
-      galeria1: [...auxGaleria1],
-      galeria2: [...auxGaleria2],
-      galeria3: [...auxGaleria3],
+
+    var auxGaleriasImagenes = galerias.map((galeria, index) => {
+      if (Object.keys(galeria).length > 0) {
+        return galeria;
+      } else return '';
     });
-  }, [setNoticiaP, setNoticia1, setNoticia2, noticias, setGaleria, imagenes, publicidades]);
+    var ultimoIndice = auxGaleriasImagenes.length;
+
+    setGaleria({
+      galeria1: auxGaleriasImagenes[ultimoIndice - 3],
+      galeria2: auxGaleriasImagenes[ultimoIndice - 2],
+      galeria3: auxGaleriasImagenes[ultimoIndice - 1],
+    });
+  }, [setNoticiaP, setNoticia1, setNoticia2, noticias, setGaleria, galerias, publicidades]);
 
   /* const {DatosDePruebaImagenes, DatosDePruebaImagenes2, DatosDePruebaImagenes3} = useSelector(
     state => state.storePrueba
@@ -320,17 +324,20 @@ const Inicio = () => {
             <h1 className="titulo-Galeria">GALERÍA</h1>
             <div className="galeria-Imagenes-A">
               <ImagenesVideo
-                DatosDeEntrada={galeria.galeria2}
+                descripcion={galeria.galeria2.tituloGaleria}
+                DatosDeEntrada={galeria.galeria2.imagenesId}
                 tipoDeSliderFlecha={false}
               ></ImagenesVideo>
             </div>
             <div className="galeria-Imagenes-B">
               <ImagenesVideo
-                DatosDeEntrada={galeria.galeria1}
+                descripcion={galeria.galeria1.tituloGaleria}
+                DatosDeEntrada={galeria.galeria1.imagenesId}
                 tipoDeSliderFlecha={false}
               ></ImagenesVideo>
               <ImagenesVideo
-                DatosDeEntrada={galeria.galeria3}
+                descripcion={galeria.galeria3.tituloGaleria}
+                DatosDeEntrada={galeria.galeria3.imagenesId}
                 tipoDeSliderFlecha={false}
               ></ImagenesVideo>
             </div>

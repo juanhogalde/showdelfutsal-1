@@ -9,6 +9,7 @@ const ImagenesVideo = ({
   sinDescripcion = false,
   isConBorder = false,
   isDatosStatic = false,
+  descripcion = '',
 }) => {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   const isMobileIPhone = userAgent.indexOf('iPhone'); // para detectar si se esta desde un android o iphone
@@ -195,7 +196,7 @@ const ImagenesVideo = ({
           )}
           {!tipoVideo && (
             <div className="decripcion-imagenesVideo">
-              <h4>{tipoVideo ? siguientedataActual.descripcion : DatosDeEntrada[0].descripcion}</h4>
+              <h4>{descripcion}</h4>
             </div>
           )}
         </div>
