@@ -235,7 +235,7 @@ const ImagenesVideo = ({
       )}
     </div>
   ) : (
-    <p>Sin Datos</p>
+    ''
   );
 };
 export default ImagenesVideo;
