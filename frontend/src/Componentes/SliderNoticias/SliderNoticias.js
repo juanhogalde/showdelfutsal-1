@@ -3,10 +3,12 @@ import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import './SliderNoticias.css';
 import {AiFillCaretLeft} from 'react-icons/ai';
 import {AiFillCaretRight} from 'react-icons/ai';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
+import {Link} from 'react-router-dom';
 
 function SampleNextArrow(props) {
   const {onClick} = props;
@@ -28,9 +30,13 @@ function SamplePrevArrow(props) {
 export const SliderNoticias = ({
   cantidadDeElementos = 4,
   isVertical = false,
+  enfocarNoticia = () => {
+    console.log('');
+  },
   isConCopete = false,
   categoriaNoticias = -1,
 }) => {
+  const dispatch = useDispatch();
   const {noticias} = useSelector(state => state.storeNoticias);
   const [noticiaAmostrar, setNoticiaAmostrar] = useState([]);
   /* const noticia = useSelector(state => state.storePrueba.noticias3); */
@@ -80,20 +86,31 @@ export const SliderNoticias = ({
       },
     ],
   };
-
+  const noticiaSeleccionada = noticiaRecibida => {
+    dispatch(guardarNoticiaMiniaturaSeleccionada_accion(noticiaRecibida));
+    enfocarNoticia();
+  };
   return (
     <div className="containerSlider">
       <Slider {...settings}>
         {noticiaAmostrar.map((noticia, index) => {
           return (
             <div key={index}>
-              <NoticiasMiniatura
-                isConCopete={isConCopete}
-                isParaSlider={true}
-                datosModelado={noticia}
-                isSeccionNoticias={isConCopete}
-                /* isSobreImagen={isConCopete} */
-              ></NoticiasMiniatura>
+              <Link
+                to="/Noticia/Desarrollada"
+                onClick={() => {
+                  noticiaSeleccionada(noticia);
+                }}
+                className="estilos-Link"
+              >
+                <NoticiasMiniatura
+                  isConCopete={isConCopete}
+                  isParaSlider={true}
+                  datosModelado={noticia}
+                  isSeccionNoticias={isConCopete}
+                  /* isSobreImagen={isConCopete} */
+                ></NoticiasMiniatura>
+              </Link>
             </div>
           );
         })}

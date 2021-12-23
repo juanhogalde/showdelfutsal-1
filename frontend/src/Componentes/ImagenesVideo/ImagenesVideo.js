@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import '../ImagenesVideo/ImagenesVideo.css';
 import {urlImagenes} from '../../urlImagenes';
 import {AiFillCaretLeft, AiFillCaretRight, AiFillCaretDown, AiFillCaretUp} from 'react-icons/ai';
@@ -26,12 +26,16 @@ const ImagenesVideo = ({
           flechaAbajo: true,
         }
   );
-  const [dataActual, setDataActual] = useState(
-    DatosDeEntrada.length !== 0 ? DatosDeEntrada[0] : {}
-  );
-  const [siguientedataActual, setSiguientedataActual] = useState(
-    DatosDeEntrada.length !== 0 && DatosDeEntrada.length > 1 ? DatosDeEntrada[1] : {}
-  );
+  const [dataActual, setDataActual] = useState({});
+  const [siguientedataActual, setSiguientedataActual] = useState({});
+  useLayoutEffect(() => {
+    if (DatosDeEntrada.length) {
+      setDataActual(DatosDeEntrada[0]);
+      if (DatosDeEntrada.length > 1) {
+        setSiguientedataActual(DatosDeEntrada[1]);
+      }
+    }
+  }, [setDataActual, DatosDeEntrada, setSiguientedataActual]);
 
   const cambioDeImagen = index => {
     setDataActual(DatosDeEntrada[index]);

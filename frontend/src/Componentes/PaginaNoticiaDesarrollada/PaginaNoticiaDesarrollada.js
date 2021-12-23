@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './PaginaNoticiaDesarrollada.css';
 import NoticiaDesarrollada from '../NoticiaDesarrollada/NoticiaDesarrollada';
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
@@ -13,8 +13,19 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
   const isMobileIPhone = userAgent.indexOf('iPhone');
   const isMobileAndroid = userAgent.indexOf('Android');
   const {noticiaSeleccionada} = useSelector(state => state.storeNoticias);
+  useEffect(() => {
+    const elemento = document.getElementById('noticiaDesarrollada');
+    elemento.scrollIntoView();
+  }, []);
+  const enfocarNoticia = () => {
+    const elementoEnfocar = document.getElementById('noticiaDesarrollada');
+    elementoEnfocar.scrollIntoView();
+  };
   return (
-    <div className="LI-ND-Noticia-Desarrollada Fondo-seccion-noticia-desarrollada">
+    <div
+      id="noticiaDesarrollada"
+      className="LI-ND-Noticia-Desarrollada Fondo-seccion-noticia-desarrollada"
+    >
       <Animaciones isAlineado={true} orientacion={'derecha'} />
       <div className="CP-ND-Noticias">
         <div className="CI-ND-Noticia-general">
@@ -30,15 +41,17 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
             {isMobileAndroid !== -1 || isMobileIPhone !== -1 ? (
               <SliderNoticias
                 cantidadDeElementos={6}
-                isVertical={false}
+                isVertical={true}
+                enfocarNoticia={enfocarNoticia}
                 categoriaNoticias={
                   noticiaSeleccionada.keyCategoria ? noticiaSeleccionada.keyCategoria : -1
                 }
               />
             ) : (
               <SliderNoticias
-                cantidadDeElementos={3}
+                cantidadDeElementos={1}
                 isVertical={true}
+                enfocarNoticia={enfocarNoticia}
                 categoriaNoticias={
                   noticiaSeleccionada.keyCategoria ? noticiaSeleccionada.keyCategoria : -1
                 }
