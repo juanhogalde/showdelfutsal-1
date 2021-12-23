@@ -320,7 +320,7 @@ const Inicio = () => {
       </div>
 
       {/* SECCION GALERIA */}
-      {/* <div className="LI-Inicio seccion-galeria margenes-Galeria">
+      <div className="LI-Inicio seccion-galeria margenes-Galeria">
         <div className="CP-Galeria">
           <div className="CI-Galeria-Imagenes">
             <h1 className="titulo-Galeria">GALERÍA</h1>
@@ -352,7 +352,7 @@ const Inicio = () => {
             ></ImagenesVideo>
           </div>
         </div>
-      </div> */}
+      </div>
       <PieDepagina isConFondo={true}></PieDepagina>
       <ModalLowa
         isMostrar={isMostrarModalPublicidad}
