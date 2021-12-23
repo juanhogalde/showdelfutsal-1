@@ -41,7 +41,7 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
       publicidadCuardadaDerecha: publicidadCuardadaDerecha,
       publicidadHorizontalInferior: publicidadHorizontalInferior,
     });
-  }, []);
+  }, [publicidades]);
   const enfocarNoticia = () => {
     const elementoEnfocar = document.getElementById('noticiaDesarrollada');
     elementoEnfocar.scrollIntoView();
