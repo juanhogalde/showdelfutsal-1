@@ -104,14 +104,14 @@ const Inicio = () => {
     var auxGaleriasImagenes = galerias.map((galeria, index) => {
       if (Object.keys(galeria).length > 0) {
         return galeria;
-      } else return '';
+      } else return {};
     });
     var ultimoIndice = auxGaleriasImagenes.length;
 
     setGaleria({
-      galeria1: auxGaleriasImagenes[ultimoIndice - 3],
-      galeria2: auxGaleriasImagenes[ultimoIndice - 2],
-      galeria3: auxGaleriasImagenes[ultimoIndice - 1],
+      galeria1: auxGaleriasImagenes[ultimoIndice - 3] ? auxGaleriasImagenes[ultimoIndice - 3] : {},
+      galeria2: auxGaleriasImagenes[ultimoIndice - 2] ? auxGaleriasImagenes[ultimoIndice - 2] : {},
+      galeria3: auxGaleriasImagenes[ultimoIndice - 1] ? auxGaleriasImagenes[ultimoIndice - 1] : {},
     });
   }, [setNoticiaP, setNoticia1, setNoticia2, noticias, setGaleria, galerias, publicidades]);
 
@@ -172,6 +172,8 @@ const Inicio = () => {
   const redireccionar = url => {
     window.open(url);
   };
+
+  console.log(galerias);
   return (
     <div className="LP-Inicio">
       <div className="LI-Inicio Margen-inicio seccion-somos">
