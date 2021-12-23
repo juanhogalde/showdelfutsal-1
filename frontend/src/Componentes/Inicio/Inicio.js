@@ -101,7 +101,7 @@ const Inicio = () => {
       setNoticia2(noticiasFiltradas[2]);
     }
 
-    var auxGaleriasImagenes = galerias.map((galeria, index) => {
+    var auxGaleriasImagenes = galerias.map(galeria => {
       if (Object.keys(galeria).length > 0) {
         return galeria;
       } else return '';
@@ -318,26 +318,26 @@ const Inicio = () => {
       </div>
 
       {/* SECCION GALERIA */}
-      <div className="LI-Inicio seccion-galeria margenes-Galeria">
+      {/* <div className="LI-Inicio seccion-galeria margenes-Galeria">
         <div className="CP-Galeria">
           <div className="CI-Galeria-Imagenes">
             <h1 className="titulo-Galeria">GALERÍA</h1>
             <div className="galeria-Imagenes-A">
               <ImagenesVideo
-                descripcion={galeria.galeria2.tituloGaleria}
-                DatosDeEntrada={galeria.galeria2.imagenesId}
+                descripcion={galeria.galeria2.tituloGaleria ? galeria.galeria2.tituloGaleria : ''}
+                DatosDeEntrada={galeria.galeria2.imagenesId ? galeria.galeria2.imagenesId : []}
                 tipoDeSliderFlecha={false}
               ></ImagenesVideo>
             </div>
             <div className="galeria-Imagenes-B">
               <ImagenesVideo
-                descripcion={galeria.galeria1.tituloGaleria}
-                DatosDeEntrada={galeria.galeria1.imagenesId}
+                descripcion={galeria.galeria1.tituloGaleria ? galeria.galeria1.tituloGaleria : ''}
+                DatosDeEntrada={galeria.galeria1.imagenesId ? galeria.galeria1.imagenesId : []}
                 tipoDeSliderFlecha={false}
               ></ImagenesVideo>
               <ImagenesVideo
-                descripcion={galeria.galeria3.tituloGaleria}
-                DatosDeEntrada={galeria.galeria3.imagenesId}
+                descripcion={galeria.galeria3.tituloGaleria ? galeria.galeria3.tituloGaleria : ''}
+                DatosDeEntrada={galeria.galeria3.imagenesId ? galeria.galeria3.imagenesId : []}
                 tipoDeSliderFlecha={false}
               ></ImagenesVideo>
             </div>
@@ -350,7 +350,7 @@ const Inicio = () => {
             ></ImagenesVideo>
           </div>
         </div>
-      </div>
+      </div> */}
       <PieDepagina isConFondo={true}></PieDepagina>
       <ModalLowa
         isMostrar={isMostrarModalPublicidad}
