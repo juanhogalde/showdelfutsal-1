@@ -196,7 +196,7 @@ const ImagenesVideo = ({
           )}
           {!tipoVideo && (
             <div className="decripcion-imagenesVideo">
-              <h4>{descripcion}</h4>
+              <h4>{descripcion ? descripcion : ''}</h4>
             </div>
           )}
         </div>
