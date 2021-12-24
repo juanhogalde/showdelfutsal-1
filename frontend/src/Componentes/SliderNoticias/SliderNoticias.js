@@ -35,6 +35,7 @@ export const SliderNoticias = ({
   },
   isConCopete = false,
   categoriaNoticias = -1,
+  subcategoriaNoticia = -1,
 }) => {
   const dispatch = useDispatch();
   const {noticias} = useSelector(state => state.storeNoticias);
@@ -42,14 +43,21 @@ export const SliderNoticias = ({
   /* const noticia = useSelector(state => state.storePrueba.noticias3); */
   useLayoutEffect(() => {
     if (categoriaNoticias !== -1) {
-      var noticiasFiltradas = noticias.filter(
-        noticia => noticia.keyCategoria === categoriaNoticias
-      );
+      var noticiasFiltradas = [];
+      if (subcategoriaNoticia !== -1) {
+        noticiasFiltradas = noticias.filter(
+          noticia =>
+            noticia.keyCategoria === categoriaNoticias &&
+            noticia.keySubcategoria === parseInt(subcategoriaNoticia)
+        );
+      } else {
+        noticiasFiltradas = noticias.filter(noticia => noticia.keyCategoria === categoriaNoticias);
+      }
       setNoticiaAmostrar(noticiasFiltradas);
     } else {
       setNoticiaAmostrar(noticias);
     }
-  }, [setNoticiaAmostrar, noticias, categoriaNoticias]);
+  }, [setNoticiaAmostrar, noticias, categoriaNoticias, subcategoriaNoticia]);
   var settings = {
     adaptiveHeight: true,
     speed: 1000,

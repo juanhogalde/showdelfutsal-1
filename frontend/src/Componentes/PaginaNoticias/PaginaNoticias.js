@@ -75,6 +75,7 @@ const PaginaNoticias = ({
           tituloSeccionNoticias="Masculino"
           noticias={noticiaMasculino}
           categoriaNoticia={1}
+          subcategoriaNoticia={-1}
         />
       </div>
       <div className=" LI-Seccion-Noticias ">
@@ -82,6 +83,7 @@ const PaginaNoticias = ({
           tituloSeccionNoticias="Femenino"
           noticias={noticiaFemenino}
           categoriaNoticia={2}
+          subcategoriaNoticia={-1}
         />
       </div>
       {/* SECCION NOTICIAS FEMENINO /> */}

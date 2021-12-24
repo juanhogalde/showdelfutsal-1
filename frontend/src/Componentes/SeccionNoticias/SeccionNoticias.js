@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import './SeccionNoticias.css';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import './SeccionNoticias.css';
@@ -6,15 +6,42 @@ import './SeccionNoticias.css';
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 import {Link} from 'react-router-dom';
 import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 const SeccionNoticias = ({
   tituloSeccionNoticias = 'Título',
   isTitulo = true,
-  noticias = {},
   categoriaNoticia = 1,
+  subcategoriaNoticia = 1,
 }) => {
   const dispatch = useDispatch();
+  const {noticias} = useSelector(state => state.storeNoticias);
+  const [noticiaVisualizada, setNoticiaVisualizada] = useState({});
+  useLayoutEffect(() => {
+    var noticiasAMostrar = {};
+    var noticiasFiltradasFinal = [];
+    var noticiasFiltradasCategoria = noticias.filter(
+      noticia => noticia.keyCategoria === categoriaNoticia
+    );
+    if (subcategoriaNoticia !== -1) {
+      noticiasFiltradasFinal = noticiasFiltradasCategoria.filter(
+        noticia => noticia.keySubcategoria === parseInt(subcategoriaNoticia)
+      );
+    } else {
+      noticiasFiltradasFinal = [...noticiasFiltradasCategoria];
+    }
+    // Masculino
+    if (noticiasFiltradasFinal[0]) {
+      noticiasAMostrar = {...noticiasAMostrar, noticia1: noticiasFiltradasFinal[0]};
+    }
+    if (noticiasFiltradasFinal[1]) {
+      noticiasAMostrar = {...noticiasAMostrar, noticia2: noticiasFiltradasFinal[1]};
+    }
+    if (noticiasFiltradasFinal[2]) {
+      noticiasAMostrar = {...noticiasAMostrar, noticia3: noticiasFiltradasFinal[2]};
+    }
+    setNoticiaVisualizada(noticiasAMostrar);
+  }, [noticias, setNoticiaVisualizada, categoriaNoticia, subcategoriaNoticia]);
   const noticiaSeleccionada = noticiaRecibida => {
     dispatch(guardarNoticiaMiniaturaSeleccionada_accion(noticiaRecibida));
   };
@@ -36,16 +63,16 @@ const SeccionNoticias = ({
 
       <div className="CI-SN-Noticia-general">
         <div className="I-Noticia-Componente">
-          {noticias.noticia1 ? (
+          {noticiaVisualizada.noticia1 ? (
             <Link
               to="/Noticia/Desarrollada"
               onClick={() => {
-                noticiaSeleccionada(noticias.noticia1 ? noticias.noticia1 : {});
+                noticiaSeleccionada(noticiaVisualizada.noticia1 ? noticiaVisualizada.noticia1 : {});
               }}
               className="estilos-Link"
             >
               <NoticiasMiniatura
-                datosModelado={noticias.noticia1 ? noticias.noticia1 : {}}
+                datosModelado={noticiaVisualizada.noticia1 ? noticiaVisualizada.noticia1 : {}}
                 isSeccionNoticias={true}
                 isSobreImagen={true}
               ></NoticiasMiniatura>
@@ -55,31 +82,31 @@ const SeccionNoticias = ({
       </div>
       <div className="CI-SN-Noticia-miniatura">
         <div className="I-Noticia-Componente-miniatura">
-          {noticias.noticia2 ? (
+          {noticiaVisualizada.noticia2 ? (
             <Link
               to="/Noticia/Desarrollada"
               onClick={() => {
-                noticiaSeleccionada(noticias.noticia2 ? noticias.noticia2 : {});
+                noticiaSeleccionada(noticiaVisualizada.noticia2 ? noticiaVisualizada.noticia2 : {});
               }}
               className="estilos-Link"
             >
               <NoticiasMiniatura
-                datosModelado={noticias.noticia2 ? noticias.noticia2 : {}}
+                datosModelado={noticiaVisualizada.noticia2 ? noticiaVisualizada.noticia2 : {}}
                 isSeccionNoticias={true}
                 isSobreImagen={true}
               ></NoticiasMiniatura>
             </Link>
           ) : null}
-          {noticias.noticia3 ? (
+          {noticiaVisualizada.noticia3 ? (
             <Link
               to="/Noticia/Desarrollada"
               onClick={() => {
-                noticiaSeleccionada(noticias.noticia3 ? noticias.noticia3 : {});
+                noticiaSeleccionada(noticiaVisualizada.noticia3 ? noticiaVisualizada.noticia3 : {});
               }}
               className="estilos-Link"
             >
               <NoticiasMiniatura
-                datosModelado={noticias.noticia3 ? noticias.noticia3 : {}}
+                datosModelado={noticiaVisualizada.noticia3 ? noticiaVisualizada.noticia3 : {}}
                 isSeccionNoticias={true}
                 isSobreImagen={true}
               ></NoticiasMiniatura>
@@ -90,7 +117,10 @@ const SeccionNoticias = ({
         </div>
       </div>
       <div className="CI-SN-Noticia-slider">
-        <SliderNoticias categoriaNoticias={categoriaNoticia}></SliderNoticias>
+        <SliderNoticias
+          categoriaNoticias={categoriaNoticia}
+          subcategoriaNoticia={subcategoriaNoticia}
+        ></SliderNoticias>
       </div>
     </div>
   );

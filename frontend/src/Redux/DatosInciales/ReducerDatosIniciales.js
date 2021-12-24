@@ -3,6 +3,7 @@ import {
   cargaDatosInicialesExito,
   cargaDatosInicialesError,
   controlModalPublicidad,
+  gurdarCategoriaSeleccionada,
 } from './AccionesDatosIniciales';
 import {actualizarDisponibilidadMedidasPublicidad} from '../Publicidades/AccionesPublicidades';
 const datosInicialesPorDefecto = {
@@ -26,6 +27,7 @@ const datosInicialesPorDefecto = {
   subcategorias: [],
   medidasPublicidad: [],
   isMostrarModalPublicidad: true,
+  categoriaSeleccionada: null,
 };
 const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
   switch (accion.type) {
@@ -33,6 +35,12 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
       return {
         ...state,
         isDatosIniciales: {isMostrar: true, tipo: 'cargando', mensaje: 'cargando'},
+      };
+    }
+    case gurdarCategoriaSeleccionada: {
+      return {
+        ...state,
+        categoriaSeleccionada: accion.categoria,
       };
     }
     case cargaDatosInicialesExito: {
