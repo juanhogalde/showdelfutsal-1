@@ -10,6 +10,7 @@ const ImagenesVideo = ({
   isConBorder = false,
   isDatosStatic = false,
   descripcion = '',
+  isGaleriaPrincipal = false,
 }) => {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   const isMobileIPhone = userAgent.indexOf('iPhone'); // para detectar si se esta desde un android o iphone
@@ -177,7 +178,9 @@ const ImagenesVideo = ({
             <div className="cuerpo-imagenesVideo">
               {isDatosStatic ? (
                 <img
-                  className="img-imagenesVideo"
+                  className={
+                    isGaleriaPrincipal ? 'img-Principal-imagenesVideo' : 'img-imagenesVideo'
+                  }
                   alt=""
                   src={dataActual.fuente ? dataActual.fuente : ''}
                 ></img>
@@ -189,7 +192,9 @@ const ImagenesVideo = ({
                       : urlImagenes + DatosDeEntrada[0].fuente
                   }
                   alt="imagen"
-                  className="img-imagenesVideo"
+                  className={
+                    isGaleriaPrincipal ? 'img-Principal-imagenesVideo' : 'img-imagenesVideo'
+                  }
                 />
               )}
             </div>

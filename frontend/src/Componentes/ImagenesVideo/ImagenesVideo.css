@@ -15,12 +15,17 @@
   position: relative;
   cursor: pointer;
 }
+.img-Principal-imagenesVideo {
+  width: 100%;
+  object-fit: cover;
+  overflow-y: hidden;
+  max-height: 370px;
+}
 .img-imagenesVideo {
   width: 100%;
-  max-width: 100%;
   object-fit: cover;
-  height: 100%;
   overflow-y: hidden;
+  max-height: 265px;
 }
 .CI-Videos {
   position: relative;
@@ -186,6 +191,12 @@ iframe {
 @media screen and (max-width: 1420px) {
   .video-con-borde-imagenesVideo {
     height: 50.5vh;
+  }
+  .img-Principal-imagenesVideo {
+    max-height: 265px;
+  }
+  .img-imagenesVideo {
+    max-height: 180px;
   }
 }
 @media screen and (max-width: 1024px) {
