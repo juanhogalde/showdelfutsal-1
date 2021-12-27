@@ -67,6 +67,9 @@ export const SliderNoticias = ({
     verticalSwiping: isVertical,
     nextArrow: <SampleNextArrow isVertical={isVertical} />,
     prevArrow: <SamplePrevArrow isVertical={isVertical} />,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 3500,
     responsive: [
       {
         breakpoint: 1024,

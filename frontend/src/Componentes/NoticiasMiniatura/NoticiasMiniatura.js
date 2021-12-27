@@ -58,13 +58,21 @@ const NoticiasMiniatura = ({
             }`}
           >
             {datosModelado.idImagen ? (
-              <img
-                className={`${
-                  isSobreImagen ? 'imagenNoticia-Miniatura-Principal' : 'imagenNoticia-Miniatura'
-                }`}
-                src={urlImagenes + datosModelado.idImagen[0].fuente}
-                alt="imagen"
-              />
+              isParaSlider ? (
+                <img
+                  className="slider-Imagen-NoticiaMiniatura"
+                  src={urlImagenes + datosModelado.idImagen[0].fuente}
+                  alt="imagen"
+                />
+              ) : (
+                <img
+                  className={`${
+                    isSobreImagen ? 'imagenNoticia-Miniatura-Principal' : 'imagenNoticia-Miniatura'
+                  }`}
+                  src={urlImagenes + datosModelado.idImagen[0].fuente}
+                  alt="imagen"
+                />
+              )
             ) : (
               <Skeleton
                 className={`${
@@ -92,11 +100,18 @@ const NoticiasMiniatura = ({
               </h5>
             )}
           </div>
-          {!isSobreImagen && (
-            <h5>
-              {datosModelado.titulo ? `${datosModelado.titulo.substring(0, 90)}...` : 'Sin titulo'}
-            </h5>
-          )}
+          {!isSobreImagen &&
+            (isParaSlider ? (
+              <h5 className="titulo-Slider-NoticiaMiniatura">
+                {datosModelado.titulo ? `${datosModelado.titulo}` : 'Sin titulo'}
+              </h5>
+            ) : (
+              <h5>
+                {datosModelado.titulo
+                  ? `${datosModelado.titulo.substring(0, 90)}...`
+                  : 'Sin titulo'}
+              </h5>
+            ))}
 
           {isConCopete && (
             <p className="Copete-NoticiaMiniatura">

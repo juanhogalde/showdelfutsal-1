@@ -62,6 +62,7 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
               ? urlImagenes + datosModelado.idImagen[0].fuente
               : 'https://www.pequenomundo.cl/wp-content/themes/childcare/images/default.png'
           }
+          className="imagen-NoticiaDesarrollada"
           alt="imagen"
         />
         <h6 className="Epigrafe-NoticiaDesarrollada">
