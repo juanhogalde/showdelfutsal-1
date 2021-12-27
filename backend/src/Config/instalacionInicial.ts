@@ -136,7 +136,7 @@ let incializarMedidasPublicitarias = async () => {
     },
     {
       ancho: 1136,
-      alto: 99,
+      alto: 199,
       ubicacion: 'horizontal',
       direccion: 'Inicio->Vivo->Abajo',
       keyMedidas: 3,
@@ -160,7 +160,7 @@ let incializarMedidasPublicitarias = async () => {
     },
     {
       ancho: 1136,
-      alto: 99,
+      alto: 199,
       ubicacion: 'horizontal',
       direccion: 'Inicio->Noticia->Abajo',
       keyMedidas: 6,
