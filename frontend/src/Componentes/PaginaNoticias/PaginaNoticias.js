@@ -1,7 +1,7 @@
 import React, {useLayoutEffect, useState} from 'react';
 import './PaginaNoticias.css';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
-import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
+/* import {SliderNoticias} from '../SliderNoticias/SliderNoticias'; */
 import SeccionNoticias from '../SeccionNoticias/SeccionNoticias';
 import SubMenuBuscadorNoticias from '../SubMenuBuscadorNoticias/SubMenuBuscadorNoticias';
 import Animaciones from '../Animaciones/Animaciones';

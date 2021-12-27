@@ -1,7 +1,7 @@
 import React, {useLayoutEffect, useState} from 'react';
-import Marcador from '../Marcador/Marcador';
+/* import Marcador from '../Marcador/Marcador'; */
 /* import PieDepagina from '../PieDePagina/PieDepagina'; */
-import publicidadCorta from '../../Static/Img/publicidad_corta.jpg';
+/* import publicidadCorta from '../../Static/Img/publicidad_corta.jpg'; */
 import './Inicio.css';
 import Filtros from '../Filtros/Filtros';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
@@ -20,7 +20,7 @@ import ModalLowa from '../../ComponentesAdmin/ModalLowa/ModalLowa';
 import publicidadModal from '../../Static/Img/publicidad-modal.png';
 import {urlImagenes} from '../../urlImagenes';
 import {controlModalPublicidad_accion} from '../../Redux/DatosInciales/AccionesDatosIniciales';
-import TarjetaEnfrentamiento from '../../ComponentesAdmin/TarjetaEnfrentamiento/TarjetaEnfrentamiento';
+/* import TarjetaEnfrentamiento from '../../ComponentesAdmin/TarjetaEnfrentamiento/TarjetaEnfrentamiento'; */
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},

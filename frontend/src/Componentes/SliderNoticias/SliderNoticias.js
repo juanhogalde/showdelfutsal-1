@@ -60,7 +60,6 @@ export const SliderNoticias = ({
   }, [setNoticiaAmostrar, noticias, categoriaNoticias, subcategoriaNoticia]);
   var settings = {
     adaptiveHeight: true,
-    speed: 1000,
     slidesToShow: cantidadDeElementos,
     slidesToScroll: cantidadDeElementos,
     vertical: isVertical,
