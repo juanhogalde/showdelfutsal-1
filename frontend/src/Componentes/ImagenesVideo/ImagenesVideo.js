@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import '../ImagenesVideo/ImagenesVideo.css';
 import {urlImagenes} from '../../urlImagenes';
 import {AiFillCaretLeft, AiFillCaretRight, AiFillCaretDown, AiFillCaretUp} from 'react-icons/ai';
@@ -16,23 +16,28 @@ const ImagenesVideo = ({
   const isMobileIPhone = userAgent.indexOf('iPhone'); // para detectar si se esta desde un android o iphone
   const isMobileAndroid = userAgent.indexOf('Android');
   const [indiceActual, setIndiceActual] = useState(0);
-  const [ocultarFlechasVideo, setOcultarFlechasVideo] = useState(
-    DatosDeEntrada.length === 2 || DatosDeEntrada.length === 1
-      ? {
-          flechaArriba: true,
-          flechaAbajo: true,
-        }
-      : {
-          flechaArriba: false,
-          flechaAbajo: true,
-        }
-  );
-  const [dataActual, setDataActual] = useState(
-    DatosDeEntrada.length !== 0 ? DatosDeEntrada[0] : {}
-  );
-  const [siguientedataActual, setSiguientedataActual] = useState(
-    DatosDeEntrada.length !== 0 && DatosDeEntrada.length > 1 ? DatosDeEntrada[1] : {}
-  );
+  const [ocultarFlechasVideo, setOcultarFlechasVideo] = useState({});
+  const [dataActual, setDataActual] = useState({});
+  const [siguientedataActual, setSiguientedataActual] = useState({});
+  useLayoutEffect(() => {
+    if (DatosDeEntrada.length) {
+      setDataActual(DatosDeEntrada[0]);
+      if (DatosDeEntrada.length > 1) {
+        setSiguientedataActual(DatosDeEntrada[1]);
+      }
+    }
+    if (DatosDeEntrada.length === 2 || DatosDeEntrada.length === 1) {
+      setOcultarFlechasVideo({
+        flechaArriba: true,
+        flechaAbajo: true,
+      });
+    } else {
+      setOcultarFlechasVideo({
+        flechaArriba: false,
+        flechaAbajo: true,
+      });
+    }
+  }, [setDataActual, DatosDeEntrada, setSiguientedataActual, setOcultarFlechasVideo]);
 
   const cambioDeImagen = index => {
     setDataActual(DatosDeEntrada[index]);

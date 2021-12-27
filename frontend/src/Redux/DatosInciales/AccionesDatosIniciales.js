@@ -3,7 +3,13 @@ export const cargandoDatosIniciales = 'cargandoDatosIniciales';
 export const cargaDatosInicialesExito = 'cargaDatosInicialesExito';
 export const cargaDatosInicialesError = 'cargaDatosInicialesError';
 export const controlModalPublicidad = 'controlModalPublicidad';
-
+export const gurdarCategoriaSeleccionada = 'gurdarCategoriaSeleccionada';
+export const gurdarCategoriaSeleccionada_accion = categoria => {
+  return {
+    type: gurdarCategoriaSeleccionada,
+    categoria: categoria,
+  };
+};
 export const cargandoDatosIniciales_accion = () => {
   return {
     type: cargandoDatosIniciales,

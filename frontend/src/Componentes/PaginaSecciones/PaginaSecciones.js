@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import './PaginaSecciones.css';
 import SeccionNoticias from '../SeccionNoticias/SeccionNoticias';
 import SeccionFixture from '../SeccionFixture/SeccionFixture';
@@ -6,13 +6,20 @@ import SeccionTablaDePosiciones from '../SeccionTablaDePosiciones/SeccionTablaDe
 import SubMenuSecciones from '../SubMenuSecciones/SubMenuSecciones';
 import {useParams} from 'react-router';
 import PieDepagina from '../PieDePagina/PieDepagina';
+import {useSelector} from 'react-redux';
 
 const PaginaSecciones = () => {
   let {id} = useParams();
+
+  const {categoriaSeleccionada, subcategorias} = useSelector(state => state.sotreDatosIniciales);
+
+  const [categoria, setCategoria] = useState(null);
   const [isSeccionNoticias, setIsSeccionNoticias] = useState(false);
   const [isSeccionFixture, setIsSeccionFixture] = useState(false);
   const [isSeccionTabla, setIsSeccionTabla] = useState(false);
-
+  useLayoutEffect(() => {
+    setCategoria(categoriaSeleccionada);
+  }, [categoriaSeleccionada]);
   const obtenerSeccion = respuesta => {
     switch (respuesta) {
       case 1:
@@ -43,12 +50,19 @@ const PaginaSecciones = () => {
   }, []);
   return (
     <div className="CP-PaginaSecciones">
-      <SubMenuSecciones obtenerSeccion={obtenerSeccion} categoria={id} />
+      <SubMenuSecciones
+        obtenerSeccion={obtenerSeccion}
+        subcategoria={subcategorias.find(element => element.key === parseInt(id))}
+      />
 
       <div className="CI-Cuerpo-PaginaSecciones">
         {isSeccionNoticias && (
           <div className="componente-SeccionNoticias">
-            <SeccionNoticias isTitulo={false}></SeccionNoticias>
+            <SeccionNoticias
+              categoriaNoticia={categoria}
+              subcategoriaNoticia={id}
+              isTitulo={false}
+            ></SeccionNoticias>
           </div>
         )}
         {isSeccionFixture && (

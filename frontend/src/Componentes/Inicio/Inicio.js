@@ -34,7 +34,7 @@ const Inicio = () => {
   const {publicidades} = useSelector(state => state.storePublicidades);
 
   const {galerias} = useSelector(state => state.storeGalerias);
-
+  const [videosGaleria, setVideosGaleria] = useState([]);
   // const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   const [noticiaP, setNoticiaP] = useState({});
   const [noticia1, setNoticia1] = useState({});
@@ -114,13 +114,25 @@ const Inicio = () => {
       galeria2: auxGaleriasImagenes[ultimoIndice - 2] ? auxGaleriasImagenes[ultimoIndice - 2] : {},
       galeria3: auxGaleriasImagenes[ultimoIndice - 1] ? auxGaleriasImagenes[ultimoIndice - 1] : {},
     });
-  }, [setNoticiaP, setNoticia1, setNoticia2, noticias, setGaleria, galerias, publicidades]);
+    var galeriasTipoVideos = galerias.filter(galeria => galeria.videosId.length !== 0);
+    if (galeriasTipoVideos.length) {
+      setVideosGaleria(galeriasTipoVideos[galeriasTipoVideos.length - 1].videosId);
+    }
+  }, [
+    setNoticiaP,
+    setNoticia1,
+    setNoticia2,
+    noticias,
+    setGaleria,
+    galerias,
+    publicidades,
+    setVideosGaleria,
+  ]);
 
   /* const {DatosDePruebaImagenes, DatosDePruebaImagenes2, DatosDePruebaImagenes3} = useSelector(
     state => state.storePrueba
   ); */
 
-  const {linkVideosInicioGaleria} = useSelector(state => state.sotreDatosIniciales);
   // const videoVivoPrueba = {fuente: 'MmysMu3mgvw'};
   const obtenerFiltro = filtro => {
     switch (filtro) {
@@ -174,7 +186,6 @@ const Inicio = () => {
     window.open(url);
   };
 
-  console.log(galerias);
   return (
     <div className="LP-Inicio">
       <div className="LI-Inicio Margen-inicio seccion-somos">
@@ -294,16 +305,32 @@ const Inicio = () => {
           </div>
           <div className="CI-NoticiasMini">
             <div className="noticia-Miniatura-1">
-              <NoticiasMiniatura
-                isSeccionNoticias={true}
-                datosModelado={noticia1}
-              ></NoticiasMiniatura>
+              <Link
+                to="/Noticia/Desarrollada"
+                onClick={() => {
+                  noticiaSeleccionada(noticia1);
+                }}
+                className="estilos-Link"
+              >
+                <NoticiasMiniatura
+                  isSeccionNoticias={true}
+                  datosModelado={noticia1}
+                ></NoticiasMiniatura>
+              </Link>
             </div>
             <div className="noticia-Miniatura-2">
-              <NoticiasMiniatura
-                isSeccionNoticias={true}
-                datosModelado={noticia2}
-              ></NoticiasMiniatura>
+              <Link
+                to="/Noticia/Desarrollada"
+                onClick={() => {
+                  noticiaSeleccionada(noticia2);
+                }}
+                className="estilos-Link"
+              >
+                <NoticiasMiniatura
+                  isSeccionNoticias={true}
+                  datosModelado={noticia2}
+                ></NoticiasMiniatura>
+              </Link>
             </div>
           </div>
           <div className="publicidad-Noticias">
@@ -350,7 +377,7 @@ const Inicio = () => {
           </div>
           <div className="CI-Galeria-Videos">
             <ImagenesVideo
-              DatosDeEntrada={linkVideosInicioGaleria}
+              DatosDeEntrada={videosGaleria}
               tipoDeSliderFlecha={true}
               tipoVideo={true}
             ></ImagenesVideo>

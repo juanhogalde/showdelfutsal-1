@@ -1,12 +1,50 @@
-import React from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import './SeccionNoticias.css';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import './SeccionNoticias.css';
 /* import publicidadCorta from '../../Static/Img/publicidad_corta.jpg'; */
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 import {Link} from 'react-router-dom';
+import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
+import {useDispatch, useSelector} from 'react-redux';
 
-const SeccionNoticias = ({tituloSeccionNoticias = 'Título', isTitulo = true}) => {
+const SeccionNoticias = ({
+  tituloSeccionNoticias = 'Título',
+  isTitulo = true,
+  categoriaNoticia = 1,
+  subcategoriaNoticia = 1,
+}) => {
+  const dispatch = useDispatch();
+  const {noticias} = useSelector(state => state.storeNoticias);
+  const [noticiaVisualizada, setNoticiaVisualizada] = useState({});
+  useLayoutEffect(() => {
+    var noticiasAMostrar = {};
+    var noticiasFiltradasFinal = [];
+    var noticiasFiltradasCategoria = noticias.filter(
+      noticia => noticia.keyCategoria === categoriaNoticia
+    );
+    if (subcategoriaNoticia !== -1) {
+      noticiasFiltradasFinal = noticiasFiltradasCategoria.filter(
+        noticia => noticia.keySubcategoria === parseInt(subcategoriaNoticia)
+      );
+    } else {
+      noticiasFiltradasFinal = [...noticiasFiltradasCategoria];
+    }
+    // Masculino
+    if (noticiasFiltradasFinal[0]) {
+      noticiasAMostrar = {...noticiasAMostrar, noticia1: noticiasFiltradasFinal[0]};
+    }
+    if (noticiasFiltradasFinal[1]) {
+      noticiasAMostrar = {...noticiasAMostrar, noticia2: noticiasFiltradasFinal[1]};
+    }
+    if (noticiasFiltradasFinal[2]) {
+      noticiasAMostrar = {...noticiasAMostrar, noticia3: noticiasFiltradasFinal[2]};
+    }
+    setNoticiaVisualizada(noticiasAMostrar);
+  }, [noticias, setNoticiaVisualizada, categoriaNoticia, subcategoriaNoticia]);
+  const noticiaSeleccionada = noticiaRecibida => {
+    dispatch(guardarNoticiaMiniaturaSeleccionada_accion(noticiaRecibida));
+  };
   return (
     <div
       className={`${
@@ -25,21 +63,64 @@ const SeccionNoticias = ({tituloSeccionNoticias = 'Título', isTitulo = true}) =
 
       <div className="CI-SN-Noticia-general">
         <div className="I-Noticia-Componente">
-          <Link to="/Noticia/Desarrollada" className="estilos-Link">
-            <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true}></NoticiasMiniatura>
-          </Link>
+          {noticiaVisualizada.noticia1 ? (
+            <Link
+              to="/Noticia/Desarrollada"
+              onClick={() => {
+                noticiaSeleccionada(noticiaVisualizada.noticia1 ? noticiaVisualizada.noticia1 : {});
+              }}
+              className="estilos-Link"
+            >
+              <NoticiasMiniatura
+                datosModelado={noticiaVisualizada.noticia1 ? noticiaVisualizada.noticia1 : {}}
+                isSeccionNoticias={true}
+                isSobreImagen={true}
+              ></NoticiasMiniatura>
+            </Link>
+          ) : null}
         </div>
       </div>
       <div className="CI-SN-Noticia-miniatura">
         <div className="I-Noticia-Componente-miniatura">
-          <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true}></NoticiasMiniatura>
-          <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true}></NoticiasMiniatura>
+          {noticiaVisualizada.noticia2 ? (
+            <Link
+              to="/Noticia/Desarrollada"
+              onClick={() => {
+                noticiaSeleccionada(noticiaVisualizada.noticia2 ? noticiaVisualizada.noticia2 : {});
+              }}
+              className="estilos-Link"
+            >
+              <NoticiasMiniatura
+                datosModelado={noticiaVisualizada.noticia2 ? noticiaVisualizada.noticia2 : {}}
+                isSeccionNoticias={true}
+                isSobreImagen={true}
+              ></NoticiasMiniatura>
+            </Link>
+          ) : null}
+          {noticiaVisualizada.noticia3 ? (
+            <Link
+              to="/Noticia/Desarrollada"
+              onClick={() => {
+                noticiaSeleccionada(noticiaVisualizada.noticia3 ? noticiaVisualizada.noticia3 : {});
+              }}
+              className="estilos-Link"
+            >
+              <NoticiasMiniatura
+                datosModelado={noticiaVisualizada.noticia3 ? noticiaVisualizada.noticia3 : {}}
+                isSeccionNoticias={true}
+                isSobreImagen={true}
+              ></NoticiasMiniatura>
+            </Link>
+          ) : null}
           {/* <img alt="" src={publicidadCorta}></img>
           <img alt="" src={publicidadCorta}></img> */}
         </div>
       </div>
       <div className="CI-SN-Noticia-slider">
-        <SliderNoticias></SliderNoticias>
+        <SliderNoticias
+          categoriaNoticias={categoriaNoticia}
+          subcategoriaNoticia={subcategoriaNoticia}
+        ></SliderNoticias>
       </div>
     </div>
   );

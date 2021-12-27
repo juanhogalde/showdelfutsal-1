@@ -166,6 +166,14 @@ let incializarMedidasPublicitarias = async () => {
       keyMedidas: 6,
       disponible: true,
     },
+    {
+      ancho: 1136,
+      alto: 99,
+      ubicacion: 'horizontal',
+      direccion: 'Desarrollada->Noticia->Abajo',
+      keyMedidas: 7,
+      disponible: true,
+    },
   ];
   for await (const medida of medidaArreglo) {
     modeloMedidasPublicidad

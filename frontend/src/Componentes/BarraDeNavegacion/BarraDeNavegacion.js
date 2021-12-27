@@ -4,6 +4,8 @@ import {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {AiOutlineMenu} from 'react-icons/ai';
 import Menucategorias from '../MenuCategorias/MenuCategorias';
+import {useDispatch} from 'react-redux';
+import {gurdarCategoriaSeleccionada_accion} from '../../Redux/DatosInciales/AccionesDatosIniciales';
 
 const BarraDeNavegacion = () => {
   // const userAgent = navigator.userAgent;
@@ -13,8 +15,9 @@ const BarraDeNavegacion = () => {
   const [click, setClick] = useState(false);
   const [isMasculino, setIsMasculino] = useState(false);
   const [isFemenenino, setIsFemenenino] = useState(false);
-
-  const handleClick = () => {
+  const dispatch = useDispatch();
+  const handleClick = categoria => {
+    dispatch(gurdarCategoriaSeleccionada_accion(categoria));
     setIsMasculino(false);
     setIsFemenenino(false);
     setClick(!click);
@@ -54,7 +57,11 @@ const BarraDeNavegacion = () => {
               <div className="nav-links" tabIndex="0" onBlur={() => eventoCerrarSubMenu()}>
                 Femenino
                 <div className={`${isFemenenino ? 'dropdown' : 'dropdown-close'}`}>
-                  <Menucategorias eventoApertura={isFemenenino} handleClick={handleClick} />
+                  <Menucategorias
+                    eventoApertura={isFemenenino}
+                    categoria={2}
+                    handleClick={handleClick}
+                  />
                 </div>
               </div>
             </li>
@@ -62,7 +69,11 @@ const BarraDeNavegacion = () => {
               <div className="nav-links" tabIndex="1" onBlur={() => eventoCerrarSubMenu()}>
                 Masculino
                 <div className={`${isMasculino ? 'dropdown' : 'dropdown-close'}`}>
-                  <Menucategorias eventoApertura={isMasculino} handleClick={handleClick} />
+                  <Menucategorias
+                    categoria={1}
+                    eventoApertura={isMasculino}
+                    handleClick={handleClick}
+                  />
                 </div>
               </div>
             </li>
@@ -72,18 +83,13 @@ const BarraDeNavegacion = () => {
               </NavLink>
             </li>
 
-            <li className="nav-item" onClick={() => handleClick()}>
-              <NavLink exact to={`/Seccion/Liga Nacional`} className="nav-links">
+            <li className="nav-item" onClick={() => handleClick(3)}>
+              <NavLink exact to={`/Seccion/`} className="nav-links">
                 Liga Nacional
               </NavLink>
             </li>
-            <li className="nav-item" onClick={() => handleClick()}>
-              <NavLink
-                exact
-                to="/Seccion/Otras Competencias"
-                activeClassName="active"
-                className="nav-links"
-              >
+            <li className="nav-item" onClick={() => handleClick(4)}>
+              <NavLink exact to="/Seccion/" activeClassName="active" className="nav-links">
                 Otras Competencias
               </NavLink>
             </li>
