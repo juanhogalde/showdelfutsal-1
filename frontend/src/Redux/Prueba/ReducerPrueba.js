@@ -1,7 +1,6 @@
 import {prueba, obtenerNoticiasFiltradas} from './AccionesPrueba';
 import imgSomos1 from '../../Static/Img/ImgSomos/01.jpeg';
 import imgSomos2 from '../../Static/Img/ImgSomos/02.jpeg';
-import imgSomos3 from '../../Static/Img/ImgSomos/03.jpeg';
 import imgSomos4 from '../../Static/Img/ImgSomos/04.jpeg';
 import imgSomos5 from '../../Static/Img/ImgSomos/05.jpeg';
 import imgSomos6 from '../../Static/Img/ImgSomos/06.jpeg';
@@ -40,10 +39,6 @@ const pruebaInicio = {
     },
     {
       fuente: imgSomos2,
-      descripcion: 'El Show del Futsal',
-    },
-    {
-      fuente: imgSomos3,
       descripcion: 'El Show del Futsal',
     },
     {
