@@ -1,8 +1,8 @@
 import {model, Schema} from 'mongoose';
-import ICampeonatos from './Campeonatos_Interface';
+import ITorneos from './Torneos_Interface';
 
-const CampeonatosSchema = new Schema({
-  tituloCampeonato: String,
+const TorneosSchema = new Schema({
+  tituloTorneo: String,
   fechaInicio: Date,
   fechaFin: Date,
   idCategoria: {
@@ -19,4 +19,4 @@ const CampeonatosSchema = new Schema({
   ],
 });
 
-export default model<ICampeonatos>('modeloCampeonatos', CampeonatosSchema);
+export default model<ITorneos>('modeloTorneos', TorneosSchema);

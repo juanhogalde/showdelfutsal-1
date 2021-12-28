@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import {Request, Response, NextFunction} from 'express';
 import noticiasRouter from './Componentes/Noticias/Noticias_Router';
-import campeonatosRouter from './Componentes/Campeonatos/Campeonatos_Router';
+import torneosRouter from './Componentes/Torneos/Torneos_Router';
 import equiposRouter from './Componentes/Equipos/Equipos_Router';
 import categoriasRouter from './Componentes/Categorias/Categorias_Router';
 import partidosRouter from './Componentes/Partidos/Partidos_Router';
@@ -75,7 +75,7 @@ class Server {
   }
 
   routear() {
-    this.app.use('/campeonatos', campeonatosRouter);
+    this.app.use('/torneos', torneosRouter);
     this.app.use('/categorias', categoriasRouter);
     this.app.use('/estadios', estadiosRouter);
     //this.app.use('/etiquetas', etiquetasRouter);
