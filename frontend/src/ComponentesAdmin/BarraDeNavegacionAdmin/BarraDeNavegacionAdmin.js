@@ -13,7 +13,7 @@ const BarraDeNavegacionAdmin = ({
 }) => {
   const locacion = useLocation();
   const historialDeNavegacion = useHistory();
-
+  console.log(locacion);
   const volverAtras = () => {
     if (locacion.pathname.split('/').length !== 2) {
       if (locacion.pathname.split('/')[1] === 'Noticia') {
@@ -26,11 +26,7 @@ const BarraDeNavegacionAdmin = ({
         historialDeNavegacion.push('/Publicidad');
       }
       if (locacion.pathname.split('/')[1] === 'Torneo') {
-        if (locacion.pathname.split('/')[3] === 'Campeonato') {
-          historialDeNavegacion.push('/Torneo/Nuevo');
-        } else {
-          historialDeNavegacion.push('/Torneos');
-        }
+        historialDeNavegacion.goBack();
       }
     } else {
       historialDeNavegacion.push('/');
