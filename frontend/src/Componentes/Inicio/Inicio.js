@@ -1,7 +1,7 @@
 import React, {useLayoutEffect, useState} from 'react';
-/* import Marcador from '../Marcador/Marcador'; */
+import Marcador from '../Marcador/Marcador';
 /* import PieDepagina from '../PieDePagina/PieDepagina'; */
-/* import publicidadCorta from '../../Static/Img/publicidad_corta.jpg'; */
+import publicidadCorta from '../../Static/Img/publicidad_corta.jpg';
 import './Inicio.css';
 import Filtros from '../Filtros/Filtros';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
@@ -20,7 +20,7 @@ import ModalLowa from '../../ComponentesAdmin/ModalLowa/ModalLowa';
 import publicidadModal from '../../Static/Img/publicidad-modal.png';
 import {urlImagenes} from '../../urlImagenes';
 import {controlModalPublicidad_accion} from '../../Redux/DatosInciales/AccionesDatosIniciales';
-/* import TarjetaEnfrentamiento from '../../ComponentesAdmin/TarjetaEnfrentamiento/TarjetaEnfrentamiento'; */
+import TarjetaEnfrentamiento from '../../ComponentesAdmin/TarjetaEnfrentamiento/TarjetaEnfrentamiento';
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},
@@ -237,46 +237,43 @@ const Inicio = () => {
         </div>
       </div> */}
       {/* SECCION MARCADOR */}
-      {/* <div className="LI-Inicio seccion-marcador margenes-Responsive-Seccion-Marcador">
+      <div className="LI-Inicio seccion-marcador margenes-Responsive-Seccion-Marcador">
         <div className="CP-Marcador">
           <div className="CI-Marcador">
             <div className="titulo-Marcador">
               <h1>PARTIDOS</h1>
             </div>
             <div className="componente-Marcador">
-              <Marcador />
+              {/* <Marcador /> */}
+              <TarjetaEnfrentamiento isSeccionInicio={true}></TarjetaEnfrentamiento>
             </div>
           </div>
           <div className="CI-Publicidad-Marcador">
-            <div className="publicidad-Arriba-Marcador">
-              <img
-                alt=""
-                className="img-Publicidad-Marcador"
-                src={
-                  publicaciones
-                    ? publicaciones.partidoDerecha1
-                      ? urlImagenes + publicaciones.partidoDerecha1.idImagen[0].fuente
-                      : publicidadCorta
+            <img
+              alt=""
+              className="img-Publicidad-Marcador"
+              src={
+                publicaciones
+                  ? publicaciones.partidoDerecha1
+                    ? urlImagenes + publicaciones.partidoDerecha1.idImagen[0].fuente
                     : publicidadCorta
-                }
-              ></img>
-            </div>
-            <div className="publicidad-Abajo-Marcador">
-              <img
-                className="img-Publicidad-Marcador"
-                alt=""
-                src={
-                  publicaciones
-                    ? publicaciones.partidoDerecha2
-                      ? urlImagenes + publicaciones.partidoDerecha2.idImagen[0].fuente
-                      : publicidadCorta
+                  : publicidadCorta
+              }
+            ></img>
+            <img
+              className="img-Publicidad-Marcador"
+              alt=""
+              src={
+                publicaciones
+                  ? publicaciones.partidoDerecha2
+                    ? urlImagenes + publicaciones.partidoDerecha2.idImagen[0].fuente
                     : publicidadCorta
-                }
-              ></img>
-            </div>
+                  : publicidadCorta
+              }
+            ></img>
           </div>
         </div>
-      </div> */}
+      </div>
       {/* SECCION NOTICIAS */}
       <div className="LI-Inicio seccion-noticias  Margen-Noticias">
         <div className="CP-Noticias">
@@ -344,7 +341,6 @@ const Inicio = () => {
                   : publicidadLarga
               }
             ></img>
-            {/* publicidadLarga */}
           </div>
         </div>
       </div>

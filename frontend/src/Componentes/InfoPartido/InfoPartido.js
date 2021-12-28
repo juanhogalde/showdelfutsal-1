@@ -5,7 +5,15 @@ import {AiFillCaretRight} from 'react-icons/ai';
 import FormatearFecha from '../../ModulosExternos/FormatearFecha';
 
 const InfoPartido = props => {
-  const {fecha, sede, siguientePartido, isSoloTitulo, isTablaDePosiciones} = props;
+  const {
+    fecha,
+    sede,
+    siguientePartido = () => {
+      console.log('');
+    },
+    isSoloTitulo,
+    isTablaDePosiciones,
+  } = props;
   return (
     <div className="CP-InfoPartido">
       <div className="CI-InfoPartido">
