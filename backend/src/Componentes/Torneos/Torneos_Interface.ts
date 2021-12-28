@@ -9,4 +9,5 @@ export default interface ITorneos extends Document {
   fechaFin: Date;
   idCategoria: ICategorias['_id'];
   idSubcategoria: Array<ISubcategorias['_id']>;
+  tipoTorneo: number;
 }
