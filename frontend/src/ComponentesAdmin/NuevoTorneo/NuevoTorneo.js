@@ -38,7 +38,7 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
 
   const escucharSelector = (value, name) => {
     setDatosTorneo(datosTorneo => {
-      return {...datosTorneo, torneo: value};
+      return {...datosTorneo, [name]: value};
     });
   };
 
@@ -72,7 +72,7 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
   return (
     <div className="CP-NuevoTorneo">
       <Selector
-        name="torneo"
+        name="tipoTorneo"
         placeholder="Seleccione Torneo"
         selectorConIcono={<BsPlusCircle />}
         options={Torneo ? Torneo : []}
