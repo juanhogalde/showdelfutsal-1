@@ -33,10 +33,10 @@ const TarjetaEnfrentamiento = ({isSeccionInicio = false}) => {
       setResultadoVisitante(value);
     } */
     switch (name) {
-      case 'local':
+      case 'resultadoLocal':
         setResultadoLocal(value);
         break;
-      case 'visitante':
+      case 'resultadoVisitante':
         setResultadoVisitante(value);
         break;
       case 'comentarios':
@@ -129,7 +129,7 @@ const TarjetaEnfrentamiento = ({isSeccionInicio = false}) => {
           </div>
         )}
 
-        <div className="datos-Partido">
+        <div className={isSeccionInicio ? 'datos-Partido-Inicio' : 'datos-Partido'}>
           {!isSeccionInicio && (
             <React.Fragment>
               <p className="Zona-TarjetaEnfrentamiento">Zona A</p>

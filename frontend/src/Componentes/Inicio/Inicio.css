@@ -193,6 +193,7 @@
   height: 100%;
   object-fit: cover;
   max-width: 350px;
+  max-height: 350px;
 }
 .CI-Publicidad-Marcador img:nth-child(1) {
   padding-bottom: 20px;
