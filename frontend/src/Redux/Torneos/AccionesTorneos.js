@@ -53,9 +53,9 @@ export const agregarTorneo_accion = datosTorneo => {
   return dispatch => {
     dispatch(cargandoAgregarTorneo_accion());
     API({
-      url: '/campeonatos/agregar',
+      url: '/torneos/agregar',
       method: 'post',
-      /* data: auxDatosGaleria, */
+      data: datosTorneo,
     })
       .then(res => {
         console.log({res});
