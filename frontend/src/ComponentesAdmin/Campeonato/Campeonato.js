@@ -1,7 +1,11 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import {agregarTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
+import {
+  agregarTorneo_accion,
+  volverPorDefectoAgregarTorneo_accion,
+} from '../../Redux/Torneos/AccionesTorneos';
+import Alertas from '../Alertas/Alertas';
 import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
 import './Campeonato.css';
 
@@ -9,15 +13,26 @@ const Campeonato = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
-  const {torneo} = useSelector(state => state.storeTorneos);
+  const {torneo, isAgregarTorneo} = useSelector(state => state.storeTorneos);
 
   const redireccioarZona = (categoria, subcategoria) => {
     let auxDatosDeTorneo = Object.assign(torneo);
     auxDatosDeTorneo.idCategoria = categoria;
     auxDatosDeTorneo.idSubcategoria = subcategoria;
-
     dispatch(agregarTorneo_accion(auxDatosDeTorneo));
     /* history.push('/Torneo/Nuevo/Campeonato/Zonas'); */
+  };
+  const respuestaDeAlertas = respuesta => {
+    console.log(respuesta);
+    if (respuesta) {
+      if (isAgregarTorneo.isExito) {
+        dispatch(volverPorDefectoAgregarTorneo_accion());
+        history.push('/Torneo/Nuevo/Campeonato/Zonas');
+      }
+      if (isAgregarTorneo.isError) {
+        dispatch(volverPorDefectoAgregarTorneo_accion());
+      }
+    }
   };
   if (categorias.length > 0 && subcategorias.length > 0) {
     return (
@@ -51,6 +66,14 @@ const Campeonato = () => {
             } else return '';
           })}
         </div>
+        <Alertas
+          tipoDeSweet={isAgregarTorneo.tipo}
+          subtitulo={isAgregarTorneo.mensaje}
+          mostrarSweet={
+            isAgregarTorneo.isCargando || isAgregarTorneo.isExito || isAgregarTorneo.isError
+          }
+          RespuestaDeSweet={respuestaDeAlertas}
+        ></Alertas>
       </div>
     );
   } else {

@@ -22,6 +22,13 @@ import {
 const torneoPorDefecto = {
   torneos: [],
   torneo: {},
+  isAgregarTorneo: {
+    tipo: '',
+    mensaje: '',
+    isCargando: false,
+    isExito: false,
+    isError: false,
+  },
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
   switch (accion.type) {
@@ -45,22 +52,52 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
     case cargandoAgregarTorneo: {
       return {
         ...state,
+        isAgregarTorneo: {
+          tipo: 'cargando',
+          mensaje: 'Agregando Torneo.',
+          isCargando: true,
+          isExito: false,
+          isError: false,
+        },
       };
     }
     case agregarTorneoExito: {
       return {
         ...state,
-        torneos: [...state.torneos, ...accion.datos],
+        isAgregarTorneo: {
+          tipo: 'success',
+          mensaje: 'Torneo cargada con exito.',
+          isCargando: false,
+          isExito: true,
+          isError: false,
+        },
+        torneos: [...state.torneos, accion.datos],
       };
     }
     case agregarTorneoError: {
       return {
         ...state,
+        isAgregarTorneo: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, en este momento no podemos agregar su torneo.',
+          isCargando: false,
+          isExito: false,
+          isError: true,
+        },
+        torneo: {},
       };
     }
     case volverPorDefectoAgregarTorneo: {
       return {
         ...state,
+        isAgregarTorneo: {
+          tipo: '',
+          mensaje: '',
+          isCargando: false,
+          isExito: false,
+          isError: false,
+        },
+        torneo: {},
       };
     }
     case cargandoEditarTorneo: {

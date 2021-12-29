@@ -5,8 +5,8 @@ export const obtenerDatosDeTorneo = 'obtenerDatosDeTorneo';
   'obtenerCategoriaSubcategoriaDatosDeTorneo'; */
 
 export const cargandoAgregarTorneo = 'cargandoAgregarTorneo';
-export const agregarTorneoExito = 'cargandoAgregarTorneo';
-export const agregarTorneoError = 'cargandoAgregarTorneo';
+export const agregarTorneoExito = 'agregarTorneoExito';
+export const agregarTorneoError = 'agregarTorneoError';
 export const volverPorDefectoAgregarTorneo = 'volverPorDefectoAgregarTorneo';
 
 export const cargandoEditarTorneo = 'cargandoEditarTorneo';
@@ -70,16 +70,17 @@ export const agregarTorneo_accion = (datosTorneo, categoriaId, subcategoriaId) =
     API({
       url: '/torneos/agregar',
       method: 'post',
-      data: datosTorneo,
+      data: {},
     })
       .then(res => {
         console.log({res});
-        /* dispatch(agregarTorneoExito_accion(res.data.value)); */
+
+        dispatch(agregarTorneoExito_accion(res.data.value));
         /* dispatch(agregarTorneoExito_accion(datosTorneo)); */
       })
       .catch(error => {
         console.log({error});
-        /* dispatch(agregarTorneoError_accion()); */
+        dispatch(agregarTorneoError_accion());
       });
   };
 };
