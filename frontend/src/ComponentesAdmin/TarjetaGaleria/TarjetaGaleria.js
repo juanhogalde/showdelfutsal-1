@@ -3,24 +3,18 @@ import ImagenAdmin from '../ImagenAdmin/ImagenAdmin';
 import './TarjetaGaleria.css';
 import {HiDotsVertical} from 'react-icons/hi';
 import {useHistory} from 'react-router';
-
 import {MdDeleteForever} from 'react-icons/md';
 import {FiEdit3} from 'react-icons/fi';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {
   consultaEliminarGaleria_accion,
-  actualizarListaDeGalerias_accion,
-  eliminarGaleria_accion,
-  volverPorDefectoEliminarGaleria_accion,
   cargarVideoGaleriaParaEditar_accion,
 } from '../../Redux/Galerias/AccionesGalerias';
-import Alertas from '../Alertas/Alertas';
 import PlasmarImagen from '../PlasmarImagen/PlasmarImagen';
 import ModalLowa from '../ModalLowa/ModalLowa';
 // import VideosAdmin from '../VideosAdmin/VideosAdmin';
 
 const TarjetaGaleria = ({galeria = {}}) => {
-  const {isEliminarGaleria} = useSelector(state => state.storeGalerias);
   const dispatch = useDispatch();
 
   const historialDeNavegacion = useHistory();
@@ -48,24 +42,7 @@ const TarjetaGaleria = ({galeria = {}}) => {
   const consultaPorEliminarGaleria = id => {
     dispatch(consultaEliminarGaleria_accion(id));
   };
-  const obtenerRespuestaDeAlertas = respuesta => {
-    if (respuesta) {
-      if (isEliminarGaleria.isConsulta) {
-        eliminarGaleria(isEliminarGaleria.datos);
-      }
-      if (isEliminarGaleria.isExito) {
-        dispatch(actualizarListaDeGalerias_accion(galeria._id));
-      }
-      if (isEliminarGaleria.isError) {
-        dispatch(volverPorDefectoEliminarGaleria_accion());
-      }
-    } else {
-      dispatch(volverPorDefectoEliminarGaleria_accion());
-    }
-  };
-  const eliminarGaleria = id => {
-    dispatch(eliminarGaleria_accion(id));
-  };
+
   const mostrarContenidoEnModal = (respuesta, imagen, isVideo, video) => {
     var auxDatosImg = {};
     if (isVideo) {
@@ -142,17 +119,7 @@ const TarjetaGaleria = ({galeria = {}}) => {
           </div>
         </div>
       </div>
-      <Alertas
-        tipoDeSweet={isEliminarGaleria.tipo}
-        mostrarSweet={
-          isEliminarGaleria.isConsulta ||
-          isEliminarGaleria.isCargando ||
-          isEliminarGaleria.isExito ||
-          isEliminarGaleria.isError
-        }
-        subtitulo={isEliminarGaleria.mensaje}
-        RespuestaDeSweet={obtenerRespuestaDeAlertas}
-      ></Alertas>
+
       <ModalLowa
         isMostrar={isMostrarModal.isMostrar}
         cerrarModalLowa={cerrarModalImagen}

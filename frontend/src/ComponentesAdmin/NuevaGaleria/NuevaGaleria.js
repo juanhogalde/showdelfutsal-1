@@ -51,9 +51,9 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
           isExito: false,
           isError: false,
         });
-        let aux = [];
+        let aux = {};
         Object.values(value).forEach(async img => {
-          const respuesta = compresor(img);
+          const respuesta = compresor(img, 0.6);
           const resultado = await respuesta
             .then(res => {
               setAlertaComprimir({
@@ -77,9 +77,10 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
               setIsErrorAlComprimir(true);
             });
 
-          aux = [...aux, ...datosGaleria.imagenes, resultado];
-
-          setDatosGaleria({...datosGaleria, imagenes: aux});
+          /* aux = [...aux, ...datosGaleria.imagenes, resultado]; */
+          aux = datosGaleria;
+          aux.imagenes.push(resultado);
+          setDatosGaleria(aux);
         });
       }
     } else {
@@ -109,9 +110,6 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
   };
 
   const consultaEliminarImagen = (index, isNuevaImagen) => {
-    console.log(index);
-    console.log(isNuevaImagen);
-
     dispatch(consultarEliminarImagen_accion(index, isNuevaImagen));
   };
   const respuestaDeAlertaEliminarImagen = respuesta => {

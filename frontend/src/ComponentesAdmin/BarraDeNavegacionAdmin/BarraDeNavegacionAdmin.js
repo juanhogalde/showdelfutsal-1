@@ -13,7 +13,6 @@ const BarraDeNavegacionAdmin = ({
 }) => {
   const locacion = useLocation();
   const historialDeNavegacion = useHistory();
-  console.log(locacion);
   const volverAtras = () => {
     if (locacion.pathname.split('/').length !== 2) {
       if (locacion.pathname.split('/')[1] === 'Noticia') {
