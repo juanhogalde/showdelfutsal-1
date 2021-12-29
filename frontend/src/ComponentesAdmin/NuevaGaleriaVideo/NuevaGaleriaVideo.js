@@ -24,7 +24,20 @@ const NuevaGaleriaVideo = () => {
   );
   const [datosGaleria, setDatosGaleria] = useState({});
   const escucharCambios = async (name, value) => {
-    setDatosGaleria({...datosGaleria, [name]: value});
+    if (name === 'enlaceUrl') {
+      let urlFinal;
+      let posinicial = value.indexOf('?') + 3;
+      if (value.indexOf('list') !== -1) {
+        let posicionFinal = value.indexOf('&list');
+        console.log(posicionFinal - posinicial);
+        urlFinal = value.substr(posinicial, posicionFinal - posinicial);
+      } else {
+        urlFinal = value.substr(posinicial, value.length - 1);
+      }
+      setDatosGaleria({...datosGaleria, [name]: urlFinal, urlVideo: value});
+    } else {
+      setDatosGaleria({...datosGaleria, [name]: value});
+    }
   };
   const [advertenciaFaltanDatos, setAdvertenciaFaltanDatos] = useState({
     mostrar: false,
@@ -120,7 +133,13 @@ const NuevaGaleriaVideo = () => {
         name="enlaceUrl"
         placeholder="Ingrese url de video"
         onChange={e => escucharCambios(e.target.name, e.target.value)}
-        value={datosGaleria.enlaceUrl ? datosGaleria.enlaceUrl : ''}
+        value={
+          datosGaleria.urlVideo
+            ? datosGaleria.urlVideo
+            : datosGaleria.enlaceUrl
+            ? datosGaleria.enlaceUrl
+            : ''
+        }
       ></InputLowa>
       <InputLowa
         name="descripcion"
