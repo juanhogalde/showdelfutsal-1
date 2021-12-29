@@ -1,5 +1,9 @@
 import API from './../Configuracion/api';
 
+export const obtenerDatosDeTorneo = 'obtenerDatosDeTorneo';
+/* export const obtenerCategoriaSubcategoriaDatosDeTorneo =
+  'obtenerCategoriaSubcategoriaDatosDeTorneo'; */
+
 export const cargandoAgregarTorneo = 'cargandoAgregarTorneo';
 export const agregarTorneoExito = 'cargandoAgregarTorneo';
 export const agregarTorneoError = 'cargandoAgregarTorneo';
@@ -21,6 +25,19 @@ export const listarTorneoError = 'listarTorneoError';
 export const volverPorDefectoListarTorneo = 'volverPorDefectoListarTorneo';
 
 /****** AGREGAR TORNEO ******/
+export const obtenerDatosDeTorneo_accion = datos => {
+  return {
+    type: obtenerDatosDeTorneo,
+    datos: datos,
+  };
+};
+/* export const obtenerCategoriaSubcategoriaDatosDeTorneo_accion = (categoriaId, subcategoriaId) => {
+  return {
+    type: obtenerCategoriaSubcategoriaDatosDeTorneo,
+    categoriaId: categoriaId,
+    subcategoriaId: subcategoriaId,
+  };
+}; */
 export const cargandoAgregarTorneo_accion = () => {
   return {
     type: cargandoAgregarTorneo,
@@ -47,9 +64,7 @@ export const volverPorDefectoAgregarTorneo_accion = () => {
   };
 };
 
-export const agregarTorneo_accion = datosTorneo => {
-  console.log(datosTorneo);
-
+export const agregarTorneo_accion = (datosTorneo, categoriaId, subcategoriaId) => {
   return dispatch => {
     dispatch(cargandoAgregarTorneo_accion());
     API({
@@ -60,7 +75,7 @@ export const agregarTorneo_accion = datosTorneo => {
       .then(res => {
         console.log({res});
         /* dispatch(agregarTorneoExito_accion(res.data.value)); */
-        dispatch(agregarTorneoExito_accion(datosTorneo));
+        /* dispatch(agregarTorneoExito_accion(datosTorneo)); */
       })
       .catch(error => {
         console.log({error});

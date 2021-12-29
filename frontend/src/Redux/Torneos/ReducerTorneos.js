@@ -1,4 +1,6 @@
 import {
+  obtenerDatosDeTorneo,
+  /* obtenerCategoriaSubcategoriaDatosDeTorneo, */
   cargandoAgregarTorneo,
   agregarTorneoExito,
   agregarTorneoError,
@@ -23,6 +25,23 @@ const torneoPorDefecto = {
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
   switch (accion.type) {
+    case obtenerDatosDeTorneo: {
+      return {
+        ...state,
+        torneo: accion.datos,
+      };
+    }
+    /* case obtenerCategoriaSubcategoriaDatosDeTorneo: {
+      console.log(accion);
+      return {
+        ...state,
+        torneo: {
+          ...state.torneo,
+          idCategoria: accion.categoriaId,
+          idSubcategoria: accion.subcategoriaId,
+        },
+      };
+    } */
     case cargandoAgregarTorneo: {
       return {
         ...state,

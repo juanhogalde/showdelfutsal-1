@@ -1,17 +1,23 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
+import {agregarTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
 import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
 import './Campeonato.css';
 
 const Campeonato = () => {
   const history = useHistory();
-
+  const dispatch = useDispatch();
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
+  const {torneo} = useSelector(state => state.storeTorneos);
 
-  const redireccioarZona = () => {
-    console.log('redireccioarZona');
-    history.push('/Torneo/Nuevo/Campeonato/Zonas');
+  const redireccioarZona = (categoria, subcategoria) => {
+    let auxDatosDeTorneo = Object.assign(torneo);
+    auxDatosDeTorneo.idCategoria = categoria;
+    auxDatosDeTorneo.idSubcategoria = subcategoria;
+
+    dispatch(agregarTorneo_accion(auxDatosDeTorneo));
+    /* history.push('/Torneo/Nuevo/Campeonato/Zonas'); */
   };
   if (categorias.length > 0 && subcategorias.length > 0) {
     return (
@@ -21,7 +27,8 @@ const Campeonato = () => {
           {subcategorias.map((subcategoria, index) => {
             return (
               <TarjetaTorneo
-                datos={subcategoria.label}
+                categoria={categorias[1]}
+                subcategoria={subcategoria}
                 key={index}
                 isCampeonato={true}
                 redireccioarZona={redireccioarZona}
