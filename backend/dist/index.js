@@ -22,12 +22,11 @@ const Estadios_Router_1 = __importDefault(require("./Componentes/Estadios/Estadi
 const Home_Router_1 = __importDefault(require("./Componentes/Home/Home_Router"));
 const Imagenes_Router_1 = __importDefault(require("./Componentes/Imagenes/Imagenes_Router"));
 const Videos_Router_1 = __importDefault(require("./Componentes/Videos/Videos_Router"));
-const Galeria_Router_1 = __importDefault(require("./Galeria/Galeria_Router"));
+const Galeria_Router_1 = __importDefault(require("./Componentes/Galeria/Galeria_Router"));
 const Tablas_Router_1 = __importDefault(require("./Componentes/Tablas/Tablas_Router"));
 const responder_1 = __importDefault(require("./Middlewares/responder"));
 const manejadorErrores_1 = __importDefault(require("./Middlewares/manejadorErrores"));
 const importarDatos_1 = require("./Config/importarDatos");
-const Usuarios_Model_1 = __importDefault(require("./Componentes/Usuarios/Usuarios_Model"));
 const instalacionInicial_1 = require("./Config/instalacionInicial");
 const MedidasPublicidad_Router_1 = __importDefault(require("./Componentes/MedidasPublicidad/MedidasPublicidad_Router"));
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
@@ -86,20 +85,13 @@ class Server {
             (0, importarDatos_1.importarDatos)(req, res);
         });
         this.app.get('/instalar', (req, res) => {
-            Usuarios_Model_1.default.findOne({}).then((elemento) => {
-                if (elemento) {
-                    responder_1.default.sucess(req, res, 'Ya instalada');
-                }
-                else {
-                    (0, instalacionInicial_1.instalarBD)()
-                        .then((respuesta) => {
-                        res.status(200).send(respuesta);
-                    })
-                        .catch((e) => {
-                        console.log(e);
-                        res.status(500).send('ocurrio un error');
-                    });
-                }
+            (0, instalacionInicial_1.instalarBD)()
+                .then((respuesta) => {
+                res.status(200).send(respuesta);
+            })
+                .catch((e) => {
+                console.log(e);
+                res.status(500).send('ocurrio un error');
             });
         });
         this.app.get('*', (req, res) => {

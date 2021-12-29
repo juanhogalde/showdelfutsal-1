@@ -39,5 +39,32 @@ class MedidasPublicidadController {
             }
         });
     }
+    editar(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const medidasBody = req.body;
+                if (medidasBody._id) {
+                    MedidasPublicidad_Model_1.default.findById(medidasBody._id).then((medidasPublicidad) => __awaiter(this, void 0, void 0, function* () {
+                        if (medidasPublicidad) {
+                            medidasPublicidad.disponible = false;
+                            const resultado = yield medidasPublicidad.save();
+                            responder_1.default.sucess(req, res, resultado);
+                        }
+                        else {
+                            let error = new Error('Medida No encontrada');
+                            responder_1.default.error(req, res, error);
+                        }
+                    }));
+                }
+                else {
+                    let error = new Error('No se envio medida');
+                    responder_1.default.error(req, res, error);
+                }
+            }
+            catch (error) {
+                responder_1.default.error(req, res, error);
+            }
+        });
+    }
 }
 exports.medidasPublicidadController = new MedidasPublicidadController();
