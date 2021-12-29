@@ -17,6 +17,7 @@ const TorneosSchema = new Schema({
       required: true,
     },
   ],
+  tipoTorneo: Number,
 });
 
 export default model<ITorneos>('modeloTorneos', TorneosSchema);

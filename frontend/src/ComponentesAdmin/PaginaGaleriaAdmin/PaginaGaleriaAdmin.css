@@ -5,14 +5,14 @@
 }
 
 .LI-Tarjetas-Galeria {
+  width: 100%;
+  max-width: 300px;
   display: flex;
-  flex-wrap: nowrap;
-  align-items: stretch;
-  max-width: 32%;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-left: 8rem;
 }
+.LI-Tarjetas-Galeria * {
+  padding: 10px;
+}
+
 @media screen and (max-width: 530px) {
   .LI-Tarjetas-Galeria {
     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));

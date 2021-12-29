@@ -52,6 +52,7 @@ const galeriaPorDefecto = {
     isCargando: false,
     isExito: false,
     isError: false,
+    id: '',
   },
 };
 
@@ -146,7 +147,7 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
           isCargando: false,
           isExito: false,
           isError: false,
-          datos: accion.datos,
+          id: accion.datos,
         },
       };
     }
@@ -160,10 +161,12 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
           isCargando: true,
           isExito: false,
           isError: false,
+          id: state.isEliminarGaleria.id,
         },
       };
     }
     case eliminarGaleriaExito: {
+      console.log(accion.datos);
       return {
         ...state,
         isEliminarGaleria: {
@@ -173,11 +176,16 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
           isCargando: false,
           isExito: true,
           isError: false,
+          id: state.isEliminarGaleria.id,
         },
       };
     }
     case actualizarListaDeGalerias: {
-      let auxGalerias = state.galerias.filter(galeria => galeria._id !== accion.datos);
+      console.log(state.isEliminarGaleria.id);
+      let auxGalerias = state.galerias.filter(
+        galeria => galeria._id !== state.isEliminarGaleria.id
+      );
+      console.log(auxGalerias);
       return {
         ...state,
         galerias: auxGalerias,

@@ -1,3 +1,8 @@
+export enum tipoTorneo {
+  Campeonato = 1,
+  Liga,
+  Copa,
+}
 export enum TipoZona {
   Eliminatoria = 1,
   EliminatoriaConDG,

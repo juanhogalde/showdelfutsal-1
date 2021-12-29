@@ -9,6 +9,8 @@ const TarjetaPanel = ({
   tituloPanel = 'Titulo',
   linkTo = '',
   cargandoDatosIniciales = '',
+  icono = '',
+  tituloCentrado = false,
 }) => {
   /* const redireccionar =()=>{
     window.redirec
@@ -16,7 +18,7 @@ const TarjetaPanel = ({
   return (
     <Link className="link-Paneles" to={`/${linkTo}`}>
       <div className="CP-TarjetaPanel" /* onClick={()=>redireccionar()} */>
-        <h5>
+        <h5 className={tituloCentrado ? 'tituloCentrado' : ''}>
           {cargandoDatosIniciales ? (
             <Skeleton baseColor="rgb(241, 241, 241)" highlightColor="rgb(216, 216, 216)"></Skeleton>
           ) : (
@@ -33,6 +35,8 @@ const TarjetaPanel = ({
               height="100%"
             ></Skeleton>
           </div>
+        ) : icono ? (
+          <div className="CI-Icono-TarjetaPanel">{icono}</div>
         ) : (
           <img className="imagen-TarjetaPanel" alt="" src={url}></img>
         )}

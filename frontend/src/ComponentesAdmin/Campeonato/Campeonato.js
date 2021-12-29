@@ -17,7 +17,7 @@ const Campeonato = () => {
     return (
       <div className="CP-Campeonato">
         <div className="CI-CampeonatoMasculino">
-          <p>{categorias[0].label ? categorias[0].label : ''}</p>
+          <p>{categorias[1].label ? categorias[1].label : ''}</p>
           {subcategorias.map((subcategoria, index) => {
             return (
               <TarjetaTorneo

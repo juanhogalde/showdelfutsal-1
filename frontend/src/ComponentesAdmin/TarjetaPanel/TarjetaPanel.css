@@ -31,3 +31,9 @@
   width: 100%;
   color: #2a2ac0;
 }
+.CI-Icono-TarjetaPanel svg:nth-child(1) {
+  font-size: 100px;
+}
+.tituloCentrado {
+  text-align: center;
+}

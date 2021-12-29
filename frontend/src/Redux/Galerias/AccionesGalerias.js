@@ -146,10 +146,9 @@ export const eliminarGaleriaExito_accion = datos => {
     datos: datos,
   };
 };
-export const actualizarListaDeGalerias_accion = datos => {
+export const actualizarListaDeGalerias_accion = () => {
   return {
     type: actualizarListaDeGalerias,
-    datos: datos,
   };
 };
 export const eliminarGaleriaError_accion = error => {
@@ -165,7 +164,6 @@ export const volverPorDefectoEliminarGaleria_accion = () => {
 };
 export const eliminarGaleria_accion = id => {
   return dispatch => {
-    console.log(id);
     dispatch(cargandoEliminarGaleria_accion());
     API({
       url: '/galeria/eliminar',
