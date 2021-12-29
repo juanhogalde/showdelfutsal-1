@@ -23,7 +23,6 @@ const Campeonato = () => {
     /* history.push('/Torneo/Nuevo/Campeonato/Zonas'); */
   };
   const respuestaDeAlertas = respuesta => {
-    console.log(respuesta);
     if (respuesta) {
       if (isAgregarTorneo.isExito) {
         dispatch(volverPorDefectoAgregarTorneo_accion());

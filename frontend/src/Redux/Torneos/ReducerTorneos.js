@@ -66,7 +66,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         ...state,
         isAgregarTorneo: {
           tipo: 'success',
-          mensaje: 'Torneo cargada con exito.',
+          mensaje: 'Torneo cargado con exito.',
           isCargando: false,
           isExito: true,
           isError: false,

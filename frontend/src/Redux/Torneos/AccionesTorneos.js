@@ -70,7 +70,7 @@ export const agregarTorneo_accion = (datosTorneo, categoriaId, subcategoriaId) =
     API({
       url: '/torneos/agregar',
       method: 'post',
-      data: {},
+      data: datosTorneo,
     })
       .then(res => {
         console.log({res});
