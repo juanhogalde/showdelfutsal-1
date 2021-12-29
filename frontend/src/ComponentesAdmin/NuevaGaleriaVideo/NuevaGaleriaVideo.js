@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {BsFillCameraReelsFill} from 'react-icons/bs';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
@@ -17,19 +17,33 @@ import {
 const NuevaGaleriaVideo = () => {
   const {tipo} = useParams();
   const [videosCargados, setVideosCargados] = useState([]);
+  const [isCamposVacios, setIsCamposVacios] = useState({enlaceUrl: true, descripcion: true});
   const history = useHistory();
   const dispatch = useDispatch();
   const {videoGaleriaEditar, isAgregarGaleria, isEditarGaleria} = useSelector(
     state => state.storeGalerias
   );
   const [datosGaleria, setDatosGaleria] = useState({});
+  useEffect(() => {
+    if (videosCargados.length) {
+      const elemento = document.getElementById(`videoAgregado${videosCargados.length}`);
+      elemento.scrollIntoView();
+    }
+    // setDatosGaleria({descripcion: ''});
+  }, [videosCargados]);
   const escucharCambios = async (name, value) => {
+    if (name === 'enlaceUrl') {
+      setIsCamposVacios({...isCamposVacios, enlaceUrl: false});
+    }
+    if (name === 'descripcion') {
+      setIsCamposVacios({...isCamposVacios, descripcion: false});
+    }
     if (name === 'enlaceUrl') {
       let urlFinal;
       let posinicial = value.indexOf('?') + 3;
       if (value.indexOf('list') !== -1) {
         let posicionFinal = value.indexOf('&list');
-        console.log(posicionFinal - posinicial);
+
         urlFinal = value.substr(posinicial, posicionFinal - posinicial);
       } else {
         urlFinal = value.substr(posinicial, value.length - 1);
@@ -59,6 +73,8 @@ const NuevaGaleriaVideo = () => {
         ...videosCargados,
         {fuente: datosGaleria.enlaceUrl, descripcion: datosGaleria.descripcion},
       ]);
+      setDatosGaleria({...datosGaleria, enlaceUrl: '', descripcion: ''});
+      setIsCamposVacios({enlaceUrl: true, descripcion: true});
     } else {
       setAdvertenciaFaltanDatos({
         mostrar: true,
@@ -68,7 +84,6 @@ const NuevaGaleriaVideo = () => {
     }
   };
   const guardarGaleria = tipo => {
-    console.log(datosGaleria);
     if (Object.values(datosGaleria).length) {
       var TresHoraMilisegundos = 1000 * 60 * 60 * 3;
       var fechaActual = new Date();
@@ -110,7 +125,7 @@ const NuevaGaleriaVideo = () => {
   const eliminarVideoCargado = index => {
     var copiaVideos = videosCargados.slice();
     var videoAEliminar = videosCargados.find(video => video._id === videosCargados[index]._id);
-    console.log(videoAEliminar);
+
     if (videoAEliminar._id) {
       dispatch(eliminarVideo_accion(videoAEliminar));
     }
@@ -134,7 +149,9 @@ const NuevaGaleriaVideo = () => {
         placeholder="Ingrese url de video"
         onChange={e => escucharCambios(e.target.name, e.target.value)}
         value={
-          datosGaleria.urlVideo
+          isCamposVacios.enlaceUrl
+            ? ''
+            : datosGaleria.urlVideo
             ? datosGaleria.urlVideo
             : datosGaleria.enlaceUrl
             ? datosGaleria.enlaceUrl
@@ -145,7 +162,9 @@ const NuevaGaleriaVideo = () => {
         name="descripcion"
         placeholder="Ingrese descripcion del video"
         onChange={e => escucharCambios(e.target.name, e.target.value)}
-        value={datosGaleria.descripcion ? datosGaleria.descripcion : ''}
+        value={
+          isCamposVacios.descripcion ? '' : datosGaleria.descripcion ? datosGaleria.descripcion : ''
+        }
       ></InputLowa>
       <div className="CP-Agregar-Un-Video" onClick={() => AgregarVideo()}>
         <BsFillCameraReelsFill
@@ -170,7 +189,7 @@ const NuevaGaleriaVideo = () => {
           {videosCargados.map((videos, index) => {
             return (
               videos && (
-                <div key={index} className="CP-lista-videos">
+                <div key={index} className="CP-lista-videos" id={`videoAgregado${index + 1}`}>
                   <div className="CI-Video-Lista-Tarjeta">
                     <iframe
                       src={`https://www.youtube-nocookie.com/embed/${videos.fuente}`}
