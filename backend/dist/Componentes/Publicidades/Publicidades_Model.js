@@ -16,5 +16,6 @@ const PublicidadesSchema = new mongoose_1.Schema({
             ref: 'modeloImagenes',
         },
     ],
+    fecha: { type: Date },
 });
 exports.default = (0, mongoose_1.model)('modeloPublicidades', PublicidadesSchema);

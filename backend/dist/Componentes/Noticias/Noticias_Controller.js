@@ -184,16 +184,22 @@ class NoticiasController {
                             noticia.titulo = noticiaBody.titulo;
                             noticia.copete = noticiaBody.copete;
                             noticia.cuerpo = noticiaBody.cuerpo;
-                            noticia.idEtiquetas = noticiaBody.idEtiquetas;
                             noticia.idCategoria = noticiaBody.idCategoria;
                             noticia.idSubcategoria = noticiaBody.idSubcategoria;
                             noticia.keyCategoria = noticiaBody.keyCategoria;
                             noticia.keySubcategoria = noticiaBody.keySubcategoria;
                             noticia.isDestacada = noticiaBody.isDestacada;
-                            noticia.autor = noticiaBody.autor;
                             noticia.idImagen = noticiaBody.idImagen;
                             const resultado = yield noticia.save({ new: true });
-                            responder_1.default.sucess(req, res, resultado);
+                            Noticias_Model_1.default
+                                .findById(resultado._id)
+                                .populate('idImagen')
+                                .then((noticia) => {
+                                responder_1.default.sucess(req, res, noticia);
+                            })
+                                .catch((error) => {
+                                responder_1.default.error(req, res, error);
+                            });
                         }
                         else {
                             let error = new Error('Noticia no encontrada');
@@ -273,6 +279,66 @@ class NoticiasController {
             }
         });
     }
+    destacarNoticia(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const noticiaBody = req.body;
+                if (!noticiaBody._id) {
+                    responder_1.default.error(req, res, 'No se ingresaron datos');
+                }
+                else {
+                    Noticias_Model_1.default.findById(noticiaBody._id).then((noticia) => __awaiter(this, void 0, void 0, function* () {
+                        if (noticia) {
+                            noticia.isDestacada = true;
+                            const resultado = yield noticia.save({ new: true });
+                            Noticias_Model_1.default
+                                .findById(resultado._id)
+                                .populate('idImagen')
+                                .then((noticia) => {
+                                responder_1.default.sucess(req, res, noticia);
+                            })
+                                .catch((error) => {
+                                responder_1.default.error(req, res, error);
+                            });
+                        }
+                    }));
+                }
+            }
+            catch (error) {
+                responder_1.default.error(req, res, error);
+            }
+        });
+    }
+    desestacarNoticia(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const noticiaBody = req.body;
+                if (!noticiaBody._id) {
+                    responder_1.default.error(req, res, 'No se ingresaron datos');
+                }
+                else {
+                    Noticias_Model_1.default.findById(noticiaBody._id).then((noticia) => __awaiter(this, void 0, void 0, function* () {
+                        if (noticia) {
+                            noticia.isDestacada = false;
+                            const resultado = yield noticia.save({ new: true });
+                            Noticias_Model_1.default
+                                .findById(resultado._id)
+                                .populate('idImagen')
+                                .then((noticia) => {
+                                responder_1.default.sucess(req, res, noticia);
+                            })
+                                .catch((error) => {
+                                responder_1.default.error(req, res, error);
+                            });
+                        }
+                    }));
+                }
+            }
+            catch (error) {
+                responder_1.default.error(req, res, error);
+            }
+        });
+    }
     filtrar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -289,12 +355,8 @@ class NoticiasController {
                     if (filtrosBody.isDestacada) {
                         filtrosBD.isDestacada = filtrosBody.isDestacada;
                     }
-                    const opcionesPaginado = {
-                        limit: parseInt(filtrosBody.limite, 10) || 20,
-                        page: parseInt(filtrosBody.page, 10) || 1,
-                    };
-                    const datos = yield Noticias_Model_1.default.paginate(filtrosBD, opcionesPaginado);
-                    if (datos.docs.length) {
+                    const datos = yield Noticias_Model_1.default.find(filtrosBD);
+                    if (datos.length) {
                         responder_1.default.sucess(req, res, datos);
                     }
                     else {
