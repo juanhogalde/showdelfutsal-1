@@ -1,6 +1,4 @@
 import React, {useLayoutEffect, useState} from 'react';
-import Marcador from '../Marcador/Marcador';
-/* import PieDepagina from '../PieDePagina/PieDepagina'; */
 import publicidadCorta from '../../Static/Img/publicidad_corta.jpg';
 import './Inicio.css';
 import Filtros from '../Filtros/Filtros';
