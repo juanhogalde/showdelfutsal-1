@@ -1,12 +1,13 @@
 import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
-import modeloCampeonatos from './Torneos_Model';
-import ICampeonatos from './Torneos_Interface';
-
+import modeloTorneos from './Torneos_Model';
+import ITorneos from './Torneos_Interface';
+import {zonasController} from '../Zonas/Zonas_Controller';
+import {subcategoriasController} from '../Subcategorias/Subcategorias_Controller';
 class TorneosController {
   public async listar(req: Request, res: Response) {
     try {
-      const listadoCampeonatos = await modeloCampeonatos.find();
+      const listadoCampeonatos = await modeloTorneos.find();
       responder.sucess(req, res, listadoCampeonatos);
     } catch (error) {
       responder.error(req, res, error);
@@ -15,9 +16,9 @@ class TorneosController {
 
   public async agregar(req: Request, res: Response) {
     try {
-      const campeonato: ICampeonatos = new modeloCampeonatos(req.body);
-      const torneo = await campeonato.save();
-      responder.sucess(req, res, torneo);
+      const torneo: ITorneos = new modeloTorneos(req.body);
+      const resultado = await torneo.save();
+      responder.sucess(req, res, resultado);
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -25,8 +26,8 @@ class TorneosController {
 
   public async obtener(req: Request, res: Response) {
     try {
-      let idCampeonato = req.params.id;
-      const torneo = await modeloCampeonatos.find({_id: idCampeonato});
+      let idTorneo = req.params.id;
+      const torneo = await modeloTorneos.find({_id: idTorneo});
       responder.sucess(req, res, torneo);
     } catch (error) {
       responder.error(req, res, error);
@@ -35,17 +36,43 @@ class TorneosController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const campeonatoBody = req.body;
-      if (campeonatoBody._id) {
-        modeloCampeonatos.findById(campeonatoBody._id).then(async (campeonato: any) => {
-          if (campeonato) {
-            campeonato.tituloTorneo = campeonatoBody.tituloCampeonato;
-            campeonato.fechaInicio = campeonatoBody.fechaInicio;
-            campeonato.fechaFin = campeonatoBody.fechaFin;
-            campeonato.idCategoria = campeonatoBody.idCategoria;
-            campeonato.idSubcategoria = campeonatoBody.idSubcategoria;
+      const torneoBody = req.body;
+      if (torneoBody._id) {
+        modeloTorneos.findById(torneoBody._id).then(async (torneo: any) => {
+          if (torneo) {
+            torneo.tituloTorneo = torneoBody.tituloTorneo;
+            torneo.fechaInicio = torneoBody.fechaInicio;
+            torneo.fechaFin = torneoBody.fechaFin;
 
-            const resultado = await campeonato.save({new: true});
+            if (torneoBody.idCategoria) {
+              torneo.idCategoria.push(torneoBody.idCategoria);
+            }
+
+            if (torneoBody.idSubcategoria) {
+              const datos = {
+                idCategoria: torneoBody.idCategoria,
+                idSubcategoria: torneoBody.idSubcategoria,
+                keySubcategoria: torneoBody.keySubcategoria,
+              };
+              await subcategoriasController.modificarSubcategoriaTorneo(datos);
+            }
+
+            if (torneoBody.nombreZona) {
+              const datos = {
+                nombreZona: torneoBody.nombreZona,
+                tipoZona: torneoBody.tipoZona,
+                idSubcategoria: torneoBody.idSubcategoria,
+              };
+              await zonasController.crearZona(datos);
+            }
+
+            if (torneoBody.idEquipoLocal && torneoBody.idEquipoVisitante) {
+              const datos = {};
+            }
+            // campeonato.idCategoria = campeonatoBody.idCategoria;
+            // campeonato.idSubcategoria = campeonatoBody.idSubcategoria;
+
+            const resultado = await torneo.save({new: true});
             responder.sucess(req, res, resultado);
           } else {
             let error = new Error('Torneo no encontrado');
@@ -64,18 +91,18 @@ class TorneosController {
   public async eliminar(req: Request, res: Response) {
     try {
       let id = req.body.id;
-      const campeonatoEliminada = await modeloCampeonatos.findOneAndDelete({_id: id}, {new: true});
-      responder.sucess(req, res, campeonatoEliminada);
+      const torneoEliminado = await modeloTorneos.findOneAndDelete({_id: id}, {new: true});
+      responder.sucess(req, res, torneoEliminado);
     } catch (error) {
       responder.error(req, res, error);
     }
   }
 
-  public obtenerCampeonato(idCampeonato: string, idCategoria: string) {
-    return modeloCampeonatos
-      .findOne({idCampeonato: idCampeonato, idCategoria: idCategoria})
-      .populate('idCategoria')
-      .populate('idSubcategoria');
-  }
+  // public obtenerCampeonato(idCampeonato: string, idCategoria: string) {
+  //   return modeloTorneos
+  //     .findOne({idCampeonato: idCampeonato, idCategoria: idCategoria})
+  //     .populate('idCategoria')
+  //     .populate('idSubcategoria');
+  // }
 }
 export const torneosController = new TorneosController();

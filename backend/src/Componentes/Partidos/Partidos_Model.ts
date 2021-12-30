@@ -17,7 +17,7 @@ const PartidosSchema = new Schema({
       texto: {type: String},
     },
   ],
-  campeonato: {type: Schema.Types.ObjectId, ref: 'modeloCampeonatos'},
+  // campeonato: {type: Schema.Types.ObjectId, ref: 'modeloCampeonatos'},
   idTabla: {type: Schema.Types.ObjectId, ref: 'modeloTablas'},
 });
 
