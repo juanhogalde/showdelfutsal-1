@@ -104,7 +104,6 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
       dispatch(eliminarImagenExito_accion());
       auxImagenes = datosGaleria.imagenes.slice();
       auxImagenes.splice(index, 1);
-      console.log(auxImagenes);
       setDatosGaleria({...datosGaleria, imagenes: auxImagenes});
     }
   };

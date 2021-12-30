@@ -8,12 +8,12 @@ import {BsPlusCircle} from 'react-icons/bs';
 import {useHistory} from 'react-router';
 import Alertas from '../Alertas/Alertas';
 import {useDispatch} from 'react-redux';
-import {agregarTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
+import {obtenerDatosDeTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
 
 const Torneo = [
-  {value: 'Campeonato', label: 'Campeonato'},
-  {value: 'Liga', label: 'Liga'},
-  {value: 'Copa', label: 'Copa'},
+  {value: 1, label: 'Campeonato'},
+  {value: 2, label: 'Liga'},
+  {value: 3, label: 'Copa'},
 ];
 
 const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
@@ -23,29 +23,22 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
   const [alertaFechas, setAlertaFechas] = useState(false);
 
   const escucharCambios = (name, value) => {
-    console.log(name);
-    console.log(value);
     if (name === 'fechaInicio' || name === 'fechaFin') {
-      setDatosTorneo(datosTorneo => {
-        return {...datosTorneo, [name]: new Date(value)};
-      });
+      setDatosTorneo({...datosTorneo, [name]: new Date(value)});
     } else {
-      setDatosTorneo(datosTorneo => {
-        return {...datosTorneo, [name]: value};
-      });
+      setDatosTorneo({...datosTorneo, [name]: value});
     }
   };
 
   const escucharSelector = (value, name) => {
-    setDatosTorneo(datosTorneo => {
-      return {...datosTorneo, [name]: value};
-    });
+    setDatosTorneo({...datosTorneo, [name]: value});
   };
 
   const siguientePantallaNuevoTorneo = datosTorneo => {
-    switch (datosTorneo.torneo) {
-      case 'Campeonato':
-        dispatch(agregarTorneo_accion(datosTorneo));
+    switch (datosTorneo.tipoTorneo) {
+      case 1:
+        /* dispatch(agregarTorneo_accion(datosTorneo)); */
+        dispatch(obtenerDatosDeTorneo_accion(datosTorneo));
         history.push('/Torneo/Nuevo/Campeonato');
         break;
 

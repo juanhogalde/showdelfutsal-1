@@ -16,8 +16,8 @@ class TorneosController {
   public async agregar(req: Request, res: Response) {
     try {
       const campeonato: ICampeonatos = new modeloCampeonatos(req.body);
-      await campeonato.save();
-      responder.sucess(req, res);
+      const torneo = await campeonato.save();
+      responder.sucess(req, res, torneo);
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -26,8 +26,8 @@ class TorneosController {
   public async obtener(req: Request, res: Response) {
     try {
       let idCampeonato = req.params.id;
-      const campeonato = await modeloCampeonatos.find({_id: idCampeonato});
-      responder.sucess(req, res, campeonato);
+      const torneo = await modeloCampeonatos.find({_id: idCampeonato});
+      responder.sucess(req, res, torneo);
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -48,12 +48,12 @@ class TorneosController {
             const resultado = await campeonato.save({new: true});
             responder.sucess(req, res, resultado);
           } else {
-            let error = new Error('Campeonato no encontrado');
+            let error = new Error('Torneo no encontrado');
             responder.error(req, res, error);
           }
         });
       } else {
-        let error = new Error('Campeonato no encontrado');
+        let error = new Error('Torneo no encontrado');
         responder.error(req, res, error);
       }
     } catch (error) {

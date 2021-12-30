@@ -10,6 +10,8 @@ import {useHistory} from 'react-router-dom';
 const TarjetaTorneo = ({
   isCampeonato = false,
   datos = '',
+  categoria = '',
+  subcategoria = '',
   redireccioarZona = () => {
     console.log('');
   },
@@ -34,7 +36,7 @@ const TarjetaTorneo = ({
       className={`${
         isCampeonato ? 'CP-TarjetaTorneo CP-TarjetaTorneo-Campeonato' : 'CP-TarjetaTorneo'
       }`}
-      onClick={redireccioarZona}
+      onClick={() => redireccioarZona(categoria.value, subcategoria.value)}
     >
       {!isCampeonato && (
         <div className="CI-Titulo-TarjetaTorneo">
@@ -47,7 +49,7 @@ const TarjetaTorneo = ({
       </div>
       <div className="CI-Cuerpo-TarjetaTorneo">
         {!isCampeonato && <p>07/07/2021 - 08/08/2021</p>}
-        <p>{datos}</p>
+        <p>{subcategoria.label}</p>
       </div>
 
       <div className="CI-Acciones-TarjetaTorneo" onClick={() => mostrarAcciones()}>
