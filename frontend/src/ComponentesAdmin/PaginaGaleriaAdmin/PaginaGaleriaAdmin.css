@@ -5,7 +5,6 @@
 }
 
 .LI-Tarjetas-Galeria {
-  /* width: 500px; */
   max-width: 500px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 150px));
@@ -18,9 +17,3 @@
 .LI-Tarjetas-Galeria * {
   padding: 10px;
 }
-
-/* @media screen and (max-width: 390px) {
-  .LI-Tarjetas-Galeria {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  }
-} */
