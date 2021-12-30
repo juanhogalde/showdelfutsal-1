@@ -8,12 +8,10 @@ const TorneosSchema = new Schema({
   idCategoria: {
     type: Schema.Types.ObjectId,
     ref: 'modeloCategorias',
-    required: true,
   },
   idSubcategoria: {
     type: Schema.Types.ObjectId,
     ref: 'modeloSubcategorias',
-    required: true,
   },
   tipoTorneo: Number,
 });
