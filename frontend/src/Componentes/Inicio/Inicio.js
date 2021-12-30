@@ -138,12 +138,18 @@ const Inicio = () => {
         FiltrarNoticias(1).then(noticiasFiltradas => {
           if (noticiasFiltradas[0]) {
             setNoticiaP(noticiasFiltradas[0]);
+          } else {
+            setNoticiaP({});
           }
           if (noticiasFiltradas[1]) {
             setNoticia1(noticiasFiltradas[1]);
+          } else {
+            setNoticia1({});
           }
           if (noticiasFiltradas[2]) {
             setNoticia2(noticiasFiltradas[2]);
+          } else {
+            setNoticia2({});
           }
         });
         break;
@@ -151,12 +157,18 @@ const Inicio = () => {
         FiltrarNoticias(2).then(noticiasFiltradas => {
           if (noticiasFiltradas[0]) {
             setNoticiaP(noticiasFiltradas[0]);
+          } else {
+            setNoticiaP({});
           }
           if (noticiasFiltradas[1]) {
             setNoticia1(noticiasFiltradas[1]);
+          } else {
+            setNoticia1({});
           }
           if (noticiasFiltradas[2]) {
             setNoticia2(noticiasFiltradas[2]);
+          } else {
+            setNoticia2({});
           }
         });
         break;
@@ -164,12 +176,18 @@ const Inicio = () => {
         FiltrarNoticias(3).then(noticiasFiltradas => {
           if (noticiasFiltradas[0]) {
             setNoticiaP(noticiasFiltradas[0]);
+          } else {
+            setNoticiaP({});
           }
           if (noticiasFiltradas[1]) {
             setNoticia1(noticiasFiltradas[1]);
+          } else {
+            setNoticia1({});
           }
           if (noticiasFiltradas[2]) {
             setNoticia2(noticiasFiltradas[2]);
+          } else {
+            setNoticia2({});
           }
         });
         break;
