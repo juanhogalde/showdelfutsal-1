@@ -199,7 +199,15 @@ let incializarMedidasPublicitarias = async () => {
 
 export const instalarBD = async (bd: any) => {
   try {
-    await bd.eliminarColeccion('modelomedidaspublicidads');
+    let eliminar = true;
+    modeloMedidasPublicidad.find().then((medidaEncontrada: any) => {
+      if (medidaEncontrada.length === 0) {
+        eliminar = false;
+      }
+    });
+    if (eliminar) {
+      await bd.eliminarColeccion('modelomedidaspublicidads');
+    }
     await inicializarCategorias();
     await inicializarSubCategorias();
     await inicializarUsuarios();
