@@ -5,14 +5,18 @@ const TorneosSchema = new Schema({
   tituloTorneo: String,
   fechaInicio: Date,
   fechaFin: Date,
-  idCategoria: {
-    type: Schema.Types.ObjectId,
-    ref: 'modeloCategorias',
-  },
-  idSubcategoria: {
-    type: Schema.Types.ObjectId,
-    ref: 'modeloSubcategorias',
-  },
+  idCategoria: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'modeloCategorias',
+    },
+  ],
+  idSubcategoria: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'modeloSubcategorias',
+    },
+  ],
   tipoTorneo: Number,
 });
 
