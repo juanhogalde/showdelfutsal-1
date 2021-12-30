@@ -27,11 +27,6 @@ const TarjetaEnfrentamiento = ({isSeccionInicio = false}) => {
     console.log(name);
     console.log(value);
     setIsCampoDeEdicion(isMostrarCampoDeEdicion);
-    /* if (name === 'resultadoLocal') {
-      setResultadoLocal(value);
-    } else {
-      setResultadoVisitante(value);
-    } */
     switch (name) {
       case 'resultadoLocal':
         setResultadoLocal(value);
@@ -48,11 +43,6 @@ const TarjetaEnfrentamiento = ({isSeccionInicio = false}) => {
   };
   const habilitarCampoParaEdicion = campo => {
     console.log(campo);
-    /* if (campo === 'local') {
-      setIsCampoDeEdicion({isLocal: true, isVisitante: false});
-    } else {
-      setIsCampoDeEdicion({isLocal: false, isVisitante: true});
-    } */
     switch (campo) {
       case 'local':
         setIsCampoDeEdicion({isLocal: true, isVisitante: false, isComentarios: false});
