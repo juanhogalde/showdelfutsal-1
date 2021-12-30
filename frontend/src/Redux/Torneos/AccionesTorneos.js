@@ -23,14 +23,14 @@ export const cargandoListarTorneo = 'cargandoListarTorneo';
 export const listarTorneoExito = 'listarTorneoExito';
 export const listarTorneoError = 'listarTorneoError';
 export const volverPorDefectoListarTorneo = 'volverPorDefectoListarTorneo';
+export const volverPorDefectoUnTorneo = 'volverPorDefectoUnTorneo';
 
-/****** AGREGAR TORNEO ******/
-/* export const obtenerDatosDeTorneo_accion = datos => {
+export const volverPorDefectoUnTorneo_accion = () => {
   return {
-    type: obtenerDatosDeTorneo,
-    datos: datos,
+    type: volverPorDefectoUnTorneo,
   };
-}; */
+};
+
 export const obtenerCategoriaSubcategoriaDatosDeTorneo_accion = (categoriaId, subcategoriaId) => {
   return {
     type: obtenerCategoriaSubcategoriaDatosDeTorneo,
@@ -38,6 +38,15 @@ export const obtenerCategoriaSubcategoriaDatosDeTorneo_accion = (categoriaId, su
     subcategoriaId: subcategoriaId,
   };
 };
+/****** AGREGAR TORNEO ******/
+
+/* export const obtenerDatosDeTorneo_accion = datos => {
+  return {
+    type: obtenerDatosDeTorneo,
+    datos: datos,
+  };
+}; */
+
 export const cargandoAgregarTorneo_accion = () => {
   return {
     type: cargandoAgregarTorneo,
@@ -204,17 +213,17 @@ export const volverPorDefectoListarTorneo_accion = () => {
   };
 };
 
-export const listarTorneo_accion = datosTorneo => {
+export const listarTorneo_accion = () => {
   return dispatch => {
     dispatch(cargandoListarTorneo_accion());
     API({
-      url: '/campeonatos/listar',
+      url: '/torneos/listar',
       method: 'get',
       /* data: auxDatosGaleria, */
     })
       .then(res => {
         console.log({res});
-        /* dispatch(listarTorneoExito_accion(res.data.value)); */
+        dispatch(listarTorneoExito_accion(res.data.value));
       })
       .catch(error => {
         console.log({error});

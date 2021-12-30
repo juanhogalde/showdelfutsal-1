@@ -17,6 +17,7 @@ import {
   listarTorneoExito,
   listarTorneoError,
   volverPorDefectoListarTorneo,
+  volverPorDefectoUnTorneo,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -148,6 +149,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
     case listarTorneoExito: {
       return {
         ...state,
+        torneos: [...state.torneos, ...accion.datos],
       };
     }
     case listarTorneoError: {
@@ -158,6 +160,12 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
     case volverPorDefectoListarTorneo: {
       return {
         ...state,
+      };
+    }
+    case volverPorDefectoUnTorneo: {
+      return {
+        ...state,
+        torneo: {},
       };
     }
     default:

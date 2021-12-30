@@ -25,13 +25,14 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
   const {torneo, isAgregarTorneo} = useSelector(state => state.storeTorneos);
 
   const [datosTorneo, setDatosTorneo] = useState({});
+  const [alertaFechas, setAlertaFechas] = useState({
+    tipo: '',
+    mensaje: '',
+    isMostrar: false,
+  });
 
   const escucharCambios = (name, value) => {
-    if (name === 'fechaInicio' || name === 'fechaFin') {
-      setDatosTorneo({...datosTorneo, [name]: value});
-    } else {
-      setDatosTorneo({...datosTorneo, [name]: value});
-    }
+    setDatosTorneo({...datosTorneo, [name]: value});
   };
 
   const escucharSelector = (value, name) => {
@@ -57,7 +58,33 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
     if (Object.keys(torneo).length > 0) {
       setDatosTorneo(torneo);
     }
+    return () => {
+      setDatosTorneo({});
+    };
   }, [torneo]);
+  const validarCamposNuevoTorneo = () => {
+    if (new Date(datosTorneo.fechaInicio).getTime() > new Date(datosTorneo.fechaFin).getTime()) {
+      console.log('TRUE');
+      setAlertaFechas({
+        tipo: 'error',
+        mensaje: 'Fechas inválidas, por favor verificar.',
+        isMostrar: true,
+      });
+    } else {
+      console.log('FALSE');
+      dispatch(agregarTorneo_accion(datosTorneo));
+    }
+  };
+  const respuestaDeAlertaFechas = respuesta => {
+    if (respuesta) {
+      setAlertaFechas({
+        tipo: '',
+        mensaje: '',
+        isMostrar: true,
+      });
+    }
+  };
+
   return (
     <div className="CP-NuevoTorneo">
       <Selector
@@ -96,7 +123,8 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
         onClick={
           Object.keys(torneo).length > 0
             ? () => siguientePantallaNuevoTorneo()
-            : () => dispatch(agregarTorneo_accion(datosTorneo))
+            : /* */
+              () => validarCamposNuevoTorneo()
         }
         disabled={Object.keys(datosTorneo).length >= 4 ? false : true}
       ></BotonLowa>
@@ -107,6 +135,12 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
           isAgregarTorneo.isCargando || isAgregarTorneo.isExito || isAgregarTorneo.isError
         }
         RespuestaDeSweet={respuestaDeAlertas}
+      ></Alertas>
+      <Alertas
+        tipoDeSweet={alertaFechas.tipo}
+        subtitulo={alertaFechas.mensaje}
+        mostrarSweet={alertaFechas.isMostrar}
+        RespuestaDeSweet={respuestaDeAlertaFechas}
       ></Alertas>
     </div>
   );

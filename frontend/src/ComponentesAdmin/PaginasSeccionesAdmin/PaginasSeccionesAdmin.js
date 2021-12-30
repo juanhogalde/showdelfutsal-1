@@ -56,8 +56,9 @@ const PaginasSeccionesAdmin = ({
       )}
       {isSeccionTorneos && (
         <div className="CI-Pagina-Secciones-Torneos">
-          <TarjetaTorneo></TarjetaTorneo>
-          <TarjetaTorneo></TarjetaTorneo>
+          {datosDeSeccion.map((torneo, index) => {
+            return <TarjetaTorneo key={index} torneo={torneo} />;
+          })}
         </div>
       )}
     </div>
