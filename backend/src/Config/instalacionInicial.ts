@@ -143,14 +143,6 @@ let incializarMedidasPublicitarias = async () => {
       disponible: true,
     },
     {
-      ancho: 245,
-      alto: 245,
-      ubicacion: 'cuadrado',
-      direccion: 'Desarrollada->Noticia->Derecha1',
-      keyMedidas: 4,
-      disponible: true,
-    },
-    {
       ancho: 700,
       alto: 500,
       ubicacion: 'modal',
@@ -164,6 +156,14 @@ let incializarMedidasPublicitarias = async () => {
       ubicacion: 'horizontal',
       direccion: 'Inicio->Noticia->Abajo',
       keyMedidas: 6,
+      disponible: true,
+    },
+    {
+      ancho: 245,
+      alto: 245,
+      ubicacion: 'cuadrado',
+      direccion: 'Desarrollada->Noticia->Derecha1',
+      keyMedidas: 4,
       disponible: true,
     },
     {
@@ -197,8 +197,9 @@ let incializarMedidasPublicitarias = async () => {
   }
 };
 
-export const instalarBD = async () => {
+export const instalarBD = async (bd: any) => {
   try {
+    await bd.eliminarColeccion('modelomedidaspublicidads');
     await inicializarCategorias();
     await inicializarSubCategorias();
     await inicializarUsuarios();

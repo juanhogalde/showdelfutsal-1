@@ -45,7 +45,7 @@ class Server {
     uploadDir: 'public/imagenes/',
     autoClean: false,
   };
-
+  private bd: any;
   constructor() {
     this.app = express();
     this.conectarBd();
@@ -55,7 +55,7 @@ class Server {
   }
 
   conectarBd() {
-    const bd = new baseMongo(this._cadenaDeConexion);
+    this.bd = new baseMongo(this._cadenaDeConexion);
   }
 
   configurar() {
@@ -106,7 +106,7 @@ class Server {
     this.app.get('/instalar', (req: Request, res: Response) => {
       //Comprobar que la BD no esta instalada
       // modeloUsuarios.findOne({}).then((elemento: any) => {
-      instalarBD()
+      instalarBD(this.bd)
         .then((respuesta: any) => {
           res.status(200).send(respuesta);
         })
