@@ -1,15 +1,20 @@
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import './InputDateLowa.css';
 import {FaRegCalendarAlt} from 'react-icons/fa';
-
 const InputDateLowa = props => {
   const {type, placeholder, onChange, required, value, name, id} = props;
 
   const [inputDateValue, setInputDateValue] = useState('');
-
   const obtenerValue = e => {
-    setInputDateValue(e.nativeEvent.srcElement.value);
+    console.log(e);
+    setInputDateValue(e.target.value);
   };
+  useLayoutEffect(() => {
+    console.log(value);
+    if (value) {
+      setInputDateValue(value);
+    }
+  }, [value]);
   return (
     <div className="CP-InputDateLowa">
       <div
@@ -26,7 +31,6 @@ const InputDateLowa = props => {
         name={name}
         type={type}
         onChange={onChange}
-        value={value}
         required={required}
         className={`${inputDateValue ? 'inputDate-Lowa inputDate-LowaConValue' : 'inputDate-Lowa'}`}
         onInput={e => obtenerValue(e)}

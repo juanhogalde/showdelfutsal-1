@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputDateLowa from '../InputDateLowa/InputDateLowa';
 import InputLowa from '../InputLowa/InputLowa';
@@ -7,8 +7,11 @@ import './NuevoTorneo.css';
 import {BsPlusCircle} from 'react-icons/bs';
 import {useHistory} from 'react-router';
 import Alertas from '../Alertas/Alertas';
-import {useDispatch} from 'react-redux';
-import {obtenerDatosDeTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  agregarTorneo_accion,
+  volverPorDefectoAgregarTorneo_accion,
+} from '../../Redux/Torneos/AccionesTorneos';
 
 const Torneo = [
   {value: 1, label: 'Campeonato'},
@@ -19,12 +22,13 @@ const Torneo = [
 const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const {torneo, isAgregarTorneo} = useSelector(state => state.storeTorneos);
+
   const [datosTorneo, setDatosTorneo] = useState({});
-  const [alertaFechas, setAlertaFechas] = useState(false);
 
   const escucharCambios = (name, value) => {
     if (name === 'fechaInicio' || name === 'fechaFin') {
-      setDatosTorneo({...datosTorneo, [name]: new Date(value)});
+      setDatosTorneo({...datosTorneo, [name]: value});
     } else {
       setDatosTorneo({...datosTorneo, [name]: value});
     }
@@ -34,34 +38,26 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
     setDatosTorneo({...datosTorneo, [name]: value});
   };
 
-  const siguientePantallaNuevoTorneo = datosTorneo => {
+  const siguientePantallaNuevoTorneo = () => {
     switch (datosTorneo.tipoTorneo) {
       case 1:
-        /* dispatch(agregarTorneo_accion(datosTorneo)); */
-        dispatch(obtenerDatosDeTorneo_accion(datosTorneo));
         history.push('/Torneo/Nuevo/Campeonato');
         break;
-
       default:
         break;
     }
   };
 
-  const validarCampos = () => {
-    var auxFechaInicio = datosTorneo.fechaInicio.getTime();
-    var auxFechaFin = datosTorneo.fechaFin.getTime();
-    if (auxFechaFin < auxFechaInicio) {
-      alert('Fechas Inválidas- Fin menor a Inicio');
-      setAlertaFechas(true);
-    } else {
-      siguientePantallaNuevoTorneo(datosTorneo);
-    }
-  };
-  const respuestaAlertaFechas = respuesta => {
+  const respuestaDeAlertas = respuesta => {
     if (respuesta) {
-      setAlertaFechas(false);
+      dispatch(volverPorDefectoAgregarTorneo_accion());
     }
   };
+  useLayoutEffect(() => {
+    if (Object.keys(torneo).length > 0) {
+      setDatosTorneo(torneo);
+    }
+  }, [torneo]);
   return (
     <div className="CP-NuevoTorneo">
       <Selector
@@ -71,12 +67,14 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
         options={Torneo ? Torneo : []}
         noOptionsMessage={'No hay torneos cargados.'}
         onChange={(opcion, selector) => escucharSelector(opcion.value, selector.name)}
+        /* opcionSeleccionada={datosTorneo.tipoTorneo ? datosTorneo.tipoTorneo : ''} */
       ></Selector>
       <InputLowa
         type="text"
         name="tituloTorneo"
         placeholder="Título de Torneo"
         onChange={e => escucharCambios(e.target.name, e.target.value)}
+        value={datosTorneo.tituloTorneo ? datosTorneo.tituloTorneo : ''}
       ></InputLowa>
 
       <InputDateLowa
@@ -84,19 +82,32 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
         onChange={e => escucharCambios(e.target.name, e.target.value)}
         type="date"
         placeholder="Fecha Inicio"
+        value={datosTorneo.fechaInicio ? datosTorneo.fechaInicio : ''}
       />
       <InputDateLowa
         name="fechaFin"
         onChange={e => escucharCambios(e.target.name, e.target.value)}
         type="date"
         placeholder="Fecha Fin"
+        value={datosTorneo.fechaFin ? datosTorneo.fechaFin : ''}
       />
       <BotonLowa
-        tituloboton={'Siguiente'}
-        onClick={() => validarCampos()}
-        disabled={Object.keys(datosTorneo).length === 4 ? false : true}
+        tituloboton={Object.keys(torneo).length > 0 ? 'Siguiente' : 'Crear Torneo'}
+        onClick={
+          Object.keys(torneo).length > 0
+            ? () => siguientePantallaNuevoTorneo()
+            : () => dispatch(agregarTorneo_accion(datosTorneo))
+        }
+        disabled={Object.keys(datosTorneo).length >= 4 ? false : true}
       ></BotonLowa>
-      <Alertas mostrarSweet={alertaFechas} RespuestaDeSweet={respuestaAlertaFechas}></Alertas>
+      <Alertas
+        tipoDeSweet={isAgregarTorneo.tipo}
+        subtitulo={isAgregarTorneo.mensaje}
+        mostrarSweet={
+          isAgregarTorneo.isCargando || isAgregarTorneo.isExito || isAgregarTorneo.isError
+        }
+        RespuestaDeSweet={respuestaDeAlertas}
+      ></Alertas>
     </div>
   );
 };

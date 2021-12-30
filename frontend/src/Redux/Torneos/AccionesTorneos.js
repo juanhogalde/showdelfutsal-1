@@ -1,8 +1,8 @@
 import API from './../Configuracion/api';
 
-export const obtenerDatosDeTorneo = 'obtenerDatosDeTorneo';
-/* export const obtenerCategoriaSubcategoriaDatosDeTorneo =
-  'obtenerCategoriaSubcategoriaDatosDeTorneo'; */
+/* export const obtenerDatosDeTorneo = 'obtenerDatosDeTorneo'; */
+export const obtenerCategoriaSubcategoriaDatosDeTorneo =
+  'obtenerCategoriaSubcategoriaDatosDeTorneo';
 
 export const cargandoAgregarTorneo = 'cargandoAgregarTorneo';
 export const agregarTorneoExito = 'agregarTorneoExito';
@@ -25,19 +25,19 @@ export const listarTorneoError = 'listarTorneoError';
 export const volverPorDefectoListarTorneo = 'volverPorDefectoListarTorneo';
 
 /****** AGREGAR TORNEO ******/
-export const obtenerDatosDeTorneo_accion = datos => {
+/* export const obtenerDatosDeTorneo_accion = datos => {
   return {
     type: obtenerDatosDeTorneo,
     datos: datos,
   };
-};
-/* export const obtenerCategoriaSubcategoriaDatosDeTorneo_accion = (categoriaId, subcategoriaId) => {
+}; */
+export const obtenerCategoriaSubcategoriaDatosDeTorneo_accion = (categoriaId, subcategoriaId) => {
   return {
     type: obtenerCategoriaSubcategoriaDatosDeTorneo,
     categoriaId: categoriaId,
     subcategoriaId: subcategoriaId,
   };
-}; */
+};
 export const cargandoAgregarTorneo_accion = () => {
   return {
     type: cargandoAgregarTorneo,

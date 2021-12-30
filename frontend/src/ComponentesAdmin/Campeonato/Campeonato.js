@@ -1,11 +1,8 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import {
-  agregarTorneo_accion,
-  volverPorDefectoAgregarTorneo_accion,
-} from '../../Redux/Torneos/AccionesTorneos';
-import Alertas from '../Alertas/Alertas';
+import {obtenerCategoriaSubcategoriaDatosDeTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
+
 import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
 import './Campeonato.css';
 
@@ -13,26 +10,12 @@ const Campeonato = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
-  const {torneo, isAgregarTorneo} = useSelector(state => state.storeTorneos);
 
-  const redireccioarZona = (categoria, subcategoria) => {
-    let auxDatosDeTorneo = Object.assign(torneo);
-    auxDatosDeTorneo.idCategoria = categoria;
-    auxDatosDeTorneo.idSubcategoria = subcategoria;
-    dispatch(agregarTorneo_accion(auxDatosDeTorneo));
-    /* history.push('/Torneo/Nuevo/Campeonato/Zonas'); */
+  const redireccionarZona = (categoria, subcategoria) => {
+    dispatch(obtenerCategoriaSubcategoriaDatosDeTorneo_accion(categoria, subcategoria));
+    history.push('/Torneo/Nuevo/Campeonato/Zonas');
   };
-  const respuestaDeAlertas = respuesta => {
-    if (respuesta) {
-      if (isAgregarTorneo.isExito) {
-        dispatch(volverPorDefectoAgregarTorneo_accion());
-        history.push('/Torneo/Nuevo/Campeonato/Zonas');
-      }
-      if (isAgregarTorneo.isError) {
-        dispatch(volverPorDefectoAgregarTorneo_accion());
-      }
-    }
-  };
+
   if (categorias.length > 0 && subcategorias.length > 0) {
     return (
       <div className="CP-Campeonato">
@@ -45,7 +28,7 @@ const Campeonato = () => {
                 subcategoria={subcategoria}
                 key={index}
                 isCampeonato={true}
-                redireccioarZona={redireccioarZona}
+                redireccioarZona={redireccionarZona}
               ></TarjetaTorneo>
             );
           })}
@@ -59,20 +42,12 @@ const Campeonato = () => {
                   datos={subcategoria.label}
                   key={index}
                   isCampeonato={true}
-                  redireccioarZona={redireccioarZona}
+                  redireccionarZona={redireccionarZona}
                 ></TarjetaTorneo>
               );
             } else return '';
           })}
         </div>
-        <Alertas
-          tipoDeSweet={isAgregarTorneo.tipo}
-          subtitulo={isAgregarTorneo.mensaje}
-          mostrarSweet={
-            isAgregarTorneo.isCargando || isAgregarTorneo.isExito || isAgregarTorneo.isError
-          }
-          RespuestaDeSweet={respuestaDeAlertas}
-        ></Alertas>
       </div>
     );
   } else {
