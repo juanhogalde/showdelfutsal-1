@@ -106,10 +106,8 @@ const NoticiasMiniatura = ({
                 {datosModelado.titulo ? `${datosModelado.titulo}` : 'Sin titulo'}
               </h5>
             ) : (
-              <h5>
-                {datosModelado.titulo
-                  ? `${datosModelado.titulo.substring(0, 90)}...`
-                  : 'Sin titulo'}
+              <h5 className="titulo-Slider-NoticiaMiniatura">
+                {datosModelado.titulo ? `${datosModelado.titulo}` : 'Sin titulo'}
               </h5>
             ))}
 
