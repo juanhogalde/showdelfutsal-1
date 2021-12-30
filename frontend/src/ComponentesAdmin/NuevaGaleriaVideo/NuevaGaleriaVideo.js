@@ -39,16 +39,24 @@ const NuevaGaleriaVideo = () => {
       setIsCamposVacios({...isCamposVacios, descripcion: false});
     }
     if (name === 'enlaceUrl') {
-      let urlFinal;
-      let posinicial = value.indexOf('?') + 3;
-      if (value.indexOf('list') !== -1) {
-        let posicionFinal = value.indexOf('&list');
+      if (value.indexOf('watch') !== -1) {
+        let urlFinal;
+        let posinicial = value.indexOf('?') + 3;
+        if (value.indexOf('list') !== -1) {
+          let posicionFinal = value.indexOf('&list');
 
-        urlFinal = value.substr(posinicial, posicionFinal - posinicial);
+          urlFinal = value.substr(posinicial, posicionFinal - posinicial);
+        } else {
+          urlFinal = value.substr(posinicial, value.length - 1);
+        }
+        setDatosGaleria({...datosGaleria, [name]: urlFinal, urlVideo: value});
       } else {
-        urlFinal = value.substr(posinicial, value.length - 1);
+        let urlFinal;
+        let posinicial = value.indexOf('be/') + 3;
+        urlFinal = value.substr(posinicial, value.length - posinicial);
+        console.log(urlFinal);
+        setDatosGaleria({...datosGaleria, [name]: urlFinal, urlVideo: value});
       }
-      setDatosGaleria({...datosGaleria, [name]: urlFinal, urlVideo: value});
     } else {
       setDatosGaleria({...datosGaleria, [name]: value});
     }
