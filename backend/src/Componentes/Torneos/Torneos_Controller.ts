@@ -4,6 +4,7 @@ import modeloTorneos from './Torneos_Model';
 import ITorneos from './Torneos_Interface';
 import {zonasController} from '../Zonas/Zonas_Controller';
 import {subcategoriasController} from '../Subcategorias/Subcategorias_Controller';
+import {partidosController} from '../Partidos/Partidos_Controller';
 class TorneosController {
   public async listar(req: Request, res: Response) {
     try {
@@ -36,6 +37,13 @@ class TorneosController {
 
   public async modificar(req: Request, res: Response) {
     try {
+      let resultadoOperacion = {
+        torneo: false,
+        idCategoria: false,
+        idSubcategoria: false,
+        zona: false,
+        enfrentamiento: false,
+      };
       const torneoBody = req.body;
       if (torneoBody._id) {
         modeloTorneos.findById(torneoBody._id).then(async (torneo: any) => {
@@ -54,7 +62,10 @@ class TorneosController {
                 idSubcategoria: torneoBody.idSubcategoria,
                 keySubcategoria: torneoBody.keySubcategoria,
               };
-              await subcategoriasController.modificarSubcategoriaTorneo(datos);
+              const subcateg = await subcategoriasController.modificarSubcategoriaTorneo(datos);
+              if (subcateg) {
+                resultadoOperacion.idSubcategoria = true;
+              }
             }
 
             if (torneoBody.nombreZona) {
@@ -63,17 +74,57 @@ class TorneosController {
                 tipoZona: torneoBody.tipoZona,
                 idSubcategoria: torneoBody.idSubcategoria,
               };
-              await zonasController.crearZona(datos);
+              const zona = await zonasController.crearZona(datos);
+              if (zona) {
+                resultadoOperacion.zona = true;
+              }
             }
 
+            // Guardo el enfrentamiento
             if (torneoBody.idEquipoLocal && torneoBody.idEquipoVisitante) {
-              const datos = {};
+              const datos = {
+                horaEnfrentamiento: '',
+                fechaEnfrentamiento: '',
+                idEstadio: '',
+                idEquipoLocal: '',
+                idEquipoVisitante: '',
+                idPartido: '',
+              };
+
+              datos.idEquipoLocal = torneoBody.idEquipoLocal;
+              datos.idEquipoVisitante = torneoBody.idEquipoVisitante;
+
+              if (torneoBody.idPartido) {
+                datos.idPartido = torneoBody.idPartido;
+              }
+
+              if (torneoBody.fechaEnfrentamiento) {
+                datos.fechaEnfrentamiento = torneoBody.fechaEnfrentamiento;
+              }
+
+              if (torneoBody.horaEnfrentamiento) {
+                datos.horaEnfrentamiento = torneoBody.horaEnfrentamiento;
+              }
+
+              if (torneoBody.idEstadio) {
+                datos.idEstadio = torneoBody.idEstadio;
+              }
+
+              const partido = await partidosController.guardarEnfrentamiento(datos);
+              if (partido) {
+                resultadoOperacion.enfrentamiento = true;
+              }
             }
             // campeonato.idCategoria = campeonatoBody.idCategoria;
             // campeonato.idSubcategoria = campeonatoBody.idSubcategoria;
 
             const resultado = await torneo.save({new: true});
-            responder.sucess(req, res, resultado);
+            if (resultado) {
+              resultadoOperacion.torneo = true;
+              responder.sucess(req, res, resultado);
+            } else {
+              responder.error(req, res);
+            }
           } else {
             let error = new Error('Torneo no encontrado');
             responder.error(req, res, error);
@@ -98,11 +149,11 @@ class TorneosController {
     }
   }
 
-  // public obtenerCampeonato(idCampeonato: string, idCategoria: string) {
-  //   return modeloTorneos
-  //     .findOne({idCampeonato: idCampeonato, idCategoria: idCategoria})
-  //     .populate('idCategoria')
-  //     .populate('idSubcategoria');
-  // }
+  public obtenerTorneo(idTorneo: string, idCategoria: string) {
+    return modeloTorneos
+      .findOne({_id: idTorneo, idCategoria: idCategoria})
+      .populate('idCategoria')
+      .populate('idSubcategoria');
+  }
 }
 export const torneosController = new TorneosController();

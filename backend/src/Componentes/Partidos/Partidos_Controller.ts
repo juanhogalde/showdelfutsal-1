@@ -13,6 +13,49 @@ class PartidosController {
     }
   }
 
+  public async guardarEnfrentamiento(datos: any) {
+    try {
+      const pr = new Promise((resolve: any, reject: any) => {
+        if (datos.idPartido) {
+          modeloPartidos
+            .findById(datos.idPartido)
+            .then((partido: any) => {
+              if (partido) {
+                partido.equipoLocal = datos.idEquipoLocal;
+                partido.equipoVisitante = datos.idEquipoVisitante;
+                partido.fechaPartido = datos.fechaEnfrentamiento ? datos.fechaEnfrentamiento : '';
+                partido.horaPartido = datos.horaEnfrentamiento ? datos.horaEnfrentamiento : '';
+                partido.idEstadio = datos.idEstadio ? datos.idEstadio : '';
+
+                resolve(partido.save());
+              } else {
+                reject(new Error('Enfrentamiento inexistente'));
+              }
+            })
+            .catch((error: any) => {
+              reject(error);
+            });
+        } else {
+          const nuevoEnfrentamiento: IPartidos = new modeloPartidos();
+          nuevoEnfrentamiento.equipoLocal = datos.idEquipoLocal;
+          nuevoEnfrentamiento.equipoVisitante = datos.idEquipoVisitante;
+          nuevoEnfrentamiento.fechaPartido = datos.fechaEnfrentamiento
+            ? datos.fechaEnfrentamiento
+            : '';
+          nuevoEnfrentamiento.horaPartido = datos.horaEnfrentamiento
+            ? datos.horaEnfrentamiento
+            : '';
+          nuevoEnfrentamiento.idEstadio = datos.idEstadio ? datos.idEstadio : '';
+        }
+      });
+      return pr;
+    } catch (error) {
+      return new Promise<any>(reject => {
+        reject(error);
+      });
+    }
+  }
+
   public async agregar(req: Request, res: Response) {
     try {
       const partido: IPartidos = new modeloPartidos(req.body);

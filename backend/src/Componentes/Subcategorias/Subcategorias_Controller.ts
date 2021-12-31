@@ -2,7 +2,7 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloSubcategorias from './Subcategorias_Model';
 import ISubcategorias from './Subcategorias_Interface';
-import {keySubcategoria} from 'src/Config/enumeradores';
+import {keySubcategoria} from '../../Config/enumeradores';
 
 class SubcategoriasController {
   public async listar(req: Request, res: Response) {
