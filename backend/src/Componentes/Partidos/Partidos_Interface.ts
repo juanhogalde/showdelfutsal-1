@@ -1,15 +1,18 @@
 import {Document} from 'mongoose';
+import IEquipos from '../Equipos/Equipos_Interface';
+import IEstadios from '../Estadios/Estadios_Interface';
+import ITablas from '../Tablas/Tablas_Interface';
 
 export default interface IPartidos extends Document {
   _id: string;
-  equipoLocal: string;
-  equipoVisitante: string;
+  equipoLocal: IEquipos['_id'];
+  equipoVisitante: IEquipos['_id'];
   fechaPartido: Date;
-  idEstadio: string;
+  idEstadio: IEstadios['_id'];
   posicionFixture: number;
   comentarios: Array<object>;
-  campeonato: string;
-  idTabla: string;
+  // campeonato: string;
+  idTabla: ITablas['_id'];
   resultadoLocal: number;
   resultadoVisitante: number;
   penalesLocal: number;
