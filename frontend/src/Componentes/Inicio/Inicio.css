@@ -621,13 +621,13 @@
   .titulo-Seccion-Noticias {
     font-size: 8vw;
     padding-top: 0;
-    padding-left: 20px;
+    padding-left: 10px;
   }
 
   .CI-Filtros {
     grid-column: 2/5;
     margin-right: 0;
-    margin-left: -105px;
+    margin-left: -100px;
     justify-content: space-evenly;
     margin-top: 40px;
   }
@@ -702,7 +702,7 @@
 }
 @media only screen and (min-device-width: 320px) and (max-width: 768px) and (orientation: portrait) {
   .LI-Inicio {
-    padding: 10px;
+    padding: 5px;
   }
   .CP-Somos {
     grid-template-columns: 1fr;
@@ -727,6 +727,12 @@
     grid-row: 3/4;
     padding-bottom: 30px;
   }
+  .titulo-Seccion-Noticias {
+    padding-left: 15px;
+  }
+  .titulo-Galeria {
+    padding-left: 30px;
+  }
   .CI-Galeria-Videos {
     padding-left: 15px;
     padding-right: 15px;
@@ -743,8 +749,8 @@
     margin-left: 40px;
   }
   .margenes-Responsive-Seccion-Marcador {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
   }
 }
 @media screen and (max-width: 320px) {
