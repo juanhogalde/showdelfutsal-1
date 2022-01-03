@@ -82,48 +82,51 @@ class TorneosController {
 
             // Guardo el enfrentamiento
             if (torneoBody.idEquipoLocal && torneoBody.idEquipoVisitante) {
-              const datos = {
-                horaEnfrentamiento: '',
-                fechaEnfrentamiento: '',
-                idEstadio: '',
-                idEquipoLocal: '',
-                idEquipoVisitante: '',
-                idPartido: '',
-              };
+              if (torneoBody.idEquipoLocal !== torneoBody.idEquipoVisitante) {
+                const datos = {
+                  horaEnfrentamiento: '',
+                  fechaEnfrentamiento: '',
+                  idEstadio: '',
+                  idEquipoLocal: '',
+                  idEquipoVisitante: '',
+                  idPartido: '',
+                };
 
-              datos.idEquipoLocal = torneoBody.idEquipoLocal;
-              datos.idEquipoVisitante = torneoBody.idEquipoVisitante;
+                datos.idEquipoLocal = torneoBody.idEquipoLocal;
+                datos.idEquipoVisitante = torneoBody.idEquipoVisitante;
 
-              if (torneoBody.idPartido) {
-                datos.idPartido = torneoBody.idPartido;
+                if (torneoBody.idPartido) {
+                  datos.idPartido = torneoBody.idPartido;
+                }
+
+                if (torneoBody.fechaEnfrentamiento) {
+                  datos.fechaEnfrentamiento = torneoBody.fechaEnfrentamiento;
+                }
+
+                if (torneoBody.horaEnfrentamiento) {
+                  datos.horaEnfrentamiento = torneoBody.horaEnfrentamiento;
+                }
+
+                if (torneoBody.idEstadio) {
+                  datos.idEstadio = torneoBody.idEstadio;
+                }
+
+                const partido = await partidosController.guardarEnfrentamiento(datos);
+                if (partido) {
+                  resultadoOperacion.enfrentamiento = true;
+                }
+
+                const resultado = await torneo.save({new: true});
+                if (resultado) {
+                  resultadoOperacion.torneo = true;
+                  responder.sucess(req, res, resultado);
+                } else {
+                  responder.error(req, res);
+                }
+              } else {
+                let error = new Error('No se puede crear un enfrentamiento entre un mismo equipo');
+                responder.error(req, res, error);
               }
-
-              if (torneoBody.fechaEnfrentamiento) {
-                datos.fechaEnfrentamiento = torneoBody.fechaEnfrentamiento;
-              }
-
-              if (torneoBody.horaEnfrentamiento) {
-                datos.horaEnfrentamiento = torneoBody.horaEnfrentamiento;
-              }
-
-              if (torneoBody.idEstadio) {
-                datos.idEstadio = torneoBody.idEstadio;
-              }
-
-              const partido = await partidosController.guardarEnfrentamiento(datos);
-              if (partido) {
-                resultadoOperacion.enfrentamiento = true;
-              }
-            }
-            // campeonato.idCategoria = campeonatoBody.idCategoria;
-            // campeonato.idSubcategoria = campeonatoBody.idSubcategoria;
-
-            const resultado = await torneo.save({new: true});
-            if (resultado) {
-              resultadoOperacion.torneo = true;
-              responder.sucess(req, res, resultado);
-            } else {
-              responder.error(req, res);
             }
           } else {
             let error = new Error('Torneo no encontrado');

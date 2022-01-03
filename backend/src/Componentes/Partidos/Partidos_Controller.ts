@@ -25,7 +25,11 @@ class PartidosController {
                 partido.equipoVisitante = datos.idEquipoVisitante;
                 partido.fechaPartido = datos.fechaEnfrentamiento ? datos.fechaEnfrentamiento : '';
                 partido.horaPartido = datos.horaEnfrentamiento ? datos.horaEnfrentamiento : '';
-                partido.idEstadio = datos.idEstadio ? datos.idEstadio : '';
+
+                if (datos.idEstadio) {
+                  partido.idEstadio = datos.idEstadio;
+                }
+                // partido.idEstadio = datos.idEstadio ? datos.idEstadio : '';
 
                 resolve(partido.save());
               } else {
@@ -45,7 +49,11 @@ class PartidosController {
           nuevoEnfrentamiento.horaPartido = datos.horaEnfrentamiento
             ? datos.horaEnfrentamiento
             : '';
-          nuevoEnfrentamiento.idEstadio = datos.idEstadio ? datos.idEstadio : '';
+          if (datos.idEstadio) {
+            nuevoEnfrentamiento.idEstadio = datos.idEstadio;
+          }
+
+          resolve(nuevoEnfrentamiento.save());
         }
       });
       return pr;
