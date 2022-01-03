@@ -88,7 +88,7 @@ const Inicio = () => {
       noticiaHorizontalBajo: publicidadNoticiaHorizontalBajo,
       publicidadInicioModal: publicidadModalInicio,
     });
-
+    // CARGA DE NOTICIAS
     var noticiasFiltradas = noticias.filter(noticia => noticia.keyCategoria === 2);
     if (noticiasFiltradas[0]) {
       setNoticiaP(noticiasFiltradas[0]);
@@ -99,19 +99,24 @@ const Inicio = () => {
     if (noticiasFiltradas[2]) {
       setNoticia2(noticiasFiltradas[2]);
     }
+    //CARGA DE GALERIAS
 
-    var auxGaleriasImagenes = galerias.map(galeria => {
-      if (Object.keys(galeria).length > 0) {
-        return galeria;
-      } else return {};
-    });
+    var auxGaleriasImagenes = [];
+    if (galerias.length) {
+      auxGaleriasImagenes = galerias.filter(element => element.imagenesId.length !== 0);
+      // auxGaleriasImagenes = galerias.for(galeria => {
+      //   if (Object.keys(galeria).length > 0 && galeria.imagenesId.length !== 0) {
+      //     return galeria;
+      //   }
+      // });
+    }
     var ultimoIndice = auxGaleriasImagenes.length;
-
     setGaleria({
       galeria1: auxGaleriasImagenes[ultimoIndice - 3] ? auxGaleriasImagenes[ultimoIndice - 3] : {},
       galeria2: auxGaleriasImagenes[ultimoIndice - 2] ? auxGaleriasImagenes[ultimoIndice - 2] : {},
       galeria3: auxGaleriasImagenes[ultimoIndice - 1] ? auxGaleriasImagenes[ultimoIndice - 1] : {},
     });
+
     var galeriasTipoVideos = galerias.filter(galeria => galeria.videosId.length !== 0);
     if (galeriasTipoVideos.length) {
       setVideosGaleria(galeriasTipoVideos[galeriasTipoVideos.length - 1].videosId);
