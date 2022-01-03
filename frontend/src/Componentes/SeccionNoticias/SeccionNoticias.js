@@ -12,7 +12,7 @@ const SeccionNoticias = ({
   tituloSeccionNoticias = 'Título',
   isTitulo = true,
   categoriaNoticia = 1,
-  subcategoriaNoticia = 1,
+  subcategoriaNoticia = -1,
 }) => {
   const dispatch = useDispatch();
   const {noticias} = useSelector(state => state.storeNoticias);
