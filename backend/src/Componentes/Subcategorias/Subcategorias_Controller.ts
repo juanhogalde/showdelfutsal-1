@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloSubcategorias from './Subcategorias_Model';
 import ISubcategorias from './Subcategorias_Interface';
+import {keySubcategoria} from '../../Config/enumeradores';
 
 class SubcategoriasController {
   public async listar(req: Request, res: Response) {
@@ -20,6 +21,29 @@ class SubcategoriasController {
       responder.sucess(req, res);
     } catch (error) {
       responder.error(req, res, error);
+    }
+  }
+
+  public async modificarSubcategoriaTorneo(data: any) {
+    try {
+      const pr = new Promise((resolve: any, reject: any) => {
+        modeloSubcategorias.findById(data.idSubcategoria).then((subCategoria: any) => {
+          if (subCategoria) {
+            subCategoria.idCategoria = data.idCategoria;
+            subCategoria.nombreSubcategoria = keySubcategoria[data.keySubcategoria];
+            subCategoria.keySubcategoria = data.keySubcategoria;
+
+            resolve(subCategoria.save());
+          } else {
+            reject(new Error('La subcategoria ingresada no existe'));
+          }
+        });
+      });
+      return pr;
+    } catch (error) {
+      return new Promise<any>(reject => {
+        reject(error);
+      });
     }
   }
 

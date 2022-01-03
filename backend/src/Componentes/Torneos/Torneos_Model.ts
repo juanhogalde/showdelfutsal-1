@@ -11,12 +11,12 @@ const TorneosSchema = new Schema({
       ref: 'modeloCategorias',
     },
   ],
-  idSubcategoria: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'modeloSubcategorias',
-    },
-  ],
+  // idSubcategoria: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: 'modeloSubcategorias',
+  //   },
+  // ],
   tipoTorneo: Number,
 });
 

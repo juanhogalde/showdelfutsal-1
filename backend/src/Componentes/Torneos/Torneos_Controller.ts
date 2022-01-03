@@ -1,12 +1,14 @@
 import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
-import modeloCampeonatos from './Torneos_Model';
-import ICampeonatos from './Torneos_Interface';
-
+import modeloTorneos from './Torneos_Model';
+import ITorneos from './Torneos_Interface';
+import {zonasController} from '../Zonas/Zonas_Controller';
+import {subcategoriasController} from '../Subcategorias/Subcategorias_Controller';
+import {partidosController} from '../Partidos/Partidos_Controller';
 class TorneosController {
   public async listar(req: Request, res: Response) {
     try {
-      const listadoCampeonatos = await modeloCampeonatos.find();
+      const listadoCampeonatos = await modeloTorneos.find();
       responder.sucess(req, res, listadoCampeonatos);
     } catch (error) {
       responder.error(req, res, error);
@@ -15,9 +17,9 @@ class TorneosController {
 
   public async agregar(req: Request, res: Response) {
     try {
-      const campeonato: ICampeonatos = new modeloCampeonatos(req.body);
-      const torneo = await campeonato.save();
-      responder.sucess(req, res, torneo);
+      const torneo: ITorneos = new modeloTorneos(req.body);
+      const resultado = await torneo.save();
+      responder.sucess(req, res, resultado);
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -25,8 +27,8 @@ class TorneosController {
 
   public async obtener(req: Request, res: Response) {
     try {
-      let idCampeonato = req.params.id;
-      const torneo = await modeloCampeonatos.find({_id: idCampeonato});
+      let idTorneo = req.params.id;
+      const torneo = await modeloTorneos.find({_id: idTorneo});
       responder.sucess(req, res, torneo);
     } catch (error) {
       responder.error(req, res, error);
@@ -35,18 +37,97 @@ class TorneosController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const campeonatoBody = req.body;
-      if (campeonatoBody._id) {
-        modeloCampeonatos.findById(campeonatoBody._id).then(async (campeonato: any) => {
-          if (campeonato) {
-            campeonato.tituloTorneo = campeonatoBody.tituloCampeonato;
-            campeonato.fechaInicio = campeonatoBody.fechaInicio;
-            campeonato.fechaFin = campeonatoBody.fechaFin;
-            campeonato.idCategoria = campeonatoBody.idCategoria;
-            campeonato.idSubcategoria = campeonatoBody.idSubcategoria;
+      let resultadoOperacion = {
+        torneo: false,
+        idCategoria: false,
+        idSubcategoria: false,
+        zona: false,
+        enfrentamiento: false,
+      };
+      const torneoBody = req.body;
+      if (torneoBody._id) {
+        modeloTorneos.findById(torneoBody._id).then(async (torneo: any) => {
+          if (torneo) {
+            torneo.tituloTorneo = torneoBody.tituloTorneo;
+            torneo.fechaInicio = torneoBody.fechaInicio;
+            torneo.fechaFin = torneoBody.fechaFin;
 
-            const resultado = await campeonato.save({new: true});
-            responder.sucess(req, res, resultado);
+            if (torneoBody.idCategoria) {
+              torneo.idCategoria.push(torneoBody.idCategoria);
+            }
+
+            if (torneoBody.idSubcategoria) {
+              const datos = {
+                idCategoria: torneoBody.idCategoria,
+                idSubcategoria: torneoBody.idSubcategoria,
+                keySubcategoria: torneoBody.keySubcategoria,
+              };
+              const subcateg = await subcategoriasController.modificarSubcategoriaTorneo(datos);
+              if (subcateg) {
+                resultadoOperacion.idSubcategoria = true;
+              }
+            }
+
+            if (torneoBody.nombreZona) {
+              const datos = {
+                nombreZona: torneoBody.nombreZona,
+                tipoZona: torneoBody.tipoZona,
+                idSubcategoria: torneoBody.idSubcategoria,
+              };
+              const zona = await zonasController.crearZona(datos);
+              if (zona) {
+                resultadoOperacion.zona = true;
+              }
+            }
+
+            // Guardo el enfrentamiento
+            if (torneoBody.idEquipoLocal && torneoBody.idEquipoVisitante) {
+              if (torneoBody.idEquipoLocal !== torneoBody.idEquipoVisitante) {
+                const datos = {
+                  horaEnfrentamiento: '',
+                  fechaEnfrentamiento: '',
+                  idEstadio: '',
+                  idEquipoLocal: '',
+                  idEquipoVisitante: '',
+                  idPartido: '',
+                };
+
+                datos.idEquipoLocal = torneoBody.idEquipoLocal;
+                datos.idEquipoVisitante = torneoBody.idEquipoVisitante;
+
+                if (torneoBody.idPartido) {
+                  datos.idPartido = torneoBody.idPartido;
+                }
+
+                if (torneoBody.fechaEnfrentamiento) {
+                  datos.fechaEnfrentamiento = torneoBody.fechaEnfrentamiento;
+                }
+
+                if (torneoBody.horaEnfrentamiento) {
+                  datos.horaEnfrentamiento = torneoBody.horaEnfrentamiento;
+                }
+
+                if (torneoBody.idEstadio) {
+                  datos.idEstadio = torneoBody.idEstadio;
+                }
+
+                const partido = await partidosController.guardarEnfrentamiento(datos);
+                if (partido) {
+                  resultadoOperacion.enfrentamiento = true;
+                }
+
+                const resultado = await torneo.save({new: true});
+                if (resultado) {
+                  resultadoOperacion.torneo = true;
+                  responder.sucess(req, res, resultado);
+                } else {
+                  responder.error(req, res);
+                }
+              } else {
+                let error = new Error('No se puede crear un enfrentamiento entre un mismo equipo');
+                responder.error(req, res, error);
+              }
+            }
           } else {
             let error = new Error('Torneo no encontrado');
             responder.error(req, res, error);
@@ -64,16 +145,16 @@ class TorneosController {
   public async eliminar(req: Request, res: Response) {
     try {
       let id = req.body.id;
-      const campeonatoEliminada = await modeloCampeonatos.findOneAndDelete({_id: id}, {new: true});
-      responder.sucess(req, res, campeonatoEliminada);
+      const torneoEliminado = await modeloTorneos.findOneAndDelete({_id: id}, {new: true});
+      responder.sucess(req, res, torneoEliminado);
     } catch (error) {
       responder.error(req, res, error);
     }
   }
 
-  public obtenerCampeonato(idCampeonato: string, idCategoria: string) {
-    return modeloCampeonatos
-      .findOne({idCampeonato: idCampeonato, idCategoria: idCategoria})
+  public obtenerTorneo(idTorneo: string, idCategoria: string) {
+    return modeloTorneos
+      .findOne({_id: idTorneo, idCategoria: idCategoria})
       .populate('idCategoria')
       .populate('idSubcategoria');
   }

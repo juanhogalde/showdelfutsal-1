@@ -92,7 +92,7 @@ class TablasController {
       if (!datosBody) {
         responder.error(req, res, 'No se ingresaron datos');
       } else {
-        const campeonato = await torneosController.obtenerCampeonato(
+        const campeonato = await torneosController.obtenerTorneo(
           datosBody.idCampeonato,
           datosBody.idCategoria
         );
