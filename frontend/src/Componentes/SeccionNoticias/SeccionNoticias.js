@@ -7,6 +7,7 @@ import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 import {Link} from 'react-router-dom';
 import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
 import {useDispatch, useSelector} from 'react-redux';
+import SliderGaleria from '../SliderGaleria/SliderGaleria';
 
 const SeccionNoticias = ({
   tituloSeccionNoticias = 'Título',
@@ -121,6 +122,9 @@ const SeccionNoticias = ({
           categoriaNoticias={categoriaNoticia}
           subcategoriaNoticia={subcategoriaNoticia}
         ></SliderNoticias>
+      </div>
+      <div className="CI-SN-Galeria-slider">
+        <SliderGaleria categoriaGaleria={categoriaNoticia}></SliderGaleria>
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import PieDepagina from '../PieDePagina/PieDepagina';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
+import SliderGaleria from '../SliderGaleria/SliderGaleria';
 
 const PaginaNoticias = ({
   titulo = 'Masculino',
@@ -151,6 +152,9 @@ const PaginaNoticias = ({
                 ></NoticiasMiniatura>
               </Link>
             </div>
+          </div>
+          <div className="CI-SN-Galeria-slider-liga">
+            <SliderGaleria categoriaGaleria={3}></SliderGaleria>
           </div>
         </div>
       </div>
