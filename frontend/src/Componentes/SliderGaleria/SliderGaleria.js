@@ -21,7 +21,7 @@ function SamplePrevArrow(props) {
     </div>
   );
 }
-const SliderGaleria = ({cantidadDeElementos = 2, isVertical = false, categoriaGaleria = -1}) => {
+const SliderGaleria = ({cantidadDeElementos = 3, isVertical = false, categoriaGaleria = -1}) => {
   const [galeriaFiltrada, setGaleriaFiltrada] = useState([]);
   const {galerias} = useSelector(state => state.storeGalerias);
   useLayoutEffect(() => {
@@ -82,7 +82,7 @@ const SliderGaleria = ({cantidadDeElementos = 2, isVertical = false, categoriaGa
           galeriaFiltrada.imagenesId.map((imagen, index) => {
             return (
               <div key={index}>
-                <img width="370px" height="200px" alt="" src={urlImagenes + imagen.fuente}></img>
+                <img width="350px" height="250px" alt="" src={urlImagenes + imagen.fuente}></img>
               </div>
             );
           })}
