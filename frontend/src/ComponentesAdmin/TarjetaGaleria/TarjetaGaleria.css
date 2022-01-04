@@ -20,10 +20,10 @@
 
 .imagenes-TarjetaGaleria {
   width: 100%;
+  height: auto;
   display: grid;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  grid-auto-rows: minmax(50px, 100px);
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-auto-rows: minmax(100px, 100px);
   column-gap: 10px;
   row-gap: 10px;
 }
