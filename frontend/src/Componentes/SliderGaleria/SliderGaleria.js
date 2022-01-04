@@ -74,7 +74,7 @@ const SliderGaleria = ({cantidadDeElementos = 2, isVertical = false, categoriaGa
     <div>
       <div className="centrar-titulo-galeria">
         <br></br>
-        <h4>GALERÍA</h4>
+        {galeriaFiltrada.imagenesId && galeriaFiltrada.imagenesId.length !== 0 && <h4>GALERÍA</h4>}
         <br></br>
       </div>
       <Slider {...settings}>
