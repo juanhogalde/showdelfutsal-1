@@ -3,6 +3,7 @@ import './BarraDeNavegacionAdmin.css';
 import iconoMenu from '../../Static/Admin/menuAdmin.svg';
 import iconoAvatar from '../../Static/Admin/iconoAvatar.svg';
 import {useHistory, useLocation} from 'react-router';
+import {BsPower} from 'react-icons/bs';
 import iconoAtras from '../../Static/Admin/iconoAtras.svg';
 import RetornaTituloDeNavegacion from './RetornaTituloDeNavegacion.js/RetornaTituloDeNavegacion';
 
@@ -11,6 +12,11 @@ const BarraDeNavegacionAdmin = ({
     console.log('No se envió función');
   },
 }) => {
+  const cerrarSesion = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/Administrador';
+  };
+
   const locacion = useLocation();
   const historialDeNavegacion = useHistory();
   const volverAtras = () => {
@@ -44,7 +50,12 @@ const BarraDeNavegacionAdmin = ({
         <RetornaTituloDeNavegacion></RetornaTituloDeNavegacion>
       </div>
       <div className="CI-Avatar">
-        <img alt="" src={iconoAvatar}></img>
+        <BsPower
+          className="Boton-salir"
+          onClick={() => {
+            cerrarSesion();
+          }}
+        />
       </div>
     </div>
   );
