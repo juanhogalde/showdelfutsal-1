@@ -6,6 +6,11 @@ const GaleriaSchema = new Schema({
   // imagenesId: [{type: Schema.Types.ObjectId, ref: 'modeloImagenes'}],
   fechaCarga: Date,
   fechaModificacion: Date,
+  idCategoria: {
+    type: Schema.Types.ObjectId,
+    ref: 'modeloCategorias',
+  },
+  keyCategoria: {type: Number},
   // videosId: [{type: Schema.Types.ObjectId, ref: 'modeloVideos'}],
 });
 
