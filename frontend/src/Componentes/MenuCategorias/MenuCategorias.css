@@ -7,7 +7,9 @@
   transition: all 1s ease-in-out;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  align-items: center;
+  place-content: center;
+  gap: 10px;
 }
 
 .Lista-submenu-cerrada {
