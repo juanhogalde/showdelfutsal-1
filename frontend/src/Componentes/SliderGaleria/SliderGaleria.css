@@ -75,13 +75,3 @@
 .decripcion-galeriaVideo:active {
   display: none;
 }
-
-@media screen and (min-width: 1920px) {
-  .flechaNextGaleria {
-    color: black;
-    display: block;
-    position: absolute;
-    right: 8%;
-    top: 40%;
-  }
-}

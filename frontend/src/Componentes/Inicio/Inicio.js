@@ -19,7 +19,10 @@ import publicidadModal from '../../Static/Img/publicidad-modal.png';
 import {urlImagenes} from '../../urlImagenes';
 import {controlModalPublicidad_accion} from '../../Redux/DatosInciales/AccionesDatosIniciales';
 import TarjetaEnfrentamiento from '../../ComponentesAdmin/TarjetaEnfrentamiento/TarjetaEnfrentamiento';
-import SliderGaleria from '../SliderGaleria/SliderGaleria';
+import Slider from 'react-slick';
+import ImagenSlider from '../ImagenSlider/ImagenSlider';
+import {AiFillCaretLeft, AiFillCaretRight} from 'react-icons/ai';
+
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},
@@ -132,6 +135,77 @@ const Inicio = () => {
     publicidades,
     setVideosGaleria,
   ]);
+
+  /* =========== COMPONENTE SLIDER =========== */
+
+  function SampleNextArrow(props) {
+    const {onClick} = props;
+    return (
+      <div className="I-Contenedor-flecha-derecha">
+        <div
+          className={`${props.isVertical ? 'flechaNextVertical' : 'flechaSiguiente'}`}
+          onClick={onClick}
+        >
+          <AiFillCaretRight size={20} className="flecha"></AiFillCaretRight>
+        </div>
+      </div>
+    );
+  }
+
+  function SamplePrevArrow(props) {
+    const {onClick} = props;
+    return (
+      <div
+        className="I-Contenedor-flecha-izquierda"
+        className={`${props.isVertical ? 'flechaPrevVertical' : 'flechaAnterior'}`}
+        onClick={onClick}
+      >
+        <AiFillCaretLeft size={20} className="flecha"></AiFillCaretLeft>
+      </div>
+    );
+  }
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    cssEase: 'linear',
+
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          /* dots: true, */
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  /* =========== FIN COMPONENTE SLIDER =========== */
 
   /* const {DatosDePruebaImagenes, DatosDePruebaImagenes2, DatosDePruebaImagenes3} = useSelector(
     state => state.storePrueba
@@ -374,42 +448,50 @@ const Inicio = () => {
           <div className="CI-Galeria-Imagenes">
             <h1 className="titulo-Galeria">GALERÍA</h1>
             <div className="galeria-Imagenes-A">
-              {/* <SliderGaleria
-                categoriaGaleria={4}
-                cantidadDeElementos={1}
-                mostrarTituloGaleria={false}
-                tamañoImagen={{width: '410px', heigth: '300px'}}
-              ></SliderGaleria> */}
-              <ImagenesVideo
-                descripcion={galeria.galeria2.tituloGaleria ? galeria.galeria2.tituloGaleria : ''}
-                DatosDeEntrada={galeria.galeria2.imagenesId ? galeria.galeria2.imagenesId : []}
-                tipoDeSliderFlecha={false}
-                isGaleriaPrincipal={true}
-              ></ImagenesVideo>
+              <div className="I-Contenedor-slider-imagenes">
+                {galeria.galeria2.imagenesId && (
+                  <Slider {...settings} cantidadDeElementos={1}>
+                    {galeria.galeria2.imagenesId.map(datoGaleria => {
+                      return (
+                        <ImagenSlider
+                          datos={datoGaleria}
+                          descripcion={galeria.galeria2.tituloGaleria}
+                        ></ImagenSlider>
+                      );
+                    })}
+                  </Slider>
+                )}
+              </div>
             </div>
             <div className="galeria-Imagenes-B">
-              <SliderGaleria
-                categoriaGaleria={2}
-                cantidadDeElementos={1}
-                mostrarTituloGaleria={false}
-                tamañoImagen={{width: '310px', heigth: '200px'}}
-              ></SliderGaleria>
-              <SliderGaleria
-                categoriaGaleria={4}
-                cantidadDeElementos={1}
-                mostrarTituloGaleria={false}
-                tamañoImagen={{width: '310px', heigth: '200px'}}
-              ></SliderGaleria>
-              {/* <ImagenesVideo
-                descripcion={galeria.galeria1.tituloGaleria ? galeria.galeria1.tituloGaleria : ''}
-                DatosDeEntrada={galeria.galeria1.imagenesId ? galeria.galeria1.imagenesId : []}
-                tipoDeSliderFlecha={false}
-              ></ImagenesVideo>
-              <ImagenesVideo
-                descripcion={galeria.galeria3.tituloGaleria ? galeria.galeria3.tituloGaleria : ''}
-                DatosDeEntrada={galeria.galeria3.imagenesId ? galeria.galeria3.imagenesId : []}
-                tipoDeSliderFlecha={false}
-              ></ImagenesVideo> */}
+              <div className="I-Contenedor-slider-imagenes">
+                {galeria.galeria1.imagenesId && (
+                  <Slider {...settings} cantidadDeElementos={1}>
+                    {galeria.galeria1.imagenesId.map(datoGaleria => {
+                      return (
+                        <ImagenSlider
+                          datos={datoGaleria}
+                          descripcion={galeria.galeria1.tituloGaleria}
+                        ></ImagenSlider>
+                      );
+                    })}
+                  </Slider>
+                )}
+              </div>
+              <div className="I-Contenedor-slider-imagenes">
+                {galeria.galeria3.imagenesId && (
+                  <Slider {...settings} cantidadDeElementos={0}>
+                    {galeria.galeria3.imagenesId.map(datoGaleria => {
+                      return (
+                        <ImagenSlider
+                          datos={datoGaleria}
+                          descripcion={galeria.galeria3.tituloGaleria}
+                        ></ImagenSlider>
+                      );
+                    })}
+                  </Slider>
+                )}
+              </div>
             </div>
           </div>
           <div className="CI-Galeria-Videos">
