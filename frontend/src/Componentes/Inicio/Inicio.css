@@ -335,7 +335,7 @@
 .galeria-Imagenes-B {
   grid-column: 3/4;
   grid-row: 1/5;
-  padding: 40px;
+  padding: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

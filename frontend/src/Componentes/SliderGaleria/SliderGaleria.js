@@ -7,8 +7,11 @@ import '../SliderGaleria/SliderGaleria.css';
 function SampleNextArrow(props) {
   const {onClick} = props;
   return (
-    <div className={`${props.isVertical ? 'flechaNextVertical' : 'flechaNext'}`} onClick={onClick}>
-      <AiFillCaretRight className="flecha"></AiFillCaretRight>
+    <div
+      className={`${props.isVertical ? 'flechaNextVerticalGaleria' : 'flechaNextGaleria'}`}
+      onClick={onClick}
+    >
+      <AiFillCaretRight className="flechaGaleria"></AiFillCaretRight>
     </div>
   );
 }
@@ -16,12 +19,21 @@ function SampleNextArrow(props) {
 function SamplePrevArrow(props) {
   const {onClick} = props;
   return (
-    <div className={`${props.isVertical ? 'flechaPrevVertical' : 'flechaPrev'}`} onClick={onClick}>
-      <AiFillCaretLeft className="flecha"></AiFillCaretLeft>
+    <div
+      className={`${props.isVertical ? 'flechaPrevVerticalGaleria' : 'flechaPrevGaleria'}`}
+      onClick={onClick}
+    >
+      <AiFillCaretLeft className="flechaGaleria"></AiFillCaretLeft>
     </div>
   );
 }
-const SliderGaleria = ({cantidadDeElementos = 3, isVertical = false, categoriaGaleria = -1}) => {
+const SliderGaleria = ({
+  cantidadDeElementos = 3,
+  isVertical = false,
+  categoriaGaleria = -1,
+  mostrarTituloGaleria = true,
+  tamañoImagen = {width: '350px', heigth: '250px'},
+}) => {
   const [galeriaFiltrada, setGaleriaFiltrada] = useState([]);
   const {galerias} = useSelector(state => state.storeGalerias);
   useLayoutEffect(() => {
@@ -72,17 +84,29 @@ const SliderGaleria = ({cantidadDeElementos = 3, isVertical = false, categoriaGa
 
   return (
     <div>
-      <div className="centrar-titulo-galeria">
-        <br></br>
-        {galeriaFiltrada.imagenesId && galeriaFiltrada.imagenesId.length !== 0 && <h4>GALERÍA</h4>}
-        <br></br>
-      </div>
+      {mostrarTituloGaleria && (
+        <div className="centrar-titulo-galeria">
+          <br></br>
+          {galeriaFiltrada.imagenesId && galeriaFiltrada.imagenesId.length !== 0 && (
+            <h4>GALERÍA</h4>
+          )}
+          <br></br>
+        </div>
+      )}
       <Slider {...settings}>
         {galeriaFiltrada.imagenesId &&
           galeriaFiltrada.imagenesId.map((imagen, index) => {
             return (
-              <div key={index}>
-                <img width="350px" height="250px" alt="" src={urlImagenes + imagen.fuente}></img>
+              <div className="cuerpo-imagen-galeria" key={index}>
+                <img
+                  width={tamañoImagen.width}
+                  height={tamañoImagen.heigth}
+                  alt="imagen"
+                  src={urlImagenes + imagen.fuente}
+                ></img>
+                {/* <div className="decripcion-galeriaVideo">
+                  <h4>{galeriaFiltrada.descripcion}</h4>
+                </div> */}
               </div>
             );
           })}

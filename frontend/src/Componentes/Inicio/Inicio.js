@@ -19,6 +19,7 @@ import publicidadModal from '../../Static/Img/publicidad-modal.png';
 import {urlImagenes} from '../../urlImagenes';
 import {controlModalPublicidad_accion} from '../../Redux/DatosInciales/AccionesDatosIniciales';
 import TarjetaEnfrentamiento from '../../ComponentesAdmin/TarjetaEnfrentamiento/TarjetaEnfrentamiento';
+import SliderGaleria from '../SliderGaleria/SliderGaleria';
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},
@@ -373,6 +374,12 @@ const Inicio = () => {
           <div className="CI-Galeria-Imagenes">
             <h1 className="titulo-Galeria">GALERÍA</h1>
             <div className="galeria-Imagenes-A">
+              {/* <SliderGaleria
+                categoriaGaleria={4}
+                cantidadDeElementos={1}
+                mostrarTituloGaleria={false}
+                tamañoImagen={{width: '410px', heigth: '300px'}}
+              ></SliderGaleria> */}
               <ImagenesVideo
                 descripcion={galeria.galeria2.tituloGaleria ? galeria.galeria2.tituloGaleria : ''}
                 DatosDeEntrada={galeria.galeria2.imagenesId ? galeria.galeria2.imagenesId : []}
@@ -381,7 +388,19 @@ const Inicio = () => {
               ></ImagenesVideo>
             </div>
             <div className="galeria-Imagenes-B">
-              <ImagenesVideo
+              <SliderGaleria
+                categoriaGaleria={2}
+                cantidadDeElementos={1}
+                mostrarTituloGaleria={false}
+                tamañoImagen={{width: '310px', heigth: '200px'}}
+              ></SliderGaleria>
+              <SliderGaleria
+                categoriaGaleria={4}
+                cantidadDeElementos={1}
+                mostrarTituloGaleria={false}
+                tamañoImagen={{width: '310px', heigth: '200px'}}
+              ></SliderGaleria>
+              {/* <ImagenesVideo
                 descripcion={galeria.galeria1.tituloGaleria ? galeria.galeria1.tituloGaleria : ''}
                 DatosDeEntrada={galeria.galeria1.imagenesId ? galeria.galeria1.imagenesId : []}
                 tipoDeSliderFlecha={false}
@@ -390,7 +409,7 @@ const Inicio = () => {
                 descripcion={galeria.galeria3.tituloGaleria ? galeria.galeria3.tituloGaleria : ''}
                 DatosDeEntrada={galeria.galeria3.imagenesId ? galeria.galeria3.imagenesId : []}
                 tipoDeSliderFlecha={false}
-              ></ImagenesVideo>
+              ></ImagenesVideo> */}
             </div>
           </div>
           <div className="CI-Galeria-Videos">
