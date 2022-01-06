@@ -270,6 +270,8 @@
   grid-template-columns: minmax(0, 450px);
   grid-auto-rows: 50%;
   justify-self: end;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 .noticia-Miniatura-1 {
   grid-column: 1/2;
@@ -324,21 +326,25 @@
   color: white;
 }
 .galeria-Imagenes-A {
-  grid-column: 2/3;
-  grid-row: 2/4;
+  grid-column: 1/3;
+  grid-row: 1/5;
+
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  gap: 10%;
 }
 
 .galeria-Imagenes-B {
   grid-column: 3/4;
   grid-row: 1/5;
-  padding: 40px;
+  padding: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
 }
 .CI-Galeria-Videos {
   grid-column: 2/3;
@@ -350,6 +356,98 @@
 
 .seccion-galeria {
   background-image: url('../../Static/Img/Fondo_galeria.png');
+}
+
+/* ============== CONTENEDOR SLIDER IMAGENES ============== */
+
+.I-Slider-biografia {
+  grid-column: 2/4;
+  grid-row: 3/4;
+  width: 100%;
+  height: 100%;
+  max-height: 800px;
+  background-color: rgba(255, 255, 255, 0.445);
+}
+
+.I-Contenedor-slider-imagenes {
+  width: 100%;
+  height: auto;
+  padding: 5px;
+}
+
+.flechaSiguiente {
+  height: 35px;
+  width: 45px;
+  background-color: #000000;
+  -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  color: white;
+  display: block;
+  position: absolute;
+  right: -50px;
+  top: 50%;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  place-content: center;
+  display: none;
+}
+.slick-active {
+  size: 20px;
+}
+
+.slick-active::after {
+  background-color: blue;
+}
+.slick-active::before {
+  background-color: red;
+}
+
+.flechaAnterior {
+  height: 35px;
+  width: 45px;
+  background-color: #000000;
+  -webkit-clip-path: polygon(0 0, 75% 0, 100% 100%, 25% 100%);
+  clip-path: polygon(0 0, 75% 0, 100% 100%, 25% 100%);
+  color: white;
+  display: block;
+  position: absolute;
+  left: -50px;
+  top: 50%;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  place-content: center;
+  display: none;
+}
+.I-Contenedor-flecha-izquierda {
+  display: flex;
+  align-items: center;
+  place-content: center;
+}
+.I-Contenedor-flecha-derecha {
+  display: flex;
+  align-items: center;
+  place-content: center;
+}
+.flechaAnterior:hover {
+  background-color: #00365c96;
+}
+.flechaSiguiente:hover {
+  background-color: #00365c96;
+}
+.flechaSiguiente:hover .flecha {
+  font-size: 23px;
+}
+.flechaAnterior:hover .flecha {
+  font-size: 23px;
+}
+
+.flecha {
+  margin-top: 20%;
+  font-size: 0px;
+  transition: all 0.3s;
+  cursor: pointer;
 }
 
 /* ///////////////////////// MEDIA QUERIES MOVIL ///////////////////////// */
@@ -387,7 +485,8 @@
   .CI-NoticiasMini {
     grid-column: 3/4;
     grid-row: 1/4;
-    grid-template-columns: minmax(0, 400px);
+    gap: 30px;
+    grid-template-columns: minmax(0, 300px);
     grid-template-rows: repeat(2, minmax(0, 1fr));
     margin-top: 80px;
   }
@@ -621,13 +720,13 @@
   .titulo-Seccion-Noticias {
     font-size: 8vw;
     padding-top: 0;
-    padding-left: 20px;
+    padding-left: 10px;
   }
 
   .CI-Filtros {
     grid-column: 2/5;
     margin-right: 0;
-    margin-left: -105px;
+    margin-left: -100px;
     justify-content: space-evenly;
     margin-top: 40px;
   }
@@ -702,7 +801,7 @@
 }
 @media only screen and (min-device-width: 320px) and (max-width: 768px) and (orientation: portrait) {
   .LI-Inicio {
-    padding: 10px;
+    padding: 5px;
   }
   .CP-Somos {
     grid-template-columns: 1fr;
@@ -727,6 +826,12 @@
     grid-row: 3/4;
     padding-bottom: 30px;
   }
+  .titulo-Seccion-Noticias {
+    padding-left: 15px;
+  }
+  .titulo-Galeria {
+    padding-left: 30px;
+  }
   .CI-Galeria-Videos {
     padding-left: 15px;
     padding-right: 15px;
@@ -743,8 +848,8 @@
     margin-left: 40px;
   }
   .margenes-Responsive-Seccion-Marcador {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
   }
 }
 @media screen and (max-width: 320px) {

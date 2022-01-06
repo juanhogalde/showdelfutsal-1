@@ -92,11 +92,9 @@ const NoticiasMiniatura = ({
                 />
               </div>
             )}
-            {isSobreImagen && (
+            {isSobreImagen && datosModelado.titulo && (
               <h5 className={'sobreImagen-NoticiaMiniatura'}>
-                {datosModelado.titulo
-                  ? `${datosModelado.titulo.substring(0, 100)} ...`
-                  : 'Sin titulo'}
+                {`${datosModelado.titulo.substring(0, 100)} ...`}
               </h5>
             )}
           </div>
@@ -106,10 +104,8 @@ const NoticiasMiniatura = ({
                 {datosModelado.titulo ? `${datosModelado.titulo}` : 'Sin titulo'}
               </h5>
             ) : (
-              <h5>
-                {datosModelado.titulo
-                  ? `${datosModelado.titulo.substring(0, 90)}...`
-                  : 'Sin titulo'}
+              <h5 className="titulo-Slider-NoticiaMiniatura">
+                {datosModelado.titulo ? `${datosModelado.titulo}` : 'Sin titulo'}
               </h5>
             ))}
 

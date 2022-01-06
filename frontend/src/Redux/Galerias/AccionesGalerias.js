@@ -71,7 +71,8 @@ export const agregarGaleria_accion = datosGaleria => {
       auxDatosGaleria.append('archivos', file);
     });
     auxDatosGaleria.append('descripcion', datosGaleria.descripcion);
-
+    auxDatosGaleria.append('idCategoria', datosGaleria.idCategoria);
+    auxDatosGaleria.append('keyCategoria', datosGaleria.keyCategoria);
     dispatch(cargandoAgregarGaleria_accion());
     API({
       url: '/galeria/agregar',
@@ -213,6 +214,8 @@ export const modificarGaleria_accion = datosGaleria => {
     var auxDatosGaleria = new FormData();
     auxDatosGaleria.append('_id', datosGaleria.id);
     auxDatosGaleria.append('descripcion', datosGaleria.descripcion);
+    auxDatosGaleria.append('idCategoria', datosGaleria.idCategoria);
+    auxDatosGaleria.append('keyCategoria', datosGaleria.keyCategoria);
 
     Object.values(datosGaleria.imagenes).forEach(file => {
       if (file instanceof Blob) {

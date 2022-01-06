@@ -19,6 +19,8 @@ import {
   eliminarImagen_accion,
   volverPorDefectoEliminarImagen_accion,
 } from '../../Redux/Imagenes/AccionesImagenes';
+import Selector from '../Selector/Selector';
+import {BsPlusCircle} from 'react-icons/bs';
 
 const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
   const historialDeNavegacion = useHistory();
@@ -27,6 +29,9 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
 
   const {isAgregarGaleria} = useSelector(state => state.storeGalerias);
   const {isEliminarImagen} = useSelector(state => state.storeImagenes);
+  const {categorias} = useSelector(state => state.sotreDatosIniciales);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState();
+  const [datosRequeridos, setDatosRequeridos] = useState(false);
   const [datosGaleria, setDatosGaleria] = useState({
     imagenes: [],
   });
@@ -104,7 +109,6 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
       dispatch(eliminarImagenExito_accion());
       auxImagenes = datosGaleria.imagenes.slice();
       auxImagenes.splice(index, 1);
-      console.log(auxImagenes);
       setDatosGaleria({...datosGaleria, imagenes: auxImagenes});
     }
   };
@@ -155,11 +159,30 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
     dispatch(volverPorDefectoAgregarGaleria_accion());
     historialDeNavegacion.push('/Galerías');
   };
+  const RespuestaDeFaltaDatosRequeridos = () => {
+    setDatosRequeridos(false);
+  };
   const guardarDatosDeGaleria = () => {
     if (isEditarGaleria) {
-      dispatch(modificarGaleria_accion(datosGaleria));
+      dispatch(
+        modificarGaleria_accion({
+          ...datosGaleria,
+          idCategoria: categoriaSeleccionada.value,
+          keyCategoria: categoriaSeleccionada.key,
+        })
+      );
     } else {
-      dispatch(agregarGaleria_accion(datosGaleria));
+      if (datosGaleria.descripcion && categoriaSeleccionada) {
+        dispatch(
+          agregarGaleria_accion({
+            ...datosGaleria,
+            idCategoria: categoriaSeleccionada.value,
+            keyCategoria: categoriaSeleccionada.key,
+          })
+        );
+      } else {
+        setDatosRequeridos(true);
+      }
     }
   };
   useLayoutEffect(() => {
@@ -169,6 +192,8 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
         descripcion: datosParaEditar.tituloGaleria,
         imagenes: datosParaEditar.imagenesId,
       });
+      var cateoria = categorias.find(element => element.value === datosParaEditar.idCategoria);
+      setCategoriaSeleccionada(cateoria);
     }
     return () => {
       setDatosGaleria({imagenes: []});
@@ -177,8 +202,13 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
     datosParaEditar._id,
     datosParaEditar.tituloGaleria,
     datosParaEditar.imagenesId,
+    datosParaEditar.idCategoria,
     isEditarGaleria,
+    categorias,
   ]);
+  const escucharCategoria = respuestaCategoria => {
+    setCategoriaSeleccionada(respuestaCategoria);
+  };
   return (
     <div className="CP-AgregarImagenes">
       <InputLowa
@@ -187,6 +217,14 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
         onChange={e => escucharCambios(e.target.name, e.target.value)}
         value={datosGaleria.descripcion ? datosGaleria.descripcion : ''}
       ></InputLowa>
+      <Selector
+        name="categoria"
+        placeholder="Seleccione Categoría"
+        opcionSeleccionada={categoriaSeleccionada}
+        selectorConIcono={<BsPlusCircle />}
+        options={categorias ? categorias : []}
+        onChange={escucharCategoria}
+      ></Selector>
       <InputLowa
         name="imagenes"
         type="file"
@@ -228,6 +266,12 @@ const NuevaGaleria = ({isEditarGaleria = false, datosParaEditar = {}}) => {
         /* disabled={Object.keys(datosGaleria).length > 1 ? false : true} */
         onClick={() => guardarDatosDeGaleria()}
       ></BotonLowa>
+      <Alertas
+        mostrarSweet={datosRequeridos}
+        tipoDeSweet="warning"
+        subtitulo="Faltan datos requeridos"
+        RespuestaDeSweet={RespuestaDeFaltaDatosRequeridos}
+      />
       <Alertas
         tipoDeSweet={isEliminarImagen.tipo}
         mostrarSweet={

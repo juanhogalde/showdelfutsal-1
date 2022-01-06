@@ -34,10 +34,10 @@ const BarraDeNavegacion = () => {
   };
   const eventoCerrarSubMenu = () => {
     if (isMasculino) {
-      setIsMasculino(false);
+      setIsMasculino(true);
     }
     if (isFemenenino) {
-      setIsFemenenino(false);
+      setIsFemenenino(true);
     }
   };
   return (

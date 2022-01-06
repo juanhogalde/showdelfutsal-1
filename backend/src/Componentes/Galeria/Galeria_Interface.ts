@@ -6,5 +6,7 @@ export default interface IGaleria extends Document {
   // imagenesId: IImagenes['_id'];
   fechaCarga: Date;
   fechaModificacion: Date;
+  idCategoria: String;
+  keyCategoria: Number;
   // videosId: Array<string>;
 }

@@ -9,6 +9,7 @@ const PartidosSchema = new Schema({
   penalesLocal: {type: Number},
   penalesVisitante: {type: Number},
   fechaPartido: {type: Date},
+  horaPartido: String,
   idEstadio: {type: Schema.Types.ObjectId, ref: 'modeloEstadios'},
   posicionFixture: {type: Number},
   comentarios: [
@@ -17,8 +18,9 @@ const PartidosSchema = new Schema({
       texto: {type: String},
     },
   ],
-  campeonato: {type: Schema.Types.ObjectId, ref: 'modeloCampeonatos'},
+  // campeonato: {type: Schema.Types.ObjectId, ref: 'modeloCampeonatos'},
   idTabla: {type: Schema.Types.ObjectId, ref: 'modeloTablas'},
+  idZona: {type: Schema.Types.ObjectId, ref: 'modeloZonas'},
 });
 
 export default model<IPartidos>('modeloPartidos', PartidosSchema);

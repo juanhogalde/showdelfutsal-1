@@ -13,10 +13,6 @@ import {BsPower} from 'react-icons/bs';
 const NavegacionLateral = props => {
   const {isMenuLateralAbierto, abrirMenuLateral} = props;
 
-  const cerrarSesion = () => {
-    localStorage.removeItem('token');
-    window.location.href = '/Administrador';
-  };
   return (
     <div
       className={`${
@@ -80,27 +76,14 @@ const NavegacionLateral = props => {
             </div>
           </div>
         </Link>
-        <Link to="/">
+        <Link className="subrayado" to="/">
           <div className="I-Navegacion-Lateral-Menu">
             <div className="I-Navegacion-Lateral-Link">
               <BsPersonCircle />
-              <h6>Mi Perfil</h6>
+              <h6>Mi Perfils</h6>
             </div>
           </div>
         </Link>
-      </div>
-      <div
-        className="CI-Navegacion-Sesion"
-        onClick={() => {
-          cerrarSesion();
-        }}
-      >
-        <div className="I-Cerrar-sesion">
-          <div className="I-Navegacion-Lateral-Link">
-            <h6>Salir</h6>
-            <BsPower />
-          </div>
-        </div>
       </div>
     </div>
   );

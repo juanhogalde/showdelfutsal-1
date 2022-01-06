@@ -1,18 +1,21 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
+import {obtenerCategoriaSubcategoriaDatosDeTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
+
 import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
 import './Campeonato.css';
 
 const Campeonato = () => {
   const history = useHistory();
-
+  const dispatch = useDispatch();
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
 
-  const redireccioarZona = () => {
-    console.log('redireccioarZona');
+  const redireccionarZona = (categoria, subcategoria) => {
+    dispatch(obtenerCategoriaSubcategoriaDatosDeTorneo_accion(categoria, subcategoria));
     history.push('/Torneo/Nuevo/Campeonato/Zonas');
   };
+
   if (categorias.length > 0 && subcategorias.length > 0) {
     return (
       <div className="CP-Campeonato">
@@ -21,10 +24,11 @@ const Campeonato = () => {
           {subcategorias.map((subcategoria, index) => {
             return (
               <TarjetaTorneo
-                datos={subcategoria.label}
+                categoria={categorias[1]}
+                subcategoria={subcategoria}
                 key={index}
                 isCampeonato={true}
-                redireccioarZona={redireccioarZona}
+                redireccioarZona={redireccionarZona}
               ></TarjetaTorneo>
             );
           })}
@@ -38,7 +42,7 @@ const Campeonato = () => {
                   datos={subcategoria.label}
                   key={index}
                   isCampeonato={true}
-                  redireccioarZona={redireccioarZona}
+                  redireccionarZona={redireccionarZona}
                 ></TarjetaTorneo>
               );
             } else return '';

@@ -1,8 +1,12 @@
 import API from './../Configuracion/api';
 
+/* export const obtenerDatosDeTorneo = 'obtenerDatosDeTorneo'; */
+export const obtenerCategoriaSubcategoriaDatosDeTorneo =
+  'obtenerCategoriaSubcategoriaDatosDeTorneo';
+
 export const cargandoAgregarTorneo = 'cargandoAgregarTorneo';
-export const agregarTorneoExito = 'cargandoAgregarTorneo';
-export const agregarTorneoError = 'cargandoAgregarTorneo';
+export const agregarTorneoExito = 'agregarTorneoExito';
+export const agregarTorneoError = 'agregarTorneoError';
 export const volverPorDefectoAgregarTorneo = 'volverPorDefectoAgregarTorneo';
 
 export const cargandoEditarTorneo = 'cargandoEditarTorneo';
@@ -19,8 +23,30 @@ export const cargandoListarTorneo = 'cargandoListarTorneo';
 export const listarTorneoExito = 'listarTorneoExito';
 export const listarTorneoError = 'listarTorneoError';
 export const volverPorDefectoListarTorneo = 'volverPorDefectoListarTorneo';
+export const volverPorDefectoUnTorneo = 'volverPorDefectoUnTorneo';
 
+export const volverPorDefectoUnTorneo_accion = () => {
+  return {
+    type: volverPorDefectoUnTorneo,
+  };
+};
+
+export const obtenerCategoriaSubcategoriaDatosDeTorneo_accion = (categoriaId, subcategoriaId) => {
+  return {
+    type: obtenerCategoriaSubcategoriaDatosDeTorneo,
+    categoriaId: categoriaId,
+    subcategoriaId: subcategoriaId,
+  };
+};
 /****** AGREGAR TORNEO ******/
+
+/* export const obtenerDatosDeTorneo_accion = datos => {
+  return {
+    type: obtenerDatosDeTorneo,
+    datos: datos,
+  };
+}; */
+
 export const cargandoAgregarTorneo_accion = () => {
   return {
     type: cargandoAgregarTorneo,
@@ -47,9 +73,7 @@ export const volverPorDefectoAgregarTorneo_accion = () => {
   };
 };
 
-export const agregarTorneo_accion = datosTorneo => {
-  console.log(datosTorneo);
-
+export const agregarTorneo_accion = (datosTorneo, categoriaId, subcategoriaId) => {
   return dispatch => {
     dispatch(cargandoAgregarTorneo_accion());
     API({
@@ -59,12 +83,13 @@ export const agregarTorneo_accion = datosTorneo => {
     })
       .then(res => {
         console.log({res});
-        /* dispatch(agregarTorneoExito_accion(res.data.value)); */
-        dispatch(agregarTorneoExito_accion(datosTorneo));
+
+        dispatch(agregarTorneoExito_accion(res.data.value));
+        /* dispatch(agregarTorneoExito_accion(datosTorneo)); */
       })
       .catch(error => {
         console.log({error});
-        /* dispatch(agregarTorneoError_accion()); */
+        dispatch(agregarTorneoError_accion());
       });
   };
 };
@@ -188,17 +213,17 @@ export const volverPorDefectoListarTorneo_accion = () => {
   };
 };
 
-export const listarTorneo_accion = datosTorneo => {
+export const listarTorneo_accion = () => {
   return dispatch => {
     dispatch(cargandoListarTorneo_accion());
     API({
-      url: '/campeonatos/listar',
+      url: '/torneos/listar',
       method: 'get',
       /* data: auxDatosGaleria, */
     })
       .then(res => {
         console.log({res});
-        /* dispatch(listarTorneoExito_accion(res.data.value)); */
+        dispatch(listarTorneoExito_accion(res.data.value));
       })
       .catch(error => {
         console.log({error});

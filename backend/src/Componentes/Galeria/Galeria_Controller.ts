@@ -25,6 +25,8 @@ class GaleriaController {
             fechaModificacion: item.fechaModificacion,
             imagenesId: imagenes.length ? [...imagenes] : [],
             videosId: videos.length ? [...videos] : [],
+            idCategoria: item.idCategoria,
+            keyCategoria: item.keyCategoria,
           };
           datosARetornar.push(galeria);
         }
@@ -88,7 +90,13 @@ class GaleriaController {
   }
   public async agregar(req: Request, res: Response) {
     try {
-      let datosARetornar = {tituloGaleria: '', _id: '', imagenesId: <any>[]};
+      let datosARetornar = {
+        tituloGaleria: '',
+        _id: '',
+        imagenesId: <any>[],
+        idCategoria: '',
+        keyCategoria: '',
+      };
       let datosAEnviar = {fuente: '', isGaleria: false, galeriaId: ''};
       let pathFile: string = '';
       let arrayInsercionesImagenes = [];
@@ -136,14 +144,16 @@ class GaleriaController {
         nuevaGaleria.tituloGaleria = datosBody.descripcion;
         // nuevaGaleria.imagenesId = [...arrayIdImagenes];
         nuevaGaleria.fechaCarga = new Date();
-
+        nuevaGaleria.idCategoria = datosBody.idCategoria;
+        nuevaGaleria.keyCategoria = datosBody.keyCategoria;
         const resultadoOperacion: any = await nuevaGaleria.save();
 
         if (resultadoOperacion) {
           datosARetornar.tituloGaleria = resultadoOperacion.tituloGaleria;
           datosARetornar._id = resultadoOperacion._id;
           datosARetornar.imagenesId = [...arrayInsercionesImagenes];
-
+          datosARetornar.idCategoria = datosBody.idCategoria;
+          datosARetornar.keyCategoria = datosBody.keyCategoria;
           responder.sucess(req, res, datosARetornar);
         } else {
           console.log(resultadoOperacion);
@@ -193,7 +203,11 @@ class GaleriaController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      let datosARetornar = {tituloGaleria: '', _id: '', imagenesId: <any>[]};
+      let datosARetornar = {
+        tituloGaleria: '',
+        _id: '',
+        imagenesId: <any>[],
+      };
       let datosAEnviar = {fuente: '', isGaleria: false, galeriaId: ''};
       let pathFile: string = '';
       let arrayInsercionesImagenes: Array<string> = [];
@@ -240,6 +254,8 @@ class GaleriaController {
 
               galeria.tituloGaleria = datosBody.descripcion;
               galeria.fechaModificacion = new Date();
+              galeria.idCategoria = datosBody.idCategoria;
+              galeria.keyCategoria = datosBody.keyCategoria;
 
               const resultado = await galeria.save();
 
@@ -251,6 +267,8 @@ class GaleriaController {
                   fechaCarga: resultado.fechaCarga,
                   fechaModificacion: resultado.fechaModificacion,
                   imagenesId: imagenes.length ? [...imagenes] : [],
+                  idCategoria: datosBody.idCategoria,
+                  keyCategoria: datosBody.keyCategoria,
                 };
                 responder.sucess(req, res, dato, 'Galeria actualizada');
               } else {
