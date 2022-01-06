@@ -326,7 +326,7 @@
 .galeria-Imagenes-A {
   grid-column: 1/3;
   grid-row: 1/5;
-  padding: 50px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
