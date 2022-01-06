@@ -153,6 +153,10 @@
     min-height: 400px;
     max-height: 300px;
   }
+  .contenedor-Imagen-NoticiaMiniatura {
+    height: 280px;
+    max-height: 220px;
+  }
 }
 @media screen and (max-width: 768px) {
   .imagenNoticiaMiniatura-Principal-Cargando {
@@ -176,10 +180,10 @@
     max-height: 300px;
   }
   .imagenNoticia-Miniatura-Principal {
-    max-height: 235px;
+    max-height: 220px;
   }
   .imagenNoticia-Miniatura {
-    max-height: 235px;
+    max-height: 220px;
   }
   .imagenNoticiaMiniatura-Principal-Cargando {
     min-width: 350px;
