@@ -94,7 +94,7 @@ const SeccionNoticias = ({
               <NoticiasMiniatura
                 datosModelado={noticiaVisualizada.noticia2 ? noticiaVisualizada.noticia2 : {}}
                 isSeccionNoticias={true}
-                isSobreImagen={true}
+                // isSobreImagen={true}
               ></NoticiasMiniatura>
             </Link>
           ) : null}
@@ -109,7 +109,7 @@ const SeccionNoticias = ({
               <NoticiasMiniatura
                 datosModelado={noticiaVisualizada.noticia3 ? noticiaVisualizada.noticia3 : {}}
                 isSeccionNoticias={true}
-                isSobreImagen={true}
+                // isSobreImagen={true}
               ></NoticiasMiniatura>
             </Link>
           ) : null}

@@ -270,6 +270,8 @@
   grid-template-columns: minmax(0, 450px);
   grid-auto-rows: 50%;
   justify-self: end;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 .noticia-Miniatura-1 {
   grid-column: 1/2;
