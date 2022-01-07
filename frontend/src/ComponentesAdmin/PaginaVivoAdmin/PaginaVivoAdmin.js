@@ -1,14 +1,16 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom';
 import PaginasSeccionesAdmin from '../PaginasSeccionesAdmin/PaginasSeccionesAdmin';
 
 const PaginaVivoAdmin = () => {
   // const {vivo} = useSelector(state => state.storeVivo);
+  const historialDeNavegacion = useHistory();
   const vivo = [];
   const redireccionarNuevoVideo = respuesta => {
     if (respuesta) {
       //   setIsMostrarModal(true);
       //   dispatch(volverPorDefectoAgregarVivo_accion());
-      //   historialDeNavegacion.push('/Vivo/Nuevo');
+      historialDeNavegacion.push('/Vivo/Nuevo');
     }
   };
   return (
@@ -19,6 +21,7 @@ const PaginaVivoAdmin = () => {
         tituloFiltroSecciones={'Todas los vivos'}
         isSeccionVivo={true}
         datosDeSeccion={vivo}
+        mostrarFiltros={false}
       ></PaginasSeccionesAdmin>
       {/* <Alertas
         tipoDeSweet={isEliminarGaleria.tipo}

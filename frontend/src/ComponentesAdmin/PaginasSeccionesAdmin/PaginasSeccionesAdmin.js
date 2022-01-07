@@ -16,6 +16,7 @@ const PaginasSeccionesAdmin = ({
   isSeccionNoticias = false,
   isSeccionGaleria = false,
   isSeccionTorneos = false,
+  mostrarFiltros = true,
   datosDeSeccion = [],
   escucharCambioFiltros = () => {
     console.log('Falta funcion para escuchar filtros');
@@ -27,12 +28,14 @@ const PaginasSeccionesAdmin = ({
         <div className="I-Boton-Secciones-Admin">
           <BotonLowa onClick={funcionDeBotonSecciones} tituloboton={tituloBotonSecciones} />
         </div>
-        <div className="I-Filtros-Secciones-Admin">
-          <FiltroNoticiasAdmin
-            tituloFiltro={tituloFiltroSecciones}
-            escucharCambioFiltros={escucharCambioFiltros}
-          />
-        </div>
+        {mostrarFiltros && (
+          <div className="I-Filtros-Secciones-Admin">
+            <FiltroNoticiasAdmin
+              tituloFiltro={tituloFiltroSecciones}
+              escucharCambioFiltros={escucharCambioFiltros}
+            />
+          </div>
+        )}
       </div>
       {isSeccionNoticias && (
         <div className="CI-Pagina-Secciones-Admin-Noticias">

@@ -25,6 +25,7 @@ import NuevoEnfrentamiento from '../ComponentesAdmin/NuevoEnfrentamiento/NuevoEn
 import Zonas from '../ComponentesAdmin/Zonas/Zonas';
 import NuevaGaleriaVideo from '../ComponentesAdmin/NuevaGaleriaVideo/NuevaGaleriaVideo';
 import PaginaVivoAdmin from '../ComponentesAdmin/PaginaVivoAdmin/PaginaVivoAdmin';
+import NuevoVivo from '../ComponentesAdmin/NuevoVivo/NuevoVivo';
 
 const RutasPrivadas = () => {
   const {usuarioLogueado} = useSelector(state => state.storeLogueo);
@@ -68,6 +69,8 @@ const RutasPrivadas = () => {
           <Route exact component={VistaPreviaNoticia} path="/Noticia/Ver"></Route>
           <Route exact component={EditarNoticia} path="/Noticia/Editar"></Route>
           <Route exact component={PaginaVivoAdmin} path="/Vivo"></Route>
+          <Route exact component={NuevoVivo} path="/Vivo/Nuevo"></Route>
+
           <Route exact path="/fixture">
             <h1>Fixture</h1>
           </Route>

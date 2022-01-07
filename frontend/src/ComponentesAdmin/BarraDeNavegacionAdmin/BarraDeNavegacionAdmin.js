@@ -33,6 +33,9 @@ const BarraDeNavegacionAdmin = ({
       if (locacion.pathname.split('/')[1] === 'Torneo') {
         historialDeNavegacion.goBack();
       }
+      if (locacion.pathname.split('/')[1] === 'Vivo') {
+        historialDeNavegacion.goBack();
+      }
     } else {
       historialDeNavegacion.push('/');
     }
