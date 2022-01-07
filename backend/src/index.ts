@@ -36,7 +36,7 @@ import medidasPublicidad_Router from './Componentes/MedidasPublicidad/MedidasPub
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.8';
+const deploy = 'v0.0.13';
 
 class Server {
   public app: express.Application;
@@ -145,6 +145,7 @@ class Server {
       console.log(
         `⚡️[FUTSAL]: El Servidor de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
       );
+      process.env.NODE_ENV == 'desarrollo' ? console.warn(`${deploy}`) : console.log(`${deploy}`);
     });
   }
 }
