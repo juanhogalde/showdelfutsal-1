@@ -87,7 +87,7 @@ const PaginaGaleriaAdmin = () => {
           <TarjetaPanel
             tituloPanel={'Video '}
             url={img2}
-            linkTo={`Galería/Viedeo/${'nuevo'}`}
+            linkTo={`Galería/Video/${'nuevo'}`}
             icono={<IoVideocamOutline />}
             tituloCentrado={true}
           />

@@ -6,7 +6,7 @@ import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {useDispatch, useSelector} from 'react-redux';
 import publicidadLarga from '../../Static/Img/publicidad_larga.jpg';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
-// import Vivo from '../Vivo/Vivo';
+import Vivo from '../Vivo/Vivo';
 import SomosFrase from '../../Static/Img/frase_inicio.png';
 import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
@@ -211,7 +211,7 @@ const Inicio = () => {
     state => state.storePrueba
   ); */
 
-  // const videoVivoPrueba = {fuente: 'MmysMu3mgvw'};
+  const videoVivoPrueba = {fuente: 'ZFx0BuHzTxU'};
   const obtenerFiltro = filtro => {
     switch (filtro) {
       case 'Masculino':
@@ -318,20 +318,26 @@ const Inicio = () => {
         </div>
       </div>
       {/* SECCION VIVO */}
-      {/* <div className="LI-Inicio seccion-vivo Margen-Vivo">
+      <div className="LI-Inicio seccion-vivo Margen-Vivo">
         <div className="CP-Vivo">
           <div className="CI-Componente-Vivo">
             <Vivo video={videoVivoPrueba} />
           </div>
           <div className="CI-Chat-Vivo">
             <p>MINUTO A MINUTO</p>
-            <div className="componente-Chat-Vivo"></div>
+            <div className="componente-Chat-Vivo">
+              <iframe
+                src="https://studio.youtube.com/live_chat?is_popout=1&v=ZFx0BuHzTxU"
+                width="100%"
+                height="100%"
+              ></iframe>
+            </div>
           </div>
           <div className="CI-Publicidad-Vivo">
             <img alt="" src={publicidadLarga}></img>
           </div>
         </div>
-      </div> */}
+      </div>
       {/* SECCION MARCADOR */}
       <div className="LI-Inicio seccion-marcador margenes-Responsive-Seccion-Marcador">
         <div className="CP-Marcador">
