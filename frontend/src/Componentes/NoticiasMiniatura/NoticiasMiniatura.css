@@ -147,11 +147,14 @@
     min-height: 300px;
   }
   .imagenNoticia-Miniatura-Principal {
-    max-height: 380px;
+    height: 100%;
+    min-height: 200px;
+    max-height: 450px;
   }
   .contenedor-Imagen-NoticiaMiniatura-Principal {
+    height: 100%;
     min-height: 400px;
-    max-height: 300px;
+    max-height: 500px;
   }
   .contenedor-Imagen-NoticiaMiniatura {
     height: 280px;
