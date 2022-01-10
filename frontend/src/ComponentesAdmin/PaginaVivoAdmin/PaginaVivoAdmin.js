@@ -1,16 +1,31 @@
 import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
+import {eliminarVivo_accion, volverDatosPorfecto_accion} from '../../Redux/Vivo/AccionesVivo';
+import Alertas from '../Alertas/Alertas';
 import PaginasSeccionesAdmin from '../PaginasSeccionesAdmin/PaginasSeccionesAdmin';
 
 const PaginaVivoAdmin = () => {
-  // const {vivo} = useSelector(state => state.storeVivo);
+  const {vivo, isVivo} = useSelector(state => state.storeVivo);
+  const dispatch = useDispatch();
   const historialDeNavegacion = useHistory();
-  const vivo = [];
   const redireccionarNuevoVideo = respuesta => {
     if (respuesta) {
-      //   setIsMostrarModal(true);
-      //   dispatch(volverPorDefectoAgregarVivo_accion());
-      historialDeNavegacion.push('/Vivo/Nuevo');
+      historialDeNavegacion.push(`/Vivo/Nuevo/${'nuevo'}`);
+    }
+  };
+  const obtenerRespuestaDeAlertas = respuesta => {
+    if (respuesta) {
+      if (isVivo.porEliminar) {
+        if (vivo._id) {
+          dispatch(eliminarVivo_accion(vivo));
+        }
+      }
+      if (isVivo.isEliminado || isVivo.isError) {
+        dispatch(volverDatosPorfecto_accion());
+      }
+    } else {
+      dispatch(volverDatosPorfecto_accion());
     }
   };
   return (
@@ -20,20 +35,19 @@ const PaginaVivoAdmin = () => {
         tituloBotonSecciones="Nuevo vivo"
         tituloFiltroSecciones={'Todas los vivos'}
         isSeccionVivo={true}
-        datosDeSeccion={vivo}
+        mostrarBotonNuevo={vivo.urlVivo ? false : true}
+        datosDeSeccion={vivo.urlVivo ? vivo : {}}
         mostrarFiltros={false}
       ></PaginasSeccionesAdmin>
-      {/* <Alertas
-        tipoDeSweet={isEliminarGaleria.tipo}
+
+      <Alertas
+        tipoDeSweet={isVivo.tipo}
         mostrarSweet={
-          isEliminarGaleria.isConsulta ||
-          isEliminarGaleria.isCargando ||
-          isEliminarGaleria.isExito ||
-          isEliminarGaleria.isError
+          isVivo.porEliminar || isVivo.isEliminado || isVivo.isError || isVivo.isMostrar
         }
-        subtitulo={isEliminarGaleria.mensaje}
+        subtitulo={isVivo.mensaje}
         RespuestaDeSweet={obtenerRespuestaDeAlertas}
-      ></Alertas> */}
+      ></Alertas>
     </div>
   );
 };

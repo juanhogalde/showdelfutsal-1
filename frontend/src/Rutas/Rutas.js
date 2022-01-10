@@ -9,6 +9,7 @@ import {listarNoticia_accion} from '../Redux/Noticias/AccionesNoticias';
 import {listarPublicidades_accion} from '../Redux/Publicidades/AccionesPublicidades';
 import {listarGalerias_accion} from '../Redux/Galerias/AccionesGalerias';
 import {listarTorneo_accion} from '../Redux/Torneos/AccionesTorneos';
+import {listarVivo_accion} from '../Redux/Vivo/AccionesVivo';
 
 const Rutas = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const Rutas = () => {
     dispatch(listarPublicidades_accion());
     dispatch(listarGalerias_accion());
     dispatch(listarTorneo_accion());
+    dispatch(listarVivo_accion());
   }, [dispatch]);
   const {usuarioLogueado} = useSelector(state => state.storeLogueo);
   return <React.Fragment>{usuarioLogueado ? <HomePrivada /> : <RutasPublicas />}</React.Fragment>;

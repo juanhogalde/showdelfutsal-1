@@ -69,7 +69,8 @@ const RutasPrivadas = () => {
           <Route exact component={VistaPreviaNoticia} path="/Noticia/Ver"></Route>
           <Route exact component={EditarNoticia} path="/Noticia/Editar"></Route>
           <Route exact component={PaginaVivoAdmin} path="/Vivo"></Route>
-          <Route exact component={NuevoVivo} path="/Vivo/Nuevo"></Route>
+          <Route exact component={NuevoVivo} path="/Vivo/Nuevo/:tipo"></Route>
+          <Route exact component={NuevoVivo} path="/Vivo/Editar/:tipo"></Route>
 
           <Route exact path="/fixture">
             <h1>Fixture</h1>

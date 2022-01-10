@@ -29,6 +29,7 @@ import {importarDatos} from './Config/importarDatos';
 import modeloUsuarios from './Componentes/Usuarios/Usuarios_Model';
 import {instalarBD} from './Config/instalacionInicial';
 import medidasPublicidad_Router from './Componentes/MedidasPublicidad/MedidasPublicidad_Router';
+import vivoRouter from './Componentes/Vivo/Vivo_Router';
 // import {medidasPublicidadRouter} from './Componentes/MedidasPublicidad/MedidasPublicidad_Router'
 // import { comprimirImagen } from './Middlewares/imagemin';
 
@@ -91,6 +92,7 @@ class Server {
     this.app.use('/tablas', tablasRouter);
     this.app.use('/usuarios', usuariosRouter);
     this.app.use('/medidasPublicidad', medidasPublicidad_Router);
+    this.app.use('/videosVivo', vivoRouter);
 
     //Rutas Basicas
     this.app.get('/', (req: Request, res: Response) => {
