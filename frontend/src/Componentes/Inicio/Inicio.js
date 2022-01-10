@@ -460,6 +460,7 @@ const Inicio = () => {
                     {galeria.galeria2.imagenesId.map(datoGaleria => {
                       return (
                         <ImagenSlider
+                          tamañoImagen={{height: '700px'}}
                           datos={datoGaleria}
                           descripcion={galeria.galeria2.tituloGaleria}
                         ></ImagenSlider>
