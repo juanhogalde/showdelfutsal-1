@@ -5,6 +5,7 @@ import img2 from '../../Static/Admin/imgPanel2.png';
 import img3 from '../../Static/Admin/imgPanel3.png';
 import img4 from '../../Static/Admin/imgPanel4.png';
 import img5 from '../../Static/Admin/imgPanel5.png';
+import img6 from '../../Static/Admin/imgPanel6.png';
 import InputLowa from '../InputLowa/InputLowa';
 import {BsSearch} from 'react-icons/bs';
 import TarjetaPanel from '../TarjetaPanel/TarjetaPanel';
@@ -40,7 +41,7 @@ const InicioAdmin = () => {
             <TarjetaPanel tituloPanel={'Noticias'} url={img3} linkTo="Noticias"></TarjetaPanel>
             <TarjetaPanel tituloPanel={'Galerías'} url={img4} linkTo="Galerías"></TarjetaPanel>
             <TarjetaPanel tituloPanel={'Torneos'} url={img5} linkTo="Torneos"></TarjetaPanel>
-            <TarjetaPanel tituloPanel={'Transmitir Vivo'} url={img5} linkTo="Vivo"></TarjetaPanel>
+            <TarjetaPanel tituloPanel={'Transmitir Vivo'} url={img6} linkTo="Vivo"></TarjetaPanel>
           </div>
         </div>
       </React.Fragment>
