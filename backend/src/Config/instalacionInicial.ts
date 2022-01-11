@@ -65,6 +65,26 @@ let inicializarSubCategorias = async () => {
       nombreSubcategoria: 'Divisional D',
       keySubcategoria: 4,
     },
+    {
+      nombreSubcategoria: 'Provincial',
+      keySubcategoria: 5,
+    },
+    {
+      nombreSubcategoria: 'Regional',
+      keySubcategoria: 6,
+    },
+    {
+      nombreSubcategoria: 'Nacional',
+      keySubcategoria: 7,
+    },
+    {
+      nombreSubcategoria: 'Inferiores',
+      keySubcategoria: 8,
+    },
+    {
+      nombreSubcategoria: 'Liga Departamentales',
+      keySubcategoria: 9,
+    },
   ];
   for await (const subcategoria of subCategoriaArray) {
     modeloSubCategorias
