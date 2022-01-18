@@ -29,7 +29,6 @@ const PaginaTorneosAdmin = () => {
   }, [dispatch, torneo]);
 
   const obtenerRespuestaDeAlertas = respuesta => {
-    console.log(respuesta);
     if (respuesta) {
       if (isEliminarTorneo.isConsulta) {
         dispatch(eliminarTorneo_accion(isEliminarTorneo.id));

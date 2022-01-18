@@ -176,7 +176,6 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
     }
     case actualizarListaDeTorneos: {
       let auxTorneos = state.torneos.filter(torneo => torneo._id !== state.isEliminarTorneo.id);
-      console.log(auxTorneos);
       return {
         ...state,
         torneos: auxTorneos,

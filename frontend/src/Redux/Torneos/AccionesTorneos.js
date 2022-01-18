@@ -190,7 +190,6 @@ export const eliminarTorneo_accion = id => {
       data: {id: id},
     })
       .then(res => {
-        console.log({res});
         dispatch(eliminarTorneoExito_accion(id));
       })
       .catch(error => {
@@ -236,7 +235,6 @@ export const listarTorneo_accion = () => {
       /* data: auxDatosGaleria, */
     })
       .then(res => {
-        console.log({res});
         dispatch(listarTorneoExito_accion(res.data.value));
       })
       .catch(error => {
