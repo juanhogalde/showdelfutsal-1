@@ -8,7 +8,7 @@ import storePartidos from './Partidos/ReducerPartidos';
 import storePublicidades from './Publicidades/ReducerPublicidades';
 import storeGalerias from './Galerias/ReducerGalerias';
 import storeTorneos from './Torneos/ReducerTorneos';
-
+import storeVivo from './Vivo/ReducerVivo';
 const RootReducers = combineReducers({
   storePrueba,
   storeNoticias,
@@ -19,5 +19,6 @@ const RootReducers = combineReducers({
   storePublicidades,
   storeGalerias,
   storeTorneos,
+  storeVivo,
 });
 export default RootReducers;

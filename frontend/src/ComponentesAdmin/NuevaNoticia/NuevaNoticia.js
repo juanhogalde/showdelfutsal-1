@@ -115,6 +115,16 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
       );
     }
     switch (noticiaSeleccionada.keyCategoria) {
+      case 1:
+        let subcategoriasParaMasculino = [];
+        subcategorias.forEach(element => {
+          if (element.key === 1 || element.key === 2 || element.key === 3 || element.key === 4) {
+            subcategoriasParaMasculino = [...subcategoriasParaMasculino, element];
+          }
+        });
+        setArregloDeSubCategorias(subcategoriasParaMasculino);
+        setArregloDeCategorias(categorias);
+        break;
       case 2:
         let subcategoriasParaFemenino = [];
         subcategorias.forEach(element => {
@@ -125,7 +135,26 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
         setArregloDeSubCategorias(subcategoriasParaFemenino);
         setArregloDeCategorias(categorias);
         break;
-
+      case 3:
+        let subcategoriasParaLiga = [];
+        subcategorias.forEach(element => {
+          if (element.key === 5 || element.key === 6 || element.key === 7) {
+            subcategoriasParaLiga = [...subcategoriasParaLiga, element];
+          }
+        });
+        setArregloDeSubCategorias(subcategoriasParaLiga);
+        setArregloDeCategorias(categorias);
+        break;
+      case 4:
+        let subcategoriasParaOtras = [];
+        subcategorias.forEach(element => {
+          if (element.key === 8 || element.key === 9) {
+            subcategoriasParaOtras = [...subcategoriasParaOtras, element];
+          }
+        });
+        setArregloDeSubCategorias(subcategoriasParaOtras);
+        setArregloDeCategorias(categorias);
+        break;
       default:
         setArregloDeCategorias(categorias);
         setArregloDeSubCategorias(subcategorias);
@@ -167,6 +196,16 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
   const funcionSetCategoria = respuestaCategoria => {
     setCategoria(respuestaCategoria);
     switch (respuestaCategoria.key) {
+      case 1:
+        let subcategoriasParaMasculino = [];
+        subcategorias.forEach(element => {
+          if (element.key === 1 || element.key === 2 || element.key === 3 || element.key === 4) {
+            subcategoriasParaMasculino = [...subcategoriasParaMasculino, element];
+          }
+        });
+        setArregloDeSubCategorias(subcategoriasParaMasculino);
+        setSubCategoria(null);
+        break;
       case 2:
         let subcategoriasParaFemenino = [];
         subcategorias.forEach(element => {
@@ -177,7 +216,26 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
         setArregloDeSubCategorias(subcategoriasParaFemenino);
         setSubCategoria(null);
         break;
-
+      case 3:
+        let subcategoriasParaLiga = [];
+        subcategorias.forEach(element => {
+          if (element.key === 5 || element.key === 6 || element.key === 7) {
+            subcategoriasParaLiga = [...subcategoriasParaLiga, element];
+          }
+        });
+        setArregloDeSubCategorias(subcategoriasParaLiga);
+        setSubCategoria(null);
+        break;
+      case 4:
+        let subcategoriasParaOtras = [];
+        subcategorias.forEach(element => {
+          if (element.key === 8 || element.key === 9) {
+            subcategoriasParaOtras = [...subcategoriasParaOtras, element];
+          }
+        });
+        setArregloDeSubCategorias(subcategoriasParaOtras);
+        setSubCategoria(null);
+        break;
       default:
         setArregloDeSubCategorias(subcategorias);
         break;

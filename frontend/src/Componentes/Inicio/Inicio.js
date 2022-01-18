@@ -6,7 +6,7 @@ import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {useDispatch, useSelector} from 'react-redux';
 import publicidadLarga from '../../Static/Img/publicidad_larga.jpg';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
-// import Vivo from '../Vivo/Vivo';
+import Vivo from '../Vivo/Vivo';
 import SomosFrase from '../../Static/Img/frase_inicio.png';
 import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
@@ -16,9 +16,13 @@ import PieDepagina from '../PieDePagina/PieDepagina';
 import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
 import ModalLowa from '../../ComponentesAdmin/ModalLowa/ModalLowa';
 import publicidadModal from '../../Static/Img/publicidad-modal.png';
-import {urlImagenes} from '../../urlImagenes';
+import {urlDominio, urlImagenes} from '../../urlImagenes';
 import {controlModalPublicidad_accion} from '../../Redux/DatosInciales/AccionesDatosIniciales';
 import TarjetaEnfrentamiento from '../../ComponentesAdmin/TarjetaEnfrentamiento/TarjetaEnfrentamiento';
+import Slider from 'react-slick';
+import ImagenSlider from '../ImagenSlider/ImagenSlider';
+import {AiFillCaretLeft, AiFillCaretRight} from 'react-icons/ai';
+
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},
@@ -29,11 +33,13 @@ const Inicio = () => {
   const dispatch = useDispatch();
   const {noticias} = useSelector(state => state.storeNoticias);
   const {isMostrarModalPublicidad} = useSelector(state => state.sotreDatosIniciales);
+  const {vivo} = useSelector(state => state.storeVivo);
   const {publicidades} = useSelector(state => state.storePublicidades);
 
   const {galerias} = useSelector(state => state.storeGalerias);
   const [videosGaleria, setVideosGaleria] = useState([]);
   // const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
+  const [videoVivo, setVideoVivo] = useState({});
   const [noticiaP, setNoticiaP] = useState({});
   const [noticia1, setNoticia1] = useState({});
   const [noticia2, setNoticia2] = useState({});
@@ -88,7 +94,7 @@ const Inicio = () => {
       noticiaHorizontalBajo: publicidadNoticiaHorizontalBajo,
       publicidadInicioModal: publicidadModalInicio,
     });
-
+    // CARGA DE NOTICIAS
     var noticiasFiltradas = noticias.filter(noticia => noticia.keyCategoria === 2);
     if (noticiasFiltradas[0]) {
       setNoticiaP(noticiasFiltradas[0]);
@@ -99,22 +105,44 @@ const Inicio = () => {
     if (noticiasFiltradas[2]) {
       setNoticia2(noticiasFiltradas[2]);
     }
+    //CARGA DE GALERIAS
 
-    var auxGaleriasImagenes = galerias.map(galeria => {
-      if (Object.keys(galeria).length > 0) {
-        return galeria;
-      } else return {};
-    });
+    var auxGaleriasImagenes = [];
+    if (galerias.length) {
+      auxGaleriasImagenes = galerias.filter(element => element.imagenesId.length !== 0);
+      // auxGaleriasImagenes = galerias.for(galeria => {
+      //   if (Object.keys(galeria).length > 0 && galeria.imagenesId.length !== 0) {
+      //     return galeria;
+      //   }
+      // });
+    }
     var ultimoIndice = auxGaleriasImagenes.length;
-
     setGaleria({
       galeria1: auxGaleriasImagenes[ultimoIndice - 3] ? auxGaleriasImagenes[ultimoIndice - 3] : {},
       galeria2: auxGaleriasImagenes[ultimoIndice - 2] ? auxGaleriasImagenes[ultimoIndice - 2] : {},
       galeria3: auxGaleriasImagenes[ultimoIndice - 1] ? auxGaleriasImagenes[ultimoIndice - 1] : {},
     });
+
     var galeriasTipoVideos = galerias.filter(galeria => galeria.videosId.length !== 0);
     if (galeriasTipoVideos.length) {
       setVideosGaleria(galeriasTipoVideos[galeriasTipoVideos.length - 1].videosId);
+    }
+
+    //CARGA DE VIDEO EN VIVO
+    if (vivo.urlVivo) {
+      let urlFinal;
+      if (vivo.urlVivo.indexOf('video') !== -1) {
+        let posinicial = vivo.urlVivo.indexOf('video') + 6;
+        let posicionFinal = vivo.urlVivo.indexOf('/livestreaming');
+        urlFinal = vivo.urlVivo.substr(posinicial, posicionFinal - posinicial);
+      } else {
+        let posinicial = vivo.urlVivo.indexOf('be/') + 3;
+        urlFinal = vivo.urlVivo.substr(posinicial, vivo.urlVivo.length - posinicial);
+      }
+      let urlChat = `https://www.youtube.com/live_chat?v=${urlFinal}&embed_domain=${urlDominio}`;
+      setVideoVivo({fuente: urlFinal, chat: urlChat, isActivo: vivo.isActivo});
+    } else {
+      setVideoVivo({});
     }
   }, [
     setNoticiaP,
@@ -125,13 +153,85 @@ const Inicio = () => {
     galerias,
     publicidades,
     setVideosGaleria,
+    vivo,
   ]);
+
+  /* =========== COMPONENTE SLIDER =========== */
+
+  function SampleNextArrow(props) {
+    const {onClick} = props;
+    return (
+      <div className="I-Contenedor-flecha-derecha">
+        <div
+          className={`${props.isVertical ? 'flechaNextVertical' : 'flechaSiguiente'}`}
+          onClick={onClick}
+        >
+          <AiFillCaretRight size={20} className="flecha"></AiFillCaretRight>
+        </div>
+      </div>
+    );
+  }
+
+  function SamplePrevArrow(props) {
+    const {onClick} = props;
+    return (
+      <div
+        className="I-Contenedor-flecha-izquierda"
+        className={`${props.isVertical ? 'flechaPrevVertical' : 'flechaAnterior'}`}
+        onClick={onClick}
+      >
+        <AiFillCaretLeft size={20} className="flecha"></AiFillCaretLeft>
+      </div>
+    );
+  }
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    cssEase: 'linear',
+
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          /* dots: true, */
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  /* =========== FIN COMPONENTE SLIDER =========== */
 
   /* const {DatosDePruebaImagenes, DatosDePruebaImagenes2, DatosDePruebaImagenes3} = useSelector(
     state => state.storePrueba
   ); */
 
-  // const videoVivoPrueba = {fuente: 'MmysMu3mgvw'};
+  // const videoVivoPrueba = {fuente: 'ZFx0BuHzTxU'};
   const obtenerFiltro = filtro => {
     switch (filtro) {
       case 'Masculino':
@@ -238,26 +338,35 @@ const Inicio = () => {
         </div>
       </div>
       {/* SECCION VIVO */}
-      {/* <div className="LI-Inicio seccion-vivo Margen-Vivo">
-        <div className="CP-Vivo">
-          <div className="CI-Componente-Vivo">
-            <Vivo video={videoVivoPrueba} />
-          </div>
-          <div className="CI-Chat-Vivo">
-            <p>MINUTO A MINUTO</p>
-            <div className="componente-Chat-Vivo"></div>
-          </div>
-          <div className="CI-Publicidad-Vivo">
-            <img alt="" src={publicidadLarga}></img>
+      {videoVivo.isActivo && (
+        <div className="LI-Inicio seccion-vivo Margen-Vivo">
+          <div className="CP-Vivo">
+            <div className="CI-Componente-Vivo">
+              <Vivo video={videoVivo} />
+            </div>
+            <div className="CI-Chat-Vivo">
+              <p>MINUTO A MINUTO</p>
+              <div className="componente-Chat-Vivo">
+                <iframe
+                  src={videoVivo.chat ? videoVivo.chat : ''}
+                  width="100%"
+                  height="100%"
+                ></iframe>
+              </div>
+            </div>
+            <div className="CI-Publicidad-Vivo">
+              <img alt="" src={publicidadLarga}></img>
+            </div>
           </div>
         </div>
-      </div> */}
+      )}
       {/* SECCION MARCADOR */}
       <div className="LI-Inicio seccion-marcador margenes-Responsive-Seccion-Marcador">
         <div className="CP-Marcador">
           <div className="CI-Marcador">
             <div className="titulo-Marcador">
               <h1>PARTIDOS</h1>
+              <br></br>
             </div>
             <div className="componente-Marcador">
               {/* <Marcador /> */}
@@ -367,24 +476,51 @@ const Inicio = () => {
           <div className="CI-Galeria-Imagenes">
             <h1 className="titulo-Galeria">GALERÍA</h1>
             <div className="galeria-Imagenes-A">
-              <ImagenesVideo
-                descripcion={galeria.galeria2.tituloGaleria ? galeria.galeria2.tituloGaleria : ''}
-                DatosDeEntrada={galeria.galeria2.imagenesId ? galeria.galeria2.imagenesId : []}
-                tipoDeSliderFlecha={false}
-                isGaleriaPrincipal={true}
-              ></ImagenesVideo>
+              <div className="I-Contenedor-slider-imagenes">
+                {galeria.galeria2.imagenesId && (
+                  <Slider {...settings} cantidadDeElementos={1}>
+                    {galeria.galeria2.imagenesId.map(datoGaleria => {
+                      return (
+                        <ImagenSlider
+                          tamañoImagen={{height: '700px'}}
+                          datos={datoGaleria}
+                          descripcion={galeria.galeria2.tituloGaleria}
+                        ></ImagenSlider>
+                      );
+                    })}
+                  </Slider>
+                )}
+              </div>
             </div>
             <div className="galeria-Imagenes-B">
-              <ImagenesVideo
-                descripcion={galeria.galeria1.tituloGaleria ? galeria.galeria1.tituloGaleria : ''}
-                DatosDeEntrada={galeria.galeria1.imagenesId ? galeria.galeria1.imagenesId : []}
-                tipoDeSliderFlecha={false}
-              ></ImagenesVideo>
-              <ImagenesVideo
-                descripcion={galeria.galeria3.tituloGaleria ? galeria.galeria3.tituloGaleria : ''}
-                DatosDeEntrada={galeria.galeria3.imagenesId ? galeria.galeria3.imagenesId : []}
-                tipoDeSliderFlecha={false}
-              ></ImagenesVideo>
+              <div className="I-Contenedor-slider-imagenes">
+                {galeria.galeria1.imagenesId && (
+                  <Slider {...settings} cantidadDeElementos={1}>
+                    {galeria.galeria1.imagenesId.map(datoGaleria => {
+                      return (
+                        <ImagenSlider
+                          datos={datoGaleria}
+                          descripcion={galeria.galeria1.tituloGaleria}
+                        ></ImagenSlider>
+                      );
+                    })}
+                  </Slider>
+                )}
+              </div>
+              <div className="I-Contenedor-slider-imagenes">
+                {galeria.galeria3.imagenesId && (
+                  <Slider {...settings} cantidadDeElementos={0}>
+                    {galeria.galeria3.imagenesId.map(datoGaleria => {
+                      return (
+                        <ImagenSlider
+                          datos={datoGaleria}
+                          descripcion={galeria.galeria3.tituloGaleria}
+                        ></ImagenSlider>
+                      );
+                    })}
+                  </Slider>
+                )}
+              </div>
             </div>
           </div>
           <div className="CI-Galeria-Videos">

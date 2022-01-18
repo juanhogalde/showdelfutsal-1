@@ -118,16 +118,21 @@
   gap: 10px;
 }
 .I-Navegacion-Lateral-Link h6 {
-  text-decoration: none;
   color: #3f3d56;
+  text-decoration: none;
 }
 
 .I-Navegacion-Lateral-Link h6:hover {
   color: #2a2ac0;
+  text-decoration: none;
+}
+.subrayado {
+  text-decoration: none;
 }
 
 .I-Navegacion-Lateral-Link h6.active {
   color: #2a2ac0;
+  text-decoration: none;
 }
 
 .I-Navegacion-Lateral-Link h6 {

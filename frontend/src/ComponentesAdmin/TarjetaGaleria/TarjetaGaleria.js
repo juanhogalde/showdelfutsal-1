@@ -1,11 +1,11 @@
-import React, {useRef, useState} from 'react';
+import React, {useLayoutEffect, useRef, useState} from 'react';
 import ImagenAdmin from '../ImagenAdmin/ImagenAdmin';
 import './TarjetaGaleria.css';
 import {HiDotsVertical} from 'react-icons/hi';
 import {useHistory} from 'react-router';
 import {MdDeleteForever} from 'react-icons/md';
 import {FiEdit3} from 'react-icons/fi';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   consultaEliminarGaleria_accion,
   cargarVideoGaleriaParaEditar_accion,
@@ -16,12 +16,21 @@ import ModalLowa from '../ModalLowa/ModalLowa';
 
 const TarjetaGaleria = ({galeria = {}}) => {
   const dispatch = useDispatch();
-
+  const [categoriaDeGaleria, setCategoriaDeGaleria] = useState(null);
+  const {categorias} = useSelector(state => state.sotreDatosIniciales);
   const historialDeNavegacion = useHistory();
   const [isAcciones, setIsAcciones] = useState(false);
   const [isMostrarModal, setIsMostrarModal] = useState('');
   const elementoAcciones = useRef();
-
+  useLayoutEffect(() => {
+    if (galeria.keyCategoria) {
+      let categoriafiltrada = categorias.filter(
+        element => element.key === parseInt(galeria.keyCategoria)
+      );
+      console.log(categoriafiltrada);
+      setCategoriaDeGaleria(categoriafiltrada);
+    }
+  }, [categorias, setCategoriaDeGaleria, galeria]);
   const mostrarAcciones = () => {
     setIsAcciones(!isAcciones);
     elementoAcciones.current.focus();
@@ -35,7 +44,7 @@ const TarjetaGaleria = ({galeria = {}}) => {
     } else {
       if (galeria.videosId.length !== 0) {
         dispatch(cargarVideoGaleriaParaEditar_accion(galeria));
-        historialDeNavegacion.push(`/Galería/Viedeo/${'editar'}`);
+        historialDeNavegacion.push(`/Galería/Video/${'editar'}`);
       }
     }
   };
@@ -66,7 +75,11 @@ const TarjetaGaleria = ({galeria = {}}) => {
   return (
     <React.Fragment>
       <div className="CP-TarjetaGaleria">
-        <p>{galeria.tituloGaleria}</p>
+        <p>
+          {categoriaDeGaleria && categoriaDeGaleria.length
+            ? `${galeria.tituloGaleria} - ${categoriaDeGaleria[0].label}`
+            : `${galeria.tituloGaleria}`}
+        </p>
         <div className="CI-Cuerpo-TarjetaGaleria">
           <div className="imagenes-TarjetaGaleria">
             {galeria.imagenesId.length

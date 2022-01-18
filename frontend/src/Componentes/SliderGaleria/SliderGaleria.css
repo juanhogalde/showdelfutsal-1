@@ -1,0 +1,81 @@
+.centrar-titulo-galeria {
+  text-align-last: center;
+}
+.centrar-titulo-galeria h4 {
+  font-size: 2rem;
+}
+
+/* ============ CONTENEDOR NOTICIAS SLIDER ============- */
+.containerSlider {
+  padding: 20px;
+  background-color: transparent;
+  max-width: 100%;
+  max-height: 100%;
+}
+.flechaPrevGaleria {
+  color: black;
+  display: block;
+  position: absolute;
+  left: -30px;
+  top: 40%;
+}
+.flechaNextGaleria {
+  color: black;
+  display: block;
+  position: absolute;
+  right: -30px;
+  top: 40%;
+}
+
+.flechaGaleria {
+  font-size: 30px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.flechaPrevGaleria:hover .flecha {
+  font-size: 33px;
+}
+.flechaNextGaleria:hover .flecha {
+  font-size: 33px;
+}
+
+/* ============ FLECHAS VERTICALES ============- */
+
+.flechaPrevVerticalGaleria {
+  color: black;
+  position: absolute;
+  top: -40px;
+  left: 45%;
+  transform: rotate(90deg);
+}
+
+.flechaNextVerticalGaleria {
+  color: black;
+  position: absolute;
+  bottom: -40px;
+  left: 45%;
+  transform: rotate(90deg);
+}
+
+.decripcion-galeriaVideo {
+  height: 50px;
+  width: 100%;
+  font-size: 1rem;
+  color: white;
+  background: #000000c9;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cuerpo-imagen-galeria img {
+  object-fit: cover;
+}
+
+.cuerpo-imagen-galeria:hover .decripcion-galeriaVideo {
+  display: none;
+}
+.decripcion-galeriaVideo:active {
+  display: none;
+}

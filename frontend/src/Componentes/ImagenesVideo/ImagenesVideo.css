@@ -1,5 +1,6 @@
 .CP-imagenesVideo {
   width: 100%;
+  margin-top: 0.8rem;
   /* height: 100%; */
   display: flex;
   flex-direction: column;

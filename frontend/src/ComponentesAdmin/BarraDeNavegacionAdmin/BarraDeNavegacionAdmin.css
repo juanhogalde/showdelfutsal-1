@@ -14,7 +14,7 @@
 .CI-IconoMenu {
   min-width: 50px;
   display: flex;
-  padding: 20px;
+  padding: 31px;
   cursor: pointer;
 }
 .CI-BarraDeNavegacion {
@@ -25,5 +25,11 @@
 .CI-Avatar {
   min-width: 50px;
   display: flex;
+  align-items: center;
+  place-content: center;
   padding: 20px;
+}
+.Boton-salir {
+  cursor: pointer;
+  font-size: 1.3rem;
 }
