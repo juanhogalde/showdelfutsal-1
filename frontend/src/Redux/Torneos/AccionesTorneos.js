@@ -187,7 +187,7 @@ export const eliminarTorneo_accion = id => {
     API({
       url: '/torneos/eliminar',
       method: 'delete',
-      data: {_id: id},
+      data: {id: id},
     })
       .then(res => {
         console.log({res});
