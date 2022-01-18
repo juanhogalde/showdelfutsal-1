@@ -1,12 +1,12 @@
 import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
-import modeloCampeonatos from './Torneos_Model';
+import modeloTorneos from './Torneos_Model';
 import ICampeonatos from './Torneos_Interface';
 
 class TorneosController {
   public async listar(req: Request, res: Response) {
     try {
-      const listadoCampeonatos = await modeloCampeonatos.find();
+      const listadoCampeonatos = await modeloTorneos.find();
       responder.sucess(req, res, listadoCampeonatos);
     } catch (error) {
       responder.error(req, res, error);
@@ -15,7 +15,7 @@ class TorneosController {
 
   public async agregar(req: Request, res: Response) {
     try {
-      const campeonato: ICampeonatos = new modeloCampeonatos(req.body);
+      const campeonato: ICampeonatos = new modeloTorneos(req.body);
       const torneo = await campeonato.save();
       responder.sucess(req, res, torneo);
     } catch (error) {
@@ -26,7 +26,7 @@ class TorneosController {
   public async obtener(req: Request, res: Response) {
     try {
       let idCampeonato = req.params.id;
-      const torneo = await modeloCampeonatos.find({_id: idCampeonato});
+      const torneo = await modeloTorneos.find({_id: idCampeonato});
       responder.sucess(req, res, torneo);
     } catch (error) {
       responder.error(req, res, error);
@@ -37,7 +37,7 @@ class TorneosController {
     try {
       const campeonatoBody = req.body;
       if (campeonatoBody._id) {
-        modeloCampeonatos.findById(campeonatoBody._id).then(async (campeonato: any) => {
+        modeloTorneos.findById(campeonatoBody._id).then(async (campeonato: any) => {
           if (campeonato) {
             campeonato.tituloTorneo = campeonatoBody.tituloCampeonato;
             campeonato.fechaInicio = campeonatoBody.fechaInicio;
@@ -64,7 +64,7 @@ class TorneosController {
   public async eliminar(req: Request, res: Response) {
     try {
       let id = req.body.id;
-      const campeonatoEliminada = await modeloCampeonatos.findOneAndDelete({_id: id}, {new: true});
+      const campeonatoEliminada = await modeloTorneos.findOneAndDelete({_id: id}, {new: true});
       responder.sucess(req, res, campeonatoEliminada);
     } catch (error) {
       responder.error(req, res, error);
@@ -72,7 +72,7 @@ class TorneosController {
   }
 
   public obtenerCampeonato(idCampeonato: string, idCategoria: string) {
-    return modeloCampeonatos
+    return modeloTorneos
       .findOne({idCampeonato: idCampeonato, idCategoria: idCategoria})
       .populate('idCategoria')
       .populate('idSubcategoria');

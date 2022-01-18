@@ -9,8 +9,10 @@ import {
   editarTorneoExito,
   editarTorneoError,
   volverPorDefectoEditarTorneo,
+  consultarPorEliminarTorneo,
   cargandoEliminarTorneo,
   eliminarTorneoExito,
+  actualizarListaDeTorneos,
   eliminarTorneoError,
   volverPorDefectoEliminarTorneo,
   cargandoListarTorneo,
@@ -29,6 +31,15 @@ const torneoPorDefecto = {
     isCargando: false,
     isExito: false,
     isError: false,
+  },
+  isEliminarTorneo: {
+    tipo: '',
+    mensaje: '',
+    isConsulta: true,
+    isCargando: false,
+    isExito: false,
+    isError: false,
+    id: '',
   },
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
@@ -121,24 +132,91 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         ...state,
       };
     }
+    case consultarPorEliminarTorneo: {
+      return {
+        ...state,
+        isEliminarTorneo: {
+          tipo: 'warning',
+          mensaje: '¿Desea eliminar este torneo?',
+          isConsulta: true,
+          isCargando: false,
+          isExito: false,
+          isError: false,
+          id: accion.datos,
+        },
+      };
+    }
     case cargandoEliminarTorneo: {
       return {
         ...state,
+        isEliminarTorneo: {
+          tipo: 'cargando',
+          mensaje: 'Eliminando Torneo',
+          isConsulta: true,
+          isCargando: false,
+          isExito: false,
+          isError: false,
+          id: state.isEliminarTorneo.id,
+        },
       };
     }
     case eliminarTorneoExito: {
       return {
         ...state,
+        isEliminarTorneo: {
+          tipo: 'success',
+          mensaje: 'Torneo Eliminada',
+          isConsulta: false,
+          isCargando: false,
+          isExito: true,
+          isError: false,
+          id: state.isEliminarTorneo.id,
+        },
+      };
+    }
+    case actualizarListaDeTorneos: {
+      let auxTorneos = state.torneos.filter(torneo => torneo._id !== state.isEliminarTorneo.id);
+      console.log(auxTorneos);
+      return {
+        ...state,
+        torneos: auxTorneos,
+        isEliminarTorneo: {
+          tipo: '',
+          mensaje: ' ',
+          isConsulta: false,
+          isCargando: false,
+          isExito: false,
+          isError: false,
+          datos: '',
+        },
       };
     }
     case eliminarTorneoError: {
       return {
         ...state,
+        isEliminarTorneo: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, no se pudo eliminar la galería.',
+          isConsulta: false,
+          isCargando: false,
+          isExito: false,
+          isError: true,
+          datos: '',
+        },
       };
     }
     case volverPorDefectoEliminarTorneo: {
       return {
         ...state,
+        isEliminarTorneo: {
+          tipo: '',
+          mensaje: '',
+          isConsulta: false,
+          isCargando: false,
+          isExito: false,
+          isError: false,
+          id: '',
+        },
       };
     }
     case cargandoListarTorneo: {

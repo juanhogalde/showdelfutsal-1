@@ -14,10 +14,12 @@ export const editarTorneoExito = 'editarTorneoExito';
 export const editarTorneoError = 'editarTorneoError';
 export const volverPorDefectoEditarTorneo = 'volverPorDefectoEditarTorneo';
 
+export const consultarPorEliminarTorneo = 'consultarPorEliminarTorneo';
 export const cargandoEliminarTorneo = 'cargandoEliminarTorneo';
 export const eliminarTorneoExito = 'eliminarTorneoExito';
 export const eliminarTorneoError = 'eliminarTorneoError';
 export const volverPorDefectoEliminarTorneo = 'volverPorDefectoEliminarTorneo';
+export const actualizarListaDeTorneos = 'actualizarListaDeTorneos';
 
 export const cargandoListarTorneo = 'cargandoListarTorneo';
 export const listarTorneoExito = 'listarTorneoExito';
@@ -141,6 +143,13 @@ export const editarTorneo_accion = datosTorneo => {
 };
 
 /****** ELIMINAR TORNEO ******/
+export const consultarPorEliminarTorneo_accion = datos => {
+  return {
+    type: consultarPorEliminarTorneo,
+    datos: datos,
+  };
+};
+
 export const cargandoEliminarTorneo_accion = () => {
   return {
     type: cargandoEliminarTorneo,
@@ -154,10 +163,9 @@ export const eliminarTorneoExito_accion = datos => {
   };
 };
 
-export const eliminarTorneoError_accion = error => {
+export const eliminarTorneoError_accion = () => {
   return {
     type: eliminarTorneoError,
-    error: error,
   };
 };
 
@@ -167,21 +175,27 @@ export const volverPorDefectoEliminarTorneo_accion = () => {
   };
 };
 
-export const eliminarTorneo_accion = datosTorneo => {
+export const actualizarListaDeTorneos_accion = () => {
+  return {
+    type: actualizarListaDeTorneos,
+  };
+};
+
+export const eliminarTorneo_accion = id => {
   return dispatch => {
     dispatch(cargandoEliminarTorneo_accion());
     API({
-      url: '/campeonatos/eliminar',
+      url: '/torneos/eliminar',
       method: 'delete',
-      /* data: auxDatosGaleria, */
+      data: {_id: id},
     })
       .then(res => {
         console.log({res});
-        /* dispatch(eliminarTorneoExito_accion(res.data.value)); */
+        dispatch(eliminarTorneoExito_accion(id));
       })
       .catch(error => {
         console.log({error});
-        /* dispatch(eliminarTorneoError_accion()); */
+        dispatch(eliminarTorneoError_accion());
       });
   };
 };
