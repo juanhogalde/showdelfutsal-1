@@ -8,11 +8,17 @@
   grid-template-columns: 1px minmax(50px, 100px) 1fr 30px 1px;
   grid-template-rows: 35px 1fr 5px;
   margin-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px;
   position: relative;
+  border-radius: 10px;
+  box-shadow: 0px 6px 5px -2px rgba(0, 0, 0, 0.3);
 }
 .CP-TarjetaTorneo-Campeonato {
   grid-template-rows: 5px 1fr 5px;
+  cursor: pointer;
+}
+.CP-TarjetaTorneo-Campeonato:hover {
+  background-color: #ecf1fa;
 }
 .CI-Titulo-TarjetaTorneo {
   grid-column: 2/5;

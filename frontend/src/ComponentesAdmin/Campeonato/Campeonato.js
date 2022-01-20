@@ -1,7 +1,13 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import {obtenerCategoriaSubcategoriaDatosDeTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
+import {
+  consultarPorEditarTorneo_accion,
+  editarTorneo_accion,
+  volverPorDefectoEditarTorneo_accion,
+} from '../../Redux/Torneos/AccionesTorneos';
+/* import {obtenerCategoriaSubcategoriaDatosDeTorneo_accion} from '../../Redux/Torneos/AccionesTorneos'; */
+import Alertas from '../Alertas/Alertas';
 
 import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
 import './Campeonato.css';
@@ -10,9 +16,32 @@ const Campeonato = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
+  const {torneo, isEditarTorneo} = useSelector(state => state.storeTorneos);
 
-  const redireccionarZona = (categoria, subcategoria) => {
-    dispatch(obtenerCategoriaSubcategoriaDatosDeTorneo_accion(categoria, subcategoria));
+  const consultarPorAgregarCategoriaSubcategoria = (idCategoria, idSubcategoria) => {
+    let auxIdCategoria = idCategoria;
+    let auxIdSubCategoria = idSubcategoria;
+    dispatch(consultarPorEditarTorneo_accion(auxIdCategoria, auxIdSubCategoria));
+  };
+  const obtenerRespuestaDeAlertas = respuesta => {
+    if (respuesta) {
+      if (isEditarTorneo.isConsulta) {
+        dispatch(
+          editarTorneo_accion(torneo, isEditarTorneo.categoria, isEditarTorneo.subcategoria)
+        );
+      }
+      if (isEditarTorneo.isExito) {
+        /* dispatch(actualizarListaDeTorneos_accion()); */
+      }
+      if (isEditarTorneo.isError) {
+        dispatch(volverPorDefectoEditarTorneo_accion());
+      }
+    } else {
+      dispatch(volverPorDefectoEditarTorneo_accion());
+    }
+  };
+  const redireccionarZona = () => {
+    /* dispatch(obtenerCategoriaSubcategoriaDatosDeTorneo_accion(categoria, subcategoria)); */
     history.push('/Torneo/Nuevo/Campeonato/Zonas');
   };
 
@@ -28,7 +57,7 @@ const Campeonato = () => {
                 subcategoria={subcategoria}
                 key={index}
                 isCampeonato={true}
-                redireccioarZona={redireccionarZona}
+                consultarPorAgregarCategoriaSubcategoria={consultarPorAgregarCategoriaSubcategoria}
               ></TarjetaTorneo>
             );
           })}
@@ -42,12 +71,25 @@ const Campeonato = () => {
                   datos={subcategoria.label}
                   key={index}
                   isCampeonato={true}
-                  redireccionarZona={redireccionarZona}
+                  consultarPorAgregarCategoriaSubcategoria={
+                    consultarPorAgregarCategoriaSubcategoria
+                  }
                 ></TarjetaTorneo>
               );
             } else return '';
           })}
         </div>
+        <Alertas
+          mostrarSweet={
+            isEditarTorneo.isConsulta ||
+            isEditarTorneo.isCargando ||
+            isEditarTorneo.isExito ||
+            isEditarTorneo.isError
+          }
+          tipoDeSweet={isEditarTorneo.tipo}
+          subtitulo={isEditarTorneo.mensaje}
+          RespuestaDeSweet={obtenerRespuestaDeAlertas}
+        ></Alertas>
       </div>
     );
   } else {

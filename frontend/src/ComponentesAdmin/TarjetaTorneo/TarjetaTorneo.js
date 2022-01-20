@@ -7,14 +7,17 @@ import {FiEdit3} from 'react-icons/fi';
 import {useRef} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
-import {consultarPorEliminarTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
+import {
+  cargarDatosDeTorneoParaEdicion_accion,
+  consultarPorEliminarTorneo_accion,
+} from '../../Redux/Torneos/AccionesTorneos';
 
 const TarjetaTorneo = ({
   isCampeonato = false,
   torneo = '',
   categoria = '',
   subcategoria = '',
-  redireccioarZona = () => {
+  consultarPorAgregarCategoriaSubcategoria = () => {
     console.log('');
   },
 }) => {
@@ -29,8 +32,9 @@ const TarjetaTorneo = ({
   const ocultarAcciones = () => {
     setIsAcciones(false);
   };
-  const editarTorneo = () => {
-    historialDeNavegacion.push(`/Torneo/Editar/${1234}`);
+  const editarTorneo = id => {
+    dispatch(cargarDatosDeTorneoParaEdicion_accion(torneo));
+    historialDeNavegacion.push(`/Torneo/Editar/${id}}`);
   };
   const consultaPorEliminarTorneo = id => {
     dispatch(consultarPorEliminarTorneo_accion(id));
@@ -41,7 +45,11 @@ const TarjetaTorneo = ({
       className={`${
         isCampeonato ? 'CP-TarjetaTorneo CP-TarjetaTorneo-Campeonato' : 'CP-TarjetaTorneo'
       }`}
-      onClick={() => redireccioarZona(categoria.value, subcategoria.value)}
+      onClick={
+        isCampeonato
+          ? () => consultarPorAgregarCategoriaSubcategoria(categoria.value, subcategoria.value)
+          : () => {}
+      }
     >
       {!isCampeonato && (
         <div className="CI-Titulo-TarjetaTorneo">
@@ -76,7 +84,10 @@ const TarjetaTorneo = ({
         tabIndex="1"
         onBlur={() => ocultarAcciones()}
       >
-        <FiEdit3 className="iconoAcción-ListaImagenes" onClick={() => editarTorneo()}></FiEdit3>
+        <FiEdit3
+          className="iconoAcción-ListaImagenes"
+          onClick={() => editarTorneo(torneo._id)}
+        ></FiEdit3>
         <MdDeleteForever
           onClick={() => consultaPorEliminarTorneo(torneo._id)}
           className="iconoAcción-ListaImagenes"

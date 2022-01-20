@@ -1,14 +1,16 @@
 import {
   /* obtenerDatosDeTorneo, */
-  obtenerCategoriaSubcategoriaDatosDeTorneo,
+  /* obtenerCategoriaSubcategoriaDatosDeTorneo, */
   cargandoAgregarTorneo,
   agregarTorneoExito,
   agregarTorneoError,
   volverPorDefectoAgregarTorneo,
+  consultarPorEditarTorneo,
   cargandoEditarTorneo,
   editarTorneoExito,
   editarTorneoError,
   volverPorDefectoEditarTorneo,
+  cargarDatosDeTorneoParaEdicion,
   consultarPorEliminarTorneo,
   cargandoEliminarTorneo,
   eliminarTorneoExito,
@@ -35,11 +37,21 @@ const torneoPorDefecto = {
   isEliminarTorneo: {
     tipo: '',
     mensaje: '',
-    isConsulta: true,
+    isConsulta: false,
     isCargando: false,
     isExito: false,
     isError: false,
     id: '',
+  },
+  isEditarTorneo: {
+    tipo: '',
+    mensaje: '',
+    isConsulta: false,
+    isCargando: false,
+    isExito: false,
+    isError: false,
+    categoria: '',
+    subcategoria: '',
   },
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
@@ -50,7 +62,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         torneo: accion.datos,
       };
     } */
-    case obtenerCategoriaSubcategoriaDatosDeTorneo: {
+    /* case obtenerCategoriaSubcategoriaDatosDeTorneo: {
       console.log(accion);
       return {
         ...state,
@@ -60,7 +72,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           idSubcategoria: accion.subcategoriaId,
         },
       };
-    }
+    } */
     case cargandoAgregarTorneo: {
       return {
         ...state,
@@ -112,9 +124,34 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         },
       };
     }
+    case consultarPorEditarTorneo: {
+      return {
+        ...state,
+        isEditarTorneo: {
+          tipo: 'warning',
+          mensaje: '¿Desea agregar categoría y subcategría al torneo?',
+          isConsulta: true,
+          isCargando: false,
+          isExito: false,
+          isError: false,
+          categoria: accion.categoria,
+          subcategoria: accion.subcategoria,
+        },
+      };
+    }
     case cargandoEditarTorneo: {
       return {
         ...state,
+        isEditarTorneo: {
+          tipo: 'cargando',
+          mensaje: 'Editando torneo...',
+          isConsulta: false,
+          isCargando: true,
+          isExito: false,
+          isError: false,
+          categoria: state.isEditarTorneo.categoria,
+          subcategoria: state.isEditarTorneo.subcategoria,
+        },
       };
     }
     case editarTorneoExito: {
@@ -125,11 +162,37 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
     case editarTorneoError: {
       return {
         ...state,
+        isEditarTorneo: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, no se pudo editar el torneo.',
+          isConsulta: false,
+          isCargando: false,
+          isExito: false,
+          isError: true,
+          categoria: '',
+          subcategoria: '',
+        },
       };
     }
     case volverPorDefectoEditarTorneo: {
       return {
         ...state,
+        isEditarTorneo: {
+          tipo: '',
+          mensaje: '',
+          isConsulta: false,
+          isCargando: false,
+          isExito: false,
+          isError: false,
+          categoria: '',
+          subcategoria: '',
+        },
+      };
+    }
+    case cargarDatosDeTorneoParaEdicion: {
+      return {
+        ...state,
+        torneo: accion.datos,
       };
     }
     case consultarPorEliminarTorneo: {

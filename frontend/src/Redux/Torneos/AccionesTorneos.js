@@ -1,18 +1,20 @@
 import API from './../Configuracion/api';
 
 /* export const obtenerDatosDeTorneo = 'obtenerDatosDeTorneo'; */
-export const obtenerCategoriaSubcategoriaDatosDeTorneo =
-  'obtenerCategoriaSubcategoriaDatosDeTorneo';
+/* export const obtenerCategoriaSubcategoriaDatosDeTorneo =
+  'obtenerCategoriaSubcategoriaDatosDeTorneo'; */
 
 export const cargandoAgregarTorneo = 'cargandoAgregarTorneo';
 export const agregarTorneoExito = 'agregarTorneoExito';
 export const agregarTorneoError = 'agregarTorneoError';
 export const volverPorDefectoAgregarTorneo = 'volverPorDefectoAgregarTorneo';
 
+export const consultarPorEditarTorneo = 'consultarPorEditarTorneo';
 export const cargandoEditarTorneo = 'cargandoEditarTorneo';
 export const editarTorneoExito = 'editarTorneoExito';
 export const editarTorneoError = 'editarTorneoError';
 export const volverPorDefectoEditarTorneo = 'volverPorDefectoEditarTorneo';
+export const cargarDatosDeTorneoParaEdicion = 'cargarDatosDeTorneoParaEdicion';
 
 export const consultarPorEliminarTorneo = 'consultarPorEliminarTorneo';
 export const cargandoEliminarTorneo = 'cargandoEliminarTorneo';
@@ -33,13 +35,13 @@ export const volverPorDefectoUnTorneo_accion = () => {
   };
 };
 
-export const obtenerCategoriaSubcategoriaDatosDeTorneo_accion = (categoriaId, subcategoriaId) => {
+/* export const obtenerCategoriaSubcategoriaDatosDeTorneo_accion = (categoriaId, subcategoriaId) => {
   return {
     type: obtenerCategoriaSubcategoriaDatosDeTorneo,
     categoriaId: categoriaId,
     subcategoriaId: subcategoriaId,
   };
-};
+}; */
 /****** AGREGAR TORNEO ******/
 
 /* export const obtenerDatosDeTorneo_accion = datos => {
@@ -75,7 +77,7 @@ export const volverPorDefectoAgregarTorneo_accion = () => {
   };
 };
 
-export const agregarTorneo_accion = (datosTorneo, categoriaId, subcategoriaId) => {
+export const agregarTorneo_accion = datosTorneo => {
   return dispatch => {
     dispatch(cargandoAgregarTorneo_accion());
     API({
@@ -84,10 +86,7 @@ export const agregarTorneo_accion = (datosTorneo, categoriaId, subcategoriaId) =
       data: datosTorneo,
     })
       .then(res => {
-        console.log({res});
-
         dispatch(agregarTorneoExito_accion(res.data.value));
-        /* dispatch(agregarTorneoExito_accion(datosTorneo)); */
       })
       .catch(error => {
         console.log({error});
@@ -97,6 +96,13 @@ export const agregarTorneo_accion = (datosTorneo, categoriaId, subcategoriaId) =
 };
 
 /****** EDITAR TORNEO ******/
+export const consultarPorEditarTorneo_accion = (categoria, subcategoria) => {
+  return {
+    type: consultarPorEditarTorneo,
+    categoria: categoria,
+    subcategoria: subcategoria,
+  };
+};
 export const cargandoEditarTorneo_accion = () => {
   return {
     type: cargandoEditarTorneo,
@@ -122,14 +128,25 @@ export const volverPorDefectoEditarTorneo_accion = () => {
     type: volverPorDefectoEditarTorneo,
   };
 };
+export const cargarDatosDeTorneoParaEdicion_accion = datos => {
+  return {
+    type: cargarDatosDeTorneoParaEdicion,
+    datos: datos,
+  };
+};
 
-export const editarTorneo_accion = datosTorneo => {
+export const editarTorneo_accion = (torneo, idCategoria, idSubcategoria) => {
+  let auxDatosDeTorneo = {};
+  Object.assign(auxDatosDeTorneo, torneo);
+  auxDatosDeTorneo.nuevaCategoria = idCategoria;
+  auxDatosDeTorneo.nuevaSubcategoriah = idSubcategoria;
+  console.log(auxDatosDeTorneo);
   return dispatch => {
     dispatch(cargandoEditarTorneo_accion());
     API({
-      url: '/campeonatos/editar',
+      url: '/torneos/modificar',
       method: 'put',
-      /* data: auxDatosGaleria, */
+      data: auxDatosDeTorneo,
     })
       .then(res => {
         console.log({res});
@@ -137,7 +154,7 @@ export const editarTorneo_accion = datosTorneo => {
       })
       .catch(error => {
         console.log({error});
-        /* dispatch(editarTorneoError_accion()); */
+        dispatch(editarTorneoError_accion());
       });
   };
 };

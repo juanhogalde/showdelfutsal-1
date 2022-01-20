@@ -64,14 +64,12 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
   }, [torneo]);
   const validarCamposNuevoTorneo = () => {
     if (new Date(datosTorneo.fechaInicio).getTime() > new Date(datosTorneo.fechaFin).getTime()) {
-      console.log('TRUE');
       setAlertaFechas({
         tipo: 'error',
         mensaje: 'Fechas inválidas, por favor verificar.',
         isMostrar: true,
       });
     } else {
-      console.log('FALSE');
       dispatch(agregarTorneo_accion(datosTorneo));
     }
   };
