@@ -12,7 +12,8 @@ class NoticiasRouter {
         this.router.get('/listar', Noticias_Controller_1.noticiasController.listar);
         this.router.get('/obtener/:id', Noticias_Controller_1.noticiasController.obtener);
         this.router.put('/modificar', Noticias_Controller_1.noticiasController.modificar);
-        this.router.put('/destacar', Noticias_Controller_1.noticiasController.destacar);
+        this.router.put('/destacar', Noticias_Controller_1.noticiasController.destacarNoticia);
+        this.router.put('/desestacar', Noticias_Controller_1.noticiasController.desestacarNoticia);
         this.router.delete('/eliminar', Noticias_Controller_1.noticiasController.eliminar);
         this.router.post('/agregar', Noticias_Controller_1.noticiasController.agregar);
         this.router.post('/filtrar', Noticias_Controller_1.noticiasController.filtrar);

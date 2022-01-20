@@ -34,6 +34,57 @@ class PartidosController {
             }
         });
     }
+    guardarEnfrentamiento(datos) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const pr = new Promise((resolve, reject) => {
+                    if (datos.idPartido) {
+                        Partidos_Model_1.default
+                            .findById(datos.idPartido)
+                            .then((partido) => {
+                            if (partido) {
+                                partido.equipoLocal = datos.idEquipoLocal;
+                                partido.equipoVisitante = datos.idEquipoVisitante;
+                                partido.fechaPartido = datos.fechaEnfrentamiento ? datos.fechaEnfrentamiento : '';
+                                partido.horaPartido = datos.horaEnfrentamiento ? datos.horaEnfrentamiento : '';
+                                if (datos.idEstadio) {
+                                    partido.idEstadio = datos.idEstadio;
+                                }
+                                resolve(partido.save());
+                            }
+                            else {
+                                reject(new Error('Enfrentamiento inexistente'));
+                            }
+                        })
+                            .catch((error) => {
+                            reject(error);
+                        });
+                    }
+                    else {
+                        const nuevoEnfrentamiento = new Partidos_Model_1.default();
+                        nuevoEnfrentamiento.equipoLocal = datos.idEquipoLocal;
+                        nuevoEnfrentamiento.equipoVisitante = datos.idEquipoVisitante;
+                        nuevoEnfrentamiento.fechaPartido = datos.fechaEnfrentamiento
+                            ? datos.fechaEnfrentamiento
+                            : '';
+                        nuevoEnfrentamiento.horaPartido = datos.horaEnfrentamiento
+                            ? datos.horaEnfrentamiento
+                            : '';
+                        if (datos.idEstadio) {
+                            nuevoEnfrentamiento.idEstadio = datos.idEstadio;
+                        }
+                        resolve(nuevoEnfrentamiento.save());
+                    }
+                });
+                return pr;
+            }
+            catch (error) {
+                return new Promise(reject => {
+                    reject(error);
+                });
+            }
+        });
+    }
     agregar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

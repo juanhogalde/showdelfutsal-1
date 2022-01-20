@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.tablasController = void 0;
 const responder_1 = __importDefault(require("../../Middlewares/responder"));
 const Tablas_Model_1 = __importDefault(require("./Tablas_Model"));
-const Campeonatos_Controller_1 = require("../Campeonatos/Campeonatos_Controller");
+const Torneos_Controller_1 = require("../Torneos/Torneos_Controller");
 const enumeradores_1 = require("../../Config/enumeradores");
 class TablasController {
     listar(req, res) {
@@ -104,7 +104,7 @@ class TablasController {
                     responder_1.default.error(req, res, 'No se ingresaron datos');
                 }
                 else {
-                    const campeonato = yield Campeonatos_Controller_1.campeonatosController.obtenerCampeonato(datosBody.idCampeonato, datosBody.idCategoria);
+                    const campeonato = yield Torneos_Controller_1.torneosController.obtenerTorneo(datosBody.idCampeonato, datosBody.idCategoria);
                     if (campeonato && Object.keys(campeonato.idCategoria).length) {
                         const tablas = yield Tablas_Model_1.default
                             .find({ idCampeonato: datosBody.idCampeonato })
@@ -130,9 +130,7 @@ class TablasController {
                             });
                         }
                         else {
-                            res
-                                .status(400)
-                                .send({ message: 'El campeonato ingresado no posee tabla' });
+                            res.status(400).send({ message: 'El campeonato ingresado no posee tabla' });
                         }
                         if (equiposNoEliminados.length) {
                             res.status(200).send(equiposNoEliminados);
@@ -142,9 +140,7 @@ class TablasController {
                         }
                     }
                     else {
-                        res
-                            .status(400)
-                            .send({ message: 'El campeonato ingresado no existe' });
+                        res.status(400).send({ message: 'El campeonato ingresado no existe' });
                     }
                 }
             }

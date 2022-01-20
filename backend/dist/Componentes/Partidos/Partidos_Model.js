@@ -9,6 +9,7 @@ const PartidosSchema = new mongoose_1.Schema({
     penalesLocal: { type: Number },
     penalesVisitante: { type: Number },
     fechaPartido: { type: Date },
+    horaPartido: String,
     idEstadio: { type: mongoose_1.Schema.Types.ObjectId, ref: 'modeloEstadios' },
     posicionFixture: { type: Number },
     comentarios: [
@@ -17,7 +18,7 @@ const PartidosSchema = new mongoose_1.Schema({
             texto: { type: String },
         },
     ],
-    campeonato: { type: mongoose_1.Schema.Types.ObjectId, ref: 'modeloCampeonatos' },
     idTabla: { type: mongoose_1.Schema.Types.ObjectId, ref: 'modeloTablas' },
+    idZona: { type: mongoose_1.Schema.Types.ObjectId, ref: 'modeloZonas' },
 });
 exports.default = (0, mongoose_1.model)('modeloPartidos', PartidosSchema);

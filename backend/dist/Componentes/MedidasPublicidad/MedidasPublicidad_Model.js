@@ -7,5 +7,6 @@ const MedidasPublicidadSchema = new mongoose_1.Schema({
     ubicacion: { type: String },
     direccion: { type: String },
     keyMedidas: { type: Number },
+    disponible: { type: Boolean, default: true },
 });
 exports.default = (0, mongoose_1.model)('modeloMedidasPublicidad', MedidasPublicidadSchema);

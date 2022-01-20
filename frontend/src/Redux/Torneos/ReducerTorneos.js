@@ -151,7 +151,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         ...state,
         isEliminarTorneo: {
           tipo: 'cargando',
-          mensaje: 'Eliminando Torneo',
+          mensaje: 'Eliminando torneo...',
           isConsulta: true,
           isCargando: false,
           isExito: false,
@@ -165,7 +165,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         ...state,
         isEliminarTorneo: {
           tipo: 'success',
-          mensaje: 'Torneo Eliminada',
+          mensaje: 'Torneo eliminado',
           isConsulta: false,
           isCargando: false,
           isExito: true,
@@ -195,7 +195,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         ...state,
         isEliminarTorneo: {
           tipo: 'error',
-          mensaje: 'Lo sentimos, no se pudo eliminar la galería.',
+          mensaje: 'Lo sentimos, no se pudo eliminar el torneo.',
           isConsulta: false,
           isCargando: false,
           isExito: false,

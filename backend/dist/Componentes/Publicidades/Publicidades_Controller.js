@@ -35,7 +35,8 @@ class PublicidadesController {
     agregar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const publicidad = new Publicidades_Model_1.default(req.body);
+                var fechaActual = new Date();
+                const publicidad = new Publicidades_Model_1.default(Object.assign(Object.assign({}, req.body), { fecha: fechaActual }));
                 publicidad.populate('idImagen');
                 publicidad.populate('idMedidas');
                 yield publicidad.save();

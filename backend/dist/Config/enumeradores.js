@@ -1,6 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Rol = exports.keySubcategoria = exports.keyCategoria = exports.TipoZona = void 0;
+exports.Rol = exports.keySubcategoria = exports.keyCategoria = exports.TipoZona = exports.tipoTorneo = void 0;
+var tipoTorneo;
+(function (tipoTorneo) {
+    tipoTorneo[tipoTorneo["Campeonato"] = 1] = "Campeonato";
+    tipoTorneo[tipoTorneo["Liga"] = 2] = "Liga";
+    tipoTorneo[tipoTorneo["Copa"] = 3] = "Copa";
+})(tipoTorneo = exports.tipoTorneo || (exports.tipoTorneo = {}));
 var TipoZona;
 (function (TipoZona) {
     TipoZona[TipoZona["Eliminatoria"] = 1] = "Eliminatoria";
