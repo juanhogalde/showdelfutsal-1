@@ -2,6 +2,7 @@ import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {
+  actualizarListaDeTorneos_accion,
   consultarPorEditarTorneo_accion,
   editarTorneo_accion,
   volverPorDefectoEditarTorneo_accion,
@@ -31,7 +32,8 @@ const Campeonato = () => {
         );
       }
       if (isEditarTorneo.isExito) {
-        /* dispatch(actualizarListaDeTorneos_accion()); */
+        dispatch(actualizarListaDeTorneos_accion());
+        redireccionarZona();
       }
       if (isEditarTorneo.isError) {
         dispatch(volverPorDefectoEditarTorneo_accion());

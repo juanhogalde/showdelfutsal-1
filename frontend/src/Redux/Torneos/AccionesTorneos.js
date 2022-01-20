@@ -150,7 +150,7 @@ export const editarTorneo_accion = (torneo, idCategoria, idSubcategoria) => {
     })
       .then(res => {
         console.log({res});
-        /* dispatch(editarTorneoExito_accion(res.data.value)); */
+        dispatch(editarTorneoExito_accion(res.data.value));
       })
       .catch(error => {
         console.log({error});

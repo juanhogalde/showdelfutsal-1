@@ -157,6 +157,17 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
     case editarTorneoExito: {
       return {
         ...state,
+        isEditarTorneo: {
+          tipo: 'success',
+          mensaje: 'Torneo Editado',
+          isConsulta: false,
+          isCargando: false,
+          isExito: true,
+          isError: false,
+          categoria: state.isEditarTorneo.categoria,
+          subcategoria: state.isEditarTorneo.subcategoria,
+        },
+        torneo: accion.datos,
       };
     }
     case editarTorneoError: {
@@ -238,11 +249,23 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       };
     }
     case actualizarListaDeTorneos: {
-      let auxTorneos = state.torneos.filter(torneo => torneo._id !== state.isEliminarTorneo.id);
+      let auxTorneos = [];
+      if (state.isEliminarTorneo.id) {
+        auxTorneos = state.torneos.filter(torneo => torneo._id !== state.isEliminarTorneo.id);
+      }
+      if (state.isEditarTorneo.isExito) {
+        auxTorneos = state.torneos.map(torneoDeArray => {
+          if (torneoDeArray._id === state.torneo._id) {
+            return state.torneo;
+          } else {
+            return torneoDeArray;
+          }
+        });
+      }
       return {
         ...state,
         torneos: auxTorneos,
-        isEliminarTorneo: {
+        isEditarTorneo: {
           tipo: '',
           mensaje: ' ',
           isConsulta: false,
