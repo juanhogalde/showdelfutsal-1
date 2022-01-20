@@ -27,7 +27,7 @@ class SubcategoriasController {
   public async modificarSubcategoriaTorneo(data: any) {
     try {
       const pr = new Promise((resolve: any, reject: any) => {
-        modeloSubcategorias.findById(data.nuevaSubcategoria).then((subCategoria: any) => {
+        modeloSubcategorias.findById(data.idSubcategoria).then((subCategoria: any) => {
           if (subCategoria) {
             subCategoria.idCategoria = data.idCategoria;
             subCategoria.nombreSubcategoria = keySubcategoria[data.keySubcategoria];
