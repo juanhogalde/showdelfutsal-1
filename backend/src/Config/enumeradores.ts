@@ -33,3 +33,8 @@ export enum Rol {
   Editor,
   Anotador,
 }
+
+export enum Division {
+  Primera = 1,
+  Reserva,
+}

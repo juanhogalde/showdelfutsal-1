@@ -53,19 +53,33 @@ class TorneosController {
             torneo.fechaFin = torneoBody.fechaFin;
 
             if (torneoBody.nuevaCategoria) {
-              torneo.idCategoria.push(torneoBody.nuevaCategoria);
+              if (torneo.idCategoria.length) {
+                if (!torneo.idCategoria.includes(torneoBody.nuevaCategoria)) {
+                  torneo.idCategoria.push(torneoBody.nuevaCategoria);
+                }
+              } else {
+                torneo.idCategoria.push(torneoBody.nuevaCategoria);
+              }
             }
 
             if (torneoBody.nuevaSubcategoria) {
-              const datos = {
-                idCategoria: torneoBody.idCategoria,
-                idSubcategoria: torneoBody.nuevaSubcategoria,
-                keySubcategoria: torneoBody.keySubcategoria,
-              };
-              const subcateg = await subcategoriasController.modificarSubcategoriaTorneo(datos);
-              if (subcateg) {
-                resultadoOperacion.idSubcategoria = true;
+              if (torneo.idSubcategoria.length) {
+                if (!torneo.idSubcategoria.includes(torneoBody.nuevaSubcategoria)) {
+                  torneo.idSubcategoria.push(torneoBody.nuevaSubcategoria);
+                }
+              } else {
+                torneo.idSubcategoria.push(torneoBody.nuevaSubcategoria);
               }
+
+              // const datos = {
+              //   idCategoria: torneoBody.nuevaCategoria,
+              //   idSubcategoria: torneoBody.nuevaSubcategoria,
+              //   keySubcategoria: torneoBody.keySubcategoria,
+              // };
+              // const subcateg = await subcategoriasController.modificarSubcategoriaTorneo(datos);
+              // if (subcateg) {
+              //   resultadoOperacion.idSubcategoria = true;
+              // }
             }
 
             if (torneoBody.nombreZona) {
@@ -132,6 +146,13 @@ class TorneosController {
                 let error = new Error('No se puede crear un enfrentamiento entre un mismo equipo');
                 responder.error(req, res, error);
               }
+            }
+
+            const op = await torneo.save();
+            if (op) {
+              responder.sucess(req, res, op);
+            } else {
+              responder.error(req, res, '', 'Error al actualizar el torneo', 500);
             }
           } else {
             let error = new Error('Torneo no encontrado');
