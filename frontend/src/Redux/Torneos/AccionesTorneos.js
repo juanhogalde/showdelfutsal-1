@@ -139,7 +139,7 @@ export const editarTorneo_accion = (torneo, idCategoria, idSubcategoria) => {
   let auxDatosDeTorneo = {};
   Object.assign(auxDatosDeTorneo, torneo);
   auxDatosDeTorneo.nuevaCategoria = idCategoria;
-  auxDatosDeTorneo.nuevaSubcategoriah = idSubcategoria;
+  auxDatosDeTorneo.nuevaSubcategoria = idSubcategoria;
   console.log(auxDatosDeTorneo);
   return dispatch => {
     dispatch(cargandoEditarTorneo_accion());
