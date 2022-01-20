@@ -23,6 +23,7 @@ class PartidosController {
               if (partido) {
                 partido.equipoLocal = datos.idEquipoLocal;
                 partido.equipoVisitante = datos.idEquipoVisitante;
+                partido.fechaPorJugar = datos.fechaPorJugar;
                 partido.fechaPartido = datos.fechaEnfrentamiento ? datos.fechaEnfrentamiento : '';
                 partido.horaPartido = datos.horaEnfrentamiento ? datos.horaEnfrentamiento : '';
 
@@ -66,11 +67,46 @@ class PartidosController {
 
   public async agregar(req: Request, res: Response) {
     try {
-      const partido: IPartidos = new modeloPartidos(req.body);
-      await partido.save();
-      responder.sucess(req, res);
+      const datosBody = req.body;
+      if (
+        !datosBody ||
+        !datosBody.idEquipoLocal ||
+        !datosBody.idEquipoVisitante ||
+        !datosBody.fechaPorJugar
+      ) {
+        responder.error(req, res, '', 'No se ingresaron datos', 400);
+      } else {
+        if (datosBody.idEquipoLocal === datosBody.idEquipoVisitante) {
+          responder.error(
+            req,
+            res,
+            '',
+            'No puede crear un enfrentamiento entre el mismo equipo',
+            400
+          );
+        } else {
+          const nuevoPartido: IPartidos = new modeloPartidos();
+          nuevoPartido.equipoLocal = datosBody.idEquipoLocal;
+          nuevoPartido.equipoVisitante = datosBody.idEquipoVisitante;
+          nuevoPartido.fechaPorJugar = datosBody.fechaPorJugar;
+          nuevoPartido.fechaPartido = datosBody.fechaPartido;
+          nuevoPartido.horaPartido = datosBody.horaPartido;
+          if (datosBody.idEstadio) {
+            nuevoPartido.idEstadio = datosBody.idEstadio;
+          }
+
+          const op = await nuevoPartido.save();
+          if (op) {
+            responder.sucess(req, res, op, 'Partido insertado correctamente');
+          } else {
+            console.log(op);
+            responder.error(req, res, '', 'Error al insertar el partido', 500);
+          }
+        }
+      }
     } catch (error) {
-      responder.error(req, res, error);
+      console.log(error);
+      responder.error(req, res);
     }
   }
 

@@ -53,14 +53,14 @@ class TorneosController {
             torneo.fechaInicio = torneoBody.fechaInicio;
             torneo.fechaFin = torneoBody.fechaFin;
 
-            if (torneoBody.idCategoria) {
-              torneo.idCategoria.push(torneoBody.idCategoria);
+            if (torneoBody.nuevaCategoria) {
+              torneo.idCategoria.push(torneoBody.nuevaCategoria);
             }
 
-            if (torneoBody.idSubcategoria) {
+            if (torneoBody.nuevaSubcategoria) {
               const datos = {
                 idCategoria: torneoBody.idCategoria,
-                idSubcategoria: torneoBody.idSubcategoria,
+                idSubcategoria: torneoBody.nuevaSubcategoria,
                 keySubcategoria: torneoBody.keySubcategoria,
               };
               const subcateg = await subcategoriasController.modificarSubcategoriaTorneo(datos);
@@ -85,6 +85,7 @@ class TorneosController {
             if (torneoBody.idEquipoLocal && torneoBody.idEquipoVisitante) {
               if (torneoBody.idEquipoLocal !== torneoBody.idEquipoVisitante) {
                 const datos = {
+                  fechaPorJugar: '',
                   horaEnfrentamiento: '',
                   fechaEnfrentamiento: '',
                   idEstadio: '',
@@ -110,6 +111,10 @@ class TorneosController {
 
                 if (torneoBody.idEstadio) {
                   datos.idEstadio = torneoBody.idEstadio;
+                }
+
+                if (torneoBody.fechaPorJugar) {
+                  datos.fechaPorJugar = torneoBody.fechaPorJugar;
                 }
 
                 const partido = await partidosController.guardarEnfrentamiento(datos);

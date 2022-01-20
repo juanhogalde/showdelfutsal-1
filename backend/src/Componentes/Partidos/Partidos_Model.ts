@@ -8,6 +8,7 @@ const PartidosSchema = new Schema({
   resultadoVisitante: {type: Number},
   penalesLocal: {type: Number},
   penalesVisitante: {type: Number},
+  fechaPorJugar: Number,
   fechaPartido: {type: Date},
   horaPartido: String,
   idEstadio: {type: Schema.Types.ObjectId, ref: 'modeloEstadios'},
