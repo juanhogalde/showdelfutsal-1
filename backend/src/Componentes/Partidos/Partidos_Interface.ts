@@ -7,6 +7,7 @@ export default interface IPartidos extends Document {
   _id: string;
   equipoLocal: IEquipos['_id'];
   equipoVisitante: IEquipos['_id'];
+  fechaPorJugar: number;
   fechaPartido: Date;
   horaPartido: string;
   idEstadio: IEstadios['_id'];

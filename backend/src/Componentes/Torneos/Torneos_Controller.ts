@@ -84,6 +84,7 @@ class TorneosController {
             if (torneoBody.idEquipoLocal && torneoBody.idEquipoVisitante) {
               if (torneoBody.idEquipoLocal !== torneoBody.idEquipoVisitante) {
                 const datos = {
+                  fechaPorJugar: '',
                   horaEnfrentamiento: '',
                   fechaEnfrentamiento: '',
                   idEstadio: '',
@@ -109,6 +110,10 @@ class TorneosController {
 
                 if (torneoBody.idEstadio) {
                   datos.idEstadio = torneoBody.idEstadio;
+                }
+
+                if (torneoBody.fechaPorJugar) {
+                  datos.fechaPorJugar = torneoBody.fechaPorJugar;
                 }
 
                 const partido = await partidosController.guardarEnfrentamiento(datos);
