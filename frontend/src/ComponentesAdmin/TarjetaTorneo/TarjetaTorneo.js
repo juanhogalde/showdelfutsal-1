@@ -99,20 +99,28 @@ const TarjetaTorneo = ({
         onBlur={() => ocultarAcciones()}
       >
         <FiEdit3
-          className="iconoAcción-ListaImagenes"
+          className={
+            isCampeonato
+              ? isExisteSubcategoria
+                ? 'iconoAcción-ListaImagenes'
+                : 'iconoAcción-ListaImagenes elementoNoSeleccionable'
+              : ' iconoAcción-ListaImagenes'
+          }
           onClick={
-            isExisteSubcategoria && isCampeonato
+            isCampeonato
               ? () => redireccionarZona(categoria.value, subcategoria.value)
               : () => editarTorneo(torneo._id)
           }
         ></FiEdit3>
         <MdDeleteForever
-          onClick={
-            isExisteSubcategoria && isCampeonato
-              ? () => {}
-              : () => consultaPorEliminarTorneo(torneo._id)
+          onClick={isCampeonato ? () => {} : () => consultaPorEliminarTorneo(torneo._id)}
+          className={
+            isCampeonato
+              ? isExisteSubcategoria
+                ? 'iconoAcción-ListaImagenes'
+                : 'iconoAcción-ListaImagenes elementoNoSeleccionable'
+              : ' iconoAcción-ListaImagenes'
           }
-          className="iconoAcción-ListaImagenes"
         />
       </div>
     </div>
