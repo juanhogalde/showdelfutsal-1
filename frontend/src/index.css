@@ -21,7 +21,9 @@
 .fondoVerde {
   background-color: var(--verde) !important;
 }
-
+.elementoNoSeleccionable {
+  pointer-events: none !important;
+}
 h1 {
   font-size: 8rem;
   font-weight: 800;
