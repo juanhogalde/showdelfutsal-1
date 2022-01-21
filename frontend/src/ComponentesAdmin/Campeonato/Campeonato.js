@@ -42,45 +42,58 @@ const Campeonato = () => {
       dispatch(volverPorDefectoEditarTorneo_accion());
     }
   };
-  const redireccionarZona = () => {
+  const redireccionarZona = (categoria, subcategoria) => {
     /* dispatch(obtenerCategoriaSubcategoriaDatosDeTorneo_accion(categoria, subcategoria)); */
-    history.push('/Torneo/Nuevo/Campeonato/Zonas');
+    history.push(`/Torneo/Nuevo/Campeonato/Zonas/${categoria}/${subcategoria}`);
   };
 
   if (categorias.length > 0 && subcategorias.length > 0) {
     return (
       <div className="CP-Campeonato">
         <div className="CI-CampeonatoMasculino">
-          <p>{categorias[1].label ? categorias[1].label : ''}</p>
+          <p>{categorias[0].label ? categorias[0].label : ''}</p>
           {subcategorias.map((subcategoria, index) => {
-            let auxIsCategoriaExistente = false;
-            if (torneo.idSubcategoria) {
-              if (torneo.idSubcategoria.includes(subcategoria.value)) {
-                auxIsCategoriaExistente = true;
-              } else {
-                auxIsCategoriaExistente = false;
+            if (subcategoria.key <= 4) {
+              let auxIsCategoriaExistente = false;
+              if (torneo.idSubcategoria) {
+                if (torneo.idSubcategoria.includes(subcategoria.value)) {
+                  auxIsCategoriaExistente = true;
+                } else {
+                  auxIsCategoriaExistente = false;
+                }
               }
+              return (
+                <TarjetaTorneo
+                  isExisteSubcategoria={auxIsCategoriaExistente}
+                  categoria={categorias[0]}
+                  subcategoria={subcategoria}
+                  key={index}
+                  isCampeonato={true}
+                  redireccionarZona={redireccionarZona}
+                  consultarPorAgregarCategoriaSubcategoria={
+                    consultarPorAgregarCategoriaSubcategoria
+                  }
+                ></TarjetaTorneo>
+              );
             }
-            return (
-              <TarjetaTorneo
-                isExisteSubcategoria={auxIsCategoriaExistente}
-                categoria={categorias[1]}
-                subcategoria={subcategoria}
-                key={index}
-                isCampeonato={true}
-                irAgregarZonas={redireccionarZona}
-                consultarPorAgregarCategoriaSubcategoria={consultarPorAgregarCategoriaSubcategoria}
-              ></TarjetaTorneo>
-            );
           })}
         </div>
         <div className="CI-CampeonatoMasculino">
-          <p>{categorias[2].label ? categorias[2].label : ''}</p>
+          <p>{categorias[1].label ? categorias[1].label : ''}</p>
           {subcategorias.map((subcategoria, index) => {
             if (subcategoria.key === 1 || subcategoria.key === 2) {
+              let auxIsCategoriaExistente = false;
+              if (torneo.idSubcategoria) {
+                if (torneo.idSubcategoria.includes(subcategoria.value)) {
+                  auxIsCategoriaExistente = true;
+                } else {
+                  auxIsCategoriaExistente = false;
+                }
+              }
               return (
                 <TarjetaTorneo
-                  categoria={categorias[2]}
+                  isExisteSubcategoria={auxIsCategoriaExistente}
+                  categoria={categorias[1]}
                   subcategoria={subcategoria}
                   key={index}
                   isCampeonato={true}

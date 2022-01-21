@@ -265,6 +265,15 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       return {
         ...state,
         torneos: auxTorneos,
+        isEliminarTorneo: {
+          tipo: '',
+          mensaje: ' ',
+          isConsulta: false,
+          isCargando: false,
+          isExito: false,
+          isError: false,
+          datos: '',
+        },
         isEditarTorneo: {
           tipo: '',
           mensaje: ' ',

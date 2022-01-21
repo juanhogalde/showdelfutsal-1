@@ -21,11 +21,10 @@ const TarjetaTorneo = ({
   consultarPorAgregarCategoriaSubcategoria = () => {
     console.log('');
   },
-  irAgregarZonas = () => {
+  redireccionarZona = () => {
     console.log('');
   },
 }) => {
-  console.log(isExisteSubcategoria);
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
   const historialDeNavegacion = useHistory();
@@ -101,10 +100,18 @@ const TarjetaTorneo = ({
       >
         <FiEdit3
           className="iconoAcción-ListaImagenes"
-          onClick={isCampeonato ? () => irAgregarZonas() : () => editarTorneo(torneo._id)}
+          onClick={
+            isExisteSubcategoria && isCampeonato
+              ? () => redireccionarZona(categoria.value, subcategoria.value)
+              : () => editarTorneo(torneo._id)
+          }
         ></FiEdit3>
         <MdDeleteForever
-          onClick={() => consultaPorEliminarTorneo(torneo._id)}
+          onClick={
+            isExisteSubcategoria && isCampeonato
+              ? () => {}
+              : () => consultaPorEliminarTorneo(torneo._id)
+          }
           className="iconoAcción-ListaImagenes"
         />
       </div>

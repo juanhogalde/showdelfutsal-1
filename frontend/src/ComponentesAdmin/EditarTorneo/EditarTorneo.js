@@ -7,7 +7,6 @@ import {useSelector} from 'react-redux';
 
 const EditarTorneo = () => {
   const {id} = useParams();
-  console.log(id);
   const torneo = useSelector(state => state.storeTorneos.torneos.find(torneo => torneo._id === id));
 
   if (true) {
