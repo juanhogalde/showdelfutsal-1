@@ -17,10 +17,15 @@ const TarjetaTorneo = ({
   torneo = '',
   categoria = '',
   subcategoria = '',
+  isExisteSubcategoria = false,
   consultarPorAgregarCategoriaSubcategoria = () => {
     console.log('');
   },
+  irAgregarZonas = () => {
+    console.log('');
+  },
 }) => {
+  console.log(isExisteSubcategoria);
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
   const historialDeNavegacion = useHistory();
@@ -43,36 +48,46 @@ const TarjetaTorneo = ({
   return (
     <div
       className={`${
-        isCampeonato ? 'CP-TarjetaTorneo CP-TarjetaTorneo-Campeonato' : 'CP-TarjetaTorneo'
-      }`}
-      onClick={
         isCampeonato
-          ? () => consultarPorAgregarCategoriaSubcategoria(categoria.value, subcategoria.value)
-          : () => {}
-      }
+          ? `${
+              isExisteSubcategoria
+                ? 'CP-TarjetaTorneo CP-TarjetaTorneo-Campeonato fondoVerde'
+                : 'CP-TarjetaTorneo CP-TarjetaTorneo-Campeonato '
+            }`
+          : 'CP-TarjetaTorneo'
+      }`}
     >
-      {!isCampeonato && (
-        <div className="CI-Titulo-TarjetaTorneo">
-          <h5>{torneo.tituloTorneo ? torneo.tituloTorneo : '-'}</h5>
-        </div>
-      )}
-
-      <div className="CI-Imagen-TarjetaTorneo">
-        <ImagenAdmin></ImagenAdmin>
-      </div>
-      <div className="CI-Cuerpo-TarjetaTorneo">
+      <div
+        className={isCampeonato ? 'CI-Cuerpo-Campeonato-TarjetaTorneo' : 'CI-Cuerpo-TarjetaTorneo'}
+        onClick={
+          !isExisteSubcategoria && isCampeonato
+            ? () => consultarPorAgregarCategoriaSubcategoria(categoria.value, subcategoria.value)
+            : () => {}
+        }
+      >
         {!isCampeonato && (
-          <p>
-            {torneo.fechaInicio ? torneo.fechaInicio : ''} -{' '}
-            {torneo.fechaFin ? torneo.fechaFin : ''}
-          </p>
+          <div className="titulo-TarjetaTorneo">
+            <h5>{torneo.tituloTorneo ? torneo.tituloTorneo : '-'}</h5>
+          </div>
         )}
-        <p>{subcategoria.label}</p>
-      </div>
 
+        <div className="imagen-TarjetaTorneo">
+          <ImagenAdmin></ImagenAdmin>
+        </div>
+        <div className="info-TarjetaTorneo">
+          {!isCampeonato && (
+            <p>
+              {torneo.fechaInicio ? torneo.fechaInicio : ''} -{' '}
+              {torneo.fechaFin ? torneo.fechaFin : ''}
+            </p>
+          )}
+          <p>{subcategoria.label}</p>
+        </div>
+      </div>
       <div className="CI-Acciones-TarjetaTorneo" onClick={() => mostrarAcciones()}>
         <HiDotsVertical />
       </div>
+
       <div
         ref={elementoAcciones}
         id="acciones-TarjetaGaleria"
@@ -86,7 +101,7 @@ const TarjetaTorneo = ({
       >
         <FiEdit3
           className="iconoAcción-ListaImagenes"
-          onClick={() => editarTorneo(torneo._id)}
+          onClick={isCampeonato ? () => irAgregarZonas() : () => editarTorneo(torneo._id)}
         ></FiEdit3>
         <MdDeleteForever
           onClick={() => consultaPorEliminarTorneo(torneo._id)}
