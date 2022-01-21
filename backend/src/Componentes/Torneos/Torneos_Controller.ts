@@ -5,6 +5,7 @@ import ITorneos from './Torneos_Interface';
 import {zonasController} from '../Zonas/Zonas_Controller';
 import {subcategoriasController} from '../Subcategorias/Subcategorias_Controller';
 import {partidosController} from '../Partidos/Partidos_Controller';
+import {tablasController} from '../Tablas/Tablas_Controller';
 class TorneosController {
   public async listar(req: Request, res: Response) {
     try {
@@ -44,6 +45,7 @@ class TorneosController {
         zona: false,
         enfrentamiento: false,
       };
+      let creacionTabla: any;
       const torneoBody = req.body;
       if (torneoBody._id) {
         modeloTorneos.findById(torneoBody._id).then(async (torneo: any) => {
@@ -82,15 +84,23 @@ class TorneosController {
               // }
             }
 
-            if (torneoBody.nombreZona) {
+            if (torneoBody.nombreZona || torneoBody.tipoZona) {
               const datos = {
                 nombreZona: torneoBody.nombreZona,
                 tipoZona: torneoBody.tipoZona,
                 idSubcategoria: torneoBody.idSubcategoria,
               };
-              const zona = await zonasController.crearZona(datos);
+              const zona: any = await zonasController.crearZona(datos);
               if (zona) {
                 resultadoOperacion.zona = true;
+                let datosCrearTabla = {
+                  tipoZona: torneoBody.tipoZona,
+                  zona: zona._id,
+                  idCampeonato: torneoBody._id,
+                  equipos: torneoBody.equipos,
+                };
+                creacionTabla = await tablasController.crearTabla(datosCrearTabla);
+                // console.log(creacionTabla);
               }
             }
 
@@ -150,7 +160,13 @@ class TorneosController {
 
             const op = await torneo.save();
             if (op) {
-              responder.sucess(req, res, op);
+              let datosTorneo: any = op._doc;
+              if (creacionTabla) {
+                let objetoFinal: any = {...datosTorneo, ...creacionTabla};
+                responder.sucess(req, res, objetoFinal);
+              } else {
+                responder.sucess(req, res, op);
+              }
             } else {
               responder.error(req, res, '', 'Error al actualizar el torneo', 500);
             }

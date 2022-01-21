@@ -4,7 +4,7 @@ import modeloTablas from './Tablas_Model';
 import ITablas from './Tablas_Interface';
 import ICampeonatos from '../Torneos/Torneos_Interface';
 import {torneosController} from '../Torneos/Torneos_Controller';
-import {TipoZona} from '../../Config/enumeradores';
+import {TipoZona, Division} from '../../Config/enumeradores';
 
 class TablasController {
   public async listar(req: Request, res: Response) {
@@ -20,6 +20,11 @@ class TablasController {
     try {
       const tabla: ITablas = new modeloTablas(req.body);
       await tabla.save();
+      // const datosBody = req.body;
+      // if (!datosBody || !datosBody.torneoId || !datosBody.zonaId || !datosBody.equipos) {
+      //   responder.error(req, res, '', 'No se ingresaron datos');
+      // } else {
+      // }
       responder.sucess(req, res);
     } catch (error) {
       responder.error(req, res, error);
@@ -136,6 +141,87 @@ class TablasController {
       }
     } catch (error) {
       responder.error(req, res, error);
+    }
+  }
+
+  public async crearTabla(datos: any) {
+    try {
+      let tablaPrimera: any;
+      let tablaReserva: any;
+      const pr = new Promise(async (resolve: any, reject: any) => {
+        if (datos) {
+          if (datos.tipoZona === TipoZona.FaseGrupo) {
+            const nuevaTablaPrimera: ITablas = new modeloTablas();
+            nuevaTablaPrimera.idCampeonato = datos.idCampeonato;
+            nuevaTablaPrimera.zona = datos.zona;
+            nuevaTablaPrimera.tipoZona = datos.tipoZona;
+            nuevaTablaPrimera.division = Division.Primera;
+
+            if (datos.equipos && datos.equipos.length) {
+              for await (const equipo of datos.equipos) {
+                if (!nuevaTablaPrimera.idEquipos.includes(equipo)) {
+                  nuevaTablaPrimera.idEquipos.push(equipo);
+                }
+              }
+            }
+
+            if (datos.comentarios && datos.comentarios.length) {
+              for await (const comentario of datos.comentarios) {
+                if (!nuevaTablaPrimera.comentarios.includes(comentario)) {
+                  nuevaTablaPrimera.comentarios.push(comentario);
+                }
+              }
+            }
+
+            const operacion: any = await nuevaTablaPrimera.save();
+            if (operacion) {
+              tablaPrimera = operacion._doc;
+              //Replico la tabla para reserva
+              const nuevaTablaReserva: ITablas = new modeloTablas();
+              nuevaTablaReserva.idCampeonato = datos.idCampeonato;
+              nuevaTablaReserva.zona = datos.zona;
+              nuevaTablaReserva.tipoZona = datos.tipoZona;
+              nuevaTablaReserva.division = Division.Reserva;
+
+              if (datos.equipos && datos.equipos.length) {
+                for await (const equipo of datos.equipos) {
+                  if (!nuevaTablaReserva.idEquipos.includes(equipo)) {
+                    nuevaTablaReserva.idEquipos.push(equipo);
+                  }
+                }
+              }
+
+              if (datos.comentarios && datos.comentarios.length) {
+                for await (const comentario of datos.comentarios) {
+                  if (!nuevaTablaReserva.comentarios.includes(comentario)) {
+                    nuevaTablaReserva.comentarios.push(comentario);
+                  }
+                }
+              }
+
+              const resultado: any = await nuevaTablaReserva.save();
+              if (resultado) {
+                tablaReserva = resultado._doc;
+                tablaPrimera.idTabla = tablaPrimera._id;
+                // const objetoFinal: any = {...tablaPrimera, ...tablaReserva};
+                // responder.sucess(req,res,objetoFinal,'Tablas creadas correctamente')
+                resolve(tablaPrimera);
+              } else {
+                reject(new Error('Ocurrio un error al crear la tabla para reserva'));
+              }
+            } else {
+              reject(new Error('Ocurrio un error al agregar la tabla para primera división'));
+            }
+          }
+        } else {
+          reject(new Error('No se ingresaron datos para crear la tabla'));
+        }
+      });
+      return pr;
+    } catch (error) {
+      return new Promise((reject: any) => {
+        reject(error);
+      });
     }
   }
 }
