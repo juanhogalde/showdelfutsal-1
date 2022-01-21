@@ -53,12 +53,22 @@ const Campeonato = () => {
         <div className="CI-CampeonatoMasculino">
           <p>{categorias[1].label ? categorias[1].label : ''}</p>
           {subcategorias.map((subcategoria, index) => {
+            let auxIsCategoriaExistente = false;
+            if (torneo.idSubcategoria) {
+              if (torneo.idSubcategoria.includes(subcategoria.value)) {
+                auxIsCategoriaExistente = true;
+              } else {
+                auxIsCategoriaExistente = false;
+              }
+            }
             return (
               <TarjetaTorneo
+                isExisteSubcategoria={auxIsCategoriaExistente}
                 categoria={categorias[1]}
                 subcategoria={subcategoria}
                 key={index}
                 isCampeonato={true}
+                irAgregarZonas={redireccionarZona}
                 consultarPorAgregarCategoriaSubcategoria={consultarPorAgregarCategoriaSubcategoria}
               ></TarjetaTorneo>
             );
@@ -70,9 +80,11 @@ const Campeonato = () => {
             if (subcategoria.key === 1 || subcategoria.key === 2) {
               return (
                 <TarjetaTorneo
-                  datos={subcategoria.label}
+                  categoria={categorias[2]}
+                  subcategoria={subcategoria}
                   key={index}
                   isCampeonato={true}
+                  irAgregarZonas={redireccionarZona}
                   consultarPorAgregarCategoriaSubcategoria={
                     consultarPorAgregarCategoriaSubcategoria
                   }
