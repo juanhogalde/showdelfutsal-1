@@ -8,14 +8,18 @@
 
 :root {
   --celeste: #ecf1fa;
+  --verde: #c5ffc9;
   --sombreado-Elementos: 0px 6px 5px -2px rgba(0, 0, 0, 0.3);
 }
 
 .elementoSombreado {
   box-shadow: var(--sombreado-Elementos);
 }
-.fondoCelente {
-  background-color: var(--celeste);
+.fondoCeleste {
+  background-color: var(--celeste) !important;
+}
+.fondoVerde {
+  background-color: var(--verde) !important;
 }
 
 h1 {
