@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
 import Selector from '../Selector/Selector';
 import TarjetaZona from '../TarjetaZona/TarjetaZona';
 import './Zonas.css';
 import {BsPlusCircle} from 'react-icons/bs';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const options = [
   {value: 'Eliminatoria', label: 'Eliminatoria'},
@@ -14,7 +17,16 @@ const options = [
 ];
 const Zonas = () => {
   const history = useHistory();
-
+  const {idCategoria, idSubcategoria} = useParams();
+  const categoria = useSelector(state =>
+    state.sotreDatosIniciales.categorias.find(categoria => categoria.value === idCategoria)
+  );
+  const subcategoria = useSelector(state =>
+    state.sotreDatosIniciales.subcategorias.find(
+      subcategoria => subcategoria.value === idSubcategoria
+    )
+  );
+  console.log(subcategoria);
   const [datosZona, setDatosZona] = useState('');
   const [tipo, setTipo] = useState('');
   const [arrayZonasCreadas, setArrayZonasCreadas] = useState('');
@@ -35,10 +47,18 @@ const Zonas = () => {
     console.log('redireccionar enfrentamiento');
     history.push('/Torneo/Nuevo/Campeonato/Zonas/Enfrentamiento');
   };
+
+  /* useLayoutEffect(() => {
+    if(categoria)
+    return () => {};
+  }, [categoria]); */
+
   return (
     <div className="CP-Zonas">
       <div>
-        <h6>Divisional A</h6>
+        <h5>{categoria.label ? categoria.label : <Skeleton width="15%" />}</h5>
+        <h6>{subcategoria.label ? subcategoria.label : <Skeleton width="10%" />}</h6>
+
         <InputLowa
           name="tituloZona"
           placeholder={'Ingrese Nombre/Zona'}
