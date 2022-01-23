@@ -1,0 +1,95 @@
+{
+  "error": false,
+  "status": 200,
+  "message": "ok",
+  "value": {
+    "torneoCreado": {
+      "_id": "61e9a9e69fff5b7c97b9bead",
+      "idCategoria": ["61a7c6bb23596e544df58928", "61b8cd66b3292e7ee4b5e4cf"],
+      "idSubcategoria": ["61d2e9db23d0786273a6c11b", "61d2e9ca23d0786273a6c119"],
+      "__v": 2,
+      "tituloTorneo": "TORNEO ALEXIS",
+      "fechaFin": "2022-02-24T00:00:00.000Z",
+      "fechaInicio": "2022-01-24T00:00:00.000Z"
+    },
+    "partidoCreado": {},
+    "zonaCreada": {
+      "_id": "61eafe14f9c623917e2f4c53",
+      "nombreZona": "Zona A",
+      "idSubcategoria": "61d2e9ca23d0786273a6c119",
+      "idCategoria": "61d2e9ca23d0786273a6c119",
+      "equipos": [
+        "619fdc82314629265c4d0381",
+        "619fdca2314629265c4d0383",
+        "619fdcb2314629265c4d0385",
+        "619fdcc9314629265c4d0387"
+      ],
+      "__v": 0,
+      "tipo": 3,
+      "tipoZona": 3
+    },
+    "tablaCreada": {
+      "idEquipos": [
+        "619fdc82314629265c4d0381",
+        "619fdca2314629265c4d0383",
+        "619fdcb2314629265c4d0385",
+        "619fdcc9314629265c4d0387"
+      ],
+      "_id": "61ed88bba2c4495941c42841",
+      "comentarios": [],
+      "idCampeonato": "61e9a9e69fff5b7c97b9bead",
+      "zona": "61eafe14f9c623917e2f4c53",
+      "tipoZona": 3,
+      "division": 1,
+      "__v": 0
+    },
+    "fixtureCreado": {}
+  },
+
+  "value2": {
+    "torneoCreado": {
+      "_id": "61e9a9e69fff5b7c97b9bead",
+      "idCategoria": ["61a7c6bb23596e544df58928", "61b8cd66b3292e7ee4b5e4cf"],
+      "idSubcategoria": [
+        "61d2e9db23d0786273a6c11b",
+        "61d2e9ca23d0786273a6c119",
+        "61d2e9c023d0786273a6c117"
+      ],
+      "__v": 3,
+      "tituloTorneo": "TORNEO ALEXIS EDITANDO NUEVAMENTE",
+      "fechaFin": "2022-02-24T00:00:00.000Z",
+      "fechaInicio": "2022-01-24T00:00:00.000Z"
+    },
+    "partidoCreado": {},
+    "zonaCreada": {
+      "_id": "61ed8adee9987afc08ef567a",
+      "nombreZona": "Zona C",
+      "tipoZona": 3,
+      "idSubcategoria": "61d2e9c023d0786273a6c117",
+      "idCategoria": "61d2e9c023d0786273a6c117",
+      "equipos": [
+        "619fdc82314629265c4d0381",
+        "619fdca2314629265c4d0383",
+        "619fdcb2314629265c4d0385",
+        "619fdcc9314629265c4d0387"
+      ],
+      "__v": 0
+    },
+    "tablaCreada": {
+      "idEquipos": [
+        "619fdc82314629265c4d0381",
+        "619fdca2314629265c4d0383",
+        "619fdcb2314629265c4d0385",
+        "619fdcc9314629265c4d0387"
+      ],
+      "_id": "61ed8b2ce9987afc08ef568c",
+      "comentarios": [],
+      "idCampeonato": "61e9a9e69fff5b7c97b9bead",
+      "zona": "61ed8adee9987afc08ef567a",
+      "tipoZona": 3,
+      "division": 1,
+      "__v": 0
+    },
+    "fixtureCreado": {}
+  }
+}

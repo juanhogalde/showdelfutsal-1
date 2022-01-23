@@ -202,9 +202,6 @@ class TablasController {
               const resultado: any = await nuevaTablaReserva.save();
               if (resultado) {
                 tablaReserva = resultado._doc;
-                tablaPrimera.idTabla = tablaPrimera._id;
-                // const objetoFinal: any = {...tablaPrimera, ...tablaReserva};
-                // responder.sucess(req,res,objetoFinal,'Tablas creadas correctamente')
                 resolve(tablaPrimera);
               } else {
                 reject(new Error('Ocurrio un error al crear la tabla para reserva'));
