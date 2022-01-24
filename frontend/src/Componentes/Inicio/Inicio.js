@@ -176,8 +176,11 @@ const Inicio = () => {
     const {onClick} = props;
     return (
       <div
-        className="I-Contenedor-flecha-izquierda"
-        className={`${props.isVertical ? 'flechaPrevVertical' : 'flechaAnterior'}`}
+        className={`${
+          props.isVertical
+            ? 'flechaPrevVertical I-Contenedor-flecha-izquierda'
+            : 'flechaAnterior I-Contenedor-flecha-izquierda'
+        }`}
         onClick={onClick}
       >
         <AiFillCaretLeft size={20} className="flecha"></AiFillCaretLeft>
