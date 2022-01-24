@@ -32,7 +32,7 @@ class PartidosController {
                 }
                 // partido.idEstadio = datos.idEstadio ? datos.idEstadio : '';
 
-                resolve(partido.save());
+                resolve(partido.save()._doc);
               } else {
                 reject(new Error('Enfrentamiento inexistente'));
               }

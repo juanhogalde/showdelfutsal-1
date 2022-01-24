@@ -7,12 +7,30 @@ class ZonasController {
       const pr = new Promise((resolve: any, reject: any) => {
         modeloZonas
           .findOne({nombreZona: data.nombreZona})
-          .then((zona: any) => {
+          .then(async (zona: any) => {
             if (zona) {
               zona.nombreZona = data.nombreZona;
-              zona.tipo = data.tipo;
+              zona.tipoZona = data.tipoZona;
               zona.idSubcategoria = data.idSubcategoria;
-              resolve(zona.save());
+              zona.idCategoria = data.idCategoria;
+
+              if (data.equipos && data.equipos.length) {
+                for await (const equipo of data.equipos) {
+                  if (!zona.equipos.includes(equipo)) {
+                    zona.equipos.push(equipo);
+                  }
+                }
+              }
+
+              // console.log(zona);
+              const resultado: any = await zona.save();
+              if (resultado) {
+                // resultado.idZona = resultado._id;
+                // console.log(resultado);
+                resolve(resultado);
+              } else {
+                reject(new Error('Error al insertar la zona'));
+              }
             } else {
               const nuevaZona: IZona = new modeloZonas(data);
               resolve(nuevaZona.save());

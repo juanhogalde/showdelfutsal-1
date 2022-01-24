@@ -5,6 +5,7 @@ import ITorneos from './Torneos_Interface';
 import {zonasController} from '../Zonas/Zonas_Controller';
 import {subcategoriasController} from '../Subcategorias/Subcategorias_Controller';
 import {partidosController} from '../Partidos/Partidos_Controller';
+import {tablasController} from '../Tablas/Tablas_Controller';
 class TorneosController {
   public async listar(req: Request, res: Response) {
     try {
@@ -37,13 +38,14 @@ class TorneosController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      let resultadoOperacion = {
-        torneo: false,
-        idCategoria: false,
-        idSubcategoria: false,
-        zona: false,
-        enfrentamiento: false,
+      let objetoResponse = {
+        torneoCreado: {},
+        partidoCreado: {},
+        zonaCreada: {},
+        tablaCreada: {},
+        fixtureCreado: {},
       };
+      let creacionTabla: any;
       const torneoBody = req.body;
       console.log(torneoBody);
       if (torneoBody._id) {
@@ -83,19 +85,34 @@ class TorneosController {
               // }
             }
 
-            if (torneoBody.nombreZona) {
+            if (torneoBody.nombreZona || torneoBody.tipoZona) {
               const datos = {
                 nombreZona: torneoBody.nombreZona,
                 tipoZona: torneoBody.tipoZona,
-                idSubcategoria: torneoBody.idSubcategoria,
+                idSubcategoria: torneoBody.nuevaSubcategoria,
+                idCategoria: torneoBody.nuevaSubcategoria,
+                equipos: torneoBody.equipos,
               };
-              const zona = await zonasController.crearZona(datos);
+
+              const zona: any = await zonasController.crearZona(datos);
               if (zona) {
-                resultadoOperacion.zona = true;
+                objetoResponse.zonaCreada = zona._doc;
+
+                let datosCrearTabla = {
+                  tipoZona: torneoBody.tipoZona,
+                  zona: zona._id,
+                  idCampeonato: torneoBody._id,
+                  equipos: torneoBody.equipos,
+                };
+
+                creacionTabla = await tablasController.crearTabla(datosCrearTabla);
+                if (creacionTabla) {
+                  objetoResponse.tablaCreada = creacionTabla;
+                }
               }
             }
 
-            // Guardo el enfrentamiento
+            // TODO: Guardo el enfrentamiento -- Creo que se debería guardar por separado, con el id de campeonato
             if (torneoBody.idEquipoLocal && torneoBody.idEquipoVisitante) {
               if (torneoBody.idEquipoLocal !== torneoBody.idEquipoVisitante) {
                 const datos = {
@@ -133,16 +150,16 @@ class TorneosController {
 
                 const partido = await partidosController.guardarEnfrentamiento(datos);
                 if (partido) {
-                  resultadoOperacion.enfrentamiento = true;
+                  objetoResponse.partidoCreado = partido;
                 }
 
-                const resultado = await torneo.save({new: true});
-                if (resultado) {
-                  resultadoOperacion.torneo = true;
-                  responder.sucess(req, res, resultado);
-                } else {
-                  responder.error(req, res);
-                }
+                // const resultado = await torneo.save({new: true});
+                // if (resultado) {
+                //   // resultadoOperacion.torneo = true;
+                //   responder.sucess(req, res, resultado);
+                // } else {
+                //   responder.error(req, res);
+                // }
               } else {
                 let error = new Error('No se puede crear un enfrentamiento entre un mismo equipo');
                 responder.error(req, res, error);
@@ -151,7 +168,15 @@ class TorneosController {
 
             const op = await torneo.save();
             if (op) {
-              responder.sucess(req, res, op);
+              objetoResponse.torneoCreado = op._doc;
+              responder.sucess(req, res, objetoResponse);
+              // let datosTorneo: any = op._doc;
+              // if (creacionTabla) {
+              //   let objetoFinal: any = {...datosTorneo, ...creacionTabla};
+              //   responder.sucess(req, res, objetoFinal);
+              // } else {
+              //   responder.sucess(req, res, op);
+              // }
             } else {
               responder.error(req, res, '', 'Error al actualizar el torneo', 500);
             }
