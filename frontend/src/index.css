@@ -24,6 +24,9 @@
 .elementoNoSeleccionable {
   pointer-events: none !important;
 }
+.fondoNoSeleccionable {
+  background-color: rgba(0, 0, 0, 0.034) !important;
+}
 h1 {
   font-size: 8rem;
   font-weight: 800;

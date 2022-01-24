@@ -98,6 +98,7 @@ const TarjetaTorneo = ({
         tabIndex="1"
         onBlur={() => ocultarAcciones()}
       >
+        {!isExisteSubcategoria && isCampeonato && <div className="divNoSeleccionable"></div>}
         <FiEdit3
           className={
             isCampeonato
