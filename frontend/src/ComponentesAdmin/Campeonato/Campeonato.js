@@ -33,7 +33,7 @@ const Campeonato = () => {
       }
       if (isEditarTorneo.isExito) {
         dispatch(actualizarListaDeTorneos_accion());
-        redireccionarZona();
+        redireccionarZona(isEditarTorneo.categoria, isEditarTorneo.subcategoria);
       }
       if (isEditarTorneo.isError) {
         dispatch(volverPorDefectoEditarTorneo_accion());
@@ -43,7 +43,8 @@ const Campeonato = () => {
     }
   };
   const redireccionarZona = (categoria, subcategoria) => {
-    /* dispatch(obtenerCategoriaSubcategoriaDatosDeTorneo_accion(categoria, subcategoria)); */
+    console.log(categoria, subcategoria);
+
     history.push(`/Torneo/Nuevo/Campeonato/Zonas/${categoria}/${subcategoria}`);
   };
 
@@ -75,7 +76,7 @@ const Campeonato = () => {
                   }
                 ></TarjetaTorneo>
               );
-            }
+            } else return '';
           })}
         </div>
         <div className="CI-CampeonatoMasculino">
@@ -97,7 +98,7 @@ const Campeonato = () => {
                   subcategoria={subcategoria}
                   key={index}
                   isCampeonato={true}
-                  irAgregarZonas={redireccionarZona}
+                  redireccionarZona={redireccionarZona}
                   consultarPorAgregarCategoriaSubcategoria={
                     consultarPorAgregarCategoriaSubcategoria
                   }
