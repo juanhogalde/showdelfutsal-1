@@ -10,6 +10,7 @@ import Alertas from '../Alertas/Alertas';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   agregarTorneo_accion,
+  editarTorneo_accion,
   volverPorDefectoAgregarTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 
@@ -63,7 +64,11 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
         isMostrar: true,
       });
     } else {
-      dispatch(agregarTorneo_accion(datosTorneo));
+      if (isEditarTorneo) {
+        dispatch(editarTorneo_accion(datosTorneo));
+      } else {
+        dispatch(agregarTorneo_accion(datosTorneo));
+      }
     }
   };
   const respuestaDeAlertaFechas = respuesta => {
@@ -118,12 +123,19 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
         value={datosTorneo.fechaFin ? datosTorneo.fechaFin : ''}
       />
       <BotonLowa
-        tituloboton={Object.keys(torneo).length > 0 ? 'Siguiente' : 'Crear Torneo'}
+        tituloboton={
+          Object.keys(torneo).length > 0
+            ? isEditarTorneo
+              ? 'Guardar'
+              : 'Siguiente'
+            : 'Crear Torneo'
+        }
         onClick={
           Object.keys(torneo).length > 0
-            ? () => siguientePantallaNuevoTorneo()
-            : /* */
-              () => validarCamposNuevoTorneo()
+            ? isEditarTorneo
+              ? () => validarCamposNuevoTorneo()
+              : () => siguientePantallaNuevoTorneo()
+            : () => validarCamposNuevoTorneo()
         }
         disabled={Object.keys(datosTorneo).length >= 4 ? false : true}
       ></BotonLowa>
