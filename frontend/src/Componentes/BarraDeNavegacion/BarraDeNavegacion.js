@@ -115,7 +115,7 @@ const BarraDeNavegacion = () => {
             </li>
             <li className="nav-item" onClick={() => abrirSubmenu('Liga')}>
               <div className="nav-links" tabIndex="1" onBlur={() => eventoCerrarSubMenu()}>
-                Liga
+                LNFA
                 <div className={`${isLiga ? 'dropdown' : 'dropdown-close'}`}>
                   <Menucategorias categoria={3} eventoApertura={isLiga} handleClick={handleClick} />
                 </div>
