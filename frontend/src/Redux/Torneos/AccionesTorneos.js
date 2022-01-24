@@ -135,18 +135,14 @@ export const cargarDatosDeTorneoParaEdicion_accion = datos => {
   };
 };
 
-export const editarTorneo_accion = (torneo, idCategoria, idSubcategoria) => {
-  let auxDatosDeTorneo = {};
-  Object.assign(auxDatosDeTorneo, torneo);
-  auxDatosDeTorneo.nuevaCategoria = idCategoria;
-  auxDatosDeTorneo.nuevaSubcategoria = idSubcategoria;
-  console.log(auxDatosDeTorneo);
+export const editarTorneo_accion = torneo => {
+  console.log(torneo);
   return dispatch => {
     dispatch(cargandoEditarTorneo_accion());
     API({
       url: '/torneos/modificar',
       method: 'put',
-      data: auxDatosDeTorneo,
+      data: torneo,
     })
       .then(res => {
         console.log({res});

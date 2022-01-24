@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {
@@ -27,9 +27,11 @@ const Campeonato = () => {
   const obtenerRespuestaDeAlertas = respuesta => {
     if (respuesta) {
       if (isEditarTorneo.isConsulta) {
-        dispatch(
-          editarTorneo_accion(torneo, isEditarTorneo.categoria, isEditarTorneo.subcategoria)
-        );
+        let auxDatosDeTorneo = {};
+        Object.assign(auxDatosDeTorneo, torneo);
+        auxDatosDeTorneo.nuevaCategoria = isEditarTorneo.categoria;
+        auxDatosDeTorneo.nuevaSubcategoria = isEditarTorneo.subcategoria;
+        dispatch(editarTorneo_accion(auxDatosDeTorneo));
       }
       if (isEditarTorneo.isExito) {
         dispatch(actualizarListaDeTorneos_accion());
@@ -47,6 +49,12 @@ const Campeonato = () => {
 
     history.push(`/Torneo/Nuevo/Campeonato/Zonas/${categoria}/${subcategoria}`);
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(volverPorDefectoEditarTorneo_accion());
+    };
+  }, [dispatch]);
 
   if (categorias.length > 0 && subcategorias.length > 0) {
     return (

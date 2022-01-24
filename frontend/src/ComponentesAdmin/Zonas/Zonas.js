@@ -21,7 +21,7 @@ const Zonas = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {idCategoria, idSubcategoria} = useParams();
-  const {torneo} = useSelector(state => state.storeTorneos);
+  const {torneo, isEditarTorneo} = useSelector(state => state.storeTorneos);
   const categoria = useSelector(state =>
     state.sotreDatosIniciales.categorias.find(categoria => categoria.value === idCategoria)
   );
@@ -44,17 +44,32 @@ const Zonas = () => {
     auxDatosZona.nombreZona = datosZona.tituloZona;
     auxDatosZona.tipoZona = tipo.value;
     dispatch(editarTorneo_accion(auxDatosZona));
-    setArrayZonasCreadas([...arrayZonasCreadas, auxDatosZona]);
+    /* setArrayZonasCreadas([...arrayZonasCreadas, auxDatosZona]); */
   };
+
+  const obtenerRespuestaDeAlertas = respuesta => {
+    if (respuesta) {
+      if (isEditarTorneo.isConsulta) {
+        /* dispatch(
+          editarTorneo_accion(torneo, isEditarTorneo.categoria, isEditarTorneo.subcategoria)
+        ); */
+      }
+      if (isEditarTorneo.isExito) {
+        /* dispatch(actualizarListaDeTorneos_accion());
+        redireccionarZona(isEditarTorneo.categoria, isEditarTorneo.subcategoria); */
+      }
+      if (isEditarTorneo.isError) {
+        /* dispatch(volverPorDefectoEditarTorneo_accion()); */
+      }
+    } else {
+      /* dispatch(volverPorDefectoEditarTorneo_accion()); */
+    }
+  };
+
   const redireccionarEnfrentamiento = () => {
     console.log('redireccionar enfrentamiento');
     history.push('/Torneo/Nuevo/Campeonato/Zonas/Enfrentamiento');
   };
-
-  /* useLayoutEffect(() => {
-    if(categoria)
-    return () => {};
-  }, [categoria]); */
 
   return (
     <div className="CP-Zonas">
@@ -96,7 +111,17 @@ const Zonas = () => {
       <div className="CI-BotonSiguiente-TarjetaZona">
         <BotonLowa tituloboton="Siguiente"></BotonLowa>
       </div>
-      <Alertas mostrarSweet={false}></Alertas>
+      <Alertas
+        mostrarSweet={
+          isEditarTorneo.isConsulta ||
+          isEditarTorneo.isCargando ||
+          isEditarTorneo.isExito ||
+          isEditarTorneo.isError
+        }
+        tipoDeSweet={isEditarTorneo.tipo}
+        subtitulo={isEditarTorneo.mensaje}
+        /* RespuestaDeSweet={obtenerRespuestaDeAlertas} */
+      ></Alertas>
     </div>
   );
 };

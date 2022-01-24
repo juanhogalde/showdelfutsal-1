@@ -21,12 +21,6 @@ const PaginaTorneosAdmin = () => {
       historialDeNavegacion.push('/Torneo/Nuevo');
     }
   };
-  useLayoutEffect(() => {
-    if (Object.keys(torneo).length > 0) {
-      dispatch(volverPorDefectoUnTorneo_accion());
-    }
-    return () => {};
-  }, [dispatch, torneo]);
 
   const obtenerRespuestaDeAlertas = respuesta => {
     if (respuesta) {
@@ -43,6 +37,14 @@ const PaginaTorneosAdmin = () => {
       dispatch(volverPorDefectoEliminarTorneo_accion());
     }
   };
+
+  useLayoutEffect(() => {
+    if (Object.keys(torneo).length > 0) {
+      dispatch(volverPorDefectoUnTorneo_accion());
+    }
+    return () => {};
+  }, [dispatch, torneo]);
+
   return (
     <div className="CP-PaginaTorneosAdmin">
       <PaginasSeccionesAdmin
