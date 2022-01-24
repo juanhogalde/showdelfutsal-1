@@ -130,6 +130,10 @@
   grid-row: 3/4;
   padding: 10px;
 }
+.nombre-Equipo-Local p {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
 .textoContenido {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -144,6 +148,10 @@
   grid-column: 3/4;
   grid-row: 3/4;
   padding: 10px;
+}
+.nombre-Equipo-Visitante p {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 .datos-Partido {
   grid-column: 2/3;
@@ -166,15 +174,23 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding-bottom: 20px;
 }
 .CI-Resultados {
   display: flex;
   justify-content: space-around;
+  padding-top: 30px;
 }
 @media screen and (max-width: 480px) {
   .CP-TarjetaEnfrentamiento-Inicio img {
     max-width: 90px;
     max-height: 90px;
+  }
+  .nombre-Equipo-Local p {
+    font-size: 1.2rem;
+  }
+  .nombre-Equipo-Visitante p {
+    font-size: 1.2rem;
   }
   .comentarios {
     max-width: 99px;

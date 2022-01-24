@@ -32,11 +32,16 @@ const Filtro = [
 const Inicio = () => {
   const dispatch = useDispatch();
   const {noticias} = useSelector(state => state.storeNoticias);
+  const {partidos} = useSelector(state => state.storePartidos);
   const {isMostrarModalPublicidad} = useSelector(state => state.sotreDatosIniciales);
   const {vivo} = useSelector(state => state.storeVivo);
   const {publicidades} = useSelector(state => state.storePublicidades);
 
   const {galerias} = useSelector(state => state.storeGalerias);
+  const [partido, setPartido] = useState({
+    data: {},
+    index: 0,
+  });
   const [videosGaleria, setVideosGaleria] = useState([]);
   // const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   const [videoVivo, setVideoVivo] = useState({});
@@ -56,6 +61,11 @@ const Inicio = () => {
     dispatch(guardarNoticiaMiniaturaSeleccionada_accion(noticiaRecibida));
   };
   useLayoutEffect(() => {
+    //CARGA DE PARTIDOS
+    setPartido({
+      data: partidos[0],
+      index: 0,
+    });
     // CARGA DE PUBLICIDADES
     let publicidadPartidoDerecha1;
     let publicidadPartidoDerecha2;
@@ -304,7 +314,31 @@ const Inicio = () => {
   const redireccionar = url => {
     window.open(url);
   };
-
+  const siguientePartido = respuesta => {
+    console.log(respuesta);
+    if (partido.index < partidos.length - 1) {
+      if (partido.index >= 0) {
+        if (respuesta === 1) {
+          setPartido({
+            data: partidos[partido.index + 1],
+            index: partido.index + 1,
+          });
+        } else {
+          setPartido({data: partidos[partido.index - respuesta], index: partido.index - 1});
+        }
+      } else {
+        setPartido({
+          data: partidos[0],
+          index: 0,
+        });
+      }
+    } else {
+      setPartido({
+        data: partidos[0],
+        index: 0,
+      });
+    }
+  };
   return (
     <div className="LP-Inicio">
       <div className="LI-Inicio Margen-inicio seccion-somos">
@@ -373,7 +407,11 @@ const Inicio = () => {
             </div>
             <div className="componente-Marcador">
               {/* <Marcador /> */}
-              <TarjetaEnfrentamiento isSeccionInicio={true}></TarjetaEnfrentamiento>
+              <TarjetaEnfrentamiento
+                enfrentamiento={partido.data}
+                isSeccionInicio={true}
+                siguientePartido={siguientePartido}
+              ></TarjetaEnfrentamiento>
             </div>
           </div>
           <div className="CI-Publicidad-Marcador">
