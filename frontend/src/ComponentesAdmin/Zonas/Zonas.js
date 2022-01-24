@@ -44,7 +44,7 @@ const Zonas = () => {
     auxDatosZona.nombreZona = datosZona.tituloZona;
     auxDatosZona.tipoZona = tipo.value;
     dispatch(editarTorneo_accion(auxDatosZona));
-    /* setArrayZonasCreadas([...arrayZonasCreadas, auxDatosZona]); */
+    setArrayZonasCreadas([...arrayZonasCreadas, auxDatosZona]);
   };
 
   const obtenerRespuestaDeAlertas = respuesta => {
@@ -120,7 +120,7 @@ const Zonas = () => {
         }
         tipoDeSweet={isEditarTorneo.tipo}
         subtitulo={isEditarTorneo.mensaje}
-        /* RespuestaDeSweet={obtenerRespuestaDeAlertas} */
+        RespuestaDeSweet={obtenerRespuestaDeAlertas}
       ></Alertas>
     </div>
   );
