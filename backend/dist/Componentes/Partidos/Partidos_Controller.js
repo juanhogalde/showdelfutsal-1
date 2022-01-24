@@ -45,12 +45,13 @@ class PartidosController {
                             if (partido) {
                                 partido.equipoLocal = datos.idEquipoLocal;
                                 partido.equipoVisitante = datos.idEquipoVisitante;
+                                partido.fechaPorJugar = datos.fechaPorJugar;
                                 partido.fechaPartido = datos.fechaEnfrentamiento ? datos.fechaEnfrentamiento : '';
                                 partido.horaPartido = datos.horaEnfrentamiento ? datos.horaEnfrentamiento : '';
                                 if (datos.idEstadio) {
                                     partido.idEstadio = datos.idEstadio;
                                 }
-                                resolve(partido.save());
+                                resolve(partido.save()._doc);
                             }
                             else {
                                 reject(new Error('Enfrentamiento inexistente'));
@@ -88,12 +89,41 @@ class PartidosController {
     agregar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const partido = new Partidos_Model_1.default(req.body);
-                yield partido.save();
-                responder_1.default.sucess(req, res);
+                const datosBody = req.body;
+                if (!datosBody ||
+                    !datosBody.idEquipoLocal ||
+                    !datosBody.idEquipoVisitante ||
+                    !datosBody.fechaPorJugar) {
+                    responder_1.default.error(req, res, '', 'No se ingresaron datos', 400);
+                }
+                else {
+                    if (datosBody.idEquipoLocal === datosBody.idEquipoVisitante) {
+                        responder_1.default.error(req, res, '', 'No puede crear un enfrentamiento entre el mismo equipo', 400);
+                    }
+                    else {
+                        const nuevoPartido = new Partidos_Model_1.default();
+                        nuevoPartido.equipoLocal = datosBody.idEquipoLocal;
+                        nuevoPartido.equipoVisitante = datosBody.idEquipoVisitante;
+                        nuevoPartido.fechaPorJugar = datosBody.fechaPorJugar;
+                        nuevoPartido.fechaPartido = datosBody.fechaPartido;
+                        nuevoPartido.horaPartido = datosBody.horaPartido;
+                        if (datosBody.idEstadio) {
+                            nuevoPartido.idEstadio = datosBody.idEstadio;
+                        }
+                        const op = yield nuevoPartido.save();
+                        if (op) {
+                            responder_1.default.sucess(req, res, op, 'Partido insertado correctamente');
+                        }
+                        else {
+                            console.log(op);
+                            responder_1.default.error(req, res, '', 'Error al insertar el partido', 500);
+                        }
+                    }
+                }
             }
             catch (error) {
-                responder_1.default.error(req, res, error);
+                console.log(error);
+                responder_1.default.error(req, res);
             }
         });
     }

@@ -11,6 +11,12 @@ const TorneosSchema = new mongoose_1.Schema({
             ref: 'modeloCategorias',
         },
     ],
+    idSubcategoria: [
+        {
+            type: mongoose_1.Schema.Types.ObjectId,
+            ref: 'modeloSubcategorias',
+        },
+    ],
     tipoTorneo: Number,
 });
 exports.default = (0, mongoose_1.model)('modeloTorneos', TorneosSchema);

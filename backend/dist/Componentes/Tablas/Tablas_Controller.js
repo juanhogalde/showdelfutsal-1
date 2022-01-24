@@ -8,6 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __asyncValues = (this && this.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -146,6 +153,123 @@ class TablasController {
             }
             catch (error) {
                 responder_1.default.error(req, res, error);
+            }
+        });
+    }
+    crearTabla(datos) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let tablaPrimera;
+                let tablaReserva;
+                const pr = new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+                    var e_1, _a, e_2, _b, e_3, _c, e_4, _d;
+                    if (datos) {
+                        if (datos.tipoZona === enumeradores_1.TipoZona.FaseGrupo) {
+                            const nuevaTablaPrimera = new Tablas_Model_1.default();
+                            nuevaTablaPrimera.idCampeonato = datos.idCampeonato;
+                            nuevaTablaPrimera.zona = datos.zona;
+                            nuevaTablaPrimera.tipoZona = datos.tipoZona;
+                            nuevaTablaPrimera.division = enumeradores_1.Division.Primera;
+                            if (datos.equipos && datos.equipos.length) {
+                                try {
+                                    for (var _e = __asyncValues(datos.equipos), _f; _f = yield _e.next(), !_f.done;) {
+                                        const equipo = _f.value;
+                                        if (!nuevaTablaPrimera.idEquipos.includes(equipo)) {
+                                            nuevaTablaPrimera.idEquipos.push(equipo);
+                                        }
+                                    }
+                                }
+                                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                                finally {
+                                    try {
+                                        if (_f && !_f.done && (_a = _e.return)) yield _a.call(_e);
+                                    }
+                                    finally { if (e_1) throw e_1.error; }
+                                }
+                            }
+                            if (datos.comentarios && datos.comentarios.length) {
+                                try {
+                                    for (var _g = __asyncValues(datos.comentarios), _h; _h = yield _g.next(), !_h.done;) {
+                                        const comentario = _h.value;
+                                        if (!nuevaTablaPrimera.comentarios.includes(comentario)) {
+                                            nuevaTablaPrimera.comentarios.push(comentario);
+                                        }
+                                    }
+                                }
+                                catch (e_2_1) { e_2 = { error: e_2_1 }; }
+                                finally {
+                                    try {
+                                        if (_h && !_h.done && (_b = _g.return)) yield _b.call(_g);
+                                    }
+                                    finally { if (e_2) throw e_2.error; }
+                                }
+                            }
+                            const operacion = yield nuevaTablaPrimera.save();
+                            if (operacion) {
+                                tablaPrimera = operacion._doc;
+                                const nuevaTablaReserva = new Tablas_Model_1.default();
+                                nuevaTablaReserva.idCampeonato = datos.idCampeonato;
+                                nuevaTablaReserva.zona = datos.zona;
+                                nuevaTablaReserva.tipoZona = datos.tipoZona;
+                                nuevaTablaReserva.division = enumeradores_1.Division.Reserva;
+                                if (datos.equipos && datos.equipos.length) {
+                                    try {
+                                        for (var _j = __asyncValues(datos.equipos), _k; _k = yield _j.next(), !_k.done;) {
+                                            const equipo = _k.value;
+                                            if (!nuevaTablaReserva.idEquipos.includes(equipo)) {
+                                                nuevaTablaReserva.idEquipos.push(equipo);
+                                            }
+                                        }
+                                    }
+                                    catch (e_3_1) { e_3 = { error: e_3_1 }; }
+                                    finally {
+                                        try {
+                                            if (_k && !_k.done && (_c = _j.return)) yield _c.call(_j);
+                                        }
+                                        finally { if (e_3) throw e_3.error; }
+                                    }
+                                }
+                                if (datos.comentarios && datos.comentarios.length) {
+                                    try {
+                                        for (var _l = __asyncValues(datos.comentarios), _m; _m = yield _l.next(), !_m.done;) {
+                                            const comentario = _m.value;
+                                            if (!nuevaTablaReserva.comentarios.includes(comentario)) {
+                                                nuevaTablaReserva.comentarios.push(comentario);
+                                            }
+                                        }
+                                    }
+                                    catch (e_4_1) { e_4 = { error: e_4_1 }; }
+                                    finally {
+                                        try {
+                                            if (_m && !_m.done && (_d = _l.return)) yield _d.call(_l);
+                                        }
+                                        finally { if (e_4) throw e_4.error; }
+                                    }
+                                }
+                                const resultado = yield nuevaTablaReserva.save();
+                                if (resultado) {
+                                    tablaReserva = resultado._doc;
+                                    resolve(tablaPrimera);
+                                }
+                                else {
+                                    reject(new Error('Ocurrio un error al crear la tabla para reserva'));
+                                }
+                            }
+                            else {
+                                reject(new Error('Ocurrio un error al agregar la tabla para primera división'));
+                            }
+                        }
+                    }
+                    else {
+                        reject(new Error('No se ingresaron datos para crear la tabla'));
+                    }
+                }));
+                return pr;
+            }
+            catch (error) {
+                return new Promise((reject) => {
+                    reject(error);
+                });
             }
         });
     }

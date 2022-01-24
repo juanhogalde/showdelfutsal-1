@@ -16,8 +16,8 @@ exports.torneosController = void 0;
 const responder_1 = __importDefault(require("../../Middlewares/responder"));
 const Torneos_Model_1 = __importDefault(require("./Torneos_Model"));
 const Zonas_Controller_1 = require("../Zonas/Zonas_Controller");
-const Subcategorias_Controller_1 = require("../Subcategorias/Subcategorias_Controller");
 const Partidos_Controller_1 = require("../Partidos/Partidos_Controller");
+const Tablas_Controller_1 = require("../Tablas/Tablas_Controller");
 class TorneosController {
     listar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -57,48 +57,69 @@ class TorneosController {
     modificar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let resultadoOperacion = {
-                    torneo: false,
-                    idCategoria: false,
-                    idSubcategoria: false,
-                    zona: false,
-                    enfrentamiento: false,
+                let objetoResponse = {
+                    torneoCreado: {},
+                    partidoCreado: {},
+                    zonaCreada: {},
+                    tablaCreada: {},
+                    fixtureCreado: {},
                 };
+                let creacionTabla;
                 const torneoBody = req.body;
+                console.log(torneoBody);
                 if (torneoBody._id) {
                     Torneos_Model_1.default.findById(torneoBody._id).then((torneo) => __awaiter(this, void 0, void 0, function* () {
                         if (torneo) {
                             torneo.tituloTorneo = torneoBody.tituloTorneo;
                             torneo.fechaInicio = torneoBody.fechaInicio;
                             torneo.fechaFin = torneoBody.fechaFin;
-                            if (torneoBody.idCategoria) {
-                                torneo.idCategoria.push(torneoBody.idCategoria);
-                            }
-                            if (torneoBody.idSubcategoria) {
-                                const datos = {
-                                    idCategoria: torneoBody.idCategoria,
-                                    idSubcategoria: torneoBody.idSubcategoria,
-                                    keySubcategoria: torneoBody.keySubcategoria,
-                                };
-                                const subcateg = yield Subcategorias_Controller_1.subcategoriasController.modificarSubcategoriaTorneo(datos);
-                                if (subcateg) {
-                                    resultadoOperacion.idSubcategoria = true;
+                            if (torneoBody.nuevaCategoria) {
+                                if (torneo.idCategoria.length) {
+                                    if (!torneo.idCategoria.includes(torneoBody.nuevaCategoria)) {
+                                        torneo.idCategoria.push(torneoBody.nuevaCategoria);
+                                    }
+                                }
+                                else {
+                                    torneo.idCategoria.push(torneoBody.nuevaCategoria);
                                 }
                             }
-                            if (torneoBody.nombreZona) {
+                            if (torneoBody.nuevaSubcategoria) {
+                                if (torneo.idSubcategoria.length) {
+                                    if (!torneo.idSubcategoria.includes(torneoBody.nuevaSubcategoria)) {
+                                        torneo.idSubcategoria.push(torneoBody.nuevaSubcategoria);
+                                    }
+                                }
+                                else {
+                                    torneo.idSubcategoria.push(torneoBody.nuevaSubcategoria);
+                                }
+                            }
+                            if (torneoBody.nombreZona || torneoBody.tipoZona) {
                                 const datos = {
                                     nombreZona: torneoBody.nombreZona,
                                     tipoZona: torneoBody.tipoZona,
-                                    idSubcategoria: torneoBody.idSubcategoria,
+                                    idSubcategoria: torneoBody.nuevaSubcategoria,
+                                    idCategoria: torneoBody.nuevaSubcategoria,
+                                    equipos: torneoBody.equipos,
                                 };
                                 const zona = yield Zonas_Controller_1.zonasController.crearZona(datos);
                                 if (zona) {
-                                    resultadoOperacion.zona = true;
+                                    objetoResponse.zonaCreada = zona._doc;
+                                    let datosCrearTabla = {
+                                        tipoZona: torneoBody.tipoZona,
+                                        zona: zona._id,
+                                        idCampeonato: torneoBody._id,
+                                        equipos: torneoBody.equipos,
+                                    };
+                                    creacionTabla = yield Tablas_Controller_1.tablasController.crearTabla(datosCrearTabla);
+                                    if (creacionTabla) {
+                                        objetoResponse.tablaCreada = creacionTabla;
+                                    }
                                 }
                             }
                             if (torneoBody.idEquipoLocal && torneoBody.idEquipoVisitante) {
                                 if (torneoBody.idEquipoLocal !== torneoBody.idEquipoVisitante) {
                                     const datos = {
+                                        fechaPorJugar: '',
                                         horaEnfrentamiento: '',
                                         fechaEnfrentamiento: '',
                                         idEstadio: '',
@@ -120,23 +141,26 @@ class TorneosController {
                                     if (torneoBody.idEstadio) {
                                         datos.idEstadio = torneoBody.idEstadio;
                                     }
+                                    if (torneoBody.fechaPorJugar) {
+                                        datos.fechaPorJugar = torneoBody.fechaPorJugar;
+                                    }
                                     const partido = yield Partidos_Controller_1.partidosController.guardarEnfrentamiento(datos);
                                     if (partido) {
-                                        resultadoOperacion.enfrentamiento = true;
-                                    }
-                                    const resultado = yield torneo.save({ new: true });
-                                    if (resultado) {
-                                        resultadoOperacion.torneo = true;
-                                        responder_1.default.sucess(req, res, resultado);
-                                    }
-                                    else {
-                                        responder_1.default.error(req, res);
+                                        objetoResponse.partidoCreado = partido;
                                     }
                                 }
                                 else {
                                     let error = new Error('No se puede crear un enfrentamiento entre un mismo equipo');
                                     responder_1.default.error(req, res, error);
                                 }
+                            }
+                            const op = yield torneo.save();
+                            if (op) {
+                                objetoResponse.torneoCreado = op._doc;
+                                responder_1.default.sucess(req, res, objetoResponse);
+                            }
+                            else {
+                                responder_1.default.error(req, res, '', 'Error al actualizar el torneo', 500);
                             }
                         }
                         else {
