@@ -13,7 +13,7 @@ import {
   volverPorDefectoAgregarTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 
-const Torneo = [
+const tipoTorneoArray = [
   {value: 1, label: 'Campeonato'},
   {value: 2, label: 'Liga'},
   {value: 3, label: 'Copa'},
@@ -54,14 +54,7 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
       dispatch(volverPorDefectoAgregarTorneo_accion());
     }
   };
-  useLayoutEffect(() => {
-    if (Object.keys(torneo).length > 0) {
-      setDatosTorneo(torneo);
-    }
-    return () => {
-      setDatosTorneo({});
-    };
-  }, [torneo]);
+
   const validarCamposNuevoTorneo = () => {
     if (new Date(datosTorneo.fechaInicio).getTime() > new Date(datosTorneo.fechaFin).getTime()) {
       setAlertaFechas({
@@ -82,17 +75,25 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
       });
     }
   };
-
+  console.log(datosTorneo);
+  useLayoutEffect(() => {
+    if (Object.keys(torneo).length > 0) {
+      setDatosTorneo(torneo);
+    }
+    return () => {
+      setDatosTorneo({});
+    };
+  }, [torneo]);
   return (
     <div className="CP-NuevoTorneo">
       <Selector
         name="tipoTorneo"
         placeholder="Seleccione Torneo"
         selectorConIcono={<BsPlusCircle />}
-        options={Torneo ? Torneo : []}
+        options={tipoTorneoArray ? tipoTorneoArray : []}
         noOptionsMessage={'No hay torneos cargados.'}
         onChange={(opcion, selector) => escucharSelector(opcion.value, selector.name)}
-        /* opcionSeleccionada={datosTorneo.tipoTorneo ? datosTorneo.tipoTorneo : ''} */
+        opcionSeleccionada={tipoTorneoArray[torneo.tipoTorneo - 1]}
       ></Selector>
       <InputLowa
         type="text"
