@@ -8,6 +8,7 @@ const PartidosSchema = new Schema({
   resultadoVisitante: {type: Number},
   penalesLocal: {type: Number},
   penalesVisitante: {type: Number},
+  fechaPorJugar: Number,
   fechaPartido: {type: Date},
   horaPartido: String,
   idEstadio: {type: Schema.Types.ObjectId, ref: 'modeloEstadios'},
@@ -21,6 +22,7 @@ const PartidosSchema = new Schema({
   // campeonato: {type: Schema.Types.ObjectId, ref: 'modeloCampeonatos'},
   idTabla: {type: Schema.Types.ObjectId, ref: 'modeloTablas'},
   idZona: {type: Schema.Types.ObjectId, ref: 'modeloZonas'},
+  idTorneo: {type: Schema.Types.ObjectId, ref: 'modeloTorneos'},
 });
 
 export default model<IPartidos>('modeloPartidos', PartidosSchema);

@@ -94,6 +94,26 @@ let inicializarSubCategorias = () => __awaiter(void 0, void 0, void 0, function*
             nombreSubcategoria: 'Divisional D',
             keySubcategoria: 4,
         },
+        {
+            nombreSubcategoria: 'Provincial',
+            keySubcategoria: 5,
+        },
+        {
+            nombreSubcategoria: 'Regional',
+            keySubcategoria: 6,
+        },
+        {
+            nombreSubcategoria: 'Nacional',
+            keySubcategoria: 7,
+        },
+        {
+            nombreSubcategoria: 'Inferiores',
+            keySubcategoria: 8,
+        },
+        {
+            nombreSubcategoria: 'Liga Departamentales',
+            keySubcategoria: 9,
+        },
     ];
     try {
         for (var subCategoriaArray_1 = __asyncValues(subCategoriaArray), subCategoriaArray_1_1; subCategoriaArray_1_1 = yield subCategoriaArray_1.next(), !subCategoriaArray_1_1.done;) {
@@ -194,14 +214,6 @@ let incializarMedidasPublicitarias = () => __awaiter(void 0, void 0, void 0, fun
             disponible: true,
         },
         {
-            ancho: 245,
-            alto: 245,
-            ubicacion: 'cuadrado',
-            direccion: 'Desarrollada->Noticia->Derecha1',
-            keyMedidas: 4,
-            disponible: true,
-        },
-        {
             ancho: 700,
             alto: 500,
             ubicacion: 'modal',
@@ -215,6 +227,14 @@ let incializarMedidasPublicitarias = () => __awaiter(void 0, void 0, void 0, fun
             ubicacion: 'horizontal',
             direccion: 'Inicio->Noticia->Abajo',
             keyMedidas: 6,
+            disponible: true,
+        },
+        {
+            ancho: 245,
+            alto: 245,
+            ubicacion: 'cuadrado',
+            direccion: 'Desarrollada->Noticia->Derecha1',
+            keyMedidas: 4,
             disponible: true,
         },
         {
@@ -258,8 +278,17 @@ let incializarMedidasPublicitarias = () => __awaiter(void 0, void 0, void 0, fun
         finally { if (e_4) throw e_4.error; }
     }
 });
-const instalarBD = () => __awaiter(void 0, void 0, void 0, function* () {
+const instalarBD = (bd) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        let eliminar = true;
+        MedidasPublicidad_Model_1.default.find().then((medidaEncontrada) => {
+            if (medidaEncontrada.length === 0) {
+                eliminar = false;
+            }
+        });
+        if (eliminar) {
+            yield bd.eliminarColeccion('modelomedidaspublicidads');
+        }
         yield inicializarCategorias();
         yield inicializarSubCategorias();
         yield inicializarUsuarios();

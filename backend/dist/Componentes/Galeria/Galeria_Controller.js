@@ -46,6 +46,8 @@ class GaleriaController {
                                 fechaModificacion: item.fechaModificacion,
                                 imagenesId: imagenes.length ? [...imagenes] : [],
                                 videosId: videos.length ? [...videos] : [],
+                                idCategoria: item.idCategoria,
+                                keyCategoria: item.keyCategoria,
                             };
                             datosARetornar.push(galeria);
                         }
@@ -133,7 +135,13 @@ class GaleriaController {
         var e_2, _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let datosARetornar = { tituloGaleria: '', _id: '', imagenesId: [] };
+                let datosARetornar = {
+                    tituloGaleria: '',
+                    _id: '',
+                    imagenesId: [],
+                    idCategoria: '',
+                    keyCategoria: '',
+                };
                 let datosAEnviar = { fuente: '', isGaleria: false, galeriaId: '' };
                 let pathFile = '';
                 let arrayInsercionesImagenes = [];
@@ -186,11 +194,15 @@ class GaleriaController {
                 if (arrayInsercionesImagenes.length) {
                     nuevaGaleria.tituloGaleria = datosBody.descripcion;
                     nuevaGaleria.fechaCarga = new Date();
+                    nuevaGaleria.idCategoria = datosBody.idCategoria;
+                    nuevaGaleria.keyCategoria = datosBody.keyCategoria;
                     const resultadoOperacion = yield nuevaGaleria.save();
                     if (resultadoOperacion) {
                         datosARetornar.tituloGaleria = resultadoOperacion.tituloGaleria;
                         datosARetornar._id = resultadoOperacion._id;
                         datosARetornar.imagenesId = [...arrayInsercionesImagenes];
+                        datosARetornar.idCategoria = datosBody.idCategoria;
+                        datosARetornar.keyCategoria = datosBody.keyCategoria;
                         responder_1.default.sucess(req, res, datosARetornar);
                     }
                     else {
@@ -256,7 +268,11 @@ class GaleriaController {
     modificar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let datosARetornar = { tituloGaleria: '', _id: '', imagenesId: [] };
+                let datosARetornar = {
+                    tituloGaleria: '',
+                    _id: '',
+                    imagenesId: [],
+                };
                 let datosAEnviar = { fuente: '', isGaleria: false, galeriaId: '' };
                 let pathFile = '';
                 let arrayInsercionesImagenes = [];
@@ -313,6 +329,8 @@ class GaleriaController {
                             }
                             galeria.tituloGaleria = datosBody.descripcion;
                             galeria.fechaModificacion = new Date();
+                            galeria.idCategoria = datosBody.idCategoria;
+                            galeria.keyCategoria = datosBody.keyCategoria;
                             const resultado = yield galeria.save();
                             if (resultado) {
                                 const imagenes = yield Imagenes_Controller_1.imagenesController.obtenerImagenesGaleriaPorId(galeria._id);
@@ -322,6 +340,8 @@ class GaleriaController {
                                     fechaCarga: resultado.fechaCarga,
                                     fechaModificacion: resultado.fechaModificacion,
                                     imagenesId: imagenes.length ? [...imagenes] : [],
+                                    idCategoria: datosBody.idCategoria,
+                                    keyCategoria: datosBody.keyCategoria,
                                 };
                                 responder_1.default.sucess(req, res, dato, 'Galeria actualizada');
                             }

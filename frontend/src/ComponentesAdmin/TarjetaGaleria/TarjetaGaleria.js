@@ -44,7 +44,7 @@ const TarjetaGaleria = ({galeria = {}}) => {
     } else {
       if (galeria.videosId.length !== 0) {
         dispatch(cargarVideoGaleriaParaEditar_accion(galeria));
-        historialDeNavegacion.push(`/Galería/Viedeo/${'editar'}`);
+        historialDeNavegacion.push(`/Galería/Video/${'editar'}`);
       }
     }
   };

@@ -6,19 +6,29 @@ import {MdDeleteForever} from 'react-icons/md';
 import {FiEdit3} from 'react-icons/fi';
 import {useRef} from 'react';
 import {useHistory} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {
+  cargarDatosDeTorneoParaEdicion_accion,
+  consultarPorEliminarTorneo_accion,
+} from '../../Redux/Torneos/AccionesTorneos';
 
 const TarjetaTorneo = ({
   isCampeonato = false,
   torneo = '',
   categoria = '',
   subcategoria = '',
-  redireccioarZona = () => {
+  isExisteSubcategoria = false,
+  consultarPorAgregarCategoriaSubcategoria = () => {
+    console.log('');
+  },
+  redireccionarZona = () => {
     console.log('');
   },
 }) => {
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
   const historialDeNavegacion = useHistory();
+  const dispatch = useDispatch();
   const mostrarAcciones = () => {
     setIsAcciones(!isAcciones);
     elementoAcciones.current.focus();
@@ -26,40 +36,57 @@ const TarjetaTorneo = ({
   const ocultarAcciones = () => {
     setIsAcciones(false);
   };
-  const editarTorneo = () => {
-    historialDeNavegacion.push(`/Torneo/Editar/${1234}`);
+  const editarTorneo = id => {
+    dispatch(cargarDatosDeTorneoParaEdicion_accion(torneo));
+    historialDeNavegacion.push(`/Torneo/Editar/${id}}`);
   };
-  const consultaPorEliminarTorneo = () => {};
+  const consultaPorEliminarTorneo = id => {
+    dispatch(consultarPorEliminarTorneo_accion(id));
+  };
 
   return (
     <div
       className={`${
-        isCampeonato ? 'CP-TarjetaTorneo CP-TarjetaTorneo-Campeonato' : 'CP-TarjetaTorneo'
+        isCampeonato
+          ? `${
+              isExisteSubcategoria
+                ? 'CP-TarjetaTorneo CP-TarjetaTorneo-Campeonato fondoVerde'
+                : 'CP-TarjetaTorneo CP-TarjetaTorneo-Campeonato '
+            }`
+          : 'CP-TarjetaTorneo'
       }`}
-      onClick={() => redireccioarZona(categoria.value, subcategoria.value)}
     >
-      {!isCampeonato && (
-        <div className="CI-Titulo-TarjetaTorneo">
-          <h5>{torneo.tituloTorneo ? torneo.tituloTorneo : '-'}</h5>
-        </div>
-      )}
-
-      <div className="CI-Imagen-TarjetaTorneo">
-        <ImagenAdmin></ImagenAdmin>
-      </div>
-      <div className="CI-Cuerpo-TarjetaTorneo">
+      <div
+        className={isCampeonato ? 'CI-Cuerpo-Campeonato-TarjetaTorneo' : 'CI-Cuerpo-TarjetaTorneo'}
+        onClick={
+          !isExisteSubcategoria && isCampeonato
+            ? () => consultarPorAgregarCategoriaSubcategoria(categoria.value, subcategoria.value)
+            : () => {}
+        }
+      >
         {!isCampeonato && (
-          <p>
-            {torneo.fechaInicio ? torneo.fechaInicio : ''} -{' '}
-            {torneo.fechaFin ? torneo.fechaFin : ''}
-          </p>
+          <div className="titulo-TarjetaTorneo">
+            <h5>{torneo.tituloTorneo ? torneo.tituloTorneo : '-'}</h5>
+          </div>
         )}
-        <p>{subcategoria.label}</p>
-      </div>
 
+        <div className="imagen-TarjetaTorneo">
+          <ImagenAdmin></ImagenAdmin>
+        </div>
+        <div className="info-TarjetaTorneo">
+          {!isCampeonato && (
+            <p>
+              {torneo.fechaInicio ? torneo.fechaInicio : ''} -{' '}
+              {torneo.fechaFin ? torneo.fechaFin : ''}
+            </p>
+          )}
+          <p>{subcategoria.label}</p>
+        </div>
+      </div>
       <div className="CI-Acciones-TarjetaTorneo" onClick={() => mostrarAcciones()}>
         <HiDotsVertical />
       </div>
+
       <div
         ref={elementoAcciones}
         id="acciones-TarjetaGaleria"
@@ -71,10 +98,30 @@ const TarjetaTorneo = ({
         tabIndex="1"
         onBlur={() => ocultarAcciones()}
       >
-        <FiEdit3 className="iconoAcción-ListaImagenes" onClick={() => editarTorneo()}></FiEdit3>
+        {!isExisteSubcategoria && isCampeonato && <div className="divNoSeleccionable"></div>}
+        <FiEdit3
+          className={
+            isCampeonato
+              ? isExisteSubcategoria
+                ? 'iconoAcción-ListaImagenes'
+                : 'iconoAcción-ListaImagenes elementoNoSeleccionable'
+              : ' iconoAcción-ListaImagenes'
+          }
+          onClick={
+            isCampeonato
+              ? () => redireccionarZona(categoria.value, subcategoria.value)
+              : () => editarTorneo(torneo._id)
+          }
+        ></FiEdit3>
         <MdDeleteForever
-          onClick={() => consultaPorEliminarTorneo()}
-          className="iconoAcción-ListaImagenes"
+          onClick={isCampeonato ? () => {} : () => consultaPorEliminarTorneo(torneo._id)}
+          className={
+            isCampeonato
+              ? isExisteSubcategoria
+                ? 'iconoAcción-ListaImagenes'
+                : 'iconoAcción-ListaImagenes elementoNoSeleccionable'
+              : ' iconoAcción-ListaImagenes'
+          }
         />
       </div>
     </div>

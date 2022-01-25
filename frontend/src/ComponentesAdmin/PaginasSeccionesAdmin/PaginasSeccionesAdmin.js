@@ -6,6 +6,7 @@ import FiltroNoticiasAdmin from '../../ComponentesAdmin/FiltroNoticiasAdmin/Filt
 import TarjetaGaleria from '../TarjetaGaleria/TarjetaGaleria';
 
 import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
+import TarjetaVivo from '../TarjetaVivo/TarjetaVivo';
 
 const PaginasSeccionesAdmin = ({
   funcionDeBotonSecciones = () => {
@@ -15,7 +16,10 @@ const PaginasSeccionesAdmin = ({
   tituloFiltroSecciones,
   isSeccionNoticias = false,
   isSeccionGaleria = false,
+  isSeccionVivo = false,
   isSeccionTorneos = false,
+  mostrarFiltros = true,
+  mostrarBotonNuevo = true,
   datosDeSeccion = [],
   escucharCambioFiltros = () => {
     console.log('Falta funcion para escuchar filtros');
@@ -23,17 +27,21 @@ const PaginasSeccionesAdmin = ({
 }) => {
   return (
     <div className="CP-Pagina-Secciones-Admin">
-      <div className="CI-Pagina-Secciones-Admin-Cabecera">
-        <div className="I-Boton-Secciones-Admin">
-          <BotonLowa onClick={funcionDeBotonSecciones} tituloboton={tituloBotonSecciones} />
+      {mostrarBotonNuevo && (
+        <div className="CI-Pagina-Secciones-Admin-Cabecera">
+          <div className="I-Boton-Secciones-Admin">
+            <BotonLowa onClick={funcionDeBotonSecciones} tituloboton={tituloBotonSecciones} />
+          </div>
+          {mostrarFiltros && (
+            <div className="I-Filtros-Secciones-Admin">
+              <FiltroNoticiasAdmin
+                tituloFiltro={tituloFiltroSecciones}
+                escucharCambioFiltros={escucharCambioFiltros}
+              />
+            </div>
+          )}
         </div>
-        <div className="I-Filtros-Secciones-Admin">
-          <FiltroNoticiasAdmin
-            tituloFiltro={tituloFiltroSecciones}
-            escucharCambioFiltros={escucharCambioFiltros}
-          />
-        </div>
-      </div>
+      )}
       {isSeccionNoticias && (
         <div className="CI-Pagina-Secciones-Admin-Noticias">
           <div className="I-Noticias-Secciones-Admin">
@@ -59,6 +67,12 @@ const PaginasSeccionesAdmin = ({
           {datosDeSeccion.map((torneo, index) => {
             return <TarjetaTorneo key={index} torneo={torneo} />;
           })}
+        </div>
+      )}
+
+      {isSeccionVivo && datosDeSeccion.urlVivo && (
+        <div className="CI-Pagina-Secciones-Torneos">
+          <TarjetaVivo vivo={datosDeSeccion} />
         </div>
       )}
     </div>

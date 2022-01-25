@@ -22,6 +22,10 @@
 .CI-InfoPartido h3 {
   letter-spacing: 5px;
 }
+.CI-InfoPartido p {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
 .slider-InfoPartido {
   cursor: pointer;
   width: 45px;
@@ -69,6 +73,9 @@
 @media screen and (max-width: 480px) {
   .margenSede {
     margin-top: 0.5rem;
+  }
+  .CI-InfoPartido p {
+    font-size: 2rem;
   }
   /* .CI-InfoPartido {
     min-width: 210px;

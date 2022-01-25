@@ -116,7 +116,7 @@
   grid-row: 1/2;
   display: flex;
   align-items: flex-end;
-  justify-content: flex-end;
+  justify-content: center;
   font-size: 2rem;
   color: white;
 }
@@ -314,7 +314,7 @@
   justify-content: center;
   display: grid;
   grid-template-columns: 5% 1fr 40% 5%;
-  grid-template-rows: 20% 35% 35%;
+  grid-template-rows: 20% auto 35%;
 }
 .titulo-Galeria {
   grid-row: 1/2;
@@ -327,8 +327,7 @@
 }
 .galeria-Imagenes-A {
   grid-column: 1/3;
-  grid-row: 1/5;
-
+  grid-row: 2/5;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -341,6 +340,7 @@
   grid-row: 1/5;
   padding: 50px;
   display: flex;
+
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -509,6 +509,7 @@
   .galeria-Imagenes-B {
     grid-column: 2/3;
     grid-row: 1/5;
+    gap: 20px;
   }
 }
 @media screen and (max-width: 1024px) {
@@ -520,11 +521,18 @@
     padding: 50px !important;
     padding-top: 100px !important;
   }
+
   .CP-Vivo {
     grid-template-columns: 1fr;
-    grid-template-rows: auto minmax(0, 300px) 10%;
+    grid-template-rows: 400px 300px 100px 50px;
+  }
+  .CI-Componente-Vivo {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    padding: 10px;
   }
   .CI-Chat-Vivo {
+    padding: 10px;
     grid-column: 1/2;
     grid-row: 2/3;
     grid-template-columns: 1fr;
@@ -791,6 +799,7 @@
     margin-right: 100px;
   }
 }
+
 @media screen and (max-width: 374px) {
   .CP-Vivo {
     grid-template-rows: auto 1fr 10%;
@@ -802,6 +811,42 @@
 @media only screen and (min-device-width: 320px) and (max-width: 768px) and (orientation: portrait) {
   .LI-Inicio {
     padding: 5px;
+  }
+  .CI-Video {
+    padding-top: 0% !important;
+    margin: 20px;
+  }
+  .CP-Vivo {
+    grid-template-columns: 1fr;
+    grid-template-rows: 400px 300px 100px 50px;
+    /* background-color: red; */
+  }
+  .CI-Componente-Vivo {
+    grid-column: 1/2;
+    grid-row: 1/2;
+    padding: 10px;
+  }
+  .CI-Chat-Vivo {
+    padding: 10px;
+    grid-column: 1/2;
+    grid-row: 2/3;
+    gap: 10px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 15% 1fr;
+    margin-top: 10px;
+  }
+  .CI-Chat-Vivo p {
+    grid-column: 1/2;
+  }
+  .componente-Chat-Vivo {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    background-color: white;
+  }
+  .CI-Publicidad-Vivo {
+    grid-column: 1/2;
+    grid-row: 3/4;
+    display: flex;
   }
   .CP-Somos {
     grid-template-columns: 1fr;
@@ -850,6 +895,11 @@
   .margenes-Responsive-Seccion-Marcador {
     padding-left: 20px !important;
     padding-right: 20px !important;
+  }
+  .CP-Vivo {
+    
+    grid-template-rows: 250px 300px 100px 50px;
+    /* background-color: red; */
   }
 }
 @media screen and (max-width: 320px) {

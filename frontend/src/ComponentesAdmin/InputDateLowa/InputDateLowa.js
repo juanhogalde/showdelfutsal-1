@@ -6,11 +6,9 @@ const InputDateLowa = props => {
 
   const [inputDateValue, setInputDateValue] = useState('');
   const obtenerValue = e => {
-    console.log(e);
     setInputDateValue(e.target.value);
   };
   useLayoutEffect(() => {
-    console.log(value);
     if (value) {
       setInputDateValue(value);
     }

@@ -21,6 +21,16 @@ class baseMongo {
     conectar() {
         mongoose_1.default.connect(this._cadenaDeConexion, this._options);
     }
+    eliminarColeccion(nombreColeccion) {
+        this.db.dropCollection(nombreColeccion, function (err) {
+            if (err) {
+                throw new Error(err.message);
+            }
+            else {
+                console.log(`coleccion ${nombreColeccion} fue eliminada `);
+            }
+        });
+    }
     configEventos() {
         this.db.once('open', _ => {
             console.info('BD de ' + process.env.NODE_ENV + ' conectada');

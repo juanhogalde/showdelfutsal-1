@@ -24,6 +24,8 @@ import EditarTorneo from '../ComponentesAdmin/EditarTorneo/EditarTorneo';
 import NuevoEnfrentamiento from '../ComponentesAdmin/NuevoEnfrentamiento/NuevoEnfrentamiento';
 import Zonas from '../ComponentesAdmin/Zonas/Zonas';
 import NuevaGaleriaVideo from '../ComponentesAdmin/NuevaGaleriaVideo/NuevaGaleriaVideo';
+import PaginaVivoAdmin from '../ComponentesAdmin/PaginaVivoAdmin/PaginaVivoAdmin';
+import NuevoVivo from '../ComponentesAdmin/NuevoVivo/NuevoVivo';
 
 const RutasPrivadas = () => {
   const {usuarioLogueado} = useSelector(state => state.storeLogueo);
@@ -48,7 +50,11 @@ const RutasPrivadas = () => {
           <Route exact component={NuevoTorneo} path="/Torneo/Nuevo"></Route>
           <Route exact component={EditarTorneo} path="/Torneo/Editar/:id"></Route>
           <Route exact component={Campeonato} path="/Torneo/Nuevo/Campeonato"></Route>
-          <Route exact component={Zonas} path="/Torneo/Nuevo/Campeonato/Zonas"></Route>
+          <Route
+            exact
+            component={Zonas}
+            path="/Torneo/Nuevo/Campeonato/Zonas/:idCategoria/:idSubcategoria"
+          ></Route>
 
           <Route
             exact
@@ -60,13 +66,15 @@ const RutasPrivadas = () => {
 
           <Route exact component={PaginaGaleriaAdmin} path="/Galerías"></Route>
           <Route exact component={NuevaGaleria} path="/Galería/Nueva"></Route>
-          <Route exact component={NuevaGaleriaVideo} path="/Galería/Viedeo/:tipo"></Route>
+          <Route exact component={NuevaGaleriaVideo} path="/Galería/Video/:tipo"></Route>
           <Route exact component={EditarGaleria} path="/Galería/Editar/:id"></Route>
-
           <Route exact component={PaginaNoticiasAdmin} path="/Noticias"></Route>
           <Route exact component={NuevaNoticia} path="/Noticia/Nueva"></Route>
           <Route exact component={VistaPreviaNoticia} path="/Noticia/Ver"></Route>
           <Route exact component={EditarNoticia} path="/Noticia/Editar"></Route>
+          <Route exact component={PaginaVivoAdmin} path="/Vivo"></Route>
+          <Route exact component={NuevoVivo} path="/Vivo/Nuevo/:tipo"></Route>
+          <Route exact component={NuevoVivo} path="/Vivo/Editar/:tipo"></Route>
 
           <Route exact path="/fixture">
             <h1>Fixture</h1>

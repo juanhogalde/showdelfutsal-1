@@ -6,7 +6,7 @@ import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {useDispatch, useSelector} from 'react-redux';
 import publicidadLarga from '../../Static/Img/publicidad_larga.jpg';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
-// import Vivo from '../Vivo/Vivo';
+import Vivo from '../Vivo/Vivo';
 import SomosFrase from '../../Static/Img/frase_inicio.png';
 import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
@@ -16,7 +16,7 @@ import PieDepagina from '../PieDePagina/PieDepagina';
 import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
 import ModalLowa from '../../ComponentesAdmin/ModalLowa/ModalLowa';
 import publicidadModal from '../../Static/Img/publicidad-modal.png';
-import {urlImagenes} from '../../urlImagenes';
+import {urlDominio, urlImagenes} from '../../urlImagenes';
 import {controlModalPublicidad_accion} from '../../Redux/DatosInciales/AccionesDatosIniciales';
 import TarjetaEnfrentamiento from '../../ComponentesAdmin/TarjetaEnfrentamiento/TarjetaEnfrentamiento';
 import Slider from 'react-slick';
@@ -32,12 +32,19 @@ const Filtro = [
 const Inicio = () => {
   const dispatch = useDispatch();
   const {noticias} = useSelector(state => state.storeNoticias);
+  const {partidos} = useSelector(state => state.storePartidos);
   const {isMostrarModalPublicidad} = useSelector(state => state.sotreDatosIniciales);
+  const {vivo} = useSelector(state => state.storeVivo);
   const {publicidades} = useSelector(state => state.storePublicidades);
 
   const {galerias} = useSelector(state => state.storeGalerias);
+  const [partido, setPartido] = useState({
+    data: {},
+    index: 0,
+  });
   const [videosGaleria, setVideosGaleria] = useState([]);
   // const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
+  const [videoVivo, setVideoVivo] = useState({});
   const [noticiaP, setNoticiaP] = useState({});
   const [noticia1, setNoticia1] = useState({});
   const [noticia2, setNoticia2] = useState({});
@@ -54,6 +61,11 @@ const Inicio = () => {
     dispatch(guardarNoticiaMiniaturaSeleccionada_accion(noticiaRecibida));
   };
   useLayoutEffect(() => {
+    //CARGA DE PARTIDOS
+    setPartido({
+      data: partidos[0],
+      index: 0,
+    });
     // CARGA DE PUBLICIDADES
     let publicidadPartidoDerecha1;
     let publicidadPartidoDerecha2;
@@ -125,6 +137,23 @@ const Inicio = () => {
     if (galeriasTipoVideos.length) {
       setVideosGaleria(galeriasTipoVideos[galeriasTipoVideos.length - 1].videosId);
     }
+
+    //CARGA DE VIDEO EN VIVO
+    if (vivo.urlVivo) {
+      let urlFinal;
+      if (vivo.urlVivo.indexOf('video') !== -1) {
+        let posinicial = vivo.urlVivo.indexOf('video') + 6;
+        let posicionFinal = vivo.urlVivo.indexOf('/livestreaming');
+        urlFinal = vivo.urlVivo.substr(posinicial, posicionFinal - posinicial);
+      } else {
+        let posinicial = vivo.urlVivo.indexOf('be/') + 3;
+        urlFinal = vivo.urlVivo.substr(posinicial, vivo.urlVivo.length - posinicial);
+      }
+      let urlChat = `https://www.youtube.com/live_chat?v=${urlFinal}&embed_domain=${urlDominio}`;
+      setVideoVivo({fuente: urlFinal, chat: urlChat, isActivo: vivo.isActivo});
+    } else {
+      setVideoVivo({});
+    }
   }, [
     setNoticiaP,
     setNoticia1,
@@ -134,6 +163,7 @@ const Inicio = () => {
     galerias,
     publicidades,
     setVideosGaleria,
+    vivo,
   ]);
 
   /* =========== COMPONENTE SLIDER =========== */
@@ -156,8 +186,11 @@ const Inicio = () => {
     const {onClick} = props;
     return (
       <div
-        className="I-Contenedor-flecha-izquierda"
-        className={`${props.isVertical ? 'flechaPrevVertical' : 'flechaAnterior'}`}
+        className={`${
+          props.isVertical
+            ? 'flechaPrevVertical I-Contenedor-flecha-izquierda'
+            : 'flechaAnterior I-Contenedor-flecha-izquierda'
+        }`}
         onClick={onClick}
       >
         <AiFillCaretLeft size={20} className="flecha"></AiFillCaretLeft>
@@ -211,7 +244,7 @@ const Inicio = () => {
     state => state.storePrueba
   ); */
 
-  // const videoVivoPrueba = {fuente: 'MmysMu3mgvw'};
+  // const videoVivoPrueba = {fuente: 'ZFx0BuHzTxU'};
   const obtenerFiltro = filtro => {
     switch (filtro) {
       case 'Masculino':
@@ -281,7 +314,31 @@ const Inicio = () => {
   const redireccionar = url => {
     window.open(url);
   };
-
+  const siguientePartido = respuesta => {
+    console.log(respuesta);
+    if (partido.index < partidos.length - 1) {
+      if (partido.index >= 0) {
+        if (respuesta === 1) {
+          setPartido({
+            data: partidos[partido.index + 1],
+            index: partido.index + 1,
+          });
+        } else {
+          setPartido({data: partidos[partido.index - respuesta], index: partido.index - 1});
+        }
+      } else {
+        setPartido({
+          data: partidos[0],
+          index: 0,
+        });
+      }
+    } else {
+      setPartido({
+        data: partidos[0],
+        index: 0,
+      });
+    }
+  };
   return (
     <div className="LP-Inicio">
       <div className="LI-Inicio Margen-inicio seccion-somos">
@@ -318,20 +375,28 @@ const Inicio = () => {
         </div>
       </div>
       {/* SECCION VIVO */}
-      {/* <div className="LI-Inicio seccion-vivo Margen-Vivo">
-        <div className="CP-Vivo">
-          <div className="CI-Componente-Vivo">
-            <Vivo video={videoVivoPrueba} />
-          </div>
-          <div className="CI-Chat-Vivo">
-            <p>MINUTO A MINUTO</p>
-            <div className="componente-Chat-Vivo"></div>
-          </div>
-          <div className="CI-Publicidad-Vivo">
-            <img alt="" src={publicidadLarga}></img>
+      {videoVivo.isActivo && (
+        <div className="LI-Inicio seccion-vivo Margen-Vivo">
+          <div className="CP-Vivo">
+            <div className="CI-Componente-Vivo">
+              <Vivo video={videoVivo} />
+            </div>
+            <div className="CI-Chat-Vivo">
+              <p>MINUTO A MINUTO</p>
+              <div className="componente-Chat-Vivo">
+                <iframe
+                  src={videoVivo.chat ? videoVivo.chat : ''}
+                  width="100%"
+                  height="100%"
+                ></iframe>
+              </div>
+            </div>
+            <div className="CI-Publicidad-Vivo">
+              <img alt="" src={publicidadLarga}></img>
+            </div>
           </div>
         </div>
-      </div> */}
+      )}
       {/* SECCION MARCADOR */}
       <div className="LI-Inicio seccion-marcador margenes-Responsive-Seccion-Marcador">
         <div className="CP-Marcador">
@@ -342,7 +407,11 @@ const Inicio = () => {
             </div>
             <div className="componente-Marcador">
               {/* <Marcador /> */}
-              <TarjetaEnfrentamiento isSeccionInicio={true}></TarjetaEnfrentamiento>
+              <TarjetaEnfrentamiento
+                enfrentamiento={partido.data}
+                isSeccionInicio={true}
+                siguientePartido={siguientePartido}
+              ></TarjetaEnfrentamiento>
             </div>
           </div>
           <div className="CI-Publicidad-Marcador">
@@ -454,6 +523,7 @@ const Inicio = () => {
                     {galeria.galeria2.imagenesId.map(datoGaleria => {
                       return (
                         <ImagenSlider
+                          tamañoImagen={{height: '700px'}}
                           datos={datoGaleria}
                           descripcion={galeria.galeria2.tituloGaleria}
                         ></ImagenSlider>

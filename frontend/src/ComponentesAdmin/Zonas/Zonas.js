@@ -5,46 +5,85 @@ import Selector from '../Selector/Selector';
 import TarjetaZona from '../TarjetaZona/TarjetaZona';
 import './Zonas.css';
 import {BsPlusCircle} from 'react-icons/bs';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import Alertas from '../Alertas/Alertas';
+import {editarTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
 
 const options = [
-  {value: 'Eliminatoria', label: 'Eliminatoria'},
-  {value: 'Grupo', label: 'Grupo'},
-  {value: 'Eliminatoria con Dif. Goles', label: 'Eliminatoria con Dif. Goles'},
+  {value: 1, label: 'Eliminatoria'},
+  {value: 2, label: 'Grupo'},
+  {value: 3, label: 'Eliminatoria con Dif. Goles'},
 ];
 const Zonas = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const {idCategoria, idSubcategoria} = useParams();
+  const {torneo, isEditarTorneo} = useSelector(state => state.storeTorneos);
+  const categoria = useSelector(state =>
+    state.sotreDatosIniciales.categorias.find(categoria => categoria.value === idCategoria)
+  );
+  const subcategoria = useSelector(state =>
+    state.sotreDatosIniciales.subcategorias.find(
+      subcategoria => subcategoria.value === idSubcategoria
+    )
+  );
 
   const [datosZona, setDatosZona] = useState('');
   const [tipo, setTipo] = useState('');
   const [arrayZonasCreadas, setArrayZonasCreadas] = useState('');
 
   const escucharCambios = (name, value) => {
-    console.log(name);
-    console.log(value);
-
     setDatosZona({...datosZona, [name]: value});
   };
   const agregarZona = () => {
     let auxDatosZona = {};
-    auxDatosZona.tituloZona = datosZona.tituloZona;
-    auxDatosZona.tipo = tipo.value;
+    Object.assign(auxDatosZona, torneo);
+    auxDatosZona.nombreZona = datosZona.tituloZona;
+    auxDatosZona.tipoZona = tipo.value;
+    dispatch(editarTorneo_accion(auxDatosZona));
     setArrayZonasCreadas([...arrayZonasCreadas, auxDatosZona]);
   };
+
+  const obtenerRespuestaDeAlertas = respuesta => {
+    if (respuesta) {
+      if (isEditarTorneo.isConsulta) {
+        /* dispatch(
+          editarTorneo_accion(torneo, isEditarTorneo.categoria, isEditarTorneo.subcategoria)
+        ); */
+      }
+      if (isEditarTorneo.isExito) {
+        /* dispatch(actualizarListaDeTorneos_accion());
+        redireccionarZona(isEditarTorneo.categoria, isEditarTorneo.subcategoria); */
+      }
+      if (isEditarTorneo.isError) {
+        /* dispatch(volverPorDefectoEditarTorneo_accion()); */
+      }
+    } else {
+      /* dispatch(volverPorDefectoEditarTorneo_accion()); */
+    }
+  };
+
   const redireccionarEnfrentamiento = () => {
     console.log('redireccionar enfrentamiento');
     history.push('/Torneo/Nuevo/Campeonato/Zonas/Enfrentamiento');
   };
+
   return (
     <div className="CP-Zonas">
       <div>
-        <h6>Divisional A</h6>
+        <h5>{categoria.label ? categoria.label : <Skeleton width="15%" />}</h5>
+        <h6>{subcategoria.label ? subcategoria.label : <Skeleton width="10%" />}</h6>
+
         <InputLowa
-          name="tituloZona"
+          name="nombreZona"
           placeholder={'Ingrese Nombre/Zona'}
           onChange={e => escucharCambios(e.target.name, e.target.value)}
         ></InputLowa>
         <Selector
+          name="tipoZona"
           placeholder="Seleccione Tipo"
           selectorConIcono={<BsPlusCircle />}
           options={options ? options : []}
@@ -72,6 +111,17 @@ const Zonas = () => {
       <div className="CI-BotonSiguiente-TarjetaZona">
         <BotonLowa tituloboton="Siguiente"></BotonLowa>
       </div>
+      <Alertas
+        mostrarSweet={
+          isEditarTorneo.isConsulta ||
+          isEditarTorneo.isCargando ||
+          isEditarTorneo.isExito ||
+          isEditarTorneo.isError
+        }
+        tipoDeSweet={isEditarTorneo.tipo}
+        subtitulo={isEditarTorneo.mensaje}
+        RespuestaDeSweet={obtenerRespuestaDeAlertas}
+      ></Alertas>
     </div>
   );
 };

@@ -18,9 +18,7 @@ const InfoPartido = props => {
     <div className="CP-InfoPartido">
       <div className="CI-InfoPartido">
         {isSoloTitulo ? (
-          <React.Fragment>
-            {isTablaDePosiciones ? <h3>Zona A</h3> : <h3>Fecha 1</h3>}
-          </React.Fragment>
+          <React.Fragment>{isTablaDePosiciones ? <h3>Zona A</h3> : <p>{fecha}</p>}</React.Fragment>
         ) : (
           <React.Fragment>
             <h3>{fecha ? FormatearFecha(fecha, 'hora').substr(0, 5) : '-'}</h3>

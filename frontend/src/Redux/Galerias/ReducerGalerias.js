@@ -166,7 +166,6 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
       };
     }
     case eliminarGaleriaExito: {
-      console.log(accion.datos);
       return {
         ...state,
         isEliminarGaleria: {

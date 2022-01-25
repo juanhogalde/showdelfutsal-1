@@ -6,6 +6,27 @@
   font-size: 16px;
 }
 
+:root {
+  --celeste: #ecf1fa;
+  --verde: #c5ffc9;
+  --sombreado-Elementos: 0px 6px 5px -2px rgba(0, 0, 0, 0.3);
+}
+
+.elementoSombreado {
+  box-shadow: var(--sombreado-Elementos);
+}
+.fondoCeleste {
+  background-color: var(--celeste) !important;
+}
+.fondoVerde {
+  background-color: var(--verde) !important;
+}
+.elementoNoSeleccionable {
+  pointer-events: none !important;
+}
+.fondoNoSeleccionable {
+  background-color: rgba(0, 0, 0, 0.034) !important;
+}
 h1 {
   font-size: 8rem;
   font-weight: 800;

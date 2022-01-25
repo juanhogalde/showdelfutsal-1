@@ -12,7 +12,7 @@ const TablasSchema = new mongoose_1.Schema({
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'modeloCampeonatos',
     },
-    zona: { type: String },
+    zona: { type: mongoose_1.Schema.Types.ObjectId, ref: 'modeloZonas' },
     tipoZona: { type: Number },
     comentarios: [
         {
@@ -20,5 +20,6 @@ const TablasSchema = new mongoose_1.Schema({
             texto: { type: String },
         },
     ],
+    division: Number,
 });
 exports.default = (0, mongoose_1.model)('modeloTablas', TablasSchema);

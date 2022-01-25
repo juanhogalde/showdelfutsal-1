@@ -3,11 +3,17 @@ import './PaginaTorneosAdmin.css';
 import PaginasSeccionesAdmin from '../PaginasSeccionesAdmin/PaginasSeccionesAdmin';
 import {useHistory} from 'react-router';
 import {useDispatch, useSelector} from 'react-redux';
-import {volverPorDefectoUnTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
+import {
+  actualizarListaDeTorneos_accion,
+  eliminarTorneo_accion,
+  volverPorDefectoEliminarTorneo_accion,
+  volverPorDefectoUnTorneo_accion,
+} from '../../Redux/Torneos/AccionesTorneos';
+import Alertas from '../Alertas/Alertas';
 
 const PaginaTorneosAdmin = () => {
   const historialDeNavegacion = useHistory();
-  const {torneos, torneo} = useSelector(state => state.storeTorneos);
+  const {torneos, torneo, isEliminarTorneo} = useSelector(state => state.storeTorneos);
   const dispatch = useDispatch();
 
   const redireccionarNuevaNoticia = respuesta => {
@@ -15,12 +21,30 @@ const PaginaTorneosAdmin = () => {
       historialDeNavegacion.push('/Torneo/Nuevo');
     }
   };
+
+  const obtenerRespuestaDeAlertas = respuesta => {
+    if (respuesta) {
+      if (isEliminarTorneo.isConsulta) {
+        dispatch(eliminarTorneo_accion(isEliminarTorneo.id));
+      }
+      if (isEliminarTorneo.isExito) {
+        dispatch(actualizarListaDeTorneos_accion());
+      }
+      if (isEliminarTorneo.isError) {
+        dispatch(volverPorDefectoEliminarTorneo_accion());
+      }
+    } else {
+      dispatch(volverPorDefectoEliminarTorneo_accion());
+    }
+  };
+
   useLayoutEffect(() => {
     if (Object.keys(torneo).length > 0) {
       dispatch(volverPorDefectoUnTorneo_accion());
     }
     return () => {};
   }, [dispatch, torneo]);
+
   return (
     <div className="CP-PaginaTorneosAdmin">
       <PaginasSeccionesAdmin
@@ -30,6 +54,17 @@ const PaginaTorneosAdmin = () => {
         isSeccionTorneos={true}
         datosDeSeccion={torneos}
       ></PaginasSeccionesAdmin>
+      <Alertas
+        tipoDeSweet={isEliminarTorneo.tipo}
+        mostrarSweet={
+          isEliminarTorneo.isConsulta ||
+          isEliminarTorneo.isCargando ||
+          isEliminarTorneo.isExito ||
+          isEliminarTorneo.isError
+        }
+        subtitulo={isEliminarTorneo.mensaje}
+        RespuestaDeSweet={obtenerRespuestaDeAlertas}
+      ></Alertas>
     </div>
   );
 };

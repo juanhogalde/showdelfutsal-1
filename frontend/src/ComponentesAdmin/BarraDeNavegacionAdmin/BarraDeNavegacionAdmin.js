@@ -1,7 +1,6 @@
 import React from 'react';
 import './BarraDeNavegacionAdmin.css';
 import iconoMenu from '../../Static/Admin/menuAdmin.svg';
-import iconoAvatar from '../../Static/Admin/iconoAvatar.svg';
 import {useHistory, useLocation} from 'react-router';
 import {BsPower} from 'react-icons/bs';
 import iconoAtras from '../../Static/Admin/iconoAtras.svg';
@@ -31,6 +30,9 @@ const BarraDeNavegacionAdmin = ({
         historialDeNavegacion.push('/Publicidad');
       }
       if (locacion.pathname.split('/')[1] === 'Torneo') {
+        historialDeNavegacion.goBack();
+      }
+      if (locacion.pathname.split('/')[1] === 'Vivo') {
         historialDeNavegacion.goBack();
       }
     } else {

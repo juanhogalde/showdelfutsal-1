@@ -29,6 +29,7 @@ import {importarDatos} from './Config/importarDatos';
 import modeloUsuarios from './Componentes/Usuarios/Usuarios_Model';
 import {instalarBD} from './Config/instalacionInicial';
 import medidasPublicidad_Router from './Componentes/MedidasPublicidad/MedidasPublicidad_Router';
+import vivoRouter from './Componentes/Vivo/Vivo_Router';
 // import {medidasPublicidadRouter} from './Componentes/MedidasPublicidad/MedidasPublicidad_Router'
 // import { comprimirImagen } from './Middlewares/imagemin';
 
@@ -36,7 +37,7 @@ import medidasPublicidad_Router from './Componentes/MedidasPublicidad/MedidasPub
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.8';
+const deploy = 'v0.0.13';
 
 class Server {
   public app: express.Application;
@@ -91,6 +92,7 @@ class Server {
     this.app.use('/tablas', tablasRouter);
     this.app.use('/usuarios', usuariosRouter);
     this.app.use('/medidasPublicidad', medidasPublicidad_Router);
+    this.app.use('/videosVivo', vivoRouter);
 
     //Rutas Basicas
     this.app.get('/', (req: Request, res: Response) => {
@@ -145,6 +147,7 @@ class Server {
       console.log(
         `⚡️[FUTSAL]: El Servidor de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
       );
+      process.env.NODE_ENV == 'desarrollo' ? console.warn(`${deploy}`) : console.log(`${deploy}`);
     });
   }
 }
