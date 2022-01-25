@@ -386,6 +386,7 @@ const Inicio = () => {
               <p>MINUTO A MINUTO</p>
               <div className="componente-Chat-Vivo">
                 <iframe
+                  title="Vivo"
                   src={videoVivo.chat ? videoVivo.chat : ''}
                   width="100%"
                   height="100%"
