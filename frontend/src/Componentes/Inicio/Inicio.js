@@ -353,9 +353,9 @@ const Inicio = () => {
                 <div onClick={() => redireccionar('https://www.facebook.com/ElShowdelFutsal')}>
                   <FaFacebookF className="iconos-Redes-Sociales"></FaFacebookF>
                 </div>
-                <div onClick={() => redireccionar()}>
+                {/*  <div onClick={() => redireccionar()}>
                   <BsTwitter className="iconos-Redes-Sociales"></BsTwitter>
-                </div>
+                </div> */}
                 <div onClick={() => redireccionar('https://www.instagram.com/elshowdelfutsal/')}>
                   <BsInstagram className="iconos-Redes-Sociales"></BsInstagram>
                 </div>
@@ -370,9 +370,9 @@ const Inicio = () => {
             </div>
           </div>
 
-          <div className="CI-Somos-radio">
+          {/* <div className="CI-Somos-radio">
             <Radio />
-          </div>
+          </div> */}
         </div>
       </div>
       {/* SECCION VIVO */}
