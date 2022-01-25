@@ -66,6 +66,7 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
     } else {
       if (isEditarTorneo) {
         dispatch(editarTorneo_accion(datosTorneo));
+        siguientePantallaNuevoTorneo();
       } else {
         dispatch(agregarTorneo_accion(datosTorneo));
       }
@@ -130,11 +131,16 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
               : 'Siguiente'
             : 'Crear Torneo'
         }
-        onClick={
+        /* onClick={
           Object.keys(torneo).length > 0
             ? isEditarTorneo
               ? () => validarCamposNuevoTorneo()
               : () => siguientePantallaNuevoTorneo()
+            : () => validarCamposNuevoTorneo()
+        } */
+        onClick={
+          Object.keys(torneo).length > 0
+            ? () => siguientePantallaNuevoTorneo()
             : () => validarCamposNuevoTorneo()
         }
         disabled={Object.keys(datosTorneo).length >= 4 ? false : true}
