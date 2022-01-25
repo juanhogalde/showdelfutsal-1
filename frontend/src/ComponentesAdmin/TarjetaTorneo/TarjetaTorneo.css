@@ -5,36 +5,74 @@
   background-color: white;
   border-bottom: 1px solid #0000001a;
   display: grid;
-  grid-template-columns: 1px minmax(50px, 100px) 1fr 30px 1px;
-  grid-template-rows: 35px 1fr 5px;
+  /* grid-template-columns: 1px minmax(50px, 100px) 1fr 30px 1px; */
+  grid-template-columns: 1fr 30px;
+  grid-template-rows: 1fr;
   margin-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px;
   position: relative;
+  border-radius: 10px;
+  box-shadow: 0px 6px 5px -2px rgba(0, 0, 0, 0.3);
+}
+.CI-Cuerpo-TarjetaTorneo {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  display: grid;
+  grid-template-columns: minmax(50px, 100px) 1fr;
+  grid-template-rows: 35px 1fr;
+}
+.CI-Cuerpo-Campeonato-TarjetaTorneo {
+  display: grid;
+  grid-template-columns: minmax(50px, 100px) 1fr;
+  grid-template-rows: 1fr;
 }
 .CP-TarjetaTorneo-Campeonato {
-  grid-template-rows: 5px 1fr 5px;
+  cursor: pointer;
 }
-.CI-Titulo-TarjetaTorneo {
-  grid-column: 2/5;
+.CP-TarjetaTorneo-Campeonato:hover {
+  background-color: #cddfff !important;
+}
+.titulo-TarjetaTorneo {
+  grid-column: 1/3;
   grid-row: 1/2;
+  display: flex;
+  align-items: center;
+  padding-bottom: 3px;
 }
-.CI-Imagen-TarjetaTorneo {
+.imagen-TarjetaTorneo {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+.info-TarjetaTorneo {
   grid-column: 2/3;
   grid-row: 2/3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
 }
 .CI-Acciones-TarjetaTorneo {
-  grid-column: 4/5;
-  grid-row: 2/3;
+  grid-column: 2/3;
+  grid-row: 1/2;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 }
-.CI-Cuerpo-TarjetaTorneo {
+.divNoSeleccionable {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+/* .CI-Cuerpo-TarjetaTorneo {
   grid-column: 3/4;
   grid-row: 2/3;
   padding-left: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
+} */

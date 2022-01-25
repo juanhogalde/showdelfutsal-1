@@ -11,7 +11,7 @@ const baseDeDatos_1 = require("./Config/baseDeDatos");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const Noticias_Router_1 = __importDefault(require("./Componentes/Noticias/Noticias_Router"));
-const Campeonatos_Router_1 = __importDefault(require("./Componentes/Campeonatos/Campeonatos_Router"));
+const Torneos_Router_1 = __importDefault(require("./Componentes/Torneos/Torneos_Router"));
 const Equipos_Router_1 = __importDefault(require("./Componentes/Equipos/Equipos_Router"));
 const Categorias_Router_1 = __importDefault(require("./Componentes/Categorias/Categorias_Router"));
 const Partidos_Router_1 = __importDefault(require("./Componentes/Partidos/Partidos_Router"));
@@ -22,16 +22,16 @@ const Estadios_Router_1 = __importDefault(require("./Componentes/Estadios/Estadi
 const Home_Router_1 = __importDefault(require("./Componentes/Home/Home_Router"));
 const Imagenes_Router_1 = __importDefault(require("./Componentes/Imagenes/Imagenes_Router"));
 const Videos_Router_1 = __importDefault(require("./Componentes/Videos/Videos_Router"));
-const Galeria_Router_1 = __importDefault(require("./Galeria/Galeria_Router"));
+const Galeria_Router_1 = __importDefault(require("./Componentes/Galeria/Galeria_Router"));
 const Tablas_Router_1 = __importDefault(require("./Componentes/Tablas/Tablas_Router"));
 const responder_1 = __importDefault(require("./Middlewares/responder"));
 const manejadorErrores_1 = __importDefault(require("./Middlewares/manejadorErrores"));
 const importarDatos_1 = require("./Config/importarDatos");
-const Usuarios_Model_1 = __importDefault(require("./Componentes/Usuarios/Usuarios_Model"));
 const instalacionInicial_1 = require("./Config/instalacionInicial");
 const MedidasPublicidad_Router_1 = __importDefault(require("./Componentes/MedidasPublicidad/MedidasPublicidad_Router"));
+const Vivo_Router_1 = __importDefault(require("./Componentes/Vivo/Vivo_Router"));
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
-const deploy = 'v0.0.8';
+const deploy = 'v0.0.13';
 class Server {
     constructor() {
         this._cadenaDeConexion = process.env.DATABASE || 'mongodb://localhost:29017/Desarrollo';
@@ -46,7 +46,7 @@ class Server {
         this.app.use(manejadorErrores_1.default);
     }
     conectarBd() {
-        const bd = new baseDeDatos_1.baseMongo(this._cadenaDeConexion);
+        this.bd = new baseDeDatos_1.baseMongo(this._cadenaDeConexion);
     }
     configurar() {
         this.app.set('port', process.env.PORT || 4000);
@@ -60,7 +60,7 @@ class Server {
         this.app.use(express_1.default.static('public'));
     }
     routear() {
-        this.app.use('/campeonatos', Campeonatos_Router_1.default);
+        this.app.use('/torneos', Torneos_Router_1.default);
         this.app.use('/categorias', Categorias_Router_1.default);
         this.app.use('/estadios', Estadios_Router_1.default);
         this.app.use('/equipos', Equipos_Router_1.default);
@@ -75,6 +75,7 @@ class Server {
         this.app.use('/tablas', Tablas_Router_1.default);
         this.app.use('/usuarios', Usuarios_Router_1.default);
         this.app.use('/medidasPublicidad', MedidasPublicidad_Router_1.default);
+        this.app.use('/videosVivo', Vivo_Router_1.default);
         this.app.get('/', (req, res) => {
             res.send('iniciado');
         });
@@ -86,20 +87,13 @@ class Server {
             (0, importarDatos_1.importarDatos)(req, res);
         });
         this.app.get('/instalar', (req, res) => {
-            Usuarios_Model_1.default.findOne({}).then((elemento) => {
-                if (elemento) {
-                    responder_1.default.sucess(req, res, 'Ya instalada');
-                }
-                else {
-                    (0, instalacionInicial_1.instalarBD)()
-                        .then((respuesta) => {
-                        res.status(200).send(respuesta);
-                    })
-                        .catch((e) => {
-                        console.log(e);
-                        res.status(500).send('ocurrio un error');
-                    });
-                }
+            (0, instalacionInicial_1.instalarBD)(this.bd)
+                .then((respuesta) => {
+                res.status(200).send(respuesta);
+            })
+                .catch((e) => {
+                console.log(e);
+                res.status(500).send('ocurrio un error');
             });
         });
         this.app.get('*', (req, res) => {
@@ -110,6 +104,7 @@ class Server {
     iniciar() {
         this.app.listen(this.app.get('port'), () => {
             console.log(`⚡️[FUTSAL]: El Servidor de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`);
+            process.env.NODE_ENV == 'desarrollo' ? console.warn(`${deploy}`) : console.log(`${deploy}`);
         });
     }
 }

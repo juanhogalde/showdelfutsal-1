@@ -47,6 +47,7 @@ class TorneosController {
       };
       let creacionTabla: any;
       const torneoBody = req.body;
+      console.log(torneoBody);
       if (torneoBody._id) {
         modeloTorneos.findById(torneoBody._id).then(async (torneo: any) => {
           if (torneo) {

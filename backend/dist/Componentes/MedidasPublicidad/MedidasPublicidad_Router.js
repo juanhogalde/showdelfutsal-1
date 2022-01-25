@@ -11,6 +11,7 @@ class MedidasPublicidadRouter {
     routes() {
         this.router.get('/listar', MedidasPublicidad_Controller_1.medidasPublicidadController.listar);
         this.router.post('/agregar', MedidasPublicidad_Controller_1.medidasPublicidadController.agregar);
+        this.router.put('/editar', MedidasPublicidad_Controller_1.medidasPublicidadController.editar);
     }
 }
 const medidasPublicidadRouter = new MedidasPublicidadRouter();

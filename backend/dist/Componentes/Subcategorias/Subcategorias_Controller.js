@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.subcategoriasController = void 0;
 const responder_1 = __importDefault(require("../../Middlewares/responder"));
 const Subcategorias_Model_1 = __importDefault(require("./Subcategorias_Model"));
+const enumeradores_1 = require("../../Config/enumeradores");
 class SubcategoriasController {
     listar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -36,6 +37,31 @@ class SubcategoriasController {
             }
             catch (error) {
                 responder_1.default.error(req, res, error);
+            }
+        });
+    }
+    modificarSubcategoriaTorneo(data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const pr = new Promise((resolve, reject) => {
+                    Subcategorias_Model_1.default.findById(data.idSubcategoria).then((subCategoria) => {
+                        if (subCategoria) {
+                            subCategoria.idCategoria = data.idCategoria;
+                            subCategoria.nombreSubcategoria = enumeradores_1.keySubcategoria[data.keySubcategoria];
+                            subCategoria.keySubcategoria = data.keySubcategoria;
+                            resolve(subCategoria.save());
+                        }
+                        else {
+                            reject(new Error('La subcategoria ingresada no existe'));
+                        }
+                    });
+                });
+                return pr;
+            }
+            catch (error) {
+                return new Promise(reject => {
+                    reject(error);
+                });
             }
         });
     }

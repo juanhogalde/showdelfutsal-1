@@ -112,7 +112,7 @@
   transition: all 0.5s ease-in-out;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1090px) {
   .nav-logo-movil {
     display: flex;
     margin-left: 20px;

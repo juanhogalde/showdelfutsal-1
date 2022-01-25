@@ -1,7 +1,6 @@
 import React from 'react';
 import './BarraDeNavegacionAdmin.css';
 import iconoMenu from '../../Static/Admin/menuAdmin.svg';
-import iconoAvatar from '../../Static/Admin/iconoAvatar.svg';
 import {useHistory, useLocation} from 'react-router';
 import {BsPower} from 'react-icons/bs';
 import iconoAtras from '../../Static/Admin/iconoAtras.svg';

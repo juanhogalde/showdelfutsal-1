@@ -30,24 +30,22 @@ class VideosController {
     agregar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if (req.body.archivos.length) {
-                    console.log(req.body);
-                    let arregloDePath = [];
-                    req.body.archivos.forEach((archivo) => {
-                        let path = archivo.path.split('\\');
-                        let pathFile = `${path[0]}/${path[1]}/${path[2]}`;
-                        let imagen = new Videos_Model_1.default(Object.assign(Object.assign({}, archivo), { fuente: pathFile.replace('public', ''), galeria: true, descripcion: req.body.descripcion }));
-                        arregloDePath.push(imagen);
-                        imagen.save();
-                    });
-                    responder_1.default.sucess(req, res, arregloDePath);
+                if (req.body.videos.length) {
+                    let videosAgregados = [];
+                    req.body.videos.forEach((archivo) => __awaiter(this, void 0, void 0, function* () {
+                        if (!archivo._id) {
+                            const video = new Videos_Model_1.default(Object.assign(Object.assign({}, archivo), { idGaleria: req.body.idGaleria }));
+                            videosAgregados.push(video);
+                            yield video.save();
+                        }
+                        else {
+                            videosAgregados.push(archivo);
+                        }
+                    }));
+                    responder_1.default.sucess(req, res, videosAgregados);
                 }
                 else {
-                    let path = req.body.archivos.path.split('\\');
-                    let pathFile = `${path[0]}/${path[1]}/${path[2]}`;
-                    const imagen = new Videos_Model_1.default(Object.assign(Object.assign({}, req.body), { fuente: pathFile.replace('public', '') }));
-                    yield imagen.save();
-                    responder_1.default.sucess(req, res, imagen);
+                    responder_1.default.error(req, res, 'sin datos');
                 }
             }
             catch (error) {
@@ -103,8 +101,8 @@ class VideosController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let id = req.body.id;
-                const imagenEliminada = yield Videos_Model_1.default.findOneAndDelete({ _id: id }, { new: true });
-                responder_1.default.sucess(req, res, imagenEliminada);
+                const videoEliminado = yield Videos_Model_1.default.findOneAndDelete({ _id: id }, { new: true });
+                responder_1.default.sucess(req, res, videoEliminado);
             }
             catch (error) {
                 responder_1.default.error(req, res, error);
@@ -119,6 +117,11 @@ class VideosController {
     obtenerGaleriaVideo(nombreGaleria) {
         return __awaiter(this, void 0, void 0, function* () {
             return Videos_Model_1.default.find({ galeriaVideo: nombreGaleria }).sort({ fechaCarga: 'desc' }).limit(2);
+        });
+    }
+    obtenerVideosGaleriaPorId(galeriaId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return Videos_Model_1.default.find({ $and: [{ idGaleria: { $exists: true } }, { idGaleria: galeriaId }] }, { idGaleria: 0 });
         });
     }
 }

@@ -6,6 +6,8 @@ const ImagenesSchema = new mongoose_1.Schema({
     alto: { type: Number },
     ancho: { type: Number },
     descripcion: { type: String },
+    isGaleria: { type: Boolean, default: false },
+    galeriaId: { type: mongoose_1.Schema.Types.ObjectId, ref: 'modeloGaleria' },
     fechaCarga: { type: Date },
 });
 exports.default = (0, mongoose_1.model)('modeloImagenes', ImagenesSchema);

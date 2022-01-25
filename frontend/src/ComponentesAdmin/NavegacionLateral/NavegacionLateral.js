@@ -8,7 +8,6 @@ import {BsCardImage} from 'react-icons/bs';
 import {BsPlusCircle} from 'react-icons/bs';
 import {BsPersonCircle} from 'react-icons/bs';
 import {BsXCircle} from 'react-icons/bs';
-import {BsPower} from 'react-icons/bs';
 
 const NavegacionLateral = props => {
   const {isMenuLateralAbierto, abrirMenuLateral} = props;
