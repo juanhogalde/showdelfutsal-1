@@ -81,7 +81,7 @@ const TarjetaEnfrentamiento = ({
     }
 
     return () => {};
-  }, [enfrentamiento.resultadoLocal, enfrentamiento.resultadoVisitante]);
+  }, [enfrentamiento, enfrentamiento.resultadoLocal, enfrentamiento.resultadoVisitante]);
 
   return (
     <div
@@ -187,7 +187,7 @@ const TarjetaEnfrentamiento = ({
           </div>
 
           {!isSeccionInicio && <p>27/11/2021</p>}
-          {Object.keys(enfrentamiento).length > 0 && enfrentamiento.penalesLocal.length != 0 ? (
+          {Object.keys(enfrentamiento).length > 0 && enfrentamiento.penalesLocal.length !== 0 ? (
             <p>Penales</p>
           ) : (
             ''

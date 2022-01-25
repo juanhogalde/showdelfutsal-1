@@ -1,7 +1,7 @@
 import React from 'react';
 import './PieDepagina.css';
 import LogoPieDePagina from '../../Static/Img/isologo.png';
-import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
+import {BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
 export const PieDepagina = ({isConFondo = false}) => {
   const redireccionar = url => {
@@ -29,9 +29,9 @@ export const PieDepagina = ({isConFondo = false}) => {
                 <div onClick={() => redireccionar('https://www.facebook.com/ElShowdelFutsal')}>
                   <FaFacebookF className="iconos-Redes-Sociales"></FaFacebookF>
                 </div>
-                <div onClick={() => redireccionar()}>
+                {/* <div onClick={() => redireccionar()}>
                   <BsTwitter className="iconos-Redes-Sociales"></BsTwitter>
-                </div>
+                </div> */}
                 <div onClick={() => redireccionar('https://www.instagram.com/elshowdelfutsal/')}>
                   <BsInstagram className="iconos-Redes-Sociales"></BsInstagram>
                 </div>
