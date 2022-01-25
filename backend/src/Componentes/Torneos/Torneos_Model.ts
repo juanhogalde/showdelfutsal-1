@@ -19,5 +19,11 @@ const TorneosSchema = new Schema({
   ],
   tipoTorneo: Number,
 });
+TorneosSchema.post('save', function (doc,next) {
+  doc.populate('idSubcategoria').then(function() {
+    next();
+  });
+});
+
 
 export default model<ITorneos>('modeloTorneos', TorneosSchema);

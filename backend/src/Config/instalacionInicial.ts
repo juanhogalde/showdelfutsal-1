@@ -12,22 +12,18 @@ let inicializarCategorias = async () => {
     {
       nombreCategoria: 'Masculino',
       keyCategoria: 1,
-      idSubcategorias: [],
     },
     {
       nombreCategoria: 'Femenino',
       keyCategoria: 2,
-      idSubcategorias: [],
     },
     {
       nombreCategoria: 'Liga',
       keyCategoria: 3,
-      idSubcategorias: [],
     },
     {
       nombreCategoria: 'Otras Competiciones',
       keyCategoria: 4,
-      idSubcategorias: [],
     },
   ];
   for await (const categoria of categoriaArray) {
@@ -37,7 +33,6 @@ let inicializarCategorias = async () => {
         if (categoriaEncontrado) {
           categoriaEncontrado.nombreCategoria = categoria.nombreCategoria;
           categoriaEncontrado.keyCategoria = categoria.keyCategoria;
-          categoriaEncontrado.idSubcategorias = categoria.idSubcategorias;
           categoriaEncontrado.save();
         } else {
           let categoriaa: ICategorias = new modeloCategorias(categoria);
@@ -52,38 +47,57 @@ let inicializarSubCategorias = async () => {
     {
       nombreSubcategoria: 'Divisional A',
       keySubcategoria: 1,
+      keyCategoria:1
+    },  
+    {
+      nombreSubcategoria: 'Divisional A',
+      keySubcategoria: 1,
+      keyCategoria:2
     },
     {
       nombreSubcategoria: 'Divisional B',
       keySubcategoria: 2,
+      keyCategoria:1
+    },
+    {
+      nombreSubcategoria: 'Divisional B',
+      keySubcategoria: 2,
+      keyCategoria:2
     },
     {
       nombreSubcategoria: 'Divisional C',
       keySubcategoria: 3,
+      keyCategoria:1
     },
     {
       nombreSubcategoria: 'Divisional D',
       keySubcategoria: 4,
+      keyCategoria:1
     },
     {
       nombreSubcategoria: 'Provincial',
       keySubcategoria: 5,
+      keyCategoria:3
     },
     {
       nombreSubcategoria: 'Regional',
       keySubcategoria: 6,
+      keyCategoria:3
     },
     {
       nombreSubcategoria: 'Nacional',
       keySubcategoria: 7,
+      keyCategoria:3
     },
     {
       nombreSubcategoria: 'Inferiores',
       keySubcategoria: 8,
+      keyCategoria:4
     },
     {
       nombreSubcategoria: 'Liga Departamentales',
       keySubcategoria: 9,
+      keyCategoria:4
     },
   ];
   for await (const subcategoria of subCategoriaArray) {
@@ -93,6 +107,7 @@ let inicializarSubCategorias = async () => {
         if (subcategoriaEncontrado) {
           subcategoriaEncontrado.nombreSubcategoria = subcategoria.nombreSubcategoria;
           subcategoriaEncontrado.keySubcategoria = subcategoria.keySubcategoria;
+          subcategoriaEncontrado.keyCategoria = subcategoria.keyCategoria;
           subcategoriaEncontrado.save();
         } else {
           let subCategoria: ISubCategorias = new modeloSubCategorias(subcategoria);

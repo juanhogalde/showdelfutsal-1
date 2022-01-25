@@ -56,6 +56,7 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
           value: subcategoria._id,
           label: subcategoria.nombreSubcategoria,
           key: subcategoria.keySubcategoria,
+          keyCategoria:subcategoria.keyCategoria
         };
       });
       var medidasPublicidad = accion.datosIniciales.medidasPublicidad.map(medidas => {

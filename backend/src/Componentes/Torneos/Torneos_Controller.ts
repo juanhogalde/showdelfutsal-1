@@ -18,6 +18,7 @@ class TorneosController {
 
   public async agregar(req: Request, res: Response) {
     try {
+    
       const torneo: ITorneos = new modeloTorneos(req.body);
       const resultado = await torneo.save();
       responder.sucess(req, res, resultado);
@@ -47,7 +48,6 @@ class TorneosController {
       };
       let creacionTabla: any;
       const torneoBody = req.body;
-      console.log(torneoBody);
       if (torneoBody._id) {
         modeloTorneos.findById(torneoBody._id).then(async (torneo: any) => {
           if (torneo) {
@@ -70,20 +70,12 @@ class TorneosController {
                 if (!torneo.idSubcategoria.includes(torneoBody.nuevaSubcategoria)) {
                   torneo.idSubcategoria.push(torneoBody.nuevaSubcategoria);
                 }
-              } else {
+              } 
+              else {
                 torneo.idSubcategoria.push(torneoBody.nuevaSubcategoria);
               }
-
-              // const datos = {
-              //   idCategoria: torneoBody.nuevaCategoria,
-              //   idSubcategoria: torneoBody.nuevaSubcategoria,
-              //   keySubcategoria: torneoBody.keySubcategoria,
-              // };
-              // const subcateg = await subcategoriasController.modificarSubcategoriaTorneo(datos);
-              // if (subcateg) {
-              //   resultadoOperacion.idSubcategoria = true;
-              // }
             }
+           
 
             if (torneoBody.nombreZona || torneoBody.tipoZona) {
               const datos = {
@@ -165,18 +157,12 @@ class TorneosController {
                 responder.error(req, res, error);
               }
             }
-
-            const op = await torneo.save();
+          
+            const op = await torneo.save()
             if (op) {
-              objetoResponse.torneoCreado = op._doc;
-              responder.sucess(req, res, objetoResponse);
-              // let datosTorneo: any = op._doc;
-              // if (creacionTabla) {
-              //   let objetoFinal: any = {...datosTorneo, ...creacionTabla};
-              //   responder.sucess(req, res, objetoFinal);
-              // } else {
-              //   responder.sucess(req, res, op);
-              // }
+             
+              responder.sucess(req, res, op._doc);
+             
             } else {
               responder.error(req, res, '', 'Error al actualizar el torneo', 500);
             }
