@@ -41,7 +41,7 @@ const Zonas = () => {
   const agregarZona = () => {
     let auxDatosZona = {};
     Object.assign(auxDatosZona, torneo);
-    auxDatosZona.nombreZona = datosZona.tituloZona;
+    auxDatosZona.nombreZona = datosZona.nombreZona;
     auxDatosZona.tipoZona = tipo.value;
     dispatch(editarTorneo_accion(auxDatosZona));
     setArrayZonasCreadas([...arrayZonasCreadas, auxDatosZona]);

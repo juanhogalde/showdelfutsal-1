@@ -155,6 +155,7 @@ const Inicio = () => {
       setVideoVivo({});
     }
   }, [
+    partidos,
     setNoticiaP,
     setNoticia1,
     setNoticia2,

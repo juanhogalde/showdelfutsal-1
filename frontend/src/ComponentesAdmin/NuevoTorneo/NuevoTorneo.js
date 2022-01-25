@@ -81,7 +81,6 @@ const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
       });
     }
   };
-  console.log(datosTorneo);
   useLayoutEffect(() => {
     if (Object.keys(torneo).length > 0) {
       setDatosTorneo(torneo);
