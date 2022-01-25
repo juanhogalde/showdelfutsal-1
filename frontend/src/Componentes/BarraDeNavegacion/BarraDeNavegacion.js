@@ -63,13 +63,22 @@ const BarraDeNavegacion = () => {
     //   setIsMasculino(false);
     // }
   };
-  const eventoCerrarSubMenu = () => {
+  const eventoCerrarSubMenu = resp => {
     if (isMasculino) {
       setIsMasculino(true);
     }
     if (isFemenenino) {
       setIsFemenenino(true);
     }
+    if (isOtra) {
+      setIsOtra(!isOtra);
+    }
+    if (isLiga) {
+      setIsLiga(!isLiga);
+    }
+    /* if (isOtra) {
+      setIsOtra(true);
+    } */
   };
   return (
     <>
@@ -114,7 +123,7 @@ const BarraDeNavegacion = () => {
               </NavLink>
             </li>
             <li className="nav-item" onClick={() => abrirSubmenu('Liga')}>
-              <div className="nav-links" tabIndex="1" onBlur={() => eventoCerrarSubMenu()}>
+              <div className="nav-links" tabIndex="2" onBlur={() => eventoCerrarSubMenu()}>
                 LNFA
                 <div className={`${isLiga ? 'dropdown' : 'dropdown-close'}`}>
                   <Menucategorias categoria={3} eventoApertura={isLiga} handleClick={handleClick} />
@@ -127,7 +136,7 @@ const BarraDeNavegacion = () => {
               </NavLink>
             </li> */}
             <li className="nav-item" onClick={() => abrirSubmenu('Otras')}>
-              <div className="nav-links" tabIndex="1" onBlur={() => eventoCerrarSubMenu()}>
+              <div className="nav-links" tabIndex="3" onBlur={() => eventoCerrarSubMenu()}>
                 Otras Competencias
                 <div className={`${isOtra ? 'dropdown' : 'dropdown-close'}`}>
                   <Menucategorias categoria={4} eventoApertura={isOtra} handleClick={handleClick} />
