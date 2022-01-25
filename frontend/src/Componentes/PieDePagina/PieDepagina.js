@@ -1,7 +1,7 @@
 import React from 'react';
 import './PieDepagina.css';
 import LogoPieDePagina from '../../Static/Img/isologo.png';
-import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
+import {BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
 export const PieDepagina = ({isConFondo = false}) => {
   const redireccionar = url => {
