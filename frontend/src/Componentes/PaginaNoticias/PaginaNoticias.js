@@ -15,7 +15,7 @@ const PaginaNoticias = ({
   titulo = 'Masculino',
   noticias1 = 'Femenino',
   noticias2 = 'Inferiores',
-  noticias3 = 'Copa y Liga',
+  noticias3 = 'LNFA',
 }) => {
   const {noticias} = useSelector(state => state.storeNoticias);
   const [noticiaMasculino, setNoticiaMasculino] = useState({});
