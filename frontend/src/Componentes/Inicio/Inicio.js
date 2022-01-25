@@ -174,7 +174,9 @@ const Inicio = () => {
     return (
       <div className="I-Contenedor-flecha-derecha">
         <div
-          className={`${props.isVertical ? 'flechaNextVertical' : 'flechaSiguiente'}`}
+          className={`${
+            props.isVertical ? 'flechaNextVertical' : 'flechaSiguiente I-Contenedor-flecha-derecha'
+          }`}
           onClick={onClick}
         >
           <AiFillCaretRight size={20} className="flecha"></AiFillCaretRight>
@@ -200,16 +202,19 @@ const Inicio = () => {
   }
 
   const settings = {
+    arrows: false,
+    fade: true,
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     autoplay: true,
-    autoplaySpeed: 2000,
-    cssEase: 'linear',
+    autoplaySpeed: 3500,
+    cssEase: 'ease-in-out',
+    pauseOnHover: true,
 
     responsive: [
       {
@@ -575,6 +580,7 @@ const Inicio = () => {
           </div>
         </div>
       </div>
+
       <PieDepagina isConFondo={true}></PieDepagina>
 
       <ModalLowa

@@ -12,6 +12,8 @@ const ImagenesVideo = ({
   descripcion = '',
   isGaleriaPrincipal = false,
 }) => {
+  console.log(DatosDeEntrada);
+
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   const isMobileIPhone = userAgent.indexOf('iPhone'); // para detectar si se esta desde un android o iphone
   const isMobileAndroid = userAgent.indexOf('Android');
@@ -146,7 +148,7 @@ const ImagenesVideo = ({
                       isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'
                     }
                     src={`https://www.youtube-nocookie.com/embed/${dataActual.fuente}`}
-                    title="sadasd"
+                    title="video"
                   ></iframe>
                   <div className="decripcion-imagenesVideo2">
                     <h4>{dataActual.descripcion}</h4>
