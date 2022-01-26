@@ -45,7 +45,6 @@ const Campeonato = () => {
     }
   };
   const redireccionarZona = (categoria, subcategoria) => {
-   
     history.push(`/Torneo/Nuevo/Campeonato/Zonas/${categoria}/${subcategoria}`);
   };
 
@@ -54,14 +53,14 @@ const Campeonato = () => {
       dispatch(volverPorDefectoEditarTorneo_accion());
     };
   }, [dispatch]);
-  
+
   if (categorias.length > 0 && subcategorias.length > 0) {
     return (
       <div className="CP-Campeonato">
         <div className="CI-CampeonatoMasculino">
-          <p>{categorias[0].label ? categorias[0].label : ''}</p>
+          <p>{categorias[1].label ? categorias[1].label : ''}</p>
           {subcategorias.map((subcategoria, index) => {
-            if (subcategoria.keyCategoria ===1)  {
+            if (subcategoria.keyCategoria === 1) {
               let auxIsCategoriaExistente = false;
               if (torneo.idSubcategoria) {
                 if (torneo.idSubcategoria.includes(subcategoria.value)) {
@@ -87,9 +86,9 @@ const Campeonato = () => {
           })}
         </div>
         <div className="CI-CampeonatoMasculino">
-          <p>{categorias[1].label ? categorias[1].label : ''}</p>
+          <p>{categorias[2].label ? categorias[2].label : ''}</p>
           {subcategorias.map((subcategoria, index) => {
-            if ( subcategoria.keyCategoria ===2) {
+            if (subcategoria.keyCategoria === 2) {
               let auxIsCategoriaExistente = false;
               if (torneo.idSubcategoria) {
                 if (torneo.idSubcategoria.includes(subcategoria.value)) {
