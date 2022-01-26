@@ -48,6 +48,16 @@ const Campeonato = () => {
     history.push(`/Torneo/Nuevo/Campeonato/Zonas/${categoria}/${subcategoria}`);
   };
 
+  const obtenerExistenciaDeSubcategoria = subcategoria => {
+    let resultadoDeBusqueda = false;
+    torneo.idSubcategoria.forEach(subCategoriaTorneo => {
+      if (subcategoria.keyCategoria === subCategoriaTorneo.keyCategoria) {
+        if (subcategoria.key === subCategoriaTorneo.keySubcategoria) resultadoDeBusqueda = true;
+      }
+    });
+    return resultadoDeBusqueda;
+  };
+
   useEffect(() => {
     return () => {
       dispatch(volverPorDefectoEditarTorneo_accion());
@@ -58,20 +68,14 @@ const Campeonato = () => {
     return (
       <div className="CP-Campeonato">
         <div className="CI-CampeonatoMasculino">
-          <p>{categorias[1].label ? categorias[1].label : ''}</p>
+          <p>{categorias[0].label ? categorias[0].label : ''}</p>
+
           {subcategorias.map((subcategoria, index) => {
             if (subcategoria.keyCategoria === 1) {
-              let auxIsCategoriaExistente = false;
-              if (torneo.idSubcategoria) {
-                if (torneo.idSubcategoria.includes(subcategoria.value)) {
-                  auxIsCategoriaExistente = true;
-                } else {
-                  auxIsCategoriaExistente = false;
-                }
-              }
+              const aux = obtenerExistenciaDeSubcategoria(subcategoria);
               return (
                 <TarjetaTorneo
-                  isExisteSubcategoria={auxIsCategoriaExistente}
+                  isExisteSubcategoria={aux}
                   categoria={categorias[0]}
                   subcategoria={subcategoria}
                   key={index}
@@ -80,26 +84,19 @@ const Campeonato = () => {
                   consultarPorAgregarCategoriaSubcategoria={
                     consultarPorAgregarCategoriaSubcategoria
                   }
-                ></TarjetaTorneo>
+                />
               );
             } else return '';
           })}
         </div>
         <div className="CI-CampeonatoMasculino">
-          <p>{categorias[2].label ? categorias[2].label : ''}</p>
+          <p>{categorias[1].label ? categorias[1].label : ''}</p>
           {subcategorias.map((subcategoria, index) => {
             if (subcategoria.keyCategoria === 2) {
-              let auxIsCategoriaExistente = false;
-              if (torneo.idSubcategoria) {
-                if (torneo.idSubcategoria.includes(subcategoria.value)) {
-                  auxIsCategoriaExistente = true;
-                } else {
-                  auxIsCategoriaExistente = false;
-                }
-              }
+              const aux = obtenerExistenciaDeSubcategoria(subcategoria);
               return (
                 <TarjetaTorneo
-                  isExisteSubcategoria={auxIsCategoriaExistente}
+                  isExisteSubcategoria={aux}
                   categoria={categorias[1]}
                   subcategoria={subcategoria}
                   key={index}
