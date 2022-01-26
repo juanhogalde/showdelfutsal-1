@@ -20,7 +20,7 @@ const tipoTorneoArray = [
   {value: 3, label: 'Copa'},
 ];
 
-const NuevoTorneo = ({datosParaEditar = {}, isEditarTorneo = false}) => {
+const NuevoTorneo = ({isEditarTorneo = false}) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {torneo, isAgregarTorneo} = useSelector(state => state.storeTorneos);

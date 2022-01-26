@@ -29,6 +29,12 @@ export const listarTorneoError = 'listarTorneoError';
 export const volverPorDefectoListarTorneo = 'volverPorDefectoListarTorneo';
 export const volverPorDefectoUnTorneo = 'volverPorDefectoUnTorneo';
 
+export const cargandoObtenerTorneo = 'cargandoObtenerTorneo';
+export const obtenerTorneoExito = 'obtenerTorneoExito';
+export const obtenerTorneoError = 'obtenerTorneoError';
+
+export const recuperarTorneo = 'recuperarTorneo';
+
 export const volverPorDefectoUnTorneo_accion = () => {
   return {
     type: volverPorDefectoUnTorneo,
@@ -249,6 +255,58 @@ export const listarTorneo_accion = () => {
     })
       .then(res => {
         dispatch(listarTorneoExito_accion(res.data.value));
+      })
+      .catch(error => {
+        console.log({error});
+        /* dispatch(listarTorneoError_accion()); */
+      });
+  };
+};
+/****** OBTENER TORNEO EN MEMORIA******/
+export const recuperarTorneo_accion = id => {
+  return {
+    type: recuperarTorneo,
+    id: id,
+  };
+};
+
+/****** OBTENER TORNEO ASYNC******/
+export const cargandoObtenerTorneo_accion = () => {
+  return {
+    type: cargandoObtenerTorneo,
+  };
+};
+
+export const obtenerTorneoExito_accion = datos => {
+  return {
+    type: obtenerTorneoExito,
+    datos: datos,
+  };
+};
+
+export const obtenerTorneoError_accion = error => {
+  return {
+    type: obtenerTorneoError,
+    error: error,
+  };
+};
+
+/* export const volverPorDefectoListarTorneo_accion = () => {
+  return {
+    type: volverPorDefectoListarTorneo,
+  };
+}; */
+
+export const obtenerTorneo_accion = id => {
+  return dispatch => {
+    dispatch(cargandoObtenerTorneo_accion());
+    API({
+      url: '/torneos/obtener',
+      method: 'get',
+      data: {_id: id},
+    })
+      .then(res => {
+        /* dispatch(listarTorneoExito_accion(res.data.value)); */
       })
       .catch(error => {
         console.log({error});
