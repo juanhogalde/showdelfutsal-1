@@ -9,7 +9,7 @@ import {tablasController} from '../Tablas/Tablas_Controller';
 class TorneosController {
   public async listar(req: Request, res: Response) {
     try {
-      const listadoCampeonatos = await modeloTorneos.find();
+      const listadoCampeonatos = await modeloTorneos.find().populate("idSubcategoria");
       responder.sucess(req, res, listadoCampeonatos);
     } catch (error) {
       responder.error(req, res, error);
