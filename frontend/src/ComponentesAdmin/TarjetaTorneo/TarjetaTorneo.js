@@ -25,7 +25,6 @@ const TarjetaTorneo = ({
     console.log('');
   },
 }) => {
-  console.log(isExisteSubcategoria);
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
   const historialDeNavegacion = useHistory();
