@@ -7,16 +7,30 @@ const MenuCategorias = props => {
 
   return (
     <div className={`${eventoApertura ? 'Lista-submenu' : 'Lista-submenu-cerrada'}`}>
-      {categoria && categoria !== 3 && categoria !== 4 && (
+      {categoria && categoria !== 2 && categoria !== 3 && categoria !== 4 && (
         <div className="I-submenu" onClick={() => handleClick(categoria)}>
           <Link className="Links-submenu" to="/Seccion/1">
             <h6>Division A</h6>
           </Link>
         </div>
       )}
-      {categoria && categoria !== 3 && categoria !== 4 && (
+      {categoria && categoria !== 2 && categoria !== 3 && categoria !== 4 && (
         <div className="I-submenu" onClick={() => handleClick(categoria)}>
           <Link className="Links-submenu" to="/Seccion/2">
+            <h6>Division B</h6>
+          </Link>
+        </div>
+      )}
+      {categoria && categoria !== 1 && categoria !== 3 && categoria !== 4 && (
+        <div className="I-submenu" onClick={() => handleClick(categoria)}>
+          <Link className="Links-submenu" to="/Seccion/10">
+            <h6>Division A</h6>
+          </Link>
+        </div>
+      )}
+      {categoria && categoria !== 1 && categoria !== 3 && categoria !== 4 && (
+        <div className="I-submenu" onClick={() => handleClick(categoria)}>
+          <Link className="Links-submenu" to="/Seccion/11">
             <h6>Division B</h6>
           </Link>
         </div>

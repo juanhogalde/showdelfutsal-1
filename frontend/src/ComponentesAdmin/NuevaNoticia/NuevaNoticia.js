@@ -201,7 +201,6 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
       case 1:
         let subcategoriasParaMasculino = [];
         subcategorias.forEach(element => {
-          console.log(element);
           if (element.keyCategoria === 1) {
             if (element.key === 1 || element.key === 2 || element.key === 3 || element.key === 4) {
               subcategoriasParaMasculino = [...subcategoriasParaMasculino, element];
@@ -215,7 +214,9 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
         let subcategoriasParaFemenino = [];
         subcategorias.forEach(element => {
           if (element.keyCategoria === 2) {
-            if (element.key === 1 || element.key === 2) {
+            console.log(element);
+
+            if (element.key === 10 || element.key === 11) {
               subcategoriasParaFemenino = [...subcategoriasParaFemenino, element];
             }
           }
