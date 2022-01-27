@@ -118,6 +118,7 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
       case 1:
         let subcategoriasParaMasculino = [];
         subcategorias.forEach(element => {
+          console.log(element);
           if (element.key === 1 || element.key === 2 || element.key === 3 || element.key === 4) {
             subcategoriasParaMasculino = [...subcategoriasParaMasculino, element];
           }
@@ -193,14 +194,18 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
     dispatch(volverPorDefecto_accion());
     history.push('/Noticias');
   };
+
   const funcionSetCategoria = respuestaCategoria => {
     setCategoria(respuestaCategoria);
     switch (respuestaCategoria.key) {
       case 1:
         let subcategoriasParaMasculino = [];
         subcategorias.forEach(element => {
-          if (element.key === 1 || element.key === 2 || element.key === 3 || element.key === 4) {
-            subcategoriasParaMasculino = [...subcategoriasParaMasculino, element];
+          console.log(element);
+          if (element.keyCategoria === 1) {
+            if (element.key === 1 || element.key === 2 || element.key === 3 || element.key === 4) {
+              subcategoriasParaMasculino = [...subcategoriasParaMasculino, element];
+            }
           }
         });
         setArregloDeSubCategorias(subcategoriasParaMasculino);
@@ -209,8 +214,10 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
       case 2:
         let subcategoriasParaFemenino = [];
         subcategorias.forEach(element => {
-          if (element.key === 1 || element.key === 2) {
-            subcategoriasParaFemenino = [...subcategoriasParaFemenino, element];
+          if (element.keyCategoria === 2) {
+            if (element.key === 1 || element.key === 2) {
+              subcategoriasParaFemenino = [...subcategoriasParaFemenino, element];
+            }
           }
         });
         setArregloDeSubCategorias(subcategoriasParaFemenino);
