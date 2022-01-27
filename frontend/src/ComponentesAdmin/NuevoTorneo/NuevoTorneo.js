@@ -9,10 +9,14 @@ import {useHistory} from 'react-router';
 import Alertas from '../Alertas/Alertas';
 import {useDispatch, useSelector} from 'react-redux';
 import {
+  actualizarListaDeTorneos_accion,
   agregarTorneo_accion,
+  consultarPorEditarTorneo_accion,
   editarTorneo_accion,
   volverPorDefectoAgregarTorneo_accion,
+  volverPorDefectoEditarTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
+import compararObjetos from '../../ModulosExternos/CompararObjetos';
 
 const tipoTorneoArray = [
   {value: 1, label: 'Campeonato'},
@@ -20,12 +24,13 @@ const tipoTorneoArray = [
   {value: 3, label: 'Copa'},
 ];
 
-const NuevoTorneo = ({isEditarTorneo = false}) => {
+const NuevoTorneo = ({isEditarTorneoProps = false}) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const {torneo, isAgregarTorneo} = useSelector(state => state.storeTorneos);
+  const {torneo, isAgregarTorneo, isEditarTorneo} = useSelector(state => state.storeTorneos);
 
   const [datosTorneo, setDatosTorneo] = useState({});
+  const [isFinalizoEdicion, setIsFinalizoEdicion] = useState(false);
   const [alertaFechas, setAlertaFechas] = useState({
     tipo: '',
     mensaje: '',
@@ -50,7 +55,7 @@ const NuevoTorneo = ({isEditarTorneo = false}) => {
     }
   };
 
-  const respuestaDeAlertas = respuesta => {
+  const respuestaDeAlertasAgregarTorneo = respuesta => {
     if (respuesta) {
       dispatch(volverPorDefectoAgregarTorneo_accion());
     }
@@ -64,9 +69,8 @@ const NuevoTorneo = ({isEditarTorneo = false}) => {
         isMostrar: true,
       });
     } else {
-      if (isEditarTorneo) {
-        dispatch(editarTorneo_accion(datosTorneo));
-        siguientePantallaNuevoTorneo();
+      if (isEditarTorneoProps) {
+        dispatch(consultarPorEditarTorneo_accion('', '', '¿Desea editar torneo?'));
       } else {
         dispatch(agregarTorneo_accion(datosTorneo));
       }
@@ -81,6 +85,31 @@ const NuevoTorneo = ({isEditarTorneo = false}) => {
       });
     }
   };
+  const validarCamposEditarTorneo = () => {
+    if (compararObjetos(torneo, datosTorneo)) {
+      siguientePantallaNuevoTorneo();
+    } else {
+      validarCamposNuevoTorneo();
+    }
+  };
+
+  const obtenerRespuestaDeAlertasEditarTorneo = respuesta => {
+    if (respuesta) {
+      if (isEditarTorneo.isConsulta) {
+        dispatch(editarTorneo_accion(datosTorneo));
+      }
+      if (isEditarTorneo.isExito) {
+        dispatch(actualizarListaDeTorneos_accion());
+        setIsFinalizoEdicion(true);
+      }
+      if (isEditarTorneo.isError) {
+        dispatch(volverPorDefectoEditarTorneo_accion());
+      }
+    } else {
+      dispatch(volverPorDefectoEditarTorneo_accion());
+    }
+  };
+
   useLayoutEffect(() => {
     if (Object.keys(torneo).length > 0) {
       setDatosTorneo(torneo);
@@ -122,7 +151,28 @@ const NuevoTorneo = ({isEditarTorneo = false}) => {
         placeholder="Fecha Fin"
         value={datosTorneo.fechaFin ? datosTorneo.fechaFin : ''}
       />
-      <BotonLowa
+      {isEditarTorneoProps ? (
+        <BotonLowa
+          tituloboton={isFinalizoEdicion ? 'Siguiente' : 'Guardar'}
+          onClick={
+            isFinalizoEdicion
+              ? () => siguientePantallaNuevoTorneo()
+              : () => validarCamposEditarTorneo()
+          }
+          disabled={Object.keys(datosTorneo).length >= 4 ? false : true}
+        ></BotonLowa>
+      ) : (
+        <BotonLowa
+          tituloboton={Object.keys(torneo).length > 0 ? 'Siguiente' : 'Crear Torneo'}
+          onClick={
+            Object.keys(torneo).length > 0
+              ? () => siguientePantallaNuevoTorneo()
+              : () => validarCamposNuevoTorneo()
+          }
+          disabled={Object.keys(datosTorneo).length >= 4 ? false : true}
+        ></BotonLowa>
+      )}
+      {/* <BotonLowa
         tituloboton={
           Object.keys(torneo).length > 0
             ? isEditarTorneo
@@ -130,33 +180,32 @@ const NuevoTorneo = ({isEditarTorneo = false}) => {
               : 'Siguiente'
             : 'Crear Torneo'
         }
-        /* onClick={
-          Object.keys(torneo).length > 0
-            ? isEditarTorneo
-              ? () => validarCamposNuevoTorneo()
-              : () => siguientePantallaNuevoTorneo()
-            : () => validarCamposNuevoTorneo()
-        } */
         onClick={
           Object.keys(torneo).length > 0
             ? () => siguientePantallaNuevoTorneo()
             : () => validarCamposNuevoTorneo()
         }
         disabled={Object.keys(datosTorneo).length >= 4 ? false : true}
-      ></BotonLowa>
+      ></BotonLowa> */}
       <Alertas
         tipoDeSweet={isAgregarTorneo.tipo}
         subtitulo={isAgregarTorneo.mensaje}
         mostrarSweet={
           isAgregarTorneo.isCargando || isAgregarTorneo.isExito || isAgregarTorneo.isError
         }
-        RespuestaDeSweet={respuestaDeAlertas}
+        RespuestaDeSweet={respuestaDeAlertasAgregarTorneo}
       ></Alertas>
       <Alertas
         tipoDeSweet={alertaFechas.tipo}
         subtitulo={alertaFechas.mensaje}
         mostrarSweet={alertaFechas.isMostrar}
         RespuestaDeSweet={respuestaDeAlertaFechas}
+      ></Alertas>
+      <Alertas
+        mostrarSweet={true}
+        tipoDeSweet={isEditarTorneo.tipo}
+        subtitulo={isEditarTorneo.mensaje}
+        RespuestaDeSweet={obtenerRespuestaDeAlertasEditarTorneo}
       ></Alertas>
     </div>
   );

@@ -22,7 +22,13 @@ const Campeonato = () => {
   const consultarPorAgregarCategoriaSubcategoria = (idCategoria, idSubcategoria) => {
     let auxIdCategoria = idCategoria;
     let auxIdSubCategoria = idSubcategoria;
-    dispatch(consultarPorEditarTorneo_accion(auxIdCategoria, auxIdSubCategoria));
+    dispatch(
+      consultarPorEditarTorneo_accion(
+        auxIdCategoria,
+        auxIdSubCategoria,
+        '¿Desea agregar categoría y subcategoría?'
+      )
+    );
   };
   const obtenerRespuestaDeAlertas = respuesta => {
     if (respuesta) {

@@ -102,11 +102,12 @@ export const agregarTorneo_accion = datosTorneo => {
 };
 
 /****** EDITAR TORNEO ******/
-export const consultarPorEditarTorneo_accion = (categoria, subcategoria) => {
+export const consultarPorEditarTorneo_accion = (categoria, subcategoria, mensaje) => {
   return {
     type: consultarPorEditarTorneo,
     categoria: categoria,
     subcategoria: subcategoria,
+    mensaje: mensaje,
   };
 };
 export const cargandoEditarTorneo_accion = () => {

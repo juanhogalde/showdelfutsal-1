@@ -133,7 +133,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         ...state,
         isEditarTorneo: {
           tipo: 'warning',
-          mensaje: '¿Desea agregar categoría y subcategría al torneo?',
+          mensaje: accion.mensaje,
           isConsulta: true,
           isCargando: false,
           isExito: false,
