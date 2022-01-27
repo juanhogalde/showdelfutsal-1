@@ -75,7 +75,8 @@
   border-top: 1px solid #ffe35f;
 }
 .CI-Categoria-NoticiaMiniatura-Principal {
-  max-width: 150px;
+  width: max-content;
+  max-width: 180px;
   min-height: 30px;
   background-color: #ffe35f;
   clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
@@ -84,9 +85,9 @@
   padding-left: 5px;
 }
 .CI-Categoria-NoticiaMiniatura {
+  width: max-content;
   border-bottom: 1px solid rgb(217, 224, 109);
-  width: 100%;
-  max-width: 110px;
+  max-width: 180px;
   max-height: 40px;
   background-color: #ffe35f;
   clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
