@@ -201,6 +201,10 @@
     grid-column: 1/2;
     grid-row: 2/3;
   }
+  .CI-Nosotros-Contacto {
+    grid-column: 1/3;
+    grid-row: 3/4;
+  }
   .CI-Nosotros-radio {
     grid-column: 1/2;
     grid-row: 3/4;
