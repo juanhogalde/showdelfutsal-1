@@ -72,14 +72,14 @@ const MenuCategorias = props => {
       )}
       {categoria && categoria === 4 && (
         <div className="I-submenu" onClick={() => handleClick(categoria)}>
-          <Link className="Links-submenu" to="/Seccion/10">
+          <Link className="Links-submenu" to="/Seccion/12">
             <h6>Copas y Torneos</h6>
           </Link>
         </div>
       )}
       {categoria && categoria === 4 && (
         <div className="I-submenu" onClick={() => handleClick(categoria)}>
-          <Link className="Links-submenu" to="/Seccion/11">
+          <Link className="Links-submenu" to="/Seccion/13">
             <h6>Selección Argentina</h6>
           </Link>
         </div>

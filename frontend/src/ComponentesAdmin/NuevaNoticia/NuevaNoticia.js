@@ -236,7 +236,7 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
       case 4:
         let subcategoriasParaOtras = [];
         subcategorias.forEach(element => {
-          if (element.key === 8 || element.key === 9) {
+          if (element.key === 8 || element.key === 9 || element.key === 12 || element.key === 13) {
             subcategoriasParaOtras = [...subcategoriasParaOtras, element];
           }
         });
