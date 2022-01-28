@@ -51,7 +51,7 @@ const Campeonato = () => {
     }
   };
   const redireccionarZona = (categoria, subcategoria) => {
-    history.push(`/Torneo/Nuevo/Campeonato/Zonas/${categoria}/${subcategoria}`);
+    history.push(`/Torneo/Nuevo/Campeonato/Zonas`);
   };
 
   const obtenerExistenciaDeSubcategoria = subcategoria => {

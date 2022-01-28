@@ -1,6 +1,4 @@
 import {
-  /* obtenerDatosDeTorneo, */
-  /* obtenerCategoriaSubcategoriaDatosDeTorneo, */
   cargandoAgregarTorneo,
   agregarTorneoExito,
   agregarTorneoError,
@@ -22,9 +20,6 @@ import {
   listarTorneoError,
   volverPorDefectoListarTorneo,
   volverPorDefectoUnTorneo,
-  /* cargandoObtenerTorneo,
-  obtenerTorneoExito,
-  obtenerTorneoError, */
   recuperarTorneo,
 } from './AccionesTorneos';
 
@@ -60,23 +55,6 @@ const torneoPorDefecto = {
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
   switch (accion.type) {
-    /* case obtenerDatosDeTorneo: {
-      return {
-        ...state,
-        torneo: accion.datos,
-      };
-    } */
-    /* case obtenerCategoriaSubcategoriaDatosDeTorneo: {
-      console.log(accion);
-      return {
-        ...state,
-        torneo: {
-          ...state.torneo,
-          idCategoria: accion.categoriaId,
-          idSubcategoria: accion.subcategoriaId,
-        },
-      };
-    } */
     case cargandoAgregarTorneo: {
       return {
         ...state,
@@ -138,8 +116,6 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           isCargando: false,
           isExito: false,
           isError: false,
-          categoria: accion.categoria,
-          subcategoria: accion.subcategoria,
         },
       };
     }
@@ -153,8 +129,6 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           isCargando: true,
           isExito: false,
           isError: false,
-          categoria: state.isEditarTorneo.categoria,
-          subcategoria: state.isEditarTorneo.subcategoria,
         },
       };
     }
@@ -168,8 +142,6 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           isCargando: false,
           isExito: true,
           isError: false,
-          categoria: state.isEditarTorneo.categoria,
-          subcategoria: state.isEditarTorneo.subcategoria,
         },
         torneo: accion.datos,
       };

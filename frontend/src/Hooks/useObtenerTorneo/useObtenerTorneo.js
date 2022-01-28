@@ -8,15 +8,18 @@ const useObtenerTorneo = id => {
   const [isTorneo, setIsTorneo] = useState(false);
 
   useLayoutEffect(() => {
-    if (torneo) {
-      if (Object.keys(torneo).length > 0) {
-        dispatch(cargarDatosDeTorneoParaEdicion_accion(torneo));
-        console.log(torneo);
-        setIsTorneo(true);
-      } else {
-        setIsTorneo(false);
+    setTimeout(() => {
+      if (torneo) {
+        if (Object.keys(torneo).length > 0) {
+          dispatch(cargarDatosDeTorneoParaEdicion_accion(torneo));
+          console.log(torneo);
+          setIsTorneo(true);
+        } else {
+          setIsTorneo(false);
+        }
       }
-    }
+    }, 1000);
+
     return () => {};
   }, [torneo, dispatch]);
 

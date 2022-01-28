@@ -1,9 +1,5 @@
 import API from './../Configuracion/api';
 
-/* export const obtenerDatosDeTorneo = 'obtenerDatosDeTorneo'; */
-/* export const obtenerCategoriaSubcategoriaDatosDeTorneo =
-  'obtenerCategoriaSubcategoriaDatosDeTorneo'; */
-
 export const cargandoAgregarTorneo = 'cargandoAgregarTorneo';
 export const agregarTorneoExito = 'agregarTorneoExito';
 export const agregarTorneoError = 'agregarTorneoError';
@@ -14,6 +10,7 @@ export const cargandoEditarTorneo = 'cargandoEditarTorneo';
 export const editarTorneoExito = 'editarTorneoExito';
 export const editarTorneoError = 'editarTorneoError';
 export const volverPorDefectoEditarTorneo = 'volverPorDefectoEditarTorneo';
+
 export const cargarDatosDeTorneoParaEdicion = 'cargarDatosDeTorneoParaEdicion';
 
 export const consultarPorEliminarTorneo = 'consultarPorEliminarTorneo';
@@ -41,22 +38,7 @@ export const volverPorDefectoUnTorneo_accion = () => {
   };
 };
 
-/* export const obtenerCategoriaSubcategoriaDatosDeTorneo_accion = (categoriaId, subcategoriaId) => {
-  return {
-    type: obtenerCategoriaSubcategoriaDatosDeTorneo,
-    categoriaId: categoriaId,
-    subcategoriaId: subcategoriaId,
-  };
-}; */
 /****** AGREGAR TORNEO ******/
-
-/* export const obtenerDatosDeTorneo_accion = datos => {
-  return {
-    type: obtenerDatosDeTorneo,
-    datos: datos,
-  };
-}; */
-
 export const cargandoAgregarTorneo_accion = () => {
   return {
     type: cargandoAgregarTorneo,
@@ -102,12 +84,9 @@ export const agregarTorneo_accion = datosTorneo => {
 };
 
 /****** EDITAR TORNEO ******/
-export const consultarPorEditarTorneo_accion = (categoria, subcategoria, mensaje) => {
+export const consultarPorEditarTorneo_accion = () => {
   return {
     type: consultarPorEditarTorneo,
-    categoria: categoria,
-    subcategoria: subcategoria,
-    mensaje: mensaje,
   };
 };
 export const cargandoEditarTorneo_accion = () => {
@@ -329,12 +308,6 @@ export const obtenerTorneoError_accion = error => {
     error: error,
   };
 };
-
-/* export const volverPorDefectoListarTorneo_accion = () => {
-  return {
-    type: volverPorDefectoListarTorneo,
-  };
-}; */
 
 export const obtenerTorneo_accion = id => {
   return dispatch => {

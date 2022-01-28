@@ -83,8 +83,8 @@ const Zonas = () => {
   return (
     <div className="CP-Zonas">
       <div>
-        <h5>{categoria.label ? categoria.label : <Skeleton width="15%" />}</h5>
-        <h6>{subcategoria.label ? subcategoria.label : <Skeleton width="10%" />}</h6>
+        <h5>{categoria && categoria.label ? categoria.label : <Skeleton width="15%" />}</h5>
+        <h6>{categoria && subcategoria.label ? subcategoria.label : <Skeleton width="10%" />}</h6>
 
         <InputLowa
           name="nombreZona"
