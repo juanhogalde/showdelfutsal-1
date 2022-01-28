@@ -17,6 +17,7 @@ import {
   volverPorDefectoEditarTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import compararObjetos from '../../ModulosExternos/CompararObjetos';
+import {useParams} from 'react-router-dom';
 
 const tipoTorneoArray = [
   {value: 1, label: 'Campeonato'},
@@ -25,6 +26,8 @@ const tipoTorneoArray = [
 ];
 
 const NuevoTorneo = ({isEditarTorneoProps = false}) => {
+  const {id} = useParams();
+  console.log(id);
   const history = useHistory();
   const dispatch = useDispatch();
   const {torneo, isAgregarTorneo, isEditarTorneo} = useSelector(state => state.storeTorneos);
@@ -48,7 +51,7 @@ const NuevoTorneo = ({isEditarTorneoProps = false}) => {
   const siguientePantallaNuevoTorneo = () => {
     switch (datosTorneo.tipoTorneo) {
       case 1:
-        history.push('/Torneo/Nuevo/Campeonato');
+        history.push(`/Torneo/Nuevo/Campeonato/${id}`);
         break;
       default:
         break;
