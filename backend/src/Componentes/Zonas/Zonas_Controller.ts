@@ -5,7 +5,6 @@ import responder from '../../Middlewares/responder';
 
 class ZonasController {
   public async agregar(req: Request, res: Response) {
-    console.log(req.body);
     try {
       if (!req.body.idSubcategoria || !req.body.idCategoria || !req.body.idTorneo) {
         responder.error(
@@ -22,7 +21,16 @@ class ZonasController {
         nuevaZona
           .save()
           .then((resultado: any) => {
-            responder.sucess(req, res, resultado);
+            responder.sucess(req, res, {
+              _id: resultado._id,
+              tipoZona: resultado.tipoZona,
+              keyCategoria: resultado.idSubcategoria.keyCategoria,
+              keySubcategoria: resultado.idSubcategoria.keySubcategoria,
+              equipos: resultado.equipos,
+              idSubcategoria: resultado.idSubcategoria._id,
+              idCategoria: resultado.idCategoria,
+              nombreZona: resultado.nombreZona,
+            });
           })
           .catch((error: any) => {
             console.error(error);
