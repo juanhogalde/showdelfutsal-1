@@ -22,6 +22,7 @@ import homeRouter from './Componentes/Home/Home_Router';
 import imagenesRouter from './Componentes/Imagenes/Imagenes_Router';
 import videosRouter from './Componentes/Videos/Videos_Router';
 import galeriaRouter from './Componentes/Galeria/Galeria_Router';
+import zonasRouter from './Componentes/Zonas/Zonas_Router';
 import tablasRouter from './Componentes/Tablas/Tablas_Router';
 import responder from './Middlewares/responder';
 import manejadorErrores from './Middlewares/manejadorErrores';
@@ -86,6 +87,7 @@ class Server {
     this.app.use('/videos', videosRouter);
     this.app.use('/galeria', galeriaRouter);
     this.app.use('/noticias', noticiasRouter);
+    this.app.use('/zonas', zonasRouter);
     this.app.use('/partidos', partidosRouter);
     this.app.use('/publicidades', publicidadesRouter);
     this.app.use('/subcategorias', subcategoriasRouter);

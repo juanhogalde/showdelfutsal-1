@@ -143,7 +143,6 @@ export const cargarDatosDeTorneoParaEdicion_accion = datos => {
 };
 
 export const editarTorneo_accion = torneo => {
-  console.log(torneo);
   return dispatch => {
     dispatch(cargandoEditarTorneo_accion());
     API({
@@ -152,7 +151,46 @@ export const editarTorneo_accion = torneo => {
       data: torneo,
     })
       .then(res => {
-        console.log({res});
+        dispatch(editarTorneoExito_accion(res.data.value));
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(editarTorneoError_accion());
+      });
+  };
+};
+export const cargarSubcategoriaTorneo_accion = torneo => {
+  return dispatch => {
+    dispatch(cargandoEditarTorneo_accion());
+    API({
+      url: '/torneos/cargarSubcategoria',
+      method: 'put',
+      data: torneo,
+    })
+      .then(res => {
+        dispatch(editarTorneoExito_accion(res.data.value));
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(editarTorneoError_accion());
+      });
+  };
+};
+export const crearZonaTorneo_accion = torneo => {
+  return dispatch => {
+    dispatch(cargandoEditarTorneo_accion());
+    API({
+      url: '/zonas/agregar',
+      method: 'post',
+      data: {
+        nombreZona: torneo.nombreZona,
+        tipoZona: torneo.tipoZona,
+        idSubcategoria: torneo.idSubcategoria,
+        idCategoria: torneo.idCategoria,
+        idTorneo: torneo._id,
+      },
+    })
+      .then(res => {
         dispatch(editarTorneoExito_accion(res.data.value));
       })
       .catch(error => {

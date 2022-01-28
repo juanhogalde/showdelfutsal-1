@@ -11,7 +11,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Alertas from '../Alertas/Alertas';
 import {
-  editarTorneo_accion,
+  crearZonaTorneo_accion,
   volverPorDefectoEditarTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 
@@ -46,7 +46,8 @@ const Zonas = () => {
     Object.assign(auxDatosZona, torneo);
     auxDatosZona.nombreZona = datosZona.nombreZona;
     auxDatosZona.tipoZona = tipo.value;
-    dispatch(editarTorneo_accion(auxDatosZona));
+    auxDatosZona.idSubcategoria = idSubcategoria;
+    dispatch(crearZonaTorneo_accion(auxDatosZona));
   };
 
   const obtenerRespuestaDeAlertas = respuesta => {
@@ -69,7 +70,6 @@ const Zonas = () => {
   };
 
   const redireccionarEnfrentamiento = () => {
-    console.log('redireccionar enfrentamiento');
     history.push('/Torneo/Nuevo/Campeonato/Zonas/Enfrentamiento');
   };
 
@@ -104,7 +104,6 @@ const Zonas = () => {
             <p className="titulo-ZonasCreadas">Zonas creadas</p>
 
             {arrayZonasCreadas.map((zona, index) => {
-              console.log(zona);
               return (
                 <TarjetaZona
                   redireccionarEnfrentamiento={redireccionarEnfrentamiento}

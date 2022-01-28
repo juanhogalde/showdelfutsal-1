@@ -9,7 +9,7 @@ import {tablasController} from '../Tablas/Tablas_Controller';
 class TorneosController {
   public async listar(req: Request, res: Response) {
     try {
-      const listadoCampeonatos = await modeloTorneos.find().populate("idSubcategoria");
+      const listadoCampeonatos = await modeloTorneos.find().populate('idSubcategoria');
       responder.sucess(req, res, listadoCampeonatos);
     } catch (error) {
       responder.error(req, res, error);
@@ -18,7 +18,6 @@ class TorneosController {
 
   public async agregar(req: Request, res: Response) {
     try {
-    
       const torneo: ITorneos = new modeloTorneos(req.body);
       const resultado = await torneo.save();
       responder.sucess(req, res, resultado);
@@ -70,12 +69,10 @@ class TorneosController {
                 if (!torneo.idSubcategoria.includes(torneoBody.nuevaSubcategoria)) {
                   torneo.idSubcategoria.push(torneoBody.nuevaSubcategoria);
                 }
-              } 
-              else {
+              } else {
                 torneo.idSubcategoria.push(torneoBody.nuevaSubcategoria);
               }
             }
-           
 
             if (torneoBody.nombreZona || torneoBody.tipoZona) {
               const datos = {
@@ -100,7 +97,13 @@ class TorneosController {
                 creacionTabla = await tablasController.crearTabla(datosCrearTabla);
                 if (creacionTabla) {
                   objetoResponse.tablaCreada = creacionTabla;
+                } else {
+                  let error = new Error('No se puede crear la Tabla');
+                  responder.error(req, res, error, 'No se puede crear la Tabla', 500);
                 }
+              } else {
+                let error = new Error('No se puede crear la zona');
+                responder.error(req, res, error, 'No se puede crear la zona', 500);
               }
             }
 
@@ -144,25 +147,15 @@ class TorneosController {
                 if (partido) {
                   objetoResponse.partidoCreado = partido;
                 }
-
-                // const resultado = await torneo.save({new: true});
-                // if (resultado) {
-                //   // resultadoOperacion.torneo = true;
-                //   responder.sucess(req, res, resultado);
-                // } else {
-                //   responder.error(req, res);
-                // }
               } else {
                 let error = new Error('No se puede crear un enfrentamiento entre un mismo equipo');
                 responder.error(req, res, error);
               }
             }
-          
-            const op = await torneo.save()
+
+            const op = await torneo.save();
             if (op) {
-             
               responder.sucess(req, res, op._doc);
-             
             } else {
               responder.error(req, res, '', 'Error al actualizar el torneo', 500);
             }
@@ -174,6 +167,97 @@ class TorneosController {
       } else {
         let error = new Error('Torneo no encontrado');
         responder.error(req, res, error);
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+  public async cargarSubcategoria(req: Request, res: Response) {
+    try {
+      const torneoBody = req.body;
+      if (torneoBody._id) {
+        modeloTorneos.findById(torneoBody._id).then(async (torneo: any) => {
+          if (torneo) {
+            if (torneoBody.nuevaCategoria) {
+              if (torneo.idCategoria.length) {
+                if (!torneo.idCategoria.includes(torneoBody.nuevaCategoria)) {
+                  torneo.idCategoria.push(torneoBody.nuevaCategoria);
+                }
+              } else {
+                torneo.idCategoria.push(torneoBody.nuevaCategoria);
+              }
+            }
+
+            if (torneoBody.nuevaSubcategoria) {
+              if (torneo.idSubcategoria.length) {
+                if (!torneo.idSubcategoria.includes(torneoBody.nuevaSubcategoria)) {
+                  torneo.idSubcategoria.push(torneoBody.nuevaSubcategoria);
+                }
+              } else {
+                torneo.idSubcategoria.push(torneoBody.nuevaSubcategoria);
+              }
+            }
+            const op = await torneo.save();
+            if (op) {
+              responder.sucess(req, res, op._doc);
+            } else {
+              responder.error(req, res, '', 'Error al actualizar el torneo', 500);
+            }
+          } else {
+            responder.error(req, res, '', 'Torneo no encontrado', 400);
+          }
+        });
+      } else {
+        responder.error(req, res, '', 'Falta Id de torneo', 400);
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+  public async cargarZona(req: Request, res: Response) {
+    try {
+      const torneoBody = req.body;
+      if (torneoBody._id) {
+        modeloTorneos.findById(torneoBody._id).then(async (torneo: any) => {
+          if (torneo) {
+            if (torneoBody.nombreZona || torneoBody.tipoZona) {
+              const datos = {
+                nombreZona: torneoBody.nombreZona,
+                tipoZona: torneoBody.tipoZona,
+                idSubcategoria: torneoBody.nuevaSubcategoria,
+                idCategoria: torneoBody.nuevaSubcategoria,
+                equipos: torneoBody.equipos,
+              };
+
+              const zona: any = await zonasController.crearZona(datos);
+              if (zona) {
+                torneo.zona = zona._doc;
+                let datosCrearTabla = {
+                  tipoZona: torneoBody.tipoZona,
+                  zona: zona._id,
+                  idCampeonato: torneoBody._id,
+                  equipos: torneoBody.equipos,
+                };
+                const creacionTabla: any = await tablasController.crearTabla(datosCrearTabla);
+                if (creacionTabla) {
+                  torneo.zona = creacionTabla._doc;
+                  responder.sucess(req, res, torneo);
+                } else {
+                  responder.error(req, res, '', 'No se puede crear la Tabla', 500);
+                }
+              } else {
+                responder.error(req, res, '', 'No se puede crear la zona', 500);
+              }
+            } else {
+              responder.error(req, res, '', 'faltan datos de zona', 400);
+            }
+            const op = await torneo.save();
+          } else {
+            responder.error(req, res, '', 'Torneo no encontrado', 400);
+          }
+        });
+      } else {
+        responder.error(req, res, '', 'Falta Id de torneo', 400);
       }
     } catch (error) {
       responder.error(req, res, error);
