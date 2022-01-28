@@ -12,8 +12,6 @@ const ImagenesVideo = ({
   descripcion = '',
   isGaleriaPrincipal = false,
 }) => {
-  console.log(DatosDeEntrada);
-
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   const isMobileIPhone = userAgent.indexOf('iPhone'); // para detectar si se esta desde un android o iphone
   const isMobileAndroid = userAgent.indexOf('Android');

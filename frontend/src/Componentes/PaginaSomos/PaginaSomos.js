@@ -64,13 +64,13 @@ const PaginaSomos = () => {
             <img alt="" className="foto" src={foto2}></img>
           </div>
         </div>
-        <div className="CI-Nosotros-radio">
+        {/* <div className="CI-Nosotros-radio">
           <div className="I-Radio">
             <div className="I-Componente-radio">
               <Radio isSeccionSomos={true}></Radio>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="CI-Nosotros-Contacto">
           <p className="">Juan Hogalde</p>
 

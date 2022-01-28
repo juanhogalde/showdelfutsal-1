@@ -18,7 +18,7 @@ let inicializarCategorias = async () => {
       keyCategoria: 2,
     },
     {
-      nombreCategoria: 'Liga',
+      nombreCategoria: 'LNFA',
       keyCategoria: 3,
     },
     {

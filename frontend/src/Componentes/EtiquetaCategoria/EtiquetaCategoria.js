@@ -19,7 +19,7 @@ const EtiquetaCategoria = ({subcategoria = false, categoriaId = 0, buscarPorKey 
       : state.sotreDatosIniciales.subcategorias.find(element => element.value === categoriaId)
   );
   return (
-    <div>
+    <div className="CP-EtiquetaCategoria">
       {subcategoria ? (
         <p>{subcategoriaSeleccionada ? subcategoriaSeleccionada.label : 'sin subcategoria'}</p>
       ) : (
