@@ -7,7 +7,7 @@ import foto2 from '../../Static/Img/ImgSomos/03.jpeg';
 /* import foto2 from '../../Static/Img/foto2.jpg'; */
 import frase from '../../Static/Img/titulo_somos.png';
 import {useSelector} from 'react-redux';
-import Radio from '../Radio/Radio';
+// import Radio from '../Radio/Radio';
 import PieDepagina from '../PieDePagina/PieDepagina';
 
 const PaginaSomos = () => {

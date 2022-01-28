@@ -4,7 +4,7 @@ import {useHistory} from 'react-router-dom';
 import {
   actualizarListaDeTorneos_accion,
   consultarPorEditarTorneo_accion,
-  editarTorneo_accion,
+  cargarSubcategoriaTorneo_accion,
   volverPorDefectoEditarTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 /* import {obtenerCategoriaSubcategoriaDatosDeTorneo_accion} from '../../Redux/Torneos/AccionesTorneos'; */
@@ -37,7 +37,7 @@ const Campeonato = () => {
         Object.assign(auxDatosDeTorneo, torneo);
         auxDatosDeTorneo.nuevaCategoria = isEditarTorneo.categoria;
         auxDatosDeTorneo.nuevaSubcategoria = isEditarTorneo.subcategoria;
-        dispatch(editarTorneo_accion(auxDatosDeTorneo));
+        dispatch(cargarSubcategoriaTorneo_accion(auxDatosDeTorneo));
       }
       if (isEditarTorneo.isExito) {
         dispatch(actualizarListaDeTorneos_accion());
