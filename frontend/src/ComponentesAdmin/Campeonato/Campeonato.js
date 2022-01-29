@@ -3,11 +3,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {
   actualizarListaDeTorneos_accion,
-  consultarPorEditarTorneo_accion,
-  cargarSubcategoriaTorneo_accion,
-  volverPorDefectoEditarTorneo_accion,
+  agregarCategoriaSubcategoriaTorneo_accion,
+  consultarPoragregarCategoriaSubcategoriaTorneo_accion,
+  volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
-/* import {obtenerCategoriaSubcategoriaDatosDeTorneo_accion} from '../../Redux/Torneos/AccionesTorneos'; */
 import Alertas from '../Alertas/Alertas';
 
 import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
@@ -17,37 +16,36 @@ const Campeonato = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
-  const {torneo, isEditarTorneo} = useSelector(state => state.storeTorneos);
+  const {torneo, isAgregarCategoriaSubcategoria} = useSelector(state => state.storeTorneos);
 
   const consultarPorAgregarCategoriaSubcategoria = (idCategoria, idSubcategoria) => {
     let auxIdCategoria = idCategoria;
     let auxIdSubCategoria = idSubcategoria;
     dispatch(
-      consultarPorEditarTorneo_accion(
-        auxIdCategoria,
-        auxIdSubCategoria,
-        '¿Desea agregar categoría y subcategoría?'
-      )
+      consultarPoragregarCategoriaSubcategoriaTorneo_accion(auxIdCategoria, auxIdSubCategoria)
     );
   };
   const obtenerRespuestaDeAlertas = respuesta => {
     if (respuesta) {
-      if (isEditarTorneo.isConsulta) {
+      if (isAgregarCategoriaSubcategoria.isConsulta) {
         let auxDatosDeTorneo = {};
         Object.assign(auxDatosDeTorneo, torneo);
-        auxDatosDeTorneo.nuevaCategoria = isEditarTorneo.categoria;
-        auxDatosDeTorneo.nuevaSubcategoria = isEditarTorneo.subcategoria;
-        dispatch(cargarSubcategoriaTorneo_accion(auxDatosDeTorneo));
+        auxDatosDeTorneo.nuevaCategoria = isAgregarCategoriaSubcategoria.categoria;
+        auxDatosDeTorneo.nuevaSubcategoria = isAgregarCategoriaSubcategoria.subcategoria;
+        dispatch(agregarCategoriaSubcategoriaTorneo_accion(auxDatosDeTorneo));
       }
-      if (isEditarTorneo.isExito) {
+      if (isAgregarCategoriaSubcategoria.isExito) {
         dispatch(actualizarListaDeTorneos_accion());
-        redireccionarZona(isEditarTorneo.categoria, isEditarTorneo.subcategoria);
+        redireccionarZona(
+          isAgregarCategoriaSubcategoria.categoria,
+          isAgregarCategoriaSubcategoria.subcategoria
+        );
       }
-      if (isEditarTorneo.isError) {
-        dispatch(volverPorDefectoEditarTorneo_accion());
+      if (isAgregarCategoriaSubcategoria.isError) {
+        dispatch(volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion());
       }
     } else {
-      dispatch(volverPorDefectoEditarTorneo_accion());
+      dispatch(volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion());
     }
   };
   const redireccionarZona = (categoria, subcategoria) => {
@@ -66,7 +64,7 @@ const Campeonato = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(volverPorDefectoEditarTorneo_accion());
+      dispatch(volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion());
     };
   }, [dispatch]);
 
@@ -118,13 +116,13 @@ const Campeonato = () => {
         </div>
         <Alertas
           mostrarSweet={
-            isEditarTorneo.isConsulta ||
-            isEditarTorneo.isCargando ||
-            isEditarTorneo.isExito ||
-            isEditarTorneo.isError
+            isAgregarCategoriaSubcategoria.isConsulta ||
+            isAgregarCategoriaSubcategoria.isCargando ||
+            isAgregarCategoriaSubcategoria.isExito ||
+            isAgregarCategoriaSubcategoria.isError
           }
-          tipoDeSweet={isEditarTorneo.tipo}
-          subtitulo={isEditarTorneo.mensaje}
+          tipoDeSweet={isAgregarCategoriaSubcategoria.tipo}
+          subtitulo={isAgregarCategoriaSubcategoria.mensaje}
           RespuestaDeSweet={obtenerRespuestaDeAlertas}
         ></Alertas>
       </div>

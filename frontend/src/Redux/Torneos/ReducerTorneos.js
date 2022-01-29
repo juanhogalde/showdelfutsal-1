@@ -22,6 +22,11 @@ import {
   volverPorDefectoUnTorneo,
   recuperarTorneo,
   crearZonaTorneoExito,
+  consultarPoragregarCategoriaSubcategoriaTorneo,
+  cargandoAgregarCategoriaSubcategoria,
+  agregarCategoriaSubcategoriaTorneoExito,
+  agregarCategoriaSubcategoriaTorneoError,
+  volverPorDefectoAgregarCategoriaSubcategoriaTorneo,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -47,6 +52,15 @@ const torneoPorDefecto = {
     tipo: '',
     mensaje: '',
     isConsulta: false,
+    isCargando: false,
+    isExito: false,
+    isError: false,
+    categoria: '',
+    subcategoria: '',
+  },
+  isAgregarCategoriaSubcategoria: {
+    tipo: '',
+    mensaje: '',
     isCargando: false,
     isExito: false,
     isError: false,
@@ -329,6 +343,72 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       console.log(auxTorneo);
       return {
         ...state,
+      };
+    }
+    case consultarPoragregarCategoriaSubcategoriaTorneo: {
+      return {
+        ...state,
+        isAgregarCategoriaSubcategoria: {
+          tipo: 'warning',
+          mensaje: '¿Desea agregar categoría y subcategría al torneo?',
+          isConsulta: true,
+          isCargando: false,
+          isExito: false,
+          isError: false,
+          categoria: accion.idCategoria,
+          subcategoria: accion.idSubcategoria,
+        },
+      };
+    }
+    case cargandoAgregarCategoriaSubcategoria: {
+      return {
+        ...state,
+        isAgregarCategoriaSubcategoria: {
+          tipo: 'cargando',
+          mensaje: 'Agregando categoría y subcategoría al torneo...',
+          isConsulta: false,
+          isCargando: true,
+          isExito: false,
+          isError: false,
+          categoria: state.isAgregarCategoriaSubcategoria.categoria,
+          subcategoria: state.isAgregarCategoriaSubcategoria.subcategoria,
+        },
+      };
+    }
+    case agregarCategoriaSubcategoriaTorneoExito: {
+      return {
+        ...state,
+        isAgregarCategoriaSubcategoria: {
+          tipo: 'success',
+          mensaje: 'Torneo Editado',
+          isConsulta: false,
+          isCargando: false,
+          isExito: true,
+          isError: false,
+          categoria: state.isAgregarCategoriaSubcategoria.categoria,
+          subcategoria: state.isAgregarCategoriaSubcategoria.subcategoria,
+        },
+        torneo: accion.datos,
+      };
+    }
+    case agregarCategoriaSubcategoriaTorneoError: {
+      return {
+        ...state,
+      };
+    }
+    case volverPorDefectoAgregarCategoriaSubcategoriaTorneo: {
+      return {
+        ...state,
+        isAgregarCategoriaSubcategoria: {
+          tipo: '',
+          mensaje: '',
+          isConsulta: false,
+          isCargando: false,
+          isExito: false,
+          isError: false,
+          categoria: '',
+          subcategoria: '',
+        },
       };
     }
     case crearZonaTorneoExito: {

@@ -1,4 +1,4 @@
-import React, {/* useLayoutEffect,  */ useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputDateLowa from '../InputDateLowa/InputDateLowa';
 import InputLowa from '../InputLowa/InputLowa';
@@ -118,12 +118,12 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
     }
   };
 
-  /* useLayoutEffect(() => {
+  useLayoutEffect(() => {
     if (Object.keys(datosParaEditar).length > 0) {
       setDatosTorneo(datosParaEditar);
     }
     return () => {};
-  }, [datosParaEditar]); */
+  }, [datosParaEditar]);
   return (
     <div className="CP-NuevoTorneo">
       <Selector
@@ -165,7 +165,6 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
               ? () => siguientePantallaNuevoTorneo()
               : () => validarCamposEditarTorneo()
           }
-          disabled={Object.keys(datosTorneo).length >= 4 ? false : true}
         ></BotonLowa>
       ) : (
         <BotonLowa

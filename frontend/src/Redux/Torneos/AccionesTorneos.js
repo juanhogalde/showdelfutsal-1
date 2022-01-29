@@ -32,6 +32,14 @@ export const obtenerTorneoError = 'obtenerTorneoError';
 
 export const recuperarTorneo = 'recuperarTorneo';
 
+export const consultarPoragregarCategoriaSubcategoriaTorneo =
+  'consultarPoragregarCategoriaSubcategoriaTorneo';
+export const cargandoAgregarCategoriaSubcategoria = 'cargandoAgregarCategoriaSubcategoria';
+export const agregarCategoriaSubcategoriaTorneoExito = 'agregarCategoriaSubcategoriaTorneoExito';
+export const agregarCategoriaSubcategoriaTorneoError = 'agregarCategoriaSubcategoriaTorneoError';
+export const volverPorDefectoAgregarCategoriaSubcategoriaTorneo =
+  'volverPorDefectoAgregarCategoriaSubcategoriaTorneo';
+
 export const crearZonaTorneoExito = 'crearZonaTorneoExito';
 
 export const volverPorDefectoUnTorneo_accion = () => {
@@ -142,9 +150,44 @@ export const editarTorneo_accion = torneo => {
       });
   };
 };
-export const cargarSubcategoriaTorneo_accion = torneo => {
+/* AGREGAR CATEGORIA Y SUBCATEGORIA */
+export const consultarPoragregarCategoriaSubcategoriaTorneo_accion = (
+  idCategoria,
+  idSubcategoria
+) => {
+  return {
+    type: consultarPoragregarCategoriaSubcategoriaTorneo,
+    idCategoria: idCategoria,
+    idSubcategoria: idSubcategoria,
+  };
+};
+export const cargandoAgregarCategoriaSubcategoria_accion = () => {
+  return {
+    type: cargandoAgregarCategoriaSubcategoria,
+  };
+};
+
+export const agregarCategoriaSubcategoriaTorneoExito_accion = datos => {
+  return {
+    type: agregarCategoriaSubcategoriaTorneoExito,
+    datos: datos,
+  };
+};
+
+export const agregarCategoriaSubcategoriaTorneoError_accion = error => {
+  return {
+    type: agregarCategoriaSubcategoriaTorneoError,
+    error: error,
+  };
+};
+export const volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion = () => {
+  return {
+    type: volverPorDefectoAgregarCategoriaSubcategoriaTorneo,
+  };
+};
+export const agregarCategoriaSubcategoriaTorneo_accion = torneo => {
   return dispatch => {
-    dispatch(cargandoEditarTorneo_accion());
+    dispatch(cargandoAgregarCategoriaSubcategoria_accion());
     API({
       url: '/torneos/cargarSubcategoria',
       method: 'put',
@@ -152,11 +195,11 @@ export const cargarSubcategoriaTorneo_accion = torneo => {
     })
       .then(res => {
         console.log({res});
-        dispatch(editarTorneoExito_accion(res.data.value));
+        dispatch(agregarCategoriaSubcategoriaTorneoExito_accion(res.data.value));
       })
       .catch(error => {
         console.log({error});
-        dispatch(editarTorneoError_accion());
+        dispatch(agregarCategoriaSubcategoriaTorneoError_accion());
       });
   };
 };
