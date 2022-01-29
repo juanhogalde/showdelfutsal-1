@@ -39,8 +39,10 @@ const PaginaTorneosAdmin = () => {
   };
 
   useLayoutEffect(() => {
-    if (Object.keys(torneo).length > 0) {
-      dispatch(volverPorDefectoUnTorneo_accion());
+    if (torneo) {
+      if (Object.keys(torneo).length > 0) {
+        dispatch(volverPorDefectoUnTorneo_accion());
+      }
     }
     return () => {};
   }, [dispatch, torneo]);

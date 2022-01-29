@@ -198,9 +198,10 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       };
     }
     case cargarDatosDeTorneoParaEdicion: {
+      let auxDatosDeTorneo = state.torneos.filter(torneo => torneo._id === accion.datos);
       return {
         ...state,
-        torneo: accion.datos,
+        torneo: auxDatosDeTorneo[0],
       };
     }
     case consultarPorEliminarTorneo: {

@@ -4,10 +4,12 @@ import Cargando from '../Cargando/Cargando';
 import {useParams} from 'react-router-dom';
 import NuevoTorneo from '../NuevoTorneo/NuevoTorneo';
 
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {cargarDatosDeTorneoParaEdicion_accion} from '../../Redux/Torneos/AccionesTorneos';
 const EditarTorneo = () => {
   const {id} = useParams();
-  const torneo = useSelector(state => state.storeTorneos.torneos.find(torneo => torneo._id === id));
+  const {torneo} = useSelector(state => state.storeTorneos);
+  const dispatch = useDispatch();
   const [isTorneo, setIsTorneo] = useState(false);
 
   useLayoutEffect(() => {
@@ -15,10 +17,12 @@ const EditarTorneo = () => {
       if (Object.keys(torneo).length > 0) {
         setIsTorneo(true);
       } else {
-        setIsTorneo(false);
+        dispatch(cargarDatosDeTorneoParaEdicion_accion(id));
       }
+    } else {
+      dispatch(cargarDatosDeTorneoParaEdicion_accion(id));
     }
-  }, [torneo]);
+  }, [torneo, dispatch, id]);
 
   if (isTorneo) {
     return (
