@@ -56,11 +56,6 @@ const Zonas = () => {
 
   const obtenerRespuestaDeAlertas = respuesta => {
     if (respuesta) {
-      if (isEditarTorneo.isConsulta) {
-        /* dispatch(
-          editarTorneo_accion(torneo, isEditarTorneo.categoria, isEditarTorneo.subcategoria)
-        ); */
-      }
       if (isEditarTorneo.isExito) {
         dispatch(actualizarListaDeTorneos_accion());
         /*  redireccionarZona(isEditarTorneo.categoria, isEditarTorneo.subcategoria); */
@@ -84,7 +79,7 @@ const Zonas = () => {
       }
     }
     return () => {};
-  }, [torneo.Zonas, isEditarTorneo.isExito]);
+  }, [torneo.zonas, isEditarTorneo.isExito]);
 
   return (
     <div className="CP-Zonas">

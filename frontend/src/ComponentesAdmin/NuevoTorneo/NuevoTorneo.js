@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {/* useLayoutEffect,  */ useState} from 'react';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputDateLowa from '../InputDateLowa/InputDateLowa';
 import InputLowa from '../InputLowa/InputLowa';
