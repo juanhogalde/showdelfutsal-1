@@ -27,10 +27,9 @@ const tipoTorneoArray = [
 
 const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
   const {id} = useParams();
-  console.log(id);
   const history = useHistory();
   const dispatch = useDispatch();
-  const {isAgregarTorneo, isEditarTorneo} = useSelector(state => state.storeTorneos);
+  const {torneo, isAgregarTorneo, isEditarTorneo} = useSelector(state => state.storeTorneos);
 
   const [datosTorneo, setDatosTorneo] = useState({});
   const [isFinalizoEdicion, setIsFinalizoEdicion] = useState(false);
@@ -39,6 +38,7 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
     mensaje: '',
     isMostrar: false,
   });
+  const [isTituloBotonSiguiente, setIsTituloBotonSiguiente] = useState(false);
 
   const escucharCambios = (name, value) => {
     setDatosTorneo({...datosTorneo, [name]: value});
@@ -54,17 +54,11 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
         if (isEditarTorneoProps) {
           history.push(`/Torneo/Editar/Campeonato/${id}`);
         } else {
-          history.push(`/Torneo/Nuevo/Campeonato/${id}`);
+          history.push(`/Torneo/Nuevo/Campeonato`);
         }
         break;
       default:
         break;
-    }
-  };
-
-  const respuestaDeAlertasAgregarTorneo = respuesta => {
-    if (respuesta) {
-      dispatch(volverPorDefectoAgregarTorneo_accion());
     }
   };
 
@@ -77,10 +71,16 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
       });
     } else {
       if (isEditarTorneoProps) {
-        dispatch(consultarPorEditarTorneo_accion('', '', '¿Desea editar torneo?'));
+        dispatch(consultarPorEditarTorneo_accion());
       } else {
         dispatch(agregarTorneo_accion(datosTorneo));
       }
+    }
+  };
+  const respuestaDeAlertasAgregarTorneo = respuesta => {
+    if (respuesta) {
+      dispatch(volverPorDefectoAgregarTorneo_accion());
+      setIsTituloBotonSiguiente(true);
     }
   };
   const respuestaDeAlertaFechas = respuesta => {
@@ -118,14 +118,12 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
     }
   };
 
-  useLayoutEffect(() => {
+  /* useLayoutEffect(() => {
     if (Object.keys(datosParaEditar).length > 0) {
       setDatosTorneo(datosParaEditar);
     }
-    return () => {
-      setDatosTorneo({});
-    };
-  }, [datosParaEditar]);
+    return () => {};
+  }, [datosParaEditar]); */
   return (
     <div className="CP-NuevoTorneo">
       <Selector
@@ -135,14 +133,14 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
         options={tipoTorneoArray ? tipoTorneoArray : []}
         noOptionsMessage={'No hay torneos cargados.'}
         onChange={(opcion, selector) => escucharSelector(opcion.value, selector.name)}
-        opcionSeleccionada={tipoTorneoArray[datosParaEditar.tipoTorneo - 1]}
+        opcionSeleccionada={tipoTorneoArray[torneo.tipoTorneo - 1]}
       ></Selector>
       <InputLowa
         type="text"
         name="tituloTorneo"
         placeholder="Título de Torneo"
         onChange={e => escucharCambios(e.target.name, e.target.value)}
-        value={datosTorneo.tituloTorneo ? datosParaEditar.tituloTorneo : ''}
+        value={datosTorneo.tituloTorneo ? torneo.tituloTorneo : ''}
       ></InputLowa>
 
       <InputDateLowa
@@ -171,9 +169,9 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
         ></BotonLowa>
       ) : (
         <BotonLowa
-          tituloboton={Object.keys(datosParaEditar).length > 0 ? 'Siguiente' : 'Crear Torneo'}
+          tituloboton={isTituloBotonSiguiente ? 'Siguiente' : 'Crear Torneo'}
           onClick={
-            Object.keys(datosParaEditar).length > 0
+            isTituloBotonSiguiente
               ? () => siguientePantallaNuevoTorneo()
               : () => validarCamposNuevoTorneo()
           }

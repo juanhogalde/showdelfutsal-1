@@ -11,6 +11,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Alertas from '../Alertas/Alertas';
 import {
+  actualizarListaDeTorneos_accion,
   crearZonaTorneo_accion,
   volverPorDefectoEditarTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
@@ -36,17 +37,20 @@ const Zonas = () => {
 
   const [datosZona, setDatosZona] = useState('');
   const [tipo, setTipo] = useState('');
-  const [arrayZonasCreadas, setArrayZonasCreadas] = useState('');
+  const [arrayZonasCreadas, setArrayZonasCreadas] = useState([]);
 
   const escucharCambios = (name, value) => {
     setDatosZona({...datosZona, [name]: value});
   };
   const agregarZona = () => {
     let auxDatosZona = {};
+
     Object.assign(auxDatosZona, torneo);
     auxDatosZona.nombreZona = datosZona.nombreZona;
     auxDatosZona.tipoZona = tipo.value;
+    auxDatosZona.idCategoria = idCategoria;
     auxDatosZona.idSubcategoria = idSubcategoria;
+
     dispatch(crearZonaTorneo_accion(auxDatosZona));
   };
 
@@ -58,8 +62,8 @@ const Zonas = () => {
         ); */
       }
       if (isEditarTorneo.isExito) {
-        /* dispatch(actualizarListaDeTorneos_accion());
-        redireccionarZona(isEditarTorneo.categoria, isEditarTorneo.subcategoria); */
+        dispatch(actualizarListaDeTorneos_accion());
+        /*  redireccionarZona(isEditarTorneo.categoria, isEditarTorneo.subcategoria); */
       }
       if (isEditarTorneo.isError) {
         dispatch(volverPorDefectoEditarTorneo_accion());
@@ -75,7 +79,9 @@ const Zonas = () => {
 
   useLayoutEffect(() => {
     if (isEditarTorneo.isExito) {
-      setArrayZonasCreadas(torneo.Zonas);
+      if (torneo.zonas) {
+        setArrayZonasCreadas(torneo.zonas);
+      }
     }
     return () => {};
   }, [torneo.Zonas, isEditarTorneo.isExito]);

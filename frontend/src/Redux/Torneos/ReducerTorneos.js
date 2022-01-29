@@ -21,6 +21,7 @@ import {
   volverPorDefectoListarTorneo,
   volverPorDefectoUnTorneo,
   recuperarTorneo,
+  crearZonaTorneoExito,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -111,11 +112,13 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         ...state,
         isEditarTorneo: {
           tipo: 'warning',
-          mensaje: accion.mensaje,
+          mensaje: '¿Desea editar el torneo?',
           isConsulta: true,
           isCargando: false,
           isExito: false,
           isError: false,
+          categoria: accion.idCategoria,
+          subcategoria: accion.idSubcategoria,
         },
       };
     }
@@ -129,6 +132,8 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           isCargando: true,
           isExito: false,
           isError: false,
+          categoria: state.isEditarTorneo.categoria,
+          subcategoria: state.isEditarTorneo.subcategoria,
         },
       };
     }
@@ -142,6 +147,8 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           isCargando: false,
           isExito: true,
           isError: false,
+          categoria: state.isEditarTorneo.categoria,
+          subcategoria: state.isEditarTorneo.subcategoria,
         },
         torneo: accion.datos,
       };
@@ -322,6 +329,32 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       console.log(auxTorneo);
       return {
         ...state,
+      };
+    }
+    case crearZonaTorneoExito: {
+      let auxDatosDeTorneo = {};
+      Object.assign(auxDatosDeTorneo, state.torneo);
+      if (auxDatosDeTorneo.zonas) {
+        auxDatosDeTorneo.zonas.push(accion.datos);
+      } else {
+        auxDatosDeTorneo = {
+          ...auxDatosDeTorneo,
+          zonas: [],
+        };
+        auxDatosDeTorneo.zonas.push(accion.datos);
+      }
+      console.log(auxDatosDeTorneo);
+      return {
+        ...state,
+        torneo: auxDatosDeTorneo,
+        isEditarTorneo: {
+          tipo: 'success',
+          mensaje: 'Torneo Editado',
+          isConsulta: false,
+          isCargando: false,
+          isExito: true,
+          isError: false,
+        },
       };
     }
     default:

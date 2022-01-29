@@ -32,6 +32,8 @@ export const obtenerTorneoError = 'obtenerTorneoError';
 
 export const recuperarTorneo = 'recuperarTorneo';
 
+export const crearZonaTorneoExito = 'crearZonaTorneoExito';
+
 export const volverPorDefectoUnTorneo_accion = () => {
   return {
     type: volverPorDefectoUnTorneo,
@@ -84,9 +86,11 @@ export const agregarTorneo_accion = datosTorneo => {
 };
 
 /****** EDITAR TORNEO ******/
-export const consultarPorEditarTorneo_accion = () => {
+export const consultarPorEditarTorneo_accion = (idCategoria, idSubcategoria) => {
   return {
     type: consultarPorEditarTorneo,
+    idCategoria: idCategoria,
+    idSubcategoria: idSubcategoria,
   };
 };
 export const cargandoEditarTorneo_accion = () => {
@@ -147,12 +151,20 @@ export const cargarSubcategoriaTorneo_accion = torneo => {
       data: torneo,
     })
       .then(res => {
+        console.log({res});
         dispatch(editarTorneoExito_accion(res.data.value));
       })
       .catch(error => {
         console.log({error});
         dispatch(editarTorneoError_accion());
       });
+  };
+};
+/* CREAR ZONA */
+export const crearZonaTorneoExito_accion = datos => {
+  return {
+    type: crearZonaTorneoExito,
+    datos: datos,
   };
 };
 export const crearZonaTorneo_accion = torneo => {
@@ -170,7 +182,8 @@ export const crearZonaTorneo_accion = torneo => {
       },
     })
       .then(res => {
-        dispatch(editarTorneoExito_accion(res.data.value));
+        /* dispatch(editarTorneoExito_accion(res.data.value)); */
+        dispatch(crearZonaTorneoExito_accion(res.data.value));
       })
       .catch(error => {
         console.log({error});
