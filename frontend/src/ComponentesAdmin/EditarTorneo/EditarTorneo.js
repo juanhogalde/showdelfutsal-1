@@ -12,7 +12,7 @@ const EditarTorneo = () => {
   if (true) {
     return (
       <div className="CP-EditarGaleria">
-        <NuevoTorneo datosParaEditar={torneo} isEditarTorneo={true}></NuevoTorneo>
+        <NuevoTorneo datosParaEditar={torneo} isEditarTorneoProps={true}></NuevoTorneo>
       </div>
     );
   } else {

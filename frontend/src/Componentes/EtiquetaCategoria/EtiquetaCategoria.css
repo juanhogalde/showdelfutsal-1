@@ -1,10 +1,3 @@
-/* .textoEtiquetaCategoria {
-  line-height: 25px;
-  font-size: 1vw;
-} */
-/* @media screen and (max-width: 480px) {
-  .textoEtiquetaCategoria {
-    line-height: 25px;
-    font-size: 3.5vw;
-  }
-} */
+.CP-EtiquetaCategoria {
+  padding-right: 20px;
+}

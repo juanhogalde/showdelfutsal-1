@@ -22,6 +22,10 @@ import {
   listarTorneoError,
   volverPorDefectoListarTorneo,
   volverPorDefectoUnTorneo,
+  /* cargandoObtenerTorneo,
+  obtenerTorneoExito,
+  obtenerTorneoError, */
+  recuperarTorneo,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -129,7 +133,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         ...state,
         isEditarTorneo: {
           tipo: 'warning',
-          mensaje: '¿Desea agregar categoría y subcategría al torneo?',
+          mensaje: accion.mensaje,
           isConsulta: true,
           isCargando: false,
           isExito: false,
@@ -338,6 +342,14 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       return {
         ...state,
         torneo: {},
+      };
+    }
+    case recuperarTorneo: {
+      console.log(accion.id);
+      let auxTorneo = state.torneos.find(torneo => torneo._id === accion.id);
+      console.log(auxTorneo);
+      return {
+        ...state,
       };
     }
     default:

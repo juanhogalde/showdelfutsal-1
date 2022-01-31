@@ -3,8 +3,6 @@ import {urlImagenes} from '../../urlImagenes';
 import './ImagenSlider.css';
 
 const ImagenSlider = ({datos = {}, tamañoImagen = {}, descripcion = ''}) => {
-  console.log(datos);
-  console.log(tamañoImagen);
   return (
     <>
       <div className="CP-Contendor-ImagenSlider">

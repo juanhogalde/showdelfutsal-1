@@ -123,7 +123,7 @@ const BarraDeNavegacion = () => {
               </NavLink>
             </li>
             <li className="nav-item" onClick={() => abrirSubmenu('Liga')}>
-              <div className="nav-links" tabIndex="2" onBlur={() => eventoCerrarSubMenu()}>
+              <div className="nav-links" tabIndex="2">
                 LNFA
                 <div className={`${isLiga ? 'dropdown' : 'dropdown-close'}`}>
                   <Menucategorias categoria={3} eventoApertura={isLiga} handleClick={handleClick} />
@@ -136,7 +136,7 @@ const BarraDeNavegacion = () => {
               </NavLink>
             </li> */}
             <li className="nav-item" onClick={() => abrirSubmenu('Otras')}>
-              <div className="nav-links" tabIndex="3" onBlur={() => eventoCerrarSubMenu()}>
+              <div className="nav-links" tabIndex="3">
                 Otras Competencias
                 <div className={`${isOtra ? 'dropdown' : 'dropdown-close'}`}>
                   <Menucategorias categoria={4} eventoApertura={isOtra} handleClick={handleClick} />

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
 import Selector from '../Selector/Selector';
@@ -10,7 +10,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Alertas from '../Alertas/Alertas';
-import {editarTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
+import {
+  crearZonaTorneo_accion,
+  volverPorDefectoEditarTorneo_accion,
+} from '../../Redux/Torneos/AccionesTorneos';
 
 const options = [
   {value: 1, label: 'Eliminatoria'},
@@ -43,8 +46,8 @@ const Zonas = () => {
     Object.assign(auxDatosZona, torneo);
     auxDatosZona.nombreZona = datosZona.nombreZona;
     auxDatosZona.tipoZona = tipo.value;
-    dispatch(editarTorneo_accion(auxDatosZona));
-    setArrayZonasCreadas([...arrayZonasCreadas, auxDatosZona]);
+    auxDatosZona.idSubcategoria = idSubcategoria;
+    dispatch(crearZonaTorneo_accion(auxDatosZona));
   };
 
   const obtenerRespuestaDeAlertas = respuesta => {
@@ -59,17 +62,23 @@ const Zonas = () => {
         redireccionarZona(isEditarTorneo.categoria, isEditarTorneo.subcategoria); */
       }
       if (isEditarTorneo.isError) {
-        /* dispatch(volverPorDefectoEditarTorneo_accion()); */
+        dispatch(volverPorDefectoEditarTorneo_accion());
       }
     } else {
-      /* dispatch(volverPorDefectoEditarTorneo_accion()); */
+      dispatch(volverPorDefectoEditarTorneo_accion());
     }
   };
 
   const redireccionarEnfrentamiento = () => {
-    console.log('redireccionar enfrentamiento');
     history.push('/Torneo/Nuevo/Campeonato/Zonas/Enfrentamiento');
   };
+
+  useLayoutEffect(() => {
+    if (isEditarTorneo.isExito) {
+      setArrayZonasCreadas(torneo.Zonas);
+    }
+    return () => {};
+  }, [torneo.Zonas, isEditarTorneo.isExito]);
 
   return (
     <div className="CP-Zonas">
@@ -95,7 +104,6 @@ const Zonas = () => {
             <p className="titulo-ZonasCreadas">Zonas creadas</p>
 
             {arrayZonasCreadas.map((zona, index) => {
-              console.log(zona);
               return (
                 <TarjetaZona
                   redireccionarEnfrentamiento={redireccionarEnfrentamiento}

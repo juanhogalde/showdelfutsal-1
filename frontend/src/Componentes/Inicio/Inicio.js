@@ -8,10 +8,10 @@ import publicidadLarga from '../../Static/Img/publicidad_larga.jpg';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
 import Vivo from '../Vivo/Vivo';
 import SomosFrase from '../../Static/Img/frase_inicio.png';
-import {BsTwitter, BsInstagram, BsYoutube} from 'react-icons/bs';
+import {BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
-import Radio from '../Radio/Radio';
+/* import Radio from '../Radio/Radio'; */
 import PieDepagina from '../PieDePagina/PieDepagina';
 import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
 import ModalLowa from '../../ComponentesAdmin/ModalLowa/ModalLowa';
@@ -174,7 +174,9 @@ const Inicio = () => {
     return (
       <div className="I-Contenedor-flecha-derecha">
         <div
-          className={`${props.isVertical ? 'flechaNextVertical' : 'flechaSiguiente'}`}
+          className={`${
+            props.isVertical ? 'flechaNextVertical' : 'flechaSiguiente I-Contenedor-flecha-derecha'
+          }`}
           onClick={onClick}
         >
           <AiFillCaretRight size={20} className="flecha"></AiFillCaretRight>
@@ -200,16 +202,19 @@ const Inicio = () => {
   }
 
   const settings = {
+    arrows: false,
+    fade: true,
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     autoplay: true,
-    autoplaySpeed: 2000,
-    cssEase: 'linear',
+    autoplaySpeed: 3500,
+    cssEase: 'ease-in-out',
+    pauseOnHover: true,
 
     responsive: [
       {
@@ -353,9 +358,9 @@ const Inicio = () => {
                 <div onClick={() => redireccionar('https://www.facebook.com/ElShowdelFutsal')}>
                   <FaFacebookF className="iconos-Redes-Sociales"></FaFacebookF>
                 </div>
-                <div onClick={() => redireccionar()}>
+                {/*  <div onClick={() => redireccionar()}>
                   <BsTwitter className="iconos-Redes-Sociales"></BsTwitter>
-                </div>
+                </div> */}
                 <div onClick={() => redireccionar('https://www.instagram.com/elshowdelfutsal/')}>
                   <BsInstagram className="iconos-Redes-Sociales"></BsInstagram>
                 </div>
@@ -370,9 +375,9 @@ const Inicio = () => {
             </div>
           </div>
 
-          <div className="CI-Somos-radio">
+          {/* <div className="CI-Somos-radio">
             <Radio />
-          </div>
+          </div> */}
         </div>
       </div>
       {/* SECCION VIVO */}
@@ -575,6 +580,7 @@ const Inicio = () => {
           </div>
         </div>
       </div>
+
       <PieDepagina isConFondo={true}></PieDepagina>
 
       <ModalLowa

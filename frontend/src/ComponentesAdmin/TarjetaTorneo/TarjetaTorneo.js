@@ -38,7 +38,7 @@ const TarjetaTorneo = ({
   };
   const editarTorneo = id => {
     dispatch(cargarDatosDeTorneoParaEdicion_accion(torneo));
-    historialDeNavegacion.push(`/Torneo/Editar/${id}}`);
+    historialDeNavegacion.push(`/Torneo/Editar/${id}`);
   };
   const consultaPorEliminarTorneo = id => {
     dispatch(consultarPorEliminarTorneo_accion(id));

@@ -4,7 +4,7 @@ import {useHistory} from 'react-router-dom';
 import {
   actualizarListaDeTorneos_accion,
   consultarPorEditarTorneo_accion,
-  editarTorneo_accion,
+  cargarSubcategoriaTorneo_accion,
   volverPorDefectoEditarTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 /* import {obtenerCategoriaSubcategoriaDatosDeTorneo_accion} from '../../Redux/Torneos/AccionesTorneos'; */
@@ -22,7 +22,13 @@ const Campeonato = () => {
   const consultarPorAgregarCategoriaSubcategoria = (idCategoria, idSubcategoria) => {
     let auxIdCategoria = idCategoria;
     let auxIdSubCategoria = idSubcategoria;
-    dispatch(consultarPorEditarTorneo_accion(auxIdCategoria, auxIdSubCategoria));
+    dispatch(
+      consultarPorEditarTorneo_accion(
+        auxIdCategoria,
+        auxIdSubCategoria,
+        '¿Desea agregar categoría y subcategoría?'
+      )
+    );
   };
   const obtenerRespuestaDeAlertas = respuesta => {
     if (respuesta) {
@@ -31,7 +37,7 @@ const Campeonato = () => {
         Object.assign(auxDatosDeTorneo, torneo);
         auxDatosDeTorneo.nuevaCategoria = isEditarTorneo.categoria;
         auxDatosDeTorneo.nuevaSubcategoria = isEditarTorneo.subcategoria;
-        dispatch(editarTorneo_accion(auxDatosDeTorneo));
+        dispatch(cargarSubcategoriaTorneo_accion(auxDatosDeTorneo));
       }
       if (isEditarTorneo.isExito) {
         dispatch(actualizarListaDeTorneos_accion());
@@ -45,9 +51,17 @@ const Campeonato = () => {
     }
   };
   const redireccionarZona = (categoria, subcategoria) => {
-    console.log(categoria, subcategoria);
-
     history.push(`/Torneo/Nuevo/Campeonato/Zonas/${categoria}/${subcategoria}`);
+  };
+
+  const obtenerExistenciaDeSubcategoria = subcategoria => {
+    let resultadoDeBusqueda = false;
+    torneo.idSubcategoria.forEach(subCategoriaTorneo => {
+      if (subcategoria.keyCategoria === subCategoriaTorneo.keyCategoria) {
+        if (subcategoria.key === subCategoriaTorneo.keySubcategoria) resultadoDeBusqueda = true;
+      }
+    });
+    return resultadoDeBusqueda;
   };
 
   useEffect(() => {
@@ -61,19 +75,13 @@ const Campeonato = () => {
       <div className="CP-Campeonato">
         <div className="CI-CampeonatoMasculino">
           <p>{categorias[0].label ? categorias[0].label : ''}</p>
+
           {subcategorias.map((subcategoria, index) => {
-            if (subcategoria.key <= 4) {
-              let auxIsCategoriaExistente = false;
-              if (torneo.idSubcategoria) {
-                if (torneo.idSubcategoria.includes(subcategoria.value)) {
-                  auxIsCategoriaExistente = true;
-                } else {
-                  auxIsCategoriaExistente = false;
-                }
-              }
+            if (subcategoria.keyCategoria === 1) {
+              const aux = obtenerExistenciaDeSubcategoria(subcategoria);
               return (
                 <TarjetaTorneo
-                  isExisteSubcategoria={auxIsCategoriaExistente}
+                  isExisteSubcategoria={aux}
                   categoria={categorias[0]}
                   subcategoria={subcategoria}
                   key={index}
@@ -82,7 +90,7 @@ const Campeonato = () => {
                   consultarPorAgregarCategoriaSubcategoria={
                     consultarPorAgregarCategoriaSubcategoria
                   }
-                ></TarjetaTorneo>
+                />
               );
             } else return '';
           })}
@@ -90,18 +98,11 @@ const Campeonato = () => {
         <div className="CI-CampeonatoMasculino">
           <p>{categorias[1].label ? categorias[1].label : ''}</p>
           {subcategorias.map((subcategoria, index) => {
-            if (subcategoria.key === 1 || subcategoria.key === 2) {
-              let auxIsCategoriaExistente = false;
-              if (torneo.idSubcategoria) {
-                if (torneo.idSubcategoria.includes(subcategoria.value)) {
-                  auxIsCategoriaExistente = true;
-                } else {
-                  auxIsCategoriaExistente = false;
-                }
-              }
+            if (subcategoria.keyCategoria === 2) {
+              const aux = obtenerExistenciaDeSubcategoria(subcategoria);
               return (
                 <TarjetaTorneo
-                  isExisteSubcategoria={auxIsCategoriaExistente}
+                  isExisteSubcategoria={aux}
                   categoria={categorias[1]}
                   subcategoria={subcategoria}
                   key={index}

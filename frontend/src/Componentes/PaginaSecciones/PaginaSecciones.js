@@ -10,7 +10,7 @@ import {useSelector} from 'react-redux';
 
 const PaginaSecciones = () => {
   let {id} = useParams();
-
+  console.log(id);
   const {categoriaSeleccionada, subcategorias} = useSelector(state => state.sotreDatosIniciales);
 
   const [categoria, setCategoria] = useState(null);

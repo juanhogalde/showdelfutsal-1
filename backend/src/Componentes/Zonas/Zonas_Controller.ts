@@ -1,7 +1,47 @@
 import modeloZonas from './Zonas_Model';
 import IZona from './Zonas_Interface';
+import {Request, Response} from 'express';
+import responder from '../../Middlewares/responder';
 
 class ZonasController {
+  public async agregar(req: Request, res: Response) {
+    try {
+      if (!req.body.idSubcategoria || !req.body.idCategoria || !req.body.idTorneo) {
+        responder.error(
+          req,
+          res,
+          '',
+          `Faltan datos requeridos ${!req.body.idSubcategoria ? 'idSubcategoria ' : ''}${
+            !req.body.idCategoria ? 'idCategoria ' : ''
+          },${!req.body.idTorneo ? 'id de torneo ' : ''}`,
+          400
+        );
+      } else {
+        const nuevaZona: IZona = new modeloZonas(req.body);
+        nuevaZona
+          .save()
+          .then((resultado: any) => {
+            responder.sucess(req, res, {
+              _id: resultado._id,
+              tipoZona: resultado.tipoZona,
+              keyCategoria: resultado.idSubcategoria.keyCategoria,
+              keySubcategoria: resultado.idSubcategoria.keySubcategoria,
+              equipos: resultado.equipos,
+              idSubcategoria: resultado.idSubcategoria._id,
+              idCategoria: resultado.idCategoria,
+              nombreZona: resultado.nombreZona,
+            });
+          })
+          .catch((error: any) => {
+            console.error(error);
+            responder.error(req, res, error);
+          });
+      }
+    } catch (error) {
+      console.error(error);
+      responder.error(req, res, error);
+    }
+  }
   public async crearZona(data: any) {
     try {
       const pr = new Promise((resolve: any, reject: any) => {

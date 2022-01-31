@@ -29,6 +29,12 @@ export const listarTorneoError = 'listarTorneoError';
 export const volverPorDefectoListarTorneo = 'volverPorDefectoListarTorneo';
 export const volverPorDefectoUnTorneo = 'volverPorDefectoUnTorneo';
 
+export const cargandoObtenerTorneo = 'cargandoObtenerTorneo';
+export const obtenerTorneoExito = 'obtenerTorneoExito';
+export const obtenerTorneoError = 'obtenerTorneoError';
+
+export const recuperarTorneo = 'recuperarTorneo';
+
 export const volverPorDefectoUnTorneo_accion = () => {
   return {
     type: volverPorDefectoUnTorneo,
@@ -96,11 +102,12 @@ export const agregarTorneo_accion = datosTorneo => {
 };
 
 /****** EDITAR TORNEO ******/
-export const consultarPorEditarTorneo_accion = (categoria, subcategoria) => {
+export const consultarPorEditarTorneo_accion = (categoria, subcategoria, mensaje) => {
   return {
     type: consultarPorEditarTorneo,
     categoria: categoria,
     subcategoria: subcategoria,
+    mensaje: mensaje,
   };
 };
 export const cargandoEditarTorneo_accion = () => {
@@ -136,7 +143,6 @@ export const cargarDatosDeTorneoParaEdicion_accion = datos => {
 };
 
 export const editarTorneo_accion = torneo => {
-  console.log(torneo);
   return dispatch => {
     dispatch(cargandoEditarTorneo_accion());
     API({
@@ -145,7 +151,46 @@ export const editarTorneo_accion = torneo => {
       data: torneo,
     })
       .then(res => {
-        console.log({res});
+        dispatch(editarTorneoExito_accion(res.data.value));
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(editarTorneoError_accion());
+      });
+  };
+};
+export const cargarSubcategoriaTorneo_accion = torneo => {
+  return dispatch => {
+    dispatch(cargandoEditarTorneo_accion());
+    API({
+      url: '/torneos/cargarSubcategoria',
+      method: 'put',
+      data: torneo,
+    })
+      .then(res => {
+        dispatch(editarTorneoExito_accion(res.data.value));
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(editarTorneoError_accion());
+      });
+  };
+};
+export const crearZonaTorneo_accion = torneo => {
+  return dispatch => {
+    dispatch(cargandoEditarTorneo_accion());
+    API({
+      url: '/zonas/agregar',
+      method: 'post',
+      data: {
+        nombreZona: torneo.nombreZona,
+        tipoZona: torneo.tipoZona,
+        idSubcategoria: torneo.idSubcategoria,
+        idCategoria: torneo.idCategoria,
+        idTorneo: torneo._id,
+      },
+    })
+      .then(res => {
         dispatch(editarTorneoExito_accion(res.data.value));
       })
       .catch(error => {
@@ -249,6 +294,58 @@ export const listarTorneo_accion = () => {
     })
       .then(res => {
         dispatch(listarTorneoExito_accion(res.data.value));
+      })
+      .catch(error => {
+        console.log({error});
+        /* dispatch(listarTorneoError_accion()); */
+      });
+  };
+};
+/****** OBTENER TORNEO EN MEMORIA******/
+export const recuperarTorneo_accion = id => {
+  return {
+    type: recuperarTorneo,
+    id: id,
+  };
+};
+
+/****** OBTENER TORNEO ASYNC******/
+export const cargandoObtenerTorneo_accion = () => {
+  return {
+    type: cargandoObtenerTorneo,
+  };
+};
+
+export const obtenerTorneoExito_accion = datos => {
+  return {
+    type: obtenerTorneoExito,
+    datos: datos,
+  };
+};
+
+export const obtenerTorneoError_accion = error => {
+  return {
+    type: obtenerTorneoError,
+    error: error,
+  };
+};
+
+/* export const volverPorDefectoListarTorneo_accion = () => {
+  return {
+    type: volverPorDefectoListarTorneo,
+  };
+}; */
+
+export const obtenerTorneo_accion = id => {
+  return dispatch => {
+    dispatch(cargandoObtenerTorneo_accion());
+    API({
+      url: '/torneos/obtener',
+      method: 'get',
+      data: {_id: id},
+    })
+      .then(res => {
+        /* dispatch(listarTorneoExito_accion(res.data.value)); */
       })
       .catch(error => {
         console.log({error});
