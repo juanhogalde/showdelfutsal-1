@@ -39,7 +39,7 @@ export const agregarCategoriaSubcategoriaTorneoExito = 'agregarCategoriaSubcateg
 export const agregarCategoriaSubcategoriaTorneoError = 'agregarCategoriaSubcategoriaTorneoError';
 export const volverPorDefectoAgregarCategoriaSubcategoriaTorneo =
   'volverPorDefectoAgregarCategoriaSubcategoriaTorneo';
-
+export const actualizarListaDeTorneosConSubcategoria = 'actualizarListaDeTorneosConSubcategoria';
 export const crearZonaTorneoExito = 'crearZonaTorneoExito';
 
 export const volverPorDefectoUnTorneo_accion = () => {
@@ -201,6 +201,11 @@ export const agregarCategoriaSubcategoriaTorneo_accion = torneo => {
         console.log({error});
         dispatch(agregarCategoriaSubcategoriaTorneoError_accion());
       });
+  };
+};
+export const actualizarListaDeTorneosConSubcategoria_accion = () => {
+  return {
+    type: actualizarListaDeTorneosConSubcategoria,
   };
 };
 /* CREAR ZONA */

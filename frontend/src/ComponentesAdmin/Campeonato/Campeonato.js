@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {
-  actualizarListaDeTorneos_accion,
+  actualizarListaDeTorneosConSubcategoria_accion,
   agregarCategoriaSubcategoriaTorneo_accion,
   consultarPoragregarCategoriaSubcategoriaTorneo_accion,
   volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion,
@@ -35,7 +35,7 @@ const Campeonato = () => {
         dispatch(agregarCategoriaSubcategoriaTorneo_accion(auxDatosDeTorneo));
       }
       if (isAgregarCategoriaSubcategoria.isExito) {
-        dispatch(actualizarListaDeTorneos_accion());
+        dispatch(actualizarListaDeTorneosConSubcategoria_accion());
         redireccionarZona(
           isAgregarCategoriaSubcategoria.categoria,
           isAgregarCategoriaSubcategoria.subcategoria

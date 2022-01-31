@@ -27,6 +27,7 @@ import {
   agregarCategoriaSubcategoriaTorneoExito,
   agregarCategoriaSubcategoriaTorneoError,
   volverPorDefectoAgregarCategoriaSubcategoriaTorneo,
+  actualizarListaDeTorneosConSubcategoria,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -404,6 +405,26 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           tipo: '',
           mensaje: '',
           isConsulta: false,
+          isCargando: false,
+          isExito: false,
+          isError: false,
+          categoria: '',
+          subcategoria: '',
+        },
+      };
+    }
+    case actualizarListaDeTorneosConSubcategoria: {
+      let auxTorneos = state.torneos.map(torneoDeArray => {
+        if (torneoDeArray._id === state.torneo._id) {
+          return state.torneo;
+        } else return torneoDeArray;
+      });
+      return {
+        ...state,
+        torneos: auxTorneos,
+        isAgregarCategoriaSubcategoria: {
+          tipo: '',
+          mensaje: '',
           isCargando: false,
           isExito: false,
           isError: false,
