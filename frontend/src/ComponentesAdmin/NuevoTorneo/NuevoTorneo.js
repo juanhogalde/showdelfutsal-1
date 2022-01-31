@@ -63,24 +63,64 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
   };
 
   const validarCamposNuevoTorneo = () => {
-    if (new Date(datosTorneo.fechaInicio).getTime() > new Date(datosTorneo.fechaFin).getTime()) {
-      setAlertaFechas({
-        tipo: 'error',
-        mensaje: 'Fechas inválidas, por favor verificar.',
-        isMostrar: true,
-      });
-    } else {
+    if (compararObjetos(datosTorneo, torneo)) {
       if (isEditarTorneoProps) {
         dispatch(consultarPorEditarTorneo_accion());
+      }
+    } else {
+      if (datosTorneo.tipoTorneo) {
+        if (datosTorneo.tituloTorneo) {
+          if (datosTorneo.fechaInicio) {
+            if (datosTorneo.fechaFin) {
+              if (
+                new Date(datosTorneo.fechaInicio).getTime() >
+                new Date(datosTorneo.fechaFin).getTime()
+              ) {
+                setAlertaFechas({
+                  tipo: 'error',
+                  mensaje: 'Fechas inválidas, por favor verificar.',
+                  isMostrar: true,
+                });
+              } else {
+                if (Object.keys(datosTorneo).length > 0) {
+                  dispatch(agregarTorneo_accion(datosTorneo));
+                }
+              }
+            } else {
+              setAlertaFechas({
+                tipo: 'error',
+                mensaje: 'Debe seleccionar fecha de fin de torneo.',
+                isMostrar: true,
+              });
+            }
+          } else {
+            setAlertaFechas({
+              tipo: 'error',
+              mensaje: 'Debe seleccionar fecha de inicio de torneo.',
+              isMostrar: true,
+            });
+          }
+        } else {
+          setAlertaFechas({
+            tipo: 'error',
+            mensaje: 'Debe completar titulo de torneo.',
+            isMostrar: true,
+          });
+        }
       } else {
-        dispatch(agregarTorneo_accion(datosTorneo));
+        setAlertaFechas({
+          tipo: 'error',
+          mensaje: 'Debe seleccionar tipo de torneo.',
+          isMostrar: true,
+        });
       }
     }
   };
+
   const respuestaDeAlertasAgregarTorneo = respuesta => {
     if (respuesta) {
       dispatch(volverPorDefectoAgregarTorneo_accion());
-      setIsTituloBotonSiguiente(true);
+      siguientePantallaNuevoTorneo();
     }
   };
   const respuestaDeAlertaFechas = respuesta => {
@@ -90,14 +130,6 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
         mensaje: '',
         isMostrar: true,
       });
-    }
-  };
-
-  const validarCamposEditarTorneo = () => {
-    if (compararObjetos(datosParaEditar, datosTorneo)) {
-      siguientePantallaNuevoTorneo();
-    } else {
-      validarCamposNuevoTorneo();
     }
   };
 
@@ -123,7 +155,7 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
       setDatosTorneo(datosParaEditar);
     }
     if (torneo) {
-      setDatosTorneo(torneo);
+      if (Object.keys(torneo).length > 0) setDatosTorneo(torneo);
     }
     return () => {};
   }, [datosParaEditar, torneo]);
@@ -164,21 +196,17 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
       {isEditarTorneoProps ? (
         <BotonLowa
           tituloboton={isFinalizoEdicion ? 'Siguiente' : 'Guardar'}
-          onClick={
+          /* onClick={
             isFinalizoEdicion
               ? () => siguientePantallaNuevoTorneo()
               : () => validarCamposEditarTorneo()
-          }
+          } */
         ></BotonLowa>
       ) : (
         <BotonLowa
-          tituloboton={isTituloBotonSiguiente ? 'Siguiente' : 'Crear Torneo'}
-          onClick={
-            isTituloBotonSiguiente
-              ? () => siguientePantallaNuevoTorneo()
-              : () => validarCamposNuevoTorneo()
-          }
-          disabled={Object.keys(datosTorneo).length >= 4 ? false : true}
+          tituloboton={Object.keys(torneo).length >= 4 ? 'Siguiente' : 'Crear Torneo'}
+          onClick={() => validarCamposNuevoTorneo()}
+          /* disabled={Object.keys(datosTorneo).length >= 4 ? false : true} */
         ></BotonLowa>
       )}
       <Alertas
