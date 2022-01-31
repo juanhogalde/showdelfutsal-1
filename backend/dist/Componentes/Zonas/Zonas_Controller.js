@@ -21,7 +21,42 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.zonasController = void 0;
 const Zonas_Model_1 = __importDefault(require("./Zonas_Model"));
+const responder_1 = __importDefault(require("../../Middlewares/responder"));
 class ZonasController {
+    agregar(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (!req.body.idSubcategoria || !req.body.idCategoria || !req.body.idTorneo) {
+                    responder_1.default.error(req, res, '', `Faltan datos requeridos ${!req.body.idSubcategoria ? 'idSubcategoria ' : ''}${!req.body.idCategoria ? 'idCategoria ' : ''},${!req.body.idTorneo ? 'id de torneo ' : ''}`, 400);
+                }
+                else {
+                    const nuevaZona = new Zonas_Model_1.default(req.body);
+                    nuevaZona
+                        .save()
+                        .then((resultado) => {
+                        responder_1.default.sucess(req, res, {
+                            _id: resultado._id,
+                            tipoZona: resultado.tipoZona,
+                            keyCategoria: resultado.idSubcategoria.keyCategoria,
+                            keySubcategoria: resultado.idSubcategoria.keySubcategoria,
+                            equipos: resultado.equipos,
+                            idSubcategoria: resultado.idSubcategoria._id,
+                            idCategoria: resultado.idCategoria,
+                            nombreZona: resultado.nombreZona,
+                        });
+                    })
+                        .catch((error) => {
+                        console.error(error);
+                        responder_1.default.error(req, res, error);
+                    });
+                }
+            }
+            catch (error) {
+                console.error(error);
+                responder_1.default.error(req, res, error);
+            }
+        });
+    }
     crearZona(data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

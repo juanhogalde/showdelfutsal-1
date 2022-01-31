@@ -19,4 +19,9 @@ const TorneosSchema = new mongoose_1.Schema({
     ],
     tipoTorneo: Number,
 });
+TorneosSchema.post('save', function (doc, next) {
+    doc.populate('idSubcategoria').then(function () {
+        next();
+    });
+});
 exports.default = (0, mongoose_1.model)('modeloTorneos', TorneosSchema);

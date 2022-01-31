@@ -23,6 +23,7 @@ const Home_Router_1 = __importDefault(require("./Componentes/Home/Home_Router"))
 const Imagenes_Router_1 = __importDefault(require("./Componentes/Imagenes/Imagenes_Router"));
 const Videos_Router_1 = __importDefault(require("./Componentes/Videos/Videos_Router"));
 const Galeria_Router_1 = __importDefault(require("./Componentes/Galeria/Galeria_Router"));
+const Zonas_Router_1 = __importDefault(require("./Componentes/Zonas/Zonas_Router"));
 const Tablas_Router_1 = __importDefault(require("./Componentes/Tablas/Tablas_Router"));
 const responder_1 = __importDefault(require("./Middlewares/responder"));
 const manejadorErrores_1 = __importDefault(require("./Middlewares/manejadorErrores"));
@@ -69,6 +70,7 @@ class Server {
         this.app.use('/videos', Videos_Router_1.default);
         this.app.use('/galeria', Galeria_Router_1.default);
         this.app.use('/noticias', Noticias_Router_1.default);
+        this.app.use('/zonas', Zonas_Router_1.default);
         this.app.use('/partidos', Partidos_Router_1.default);
         this.app.use('/publicidades', Publicidades_Router_1.default);
         this.app.use('/subcategorias', Subcategorias_Router_1.default);
