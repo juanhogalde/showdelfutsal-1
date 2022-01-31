@@ -122,8 +122,12 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
     if (Object.keys(datosParaEditar).length > 0) {
       setDatosTorneo(datosParaEditar);
     }
+    if (torneo) {
+      setDatosTorneo(torneo);
+    }
     return () => {};
-  }, [datosParaEditar]);
+  }, [datosParaEditar, torneo]);
+
   return (
     <div className="CP-NuevoTorneo">
       <Selector
