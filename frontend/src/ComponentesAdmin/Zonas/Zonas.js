@@ -12,9 +12,11 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import Alertas from '../Alertas/Alertas';
 import {
   actualizarListaDeTorneos_accion,
+  cargarDatosDeTorneoParaEdicion_accion,
   crearZonaTorneo_accion,
   volverPorDefectoEditarTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
+import Cargando from '../Cargando/Cargando';
 
 const options = [
   {value: 1, label: 'Eliminatoria'},
@@ -24,8 +26,9 @@ const options = [
 const Zonas = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const {idCategoria, idSubcategoria} = useParams();
-  const {torneo, isEditarTorneo} = useSelector(state => state.storeTorneos);
+  const {idTorneo, idCategoria, idSubcategoria} = useParams();
+  const {torneo, torneos, isEditarTorneo} = useSelector(state => state.storeTorneos);
+
   const categoria = useSelector(state =>
     state.sotreDatosIniciales.categorias.find(categoria => categoria.value === idCategoria)
   );
@@ -35,15 +38,41 @@ const Zonas = () => {
     )
   );
 
+  const [isTorneo, setIsTorneo] = useState(false);
   const [datosZona, setDatosZona] = useState('');
   const [tipo, setTipo] = useState('');
   const [arrayZonasCreadas, setArrayZonasCreadas] = useState([]);
-
+  const [alertaCamposVacios, setAlertaCamposVacios] = useState({
+    tipo: '',
+    mensaje: '',
+    isMostrar: false,
+  });
   const escucharCambios = (name, value) => {
     setDatosZona({...datosZona, [name]: value});
   };
   const agregarZona = () => {
     let auxDatosZona = {};
+    if (datosZona !== '') {
+      if (tipo !== '') {
+        Object.assign(auxDatosZona, torneo);
+        auxDatosZona.nombreZona = datosZona.nombreZona;
+        auxDatosZona.tipoZona = tipo.value;
+        auxDatosZona.idCategoria = idCategoria;
+        auxDatosZona.idSubcategoria = idSubcategoria;
+
+        dispatch(crearZonaTorneo_accion(auxDatosZona));
+      } else {
+        setAlertaCamposVacios({
+          tipo: 'error',
+          mensaje: 'Debe seleccionar Tipo de Zona.',
+        });
+      }
+    } else {
+      setAlertaCamposVacios({
+        tipo: 'error',
+        mensaje: 'Debe completar el Nombre/Zona.',
+      });
+    }
 
     Object.assign(auxDatosZona, torneo);
     auxDatosZona.nombreZona = datosZona.nombreZona;
@@ -51,14 +80,13 @@ const Zonas = () => {
     auxDatosZona.idCategoria = idCategoria;
     auxDatosZona.idSubcategoria = idSubcategoria;
 
-    dispatch(crearZonaTorneo_accion(auxDatosZona));
+    /* dispatch(crearZonaTorneo_accion(auxDatosZona)); */
   };
 
   const obtenerRespuestaDeAlertas = respuesta => {
     if (respuesta) {
       if (isEditarTorneo.isExito) {
         dispatch(actualizarListaDeTorneos_accion());
-        /*  redireccionarZona(isEditarTorneo.categoria, isEditarTorneo.subcategoria); */
       }
       if (isEditarTorneo.isError) {
         dispatch(volverPorDefectoEditarTorneo_accion());
@@ -71,67 +99,104 @@ const Zonas = () => {
   const redireccionarEnfrentamiento = () => {
     history.push('/Torneo/Nuevo/Campeonato/Zonas/Enfrentamiento');
   };
+  const obtenerRespuestaDeAlertaCamposVacios = respuesta => {
+    if (respuesta) {
+      setAlertaCamposVacios({
+        tipo: '',
+        mensaje: '',
+        isMostrar: false,
+      });
+    }
+  };
 
   useLayoutEffect(() => {
-    if (isEditarTorneo.isExito) {
-      if (torneo.zonas) {
-        setArrayZonasCreadas(torneo.zonas);
+    console.log(idTorneo);
+    setTimeout(async () => {
+      if ((await torneos.length) > 0) {
+        console.log('ingresa if');
+        dispatch(cargarDatosDeTorneoParaEdicion_accion(idTorneo));
+      }
+    }, 1000);
+
+    if (torneo) {
+      if (isEditarTorneo.isExito) {
+        if (torneo.zonas) {
+          setIsTorneo(true);
+          setArrayZonasCreadas(torneo.zonas);
+        }
       }
     }
+    if (torneo.zonas) {
+      setIsTorneo(true);
+      setArrayZonasCreadas(torneo.zonas);
+    }
     return () => {};
-  }, [torneo.zonas, isEditarTorneo.isExito]);
+  }, [dispatch, torneos, torneo, idTorneo, isEditarTorneo.isExito]);
+  if (isTorneo) {
+    return (
+      <div className="CP-Zonas">
+        <div>
+          <h5>{categoria && categoria.label ? categoria.label : <Skeleton width="15%" />}</h5>
+          <h6>{categoria && subcategoria.label ? subcategoria.label : <Skeleton width="10%" />}</h6>
 
-  return (
-    <div className="CP-Zonas">
-      <div>
-        <h5>{categoria && categoria.label ? categoria.label : <Skeleton width="15%" />}</h5>
-        <h6>{categoria && subcategoria.label ? subcategoria.label : <Skeleton width="10%" />}</h6>
+          <InputLowa
+            name="nombreZona"
+            placeholder={'Ingrese Nombre/Zona'}
+            onChange={e => escucharCambios(e.target.name, e.target.value)}
+          ></InputLowa>
+          <Selector
+            name="tipoZona"
+            placeholder="Seleccione Tipo"
+            selectorConIcono={<BsPlusCircle />}
+            options={options ? options : []}
+            onChange={setTipo}
+          ></Selector>
+          <BotonLowa tituloboton="Agregar" onClick={() => agregarZona()}></BotonLowa>
+          {arrayZonasCreadas && (
+            <div className="CI-ZonasCreadas">
+              <p className="titulo-ZonasCreadas">Zonas creadas</p>
 
-        <InputLowa
-          name="nombreZona"
-          placeholder={'Ingrese Nombre/Zona'}
-          onChange={e => escucharCambios(e.target.name, e.target.value)}
-        ></InputLowa>
-        <Selector
-          name="tipoZona"
-          placeholder="Seleccione Tipo"
-          selectorConIcono={<BsPlusCircle />}
-          options={options ? options : []}
-          onChange={setTipo}
-        ></Selector>
-        <BotonLowa tituloboton="Agregar" onClick={() => agregarZona()}></BotonLowa>
-        {arrayZonasCreadas && (
-          <div className="CI-ZonasCreadas">
-            <p className="titulo-ZonasCreadas">Zonas creadas</p>
+              {arrayZonasCreadas.map((zona, index) => {
+                return (
+                  <TarjetaZona
+                    redireccionarEnfrentamiento={redireccionarEnfrentamiento}
+                    key={index}
+                    indice={index}
+                    categoria={categoria ? categoria : ''}
+                    subcategoria={subcategoria ? subcategoria : ''}
+                    datos={zona}
+                  ></TarjetaZona>
+                );
+              })}
+            </div>
+          )}
+        </div>
 
-            {arrayZonasCreadas.map((zona, index) => {
-              return (
-                <TarjetaZona
-                  redireccionarEnfrentamiento={redireccionarEnfrentamiento}
-                  key={index}
-                  indice={index}
-                  datos={zona}
-                ></TarjetaZona>
-              );
-            })}
-          </div>
-        )}
+        <Alertas
+          mostrarSweet={
+            isEditarTorneo.isConsulta ||
+            isEditarTorneo.isCargando ||
+            isEditarTorneo.isExito ||
+            isEditarTorneo.isError
+          }
+          tipoDeSweet={isEditarTorneo.tipo}
+          subtitulo={isEditarTorneo.mensaje}
+          RespuestaDeSweet={obtenerRespuestaDeAlertas}
+        ></Alertas>
+        <Alertas
+          mostrarSweet={alertaCamposVacios.isMostrar}
+          tipoDeSweet={alertaCamposVacios.tipo}
+          subtitulo={alertaCamposVacios.mensaje}
+          RespuestaDeSweet={obtenerRespuestaDeAlertaCamposVacios}
+        ></Alertas>
       </div>
-      <div className="CI-BotonSiguiente-TarjetaZona">
-        <BotonLowa tituloboton="Siguiente"></BotonLowa>
+    );
+  } else {
+    return (
+      <div className="CP-EditarTorneo-Cargando">
+        <Cargando></Cargando>
       </div>
-      <Alertas
-        mostrarSweet={
-          isEditarTorneo.isConsulta ||
-          isEditarTorneo.isCargando ||
-          isEditarTorneo.isExito ||
-          isEditarTorneo.isError
-        }
-        tipoDeSweet={isEditarTorneo.tipo}
-        subtitulo={isEditarTorneo.mensaje}
-        RespuestaDeSweet={obtenerRespuestaDeAlertas}
-      ></Alertas>
-    </div>
-  );
+    );
+  }
 };
 export default Zonas;

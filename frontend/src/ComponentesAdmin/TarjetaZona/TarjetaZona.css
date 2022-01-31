@@ -4,18 +4,21 @@
   min-height: 100px;
   /* background-color: white; */
   display: grid;
-  grid-template-columns: minmax(30px, 60px) 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-columns: minmax(30px, 60px) 1fr 1fr 50px;
+  grid-template-rows: minmax(130px, 1fr);
+  border-radius: 10px;
+  margin-top: 15px;
+  position: relative;
 }
 .CI-Indice {
-  grid-column: 1/2;
-  grid-row: 1/2;
   display: flex;
   align-items: center;
+  padding-left: 20px;
+
+  padding-right: 20px;
 }
 .CI-Cuerpo-TarjetaZona {
-  border-top: 2px solid #0000001a;
-  grid-column: 2/4;
+  grid-column: 1/4;
   grid-row: 1/2;
   display: flex;
 }
@@ -36,4 +39,12 @@
 }
 .Categoria-Division p {
   color: #00000080;
+}
+.acciones-TarjetaZona {
+  grid-column: 4/5;
+  grid-row: 1/2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
