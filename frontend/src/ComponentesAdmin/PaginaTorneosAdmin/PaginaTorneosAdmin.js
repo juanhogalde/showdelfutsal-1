@@ -13,7 +13,9 @@ import Alertas from '../Alertas/Alertas';
 
 const PaginaTorneosAdmin = () => {
   const historialDeNavegacion = useHistory();
-  const {torneos, torneo, isEliminarTorneo} = useSelector(state => state.storeTorneos);
+  const {torneos, torneo, isEliminarTorneo, isObtenerDatosEditarTorneo} = useSelector(
+    state => state.storeTorneos
+  );
   const dispatch = useDispatch();
 
   const redireccionarNuevaNoticia = respuesta => {
@@ -37,7 +39,18 @@ const PaginaTorneosAdmin = () => {
       dispatch(volverPorDefectoEliminarTorneo_accion());
     }
   };
-
+  const obtenerRespuestaDeAlertaEditarTorneo = respuesta => {
+    if (respuesta) {
+      if (isObtenerDatosEditarTorneo.isExito) {
+        /* dispatch(actualizarListaDeTorneos_accion()); */
+      }
+      if (isObtenerDatosEditarTorneo.isError) {
+        /* dispatch(volverPorDefectoEliminarTorneo_accion()); */
+      }
+    } else {
+      /* dispatch(volverPorDefectoEliminarTorneo_accion()); */
+    }
+  };
   useLayoutEffect(() => {
     if (torneo) {
       if (Object.keys(torneo).length > 0) {
@@ -66,6 +79,16 @@ const PaginaTorneosAdmin = () => {
         }
         subtitulo={isEliminarTorneo.mensaje}
         RespuestaDeSweet={obtenerRespuestaDeAlertas}
+      ></Alertas>
+      <Alertas
+        tipoDeSweet={isObtenerDatosEditarTorneo.tipo}
+        mostrarSweet={
+          isObtenerDatosEditarTorneo.isCargando ||
+          isObtenerDatosEditarTorneo.isExito ||
+          isObtenerDatosEditarTorneo.isError
+        }
+        subtitulo={isObtenerDatosEditarTorneo.mensaje}
+        RespuestaDeSweet={obtenerRespuestaDeAlertaEditarTorneo}
       ></Alertas>
     </div>
   );

@@ -28,6 +28,9 @@ import {
   agregarCategoriaSubcategoriaTorneoError,
   volverPorDefectoAgregarCategoriaSubcategoriaTorneo,
   actualizarListaDeTorneosConSubcategoria,
+  cargandoObtenerDatosDeTorneoParaEdicion,
+  obtenerDatosDeTorneoParaEdicionExito,
+  obtenerDatosDeTorneoParaEdicionError,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -65,6 +68,13 @@ const torneoPorDefecto = {
     isError: false,
     categoria: '',
     subcategoria: '',
+  },
+  isObtenerDatosEditarTorneo: {
+    tipo: '',
+    mensaje: '',
+    isCargando: false,
+    isExito: false,
+    isError: false,
   },
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
@@ -454,6 +464,28 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           isExito: true,
           isError: false,
         },
+      };
+    }
+    case cargandoObtenerDatosDeTorneoParaEdicion: {
+      return {
+        ...state,
+        isObtenerDatosEditarTorneo: {
+          tipo: 'cargando',
+          mensaje: 'Obteniendo datos para editar torneo.',
+          isCargando: true,
+          isExito: false,
+          isError: false,
+        },
+      };
+    }
+    case obtenerDatosDeTorneoParaEdicionExito: {
+      return {
+        ...state,
+      };
+    }
+    case obtenerDatosDeTorneoParaEdicionError: {
+      return {
+        ...state,
       };
     }
     default:

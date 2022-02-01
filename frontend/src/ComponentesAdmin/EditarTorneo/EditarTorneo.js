@@ -5,7 +5,7 @@ import {useParams} from 'react-router-dom';
 import NuevoTorneo from '../NuevoTorneo/NuevoTorneo';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {cargarDatosDeTorneoParaEdicion_accion} from '../../Redux/Torneos/AccionesTorneos';
+import {obtenerDatosDeTorneoParaEdicion_accion} from '../../Redux/Torneos/AccionesTorneos';
 const EditarTorneo = () => {
   const {id} = useParams();
   const {torneo, torneos} = useSelector(state => state.storeTorneos);
@@ -24,10 +24,10 @@ const EditarTorneo = () => {
       if (Object.keys(torneo).length > 0) {
         setIsTorneo(true);
       } else {
-        dispatch(cargarDatosDeTorneoParaEdicion_accion(id));
+        dispatch(obtenerDatosDeTorneoParaEdicion_accion(id));
       }
     } else {
-      dispatch(cargarDatosDeTorneoParaEdicion_accion(id));
+      dispatch(obtenerDatosDeTorneoParaEdicion_accion(id));
     }
   }, [torneo, dispatch, id, cargaDeDatos]);
 

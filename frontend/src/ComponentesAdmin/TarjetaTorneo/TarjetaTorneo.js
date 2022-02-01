@@ -8,8 +8,8 @@ import {useRef} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {
-  cargarDatosDeTorneoParaEdicion_accion,
   consultarPorEliminarTorneo_accion,
+  obtenerDatosDeTorneoParaEdicion_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 
 const TarjetaTorneo = ({
@@ -37,8 +37,8 @@ const TarjetaTorneo = ({
     setIsAcciones(false);
   };
   const editarTorneo = id => {
-    dispatch(cargarDatosDeTorneoParaEdicion_accion(id));
-    historialDeNavegacion.push(`/Torneo/Editar/${id}`);
+    dispatch(obtenerDatosDeTorneoParaEdicion_accion(id));
+    /* historialDeNavegacion.push(`/Torneo/Editar/${id}`); */
   };
   const consultaPorEliminarTorneo = id => {
     dispatch(consultarPorEliminarTorneo_accion(id));

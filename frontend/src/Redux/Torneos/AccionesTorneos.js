@@ -40,7 +40,11 @@ export const agregarCategoriaSubcategoriaTorneoError = 'agregarCategoriaSubcateg
 export const volverPorDefectoAgregarCategoriaSubcategoriaTorneo =
   'volverPorDefectoAgregarCategoriaSubcategoriaTorneo';
 export const actualizarListaDeTorneosConSubcategoria = 'actualizarListaDeTorneosConSubcategoria';
+
 export const crearZonaTorneoExito = 'crearZonaTorneoExito';
+export const cargandoObtenerDatosDeTorneoParaEdicion = 'cargandoObtenerDatosDeTorneoParaEdicion';
+export const obtenerDatosDeTorneoParaEdicionExito = 'obtenerDatosDeTorneoParaEdicionExito';
+export const obtenerDatosDeTorneoParaEdicionError = 'obtenerDatosDeTorneoParaEdicionError';
 
 export const volverPorDefectoUnTorneo_accion = () => {
   return {
@@ -124,10 +128,40 @@ export const volverPorDefectoEditarTorneo_accion = () => {
     type: volverPorDefectoEditarTorneo,
   };
 };
-export const cargarDatosDeTorneoParaEdicion_accion = datos => {
+
+/***** DATOS DE TORNEO PARA EDICIÓN *****/
+export const cargandoObtenerDatosDeTorneoParaEdicion_accion = () => {
   return {
-    type: cargarDatosDeTorneoParaEdicion,
-    datos: datos,
+    type: cargandoObtenerDatosDeTorneoParaEdicion,
+  };
+};
+export const obtenerDatosDeTorneoParaEdicionExito_accion = () => {
+  return {
+    type: obtenerDatosDeTorneoParaEdicionExito,
+  };
+};
+export const obtenerDatosDeTorneoParaEdicionError_accion = () => {
+  return {
+    type: obtenerDatosDeTorneoParaEdicionError,
+  };
+};
+export const obtenerDatosDeTorneoParaEdicion_accion = id => {
+  console.log(id);
+  return dispatch => {
+    dispatch(cargandoObtenerDatosDeTorneoParaEdicion_accion());
+    API({
+      url: '/zonas/listar',
+      method: 'post',
+      data: {idTorneo: id},
+    })
+      .then(res => {
+        console.log({res});
+        dispatch(obtenerDatosDeTorneoParaEdicionExito_accion(id, res.data.value));
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(obtenerDatosDeTorneoParaEdicionError_accion());
+      });
   };
 };
 
@@ -245,7 +279,7 @@ export const listarZonasTorneo_accion = id => {
     /* dispatch(cargandoListarTorneo_accion()); */
     API({
       url: '/zonas/listar',
-      method: 'get',
+      method: 'post',
       data: {idTorneo: id},
     })
       .then(res => {

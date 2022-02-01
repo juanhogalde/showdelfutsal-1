@@ -117,9 +117,9 @@ const Zonas = () => {
         setIsTorneo(true);
       }
     }, 1000); */
-    if (torneo) {
+    /* if (torneo) {
       dispatch(listarZonasTorneo_accion(torneo._id));
-    }
+    } */
     if (torneo) {
       if (isEditarTorneo.isExito) {
         if (torneo.zonas) {
