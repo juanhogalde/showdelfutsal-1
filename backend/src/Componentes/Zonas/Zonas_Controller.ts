@@ -42,6 +42,28 @@ class ZonasController {
       responder.error(req, res, error);
     }
   }
+  public async listar(req: Request, res: Response) {
+    try {
+      if (!req.body.idTorneo) {
+        responder.error(req, res, '', `Falta id de torneo`, 400);
+      } else {
+        modeloZonas
+          .find({idTorneo: req.body.idTorneo})
+          .populate('idSubcategoria')
+          .then((zonas: any) => {
+            responder.sucess(req, res, zonas);
+          })
+          .catch((error: any) => {
+            console.error(error);
+            responder.error(req, res, error);
+          });
+        // responder.sucess(req, res, );
+      }
+    } catch (error) {
+      console.error(error);
+      responder.error(req, res, error);
+    }
+  }
   public async crearZona(data: any) {
     try {
       const pr = new Promise((resolve: any, reject: any) => {
