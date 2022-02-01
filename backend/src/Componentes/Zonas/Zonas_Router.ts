@@ -10,7 +10,7 @@ class ZonasRouter {
   }
 
   routes() {
-    this.router.get('/listar', zonasController.listar);
+    this.router.post('/listar', zonasController.listar);
     this.router.post('/agregar', zonasController.agregar);
   }
 }
