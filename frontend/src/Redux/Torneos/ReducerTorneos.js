@@ -56,8 +56,6 @@ const torneoPorDefecto = {
     isCargando: false,
     isExito: false,
     isError: false,
-    categoria: '',
-    subcategoria: '',
   },
   isAgregarCategoriaSubcategoria: {
     tipo: '',
@@ -132,8 +130,6 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           isCargando: false,
           isExito: false,
           isError: false,
-          categoria: accion.idCategoria,
-          subcategoria: accion.idSubcategoria,
         },
       };
     }
