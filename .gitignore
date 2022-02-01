@@ -12,7 +12,7 @@ frontend/node_modules
 # production
 backend/build
 frontend/build
-
+backend/dist
 # misc
 .DS_Store
 backend/.env.local
