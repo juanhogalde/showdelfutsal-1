@@ -110,11 +110,10 @@ const Zonas = () => {
   };
 
   useLayoutEffect(() => {
-    console.log(idTorneo);
     setTimeout(async () => {
       if ((await torneos.length) > 0) {
-        console.log('ingresa if');
         dispatch(cargarDatosDeTorneoParaEdicion_accion(idTorneo));
+        setIsTorneo(true);
       }
     }, 1000);
 
