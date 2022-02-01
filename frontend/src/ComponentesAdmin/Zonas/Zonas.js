@@ -14,6 +14,7 @@ import {
   actualizarListaDeTorneos_accion,
   cargarDatosDeTorneoParaEdicion_accion,
   crearZonaTorneo_accion,
+  listarZonasTorneo_accion,
   volverPorDefectoEditarTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Cargando from '../Cargando/Cargando';
@@ -110,13 +111,15 @@ const Zonas = () => {
   };
 
   useLayoutEffect(() => {
-    setTimeout(async () => {
+    /* setTimeout(async () => {
       if ((await torneos.length) > 0) {
         dispatch(cargarDatosDeTorneoParaEdicion_accion(idTorneo));
         setIsTorneo(true);
       }
-    }, 1000);
-
+    }, 1000); */
+    if (torneo) {
+      dispatch(listarZonasTorneo_accion(torneo._id));
+    }
     if (torneo) {
       if (isEditarTorneo.isExito) {
         if (torneo.zonas) {
@@ -131,7 +134,7 @@ const Zonas = () => {
     }
     return () => {};
   }, [dispatch, torneos, torneo, idTorneo, isEditarTorneo.isExito]);
-  if (isTorneo) {
+  if (Object.keys(torneo).length > 0) {
     return (
       <div className="CP-Zonas">
         <div>

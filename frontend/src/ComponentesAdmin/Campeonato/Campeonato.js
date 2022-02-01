@@ -72,7 +72,7 @@ const Campeonato = () => {
     return (
       <div className="CP-Campeonato">
         <div className="CI-CampeonatoMasculino">
-          <p>{categorias[0].label ? categorias[0].label : ''}</p>
+          <p>{categorias[1].label ? categorias[1].label : ''}</p>
 
           {subcategorias.map((subcategoria, index) => {
             if (subcategoria.keyCategoria === 1) {
@@ -80,7 +80,7 @@ const Campeonato = () => {
               return (
                 <TarjetaTorneo
                   isExisteSubcategoria={aux}
-                  categoria={categorias[0]}
+                  categoria={categorias[1]}
                   subcategoria={subcategoria}
                   key={index}
                   isCampeonato={true}

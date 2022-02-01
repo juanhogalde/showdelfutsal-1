@@ -206,7 +206,8 @@ export const actualizarListaDeTorneosConSubcategoria_accion = () => {
     type: actualizarListaDeTorneosConSubcategoria,
   };
 };
-/* CREAR ZONA */
+
+/****** CREAR ZONA ******/
 export const crearZonaTorneoExito_accion = datos => {
   return {
     type: crearZonaTorneoExito,
@@ -228,12 +229,32 @@ export const crearZonaTorneo_accion = torneo => {
       },
     })
       .then(res => {
-        /* dispatch(editarTorneoExito_accion(res.data.value)); */
+        console.log({res});
         dispatch(crearZonaTorneoExito_accion(res.data.value));
       })
       .catch(error => {
         console.log({error});
         dispatch(editarTorneoError_accion());
+      });
+  };
+};
+/****** LISTAR ZONA ******/
+export const listarZonasTorneo_accion = id => {
+  console.log(id);
+  return dispatch => {
+    /* dispatch(cargandoListarTorneo_accion()); */
+    API({
+      url: '/zonas/listar',
+      method: 'get',
+      data: {idTorneo: id},
+    })
+      .then(res => {
+        console.log({res});
+        /* dispatch(listarZonaTorneoExito_accion(res.data.value)); */
+      })
+      .catch(error => {
+        console.log({error});
+        /* dispatch(listarZonaTorneoError_accion()); */
       });
   };
 };
