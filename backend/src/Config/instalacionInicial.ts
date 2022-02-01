@@ -130,10 +130,24 @@ let inicializarSubCategorias = async () => {
 let inicializarUsuarios = async () => {
   const usuarioArray = [
     {
-      nombreUsuario: 'admin',
-      email: 'admin@lowa.com',
-      password: 12345,
+      nombreUsuario: 'juan.hogalde',
+      email: 'juanhogalde@hotmail.com',
+      password: 'juanchohoga8899',
       keyRol: 2,
+      token: '',
+    },
+    {
+      nombreUsuario: 'editor1',
+      email: 'editor1@lowa.com',
+      password: 12345,
+      keyRol: 3,
+      token: '',
+    },
+    {
+      nombreUsuario: 'editor2',
+      email: 'editor2@lowa.com',
+      password: 12345,
+      keyRol: 3,
       token: '',
     },
     {

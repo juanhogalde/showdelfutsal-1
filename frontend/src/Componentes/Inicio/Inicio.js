@@ -72,7 +72,7 @@ const Inicio = () => {
     let publicidadNoticiaHorizontalBajo;
     let publicidadModalInicio;
     publicidades.forEach(publicidad => {
-      switch (publicidad.idMedidas[0].keyMedidas) {
+      switch (publicidad.idMedidas[0]?.keyMedidas) {
         case 1:
           if (publicidad.isActiva) {
             publicidadPartidoDerecha1 = publicidad;
