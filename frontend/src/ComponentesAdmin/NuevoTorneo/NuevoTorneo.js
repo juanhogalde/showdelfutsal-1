@@ -63,8 +63,10 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
   };
 
   const validarCamposNuevoTorneo = () => {
-    if (compararObjetos(datosTorneo, torneo)) {
-      if (isEditarTorneoProps) {
+    if (Object.keys(torneo).length !== 0) {
+      if (compararObjetos(datosTorneo, torneo)) {
+        siguientePantallaNuevoTorneo(torneo._id);
+      } else {
         dispatch(consultarPorEditarTorneo_accion());
       }
     } else {
@@ -151,13 +153,14 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
   };
 
   useLayoutEffect(() => {
-    if (Object.keys(datosParaEditar).length > 0) {
-      setDatosTorneo(datosParaEditar);
-    }
     if (torneo) {
-      if (Object.keys(torneo).length > 0) setDatosTorneo(torneo);
+      if (Object.keys(torneo).length > 0) {
+        setDatosTorneo(torneo);
+      }
     }
-    return () => {};
+    /*  if (Object.keys(datosParaEditar).length > 0) {
+      setDatosTorneo(datosParaEditar);
+    } */
   }, [datosParaEditar, torneo]);
 
   return (
@@ -169,14 +172,14 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
         options={tipoTorneoArray ? tipoTorneoArray : []}
         noOptionsMessage={'No hay torneos cargados.'}
         onChange={(opcion, selector) => escucharSelector(opcion.value, selector.name)}
-        opcionSeleccionada={tipoTorneoArray[torneo.tipoTorneo - 1]}
+        opcionSeleccionada={tipoTorneoArray[datosTorneo.tipoTorneo - 1]}
       ></Selector>
       <InputLowa
         type="text"
         name="tituloTorneo"
         placeholder="Título de Torneo"
         onChange={e => escucharCambios(e.target.name, e.target.value)}
-        value={datosTorneo.tituloTorneo ? torneo.tituloTorneo : ''}
+        value={datosTorneo.tituloTorneo ? datosTorneo.tituloTorneo : ''}
       ></InputLowa>
 
       <InputDateLowa
@@ -195,20 +198,16 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
       />
       {isEditarTorneoProps ? (
         <BotonLowa
-          tituloboton={isFinalizoEdicion ? 'Siguiente' : 'Guardar'}
-          /* onClick={
-            isFinalizoEdicion
-              ? () => siguientePantallaNuevoTorneo()
-              : () => validarCamposEditarTorneo()
-          } */
+          tituloboton={isFinalizoEdicion ? 'Siguiente' : 'Editar Torneo'}
+          onClick={() => validarCamposNuevoTorneo()}
         ></BotonLowa>
       ) : (
         <BotonLowa
           tituloboton={Object.keys(torneo).length >= 4 ? 'Siguiente' : 'Crear Torneo'}
           onClick={() => validarCamposNuevoTorneo()}
-          /* disabled={Object.keys(datosTorneo).length >= 4 ? false : true} */
         ></BotonLowa>
       )}
+
       <Alertas
         tipoDeSweet={isAgregarTorneo.tipo}
         subtitulo={isAgregarTorneo.mensaje}
