@@ -30,7 +30,9 @@ class ZonasController {
               idSubcategoria: resultado.idSubcategoria._id,
               idCategoria: resultado.idCategoria,
               nombreZona: resultado.nombreZona,
-            });
+            }),
+              'zona agregada',
+              200;
           })
           .catch((error: any) => {
             console.error(error);
@@ -58,6 +60,31 @@ class ZonasController {
             responder.error(req, res, error);
           });
         // responder.sucess(req, res, );
+      }
+    } catch (error) {
+      console.error(error);
+      responder.error(req, res, error);
+    }
+  }
+  public async eliminar(req: Request, res: Response) {
+    try {
+      if (!req.body._id) {
+        responder.error(req, res, '', 'Falta id de torneo', 400);
+      } else {
+        const zonaEncontrada = await modeloZonas.find({_id: req.body._id});
+        if (!zonaEncontrada) {
+          responder.error(req, res, '', 'No se encontro la zona con ese Id', 400);
+        } else {
+          modeloZonas
+            .deleteOne({_id: req.body._id})
+            .then(() => {
+              responder.sucess(req, res, '', 'Zona eliminada con exito', 200);
+            })
+            .catch((error: any) => {
+              console.error(error);
+              responder.error(req, res, '', 'Error interno del servidor', 500);
+            });
+        }
       }
     } catch (error) {
       console.error(error);
