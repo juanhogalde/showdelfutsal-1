@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import './PaginaTorneosAdmin.css';
 import PaginasSeccionesAdmin from '../PaginasSeccionesAdmin/PaginasSeccionesAdmin';
 import {useHistory} from 'react-router';
@@ -7,15 +7,21 @@ import {
   actualizarListaDeTorneos_accion,
   eliminarTorneo_accion,
   obtenerDatosDeTorneoParaEdicionDefault_accion,
+  ultimaUbicacionEditarTorneo_accion,
   volverPorDefectoEliminarTorneo_accion,
+  volverPorDefectoUnTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 
 const PaginaTorneosAdmin = () => {
   const historialDeNavegacion = useHistory();
-  const {torneos, torneo, isEliminarTorneo, isObtenerDatosEditarTorneo} = useSelector(
-    state => state.storeTorneos
-  );
+  const {
+    torneos,
+    torneo,
+    isEliminarTorneo,
+    isObtenerDatosEditarTorneo,
+    isUltimaUbicacionEditarTorneo,
+  } = useSelector(state => state.storeTorneos);
   const dispatch = useDispatch();
 
   const redireccionarNuevaNoticia = respuesta => {
@@ -51,14 +57,14 @@ const PaginaTorneosAdmin = () => {
       }
     }
   };
-  /* useLayoutEffect(() => {
-    if (torneo) {
-      if (Object.keys(torneo).length > 0) {
-        dispatch(volverPorDefectoUnTorneo_accion());
-      }
+
+  useLayoutEffect(() => {
+    if (isUltimaUbicacionEditarTorneo) {
+      dispatch(volverPorDefectoUnTorneo_accion());
+      dispatch(ultimaUbicacionEditarTorneo_accion(false));
     }
     return () => {};
-  }, [dispatch, torneo]); */
+  }, [isUltimaUbicacionEditarTorneo, dispatch]);
 
   return (
     <div className="CP-PaginaTorneosAdmin">

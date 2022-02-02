@@ -46,6 +46,7 @@ export const cargandoObtenerDatosDeTorneoParaEdicion = 'cargandoObtenerDatosDeTo
 export const obtenerDatosDeTorneoParaEdicionExito = 'obtenerDatosDeTorneoParaEdicionExito';
 export const obtenerDatosDeTorneoParaEdicionError = 'obtenerDatosDeTorneoParaEdicionError';
 export const obtenerDatosDeTorneoParaEdicionDefault = 'obtenerDatosDeTorneoParaEdicionDefault';
+export const ultimaUbicacionEditarTorneo = 'ultimaUbicacionEditarTorneo';
 
 export const volverPorDefectoUnTorneo_accion = () => {
   return {
@@ -150,6 +151,12 @@ export const obtenerDatosDeTorneoParaEdicionError_accion = () => {
 export const obtenerDatosDeTorneoParaEdicionDefault_accion = () => {
   return {
     type: obtenerDatosDeTorneoParaEdicionDefault,
+  };
+};
+export const ultimaUbicacionEditarTorneo_accion = datos => {
+  return {
+    type: ultimaUbicacionEditarTorneo,
+    datos: datos,
   };
 };
 export const obtenerDatosDeTorneoParaEdicion_accion = torneo => {

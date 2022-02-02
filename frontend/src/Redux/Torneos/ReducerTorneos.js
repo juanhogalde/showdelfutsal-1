@@ -32,6 +32,7 @@ import {
   obtenerDatosDeTorneoParaEdicionExito,
   obtenerDatosDeTorneoParaEdicionError,
   obtenerDatosDeTorneoParaEdicionDefault,
+  ultimaUbicacionEditarTorneo,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -77,6 +78,7 @@ const torneoPorDefecto = {
     isExito: false,
     isError: false,
   },
+  isUltimaUbicacionEditarTorneo: false,
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
   switch (accion.type) {
@@ -514,6 +516,12 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           isExito: false,
           isError: false,
         },
+      };
+    }
+    case ultimaUbicacionEditarTorneo: {
+      return {
+        ...state,
+        isUltimaUbicacionEditarTorneo: accion.datos,
       };
     }
     default:
