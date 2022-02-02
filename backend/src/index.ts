@@ -38,7 +38,7 @@ import vivoRouter from './Componentes/Vivo/Vivo_Router';
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.13';
+const deploy = 'v0.0.14 - 02/02/22';
 
 class Server {
   public app: express.Application;
