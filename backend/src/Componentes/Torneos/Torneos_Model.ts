@@ -7,23 +7,22 @@ const TorneosSchema = new Schema({
   fechaFin: Date,
   idCategoria: [
     {
-      type: Schema.Types.ObjectId,
+      type: Schema.Types.String,
       ref: 'modeloCategorias',
     },
   ],
   idSubcategoria: [
     {
-      type: Schema.Types.ObjectId,
+      type: Schema.Types.String,
       ref: 'modeloSubcategorias',
     },
   ],
   tipoTorneo: Number,
 });
-TorneosSchema.post('save', function (doc,next) {
-  doc.populate('idSubcategoria').then(function() {
+TorneosSchema.post('save', function (doc, next) {
+  doc.populate('idSubcategoria').then(function () {
     next();
   });
 });
-
 
 export default model<ITorneos>('modeloTorneos', TorneosSchema);

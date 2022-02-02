@@ -4,8 +4,8 @@ import IZona from './Zonas_Interface';
 const ZonasSchema = new Schema({
   nombreZona: String,
   tipoZona: Number,
-  idSubcategoria: {type: Schema.Types.ObjectId, ref: 'modeloSubcategorias'},
-  idCategoria: {type: Schema.Types.ObjectId, ref: 'modeloCategorias'},
+  idSubcategoria: {type: Schema.Types.String, ref: 'modeloSubcategorias'},
+  idCategoria: {type: Schema.Types.String, ref: 'modeloCategorias'},
   equipos: [{type: Schema.Types.ObjectId, ref: 'modeloEquipos'}],
   idTorneo: {type: Schema.Types.ObjectId, ref: 'modeloTorneos'},
 });
