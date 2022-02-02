@@ -87,17 +87,17 @@ class NoticiasController {
       if (listadoNoticias.length) {
         for await (const noticia of listadoNoticias) {
           if (noticia.keyCategoria) {
-            if (noticia.keyCategoria === keyCategoria.masculino) {
+            if (noticia.keyCategoria === keyCategoria.Masculino) {
               contNoticiaMasc++;
               if (contNoticiaMasc !== 3) {
                 objetoFinal.noticias.push(noticia);
               }
-            } else if (noticia.keyCategoria === keyCategoria.femenino) {
+            } else if (noticia.keyCategoria === keyCategoria.Femenino) {
               contNoticiaFem++;
               if (contNoticiaFem !== 3) {
                 objetoFinal.noticias.push(noticia);
               }
-            } else if (noticia.keyCategoria === keyCategoria.infantil) {
+            } else if (noticia.keyCategoria === keyCategoria.Otras_Competiciones) {
               contNoticiaInf++;
               if (contNoticiaInf !== 3) {
                 objetoFinal.noticias.push(noticia);

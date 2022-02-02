@@ -38,7 +38,7 @@ import vivoRouter from './Componentes/Vivo/Vivo_Router';
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.13';
+const deploy = 'v0.0.14 - 02/02/22';
 
 class Server {
   public app: express.Application;
@@ -108,35 +108,8 @@ class Server {
       importarDatos(req, res);
     });
     this.app.get('/instalar', (req: Request, res: Response) => {
-      //Comprobar que la BD no esta instalada
-      // modeloUsuarios.findOne({}).then((elemento: any) => {
-      instalarBD(this.bd)
-        .then((respuesta: any) => {
-          res.status(200).send(respuesta);
-        })
-        .catch((e: any) => {
-          console.log(e);
-          res.status(500).send('ocurrio un error');
-        });
-      // if (elemento) {
-      //   responder.sucess(req, res, 'Ya instalada');
-      // } else {
-      //   instalarBD()
-      //     .then((respuesta: any) => {
-      //       res.status(200).send(respuesta);
-      //     })
-      //     .catch((e: any) => {
-      //       console.log(e);
-      //       res.status(500).send('ocurrio un error');
-      //     });
-      // }
-      // });
+      instalarBD(req, res);
     });
-
-    // this.app.get('/comprimirImagenes', (req: Request, res: Response) => {
-    //   console.info('comprimiendo imagenes...');
-    //   comprimirImagen();
-    // });
 
     this.app.get('*', (req: Request, res: Response) => {
       console.info(`GET 404: ${req.originalUrl}`);
