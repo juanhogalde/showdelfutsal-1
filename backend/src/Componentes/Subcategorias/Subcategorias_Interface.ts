@@ -4,6 +4,7 @@ import ICategorias from '../Categorias/Categorias_Interface';
 export default interface ISubcategorias extends Document {
   _id: string;
   nombreSubcategoria: string;
+  keyCategoria: number;
   keySubcategoria: number;
-  idCategoria: ICategorias['_id'];
+  idCategorias: string;
 }

@@ -10,21 +10,28 @@ export enum TipoZona {
 }
 
 export enum keyCategoria {
-  masculino = 1,
-  femenino,
-  infantil,
-  copa,
-  liga,
+  Masculino = 1,
+  Femenino,
+  LNFA,
+  Otras_Competiciones,
 }
 
 export enum keySubcategoria {
-  divA = 1,
-  divB,
-  divC,
-  divD,
-  divE,
-  masculino,
-  femenino,
+  Masc_divA = 1,
+  Masc_divB,
+  Masc_divC,
+  Masc_divD,
+  Masc_divE,
+  Fem_divA,
+  Fem_divB,
+  Fem_divC,
+  Provincial,
+  Regional,
+  Nacional,
+  Inferiores,
+  Ligas_Departamentales,
+  Copas_y_Torneos,
+  Seleccion_Argentina,
 }
 
 export enum Rol {
