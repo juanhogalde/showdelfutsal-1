@@ -108,14 +108,14 @@ export const listarPublicidades_accion = () => {
   return dispatch => {
     // dispatch(cargandoListarNoticia_accion());
     API({
-      url: '/Publicidades/listar',
+      url: '/publicidades/listar',
       method: 'get',
     })
       .then(res => {
         dispatch(ListarPublicidadesExito_accion(res.data.value));
       })
       .catch(error => {
-        console.log(error);
+        console.log({error});
         dispatch(ListarPublicidadesError_accion(error));
       });
   };
