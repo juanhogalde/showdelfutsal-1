@@ -5,7 +5,6 @@ import {HiDotsVertical} from 'react-icons/hi';
 import {MdDeleteForever} from 'react-icons/md';
 import {FiEdit3} from 'react-icons/fi';
 import {useRef} from 'react';
-import {useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {
   consultarPorEliminarTorneo_accion,

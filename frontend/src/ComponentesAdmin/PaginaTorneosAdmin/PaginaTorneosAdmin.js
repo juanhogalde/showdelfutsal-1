@@ -1,4 +1,4 @@
-import React, {useLayoutEffect} from 'react';
+import React from 'react';
 import './PaginaTorneosAdmin.css';
 import PaginasSeccionesAdmin from '../PaginasSeccionesAdmin/PaginasSeccionesAdmin';
 import {useHistory} from 'react-router';
@@ -8,7 +8,6 @@ import {
   eliminarTorneo_accion,
   obtenerDatosDeTorneoParaEdicionDefault_accion,
   volverPorDefectoEliminarTorneo_accion,
-  volverPorDefectoUnTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 
@@ -40,6 +39,7 @@ const PaginaTorneosAdmin = () => {
       dispatch(volverPorDefectoEliminarTorneo_accion());
     }
   };
+
   const obtenerRespuestaDeAlertaEditarTorneo = respuesta => {
     if (respuesta) {
       if (isObtenerDatosEditarTorneo.isExito) {
@@ -49,8 +49,6 @@ const PaginaTorneosAdmin = () => {
       if (isObtenerDatosEditarTorneo.isError) {
         dispatch(obtenerDatosDeTorneoParaEdicionDefault_accion());
       }
-    } else {
-      /* dispatch(volverPorDefectoEliminarTorneo_accion()); */
     }
   };
   /* useLayoutEffect(() => {

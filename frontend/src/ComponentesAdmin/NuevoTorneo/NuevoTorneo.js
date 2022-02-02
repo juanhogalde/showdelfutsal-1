@@ -38,7 +38,6 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
     mensaje: '',
     isMostrar: false,
   });
-  const [isTituloBotonSiguiente, setIsTituloBotonSiguiente] = useState(false);
 
   const escucharCambios = (name, value) => {
     setDatosTorneo({...datosTorneo, [name]: value});

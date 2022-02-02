@@ -12,9 +12,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import Alertas from '../Alertas/Alertas';
 import {
   actualizarListaDeTorneos_accion,
-  cargarDatosDeTorneoParaEdicion_accion,
   crearZonaTorneo_accion,
-  listarZonasTorneo_accion,
   volverPorDefectoEditarTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Cargando from '../Cargando/Cargando';
@@ -39,7 +37,6 @@ const Zonas = () => {
     )
   );
 
-  const [isTorneo, setIsTorneo] = useState(false);
   const [datosZona, setDatosZona] = useState('');
   const [tipo, setTipo] = useState('');
   const [arrayZonasCreadas, setArrayZonasCreadas] = useState([]);
@@ -80,8 +77,6 @@ const Zonas = () => {
     auxDatosZona.tipoZona = tipo.value;
     auxDatosZona.idCategoria = idCategoria;
     auxDatosZona.idSubcategoria = idSubcategoria;
-
-    /* dispatch(crearZonaTorneo_accion(auxDatosZona)); */
   };
 
   const obtenerRespuestaDeAlertas = respuesta => {
@@ -111,25 +106,14 @@ const Zonas = () => {
   };
 
   useLayoutEffect(() => {
-    /* setTimeout(async () => {
-      if ((await torneos.length) > 0) {
-        dispatch(cargarDatosDeTorneoParaEdicion_accion(idTorneo));
-        setIsTorneo(true);
-      }
-    }, 1000); */
-    /* if (torneo) {
-      dispatch(listarZonasTorneo_accion(torneo._id));
-    } */
     if (torneo) {
       if (isEditarTorneo.isExito) {
         if (torneo.zonas) {
-          setIsTorneo(true);
           setArrayZonasCreadas(torneo.zonas);
         }
       }
     }
     if (torneo.zonas) {
-      setIsTorneo(true);
       setArrayZonasCreadas(torneo.zonas);
     }
     return () => {};
