@@ -17,7 +17,12 @@ const Campeonato = () => {
   const dispatch = useDispatch();
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   const {torneo, isAgregarCategoriaSubcategoria} = useSelector(state => state.storeTorneos);
-
+  const categoriaMasculino = useSelector(state =>
+    state.sotreDatosIniciales.categorias.find(categoria => categoria.key === 1)
+  );
+  const categoriaFemenino = useSelector(state =>
+    state.sotreDatosIniciales.categorias.find(categoria => categoria.key === 2)
+  );
   const consultarPorAgregarCategoriaSubcategoria = (idCategoria, idSubcategoria) => {
     let auxIdCategoria = idCategoria;
     let auxIdSubCategoria = idSubcategoria;
@@ -72,7 +77,7 @@ const Campeonato = () => {
     return (
       <div className="CP-Campeonato">
         <div className="CI-CampeonatoMasculino">
-          <p>{categorias[1].label ? categorias[1].label : ''}</p>
+          <p>{categoriaMasculino.label ? categoriaMasculino.label : ''}</p>
 
           {subcategorias.map((subcategoria, index) => {
             if (subcategoria.keyCategoria === 1) {
@@ -80,7 +85,7 @@ const Campeonato = () => {
               return (
                 <TarjetaTorneo
                   isExisteSubcategoria={aux}
-                  categoria={categorias[1]}
+                  categoria={categoriaMasculino}
                   subcategoria={subcategoria}
                   key={index}
                   isCampeonato={true}
@@ -94,14 +99,14 @@ const Campeonato = () => {
           })}
         </div>
         <div className="CI-CampeonatoMasculino">
-          <p>{categorias[2].label ? categorias[2].label : ''}</p>
+          <p>{categoriaFemenino.label ? categoriaFemenino.label : ''}</p>
           {subcategorias.map((subcategoria, index) => {
             if (subcategoria.keyCategoria === 2) {
               const aux = obtenerExistenciaDeSubcategoria(subcategoria);
               return (
                 <TarjetaTorneo
                   isExisteSubcategoria={aux}
-                  categoria={categorias[2]}
+                  categoria={categoriaFemenino.label}
                   subcategoria={subcategoria}
                   key={index}
                   isCampeonato={true}
