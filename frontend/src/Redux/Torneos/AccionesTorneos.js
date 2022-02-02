@@ -45,6 +45,7 @@ export const crearZonaTorneoExito = 'crearZonaTorneoExito';
 export const cargandoObtenerDatosDeTorneoParaEdicion = 'cargandoObtenerDatosDeTorneoParaEdicion';
 export const obtenerDatosDeTorneoParaEdicionExito = 'obtenerDatosDeTorneoParaEdicionExito';
 export const obtenerDatosDeTorneoParaEdicionError = 'obtenerDatosDeTorneoParaEdicionError';
+export const obtenerDatosDeTorneoParaEdicionDefault = 'obtenerDatosDeTorneoParaEdicionDefault';
 
 export const volverPorDefectoUnTorneo_accion = () => {
   return {
@@ -135,9 +136,10 @@ export const cargandoObtenerDatosDeTorneoParaEdicion_accion = () => {
     type: cargandoObtenerDatosDeTorneoParaEdicion,
   };
 };
-export const obtenerDatosDeTorneoParaEdicionExito_accion = () => {
+export const obtenerDatosDeTorneoParaEdicionExito_accion = torneo => {
   return {
     type: obtenerDatosDeTorneoParaEdicionExito,
+    datos: torneo,
   };
 };
 export const obtenerDatosDeTorneoParaEdicionError_accion = () => {
@@ -145,18 +147,22 @@ export const obtenerDatosDeTorneoParaEdicionError_accion = () => {
     type: obtenerDatosDeTorneoParaEdicionError,
   };
 };
-export const obtenerDatosDeTorneoParaEdicion_accion = id => {
-  console.log(id);
+export const obtenerDatosDeTorneoParaEdicionDefault_accion = () => {
+  return {
+    type: obtenerDatosDeTorneoParaEdicionDefault,
+  };
+};
+export const obtenerDatosDeTorneoParaEdicion_accion = torneo => {
   return dispatch => {
     dispatch(cargandoObtenerDatosDeTorneoParaEdicion_accion());
     API({
       url: '/zonas/listar',
       method: 'post',
-      data: {idTorneo: id},
+      data: {idTorneo: torneo._id},
     })
       .then(res => {
-        console.log({res});
-        dispatch(obtenerDatosDeTorneoParaEdicionExito_accion(id, res.data.value));
+        let auxTorneo = {...torneo, zonas: res.data.value};
+        dispatch(obtenerDatosDeTorneoParaEdicionExito_accion(auxTorneo));
       })
       .catch(error => {
         console.log({error});

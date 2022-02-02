@@ -31,6 +31,7 @@ import {
   cargandoObtenerDatosDeTorneoParaEdicion,
   obtenerDatosDeTorneoParaEdicionExito,
   obtenerDatosDeTorneoParaEdicionError,
+  obtenerDatosDeTorneoParaEdicionDefault,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -481,11 +482,38 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
     case obtenerDatosDeTorneoParaEdicionExito: {
       return {
         ...state,
+        isObtenerDatosEditarTorneo: {
+          tipo: 'success',
+          mensaje: 'Datos de torneo listos para editar.',
+          isCargando: false,
+          isExito: true,
+          isError: false,
+        },
+        torneo: accion.datos,
       };
     }
     case obtenerDatosDeTorneoParaEdicionError: {
       return {
         ...state,
+        isObtenerDatosEditarTorneo: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, en este momento no podemos editar éste torneo.',
+          isCargando: false,
+          isExito: false,
+          isError: true,
+        },
+      };
+    }
+    case obtenerDatosDeTorneoParaEdicionDefault: {
+      return {
+        ...state,
+        isObtenerDatosEditarTorneo: {
+          tipo: '',
+          mensaje: '',
+          isCargando: false,
+          isExito: false,
+          isError: false,
+        },
       };
     }
     default:

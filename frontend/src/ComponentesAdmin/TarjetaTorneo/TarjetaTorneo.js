@@ -27,7 +27,6 @@ const TarjetaTorneo = ({
 }) => {
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
-  const historialDeNavegacion = useHistory();
   const dispatch = useDispatch();
   const mostrarAcciones = () => {
     setIsAcciones(!isAcciones);
@@ -37,8 +36,7 @@ const TarjetaTorneo = ({
     setIsAcciones(false);
   };
   const editarTorneo = id => {
-    dispatch(obtenerDatosDeTorneoParaEdicion_accion(id));
-    /* historialDeNavegacion.push(`/Torneo/Editar/${id}`); */
+    dispatch(obtenerDatosDeTorneoParaEdicion_accion(torneo));
   };
   const consultaPorEliminarTorneo = id => {
     dispatch(consultarPorEliminarTorneo_accion(id));
@@ -110,7 +108,7 @@ const TarjetaTorneo = ({
           onClick={
             isCampeonato
               ? () => redireccionarZona(categoria.value, subcategoria.value)
-              : () => editarTorneo(torneo._id)
+              : () => editarTorneo(torneo)
           }
         ></FiEdit3>
         <MdDeleteForever

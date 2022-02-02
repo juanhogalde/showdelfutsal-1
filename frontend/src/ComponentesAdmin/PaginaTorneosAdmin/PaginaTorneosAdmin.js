@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   actualizarListaDeTorneos_accion,
   eliminarTorneo_accion,
+  obtenerDatosDeTorneoParaEdicionDefault_accion,
   volverPorDefectoEliminarTorneo_accion,
   volverPorDefectoUnTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
@@ -42,23 +43,24 @@ const PaginaTorneosAdmin = () => {
   const obtenerRespuestaDeAlertaEditarTorneo = respuesta => {
     if (respuesta) {
       if (isObtenerDatosEditarTorneo.isExito) {
-        /* dispatch(actualizarListaDeTorneos_accion()); */
+        historialDeNavegacion.push(`/Torneo/Editar/${torneo._id}}`);
+        dispatch(obtenerDatosDeTorneoParaEdicionDefault_accion());
       }
       if (isObtenerDatosEditarTorneo.isError) {
-        /* dispatch(volverPorDefectoEliminarTorneo_accion()); */
+        dispatch(obtenerDatosDeTorneoParaEdicionDefault_accion());
       }
     } else {
       /* dispatch(volverPorDefectoEliminarTorneo_accion()); */
     }
   };
-  useLayoutEffect(() => {
+  /* useLayoutEffect(() => {
     if (torneo) {
       if (Object.keys(torneo).length > 0) {
         dispatch(volverPorDefectoUnTorneo_accion());
       }
     }
     return () => {};
-  }, [dispatch, torneo]);
+  }, [dispatch, torneo]); */
 
   return (
     <div className="CP-PaginaTorneosAdmin">
