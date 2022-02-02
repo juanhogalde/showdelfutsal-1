@@ -125,6 +125,13 @@ let inicializarUsuarios = async () => {
       token: '',
     },
     {
+      nombreUsuario: 'admin.lowa',
+      email: 'admin@lowa.com',
+      password: '0000',
+      keyRol: 1,
+      token: '',
+    },
+    {
       nombreUsuario: 'editor1',
       email: 'editor1@lowa.com',
       password: 12345,
