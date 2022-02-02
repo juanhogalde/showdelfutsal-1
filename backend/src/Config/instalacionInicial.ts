@@ -6,124 +6,112 @@ import modeloUsuarios from '../Componentes/Usuarios/Usuarios_Model';
 import modeloCategorias from '../Componentes/Categorias/Categorias_Model';
 import modeloSubCategorias from '../Componentes/Subcategorias/Subcategorias_Model';
 import modeloMedidasPublicidad from '../Componentes/MedidasPublicidad/MedidasPublicidad_Model';
+import {keyCategoria, keySubcategoria} from './enumeradores';
+import responder from '../Middlewares/responder';
+import {Request, Response} from 'express';
 
 let inicializarCategorias = async () => {
-  const categoriaArray = [
-    {
-      nombreCategoria: 'Masculino',
-      keyCategoria: 1,
-    },
-    {
-      nombreCategoria: 'Femenino',
-      keyCategoria: 2,
-    },
-    {
-      nombreCategoria: 'LNFA',
-      keyCategoria: 3,
-    },
-    {
-      nombreCategoria: 'Otras Competiciones',
-      keyCategoria: 4,
-    },
-  ];
-  for await (const categoria of categoriaArray) {
-    modeloCategorias
-      .findOne({keyCategoria: categoria.keyCategoria})
-      .then((categoriaEncontrado: any) => {
-        if (categoriaEncontrado) {
-          categoriaEncontrado.nombreCategoria = categoria.nombreCategoria;
-          categoriaEncontrado.keyCategoria = categoria.keyCategoria;
-          categoriaEncontrado.save();
-        } else {
-          let categoriaa: ICategorias = new modeloCategorias(categoria);
-          categoriaa.save();
-        }
-      });
+  let enumCategorias = Object.entries(keyCategoria);
+  let categoriaArray = enumCategorias.slice(0, enumCategorias.length / 2);
+
+  for await (const labelCategoria of categoriaArray) {
+    let categoria: ICategorias = new modeloCategorias({
+      _id: labelCategoria[0],
+      nombreCategoria: labelCategoria[1].toString().replace('_', ' '),
+      keyCategoria: parseInt(labelCategoria[0]),
+    });
+
+    await categoria.save();
   }
 };
 
 let inicializarSubCategorias = async () => {
   const subCategoriaArray = [
     {
+      _id: keySubcategoria.Masc_divA.toString(),
       nombreSubcategoria: 'Divisional A',
-      keySubcategoria: 1,
-      keyCategoria: 1,
+      keySubcategoria: keySubcategoria.Masc_divA,
+      keyCategoria: keyCategoria.Masculino,
     },
+
     {
-      nombreSubcategoria: 'Divisional A',
-      keySubcategoria: 10,
-      keyCategoria: 2,
-    },
-    {
+      _id: keySubcategoria.Masc_divB.toString(),
       nombreSubcategoria: 'Divisional B',
-      keySubcategoria: 2,
-      keyCategoria: 1,
+      keySubcategoria: keySubcategoria.Masc_divB,
+      keyCategoria: keyCategoria.Masculino,
     },
+
     {
-      nombreSubcategoria: 'Divisional B',
-      keySubcategoria: 11,
-      keyCategoria: 2,
-    },
-    {
+      _id: keySubcategoria.Masc_divC.toString(),
       nombreSubcategoria: 'Divisional C',
-      keySubcategoria: 3,
-      keyCategoria: 1,
+      keySubcategoria: keySubcategoria.Masc_divC,
+      keyCategoria: keyCategoria.Masculino,
     },
     {
+      _id: keySubcategoria.Masc_divD.toString(),
       nombreSubcategoria: 'Divisional D',
-      keySubcategoria: 4,
-      keyCategoria: 1,
+      keySubcategoria: keySubcategoria.Masc_divD,
+      keyCategoria: keyCategoria.Masculino,
     },
     {
+      _id: keySubcategoria.Fem_divA.toString(),
+      nombreSubcategoria: 'Divisional A',
+      keySubcategoria: keySubcategoria.Fem_divA,
+      keyCategoria: keyCategoria.Femenino,
+    },
+    {
+      _id: keySubcategoria.Fem_divB.toString(),
+      nombreSubcategoria: 'Divisional B',
+      keySubcategoria: keySubcategoria.Fem_divB,
+      keyCategoria: keyCategoria.Femenino,
+    },
+    {
+      _id: keySubcategoria.Provincial.toString(),
       nombreSubcategoria: 'Provincial',
-      keySubcategoria: 5,
-      keyCategoria: 3,
+      keySubcategoria: keySubcategoria.Provincial,
+      keyCategoria: keyCategoria.LNFA,
     },
     {
+      _id: keySubcategoria.Regional.toString(),
       nombreSubcategoria: 'Regional',
-      keySubcategoria: 6,
-      keyCategoria: 3,
+      keySubcategoria: keySubcategoria.Regional,
+      keyCategoria: keyCategoria.LNFA,
     },
     {
+      _id: keySubcategoria.Nacional.toString(),
       nombreSubcategoria: 'Nacional',
-      keySubcategoria: 7,
-      keyCategoria: 3,
+      keySubcategoria: keySubcategoria.Nacional,
+      keyCategoria: keyCategoria.LNFA,
     },
     {
+      _id: keySubcategoria.Inferiores.toString(),
       nombreSubcategoria: 'Inferiores',
-      keySubcategoria: 8,
-      keyCategoria: 4,
+      keySubcategoria: keySubcategoria.Inferiores,
+      keyCategoria: keyCategoria.Otras_Competiciones,
     },
     {
-      nombreSubcategoria: 'Liga Departamentales',
-      keySubcategoria: 9,
-      keyCategoria: 4,
+      _id: keySubcategoria.Ligas_Departamentales.toString(),
+      nombreSubcategoria: 'Ligas Departamentales',
+      keySubcategoria: keySubcategoria.Ligas_Departamentales,
+      keyCategoria: keyCategoria.Otras_Competiciones,
     },
     {
-      nombreSubcategoria: 'Copa y Torneos',
-      keySubcategoria: 12,
-      keyCategoria: 4,
+      _id: keySubcategoria.Copas_y_Torneos.toString(),
+      nombreSubcategoria: 'Copas y Torneos',
+      keySubcategoria: keySubcategoria.Copas_y_Torneos,
+      keyCategoria: keyCategoria.Otras_Competiciones,
     },
     {
+      _id: keySubcategoria.Seleccion_Argentina.toString(),
       nombreSubcategoria: 'Selección Argentina',
-      keySubcategoria: 13,
-      keyCategoria: 4,
+      keySubcategoria: keySubcategoria.Seleccion_Argentina,
+      keyCategoria: keyCategoria.Otras_Competiciones,
     },
   ];
+
   for await (const subcategoria of subCategoriaArray) {
-    modeloSubCategorias
-      .findOne({keySubcategoria: subcategoria.keySubcategoria})
-      .then((subcategoriaEncontrado: any) => {
-        if (subcategoriaEncontrado) {
-          subcategoriaEncontrado.nombreSubcategoria = subcategoria.nombreSubcategoria;
-          subcategoriaEncontrado.keySubcategoria = subcategoria.keySubcategoria;
-          subcategoriaEncontrado.keyCategoria = subcategoria.keyCategoria;
-          subcategoriaEncontrado.save();
-        } else {
-          let subCategoria: ISubCategorias = new modeloSubCategorias(subcategoria);
-          subCategoria.save();
-        }
-      });
+    let subCategoria: ISubCategorias = new modeloSubCategorias(subcategoria);
+    await subCategoria.save();
   }
 };
 
@@ -159,25 +147,15 @@ let inicializarUsuarios = async () => {
     },
   ];
   for await (const usuario of usuarioArray) {
-    modeloUsuarios.findOne({email: usuario.email}).then((usuarioEncontrado: any) => {
-      if (usuarioEncontrado) {
-        usuarioEncontrado.nombreUsuario = usuario.nombreUsuario;
-        usuarioEncontrado.email = usuario.email;
-        usuarioEncontrado.password = usuario.password;
-        usuarioEncontrado.keyRol = usuario.keyRol;
-        usuarioEncontrado.token = usuario.token;
-        usuarioEncontrado.save();
-      } else {
-        let user: IUsuarios = new modeloUsuarios(usuario);
-        user.save();
-      }
-    });
+    let user: IUsuarios = new modeloUsuarios(usuario);
+    await user.save();
   }
 };
 
 let incializarMedidasPublicitarias = async () => {
   const medidaArreglo = [
     {
+      _id: '1',
       ancho: 245,
       alto: 245,
       ubicacion: 'cuadrado',
@@ -186,6 +164,7 @@ let incializarMedidasPublicitarias = async () => {
       disponible: true,
     },
     {
+      _id: '2',
       ancho: 245,
       alto: 245,
       ubicacion: 'cuadrado',
@@ -194,6 +173,7 @@ let incializarMedidasPublicitarias = async () => {
       disponible: true,
     },
     {
+      _id: '3',
       ancho: 1136,
       alto: 199,
       ubicacion: 'horizontal',
@@ -202,22 +182,7 @@ let incializarMedidasPublicitarias = async () => {
       disponible: true,
     },
     {
-      ancho: 700,
-      alto: 500,
-      ubicacion: 'modal',
-      direccion: 'Inicio->Modal',
-      keyMedidas: 5,
-      disponible: true,
-    },
-    {
-      ancho: 1136,
-      alto: 199,
-      ubicacion: 'horizontal',
-      direccion: 'Inicio->Noticia->Abajo',
-      keyMedidas: 6,
-      disponible: true,
-    },
-    {
+      _id: '4',
       ancho: 245,
       alto: 245,
       ubicacion: 'cuadrado',
@@ -226,6 +191,26 @@ let incializarMedidasPublicitarias = async () => {
       disponible: true,
     },
     {
+      _id: '5',
+      ancho: 700,
+      alto: 500,
+      ubicacion: 'modal',
+      direccion: 'Inicio->Modal',
+      keyMedidas: 5,
+      disponible: true,
+    },
+    {
+      _id: '6',
+      ancho: 1136,
+      alto: 199,
+      ubicacion: 'horizontal',
+      direccion: 'Inicio->Noticia->Abajo',
+      keyMedidas: 6,
+      disponible: true,
+    },
+
+    {
+      _id: '7',
       ancho: 1136,
       alto: 199,
       ubicacion: 'horizontal',
@@ -234,47 +219,21 @@ let incializarMedidasPublicitarias = async () => {
       disponible: true,
     },
   ];
+
   for await (const medida of medidaArreglo) {
-    modeloMedidasPublicidad
-      .findOne({keyMedidas: medida.keyMedidas})
-      .then((medidaEncontrada: any) => {
-        if (medidaEncontrada) {
-          medidaEncontrada.ancho = medida.ancho;
-          medidaEncontrada.alto = medida.alto;
-          medidaEncontrada.ubicacion = medida.ubicacion;
-          medidaEncontrada.direccion = medida.direccion;
-          medidaEncontrada.keyMedidas = medida.keyMedidas;
-          if (medidaEncontrada.disponible) {
-            medidaEncontrada.disponible = medida.disponible;
-          }
-          medidaEncontrada.save();
-        } else {
-          let medidaPublicidad: IMedidasPublicidad = new modeloMedidasPublicidad(medida);
-          medidaPublicidad.save();
-        }
-      });
+    let medidaPublicidad: IMedidasPublicidad = new modeloMedidasPublicidad(medida);
+    await medidaPublicidad.save();
   }
 };
 
-export const instalarBD = async (bd: any) => {
+export const instalarBD = async (req: Request, res: Response) => {
   try {
-    let eliminar = true;
-    modeloMedidasPublicidad.find().then((medidaEncontrada: any) => {
-      if (medidaEncontrada.length === 0) {
-        eliminar = false;
-      }
-    });
-    if (eliminar) {
-      await bd.eliminarColeccion('modelomedidaspublicidads');
-    }
     await inicializarCategorias();
     await inicializarSubCategorias();
     await inicializarUsuarios();
     await incializarMedidasPublicitarias();
-    console.log('instalacion finalizada');
-    return 'Instalacion finalizada';
+    responder.sucess(req, res, 'Instalacion finalizada');
   } catch (error) {
-    console.log('Ocurrio un error: ' + error);
-    return 'Ocurrio un error';
+    responder.error(req, res, error);
   }
 };
