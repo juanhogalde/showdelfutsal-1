@@ -114,7 +114,13 @@ const Zonas = () => {
       }
     }
     if (torneo.zonas) {
-      setArrayZonasCreadas(torneo.zonas);
+      let auxZonas = torneo.zonas.filter(
+        zona =>
+          zona.idSubcategoria.keyCategoria === categoria.key &&
+          zona.idSubcategoria.keySubcategoria === subcategoria.key
+      );
+      console.log(auxZonas);
+      setArrayZonasCreadas(auxZonas);
     }
     return () => {};
   }, [dispatch, torneos, torneo, idTorneo, isEditarTorneo.isExito]);
