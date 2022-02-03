@@ -28,7 +28,7 @@ import responder from './Middlewares/responder';
 import manejadorErrores from './Middlewares/manejadorErrores';
 import {importarDatos} from './Config/importarDatos';
 import modeloUsuarios from './Componentes/Usuarios/Usuarios_Model';
-import {instalarBD} from './Config/instalacionInicial';
+import {instalarBD, migrar} from './Config/instalacionInicial';
 import medidasPublicidad_Router from './Componentes/MedidasPublicidad/MedidasPublicidad_Router';
 import vivoRouter from './Componentes/Vivo/Vivo_Router';
 // import {medidasPublicidadRouter} from './Componentes/MedidasPublicidad/MedidasPublicidad_Router'
@@ -38,7 +38,7 @@ import vivoRouter from './Componentes/Vivo/Vivo_Router';
 process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.14 - 02/02/22';
+const deploy = 'v0.0.15 - 03/02/22';
 
 class Server {
   public app: express.Application;
@@ -100,9 +100,7 @@ class Server {
     this.app.get('/', (req: Request, res: Response) => {
       res.send('iniciado');
     });
-    this.app.get('/prueba', (req: Request, res: Response) => {
-      throw new Error('Error loco');
-    });
+
     this.app.get('/importar', (req: Request, res: Response) => {
       console.info('Importando BD...');
       importarDatos(req, res);
