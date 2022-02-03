@@ -5,6 +5,10 @@ backend/node_modules
 frontend/node_modules
 /.pnp
 .pnp.js
+node_modules
+.env
+data
+dist
 
 # testing
 /coverage
@@ -13,6 +17,9 @@ frontend/node_modules
 backend/build
 frontend/build
 backend/dist
+/backend/dist
+backend\dist
+
 # misc
 .DS_Store
 backend/.env.local
