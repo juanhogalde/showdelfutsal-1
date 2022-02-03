@@ -27,7 +27,7 @@ class ZonasController {
               keyCategoria: resultado.idSubcategoria.keyCategoria,
               keySubcategoria: resultado.idSubcategoria.keySubcategoria,
               equipos: resultado.equipos,
-              idSubcategoria: resultado.idSubcategoria._id,
+              idSubcategoria: resultado.idSubcategoria,
               idCategoria: resultado.idCategoria,
               nombreZona: resultado.nombreZona,
             }),
