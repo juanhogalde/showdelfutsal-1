@@ -65,7 +65,7 @@ class ZonasController {
   public async eliminar(req: Request, res: Response) {
     try {
       if (!req.body._id) {
-        responder.error(req, res, 'Falta id de torneo', 'Falta id de torneo', 400);
+        responder.error(req, res, 'Falta id de zona', 'Falta id de zona', 400);
       } else {
         const zonaEncontrada = await modeloZonas.find({_id: req.body._id});
         if (!zonaEncontrada) {
