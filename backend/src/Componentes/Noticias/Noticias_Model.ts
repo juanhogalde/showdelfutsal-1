@@ -16,11 +16,11 @@ const NoticiasSchema = new Schema({
     },
   ],
   idCategoria: {
-    type: Schema.Types.ObjectId,
+    type: Schema.Types.String,
     ref: 'modeloCategorias',
   },
   idSubcategoria: {
-    type: Schema.Types.ObjectId,
+    type: Schema.Types.String,
     ref: 'modeloSubcategorias',
   },
   keyCategoria: {type: Number},

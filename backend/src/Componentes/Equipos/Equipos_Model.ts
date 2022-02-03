@@ -14,8 +14,8 @@ const EquiposSchema = new Schema({
   puntos: {type: Number},
   posicionEnTabla: {type: Number},
   isEliminado: {type: Boolean, default: false},
-  idCategorias: [{type: Schema.Types.ObjectId, ref: 'modeloCategorias', required: true}],
-  idSubcategorias: [{type: Schema.Types.ObjectId, ref: 'modeloSubcategorias', required: true}],
+  idCategorias: [{type: Schema.Types.String, ref: 'modeloCategorias', required: true}],
+  idSubcategorias: [{type: Schema.Types.String, ref: 'modeloSubcategorias', required: true}],
 });
 
 export default model<IEquipos>('modeloEquipos', EquiposSchema);

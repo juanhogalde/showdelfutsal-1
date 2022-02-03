@@ -7,7 +7,7 @@ const GaleriaSchema = new Schema({
   fechaCarga: Date,
   fechaModificacion: Date,
   idCategoria: {
-    type: Schema.Types.ObjectId,
+    type: Schema.Types.String,
     ref: 'modeloCategorias',
   },
   keyCategoria: {type: Number},
