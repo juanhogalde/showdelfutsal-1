@@ -12,8 +12,12 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import Alertas from '../Alertas/Alertas';
 import {
   actualizarListaDeTorneos_accion,
+  actualizarListaDeZonas_accion,
+  consultarPorEliminarZona_accion,
   crearZonaTorneo_accion,
+  eliminarZona_accion,
   volverPorDefectoEditarTorneo_accion,
+  volverPorDefectoEliminarZona_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Cargando from '../Cargando/Cargando';
 
@@ -26,7 +30,9 @@ const Zonas = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {idTorneo, idCategoria, idSubcategoria} = useParams();
-  const {torneo, torneos, isEditarTorneo} = useSelector(state => state.storeTorneos);
+  const {torneo, torneos, isEditarTorneo, isEliminarZona} = useSelector(
+    state => state.storeTorneos
+  );
 
   const categoria = useSelector(state =>
     state.sotreDatosIniciales.categorias.find(categoria => categoria.value === idCategoria)
@@ -92,6 +98,25 @@ const Zonas = () => {
     }
   };
 
+  const funcionEliminarZona = id => {
+    dispatch(consultarPorEliminarZona_accion(torneo._id, id));
+  };
+  const obtenerRespuestaDeAlertaEliminarZona = respuesta => {
+    if (respuesta) {
+      if (isEliminarZona.isConsulta) {
+        dispatch(eliminarZona_accion(isEliminarZona.idZona));
+      }
+      if (isEliminarZona.isExito) {
+        dispatch(actualizarListaDeZonas_accion());
+      }
+      if (isEliminarZona.isError) {
+        /* dispatch(volverPorDefectoEditarTorneo_accion()); */
+      }
+    } else {
+      dispatch(volverPorDefectoEliminarZona_accion());
+    }
+  };
+
   const redireccionarEnfrentamiento = () => {
     history.push('/Torneo/Nuevo/Campeonato/Zonas/Enfrentamiento');
   };
@@ -106,21 +131,15 @@ const Zonas = () => {
   };
 
   useLayoutEffect(() => {
-    if (torneo) {
-      if (isEditarTorneo.isExito) {
-        if (torneo.zonas) {
-          setArrayZonasCreadas(torneo.zonas);
-        }
+    if (Object.keys(torneo).length > 0) {
+      if (torneo.zonas) {
+        let auxZonas = torneo.zonas.filter(
+          zona =>
+            zona.idSubcategoria.keyCategoria === categoria.key &&
+            zona.idSubcategoria.keySubcategoria === subcategoria.key
+        );
+        setArrayZonasCreadas(auxZonas);
       }
-    }
-    if (torneo.zonas) {
-      let auxZonas = torneo.zonas.filter(
-        zona =>
-          zona.idSubcategoria.keyCategoria === categoria.key &&
-          zona.idSubcategoria.keySubcategoria === subcategoria.key
-      );
-      console.log(auxZonas);
-      setArrayZonasCreadas(auxZonas);
     }
     return () => {};
   }, [
@@ -165,6 +184,7 @@ const Zonas = () => {
                     categoria={categoria ? categoria : ''}
                     subcategoria={subcategoria ? subcategoria : ''}
                     datos={zona}
+                    funcionEliminarZona={funcionEliminarZona}
                   ></TarjetaZona>
                 );
               })}
@@ -182,6 +202,17 @@ const Zonas = () => {
           tipoDeSweet={isEditarTorneo.tipo}
           subtitulo={isEditarTorneo.mensaje}
           RespuestaDeSweet={obtenerRespuestaDeAlertas}
+        ></Alertas>
+        <Alertas
+          mostrarSweet={
+            isEliminarZona.isConsulta ||
+            isEliminarZona.isCargando ||
+            isEliminarZona.isExito ||
+            isEliminarZona.isError
+          }
+          tipoDeSweet={isEliminarZona.tipo}
+          subtitulo={isEliminarZona.mensaje}
+          RespuestaDeSweet={obtenerRespuestaDeAlertaEliminarZona}
         ></Alertas>
         <Alertas
           mostrarSweet={alertaCamposVacios.isMostrar}

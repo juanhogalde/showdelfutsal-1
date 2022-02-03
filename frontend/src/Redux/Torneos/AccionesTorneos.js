@@ -48,6 +48,13 @@ export const obtenerDatosDeTorneoParaEdicionError = 'obtenerDatosDeTorneoParaEdi
 export const obtenerDatosDeTorneoParaEdicionDefault = 'obtenerDatosDeTorneoParaEdicionDefault';
 export const ultimaUbicacionEditarTorneo = 'ultimaUbicacionEditarTorneo';
 
+export const consultarPorEliminarZona = 'consultarPorEliminarZona';
+export const cargandoEliminarZona = 'cargandoEliminarZona';
+export const eliminarZonaExito = 'eliminarZonaExito';
+export const eliminarZonaError = 'eliminarZonaError';
+export const volverPorDefectoEliminarZona = 'volverPorDefectoEliminarZona';
+export const actualizarListaDeZonas = 'actualizarListaDeZonas';
+
 export const volverPorDefectoUnTorneo_accion = () => {
   return {
     type: volverPorDefectoUnTorneo,
@@ -277,7 +284,6 @@ export const crearZonaTorneo_accion = torneo => {
       },
     })
       .then(res => {
-        console.log({res});
         dispatch(crearZonaTorneoExito_accion(res.data.value));
       })
       .catch(error => {
@@ -306,7 +312,66 @@ export const listarZonasTorneo_accion = id => {
       });
   };
 };
+/****** ELIMINAR ZONA DE TORNEO ******/
+export const consultarPorEliminarZona_accion = (idTorneo, datos) => {
+  return {
+    type: consultarPorEliminarZona,
+    idTorneo: idTorneo,
+    datos: datos,
+  };
+};
 
+export const cargandoEliminarZona_accion = () => {
+  return {
+    type: cargandoEliminarZona,
+  };
+};
+
+export const eliminarZonaExito_accion = datos => {
+  return {
+    type: eliminarZonaExito,
+    datos: datos,
+  };
+};
+
+export const eliminarZonaError_accion = () => {
+  return {
+    type: eliminarZonaError,
+  };
+};
+
+export const volverPorDefectoEliminarZona_accion = () => {
+  return {
+    type: volverPorDefectoEliminarZona,
+  };
+};
+
+export const actualizarListaDeZonas_accion = () => {
+  return {
+    type: actualizarListaDeZonas,
+  };
+};
+
+export const eliminarZona_accion = idZona => {
+  return dispatch => {
+    dispatch(cargandoEliminarZona_accion());
+    API({
+      url: '/zonas/eliminar',
+      method: 'delete',
+      data: {
+        _id: idZona,
+      },
+    })
+      .then(res => {
+        console.log({res});
+        dispatch(eliminarZonaExito_accion(idZona));
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(eliminarZonaError_accion());
+      });
+  };
+};
 /****** ELIMINAR TORNEO ******/
 export const consultarPorEliminarTorneo_accion = datos => {
   return {

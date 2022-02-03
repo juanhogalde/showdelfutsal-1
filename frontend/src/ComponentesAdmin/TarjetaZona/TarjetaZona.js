@@ -12,6 +12,9 @@ const TarjetaZona = ({
   redireccionarEnfrentamiento = () => {
     console.log('');
   },
+  funcionEliminarZona = () => {
+    console.log('');
+  },
 }) => {
   const elementoAcciones = useRef();
   const [isAcciones, setIsAcciones] = useState(false);
@@ -61,9 +64,7 @@ const TarjetaZona = ({
           onClick={() => redireccionarEnfrentamiento()}
         ></FiEdit3>
         <MdDeleteForever
-          onClick={() => {
-            console.log('Falta Función para Eliminar');
-          }}
+          onClick={() => funcionEliminarZona(datos._id)}
           className={' iconoAcción-ListaImagenes'}
         />
       </div>
