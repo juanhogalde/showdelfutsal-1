@@ -366,8 +366,8 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           isCargando: false,
           isExito: false,
           isError: false,
-          categoria: accion.idCategoria,
-          subcategoria: accion.idSubcategoria,
+          categoria: accion.keyCategoria,
+          subcategoria: accion.keySubcategoria,
         },
       };
     }

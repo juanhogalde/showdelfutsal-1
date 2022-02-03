@@ -23,11 +23,11 @@ const Campeonato = () => {
   const categoriaFemenino = useSelector(state =>
     state.sotreDatosIniciales.categorias.find(categoria => categoria.key === 2)
   );
-  const consultarPorAgregarCategoriaSubcategoria = (idCategoria, idSubcategoria) => {
-    let auxIdCategoria = idCategoria;
-    let auxIdSubCategoria = idSubcategoria;
+  const consultarPorAgregarCategoriaSubcategoria = (keyCategoria, keySubcategoria) => {
+    let auxKeyCategoria = keyCategoria;
+    let auxKeySubCategoria = keySubcategoria;
     dispatch(
-      consultarPoragregarCategoriaSubcategoriaTorneo_accion(auxIdCategoria, auxIdSubCategoria)
+      consultarPoragregarCategoriaSubcategoriaTorneo_accion(auxKeyCategoria, auxKeySubCategoria)
     );
   };
   const obtenerRespuestaDeAlertas = respuesta => {

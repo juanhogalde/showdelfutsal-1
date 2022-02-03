@@ -123,7 +123,15 @@ const Zonas = () => {
       setArrayZonasCreadas(auxZonas);
     }
     return () => {};
-  }, [dispatch, torneos, torneo, idTorneo, isEditarTorneo.isExito]);
+  }, [
+    dispatch,
+    torneos,
+    torneo,
+    idTorneo,
+    isEditarTorneo.isExito,
+    categoria.key,
+    subcategoria.key,
+  ]);
   if (Object.keys(torneo).length > 0) {
     return (
       <div className="CP-Zonas">

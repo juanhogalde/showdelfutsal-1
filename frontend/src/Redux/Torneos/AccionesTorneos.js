@@ -197,13 +197,13 @@ export const editarTorneo_accion = torneo => {
 };
 /* AGREGAR CATEGORIA Y SUBCATEGORIA */
 export const consultarPoragregarCategoriaSubcategoriaTorneo_accion = (
-  idCategoria,
-  idSubcategoria
+  auxKeyCategoria,
+  auxKeySubCategoria
 ) => {
   return {
     type: consultarPoragregarCategoriaSubcategoriaTorneo,
-    idCategoria: idCategoria,
-    idSubcategoria: idSubcategoria,
+    keyCategoria: auxKeyCategoria,
+    keySubcategoria: auxKeySubCategoria,
   };
 };
 export const cargandoAgregarCategoriaSubcategoria_accion = () => {
@@ -231,6 +231,7 @@ export const volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion = () => {
   };
 };
 export const agregarCategoriaSubcategoriaTorneo_accion = torneo => {
+  console.log(torneo);
   return dispatch => {
     dispatch(cargandoAgregarCategoriaSubcategoria_accion());
     API({

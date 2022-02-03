@@ -57,7 +57,7 @@ const TarjetaTorneo = ({
         className={isCampeonato ? 'CI-Cuerpo-Campeonato-TarjetaTorneo' : 'CI-Cuerpo-TarjetaTorneo'}
         onClick={
           !isExisteSubcategoria && isCampeonato
-            ? () => consultarPorAgregarCategoriaSubcategoria(categoria.value, subcategoria.value)
+            ? () => consultarPorAgregarCategoriaSubcategoria(categoria.key, subcategoria.key)
             : () => {}
         }
       >
