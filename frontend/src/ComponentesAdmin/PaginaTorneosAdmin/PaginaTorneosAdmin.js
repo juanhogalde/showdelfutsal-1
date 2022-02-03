@@ -6,6 +6,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   actualizarListaDeTorneos_accion,
   eliminarTorneo_accion,
+  obtenerDatosDeTorneoParaEdicionDefault_accion,
+  ultimaUbicacionEditarTorneo_accion,
   volverPorDefectoEliminarTorneo_accion,
   volverPorDefectoUnTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
@@ -13,7 +15,13 @@ import Alertas from '../Alertas/Alertas';
 
 const PaginaTorneosAdmin = () => {
   const historialDeNavegacion = useHistory();
-  const {torneos, torneo, isEliminarTorneo} = useSelector(state => state.storeTorneos);
+  const {
+    torneos,
+    torneo,
+    isEliminarTorneo,
+    isObtenerDatosEditarTorneo,
+    isUltimaUbicacionEditarTorneo,
+  } = useSelector(state => state.storeTorneos);
   const dispatch = useDispatch();
 
   const redireccionarNuevaNoticia = respuesta => {
@@ -38,12 +46,25 @@ const PaginaTorneosAdmin = () => {
     }
   };
 
+  const obtenerRespuestaDeAlertaEditarTorneo = respuesta => {
+    if (respuesta) {
+      if (isObtenerDatosEditarTorneo.isExito) {
+        historialDeNavegacion.push(`/Torneo/Editar/${torneo._id}}`);
+        dispatch(obtenerDatosDeTorneoParaEdicionDefault_accion());
+      }
+      if (isObtenerDatosEditarTorneo.isError) {
+        dispatch(obtenerDatosDeTorneoParaEdicionDefault_accion());
+      }
+    }
+  };
+
   useLayoutEffect(() => {
-    if (Object.keys(torneo).length > 0) {
+    if (isUltimaUbicacionEditarTorneo) {
       dispatch(volverPorDefectoUnTorneo_accion());
+      dispatch(ultimaUbicacionEditarTorneo_accion(false));
     }
     return () => {};
-  }, [dispatch, torneo]);
+  }, [isUltimaUbicacionEditarTorneo, dispatch]);
 
   return (
     <div className="CP-PaginaTorneosAdmin">
@@ -64,6 +85,16 @@ const PaginaTorneosAdmin = () => {
         }
         subtitulo={isEliminarTorneo.mensaje}
         RespuestaDeSweet={obtenerRespuestaDeAlertas}
+      ></Alertas>
+      <Alertas
+        tipoDeSweet={isObtenerDatosEditarTorneo.tipo}
+        mostrarSweet={
+          isObtenerDatosEditarTorneo.isCargando ||
+          isObtenerDatosEditarTorneo.isExito ||
+          isObtenerDatosEditarTorneo.isError
+        }
+        subtitulo={isObtenerDatosEditarTorneo.mensaje}
+        RespuestaDeSweet={obtenerRespuestaDeAlertaEditarTorneo}
       ></Alertas>
     </div>
   );

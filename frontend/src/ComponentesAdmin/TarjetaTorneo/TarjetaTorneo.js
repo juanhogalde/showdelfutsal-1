@@ -5,11 +5,10 @@ import {HiDotsVertical} from 'react-icons/hi';
 import {MdDeleteForever} from 'react-icons/md';
 import {FiEdit3} from 'react-icons/fi';
 import {useRef} from 'react';
-import {useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {
-  cargarDatosDeTorneoParaEdicion_accion,
   consultarPorEliminarTorneo_accion,
+  obtenerDatosDeTorneoParaEdicion_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 
 const TarjetaTorneo = ({
@@ -27,7 +26,6 @@ const TarjetaTorneo = ({
 }) => {
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
-  const historialDeNavegacion = useHistory();
   const dispatch = useDispatch();
   const mostrarAcciones = () => {
     setIsAcciones(!isAcciones);
@@ -37,8 +35,7 @@ const TarjetaTorneo = ({
     setIsAcciones(false);
   };
   const editarTorneo = id => {
-    dispatch(cargarDatosDeTorneoParaEdicion_accion(torneo));
-    historialDeNavegacion.push(`/Torneo/Editar/${id}`);
+    dispatch(obtenerDatosDeTorneoParaEdicion_accion(torneo));
   };
   const consultaPorEliminarTorneo = id => {
     dispatch(consultarPorEliminarTorneo_accion(id));
@@ -60,7 +57,7 @@ const TarjetaTorneo = ({
         className={isCampeonato ? 'CI-Cuerpo-Campeonato-TarjetaTorneo' : 'CI-Cuerpo-TarjetaTorneo'}
         onClick={
           !isExisteSubcategoria && isCampeonato
-            ? () => consultarPorAgregarCategoriaSubcategoria(categoria.value, subcategoria.value)
+            ? () => consultarPorAgregarCategoriaSubcategoria(categoria.key, subcategoria.key)
             : () => {}
         }
       >
@@ -110,7 +107,7 @@ const TarjetaTorneo = ({
           onClick={
             isCampeonato
               ? () => redireccionarZona(categoria.value, subcategoria.value)
-              : () => editarTorneo(torneo._id)
+              : () => editarTorneo(torneo)
           }
         ></FiEdit3>
         <MdDeleteForever
