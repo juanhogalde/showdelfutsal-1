@@ -2,12 +2,11 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {
-  actualizarListaDeTorneos_accion,
-  consultarPorEditarTorneo_accion,
-  cargarSubcategoriaTorneo_accion,
-  volverPorDefectoEditarTorneo_accion,
+  actualizarListaDeTorneosConSubcategoria_accion,
+  agregarCategoriaSubcategoriaTorneo_accion,
+  consultarPoragregarCategoriaSubcategoriaTorneo_accion,
+  volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
-/* import {obtenerCategoriaSubcategoriaDatosDeTorneo_accion} from '../../Redux/Torneos/AccionesTorneos'; */
 import Alertas from '../Alertas/Alertas';
 
 import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
@@ -17,41 +16,45 @@ const Campeonato = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
-  const {torneo, isEditarTorneo} = useSelector(state => state.storeTorneos);
-
-  const consultarPorAgregarCategoriaSubcategoria = (idCategoria, idSubcategoria) => {
-    let auxIdCategoria = idCategoria;
-    let auxIdSubCategoria = idSubcategoria;
+  const {torneo, isAgregarCategoriaSubcategoria} = useSelector(state => state.storeTorneos);
+  const categoriaMasculino = useSelector(state =>
+    state.sotreDatosIniciales.categorias.find(categoria => categoria.key === 1)
+  );
+  const categoriaFemenino = useSelector(state =>
+    state.sotreDatosIniciales.categorias.find(categoria => categoria.key === 2)
+  );
+  const consultarPorAgregarCategoriaSubcategoria = (keyCategoria, keySubcategoria) => {
+    let auxKeyCategoria = keyCategoria;
+    let auxKeySubCategoria = keySubcategoria;
     dispatch(
-      consultarPorEditarTorneo_accion(
-        auxIdCategoria,
-        auxIdSubCategoria,
-        '¿Desea agregar categoría y subcategoría?'
-      )
+      consultarPoragregarCategoriaSubcategoriaTorneo_accion(auxKeyCategoria, auxKeySubCategoria)
     );
   };
   const obtenerRespuestaDeAlertas = respuesta => {
     if (respuesta) {
-      if (isEditarTorneo.isConsulta) {
+      if (isAgregarCategoriaSubcategoria.isConsulta) {
         let auxDatosDeTorneo = {};
         Object.assign(auxDatosDeTorneo, torneo);
-        auxDatosDeTorneo.nuevaCategoria = isEditarTorneo.categoria;
-        auxDatosDeTorneo.nuevaSubcategoria = isEditarTorneo.subcategoria;
-        dispatch(cargarSubcategoriaTorneo_accion(auxDatosDeTorneo));
+        auxDatosDeTorneo.nuevaCategoria = isAgregarCategoriaSubcategoria.categoria;
+        auxDatosDeTorneo.nuevaSubcategoria = isAgregarCategoriaSubcategoria.subcategoria;
+        dispatch(agregarCategoriaSubcategoriaTorneo_accion(auxDatosDeTorneo));
       }
-      if (isEditarTorneo.isExito) {
-        dispatch(actualizarListaDeTorneos_accion());
-        redireccionarZona(isEditarTorneo.categoria, isEditarTorneo.subcategoria);
+      if (isAgregarCategoriaSubcategoria.isExito) {
+        dispatch(actualizarListaDeTorneosConSubcategoria_accion());
+        redireccionarZona(
+          isAgregarCategoriaSubcategoria.categoria,
+          isAgregarCategoriaSubcategoria.subcategoria
+        );
       }
-      if (isEditarTorneo.isError) {
-        dispatch(volverPorDefectoEditarTorneo_accion());
+      if (isAgregarCategoriaSubcategoria.isError) {
+        dispatch(volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion());
       }
     } else {
-      dispatch(volverPorDefectoEditarTorneo_accion());
+      dispatch(volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion());
     }
   };
   const redireccionarZona = (categoria, subcategoria) => {
-    history.push(`/Torneo/Nuevo/Campeonato/Zonas/${categoria}/${subcategoria}`);
+    history.push(`/Torneo/Nuevo/Campeonato/Zonas/${torneo._id}/${categoria}/${subcategoria}`);
   };
 
   const obtenerExistenciaDeSubcategoria = subcategoria => {
@@ -66,7 +69,7 @@ const Campeonato = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(volverPorDefectoEditarTorneo_accion());
+      dispatch(volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion());
     };
   }, [dispatch]);
 
@@ -74,7 +77,7 @@ const Campeonato = () => {
     return (
       <div className="CP-Campeonato">
         <div className="CI-CampeonatoMasculino">
-          <p>{categorias[0].label ? categorias[0].label : ''}</p>
+          <p>{categoriaMasculino.label ? categoriaMasculino.label : ''}</p>
 
           {subcategorias.map((subcategoria, index) => {
             if (subcategoria.keyCategoria === 1) {
@@ -82,7 +85,7 @@ const Campeonato = () => {
               return (
                 <TarjetaTorneo
                   isExisteSubcategoria={aux}
-                  categoria={categorias[0]}
+                  categoria={categoriaMasculino}
                   subcategoria={subcategoria}
                   key={index}
                   isCampeonato={true}
@@ -96,14 +99,14 @@ const Campeonato = () => {
           })}
         </div>
         <div className="CI-CampeonatoMasculino">
-          <p>{categorias[1].label ? categorias[1].label : ''}</p>
+          <p>{categoriaFemenino.label ? categoriaFemenino.label : ''}</p>
           {subcategorias.map((subcategoria, index) => {
             if (subcategoria.keyCategoria === 2) {
               const aux = obtenerExistenciaDeSubcategoria(subcategoria);
               return (
                 <TarjetaTorneo
                   isExisteSubcategoria={aux}
-                  categoria={categorias[1]}
+                  categoria={categoriaFemenino.label}
                   subcategoria={subcategoria}
                   key={index}
                   isCampeonato={true}
@@ -118,13 +121,13 @@ const Campeonato = () => {
         </div>
         <Alertas
           mostrarSweet={
-            isEditarTorneo.isConsulta ||
-            isEditarTorneo.isCargando ||
-            isEditarTorneo.isExito ||
-            isEditarTorneo.isError
+            isAgregarCategoriaSubcategoria.isConsulta ||
+            isAgregarCategoriaSubcategoria.isCargando ||
+            isAgregarCategoriaSubcategoria.isExito ||
+            isAgregarCategoriaSubcategoria.isError
           }
-          tipoDeSweet={isEditarTorneo.tipo}
-          subtitulo={isEditarTorneo.mensaje}
+          tipoDeSweet={isAgregarCategoriaSubcategoria.tipo}
+          subtitulo={isAgregarCategoriaSubcategoria.mensaje}
           RespuestaDeSweet={obtenerRespuestaDeAlertas}
         ></Alertas>
       </div>

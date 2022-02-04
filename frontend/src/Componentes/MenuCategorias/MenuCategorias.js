@@ -23,14 +23,14 @@ const MenuCategorias = props => {
       )}
       {categoria && categoria !== 1 && categoria !== 3 && categoria !== 4 && (
         <div className="I-submenu" onClick={() => handleClick(categoria)}>
-          <Link className="Links-submenu" to="/Seccion/10">
+          <Link className="Links-submenu" to="/Seccion/6">
             <h6>Division A</h6>
           </Link>
         </div>
       )}
       {categoria && categoria !== 1 && categoria !== 3 && categoria !== 4 && (
         <div className="I-submenu" onClick={() => handleClick(categoria)}>
-          <Link className="Links-submenu" to="/Seccion/11">
+          <Link className="Links-submenu" to="/Seccion/7">
             <h6>Division B</h6>
           </Link>
         </div>
@@ -51,21 +51,21 @@ const MenuCategorias = props => {
       )}
       {categoria && categoria === 3 && categoria !== 4 && (
         <div className="I-submenu" onClick={() => handleClick(categoria)}>
-          <Link className="Links-submenu" to="/Seccion/5">
+          <Link className="Links-submenu" to="/Seccion/9">
             <h6>Provincial</h6>
           </Link>
         </div>
       )}
       {categoria && categoria === 3 && categoria !== 4 && (
         <div className="I-submenu" onClick={() => handleClick(categoria)}>
-          <Link className="Links-submenu" to="/Seccion/6">
+          <Link className="Links-submenu" to="/Seccion/10">
             <h6>Regional</h6>
           </Link>
         </div>
       )}
       {categoria && categoria === 3 && categoria !== 4 && (
         <div className="I-submenu" onClick={() => handleClick(categoria)}>
-          <Link className="Links-submenu" to="/Seccion/7">
+          <Link className="Links-submenu" to="/Seccion/11">
             <h6>Nacional</h6>
           </Link>
         </div>

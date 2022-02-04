@@ -5,6 +5,8 @@ import {useHistory, useLocation} from 'react-router';
 import {BsPower} from 'react-icons/bs';
 import iconoAtras from '../../Static/Admin/iconoAtras.svg';
 import RetornaTituloDeNavegacion from './RetornaTituloDeNavegacion.js/RetornaTituloDeNavegacion';
+import {ultimaUbicacionEditarTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
+import {useDispatch} from 'react-redux';
 
 const BarraDeNavegacionAdmin = ({
   abrirMenuLateral = () => {
@@ -18,6 +20,7 @@ const BarraDeNavegacionAdmin = ({
 
   const locacion = useLocation();
   const historialDeNavegacion = useHistory();
+  const dispatch = useDispatch();
   const volverAtras = () => {
     if (locacion.pathname.split('/').length !== 2) {
       if (locacion.pathname.split('/')[1] === 'Noticia') {
@@ -30,7 +33,12 @@ const BarraDeNavegacionAdmin = ({
         historialDeNavegacion.push('/Publicidad');
       }
       if (locacion.pathname.split('/')[1] === 'Torneo') {
-        historialDeNavegacion.goBack();
+        if (locacion.pathname.split('/').length === 4) {
+          dispatch(ultimaUbicacionEditarTorneo_accion(true));
+          historialDeNavegacion.goBack();
+        } else {
+          historialDeNavegacion.goBack();
+        }
       }
       if (locacion.pathname.split('/')[1] === 'Vivo') {
         historialDeNavegacion.goBack();
