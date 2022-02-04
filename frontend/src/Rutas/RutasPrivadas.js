@@ -65,6 +65,12 @@ const RutasPrivadas = () => {
             path="/Torneo/Nuevo/Campeonato/Zonas/Enfrentamiento"
           ></Route> */}
 
+          <Route
+            exact
+            component={AgregarEquipos}
+            path="/Torneo/Nuevo/Campeonato/Zonas/Equipos"
+          ></Route>
+
           <Route exact component={PaginaTablaAdmin} path="/Tablas"></Route>
 
           <Route exact component={PaginaGaleriaAdmin} path="/Galerías"></Route>
