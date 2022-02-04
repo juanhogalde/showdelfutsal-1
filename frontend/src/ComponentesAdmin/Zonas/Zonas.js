@@ -65,6 +65,8 @@ const Zonas = () => {
         auxDatosZona.idSubcategoria = idSubcategoria;
 
         dispatch(crearZonaTorneo_accion(auxDatosZona));
+        setDatosZona('');
+        setTipo('');
       } else {
         setAlertaCamposVacios({
           tipo: 'error',
@@ -108,6 +110,8 @@ const Zonas = () => {
       }
       if (isEliminarZona.isExito) {
         dispatch(actualizarListaDeZonas_accion());
+        setDatosZona('');
+        setTipo('');
       }
       if (isEliminarZona.isError) {
         /* dispatch(volverPorDefectoEditarTorneo_accion()); */
