@@ -1,19 +1,19 @@
 import {} from './AccionPartidos';
 //Para Desarrollo - al subir
 import {urlStaticImages} from '../../urlImagenes';
-/* const escudoHuarpes = urlStaticImages + 'Huarpes.png';
+const escudoHuarpes = urlStaticImages + 'Huarpes.png';
 const escudoHualilan = urlStaticImages + 'Hualilán.png';
 const escudoSEC = urlStaticImages + 'SEC.png';
 const escudoKrause = urlStaticImages + 'Krause.png';
 const escudoCoopCaucete = urlStaticImages + 'CoopCaucete.png';
-const escudoLaGloria = urlStaticImages + 'LaGloria.png'; */
+const escudoLaGloria = urlStaticImages + 'LaGloria.png';
 // Para Local
-import escudoHuarpes from '../../Static/Escudos/Huarpes.png';
-import escudoHualilan from '../../Static/Escudos/Hualilán.png';
-import escudoSEC from '../../Static/Escudos/SEC.png';
-import escudoKrause from '../../Static/Escudos/Krause.png';
-import escudoCoopCaucete from '../../Static/Escudos/CoopCaucete.png';
-import escudoLaGloria from '../../Static/Escudos/LaGloria.png';
+// import escudoHuarpes from '../../Static/Escudos/Huarpes.png';
+// import escudoHualilan from '../../Static/Escudos/Hualilán.png';
+// import escudoSEC from '../../Static/Escudos/SEC.png';
+// import escudoKrause from '../../Static/Escudos/Krause.png';
+// import escudoCoopCaucete from '../../Static/Escudos/CoopCaucete.png';
+// import escudoLaGloria from '../../Static/Escudos/LaGloria.png';
 
 const partidosPorDefecto = {
   partidos: [
