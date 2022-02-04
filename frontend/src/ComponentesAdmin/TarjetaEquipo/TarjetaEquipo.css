@@ -1,0 +1,67 @@
+.CP-Tarjeta {
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+  background-color: white;
+  border-bottom: 1px solid #0000001a;
+  display: grid;
+  /* grid-template-columns: 1px minmax(50px, 100px) 1fr 30px 1px; */
+  grid-template-columns: 1fr 30px;
+  grid-template-rows: 1fr;
+  margin-top: 20px;
+  padding: 20px;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0px 6px 5px -2px rgba(0, 0, 0, 0.3);
+}
+.CI-Cuerpo-Tarjeta {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  display: grid;
+  grid-template-columns: minmax(50px, 100px) 1fr;
+  grid-template-rows: 1fr;
+}
+
+.imagen-Tarjeta {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+.info-Tarjeta {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+}
+.CI-Icono-Acciones-Tarjeta {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.CI-Acciones-Tarjeta {
+  background-color: white;
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  width: 0;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0px 3px 16px #00000050;
+  display: flex;
+  transition: all 0.25s ease;
+  outline: none;
+  opacity: 0;
+}
+.CI-Acciones-Tarjeta-Apertura {
+  width: 80px;
+  opacity: 1;
+  transition: all 0.25s ease-in-out;
+}
