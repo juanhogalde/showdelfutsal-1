@@ -35,7 +35,7 @@ import vivoRouter from './Componentes/Vivo/Vivo_Router';
 // import { comprimirImagen } from './Middlewares/imagemin';
 
 ///// VARIABLES DE ENTORNO
-process.env.NODE_ENV = process.env.NODE_ENV || 'desarrollo';
+process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'desarrollo';
 
 ///// DEPLOY
 const deploy = 'v0.0.17 - 04/02/22';
@@ -44,8 +44,8 @@ class Server {
   public app: express.Application;
   private _cadenaDeConexion =
     process.env.NODE_ENV === 'desarrollo'
-      ? process.env.DATABASE
-      : 'mongodb://localhost:27017/Desarrollo';
+      ? 'mongodb://localhost:27017/Desarrollo'
+      : process.env.DATABASE;
   private options = {
     uploadDir: 'public/imagenes/',
     autoClean: false,
