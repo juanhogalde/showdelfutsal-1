@@ -35,7 +35,49 @@ class TorneosController {
       responder.error(req, res, error);
     }
   }
-
+  public async quitarSubcategoria(req: Request, res: Response) {
+    try {
+      if (!req.body._id) {
+        responder.error(req, res, 'Falta id de torneo', 'Falta id de torneo', 400);
+      } else {
+        modeloTorneos
+          .findById(req.body._id)
+          .then(torneo => {
+            if (!torneo) {
+              responder.error(req, res, 'No se encontro torneo', 'No se encontro torneo', 400);
+            } else {
+              if (!torneo.idSubcategoria?.includes(req.body.idSubcategoria)) {
+                responder.error(
+                  req,
+                  res,
+                  'Subcategoria no esta incluida en el torneo',
+                  'Subcategoria no esta incluida en el torneo',
+                  400
+                );
+              } else {
+                torneo.idSubcategoria.splice(
+                  torneo.idSubcategoria.indexOf(req.body.idSubcategoria),
+                  1
+                );
+                torneo
+                  .save()
+                  .then((torneoActualizado: any) => {
+                    responder.sucess(req, res, torneoActualizado);
+                  })
+                  .catch((error: any) => {
+                    responder.error(req, res, error);
+                  });
+              }
+            }
+          })
+          .catch((error: any) => {
+            responder.error(req, res, error);
+          });
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
   public async modificar(req: Request, res: Response) {
     try {
       let objetoResponse = {
