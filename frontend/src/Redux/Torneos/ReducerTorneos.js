@@ -406,7 +406,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         ...state,
         isAgregarCategoriaSubcategoria: {
           tipo: 'success',
-          mensaje: 'Torneo Editado',
+          mensaje: 'Se agregó categoría y subcategoría exitosamente.',
           isConsulta: false,
           isCargando: false,
           isExito: true,

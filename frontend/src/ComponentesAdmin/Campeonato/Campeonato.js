@@ -106,7 +106,7 @@ const Campeonato = () => {
               return (
                 <TarjetaTorneo
                   isExisteSubcategoria={aux}
-                  categoria={categoriaFemenino.label}
+                  categoria={categoriaFemenino}
                   subcategoria={subcategoria}
                   key={index}
                   isCampeonato={true}
