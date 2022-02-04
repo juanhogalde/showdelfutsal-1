@@ -27,7 +27,7 @@ class ZonasController {
               keyCategoria: resultado.idSubcategoria.keyCategoria,
               keySubcategoria: resultado.idSubcategoria.keySubcategoria,
               equipos: resultado.equipos,
-              idSubcategoria: resultado.idSubcategoria._id,
+              idSubcategoria: resultado.idSubcategoria,
               idCategoria: resultado.idCategoria,
               nombreZona: resultado.nombreZona,
             }),
@@ -65,7 +65,7 @@ class ZonasController {
   public async eliminar(req: Request, res: Response) {
     try {
       if (!req.body._id) {
-        responder.error(req, res, 'Falta id de torneo', 'Falta id de torneo', 400);
+        responder.error(req, res, 'Falta id de zona', 'Falta id de zona', 400);
       } else {
         const zonaEncontrada = await modeloZonas.find({_id: req.body._id});
         if (!zonaEncontrada) {
