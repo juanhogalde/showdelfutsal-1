@@ -139,7 +139,7 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
       case 3:
         let subcategoriasParaLiga = [];
         subcategorias.forEach(element => {
-          if (element.key === 5 || element.key === 6 || element.key === 7) {
+          if (element.key === 9 || element.key === 10 || element.key === 11) {
             subcategoriasParaLiga = [...subcategoriasParaLiga, element];
           }
         });
@@ -149,7 +149,12 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
       case 4:
         let subcategoriasParaOtras = [];
         subcategorias.forEach(element => {
-          if (element.key === 8 || element.key === 9) {
+          if (
+            element.key === 12 ||
+            element.key === 13 ||
+            element.key === 14 ||
+            element.key === 15
+          ) {
             subcategoriasParaOtras = [...subcategoriasParaOtras, element];
           }
         });
@@ -216,7 +221,7 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
           if (element.keyCategoria === 2) {
             console.log(element);
 
-            if (element.key === 10 || element.key === 11) {
+            if (element.key === 6 || element.key === 7) {
               subcategoriasParaFemenino = [...subcategoriasParaFemenino, element];
             }
           }
@@ -227,7 +232,7 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
       case 3:
         let subcategoriasParaLiga = [];
         subcategorias.forEach(element => {
-          if (element.key === 5 || element.key === 6 || element.key === 7) {
+          if (element.key === 9 || element.key === 10 || element.key === 11) {
             subcategoriasParaLiga = [...subcategoriasParaLiga, element];
           }
         });
@@ -237,7 +242,12 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
       case 4:
         let subcategoriasParaOtras = [];
         subcategorias.forEach(element => {
-          if (element.key === 8 || element.key === 9 || element.key === 12 || element.key === 13) {
+          if (
+            element.key === 12 ||
+            element.key === 13 ||
+            element.key === 14 ||
+            element.key === 15
+          ) {
             subcategoriasParaOtras = [...subcategoriasParaOtras, element];
           }
         });

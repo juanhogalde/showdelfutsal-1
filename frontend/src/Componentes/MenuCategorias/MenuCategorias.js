@@ -72,28 +72,28 @@ const MenuCategorias = props => {
       )}
       {categoria && categoria === 4 && (
         <div className="I-submenu" onClick={() => handleClick(categoria)}>
-          <Link className="Links-submenu" to="/Seccion/8">
+          <Link className="Links-submenu" to="/Seccion/12">
             <h6>Inferiores</h6>
           </Link>
         </div>
       )}
       {categoria && categoria === 4 && (
         <div className="I-submenu" onClick={() => handleClick(categoria)}>
-          <Link className="Links-submenu" to="/Seccion/9">
+          <Link className="Links-submenu" to="/Seccion/13">
             <h6>Ligas Departamentales</h6>
           </Link>
         </div>
       )}
       {categoria && categoria === 4 && (
         <div className="I-submenu" onClick={() => handleClick(categoria)}>
-          <Link className="Links-submenu" to="/Seccion/12">
+          <Link className="Links-submenu" to="/Seccion/14">
             <h6>Copas y Torneos</h6>
           </Link>
         </div>
       )}
       {categoria && categoria === 4 && (
         <div className="I-submenu" onClick={() => handleClick(categoria)}>
-          <Link className="Links-submenu" to="/Seccion/13">
+          <Link className="Links-submenu" to="/Seccion/15">
             <h6>Selección Argentina</h6>
           </Link>
         </div>
