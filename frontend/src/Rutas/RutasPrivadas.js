@@ -21,11 +21,12 @@ import NuevoTorneo from '../ComponentesAdmin/NuevoTorneo/NuevoTorneo';
 import Campeonato from '../ComponentesAdmin/Campeonato/Campeonato';
 import NuevaPublicidad from '../ComponentesAdmin/NuevaPublicidad/NuevaPublicidad';
 import EditarTorneo from '../ComponentesAdmin/EditarTorneo/EditarTorneo';
-import NuevoEnfrentamiento from '../ComponentesAdmin/NuevoEnfrentamiento/NuevoEnfrentamiento';
+/* import NuevoEnfrentamiento from '../ComponentesAdmin/NuevoEnfrentamiento/NuevoEnfrentamiento'; */
 import Zonas from '../ComponentesAdmin/Zonas/Zonas';
 import NuevaGaleriaVideo from '../ComponentesAdmin/NuevaGaleriaVideo/NuevaGaleriaVideo';
 import PaginaVivoAdmin from '../ComponentesAdmin/PaginaVivoAdmin/PaginaVivoAdmin';
 import NuevoVivo from '../ComponentesAdmin/NuevoVivo/NuevoVivo';
+import AgregarEquipos from '../ComponentesAdmin/AgregarEquipos/AgregarEquipos';
 
 const RutasPrivadas = () => {
   const {usuarioLogueado} = useSelector(state => state.storeLogueo);
@@ -57,12 +58,16 @@ const RutasPrivadas = () => {
             component={Zonas}
             path="/Torneo/Nuevo/Campeonato/Zonas/:idTorneo/:idCategoria/:idSubcategoria"
           ></Route>
-
           <Route
+            exact
+            component={AgregarEquipos}
+            path="/Torneo/Nuevo/Campeonato/Zonas/Equipos"
+          ></Route>
+          {/* <Route
             exact
             component={NuevoEnfrentamiento}
             path="/Torneo/Nuevo/Campeonato/Zonas/Enfrentamiento"
-          ></Route>
+          ></Route> */}
 
           <Route exact component={PaginaTablaAdmin} path="/Tablas"></Route>
 

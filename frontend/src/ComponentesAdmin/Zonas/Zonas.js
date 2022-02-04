@@ -117,8 +117,8 @@ const Zonas = () => {
     }
   };
 
-  const redireccionarEnfrentamiento = () => {
-    history.push('/Torneo/Nuevo/Campeonato/Zonas/Enfrentamiento');
+  const redireccionarAgregarEquipos = () => {
+    history.push('/Torneo/Nuevo/Campeonato/Zonas/Equipos');
   };
   const obtenerRespuestaDeAlertaCamposVacios = respuesta => {
     if (respuesta) {
@@ -178,7 +178,7 @@ const Zonas = () => {
               {arrayZonasCreadas.map((zona, index) => {
                 return (
                   <TarjetaZona
-                    redireccionarEnfrentamiento={redireccionarEnfrentamiento}
+                    redireccionarEnfrentamiento={redireccionarAgregarEquipos}
                     key={index}
                     indice={index}
                     categoria={categoria ? categoria : ''}
