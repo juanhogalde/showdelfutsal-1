@@ -1,6 +1,6 @@
 import {} from './AccionPartidos';
 //Para Desarrollo - al subir
-import {urlStaticImages} from '../../urlImagenes';
+// import {urlStaticImages} from '../../urlImagenes';
 /* const escudoHuarpes = urlStaticImages + 'Huarpes.png';
 const escudoHualilan = urlStaticImages + 'Hualilán.png';
 const escudoSEC = urlStaticImages + 'SEC.png';
