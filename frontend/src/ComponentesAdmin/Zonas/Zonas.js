@@ -112,7 +112,7 @@ const Zonas = () => {
         setTipo('');
       }
       if (isEliminarZona.isError) {
-        /* dispatch(volverPorDefectoEditarTorneo_accion()); */
+        dispatch(volverPorDefectoEliminarZona_accion());
       }
     } else {
       dispatch(volverPorDefectoEliminarZona_accion());
