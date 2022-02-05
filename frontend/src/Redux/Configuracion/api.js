@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {api} from '../../api';
+import {api, puerto} from '../../Entorno';
 
 export default axios.create({
-  baseURL: `http://${api}:4000`,
+  baseURL: `http://${api}:${puerto}`,
 });

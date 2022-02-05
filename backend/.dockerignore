@@ -4,3 +4,5 @@ package-lock.json
 docker-compose.yaml
 docker-compose.yml
 /data
+.vscode
+dist

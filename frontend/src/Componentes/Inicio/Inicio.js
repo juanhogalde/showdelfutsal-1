@@ -11,7 +11,6 @@ import SomosFrase from '../../Static/Img/frase_inicio.png';
 import {BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
-/* import Radio from '../Radio/Radio'; */
 import PieDepagina from '../PieDePagina/PieDepagina';
 import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
 import ModalLowa from '../../ComponentesAdmin/ModalLowa/ModalLowa';

@@ -9,7 +9,7 @@ export class baseMongo {
     serverSelectionTimeoutMS: 5000,
   };
 
-  private _cadenaDeConexion = 'mongodb://localhost:29017/Desarrollo';
+  private _cadenaDeConexion = 'mongodb://localhost:27017/Desarrollo';
 
   constructor(cadenaNueva?: string) {
     this._cadenaDeConexion = cadenaNueva ? cadenaNueva : this._cadenaDeConexion;
