@@ -10,16 +10,6 @@ const InputDateLowa = props => {
   };
   useLayoutEffect(() => {
     if (value) {
-      console.log(value);
-      /* if (value.split('').includes('T')) {
-        let fecha = new Date(value);
-        let auxFechaFormateada = `${fecha.getUTCDate()}/${
-          fecha.getUTCMonth() < 10 ? `0${fecha.getUTCMonth()}` : fecha.getUTCMonth()
-        }/${fecha.getUTCFullYear()}`;
-        setInputDateValue(auxFechaFormateada);
-      } else {
-        setInputDateValue(new Date(value));
-      } */
       let fecha = new Date(value);
       let auxFechaFormateada = `${fecha.getUTCDate()}/${
         fecha.getUTCMonth() < 10 ? `0${fecha.getUTCMonth()}` : fecha.getUTCMonth()
