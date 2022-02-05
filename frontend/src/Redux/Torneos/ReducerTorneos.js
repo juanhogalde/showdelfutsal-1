@@ -21,7 +21,11 @@ import {
   volverPorDefectoListarTorneo,
   volverPorDefectoUnTorneo,
   recuperarTorneo,
+  cargandoCrearZonaTorneo,
   crearZonaTorneoExito,
+  crearZonaTorneoError,
+  crearZonaTorneoDefault,
+  actualizarListaDeTorneosCrearZona,
   consultarPoragregarCategoriaSubcategoriaTorneo,
   cargandoAgregarCategoriaSubcategoria,
   agregarCategoriaSubcategoriaTorneoExito,
@@ -85,6 +89,14 @@ const torneoPorDefecto = {
     isError: false,
   },
   isUltimaUbicacionEditarTorneo: false,
+  isAgregarZona: {
+    tipo: '',
+    mensaje: '',
+    isConsulta: false,
+    isCargando: false,
+    isExito: false,
+    isError: false,
+  },
   isEliminarZona: {
     tipo: '',
     mensaje: '',
@@ -457,6 +469,18 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         },
       };
     }
+    case cargandoCrearZonaTorneo: {
+      return {
+        ...state,
+        isAgregarZona: {
+          tipo: 'cargando',
+          mensaje: 'Agregando Zona.',
+          isCargando: true,
+          isExito: false,
+          isError: false,
+        },
+      };
+    }
     case crearZonaTorneoExito: {
       let auxDatosDeTorneo = {};
       Object.assign(auxDatosDeTorneo, state.torneo);
@@ -474,14 +498,55 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       return {
         ...state,
         torneo: auxDatosDeTorneo,
-        isEditarTorneo: {
+        isAgregarZona: {
           tipo: 'success',
-          mensaje: 'Torneo Editado',
-          isConsulta: false,
+          mensaje: 'Zona Creada.',
           isCargando: false,
           isExito: true,
           isError: false,
         },
+      };
+    }
+    case crearZonaTorneoError: {
+      return {
+        ...state,
+        isAgregarZona: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, en éste momento no podemos agregar Zona.',
+          isCargando: false,
+          isExito: false,
+          isError: true,
+        },
+      };
+    }
+    case crearZonaTorneoDefault: {
+      return {
+        ...state,
+        isAgregarZona: {
+          tipo: '',
+          mensaje: '',
+          isCargando: false,
+          isExito: false,
+          isError: false,
+        },
+      };
+    }
+    case actualizarListaDeTorneosCrearZona: {
+      let auxTorneos = state.torneos.map(torneoDeArray => {
+        if (torneoDeArray._id === state.torneo._id) {
+          return state.torneo;
+        } else return torneoDeArray;
+      });
+      return {
+        ...state,
+        isAgregarZona: {
+          tipo: '',
+          mensaje: '',
+          isCargando: false,
+          isExito: false,
+          isError: false,
+        },
+        torneos: auxTorneos,
       };
     }
     case cargandoObtenerDatosDeTorneoParaEdicion: {

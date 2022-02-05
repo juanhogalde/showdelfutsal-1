@@ -41,7 +41,12 @@ export const volverPorDefectoAgregarCategoriaSubcategoriaTorneo =
   'volverPorDefectoAgregarCategoriaSubcategoriaTorneo';
 export const actualizarListaDeTorneosConSubcategoria = 'actualizarListaDeTorneosConSubcategoria';
 
+export const cargandoCrearZonaTorneo = 'cargandoCrearZonaTorneo';
 export const crearZonaTorneoExito = 'crearZonaTorneoExito';
+export const crearZonaTorneoError = 'crearZonaTorneoError';
+export const crearZonaTorneoDefault = 'crearZonaTorneoDefault';
+export const actualizarListaDeTorneosCrearZona = 'actualizarListaDeTorneosCrearZona';
+
 export const cargandoObtenerDatosDeTorneoParaEdicion = 'cargandoObtenerDatosDeTorneoParaEdicion';
 export const obtenerDatosDeTorneoParaEdicionExito = 'obtenerDatosDeTorneoParaEdicionExito';
 export const obtenerDatosDeTorneoParaEdicionError = 'obtenerDatosDeTorneoParaEdicionError';
@@ -263,15 +268,39 @@ export const actualizarListaDeTorneosConSubcategoria_accion = () => {
 };
 
 /****** CREAR ZONA ******/
+export const cargandoCrearZonaTorneo_accion = datos => {
+  return {
+    type: cargandoCrearZonaTorneo,
+    datos: datos,
+  };
+};
 export const crearZonaTorneoExito_accion = datos => {
   return {
     type: crearZonaTorneoExito,
     datos: datos,
   };
 };
+export const crearZonaTorneoError_accion = datos => {
+  return {
+    type: crearZonaTorneoError,
+    datos: datos,
+  };
+};
+export const crearZonaTorneoDefault_accion = datos => {
+  return {
+    type: crearZonaTorneoDefault,
+    datos: datos,
+  };
+};
+export const actualizarListaDeTorneosCrearZona_accion = datos => {
+  return {
+    type: actualizarListaDeTorneosCrearZona,
+    datos: datos,
+  };
+};
 export const crearZonaTorneo_accion = torneo => {
   return dispatch => {
-    dispatch(cargandoEditarTorneo_accion());
+    dispatch(cargandoCrearZonaTorneo_accion());
     API({
       url: '/zonas/agregar',
       method: 'post',
@@ -288,7 +317,7 @@ export const crearZonaTorneo_accion = torneo => {
       })
       .catch(error => {
         console.log({error});
-        dispatch(editarTorneoError_accion());
+        dispatch(crearZonaTorneoError_accion());
       });
   };
 };
