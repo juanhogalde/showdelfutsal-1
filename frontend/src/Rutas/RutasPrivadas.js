@@ -27,6 +27,7 @@ import NuevaGaleriaVideo from '../ComponentesAdmin/NuevaGaleriaVideo/NuevaGaleri
 import PaginaVivoAdmin from '../ComponentesAdmin/PaginaVivoAdmin/PaginaVivoAdmin';
 import NuevoVivo from '../ComponentesAdmin/NuevoVivo/NuevoVivo';
 import AgregarEquipos from '../ComponentesAdmin/AgregarEquipos/AgregarEquipos';
+import EditorEnfrentamientos from '../ComponentesAdmin/EditorEnfrentamientos/EditorEnfrentamientos';
 
 const RutasPrivadas = () => {
   const {usuarioLogueado} = useSelector(state => state.storeLogueo);
@@ -65,6 +66,7 @@ const RutasPrivadas = () => {
           ></Route>
 
           <Route exact component={NuevoEnfrentamiento} path="/Enfrentamientos"></Route>
+          <Route exact component={EditorEnfrentamientos} path="/Enfrentamientos/Editor"></Route>
 
           <Route
             exact

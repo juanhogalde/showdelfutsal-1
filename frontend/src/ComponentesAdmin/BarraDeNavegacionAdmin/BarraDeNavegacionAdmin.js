@@ -43,6 +43,10 @@ const BarraDeNavegacionAdmin = ({
       if (locacion.pathname.split('/')[1] === 'Vivo') {
         historialDeNavegacion.goBack();
       }
+
+      if (locacion.pathname.split('/')[1] === 'Enfrentamientos') {
+        if (locacion.pathname.split('/')[2] === 'Editor') historialDeNavegacion.goBack();
+      }
     } else {
       historialDeNavegacion.push('/');
     }
