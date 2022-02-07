@@ -122,6 +122,11 @@ const Zonas = () => {
   const redireccionarAgregarEquipos = () => {
     history.push('/Torneo/Nuevo/Campeonato/Zonas/Equipos');
   };
+  const redireccionarEnfrentamientos = () => {
+    history.push(
+      `/Torneo/Nuevo/Campeonato/Zonas/${torneo._id}/${categoria.key}/${subcategoria.key}/Enfrentamientos`
+    );
+  };
   const obtenerRespuestaDeAlertaCamposVacios = respuesta => {
     if (respuesta) {
       setAlertaCamposVacios({
@@ -172,7 +177,11 @@ const Zonas = () => {
               {arrayZonasCreadas.map((zona, index) => {
                 return (
                   <TarjetaZona
-                    redireccionarEnfrentamiento={redireccionarAgregarEquipos}
+                    redireccionar={
+                      zona.tipoZona === 1 || zona.tipoZona === 3
+                        ? redireccionarEnfrentamientos
+                        : redireccionarAgregarEquipos
+                    }
                     key={index}
                     indice={index}
                     categoria={categoria ? categoria : ''}

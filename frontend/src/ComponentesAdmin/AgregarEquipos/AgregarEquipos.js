@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {BsPlusCircle} from 'react-icons/bs';
 import {useDispatch} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 import {listarEquipos_accion} from '../../Redux/Equipos/AccionesEquipos';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import Selector from '../Selector/Selector';
@@ -8,6 +9,7 @@ import TarjetaEquipo from '../TarjetaEquipo/TarjetaEquipo';
 import './AgregarEquipos.css';
 
 const AgregarEquipos = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const agregarEquipoZona = () => {
     console.log('func para agregar equipos a zona');
@@ -16,7 +18,9 @@ const AgregarEquipos = () => {
     dispatch(listarEquipos_accion());
     return () => {};
   }, [dispatch]);
-
+  const crearEnfrentamiento = () => {
+    history.push('/Enfrentamientos');
+  };
   return (
     <div className="CP-AgregarEquipos">
       <p>Agregar Equipos</p>
@@ -32,6 +36,10 @@ const AgregarEquipos = () => {
         opcionSeleccionada={tipoTorneoArray[datosTorneo.tipoTorneo - 1]} */
       ></Selector>
       <BotonLowa tituloboton="Agregar" onClick={() => agregarEquipoZona()}></BotonLowa>
+      <BotonLowa
+        tituloboton="Crear Enfrentamiento"
+        onClick={() => crearEnfrentamiento()}
+      ></BotonLowa>
 
       <TarjetaEquipo></TarjetaEquipo>
     </div>

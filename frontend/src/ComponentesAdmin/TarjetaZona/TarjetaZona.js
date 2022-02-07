@@ -9,7 +9,7 @@ const TarjetaZona = ({
   datos = '',
   categoria = '',
   subcategoria = '',
-  redireccionarEnfrentamiento = () => {
+  redireccionar = () => {
     console.log('');
   },
   funcionEliminarZona = () => {
@@ -59,10 +59,7 @@ const TarjetaZona = ({
         tabIndex="1"
         onBlur={() => ocultarAcciones()}
       >
-        <FiEdit3
-          className={'iconoAcción-ListaImagenes'}
-          onClick={() => redireccionarEnfrentamiento()}
-        ></FiEdit3>
+        <FiEdit3 className={'iconoAcción-ListaImagenes'} onClick={() => redireccionar()}></FiEdit3>
         <MdDeleteForever
           onClick={() => funcionEliminarZona(datos._id)}
           className={' iconoAcción-ListaImagenes'}

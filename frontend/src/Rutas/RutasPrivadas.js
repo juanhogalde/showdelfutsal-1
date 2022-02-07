@@ -21,7 +21,7 @@ import NuevoTorneo from '../ComponentesAdmin/NuevoTorneo/NuevoTorneo';
 import Campeonato from '../ComponentesAdmin/Campeonato/Campeonato';
 import NuevaPublicidad from '../ComponentesAdmin/NuevaPublicidad/NuevaPublicidad';
 import EditarTorneo from '../ComponentesAdmin/EditarTorneo/EditarTorneo';
-//import NuevoEnfrentamiento from '../ComponentesAdmin/NuevoEnfrentamiento/NuevoEnfrentamiento';
+import NuevoEnfrentamiento from '../ComponentesAdmin/NuevoEnfrentamiento/NuevoEnfrentamiento';
 import Zonas from '../ComponentesAdmin/Zonas/Zonas';
 import NuevaGaleriaVideo from '../ComponentesAdmin/NuevaGaleriaVideo/NuevaGaleriaVideo';
 import PaginaVivoAdmin from '../ComponentesAdmin/PaginaVivoAdmin/PaginaVivoAdmin';
@@ -58,12 +58,13 @@ const RutasPrivadas = () => {
             component={Zonas}
             path="/Torneo/Nuevo/Campeonato/Zonas/:idTorneo/:idCategoria/:idSubcategoria"
           ></Route>
-
-          {/*         <Route
+          <Route
             exact
             component={NuevoEnfrentamiento}
-            path="/Torneo/Nuevo/Campeonato/Zonas/Enfrentamiento"
-          ></Route> */}
+            path="/Torneo/Nuevo/Campeonato/Zonas/:idTorneo/:idCategoria/:idSubcategoria/Enfrentamientos"
+          ></Route>
+
+          <Route exact component={NuevoEnfrentamiento} path="/Enfrentamientos"></Route>
 
           <Route
             exact
