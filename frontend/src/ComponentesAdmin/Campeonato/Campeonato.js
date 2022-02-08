@@ -57,15 +57,15 @@ const Campeonato = () => {
     history.push(`/Torneo/Nuevo/Campeonato/Zonas/${torneo._id}/${categoria}/${subcategoria}`);
   };
 
-  const obtenerExistenciaDeSubcategoria = subcategoria => {
-    let resultadoDeBusqueda = false;
-    torneo.idSubcategoria.forEach(subCategoriaTorneo => {
-      if (subcategoria.keyCategoria === subCategoriaTorneo.keyCategoria) {
-        if (subcategoria.key === subCategoriaTorneo.keySubcategoria) resultadoDeBusqueda = true;
-      }
-    });
-    return resultadoDeBusqueda;
-  };
+  // const obtenerExistenciaDeSubcategoria = subcategoria => {
+  //   let resultadoDeBusqueda = false;
+  //   torneo.idSubcategoria.forEach(subCategoriaTorneo => {
+  //     if (subcategoria.keyCategoria === subCategoriaTorneo.keyCategoria) {
+  //       if (subcategoria.key === subCategoriaTorneo.keySubcategoria) resultadoDeBusqueda = true;
+  //     }
+  //   });
+  //   return resultadoDeBusqueda;
+  // };
 
   useEffect(() => {
     return () => {
@@ -109,7 +109,8 @@ const Campeonato = () => {
                   isExisteSubcategoria={torneo.zonas?.some(
                     zona => zona.idSubcategoria.keySubcategoria === subcategoria.key
                   )}
-                  categoria={categoriaFemenino.label}
+                  // categoria={categoriaFemenino.label}
+                  categoria={categoriaFemenino}
                   subcategoria={subcategoria}
                   key={index}
                   isCampeonato={true}
