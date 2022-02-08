@@ -80,11 +80,13 @@ const Campeonato = () => {
           <p>{categoriaMasculino.label ? categoriaMasculino.label : ''}</p>
 
           {subcategorias.map((subcategoria, index) => {
-            if (subcategoria.keyCategoria === 1) {
-              const aux = obtenerExistenciaDeSubcategoria(subcategoria);
-              return (
+            // const aux = obtenerExistenciaDeSubcategoria(subcategoria);
+            return (
+              subcategoria.keyCategoria === 1 && (
                 <TarjetaTorneo
-                  isExisteSubcategoria={aux}
+                  isExisteSubcategoria={torneo.zonas?.some(
+                    zona => zona.idSubcategoria.keySubcategoria === subcategoria.key
+                  )}
                   categoria={categoriaMasculino}
                   subcategoria={subcategoria}
                   key={index}
@@ -94,18 +96,19 @@ const Campeonato = () => {
                     consultarPorAgregarCategoriaSubcategoria
                   }
                 />
-              );
-            } else return '';
+              )
+            );
           })}
         </div>
         <div className="CI-CampeonatoMasculino">
           <p>{categoriaFemenino.label ? categoriaFemenino.label : ''}</p>
           {subcategorias.map((subcategoria, index) => {
-            if (subcategoria.keyCategoria === 2) {
-              const aux = obtenerExistenciaDeSubcategoria(subcategoria);
-              return (
+            return (
+              subcategoria.keyCategoria === 2 && (
                 <TarjetaTorneo
-                  isExisteSubcategoria={aux}
+                  isExisteSubcategoria={torneo.zonas?.some(
+                    zona => zona.idSubcategoria.keySubcategoria === subcategoria.key
+                  )}
                   categoria={categoriaFemenino.label}
                   subcategoria={subcategoria}
                   key={index}
@@ -115,8 +118,8 @@ const Campeonato = () => {
                     consultarPorAgregarCategoriaSubcategoria
                   }
                 ></TarjetaTorneo>
-              );
-            } else return '';
+              )
+            );
           })}
         </div>
         <Alertas

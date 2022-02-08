@@ -92,7 +92,7 @@ class Server {
     this.app.use('/noticias', noticiasRouter);
     this.app.use('/zonas', zonasRouter);
     this.app.use('/partidos', partidosRouter);
-    this.app.use('/publicidades', publicidadesRouter);
+    this.app.use('/anuncios', publicidadesRouter);
     this.app.use('/subcategorias', subcategoriasRouter);
     this.app.use('/tablas', tablasRouter);
     this.app.use('/usuarios', usuariosRouter);
