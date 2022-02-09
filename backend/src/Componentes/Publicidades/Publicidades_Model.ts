@@ -8,7 +8,7 @@ const PublicidadesSchema = new Schema({
   isActiva: {type: Boolean, default: false},
   idMedidas: [
     {
-      type: Schema.Types.ObjectId,
+      type: Schema.Types.String,
       ref: 'modeloMedidasPublicidad',
     },
   ],

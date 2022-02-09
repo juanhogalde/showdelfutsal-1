@@ -14,8 +14,8 @@ class TorneosRouter {
     this.router.get('/obtener/:id', torneosController.obtener);
     this.router.put('/modificar', torneosController.modificar);
     this.router.put('/cargarSubcategoria', torneosController.cargarSubcategoria);
-    this.router.put('/quitarSubcategoria', torneosController.quitarSubcategoria);
-    this.router.put('/cargarZona', torneosController.cargarZona);
+    // this.router.put('/quitarSubcategoria', torneosController.quitarSubcategoria);
+    // this.router.put('/cargarZona', torneosController.cargarZona);
     this.router.delete('/eliminar', torneosController.eliminar);
     this.router.post('/agregar', torneosController.agregar);
   }
