@@ -31,10 +31,12 @@
     "express-form-data": "^2.0.17",
     "fs": "0.0.1-security",
     "helmet": "^4.6.0",
+    "https": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.10",
     "mongoose-paginate-v2": "^1.4.2",
     "nodemailer": "^6.7.0",
+    "selfsigned": "^2.0.0",
     "ts-node": "^10.3.0"
   },
   "devDependencies": {
