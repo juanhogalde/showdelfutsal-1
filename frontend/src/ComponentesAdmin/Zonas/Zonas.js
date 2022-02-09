@@ -11,12 +11,12 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Alertas from '../Alertas/Alertas';
 import {
-  actualizarListaDeTorneos_accion,
+  actualizarListaDeTorneosCrearZona_accion,
   actualizarListaDeZonas_accion,
   consultarPorEliminarZona_accion,
+  crearZonaTorneoDefault_accion,
   crearZonaTorneo_accion,
   eliminarZona_accion,
-  volverPorDefectoEditarTorneo_accion,
   volverPorDefectoEliminarZona_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Cargando from '../Cargando/Cargando';
@@ -30,9 +30,7 @@ const Zonas = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {idTorneo, idCategoria, idSubcategoria} = useParams();
-  const {torneo, torneos, isEditarTorneo, isEliminarZona} = useSelector(
-    state => state.storeTorneos
-  );
+  const {torneo, torneos, isAgregarZona, isEliminarZona} = useSelector(state => state.storeTorneos);
 
   const categoria = useSelector(state =>
     state.sotreDatosIniciales.categorias.find(categoria => categoria.value === idCategoria)
@@ -65,6 +63,8 @@ const Zonas = () => {
         auxDatosZona.idSubcategoria = idSubcategoria;
 
         dispatch(crearZonaTorneo_accion(auxDatosZona));
+        setDatosZona('');
+        setTipo('');
       } else {
         setAlertaCamposVacios({
           tipo: 'error',
@@ -87,14 +87,14 @@ const Zonas = () => {
 
   const obtenerRespuestaDeAlertas = respuesta => {
     if (respuesta) {
-      if (isEditarTorneo.isExito) {
-        dispatch(actualizarListaDeTorneos_accion());
+      if (isAgregarZona.isExito) {
+        dispatch(actualizarListaDeTorneosCrearZona_accion());
       }
-      if (isEditarTorneo.isError) {
-        dispatch(volverPorDefectoEditarTorneo_accion());
+      if (isAgregarZona.isError) {
+        dispatch(crearZonaTorneoDefault_accion());
       }
     } else {
-      dispatch(volverPorDefectoEditarTorneo_accion());
+      dispatch(crearZonaTorneoDefault_accion());
     }
   };
 
@@ -108,9 +108,11 @@ const Zonas = () => {
       }
       if (isEliminarZona.isExito) {
         dispatch(actualizarListaDeZonas_accion());
+        setDatosZona('');
+        setTipo('');
       }
       if (isEliminarZona.isError) {
-        /* dispatch(volverPorDefectoEditarTorneo_accion()); */
+        dispatch(volverPorDefectoEliminarZona_accion());
       }
     } else {
       dispatch(volverPorDefectoEliminarZona_accion());
@@ -142,15 +144,7 @@ const Zonas = () => {
       }
     }
     return () => {};
-  }, [
-    dispatch,
-    torneos,
-    torneo,
-    idTorneo,
-    isEditarTorneo.isExito,
-    categoria.key,
-    subcategoria.key,
-  ]);
+  }, [dispatch, torneos, torneo, idTorneo, categoria.key, subcategoria.key]);
   if (Object.keys(torneo).length > 0) {
     return (
       <div className="CP-Zonas">
@@ -193,14 +187,9 @@ const Zonas = () => {
         </div>
 
         <Alertas
-          mostrarSweet={
-            isEditarTorneo.isConsulta ||
-            isEditarTorneo.isCargando ||
-            isEditarTorneo.isExito ||
-            isEditarTorneo.isError
-          }
-          tipoDeSweet={isEditarTorneo.tipo}
-          subtitulo={isEditarTorneo.mensaje}
+          mostrarSweet={isAgregarZona.isCargando || isAgregarZona.isExito || isAgregarZona.isError}
+          tipoDeSweet={isAgregarZona.tipo}
+          subtitulo={isAgregarZona.mensaje}
           RespuestaDeSweet={obtenerRespuestaDeAlertas}
         ></Alertas>
         <Alertas

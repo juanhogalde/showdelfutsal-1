@@ -41,6 +41,13 @@ const TarjetaTorneo = ({
     dispatch(consultarPorEliminarTorneo_accion(id));
   };
 
+  const formatearFechaUTC = dato => {
+    let fecha = new Date(dato);
+    return `${fecha.getUTCDate()}/${
+      fecha.getUTCMonth() < 10 ? `0${fecha.getUTCMonth()}` : fecha.getUTCMonth()
+    }/${fecha.getUTCFullYear()}`;
+  };
+
   return (
     <div
       className={`${
@@ -73,8 +80,8 @@ const TarjetaTorneo = ({
         <div className="info-TarjetaTorneo">
           {!isCampeonato && (
             <p>
-              {torneo.fechaInicio ? torneo.fechaInicio : ''} -{' '}
-              {torneo.fechaFin ? torneo.fechaFin : ''}
+              {torneo.fechaInicio ? formatearFechaUTC(torneo.fechaInicio) : ''} -{' '}
+              {torneo.fechaFin ? formatearFechaUTC(torneo.fechaFin) : ''}
             </p>
           )}
           <p>{subcategoria.label}</p>

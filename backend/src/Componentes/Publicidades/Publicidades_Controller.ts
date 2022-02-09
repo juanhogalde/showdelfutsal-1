@@ -27,9 +27,10 @@ class PublicidadesController {
       const publicidad: IPublicidades = new modeloPublicidades({...req.body, fecha: fechaActual});
       publicidad.populate('idImagen');
       publicidad.populate('idMedidas');
-      await publicidad.save();
-      responder.sucess(req, res, publicidad);
+      const resultado = await publicidad.save();
+      responder.sucess(req, res, resultado);
     } catch (error) {
+      console.log(error);
       responder.error(req, res, error);
     }
   }

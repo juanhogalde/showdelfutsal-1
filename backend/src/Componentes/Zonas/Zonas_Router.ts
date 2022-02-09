@@ -13,6 +13,7 @@ class ZonasRouter {
     this.router.post('/listar', zonasController.listar);
     this.router.post('/agregar', zonasController.agregar);
     this.router.delete('/eliminar', zonasController.eliminar);
+    this.router.delete('/eliminarPorSubcategoria', zonasController.eliminarPorSubcategoria);
   }
 }
 

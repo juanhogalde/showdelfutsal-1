@@ -57,15 +57,15 @@ const Campeonato = () => {
     history.push(`/Torneo/Nuevo/Campeonato/Zonas/${torneo._id}/${categoria}/${subcategoria}`);
   };
 
-  const obtenerExistenciaDeSubcategoria = subcategoria => {
-    let resultadoDeBusqueda = false;
-    torneo.idSubcategoria.forEach(subCategoriaTorneo => {
-      if (subcategoria.keyCategoria === subCategoriaTorneo.keyCategoria) {
-        if (subcategoria.key === subCategoriaTorneo.keySubcategoria) resultadoDeBusqueda = true;
-      }
-    });
-    return resultadoDeBusqueda;
-  };
+  // const obtenerExistenciaDeSubcategoria = subcategoria => {
+  //   let resultadoDeBusqueda = false;
+  //   torneo.idSubcategoria.forEach(subCategoriaTorneo => {
+  //     if (subcategoria.keyCategoria === subCategoriaTorneo.keyCategoria) {
+  //       if (subcategoria.key === subCategoriaTorneo.keySubcategoria) resultadoDeBusqueda = true;
+  //     }
+  //   });
+  //   return resultadoDeBusqueda;
+  // };
 
   useEffect(() => {
     return () => {
@@ -80,11 +80,13 @@ const Campeonato = () => {
           <p>{categoriaMasculino.label ? categoriaMasculino.label : ''}</p>
 
           {subcategorias.map((subcategoria, index) => {
-            if (subcategoria.keyCategoria === 1) {
-              const aux = obtenerExistenciaDeSubcategoria(subcategoria);
-              return (
+            // const aux = obtenerExistenciaDeSubcategoria(subcategoria);
+            return (
+              subcategoria.keyCategoria === 1 && (
                 <TarjetaTorneo
-                  isExisteSubcategoria={aux}
+                  isExisteSubcategoria={torneo.zonas?.some(
+                    zona => zona.idSubcategoria.keySubcategoria === subcategoria.key
+                  )}
                   categoria={categoriaMasculino}
                   subcategoria={subcategoria}
                   key={index}
@@ -94,19 +96,21 @@ const Campeonato = () => {
                     consultarPorAgregarCategoriaSubcategoria
                   }
                 />
-              );
-            } else return '';
+              )
+            );
           })}
         </div>
         <div className="CI-CampeonatoMasculino">
           <p>{categoriaFemenino.label ? categoriaFemenino.label : ''}</p>
           {subcategorias.map((subcategoria, index) => {
-            if (subcategoria.keyCategoria === 2) {
-              const aux = obtenerExistenciaDeSubcategoria(subcategoria);
-              return (
+            return (
+              subcategoria.keyCategoria === 2 && (
                 <TarjetaTorneo
-                  isExisteSubcategoria={aux}
-                  categoria={categoriaFemenino.label}
+                  isExisteSubcategoria={torneo.zonas?.some(
+                    zona => zona.idSubcategoria.keySubcategoria === subcategoria.key
+                  )}
+                  // categoria={categoriaFemenino.label}
+                  categoria={categoriaFemenino}
                   subcategoria={subcategoria}
                   key={index}
                   isCampeonato={true}
@@ -115,8 +119,8 @@ const Campeonato = () => {
                     consultarPorAgregarCategoriaSubcategoria
                   }
                 ></TarjetaTorneo>
-              );
-            } else return '';
+              )
+            );
           })}
         </div>
         <Alertas
