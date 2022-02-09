@@ -4,14 +4,13 @@ import IPartidos from './Partidos_Interface';
 const PartidosSchema = new Schema({
   equipoLocal: {type: Schema.Types.ObjectId, ref: 'modeloEquipos'},
   equipoVisitante: {type: Schema.Types.ObjectId, ref: 'modeloEquipos'},
-  resultadoLocal: {type: Number},
-  resultadoVisitante: {type: Number},
-  penalesLocal: {type: Number},
-  penalesVisitante: {type: Number},
-  fechaPorJugar: Number,
+  resultadoLocal: {type: Number, default: 0},
+  resultadoVisitante: {type: Number, default: 0},
+  penalesLocal: {type: Number, default: 0},
+  penalesVisitante: {type: Number, default: 0},
+  fechaPorJugar: {type: Number},
   fechaPartido: {type: Date},
-  horaPartido: String,
-  idEstadio: {type: Schema.Types.ObjectId, ref: 'modeloEstadios'},
+  idEstadio: {type: Schema.Types.String, ref: 'modeloEstadios'},
   posicionFixture: {type: Number},
   comentarios: [
     {
@@ -23,6 +22,16 @@ const PartidosSchema = new Schema({
   idTabla: {type: Schema.Types.ObjectId, ref: 'modeloTablas'},
   idZona: {type: Schema.Types.ObjectId, ref: 'modeloZonas'},
   idTorneo: {type: Schema.Types.ObjectId, ref: 'modeloTorneos'},
+});
+
+PartidosSchema.pre('save', function (next) {
+  if (!this.idEquipoLocal || !this.idEquipoVisitante || !this.fechaPorJugar) {
+    throw new Error(
+      `Faltan datos ${this.idEquipoLocal ? 'equipo local-' : ''}  ${
+        this.idEquipoVisitante ? 'equipo visitante-' : ''
+      }  ${this.fechaPorJugar ? 'fecha por jugar' : ''}`
+    );
+  }
 });
 
 export default model<IPartidos>('modeloPartidos', PartidosSchema);

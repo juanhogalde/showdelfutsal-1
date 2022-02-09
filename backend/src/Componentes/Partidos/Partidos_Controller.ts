@@ -68,45 +68,46 @@ class PartidosController {
   public async agregar(req: Request, res: Response) {
     try {
       const datosBody = req.body;
-      if (
-        !datosBody ||
-        !datosBody.idEquipoLocal ||
-        !datosBody.idEquipoVisitante ||
-        !datosBody.fechaPorJugar
-      ) {
-        responder.error(req, res, '', 'No se ingresaron datos', 400);
+      // if (!req.body.idEquipoLocal || !req.body.idEquipoVisitante || !req.body.fechaPorJugar) {
+      //   responder.error(
+      //     req,
+      //     res,
+      //     '',
+      //     `Faltan datos ${req.body.idEquipoLocal ? 'equipo local-' : ''}  ${
+      //       req.body.idEquipoVisitante ? 'equipo visitante-' : ''
+      //     }  ${req.body.fechaPorJugar ? 'fecha por jugar' : ''}`,
+      //     400
+      //   );
+      // } else {
+      if (datosBody.idEquipoLocal === datosBody.idEquipoVisitante) {
+        responder.error(
+          req,
+          res,
+          '',
+          'No puede crear un enfrentamiento entre el mismo equipo',
+          400
+        );
       } else {
-        if (datosBody.idEquipoLocal === datosBody.idEquipoVisitante) {
-          responder.error(
-            req,
-            res,
-            '',
-            'No puede crear un enfrentamiento entre el mismo equipo',
-            400
-          );
-        } else {
-          const nuevoPartido: IPartidos = new modeloPartidos();
-          nuevoPartido.equipoLocal = datosBody.idEquipoLocal;
-          nuevoPartido.equipoVisitante = datosBody.idEquipoVisitante;
-          nuevoPartido.fechaPorJugar = datosBody.fechaPorJugar;
-          nuevoPartido.fechaPartido = datosBody.fechaPartido;
-          nuevoPartido.horaPartido = datosBody.horaPartido;
-          if (datosBody.idEstadio) {
-            nuevoPartido.idEstadio = datosBody.idEstadio;
-          }
-
-          const op = await nuevoPartido.save();
-          if (op) {
-            responder.sucess(req, res, op, 'Partido insertado correctamente');
-          } else {
-            console.log(op);
-            responder.error(req, res, '', 'Error al insertar el partido', 500);
-          }
+        const nuevoPartido: IPartidos = new modeloPartidos(req.body);
+        // nuevoPartido.equipoLocal = datosBody.idEquipoLocal;
+        // nuevoPartido.equipoVisitante = datosBody.idEquipoVisitante;
+        // nuevoPartido.fechaPorJugar = datosBody.fechaPorJugar;
+        // nuevoPartido.fechaPartido = datosBody.fechaPartido;
+        if (datosBody.idEstadio) {
+          nuevoPartido.idEstadio = datosBody.idEstadio;
         }
+        nuevoPartido
+          .save()
+          .then((resultado: any) => {
+            responder.sucess(req, res, resultado, 'Partido insertado correctamente');
+          })
+          .catch(error => {
+            responder.error(req, res, error, 'Error al insertar el partido', 500);
+          });
       }
+      // }
     } catch (error) {
-      console.log(error);
-      responder.error(req, res);
+      responder.error(req, res, error, 'Error interno del servidor', 500);
     }
   }
 
