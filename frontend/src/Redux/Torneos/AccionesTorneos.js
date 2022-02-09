@@ -243,7 +243,6 @@ export const volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion = () => {
   };
 };
 export const agregarCategoriaSubcategoriaTorneo_accion = torneo => {
-  console.log(torneo);
   return dispatch => {
     dispatch(cargandoAgregarCategoriaSubcategoria_accion());
     API({
@@ -252,7 +251,6 @@ export const agregarCategoriaSubcategoriaTorneo_accion = torneo => {
       data: torneo,
     })
       .then(res => {
-        console.log({res});
         dispatch(agregarCategoriaSubcategoriaTorneoExito_accion(res.data.value));
       })
       .catch(error => {

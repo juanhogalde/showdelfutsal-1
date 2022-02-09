@@ -484,7 +484,6 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
     case crearZonaTorneoExito: {
       let auxDatosDeTorneo = {};
       Object.assign(auxDatosDeTorneo, state.torneo);
-      console.log(auxDatosDeTorneo);
 
       if (auxDatosDeTorneo.zonas) {
         auxDatosDeTorneo.zonas.push(accion.datos);

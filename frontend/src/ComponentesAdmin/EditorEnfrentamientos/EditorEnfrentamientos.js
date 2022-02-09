@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import Selector from '../Selector/Selector';
 import TarjetaEnfrentamiento from '../TarjetaEnfrentamiento/TarjetaEnfrentamiento';
 import './EditorEnfrentamientos.css';
@@ -9,28 +9,25 @@ import {
   obtenerDatosDeTorneoParaEdicion_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
+import Enfrentamiento from '../Enfrentamiento/Enfrentamiento';
 
 const EditorEnfrentamientos = () => {
   const dispatch = useDispatch();
   const {torneos, torneo, isObtenerDatosEditarTorneo} = useSelector(state => state.storeTorneos);
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
 
-  const [torneoSeleccionado, setTorneoSeleccionado] = useState('');
   const [datosFiltrados, setDatosFiltrados] = useState('');
   const [isDatosCargados, setIsDatosCargados] = useState(false);
-  const [arrayTorneos, setArrayTorneos] = useState('');
-  const [arrayCategorias, setArrayCategorias] = useState('');
+  const [arrayTorneos, setArrayTorneos] = useState();
   const [arraySubCategorias, setArraySubCategorias] = useState('');
   const [arrayZonas, setArrayZonas] = useState('');
 
   const escucharSelectorTorneo = value => {
-    console.log(value);
     let auxTorneo = torneos.find(torneo => torneo._id === value.idTorneo);
     dispatch(obtenerDatosDeTorneoParaEdicion_accion(auxTorneo));
     setDatosFiltrados({
       torneo: value,
     });
-    setArrayCategorias('');
     setArraySubCategorias('');
     setArrayZonas('');
   };
@@ -47,7 +44,7 @@ const EditorEnfrentamientos = () => {
       });
     }
     let auxSubCategoria = [];
-    torneoSeleccionado.idSubcategoria.forEach(subcategoriaTorneo => {
+    torneo.idSubcategoria.forEach(subcategoriaTorneo => {
       if (subcategoriaTorneo.keyCategoria === value.key) {
         let aux = subcategorias.find(
           subcategoria => subcategoria.key === subcategoriaTorneo.keySubcategoria
@@ -58,21 +55,19 @@ const EditorEnfrentamientos = () => {
     setArraySubCategorias(auxSubCategoria);
   };
   const escucharSelectorSubCategoria = value => {
-    console.log(value);
     setDatosFiltrados({
       ...datosFiltrados,
       subcategoria: value,
     });
     let auxZonas = [];
 
-    torneoSeleccionado.zonas.forEach(zonaTorneo => {
+    torneo.zonas.forEach(zonaTorneo => {
       if (zonaTorneo.idSubcategoria.keyCategoria === value.keyCategoria) {
         if (zonaTorneo.idSubcategoria.keySubcategoria === value.key) {
           auxZonas.push(zonaTorneo);
         }
       }
     });
-    console.log(auxZonas);
     let auxZonasParaSelector = auxZonas.map((zona, index) => {
       return {
         label: zona.nombreZona,
@@ -81,6 +76,12 @@ const EditorEnfrentamientos = () => {
       };
     });
     setArrayZonas(auxZonasParaSelector);
+  };
+  const escucharSelectorZona = value => {
+    setDatosFiltrados({
+      ...datosFiltrados,
+      zona: value,
+    });
   };
 
   const obtenerRespuestaDeAlertaEditarTorneo = respuesta => {
@@ -112,49 +113,8 @@ const EditorEnfrentamientos = () => {
       }
     }
 
-    if (Object.keys(torneo).length > 0) {
-      setTorneoSeleccionado(torneo);
-    }
-
-    /* if (torneoSeleccionado) {
-      if (!arrayZonas) {
-        let auxZonas = [];
-        auxZonas = torneoSeleccionado.zonas.map((zona, index) => {
-          return {
-            label: zona.nombreZona,
-            value: index + 1,
-            datosZona: zona,
-          };
-        });
-      }
-    } */
-
     return () => {};
-  }, [
-    setArrayTorneos,
-    setIsDatosCargados,
-    torneos,
-    torneo,
-    torneoSeleccionado,
-    arrayTorneos,
-    arrayCategorias,
-    arrayZonas,
-    categorias,
-  ]);
-
-  useEffect(() => {
-    if (torneoSeleccionado) {
-      if (!arrayCategorias) {
-        let auxCategorias = [];
-        torneoSeleccionado.idCategoria.forEach(keyCategoria => {
-          let aux = categorias.find(categoria => categoria.value === keyCategoria);
-          auxCategorias.push(aux);
-        });
-        setArrayCategorias(auxCategorias);
-      }
-    }
-    return () => {};
-  }, [torneoSeleccionado, arrayCategorias, categorias]);
+  }, [torneos, arrayTorneos]);
 
   if (isDatosCargados) {
     return (
@@ -173,14 +133,10 @@ const EditorEnfrentamientos = () => {
           {datosFiltrados && (
             <Selector
               placeholder="Seleccione Categoría"
-              options={arrayCategorias ? arrayCategorias : []}
+              options={categorias ? categorias : []}
               opcionSeleccionada={datosFiltrados.categoria ? datosFiltrados.categoria : ''}
               onChange={value => escucharSelectorCategoria(value)}
-              noOptionsMessage={
-                !arrayCategorias
-                  ? 'Debe seleccionar una categoría.'
-                  : 'No hay categorías para éste torneo.'
-              }
+              noOptionsMessage={'No hay categorías.'}
             ></Selector>
           )}
           {datosFiltrados.categoria && (
@@ -188,7 +144,6 @@ const EditorEnfrentamientos = () => {
               placeholder="Seleccione Subcategoría"
               options={arraySubCategorias ? arraySubCategorias : []}
               opcionSeleccionada={datosFiltrados.subcategoria ? datosFiltrados.subcategoria : ''}
-              noOptionsMessage="Debe seleccionar categoría."
               onChange={value => escucharSelectorSubCategoria(value)}
               noOptionsMessage={
                 !arraySubCategorias
@@ -202,12 +157,13 @@ const EditorEnfrentamientos = () => {
               placeholder="Seleccione Zona"
               options={arrayZonas ? arrayZonas : []}
               opcionSeleccionada={datosFiltrados.zona ? datosFiltrados.zona : ''}
+              onChange={value => escucharSelectorZona(value)}
               noOptionsMessage={
                 !arrayZonas ? 'Debe seleccionar subcategoría.' : 'No hay zonas creadas'
               }
             ></Selector>
           )}
-
+          {Object.keys(datosFiltrados).length === 4 && <Enfrentamiento></Enfrentamiento>}
           <TarjetaEnfrentamiento></TarjetaEnfrentamiento>
         </div>
         <Alertas
