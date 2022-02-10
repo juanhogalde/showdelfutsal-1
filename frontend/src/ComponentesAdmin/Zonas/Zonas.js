@@ -132,12 +132,14 @@ const Zonas = () => {
 
   useLayoutEffect(() => {
     if (Object.keys(torneo).length > 0) {
-      let auxZonas = torneo.zonas.filter(
-        zona =>
-          zona.idSubcategoria.keyCategoria === parseInt(idCategoria) &&
-          zona.idSubcategoria.keySubcategoria === parseInt(idSubcategoria)
-      );
-      setArrayZonasCreadas(auxZonas);
+      if (torneo.zonas) {
+        let auxZonas = torneo.zonas.filter(
+          zona =>
+            zona.idSubcategoria.keyCategoria === parseInt(idCategoria) &&
+            zona.idSubcategoria.keySubcategoria === parseInt(idSubcategoria)
+        );
+        setArrayZonasCreadas(auxZonas);
+      }
     }
 
     let auxCategoria = categorias.find(categoria => categoria.key === parseInt(idCategoria));
