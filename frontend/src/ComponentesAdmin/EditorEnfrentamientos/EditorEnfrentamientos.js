@@ -1,6 +1,6 @@
 import React, {useLayoutEffect, useState} from 'react';
 import Selector from '../Selector/Selector';
-import TarjetaEnfrentamiento from '../TarjetaEnfrentamiento/TarjetaEnfrentamiento';
+/* import TarjetaEnfrentamiento from '../TarjetaEnfrentamiento/TarjetaEnfrentamiento'; */
 import './EditorEnfrentamientos.css';
 import {useDispatch, useSelector} from 'react-redux';
 import Cargando from '../Cargando/Cargando';
@@ -163,8 +163,12 @@ const EditorEnfrentamientos = () => {
               }
             ></Selector>
           )}
-          {Object.keys(datosFiltrados).length === 4 && <Enfrentamiento></Enfrentamiento>}
-          <TarjetaEnfrentamiento></TarjetaEnfrentamiento>
+          {Object.keys(datosFiltrados).length === 4 && (
+            <div className="CI-componenteEnfrentamiento">
+              <Enfrentamiento></Enfrentamiento>
+            </div>
+          )}
+          {/* <TarjetaEnfrentamiento></TarjetaEnfrentamiento> */}
         </div>
         <Alertas
           tipoDeSweet={isObtenerDatosEditarTorneo.tipo}
