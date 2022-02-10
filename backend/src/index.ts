@@ -140,12 +140,21 @@ class Server {
       );
     }
 
-    https.createServer(infoCertificado, this.app).listen(this.app.get('port'), () => {
-      console.log(
-        `⚡️[FUTSAL]: El Servidor de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
-      );
-      process.env.NODE_ENV == 'desarrollo' ? console.warn(`${deploy}`) : console.log(`${deploy}`);
-    });
+    if (process.env.NODE_ENV === 'desarrollo') {
+      this.app.listen(this.app.get('port'), () => {
+        console.log(
+          `⚡️[FUTSAL]: El Servidor http de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
+        );
+        process.env.NODE_ENV == 'desarrollo' ? console.warn(`${deploy}`) : console.log(`${deploy}`);
+      });
+    } else {
+      https.createServer(infoCertificado, this.app).listen(this.app.get('port'), () => {
+        console.log(
+          `⚡️[FUTSAL]: El Servidor https de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
+        );
+        process.env.NODE_ENV == 'desarrollo' ? console.warn(`${deploy}`) : console.log(`${deploy}`);
+      });
+    }
   }
 }
 
