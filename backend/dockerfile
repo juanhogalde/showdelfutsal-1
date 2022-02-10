@@ -5,6 +5,7 @@ RUN npm cache clean --force
 RUN npm install
 COPY . .
 ENV PORT=4000
+ENV NODE_ENV=desarrollo
 ENV DATABASE=mongodb://localhost:27017/FutsalDB
 ENV TOKEN_SECRET=1a2ffe36502bc61066c571867b7f458c
 ENV HOST_EMAIL_SISTEMA=c1470936.ferozo.com

@@ -1,5 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
+import fs from 'fs';
+import https from 'https';
+import path from 'path';
 // import helmet from 'helmet';
 // import compression from 'compression';
 import cors from 'cors';
@@ -31,6 +34,8 @@ import modeloUsuarios from './Componentes/Usuarios/Usuarios_Model';
 import {instalarBD, migrar} from './Config/instalacionInicial';
 import medidasPublicidad_Router from './Componentes/MedidasPublicidad/MedidasPublicidad_Router';
 import vivoRouter from './Componentes/Vivo/Vivo_Router';
+
+import ICert from '../crt/Cert_Interface';
 // import {medidasPublicidadRouter} from './Componentes/MedidasPublicidad/MedidasPublicidad_Router'
 // import { comprimirImagen } from './Middlewares/imagemin';
 
@@ -38,7 +43,7 @@ import vivoRouter from './Componentes/Vivo/Vivo_Router';
 process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.17 - 04/02/22';
+const deploy = 'v0.0.19 - 09/02/22';
 
 class Server {
   public app: express.Application;
@@ -115,12 +120,41 @@ class Server {
   }
 
   iniciar() {
-    this.app.listen(this.app.get('port'), () => {
-      console.log(
-        `⚡️[FUTSAL]: El Servidor de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
+    let infoCertificado: ICert = {cert: '', key: ''};
+
+    if (process.env.NODE_ENV === 'testing') {
+      infoCertificado.cert = fs.readFileSync(
+        path.join(__dirname, '../crt/testing/mi_certificado.crt')
       );
-      process.env.NODE_ENV == 'desarrollo' ? console.warn(`${deploy}`) : console.log(`${deploy}`);
-    });
+      infoCertificado.key = fs.readFileSync(
+        path.join(__dirname, '../crt/testing/mi_certificado.key')
+      );
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+      infoCertificado.cert = fs.readFileSync(
+        path.join(__dirname, '../crt/production/mi_certificado.crt')
+      );
+      infoCertificado.key = fs.readFileSync(
+        path.join(__dirname, '../crt/production/mi_certificado.key')
+      );
+    }
+
+    if (process.env.NODE_ENV === 'desarrollo') {
+      this.app.listen(this.app.get('port'), () => {
+        console.log(
+          `⚡️[FUTSAL]: El Servidor http de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
+        );
+        process.env.NODE_ENV == 'desarrollo' ? console.warn(`${deploy}`) : console.log(`${deploy}`);
+      });
+    } else {
+      https.createServer(infoCertificado, this.app).listen(this.app.get('port'), () => {
+        console.log(
+          `⚡️[FUTSAL]: El Servidor https de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
+        );
+        process.env.NODE_ENV == 'desarrollo' ? console.warn(`${deploy}`) : console.log(`${deploy}`);
+      });
+    }
   }
 }
 

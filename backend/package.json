@@ -10,7 +10,7 @@
     "debug": "nodemon --config nodemon.json --inspect-brk src/index.ts",
     "build": "tsc",
     "docker": "deployDocker.bat",
-    "dockermac": "docker build . -t lowa/futsal-backend:latest && docker push lowa/futsal-backend:latest && docker tag lowa/futsal-backend:latest lowa/futsal-backend:v0.0.17 && docker push lowa/futsal-backend:v0.0.17 && git tag \"docker-v0.0.17\""
+    "dockermac": "docker build . -t lowa/futsal-backend:latest && docker push lowa/futsal-backend:latest && docker tag lowa/futsal-backend:latest lowa/futsal-backend:v0.0.18 && docker push lowa/futsal-backend:v0.0.18 && git tag \"docker-v0.0.18\""
   },
   "repository": {
     "type": "git",
@@ -31,10 +31,12 @@
     "express-form-data": "^2.0.17",
     "fs": "0.0.1-security",
     "helmet": "^4.6.0",
+    "https": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.10",
     "mongoose-paginate-v2": "^1.4.2",
     "nodemailer": "^6.7.0",
+    "selfsigned": "^2.0.0",
     "ts-node": "^10.3.0"
   },
   "devDependencies": {
