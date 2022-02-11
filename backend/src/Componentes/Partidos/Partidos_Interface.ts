@@ -6,8 +6,8 @@ import ITorneos from '../Torneos/Torneos_Interface';
 import IZonas from '../Zonas/Zonas_Interface';
 export default interface IPartidos extends Document {
   _id: string;
-  equipoLocal: IEquipos['_id'];
-  equipoVisitante: IEquipos['_id'];
+  idEquipoLocal: IEquipos['_id'];
+  idEquipoVisitante: IEquipos['_id'];
   resultadoLocal: number;
   resultadoVisitante: number;
   penalesLocal: number;

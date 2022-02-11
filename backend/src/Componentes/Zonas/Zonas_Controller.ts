@@ -17,6 +17,7 @@ class ZonasController {
           400
         );
       } else {
+        console.log(req.body);
         const nuevaZona: IZona = new modeloZonas(req.body);
         nuevaZona
           .save()

@@ -11,6 +11,7 @@ class PartidosRouter {
 
   routes() {
     this.router.post('/agregar', partidosController.agregar);
+    this.router.post('/agregarResultado', partidosController.agregarResultado);
     this.router.get('/listar', partidosController.listar);
     this.router.get('/obtener/:id', partidosController.obtener);
     this.router.put('/modificar', partidosController.modificar);

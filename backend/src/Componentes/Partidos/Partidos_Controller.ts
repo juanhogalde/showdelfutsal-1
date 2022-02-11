@@ -13,57 +13,51 @@ class PartidosController {
     }
   }
 
-  // public async guardarEnfrentamiento(datos: any) {
-  //   try {
-  //     const pr = new Promise((resolve: any, reject: any) => {
-  //       if (datos.idPartido) {
-  //         modeloPartidos
-  //           .findById(datos.idPartido)
-  //           .then((partido: any) => {
-  //             if (partido) {
-  //               partido.equipoLocal = datos.idEquipoLocal;
-  //               partido.equipoVisitante = datos.idEquipoVisitante;
-  //               partido.fechaPorJugar = datos.fechaPorJugar;
-  //               partido.fechaPartido = datos.fechaEnfrentamiento ? datos.fechaEnfrentamiento : '';
-  //               partido.horaPartido = datos.horaEnfrentamiento ? datos.horaEnfrentamiento : '';
-
-  //               if (datos.idEstadio) {
-  //                 partido.idEstadio = datos.idEstadio;
-  //               }
-  //               // partido.idEstadio = datos.idEstadio ? datos.idEstadio : '';
-
-  //               resolve(partido.save()._doc);
-  //             } else {
-  //               reject(new Error('Enfrentamiento inexistente'));
-  //             }
-  //           })
-  //           .catch((error: any) => {
-  //             reject(error);
-  //           });
-  //       } else {
-  //         const nuevoEnfrentamiento: IPartidos = new modeloPartidos();
-  //         nuevoEnfrentamiento.equipoLocal = datos.idEquipoLocal;
-  //         nuevoEnfrentamiento.equipoVisitante = datos.idEquipoVisitante;
-  //         nuevoEnfrentamiento.fechaPartido = datos.fechaEnfrentamiento
-  //           ? datos.fechaEnfrentamiento
-  //           : '';
-  //         nuevoEnfrentamiento.horaPartido = datos.horaEnfrentamiento
-  //           ? datos.horaEnfrentamiento
-  //           : '';
-  //         if (datos.idEstadio) {
-  //           nuevoEnfrentamiento.idEstadio = datos.idEstadio;
-  //         }
-
-  //         resolve(nuevoEnfrentamiento.save());
-  //       }
-  //     });
-  //     return pr;
-  //   } catch (error) {
-  //     return new Promise<any>(reject => {
-  //       reject(error);
-  //     });
-  //   }
-  // }
+  public async agregarResultado(req: Request, res: Response) {
+    try {
+      if (!req.body._id) {
+        responder.error(req, res, 'Falta id de partido', 'Falta id de partido', 400);
+      } else {
+        modeloPartidos
+          .findById(req.body._id)
+          .populate('idZona')
+          .then((partidoEncontrado: any) => {
+            if (!partidoEncontrado) {
+              responder.error(
+                req,
+                res,
+                'No se encontro el partido solicitado',
+                'No se encontro el partido solicitado',
+                400
+              );
+            } else {
+              console.log(partidoEncontrado);
+              if (
+                partidoEncontrado.idZona?.equipos?.includes([
+                  req.body.idEquipoLocal,
+                  req.body.idEquipoVisitante,
+                ])
+              ) {
+                responder.sucess(req, res, partidoEncontrado, '', 200);
+              } else {
+                responder.error(
+                  req,
+                  res,
+                  `Algun equipo ingresado no esta incluido en la zona: ${partidoEncontrado.idZona.nombreZona}`,
+                  `Algun equipo ingresado no esta incluido en la zona: ${partidoEncontrado.idZona.nombreZona}`,
+                  400
+                );
+              }
+            }
+          })
+          .catch(error => {
+            responder.error(req, res, error, 'Error interno del servidor', 500);
+          });
+      }
+    } catch (error) {
+      responder.error(req, res, error, 'Error interno del servidor', 500);
+    }
+  }
 
   public async agregar(req: Request, res: Response) {
     try {
@@ -97,13 +91,6 @@ class PartidosController {
           );
         } else {
           const nuevoPartido: IPartidos = new modeloPartidos(req.body);
-          // nuevoPartido.equipoLocal = datosBody.idEquipoLocal;
-          // nuevoPartido.equipoVisitante = datosBody.idEquipoVisitante;
-          // nuevoPartido.fechaPorJugar = datosBody.fechaPorJugar;
-          // nuevoPartido.fechaPartido = datosBody.fechaPartido;
-          // if (datosBody.idEstadio) {
-          //   nuevoPartido.idEstadio = datosBody.idEstadio;
-          // }
           nuevoPartido
             .save()
             .then((resultado: any) => {
