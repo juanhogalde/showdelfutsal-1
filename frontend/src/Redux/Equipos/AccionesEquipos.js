@@ -8,10 +8,10 @@ export const listarEquiposCargando_accion = () => {
     type: listarEquiposCargando,
   };
 };
-export const listarEquiposExito_accion = datosIniciales => {
+export const listarEquiposExito_accion = equipos => {
   return {
     type: listarEquiposExito,
-    datosIniciales: datosIniciales,
+    datos: equipos,
   };
 };
 export const listarEquiposError_accion = error => {

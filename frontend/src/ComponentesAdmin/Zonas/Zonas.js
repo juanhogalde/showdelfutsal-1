@@ -112,8 +112,8 @@ const Zonas = () => {
     }
   };
 
-  const redireccionarAgregarEquipos = () => {
-    history.push('/Torneo/Nuevo/Campeonato/Zonas/Equipos');
+  const redireccionarAgregarEquipos = zonaId => {
+    history.push(`/Torneo/Nuevo/Campeonato/Zonas/Equipos/${zonaId}`);
   };
   const redireccionarEnfrentamientos = () => {
     history.push(
