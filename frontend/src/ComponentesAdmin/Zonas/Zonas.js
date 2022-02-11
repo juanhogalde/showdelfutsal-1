@@ -31,16 +31,9 @@ const Zonas = () => {
   const dispatch = useDispatch();
   const {idTorneo, idCategoria, idSubcategoria} = useParams();
   const {torneo, torneos, isAgregarZona, isEliminarZona} = useSelector(state => state.storeTorneos);
-
-  const categoria = useSelector(state =>
-    state.sotreDatosIniciales.categorias.find(categoria => categoria.value === idCategoria)
-  );
-  const subcategoria = useSelector(state =>
-    state.sotreDatosIniciales.subcategorias.find(
-      subcategoria => subcategoria.value === idSubcategoria
-    )
-  );
-
+  const [categoria, setCategoria] = useState();
+  const [subcategoria, setSubcategoria] = useState();
+  const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   const [datosZona, setDatosZona] = useState('');
   const [tipo, setTipo] = useState('');
   const [arrayZonasCreadas, setArrayZonasCreadas] = useState([]);
@@ -122,6 +115,11 @@ const Zonas = () => {
   const redireccionarAgregarEquipos = () => {
     history.push('/Torneo/Nuevo/Campeonato/Zonas/Equipos');
   };
+  const redireccionarEnfrentamientos = () => {
+    history.push(
+      `/Torneo/Nuevo/Campeonato/Zonas/${torneo._id}/${idCategoria}/${idSubcategoria}/Enfrentamientos`
+    );
+  };
   const obtenerRespuestaDeAlertaCamposVacios = respuesta => {
     if (respuesta) {
       setAlertaCamposVacios({
@@ -137,14 +135,24 @@ const Zonas = () => {
       if (torneo.zonas) {
         let auxZonas = torneo.zonas.filter(
           zona =>
-            zona.idSubcategoria.keyCategoria === categoria.key &&
-            zona.idSubcategoria.keySubcategoria === subcategoria.key
+            zona.idSubcategoria.keyCategoria === parseInt(idCategoria) &&
+            zona.idSubcategoria.keySubcategoria === parseInt(idSubcategoria)
         );
         setArrayZonasCreadas(auxZonas);
       }
     }
+
+    let auxCategoria = categorias.find(categoria => categoria.key === parseInt(idCategoria));
+
+    setCategoria(auxCategoria);
+    let auxSubCategoria = subcategorias.find(
+      subcategoria => subcategoria.key === parseInt(idSubcategoria)
+    );
+    setSubcategoria(auxSubCategoria);
+
     return () => {};
-  }, [dispatch, torneos, torneo, idTorneo, categoria.key, subcategoria.key]);
+  }, [dispatch, torneos, torneo, idTorneo, idCategoria, idSubcategoria, categorias, subcategorias]);
+
   if (Object.keys(torneo).length > 0) {
     return (
       <div className="CP-Zonas">
@@ -172,7 +180,11 @@ const Zonas = () => {
               {arrayZonasCreadas.map((zona, index) => {
                 return (
                   <TarjetaZona
-                    redireccionarEnfrentamiento={redireccionarAgregarEquipos}
+                    redireccionar={
+                      zona.tipoZona === 1 || zona.tipoZona === 3
+                        ? redireccionarEnfrentamientos
+                        : redireccionarAgregarEquipos
+                    }
                     key={index}
                     indice={index}
                     categoria={categoria ? categoria : ''}

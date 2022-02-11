@@ -5,7 +5,10 @@ import {useHistory, useLocation} from 'react-router';
 import {BsPower} from 'react-icons/bs';
 import iconoAtras from '../../Static/Admin/iconoAtras.svg';
 import RetornaTituloDeNavegacion from './RetornaTituloDeNavegacion.js/RetornaTituloDeNavegacion';
-import {ultimaUbicacionEditarTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
+import {
+  ultimaUbicacionEditarTorneo_accion,
+  volverPorDefectoUnTorneo_accion,
+} from '../../Redux/Torneos/AccionesTorneos';
 import {useDispatch} from 'react-redux';
 
 const BarraDeNavegacionAdmin = ({
@@ -42,6 +45,13 @@ const BarraDeNavegacionAdmin = ({
       }
       if (locacion.pathname.split('/')[1] === 'Vivo') {
         historialDeNavegacion.goBack();
+      }
+
+      if (locacion.pathname.split('/')[1] === 'Enfrentamientos') {
+        if (locacion.pathname.split('/')[2] === 'Editor') {
+          dispatch(volverPorDefectoUnTorneo_accion());
+          historialDeNavegacion.goBack();
+        }
       }
     } else {
       historialDeNavegacion.push('/');

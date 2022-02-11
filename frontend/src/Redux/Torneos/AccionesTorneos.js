@@ -32,14 +32,14 @@ export const obtenerTorneoError = 'obtenerTorneoError';
 
 export const recuperarTorneo = 'recuperarTorneo';
 
-export const consultarPoragregarCategoriaSubcategoriaTorneo =
+/* export const consultarPoragregarCategoriaSubcategoriaTorneo =
   'consultarPoragregarCategoriaSubcategoriaTorneo';
 export const cargandoAgregarCategoriaSubcategoria = 'cargandoAgregarCategoriaSubcategoria';
 export const agregarCategoriaSubcategoriaTorneoExito = 'agregarCategoriaSubcategoriaTorneoExito';
 export const agregarCategoriaSubcategoriaTorneoError = 'agregarCategoriaSubcategoriaTorneoError';
 export const volverPorDefectoAgregarCategoriaSubcategoriaTorneo =
   'volverPorDefectoAgregarCategoriaSubcategoriaTorneo';
-export const actualizarListaDeTorneosConSubcategoria = 'actualizarListaDeTorneosConSubcategoria';
+export const actualizarListaDeTorneosConSubcategoria = 'actualizarListaDeTorneosConSubcategoria'; */
 
 export const cargandoCrearZonaTorneo = 'cargandoCrearZonaTorneo';
 export const crearZonaTorneoExito = 'crearZonaTorneoExito';
@@ -59,6 +59,13 @@ export const eliminarZonaExito = 'eliminarZonaExito';
 export const eliminarZonaError = 'eliminarZonaError';
 export const volverPorDefectoEliminarZona = 'volverPorDefectoEliminarZona';
 export const actualizarListaDeZonas = 'actualizarListaDeZonas';
+
+export const consultarEliminarZonasDeTorneo = 'consultarEliminarZonasDeTorneo';
+export const eliminarZonasDeTorneoCargando = 'eliminarZonasDeTorneoCargando';
+export const eliminarZonasDeTorneoExito = 'eliminarZonasDeTorneoExito';
+export const eliminarZonasDeTorneoError = 'eliminarZonasDeTorneoError';
+export const actualizarListaDeTorneosEliminarZonas = 'actualizarListaDeTorneosEliminarZonas';
+export const eliminarZonasDeTorneoDefault = 'eliminarZonasDeTorneoDefault';
 
 export const volverPorDefectoUnTorneo_accion = () => {
   return {
@@ -208,7 +215,7 @@ export const editarTorneo_accion = torneo => {
   };
 };
 /* AGREGAR CATEGORIA Y SUBCATEGORIA */
-export const consultarPoragregarCategoriaSubcategoriaTorneo_accion = (
+/* export const consultarPoragregarCategoriaSubcategoriaTorneo_accion = (
   auxKeyCategoria,
   auxKeySubCategoria
 ) => {
@@ -243,7 +250,6 @@ export const volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion = () => {
   };
 };
 export const agregarCategoriaSubcategoriaTorneo_accion = torneo => {
-  console.log(torneo);
   return dispatch => {
     dispatch(cargandoAgregarCategoriaSubcategoria_accion());
     API({
@@ -252,7 +258,6 @@ export const agregarCategoriaSubcategoriaTorneo_accion = torneo => {
       data: torneo,
     })
       .then(res => {
-        console.log({res});
         dispatch(agregarCategoriaSubcategoriaTorneoExito_accion(res.data.value));
       })
       .catch(error => {
@@ -265,7 +270,7 @@ export const actualizarListaDeTorneosConSubcategoria_accion = () => {
   return {
     type: actualizarListaDeTorneosConSubcategoria,
   };
-};
+}; */
 
 /****** CREAR ZONA ******/
 export const cargandoCrearZonaTorneo_accion = datos => {
@@ -545,6 +550,61 @@ export const obtenerTorneo_accion = id => {
       .catch(error => {
         console.log({error});
         /* dispatch(listarTorneoError_accion()); */
+      });
+  };
+};
+/* ELIMINAR TODAS LAS ZONAS DE UNA SUBCATEGORÍA DE TORNEO */
+export const consultarEliminarZonasDeTorneo_accion = subcategoria => {
+  console.log(subcategoria);
+  return {
+    type: consultarEliminarZonasDeTorneo,
+    idSubcategoria: subcategoria,
+  };
+};
+export const eliminarZonasDeTorneoCargando_accion = () => {
+  return {
+    type: eliminarZonasDeTorneoCargando,
+  };
+};
+export const eliminarZonasDeTorneoExito_accion = subcategoriaId => {
+  return {
+    type: eliminarZonasDeTorneoExito,
+    subcategoria: subcategoriaId,
+  };
+};
+export const eliminarZonasDeTorneoError_accion = () => {
+  return {
+    type: eliminarZonasDeTorneoError,
+  };
+};
+export const actualizarListaDeTorneosEliminarZonas_accion = () => {
+  return {
+    type: actualizarListaDeTorneosEliminarZonas,
+  };
+};
+export const eliminarZonasDeTorneoDefault_accion = () => {
+  return {
+    type: eliminarZonasDeTorneoDefault,
+  };
+};
+export const eliminarZonasDeTorneo_accion = (torneoId, subcategoriaId) => {
+  console.log(torneoId);
+  console.log(subcategoriaId);
+
+  return dispatch => {
+    dispatch(eliminarZonasDeTorneoCargando_accion());
+    API({
+      url: 'zonas/eliminarPorSubcategoria',
+      method: 'delete',
+      data: {idTorneo: torneoId, idSubcategoria: `${subcategoriaId}`},
+    })
+      .then(res => {
+        console.log({res});
+        dispatch(eliminarZonasDeTorneoExito_accion(subcategoriaId));
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(eliminarZonasDeTorneoError_accion());
       });
   };
 };

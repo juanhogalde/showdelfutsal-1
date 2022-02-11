@@ -26,12 +26,12 @@ import {
   crearZonaTorneoError,
   crearZonaTorneoDefault,
   actualizarListaDeTorneosCrearZona,
-  consultarPoragregarCategoriaSubcategoriaTorneo,
+  /* consultarPoragregarCategoriaSubcategoriaTorneo,
   cargandoAgregarCategoriaSubcategoria,
   agregarCategoriaSubcategoriaTorneoExito,
   agregarCategoriaSubcategoriaTorneoError,
   volverPorDefectoAgregarCategoriaSubcategoriaTorneo,
-  actualizarListaDeTorneosConSubcategoria,
+  actualizarListaDeTorneosConSubcategoria, */
   cargandoObtenerDatosDeTorneoParaEdicion,
   obtenerDatosDeTorneoParaEdicionExito,
   obtenerDatosDeTorneoParaEdicionError,
@@ -43,6 +43,12 @@ import {
   eliminarZonaError,
   actualizarListaDeZonas,
   volverPorDefectoEliminarZona,
+  consultarEliminarZonasDeTorneo,
+  eliminarZonasDeTorneoCargando,
+  eliminarZonasDeTorneoExito,
+  eliminarZonasDeTorneoError,
+  actualizarListaDeTorneosEliminarZonas,
+  eliminarZonasDeTorneoDefault,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -72,7 +78,7 @@ const torneoPorDefecto = {
     isExito: false,
     isError: false,
   },
-  isAgregarCategoriaSubcategoria: {
+  /* isAgregarCategoriaSubcategoria: {
     tipo: '',
     mensaje: '',
     isCargando: false,
@@ -80,7 +86,7 @@ const torneoPorDefecto = {
     isError: false,
     categoria: '',
     subcategoria: '',
-  },
+  }, */
   isObtenerDatosEditarTorneo: {
     tipo: '',
     mensaje: '',
@@ -105,6 +111,12 @@ const torneoPorDefecto = {
     isExito: false,
     isError: false,
     idZona: '',
+  },
+  isEliminarZonasDeTorneo: {
+    tipo: '',
+    mensaje: '',
+    isMostrar: false,
+    subcategoria: '',
   },
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
@@ -383,7 +395,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         ...state,
       };
     }
-    case consultarPoragregarCategoriaSubcategoriaTorneo: {
+    /* case consultarPoragregarCategoriaSubcategoriaTorneo: {
       return {
         ...state,
         isAgregarCategoriaSubcategoria: {
@@ -468,7 +480,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           subcategoria: '',
         },
       };
-    }
+    } */
     case cargandoCrearZonaTorneo: {
       return {
         ...state,
@@ -484,7 +496,6 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
     case crearZonaTorneoExito: {
       let auxDatosDeTorneo = {};
       Object.assign(auxDatosDeTorneo, state.torneo);
-      console.log(auxDatosDeTorneo);
 
       if (auxDatosDeTorneo.zonas) {
         auxDatosDeTorneo.zonas.push(accion.datos);
@@ -699,6 +710,85 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           isExito: false,
           isError: false,
           idZona: '',
+        },
+      };
+    }
+    case consultarEliminarZonasDeTorneo: {
+      return {
+        ...state,
+        isEliminarZonasDeTorneo: {
+          tipo: 'warning',
+          mensaje: '¿Desea eliminar todas las zonas de ésta subcategoría?',
+          isMostrar: true,
+          subcategoria: accion.idSubcategoria,
+        },
+      };
+    }
+    case eliminarZonasDeTorneoCargando: {
+      return {
+        ...state,
+        isEliminarZonasDeTorneo: {
+          tipo: 'cargando',
+          mensaje: 'Eliminando Zonas...',
+          isMostrar: true,
+          subcategoria: state.isEliminarZonasDeTorneo.subcategoria,
+        },
+      };
+    }
+    case eliminarZonasDeTorneoExito: {
+      let auxZonas = state.torneo.zonas.filter(
+        zona => zona.idSubcategoria.keySubcategoria !== accion.subcategoria
+      );
+
+      return {
+        ...state,
+        isEliminarZonasDeTorneo: {
+          tipo: 'success',
+          mensaje: 'Zonas Eliminadas.',
+          isMostrar: true,
+        },
+        torneo: {
+          ...state.torneo,
+          zonas: auxZonas,
+        },
+      };
+    }
+    case eliminarZonasDeTorneoError: {
+      return {
+        ...state,
+        isEliminarZonasDeTorneo: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, en este momento no podemos eliminar zonas.',
+          isMostrar: true,
+        },
+      };
+    }
+    case actualizarListaDeTorneosEliminarZonas: {
+      let auxTorneos = state.torneos.map(torneo => {
+        if (torneo._id === state.torneo._id) {
+          return state.torneo;
+        } else {
+          return torneo;
+        }
+      });
+      return {
+        ...state,
+        torneos: auxTorneos,
+        isEliminarZonasDeTorneo: {
+          tipo: '',
+          mensaje: '',
+          isMostrar: false,
+          subcategoria: '',
+        },
+      };
+    }
+    case eliminarZonasDeTorneoDefault: {
+      return {
+        ...state,
+        isEliminarZonasDeTorneo: {
+          tipo: '',
+          mensaje: '',
+          isMostrar: false,
         },
       };
     }

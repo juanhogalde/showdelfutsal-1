@@ -21,12 +21,15 @@ const TarjetaEnfrentamiento = ({
     isLocal: false,
     isVisitante: false,
     isComentarios: false,
+    isEstadio: false,
+    isFechaPartido: false,
   });
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
 
-  const [resultadoLocal, setResultadoLocal] = useState('');
-  const [resultadoVisitante, setResultadoVisitante] = useState('');
+  const [resultadoLocal, setResultadoLocal] = useState(0);
+  const [resultadoVisitante, setResultadoVisitante] = useState(0);
+  const [estadio, setEstadio] = useState('Estadio');
   const [comentarios, setComentarios] = useState('');
 
   const escucharCambios = (name, value, isMostrarCampoDeEdicion) => {
@@ -43,28 +46,65 @@ const TarjetaEnfrentamiento = ({
       case 'comentarios':
         setComentarios(value);
         break;
+      case 'estadio':
+        setEstadio(value);
+        break;
+      case 'fechaPartido':
+        setEstadio(value);
+        break;
       default:
         break;
     }
   };
   const habilitarCampoParaEdicion = campo => {
-    console.log(campo);
     switch (campo) {
       case 'local':
-        setIsCampoDeEdicion({isLocal: true, isVisitante: false, isComentarios: false});
+        setIsCampoDeEdicion({
+          isLocal: true,
+          isVisitante: false,
+          isComentarios: false,
+          isEstadio: false,
+        });
         break;
       case 'visitante':
-        setIsCampoDeEdicion({isLocal: false, isVisitante: true, isComentarios: false});
+        setIsCampoDeEdicion({
+          isLocal: false,
+          isVisitante: true,
+          isComentarios: false,
+          isEstadio: false,
+        });
         break;
       case 'comentarios':
-        setIsCampoDeEdicion({isLocal: false, isVisitante: false, isComentarios: true});
+        setIsCampoDeEdicion({
+          isLocal: false,
+          isVisitante: false,
+          isComentarios: true,
+          isEstadio: false,
+        });
+        break;
+      case 'estadio':
+        setIsCampoDeEdicion({
+          isLocal: false,
+          isVisitante: false,
+          isComentarios: false,
+          isEstadio: true,
+        });
+        break;
+
+      case 'fechaPartido':
+        setIsCampoDeEdicion({
+          isLocal: false,
+          isVisitante: false,
+          isComentarios: false,
+          isEstadio: false,
+          isFechaPartido: true,
+        });
         break;
       default:
         break;
     }
   };
   const mostrarAccionesTarjetaEnfrentamiento = () => {
-    console.log('ejecutó');
     setIsAcciones(!isAcciones);
     elementoAcciones.current.focus();
   };
@@ -80,7 +120,7 @@ const TarjetaEnfrentamiento = ({
 
     return () => {};
   }, [enfrentamiento, enfrentamiento.resultadoLocal, enfrentamiento.resultadoVisitante]);
-
+  console.log(isSeccionInicio);
   return (
     <div
       className={
@@ -142,9 +182,21 @@ const TarjetaEnfrentamiento = ({
           {!isSeccionInicio && (
             <React.Fragment>
               <p className="Zona-TarjetaEnfrentamiento">Zona A</p>
-              <p className="estadio-TarjetaEnfrentamiento">
-                Estadio del Bicentenario - Pocito - San Juan - Argentina
-              </p>
+
+              {isCampoDeEdicion.isEstadio ? (
+                <CampoDeEdicion
+                  name="estadio"
+                  type="text"
+                  min="0"
+                  max="30"
+                  isCampoDeEdicion={true}
+                  respuestaDeComponente={escucharCambios}
+                />
+              ) : (
+                <p tabIndex="0" onFocus={() => habilitarCampoParaEdicion('estadio')}>
+                  {estadio ? estadio : 'Estadio'}
+                </p>
+              )}
             </React.Fragment>
           )}
 
@@ -160,7 +212,7 @@ const TarjetaEnfrentamiento = ({
               />
             ) : (
               <h3 tabIndex="0" onFocus={() => habilitarCampoParaEdicion('local')}>
-                {resultadoLocal || resultadoLocal >= 0 ? resultadoLocal : '-'}
+                {resultadoLocal ? resultadoLocal : '0'}
               </h3>
             )}
             <h3>-</h3>
@@ -179,12 +231,30 @@ const TarjetaEnfrentamiento = ({
                 tabIndex="0"
                 onFocus={() => habilitarCampoParaEdicion('visitante')}
               >
-                {resultadoVisitante || resultadoVisitante >= 0 ? resultadoVisitante : '-'}
+                {resultadoVisitante ? resultadoVisitante : '0'}
               </h3>
             )}
           </div>
+          {!isSeccionInicio &&
+            (isCampoDeEdicion.isFechaPartido ? (
+              <CampoDeEdicion
+                name="fechaPartido"
+                type="text"
+                min="0"
+                max="30"
+                isCampoDeEdicion={true}
+                respuestaDeComponente={escucharCambios}
+              />
+            ) : (
+              <p
+                name="visitante"
+                tabIndex="0"
+                onFocus={() => habilitarCampoParaEdicion('fechaPartido')}
+              >
+                {resultadoVisitante ? resultadoVisitante : 'Fecha de Partido'}
+              </p>
+            ))}
 
-          {!isSeccionInicio && <p>27/11/2021</p>}
           {Object.keys(enfrentamiento).length > 0 && enfrentamiento.penalesLocal.length !== 0 ? (
             <p>Penales</p>
           ) : (
