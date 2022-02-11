@@ -1,7 +1,7 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {BsPlusCircle} from 'react-icons/bs';
 import {useDispatch, useSelector} from 'react-redux';
-import {useHistory, useParams} from 'react-router-dom';
+import {useHistory /* , useParams */} from 'react-router-dom';
 import {listarEquipos_accion} from '../../Redux/Equipos/AccionesEquipos';
 import Alertas from '../Alertas/Alertas';
 import BotonLowa from '../BotonLowa/BotonLowa';
@@ -11,7 +11,7 @@ import './AgregarEquipos.css';
 
 const AgregarEquipos = () => {
   const history = useHistory();
-  const {zonaId} = useParams();
+  /* const {zonaId} = useParams(); */
   const dispatch = useDispatch();
   const {equipos, isListarEquipos} = useSelector(state => state.storeEquipos);
   const [arrayEquipos, setArrayEquipos] = useState([]);

@@ -2,9 +2,7 @@ import React, {useState} from 'react';
 import './TarjetaEquipo.css';
 import {HiDotsVertical} from 'react-icons/hi';
 import {MdDeleteForever} from 'react-icons/md';
-import {FiEdit3} from 'react-icons/fi';
 import {useRef} from 'react';
-import {urlImagenes} from '../../urlImagenes';
 
 const TarjetaEquipo = ({
   equipo = '',
