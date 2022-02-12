@@ -61,6 +61,11 @@ const RutasPrivadas = () => {
           ></Route>
           <Route
             exact
+            component={Zonas}
+            path="/Torneo/Editar/Campeonato/Zonas/:idTorneo/:idCategoria/:idSubcategoria"
+          ></Route>
+          <Route
+            exact
             component={NuevoEnfrentamiento}
             path="/Torneo/Nuevo/Campeonato/Zonas/:idTorneo/:idCategoria/:idSubcategoria/Enfrentamientos"
           ></Route>
