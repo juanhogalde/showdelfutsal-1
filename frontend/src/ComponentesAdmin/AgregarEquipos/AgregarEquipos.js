@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import {BsPlusCircle} from 'react-icons/bs';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
@@ -12,7 +12,7 @@ import './AgregarEquipos.css';
 const AgregarEquipos = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [isDatosCargados, setIsDatosCargados] = useState(false);
+  // const [isDatosCargados, setIsDatosCargados] = useState(false);
   const agregarEquipoZona = () => {
     console.log('func para agregar equipos a zona');
   };
