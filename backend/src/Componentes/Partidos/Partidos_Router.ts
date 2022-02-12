@@ -10,11 +10,11 @@ class PartidosRouter {
   }
 
   routes() {
+    this.router.post('/agregar', partidosController.agregar);
     this.router.get('/listar', partidosController.listar);
     this.router.get('/obtener/:id', partidosController.obtener);
     this.router.put('/modificar', partidosController.modificar);
     this.router.delete('/eliminar', partidosController.eliminar);
-    this.router.post('/agregar', partidosController.agregar);
   }
 }
 

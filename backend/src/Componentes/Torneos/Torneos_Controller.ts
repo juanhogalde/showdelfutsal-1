@@ -187,10 +187,10 @@ class TorneosController {
                   datos.fechaPorJugar = torneoBody.fechaPorJugar;
                 }
 
-                const partido = await partidosController.guardarEnfrentamiento(datos);
-                if (partido) {
-                  objetoResponse.partidoCreado = partido;
-                }
+                // const partido = await partidosController.guardarEnfrentamiento(datos);
+                // if (partido) {
+                //   objetoResponse.partidoCreado = partido;
+                // }
               } else {
                 let error = new Error('No se puede crear un enfrentamiento entre un mismo equipo');
                 responder.error(req, res, error);
