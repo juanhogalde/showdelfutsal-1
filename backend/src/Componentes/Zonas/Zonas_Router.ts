@@ -14,6 +14,7 @@ class ZonasRouter {
     this.router.post('/agregar', zonasController.agregar);
     this.router.delete('/eliminar', zonasController.eliminar);
     this.router.delete('/eliminarPorSubcategoria', zonasController.eliminarPorSubcategoria);
+    this.router.post('/agregarEquipos', zonasController.agregarEquipos);
   }
 }
 

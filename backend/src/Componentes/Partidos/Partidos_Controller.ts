@@ -31,7 +31,6 @@ class PartidosController {
                 400
               );
             } else {
-              console.log(partidoEncontrado);
               if (
                 partidoEncontrado.idZona?.equipos?.includes([
                   req.body.idEquipoLocal,
