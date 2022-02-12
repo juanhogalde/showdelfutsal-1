@@ -91,7 +91,6 @@ class ZonasController {
       responder.error(req, res, error);
     }
   }
-
   public async eliminarPorSubcategoria(req: Request, res: Response) {
     try {
       if (!req.body.idSubcategoria || !req.body.idTorneo) {
@@ -118,6 +117,69 @@ class ZonasController {
           })
           .catch((error: any) => {
             responder.error(req, res, error, 'Error interno del servidor', 500);
+          });
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+  public async agregarEquipos(req: Request, res: Response) {
+    try {
+      if (!req.body._id || !req.body.nuevosEquipos?.length) {
+        responder.error(
+          req,
+          res,
+          '',
+          `Faltan datos requeridos: ${!req.body._id ? 'id zona ,' : ''} ${
+            !req.body.nuevosEquipos?.length ? 'nuevosEquipos ' : ''
+          }`,
+          400
+        );
+      } else {
+        modeloZonas
+          .findById(req.body._id)
+          .then((zonaEncontrada: any) => {
+            if (!zonaEncontrada) {
+              responder.error(
+                req,
+                res,
+                'No se encontro la zona solicitada',
+                'No se encontro la zona solicitada',
+                400
+              );
+            } else {
+              const idEquipos = zonaEncontrada.equipos.map((equipo: any) => {
+                return equipo._id.toString();
+              });
+              let equiposAInsertar: string[] = [];
+              req.body.nuevosEquipos.forEach((idEquipo: string) => {
+                if (!idEquipos.includes(idEquipo) && !equiposAInsertar.includes(idEquipo)) {
+                  equiposAInsertar.push(idEquipo);
+                }
+              });
+              if (!equiposAInsertar.length) {
+                responder.error(
+                  req,
+                  res,
+                  'No se ingresaron nuevos equipos o ya existen en esta zona',
+                  'No se ingresaron nuevos equipos o ya existen en esta zona',
+                  400
+                );
+              } else {
+                zonaEncontrada.equipos.push(...equiposAInsertar);
+                zonaEncontrada
+                  .save()
+                  .then((zonaActualizada: any) => {
+                    responder.sucess(req, res, zonaActualizada, '', 200);
+                  })
+                  .catch((error: any) => {
+                    responder.error(req, res, error);
+                  });
+              }
+            }
+          })
+          .catch((error: any) => {
+            responder.error(req, res, error);
           });
       }
     } catch (error) {

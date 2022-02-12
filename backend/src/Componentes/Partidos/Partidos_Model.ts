@@ -2,8 +2,8 @@ import {model, Schema} from 'mongoose';
 import IPartidos from './Partidos_Interface';
 
 const PartidosSchema = new Schema({
-  equipoLocal: {type: Schema.Types.ObjectId, ref: 'modeloEquipos', required: true},
-  equipoVisitante: {type: Schema.Types.ObjectId, ref: 'modeloEquipos'},
+  idEquipoLocal: {type: Schema.Types.ObjectId, ref: 'modeloEquipos', required: true},
+  idEquipoVisitante: {type: Schema.Types.ObjectId, ref: 'modeloEquipos', required: true},
   resultadoLocal: {type: Number},
   resultadoVisitante: {type: Number},
   penalesLocal: {type: Number},
@@ -18,8 +18,8 @@ const PartidosSchema = new Schema({
       texto: {type: String},
     },
   ],
-  idZona: {type: Schema.Types.ObjectId, ref: 'modeloZonas'},
-  idTorneo: {type: Schema.Types.ObjectId, ref: 'modeloTorneos'},
+  idZona: {type: Schema.Types.ObjectId, ref: 'modeloZonas', required: true},
+  idTorneo: {type: Schema.Types.ObjectId, ref: 'modeloTorneos', required: true},
 });
 
 export default model<IPartidos>('modeloPartidos', PartidosSchema);
