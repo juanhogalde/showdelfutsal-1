@@ -67,6 +67,11 @@ export const eliminarZonasDeTorneoError = 'eliminarZonasDeTorneoError';
 export const actualizarListaDeTorneosEliminarZonas = 'actualizarListaDeTorneosEliminarZonas';
 export const eliminarZonasDeTorneoDefault = 'eliminarZonasDeTorneoDefault';
 
+export const agregarEquiposZonaTorneoCargando = 'agregarEquiposZonaTorneoCargando';
+export const agregarEquiposZonaTorneoExito = 'agregarEquiposZonaTorneoExito';
+export const agregarEquiposZonaTorneoError = 'agregarEquiposZonaTorneoError';
+export const agregarEquiposZonaTorneoDefault = 'agregarEquiposZonaTorneoDefault';
+
 export const volverPorDefectoUnTorneo_accion = () => {
   return {
     type: volverPorDefectoUnTorneo,
@@ -605,6 +610,55 @@ export const eliminarZonasDeTorneo_accion = (torneoId, subcategoriaId) => {
       .catch(error => {
         console.log({error});
         dispatch(eliminarZonasDeTorneoError_accion());
+      });
+  };
+};
+/* AGREGAR EQUIPOS A ZONA DE TORNEO */
+export const agregarEquiposZonaTorneoCargando_accion = () => {
+  return {
+    type: agregarEquiposZonaTorneoCargando,
+  };
+};
+export const agregarEquiposZonaTorneoExito_accion = subcategoriaId => {
+  return {
+    type: agregarEquiposZonaTorneoExito,
+    subcategoria: subcategoriaId,
+  };
+};
+export const agregarEquiposZonaTorneorror_accion = () => {
+  return {
+    type: agregarEquiposZonaTorneoError,
+  };
+};
+/* export const actualizarListaDeTorneosEliminarZonas_accion = () => {
+  return {
+    type: agregarEquiposZonaTorneoEliminarZonas,
+  };
+}; */
+export const agregarEquiposZonaTorneoDefault_accion = () => {
+  return {
+    type: agregarEquiposZonaTorneoDefault,
+  };
+};
+
+export const agregarEquiposZonaTorneo_accion = (zonaId, equiposId) => {
+  console.log(zonaId);
+  console.log(equiposId);
+
+  return dispatch => {
+    /* dispatch(eliminarZonasDeTorneoCargando_accion()); */
+    API({
+      url: 'zonas/agregarEquipos',
+      method: 'post',
+      data: {_id: zonaId, nuevosEquipos: equiposId},
+    })
+      .then(res => {
+        console.log({res});
+        /* dispatch(eliminarZonasDeTorneoExito_accion(subcategoriaId)); */
+      })
+      .catch(error => {
+        console.log({error});
+        /* dispatch(eliminarZonasDeTorneoError_accion()); */
       });
   };
 };

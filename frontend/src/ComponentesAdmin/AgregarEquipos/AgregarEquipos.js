@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {BsPlusCircle} from 'react-icons/bs';
 import {useDispatch, useSelector} from 'react-redux';
-import {useHistory /* , useParams */} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {listarEquipos_accion} from '../../Redux/Equipos/AccionesEquipos';
+import {agregarEquiposZonaTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import Selector from '../Selector/Selector';
@@ -11,8 +12,9 @@ import './AgregarEquipos.css';
 
 const AgregarEquipos = () => {
   const history = useHistory();
-  /* const {zonaId} = useParams(); */
+  const {zonaId} = useParams();
   const dispatch = useDispatch();
+  const {torneo} = useSelector(state => state.storeTorneos);
   const {equipos, isListarEquipos} = useSelector(state => state.storeEquipos);
   const [arrayEquipos, setArrayEquipos] = useState([]);
   const [equipoSeleccionado, setEquipoSeleccionado] = useState('');
@@ -20,7 +22,10 @@ const AgregarEquipos = () => {
   /* const [isDatosCargados, setIsDatosCargados] = useState(false); */
 
   const agregarEquipoZona = () => {
-    console.log('func para agregar equipos a zona');
+    let auxEquiposId = equiposAgregados.map(equipo => {
+      return equipo._id;
+    });
+    dispatch(agregarEquiposZonaTorneo_accion(zonaId, auxEquiposId));
   };
   const escucharSelectorEquipos = respuesta => {
     let auxArrayEquipos = arrayEquipos.filter(equipo => equipo.value !== respuesta.value);
@@ -28,6 +33,25 @@ const AgregarEquipos = () => {
     setEquipoSeleccionado(respuesta);
     setEquiposAgregados([...equiposAgregados, respuesta.data]);
   };
+
+  useLayoutEffect(() => {
+    if (arrayEquipos.length === 0) {
+      dispatch(listarEquipos_accion());
+    }
+    console.log(torneo.zonas);
+    if (torneo.zonas.length > 0) {
+      let auxZona = torneo.zonas.find(zona => zona._id === zonaId);
+      console.log(auxZona);
+      let auxEquipos = [];
+      if (auxZona.equipos.length > 0) {
+        auxZona.equipos.map(equipoZona => {
+          let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
+          auxEquipos.push(aux);
+        });
+        setEquiposAgregados(auxEquipos);
+      }
+    }
+  }, [arrayEquipos, dispatch]);
 
   useEffect(() => {
     if (equipos.length > 0) {
@@ -39,11 +63,10 @@ const AgregarEquipos = () => {
         };
       });
       setArrayEquipos(auxEquipos);
-    } else {
-      dispatch(listarEquipos_accion());
     }
     return () => {};
-  }, [equipos, dispatch]);
+  }, [equipos]);
+
   const crearEnfrentamiento = () => {
     history.push('/Enfrentamientos');
   };

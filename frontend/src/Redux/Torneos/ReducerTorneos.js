@@ -49,6 +49,10 @@ import {
   eliminarZonasDeTorneoError,
   actualizarListaDeTorneosEliminarZonas,
   eliminarZonasDeTorneoDefault,
+  agregarEquiposZonaTorneoCargando,
+  agregarEquiposZonaTorneoExito,
+  agregarEquiposZonaTorneoError,
+  agregarEquiposZonaTorneoDefault,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -790,6 +794,26 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           mensaje: '',
           isMostrar: false,
         },
+      };
+    }
+    case agregarEquiposZonaTorneoCargando: {
+      return {
+        ...state,
+      };
+    }
+    case agregarEquiposZonaTorneoExito: {
+      return {
+        ...state,
+      };
+    }
+    case agregarEquiposZonaTorneoError: {
+      return {
+        ...state,
+      };
+    }
+    case agregarEquiposZonaTorneoDefault: {
+      return {
+        ...state,
       };
     }
     default:
