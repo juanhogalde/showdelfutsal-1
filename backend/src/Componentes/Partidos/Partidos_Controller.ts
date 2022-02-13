@@ -80,7 +80,7 @@ class PartidosController {
           400
         );
       } else {
-        if (datosBody.idEquipoLocal === datosBody.idEquipoVisitante) {
+        if (datosBody.idEquipoLocal.toString() === datosBody.idEquipoVisitante.toString()) {
           responder.error(
             req,
             res,
@@ -96,7 +96,17 @@ class PartidosController {
               responder.sucess(req, res, resultado, 'Partido insertado correctamente');
             })
             .catch(error => {
-              responder.error(req, res, error, 'Error al insertar el partido', 500);
+              if (error.errors) {
+                responder.error(
+                  req,
+                  res,
+                  error.errors['validate'],
+                  error.errors['validate'].message,
+                  error.errors['validate'].value
+                );
+              } else {
+                responder.error(req, res, '', 'Error al insertar el partido', 500);
+              }
             });
         }
       }
