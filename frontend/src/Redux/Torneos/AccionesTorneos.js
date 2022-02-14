@@ -69,6 +69,7 @@ export const eliminarZonasDeTorneoDefault = 'eliminarZonasDeTorneoDefault';
 
 export const agregarEquiposZonaTorneoCargando = 'agregarEquiposZonaTorneoCargando';
 export const agregarEquiposZonaTorneoExito = 'agregarEquiposZonaTorneoExito';
+export const actualizarListaTorneosAgregarEquiposZona = 'actualizarListaTorneosAgregarEquiposZona';
 export const agregarEquiposZonaTorneoError = 'agregarEquiposZonaTorneoError';
 export const agregarEquiposZonaTorneoDefault = 'agregarEquiposZonaTorneoDefault';
 
@@ -619,22 +620,23 @@ export const agregarEquiposZonaTorneoCargando_accion = () => {
     type: agregarEquiposZonaTorneoCargando,
   };
 };
-export const agregarEquiposZonaTorneoExito_accion = subcategoriaId => {
+export const agregarEquiposZonaTorneoExito_accion = nuevaZona => {
   return {
     type: agregarEquiposZonaTorneoExito,
-    subcategoria: subcategoriaId,
+    zona: nuevaZona,
   };
 };
-export const agregarEquiposZonaTorneorror_accion = () => {
+export const actualizarListaTorneosAgregarEquiposZona_accion = () => {
+  return {
+    type: actualizarListaTorneosAgregarEquiposZona,
+  };
+};
+export const agregarEquiposZonaTorneoError_accion = () => {
   return {
     type: agregarEquiposZonaTorneoError,
   };
 };
-/* export const actualizarListaDeTorneosEliminarZonas_accion = () => {
-  return {
-    type: agregarEquiposZonaTorneoEliminarZonas,
-  };
-}; */
+
 export const agregarEquiposZonaTorneoDefault_accion = () => {
   return {
     type: agregarEquiposZonaTorneoDefault,
@@ -646,7 +648,7 @@ export const agregarEquiposZonaTorneo_accion = (zonaId, equiposId) => {
   console.log(equiposId);
 
   return dispatch => {
-    /* dispatch(eliminarZonasDeTorneoCargando_accion()); */
+    dispatch(agregarEquiposZonaTorneoCargando_accion());
     API({
       url: 'zonas/agregarEquipos',
       method: 'post',
@@ -654,11 +656,11 @@ export const agregarEquiposZonaTorneo_accion = (zonaId, equiposId) => {
     })
       .then(res => {
         console.log({res});
-        /* dispatch(eliminarZonasDeTorneoExito_accion(subcategoriaId)); */
+        dispatch(agregarEquiposZonaTorneoExito_accion(res.data.value));
       })
       .catch(error => {
         console.log({error});
-        /* dispatch(eliminarZonasDeTorneoError_accion()); */
+        dispatch(agregarEquiposZonaTorneoError_accion());
       });
   };
 };

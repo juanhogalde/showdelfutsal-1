@@ -51,6 +51,7 @@ import {
   eliminarZonasDeTorneoDefault,
   agregarEquiposZonaTorneoCargando,
   agregarEquiposZonaTorneoExito,
+  actualizarListaTorneosAgregarEquiposZona,
   agregarEquiposZonaTorneoError,
   agregarEquiposZonaTorneoDefault,
 } from './AccionesTorneos';
@@ -121,6 +122,11 @@ const torneoPorDefecto = {
     mensaje: '',
     isMostrar: false,
     subcategoria: '',
+  },
+  isAgregarEquiposZona: {
+    tipo: '',
+    mensaje: '',
+    isMostrar: false,
   },
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
@@ -799,21 +805,71 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
     case agregarEquiposZonaTorneoCargando: {
       return {
         ...state,
+        isAgregarEquiposZona: {
+          tipo: 'cargando',
+          mensaje: 'Agregando equipos...',
+          isMostrar: true,
+        },
       };
     }
     case agregarEquiposZonaTorneoExito: {
+      let auxZonas = state.torneo.zonas.map(zonaTorneo => {
+        if (zonaTorneo._id === accion.zona._id) {
+          return accion.zona;
+        } else {
+          return zonaTorneo;
+        }
+      });
+      console.log(auxZonas);
       return {
         ...state,
+        isAgregarEquiposZona: {
+          tipo: 'success',
+          mensaje: 'Equipos Agregados...',
+          isMostrar: true,
+        },
+        torneo: {
+          ...state.torneo,
+          zonas: auxZonas,
+        },
+      };
+    }
+    case actualizarListaTorneosAgregarEquiposZona: {
+      let auxTorneos = state.torneos.map(torneo => {
+        if (torneo._id === state.torneo._id) {
+          return state.torneo;
+        } else {
+          return torneo;
+        }
+      });
+      return {
+        ...state,
+        isAgregarEquiposZona: {
+          tipo: '',
+          mensaje: '',
+          isMostrar: false,
+        },
+        torneos: auxTorneos,
       };
     }
     case agregarEquiposZonaTorneoError: {
       return {
         ...state,
+        isAgregarEquiposZona: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, en este momento no podemos agregar equipos...',
+          isMostrar: true,
+        },
       };
     }
     case agregarEquiposZonaTorneoDefault: {
       return {
         ...state,
+        isAgregarEquiposZona: {
+          tipo: '',
+          mensaje: '',
+          isMostrar: false,
+        },
       };
     }
     default:

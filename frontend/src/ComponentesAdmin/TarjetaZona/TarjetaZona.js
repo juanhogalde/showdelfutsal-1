@@ -25,7 +25,6 @@ const TarjetaZona = ({
   const ocultarAcciones = () => {
     setIsAcciones(false);
   };
-  console.log(datos);
   return (
     <div className="CP-TarjetaZona elementoSombreado">
       <div className="CI-Cuerpo-TarjetaZona">

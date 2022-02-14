@@ -3,7 +3,11 @@ import {BsPlusCircle} from 'react-icons/bs';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory, useParams} from 'react-router-dom';
 import {listarEquipos_accion} from '../../Redux/Equipos/AccionesEquipos';
-import {agregarEquiposZonaTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
+import {
+  actualizarListaTorneosAgregarEquiposZona_accion,
+  agregarEquiposZonaTorneoDefault_accion,
+  agregarEquiposZonaTorneo_accion,
+} from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import Selector from '../Selector/Selector';
@@ -14,44 +18,69 @@ const AgregarEquipos = () => {
   const history = useHistory();
   const {zonaId} = useParams();
   const dispatch = useDispatch();
-  const {torneo} = useSelector(state => state.storeTorneos);
+  const {torneo, isAgregarEquiposZona} = useSelector(state => state.storeTorneos);
+  const zonaTorneo = torneo.zonas.find(zona => zona._id === zonaId);
   const {equipos, isListarEquipos} = useSelector(state => state.storeEquipos);
+
   const [arrayEquipos, setArrayEquipos] = useState([]);
   const [equipoSeleccionado, setEquipoSeleccionado] = useState('');
   const [equiposAgregados, setEquiposAgregados] = useState([]);
+  const [nuevosEquipos, setNuevosEquipos] = useState([]);
+  const [isNuevosEquipos, setIsNuevosEquipos] = useState(false);
   /* const [isDatosCargados, setIsDatosCargados] = useState(false); */
 
   const agregarEquipoZona = () => {
-    let auxEquiposId = equiposAgregados.map(equipo => {
+    let auxEquiposId = nuevosEquipos.map(equipo => {
       return equipo._id;
     });
+
     dispatch(agregarEquiposZonaTorneo_accion(zonaId, auxEquiposId));
   };
   const escucharSelectorEquipos = respuesta => {
     let auxArrayEquipos = arrayEquipos.filter(equipo => equipo.value !== respuesta.value);
     setArrayEquipos(auxArrayEquipos);
     setEquipoSeleccionado(respuesta);
-    setEquiposAgregados([...equiposAgregados, respuesta.data]);
+    setNuevosEquipos([...nuevosEquipos, respuesta.data]);
+    setIsNuevosEquipos(true);
   };
 
+  const crearEnfrentamiento = () => {
+    history.push('/Enfrentamientos');
+  };
+  const funcionEliminarEquipo = equipoId => {
+    let auxEquiposAgregados = equiposAgregados.filter(equipo => equipo._id !== equipoId);
+    setEquiposAgregados(auxEquiposAgregados);
+  };
+  const respuestaDeAlertaAgregarEquipos = respuesta => {
+    if (respuesta) {
+      if (isAgregarEquiposZona.tipo === 'success') {
+        setIsNuevosEquipos(false);
+        setNuevosEquipos([]);
+        dispatch(actualizarListaTorneosAgregarEquiposZona_accion());
+      }
+      if (isAgregarEquiposZona.tipo === 'error') {
+        dispatch(agregarEquiposZonaTorneoDefault_accion());
+      }
+    } else {
+      dispatch(agregarEquiposZonaTorneoDefault_accion());
+    }
+  };
   useLayoutEffect(() => {
     if (arrayEquipos.length === 0) {
       dispatch(listarEquipos_accion());
     }
-    console.log(torneo.zonas);
     if (torneo.zonas.length > 0) {
       let auxZona = torneo.zonas.find(zona => zona._id === zonaId);
-      console.log(auxZona);
       let auxEquipos = [];
       if (auxZona.equipos.length > 0) {
-        auxZona.equipos.map(equipoZona => {
+        auxZona.equipos.forEach(equipoZona => {
           let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
           auxEquipos.push(aux);
         });
         setEquiposAgregados(auxEquipos);
       }
     }
-  }, [arrayEquipos, dispatch]);
+  }, [arrayEquipos, torneo.zonas, zonaId, equipos, dispatch]);
 
   useEffect(() => {
     if (equipos.length > 0) {
@@ -64,21 +93,13 @@ const AgregarEquipos = () => {
       });
       setArrayEquipos(auxEquipos);
     }
+
     return () => {};
   }, [equipos]);
-
-  const crearEnfrentamiento = () => {
-    history.push('/Enfrentamientos');
-  };
-  const funcionEliminarEquipo = equipoId => {
-    let auxEquiposAgregados = equiposAgregados.filter(equipo => equipo._id !== equipoId);
-    setEquiposAgregados(auxEquiposAgregados);
-  };
-
   return (
     <div className="CP-AgregarEquipos">
       <p>Agregar Equipos</p>
-      <h4>Zona A</h4>
+      <h4>{zonaTorneo ? zonaTorneo.nombreZona : 'Zona'}</h4>
 
       <Selector
         name="equipos"
@@ -91,11 +112,27 @@ const AgregarEquipos = () => {
         onChange={value => escucharSelectorEquipos(value)}
         opcionSeleccionada={equipoSeleccionado ? equipoSeleccionado : ''}
       ></Selector>
-      <BotonLowa tituloboton="Agregar" onClick={() => agregarEquipoZona()}></BotonLowa>
+      <BotonLowa
+        disabled={nuevosEquipos.length > 0 ? false : true}
+        tituloboton="Agregar"
+        onClick={() => agregarEquipoZona()}
+      ></BotonLowa>
       <BotonLowa
         tituloboton="Crear Enfrentamiento"
         onClick={() => crearEnfrentamiento()}
       ></BotonLowa>
+      {isNuevosEquipos &&
+        nuevosEquipos.length > 0 &&
+        nuevosEquipos.map((equipo, index) => {
+          return (
+            <TarjetaEquipo
+              key={index}
+              equipo={equipo}
+              funcionEliminarEquipo={funcionEliminarEquipo}
+            ></TarjetaEquipo>
+          );
+        })}
+
       {equiposAgregados.length > 0 &&
         equiposAgregados.map((equipo, index) => {
           return (
@@ -110,6 +147,12 @@ const AgregarEquipos = () => {
         mostrarSweet={isListarEquipos.isMostrar}
         tipoDeSweet={isListarEquipos.tipo}
         subtitulo={isListarEquipos.mensaje}
+      ></Alertas>
+      <Alertas
+        mostrarSweet={isAgregarEquiposZona.isMostrar}
+        tipoDeSweet={isAgregarEquiposZona.tipo}
+        subtitulo={isAgregarEquiposZona.mensaje}
+        RespuestaDeSweet={respuestaDeAlertaAgregarEquipos}
       ></Alertas>
     </div>
   );
