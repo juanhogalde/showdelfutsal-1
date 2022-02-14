@@ -1,5 +1,6 @@
 import {model, Schema, Error} from 'mongoose';
 import IPartidos from './Partidos_Interface';
+
 const PartidosSchema = new Schema({
   idEquipoLocal: {type: Schema.Types.ObjectId, ref: 'modeloEquipos', required: true},
   idEquipoVisitante: {type: Schema.Types.ObjectId, ref: 'modeloEquipos', required: true},

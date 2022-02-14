@@ -9,15 +9,13 @@ const ZonasSchema = new Schema({
   equipos: [
     {
       _id: {type: Schema.Types.ObjectId, ref: 'modeloEquipos'},
-      partidosG: {type: Number},
-      partidosE: {type: Number},
-      PartidosP: {type: Number},
-      PartidosJ: {type: Number},
-      golesAFavor: {type: Number},
-      golesEnContra: {type: Number},
-      difGoles: {type: Number},
-      puntos: {type: Number},
-      posicionEnTabla: {type: Number},
+      partidosG: {type: Number, default: 0},
+      partidosE: {type: Number, default: 0},
+      partidosP: {type: Number, default: 0},
+      partidosJ: {type: Number, default: 0},
+      golesAFavor: {type: Number, default: 0},
+      golesEnContra: {type: Number, default: 0},
+      puntos: {type: Number, default: 0},
       isEliminado: {type: Boolean, default: false},
       comentarios: [
         {
