@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloPartidos from './Partidos_Model';
 import IPartidos from './Partidos_Interface';
+import {TipoZona} from '../../Config/enumeradores';
 
 class PartidosController {
   public async listar(req: Request, res: Response) {
@@ -31,21 +32,114 @@ class PartidosController {
                 400
               );
             } else {
-              if (
-                partidoEncontrado.idZona?.equipos?.includes([
-                  req.body.idEquipoLocal,
-                  req.body.idEquipoVisitante,
-                ])
-              ) {
-                responder.sucess(req, res, partidoEncontrado, '', 200);
-              } else {
+              if (!partidoEncontrado.idZona?.equipos?.length) {
                 responder.error(
                   req,
                   res,
-                  `Algun equipo ingresado no esta incluido en la zona: ${partidoEncontrado.idZona.nombreZona}`,
-                  `Algun equipo ingresado no esta incluido en la zona: ${partidoEncontrado.idZona.nombreZona}`,
+                  'Zona no encontrada o sin equipos',
+                  'Zona no encontrada o sin equipos',
                   400
                 );
+              } else {
+                let datosEquipoLocal;
+                let datosEquipoVisitante;
+                partidoEncontrado.idZona.equipos.forEach((equipo: any) => {
+                  if (equipo._id.toString() === req.body.idEquipoLocal.toString()) {
+                    datosEquipoLocal = {
+                      partidosG: equipo.partidosG,
+                      partidosJ: equipo.partidosJ,
+                      partidosE: equipo.partidosE,
+                      partidosP: equipo.partidosP,
+                      puntos: equipo.puntos,
+                      golesAFavor: equipo.golesAFavor,
+                      golesEnContra: equipo.golesEnContra,
+                    };
+                  }
+                  if (equipo._id.toString() === req.body.idEquipoVisitante.toString()) {
+                    datosEquipoVisitante = {
+                      partidosG: equipo.partidosG,
+                      partidosJ: equipo.partidosJ,
+                      partidosE: equipo.partidosE,
+                      partidosP: equipo.partidosP,
+                      puntos: equipo.puntos,
+                      golesAFavor: equipo.golesAFavor,
+                      golesEnContra: equipo.golesEnContra,
+                    };
+                  }
+                });
+                const respuesta = modelarDatosParaCargarResultadoDePartido(
+                  partidoEncontrado,
+                  req.body,
+                  datosEquipoLocal,
+                  datosEquipoVisitante
+                );
+                respuesta
+                  .then((datosParaGuardar: any) => {
+                    partidoEncontrado.resultadoVisitante = req.body.resultadoVisitante;
+                    partidoEncontrado.resultadoLocal = req.body.resultadoLocal;
+                    partidoEncontrado.penalesLocal = req.body.penalesLocal;
+                    partidoEncontrado.penalesVisitante = req.body.penalesVisitante;
+                    partidoEncontrado
+                      .save()
+                      .then((partidoActualizado: any) => {
+                        let equiposActualizados: object[] = [];
+                        partidoEncontrado.idZona.equipos.forEach((equipo: any) => {
+                          if (equipo._id.toString() === req.body.idEquipoLocal.toString()) {
+                            equiposActualizados.push({
+                              _id: equipo._id,
+                              partidosG: datosParaGuardar.equipoLocal.partidoG,
+                              partidosE: datosParaGuardar.equipoLocal.partidosE,
+                              partidosP: datosParaGuardar.equipoLocal.partidosP,
+                              partidosJ: datosParaGuardar.equipoLocal.partidosJ,
+                              golesAFavor: datosParaGuardar.equipoLocal.golesAFavor,
+                              golesEnContra: datosParaGuardar.equipoLocal.golesEnContra,
+                              puntos: datosParaGuardar.equipoLocal.puntos,
+                              isEliminado: equipo.isEliminado,
+                              comentarios: equipo.comentarios,
+                            });
+                          } else {
+                            if (equipo._id.toString() === req.body.idEquipoVisitante.toString()) {
+                              equiposActualizados.push({
+                                _id: equipo._id,
+                                partidosG: datosParaGuardar.equipoVisitante.partidoG,
+                                partidosE: datosParaGuardar.equipoVisitante.partidosE,
+                                partidosP: datosParaGuardar.equipoVisitante.partidosP,
+                                partidosJ: datosParaGuardar.equipoVisitante.partidosJ,
+                                golesAFavor: datosParaGuardar.equipoVisitante.golesAFavor,
+                                golesEnContra: datosParaGuardar.equipoVisitante.golesEnContra,
+                                puntos: datosParaGuardar.equipoVisitante.puntos,
+                                isEliminado: equipo.isEliminado,
+                                comentarios: equipo.comentarios,
+                              });
+                            } else {
+                              equiposActualizados.push(equipo);
+                            }
+                          }
+                        });
+                        partidoEncontrado.idZona.equipos = [...equiposActualizados];
+                        partidoEncontrado.idZona
+                          .save()
+                          .then((zonaActualizada: any) => {
+                            partidoActualizado.idZona = zonaActualizada;
+                            responder.sucess(req, res, partidoActualizado, '', 200);
+                          })
+                          .catch((error: any) => {
+                            responder.error(
+                              req,
+                              res,
+                              error,
+                              'El partido fue actualizado pero los equipos en su zona no',
+                              409
+                            );
+                          });
+                      })
+                      .catch((error: any) => {
+                        responder.error(req, res, error, 'Error interno de servidor', 500);
+                      });
+                  })
+                  .catch((error: any) => {
+                    responder.error(req, res, error, error.message, error.status);
+                  });
               }
             }
           })
@@ -80,7 +174,7 @@ class PartidosController {
           400
         );
       } else {
-        if (datosBody.idEquipoLocal === datosBody.idEquipoVisitante) {
+        if (datosBody.idEquipoLocal.toString() === datosBody.idEquipoVisitante.toString()) {
           responder.error(
             req,
             res,
@@ -96,7 +190,17 @@ class PartidosController {
               responder.sucess(req, res, resultado, 'Partido insertado correctamente');
             })
             .catch(error => {
-              responder.error(req, res, error, 'Error al insertar el partido', 500);
+              if (error.errors) {
+                responder.error(
+                  req,
+                  res,
+                  error.errors['validate'],
+                  error.errors['validate'].message,
+                  error.errors['validate'].value
+                );
+              } else {
+                responder.error(req, res, '', 'Error al insertar el partido', 500);
+              }
             });
         }
       }
@@ -196,3 +300,165 @@ class PartidosController {
   }
 }
 export const partidosController = new PartidosController();
+
+const modelarDatosParaCargarResultadoDePartido = (
+  partido: any,
+  nuevosDatos: any,
+  equipoLocal: any,
+  equipoVisitante: any
+) => {
+  try {
+    const equipoLocalDiferentes =
+      partido.idEquipoLocal?.toString() !== nuevosDatos.idEquipoLocal?.toString();
+    const equipoVisitanteDiferentes =
+      partido.idEquipoVisitante.toString() !== nuevosDatos.idEquipoVisitante.toString();
+    const promesa = new Promise(async (resolve: any, reject: any) => {
+      if (
+        equipoLocalDiferentes ||
+        equipoVisitanteDiferentes ||
+        !(nuevosDatos.resultadoLocal || nuevosDatos.resultadoLocal === 0) ||
+        !(nuevosDatos.resultadoVisitante || nuevosDatos.resultadoVisitante === 0)
+      ) {
+        reject({
+          error: 'Error controlado por modelarDatosParaCargarResultadoDePartido',
+          message: `Datos incorrectos:${
+            equipoLocalDiferentes ? '(Equipo local falta o es diferente al del partido)' : ''
+          } ${
+            equipoVisitanteDiferentes
+              ? '(Equipo visitante falta o es diferente al del partido)'
+              : ''
+          } ${
+            !(nuevosDatos.resultadoLocal || nuevosDatos.resultadoLocal === 0)
+              ? '(falta resultado local)'
+              : ''
+          } ${
+            !(nuevosDatos.resultadoVisitante || nuevosDatos.resultadoVisitante === 0)
+              ? '(falta resultado visitante)'
+              : ''
+          }`,
+          status: 400,
+        });
+      } else {
+        if (!equipoLocal || !equipoVisitante) {
+          reject({
+            error: 'Error controlado por modelarDatosParaCargarResultadoDePartido',
+            message: 'Error interno del servidor',
+            status: 500,
+          });
+        } else {
+          if (
+            parseInt(nuevosDatos.penalesLocal) >= 0 &&
+            parseInt(nuevosDatos.penalesVisitante) >= 0 &&
+            parseInt(nuevosDatos.penalesLocal) !== parseInt(nuevosDatos.penalesVisitante)
+          ) {
+            if (partido.idZona.tipoZona === TipoZona.FaseGrupo) {
+              if (parseInt(nuevosDatos.penalesLocal) > parseInt(nuevosDatos.penalesVisitante)) {
+                resolve(
+                  modelEquipoFaseGrupo('ganoLocal', equipoLocal, equipoVisitante, nuevosDatos)
+                );
+              } else {
+                resolve(
+                  modelEquipoFaseGrupo('ganoVisitante', equipoLocal, equipoVisitante, nuevosDatos)
+                );
+              }
+            } else {
+              reject({
+                error: 'Error controlado por modelarDatosParaCargarResultadoDePartido',
+                message:
+                  'Aun no esta implementado cargar resultados para zonas de tipo Eliminatoria ni EliminatoriaConDG',
+                status: 418,
+              });
+            }
+            // resolve(
+            //   parseInt(nuevosDatos.penalesLocal) > parseInt(nuevosDatos.penalesVisitante)
+            //     ? 'gano local'
+            //     : 'gano visitante'
+            // );
+          } else {
+            if (nuevosDatos.resultadoLocal === nuevosDatos.resultadoVisitante) {
+              resolve(modelEquipoFaseGrupo('empate', equipoLocal, equipoVisitante, nuevosDatos));
+            } else {
+              if (nuevosDatos.resultadoLocal > nuevosDatos.resultadoVisitante) {
+                // resolve('Gano local');
+                resolve(
+                  modelEquipoFaseGrupo('ganoLocal', equipoLocal, equipoVisitante, nuevosDatos)
+                );
+              } else {
+                // resolve('Gano visitante');
+                resolve(
+                  modelEquipoFaseGrupo('ganoVisitante', equipoLocal, equipoVisitante, nuevosDatos)
+                );
+              }
+            }
+          }
+        }
+      }
+    });
+    return promesa;
+  } catch (error: any) {
+    return error;
+  }
+};
+const modelEquipoFaseGrupo = (
+  resultado: string,
+  equipoLocal: any,
+  equipoVisitante: any,
+  nuevosDatos: any
+) => {
+  switch (resultado) {
+    case 'ganoLocal':
+      return {
+        equipoLocal: {
+          ...equipoLocal,
+          partidosG: equipoLocal.partidosG + 1,
+          partidosJ: equipoLocal.partidosJ + 1,
+          puntos: equipoLocal.puntos + 3,
+          golesAFavor: equipoLocal.golesAFavor + nuevosDatos.resultadoLocal,
+          golesEnContra: equipoLocal.golesEnContra + nuevosDatos.resultadoVisitante,
+        },
+        equipoVisitante: {
+          ...equipoVisitante,
+          partidosP: equipoVisitante.partidosP + 1,
+          partidosJ: equipoVisitante.partidosJ + 1,
+          golesAFavor: equipoVisitante.golesAFavor + nuevosDatos.resultadoVisitante,
+          golesEnContra: equipoVisitante.golesEnContra + nuevosDatos.resultadoLocal,
+        },
+      };
+
+    case 'ganoVisitante':
+      return {
+        equipoLocal: {
+          ...equipoLocal,
+          partidosJ: equipoLocal.partidosJ + 1,
+          partidosP: equipoLocal.partidosP + 1,
+          golesAFavor: equipoLocal.golesAFavor + nuevosDatos.resultadoLocal,
+          golesEnContra: equipoLocal.golesEnContra + nuevosDatos.resultadoVisitante,
+        },
+        equipoVisitante: {
+          ...equipoVisitante,
+          partidosG: equipoVisitante.partidosG + 1,
+          partidosJ: equipoVisitante.partidosJ + 1,
+          puntos: equipoVisitante.puntos + 3,
+          golesAFavor: equipoVisitante.golesAFavor + nuevosDatos.resultadoVisitante,
+          golesEnContra: equipoVisitante.golesEnContra + nuevosDatos.resultadoLocal,
+        },
+      };
+    default:
+      return {
+        equipoLocal: {
+          ...equipoLocal,
+          partidosJ: equipoLocal.partidosJ + 1,
+          puntos: equipoLocal.puntos + 1,
+          golesAFavor: equipoLocal.golesAFavor + nuevosDatos.resultadoLocal,
+          golesEnContra: equipoLocal.golesEnContra + nuevosDatos.resultadoVisitante,
+        },
+        equipoVisitante: {
+          ...equipoVisitante,
+          partidosJ: equipoVisitante.partidosJ + 1,
+          puntos: equipoVisitante.puntos + 1,
+          golesAFavor: equipoVisitante.golesAFavor + nuevosDatos.resultadoVisitante,
+          golesEnContra: equipoVisitante.golesEnContra + nuevosDatos.resultadoLocal,
+        },
+      };
+  }
+};
