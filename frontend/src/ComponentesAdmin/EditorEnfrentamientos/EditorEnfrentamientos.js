@@ -33,7 +33,6 @@ const EditorEnfrentamientos = () => {
   };
 
   const escucharSelectorCategoria = value => {
-    console.log(value);
     setDatosFiltrados({
       ...datosFiltrados,
       categoria: value,
@@ -44,29 +43,11 @@ const EditorEnfrentamientos = () => {
         subcategoria: '',
       });
     }
-    console.log(datosFiltrados);
-    let auxZonasCategorias = torneo.zonas.filter(
-      zona => zona.idSubcategoria.keyCategoria === value.key
-    );
 
-    let auxSubcategorias = [];
-    auxZonasCategorias.forEach(zona => {
-      subcategorias.forEach(subcategoria => {
-        if (subcategoria.key === zona.idSubcategoria.keySubcategoria) {
-          auxSubcategorias.push(subcategoria);
-        }
-      });
-    });
-    console.log(auxSubcategorias);
-    setArraySubCategorias(auxSubcategorias);
-    /* let auxSubCategoria = [];
-    torneo.zonas.forEach(zona => {
-      let aux = subcategorias.filter(subcategoria => {
-        if (subcategoria.key === zona.idSubcategoria.keySubcategoria;
-      });
-      auxSubCategoria.push(aux);
-    }); */
-    /* setArraySubCategorias(auxSubCategoria); */
+    let auxSubcategoria = subcategorias.filter(
+      subcategoria => subcategoria.keyCategoria === value.key
+    );
+    setArraySubCategorias(auxSubcategoria);
   };
 
   const escucharSelectorSubCategoria = value => {
@@ -75,7 +56,6 @@ const EditorEnfrentamientos = () => {
       subcategoria: value,
     });
     let auxZonas = [];
-    console.log(value);
     torneo.zonas.forEach(zonaTorneo => {
       if (zonaTorneo.idSubcategoria.keyCategoria === value.keyCategoria) {
         if (zonaTorneo.idSubcategoria.keySubcategoria === value.key) {
