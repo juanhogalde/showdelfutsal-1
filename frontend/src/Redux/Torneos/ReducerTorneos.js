@@ -592,7 +592,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           isExito: true,
           isError: false,
         },
-        torneo: accion.datos,
+        torneo: {...accion.datos, isEditar: true},
       };
     }
     case obtenerDatosDeTorneoParaEdicionError: {
