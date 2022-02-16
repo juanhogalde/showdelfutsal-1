@@ -6,11 +6,11 @@
   "scripts": {
     "dev": "nodemon --config nodemon.json src/index.ts",
     "dev_node": "nodemon src/index.ts",
-    "start": "tsc && node ./dist/index.js",
+    "start": "tsc && node ./dist/src/index.js",
     "debug": "nodemon --config nodemon.json --inspect-brk src/index.ts",
     "build": "tsc",
     "docker": "deployDocker.bat",
-    "dockermac": "docker build . -t lowa/futsal-backend:latest && docker push lowa/futsal-backend:latest && docker tag lowa/futsal-backend:latest lowa/futsal-backend:v0.0.17 && docker push lowa/futsal-backend:v0.0.17 && git tag \"docker-v0.0.17\""
+    "dockermac": "docker build . -t lowa/futsal-backend:latest && docker push lowa/futsal-backend:latest && docker tag lowa/futsal-backend:latest lowa/futsal-backend:v0.0.20 && docker push lowa/futsal-backend:v0.0.20 && git tag \"docker-v0.0.20\""
   },
   "repository": {
     "type": "git",
