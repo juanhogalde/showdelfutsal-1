@@ -1,6 +1,6 @@
 //*** Info Deploy */
-let _version = 'Version Front v0.0.16';
-let Enviroment = 'Testing';
+let _version = 'Version Front v0.0.20 - 10-02-22';
+let Enviroment = 'Desarrollo';
 let _dominio = 'localhost';
 let _api = 'localhost';
 let _puerto = '4000';
@@ -16,11 +16,11 @@ switch (Enviroment) {
     _dominio = 'http://testingfutsal.lowa.com.ar';
     _api = '194.113.73.194';
     _puerto = '4000';
-    console.log(_version);
+    console.log(`${Enviroment} :  ${_version}`);
     break;
 
   case 'Desarrollo':
-    console.log(_version);
+    console.log(`${Enviroment} :  ${_version}`);
     break;
 
   default:
