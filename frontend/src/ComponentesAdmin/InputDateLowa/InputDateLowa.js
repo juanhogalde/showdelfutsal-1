@@ -10,7 +10,11 @@ const InputDateLowa = props => {
   };
   useLayoutEffect(() => {
     if (value) {
-      setInputDateValue(value);
+      let fecha = new Date(value);
+      let auxFechaFormateada = `${fecha.getUTCDate()}/${
+        fecha.getUTCMonth() < 10 ? `0${fecha.getUTCMonth()}` : fecha.getUTCMonth()
+      }/${fecha.getUTCFullYear()}`;
+      setInputDateValue(auxFechaFormateada);
     }
   }, [value]);
   return (
@@ -35,10 +39,7 @@ const InputDateLowa = props => {
         min={`${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`}
       ></input>
       <div className="value-InputDateLowa">
-        {inputDateValue &&
-          `${inputDateValue.split('-')[2]}/${inputDateValue.split('-')[1]}/${
-            inputDateValue.split('-')[0]
-          }`}
+        {inputDateValue && `${inputDateValue}`}
         <span className="inputDate-Icono-Lowa">
           <FaRegCalendarAlt />
         </span>

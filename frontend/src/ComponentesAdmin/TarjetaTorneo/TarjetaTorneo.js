@@ -17,7 +17,7 @@ const TarjetaTorneo = ({
   categoria = '',
   subcategoria = '',
   isExisteSubcategoria = false,
-  consultarPorAgregarCategoriaSubcategoria = () => {
+  consultarPorEliminarZonasDeTorneo = () => {
     console.log('');
   },
   redireccionarZona = () => {
@@ -41,6 +41,13 @@ const TarjetaTorneo = ({
     dispatch(consultarPorEliminarTorneo_accion(id));
   };
 
+  const formatearFechaUTC = dato => {
+    let fecha = new Date(dato);
+    return `${fecha.getUTCDate()}/${
+      fecha.getUTCMonth() < 10 ? `0${fecha.getUTCMonth()}` : fecha.getUTCMonth()
+    }/${fecha.getUTCFullYear()}`;
+  };
+
   return (
     <div
       className={`${
@@ -55,11 +62,6 @@ const TarjetaTorneo = ({
     >
       <div
         className={isCampeonato ? 'CI-Cuerpo-Campeonato-TarjetaTorneo' : 'CI-Cuerpo-TarjetaTorneo'}
-        onClick={
-          !isExisteSubcategoria && isCampeonato
-            ? () => consultarPorAgregarCategoriaSubcategoria(categoria.key, subcategoria.key)
-            : () => {}
-        }
       >
         {!isCampeonato && (
           <div className="titulo-TarjetaTorneo">
@@ -73,8 +75,8 @@ const TarjetaTorneo = ({
         <div className="info-TarjetaTorneo">
           {!isCampeonato && (
             <p>
-              {torneo.fechaInicio ? torneo.fechaInicio : ''} -{' '}
-              {torneo.fechaFin ? torneo.fechaFin : ''}
+              {torneo.fechaInicio ? formatearFechaUTC(torneo.fechaInicio) : ''} -{' '}
+              {torneo.fechaFin ? formatearFechaUTC(torneo.fechaFin) : ''}
             </p>
           )}
           <p>{subcategoria.label}</p>
@@ -95,15 +97,8 @@ const TarjetaTorneo = ({
         tabIndex="1"
         onBlur={() => ocultarAcciones()}
       >
-        {!isExisteSubcategoria && isCampeonato && <div className="divNoSeleccionable"></div>}
         <FiEdit3
-          className={
-            isCampeonato
-              ? isExisteSubcategoria
-                ? 'iconoAcción-ListaImagenes'
-                : 'iconoAcción-ListaImagenes elementoNoSeleccionable'
-              : ' iconoAcción-ListaImagenes'
-          }
+          className={'iconoAcción-ListaImagenes'}
           onClick={
             isCampeonato
               ? () => redireccionarZona(categoria.value, subcategoria.value)
@@ -111,14 +106,12 @@ const TarjetaTorneo = ({
           }
         ></FiEdit3>
         <MdDeleteForever
-          onClick={isCampeonato ? () => {} : () => consultaPorEliminarTorneo(torneo._id)}
-          className={
+          onClick={
             isCampeonato
-              ? isExisteSubcategoria
-                ? 'iconoAcción-ListaImagenes'
-                : 'iconoAcción-ListaImagenes elementoNoSeleccionable'
-              : ' iconoAcción-ListaImagenes'
+              ? () => consultarPorEliminarZonasDeTorneo(subcategoria)
+              : () => consultaPorEliminarTorneo(torneo._id)
           }
+          className={' iconoAcción-ListaImagenes'}
         />
       </div>
     </div>

@@ -110,49 +110,99 @@ class ZonasController {
       responder.error(req, res, error);
     }
   }
-  public async crearZona(data: any) {
+  public async eliminarPorSubcategoria(req: Request, res: Response) {
     try {
-      const pr = new Promise((resolve: any, reject: any) => {
+      if (!req.body.idSubcategoria || !req.body.idTorneo) {
+        responder.error(
+          req,
+          res,
+          `Falta id subcategoria o id de torneo`,
+          'Falta id subcategoria o id de torneo',
+          400
+        );
+      } else {
         modeloZonas
-          .findOne({nombreZona: data.nombreZona})
-          .then(async (zona: any) => {
-            if (zona) {
-              zona.nombreZona = data.nombreZona;
-              zona.tipoZona = data.tipoZona;
-              zona.idSubcategoria = data.idSubcategoria;
-              zona.idCategoria = data.idCategoria;
-
-              if (data.equipos && data.equipos.length) {
-                for await (const equipo of data.equipos) {
-                  if (!zona.equipos.includes(equipo)) {
-                    zona.equipos.push(equipo);
-                  }
-                }
-              }
-
-              // console.log(zona);
-              const resultado: any = await zona.save();
-              if (resultado) {
-                // resultado.idZona = resultado._id;
-                // console.log(resultado);
-                resolve(resultado);
-              } else {
-                reject(new Error('Error al insertar la zona'));
-              }
+          .deleteMany({
+            $and: [{idSubcategoria: req.body.idSubcategoria}, {idTorneo: req.body.idTorneo}],
+          })
+          .then(ZonasEliminadas => {
+            responder.sucess(
+              req,
+              res,
+              ZonasEliminadas.deletedCount,
+              `${ZonasEliminadas?.deletedCount} Zonas eliminadas con exito de la subCategoria`,
+              200
+            );
+          })
+          .catch((error: any) => {
+            responder.error(req, res, error, 'Error interno del servidor', 500);
+          });
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+  public async agregarEquipos(req: Request, res: Response) {
+    try {
+      if (!req.body._id || !req.body.nuevosEquipos?.length) {
+        responder.error(
+          req,
+          res,
+          '',
+          `Faltan datos requeridos: ${!req.body._id ? 'id zona ,' : ''} ${
+            !req.body.nuevosEquipos?.length ? 'nuevosEquipos ' : ''
+          }`,
+          400
+        );
+      } else {
+        modeloZonas
+          .findById(req.body._id)
+          .then((zonaEncontrada: any) => {
+            if (!zonaEncontrada) {
+              responder.error(
+                req,
+                res,
+                'No se encontro la zona solicitada',
+                'No se encontro la zona solicitada',
+                400
+              );
             } else {
-              const nuevaZona: IZona = new modeloZonas(data);
-              resolve(nuevaZona.save());
+              const idEquipos = zonaEncontrada.equipos.map((equipo: any) => {
+                return equipo._id.toString();
+              });
+              let equiposAInsertar: string[] = [];
+              req.body.nuevosEquipos.forEach((idEquipo: string) => {
+                if (!idEquipos.includes(idEquipo) && !equiposAInsertar.includes(idEquipo)) {
+                  equiposAInsertar.push(idEquipo);
+                }
+              });
+              if (!equiposAInsertar.length) {
+                responder.error(
+                  req,
+                  res,
+                  'No se ingresaron nuevos equipos o ya existen en esta zona',
+                  'No se ingresaron nuevos equipos o ya existen en esta zona',
+                  400
+                );
+              } else {
+                zonaEncontrada.equipos.push(...equiposAInsertar);
+                zonaEncontrada
+                  .save()
+                  .then((zonaActualizada: any) => {
+                    responder.sucess(req, res, zonaActualizada, '', 200);
+                  })
+                  .catch((error: any) => {
+                    responder.error(req, res, error);
+                  });
+              }
             }
           })
           .catch((error: any) => {
-            reject(error);
+            responder.error(req, res, error);
           });
-      });
-      return pr;
+      }
     } catch (error) {
-      return new Promise((reject: any) => {
-        reject(error);
-      });
+      responder.error(req, res, error);
     }
   }
 }

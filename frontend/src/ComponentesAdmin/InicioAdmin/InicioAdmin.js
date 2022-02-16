@@ -41,7 +41,12 @@ const InicioAdmin = () => {
             <TarjetaPanel tituloPanel={'Noticias'} url={img3} linkTo="Noticias"></TarjetaPanel>
             <TarjetaPanel tituloPanel={'Galerías'} url={img4} linkTo="Galerías"></TarjetaPanel>
             <TarjetaPanel tituloPanel={'Torneos'} url={img5} linkTo="Torneos"></TarjetaPanel>
-            <TarjetaPanel tituloPanel={'Transmitir Vivo'} url={img6} linkTo="Vivo"></TarjetaPanel>
+            <TarjetaPanel tituloPanel={'Transmitir Vivo'} url={img5} linkTo="Vivo"></TarjetaPanel>
+            <TarjetaPanel
+              tituloPanel={'Editor de Enfrentamientos'}
+              url={img6}
+              linkTo="Enfrentamientos/Editor"
+            ></TarjetaPanel>
           </div>
         </div>
       </React.Fragment>

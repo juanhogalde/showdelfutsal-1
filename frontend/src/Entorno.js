@@ -9,7 +9,7 @@ switch (Enviroment) {
   case 'Produccion':
     _dominio = 'http://testingfutsal.c1470936.ferozo.com';
     _api = '194.113.73.194';
-    _puerto = '6000';
+    _puerto = '4200';
     break;
 
   case 'Testing':

@@ -28,5 +28,6 @@ services:
       - EMAIL_SISTEMA=no-reply@elshowdelfutsal.com
       - PASS_EMAIL_SISTEMA=B4F2K3@NPY
       - PORT_EMAIL_SISTEMA=465
+      - NODE_ENV=desarrollo
     depends_on:
       - bdmongo

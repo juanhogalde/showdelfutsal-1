@@ -21,13 +21,17 @@ import {
   volverPorDefectoListarTorneo,
   volverPorDefectoUnTorneo,
   recuperarTorneo,
+  cargandoCrearZonaTorneo,
   crearZonaTorneoExito,
-  consultarPoragregarCategoriaSubcategoriaTorneo,
+  crearZonaTorneoError,
+  crearZonaTorneoDefault,
+  actualizarListaDeTorneosCrearZona,
+  /* consultarPoragregarCategoriaSubcategoriaTorneo,
   cargandoAgregarCategoriaSubcategoria,
   agregarCategoriaSubcategoriaTorneoExito,
   agregarCategoriaSubcategoriaTorneoError,
   volverPorDefectoAgregarCategoriaSubcategoriaTorneo,
-  actualizarListaDeTorneosConSubcategoria,
+  actualizarListaDeTorneosConSubcategoria, */
   cargandoObtenerDatosDeTorneoParaEdicion,
   obtenerDatosDeTorneoParaEdicionExito,
   obtenerDatosDeTorneoParaEdicionError,
@@ -39,6 +43,12 @@ import {
   eliminarZonaError,
   actualizarListaDeZonas,
   volverPorDefectoEliminarZona,
+  consultarEliminarZonasDeTorneo,
+  eliminarZonasDeTorneoCargando,
+  eliminarZonasDeTorneoExito,
+  eliminarZonasDeTorneoError,
+  actualizarListaDeTorneosEliminarZonas,
+  eliminarZonasDeTorneoDefault,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -68,7 +78,7 @@ const torneoPorDefecto = {
     isExito: false,
     isError: false,
   },
-  isAgregarCategoriaSubcategoria: {
+  /* isAgregarCategoriaSubcategoria: {
     tipo: '',
     mensaje: '',
     isCargando: false,
@@ -76,7 +86,7 @@ const torneoPorDefecto = {
     isError: false,
     categoria: '',
     subcategoria: '',
-  },
+  }, */
   isObtenerDatosEditarTorneo: {
     tipo: '',
     mensaje: '',
@@ -85,6 +95,14 @@ const torneoPorDefecto = {
     isError: false,
   },
   isUltimaUbicacionEditarTorneo: false,
+  isAgregarZona: {
+    tipo: '',
+    mensaje: '',
+    isConsulta: false,
+    isCargando: false,
+    isExito: false,
+    isError: false,
+  },
   isEliminarZona: {
     tipo: '',
     mensaje: '',
@@ -93,6 +111,12 @@ const torneoPorDefecto = {
     isExito: false,
     isError: false,
     idZona: '',
+  },
+  isEliminarZonasDeTorneo: {
+    tipo: '',
+    mensaje: '',
+    isMostrar: false,
+    subcategoria: '',
   },
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
@@ -371,7 +395,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         ...state,
       };
     }
-    case consultarPoragregarCategoriaSubcategoriaTorneo: {
+    /* case consultarPoragregarCategoriaSubcategoriaTorneo: {
       return {
         ...state,
         isAgregarCategoriaSubcategoria: {
@@ -406,7 +430,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         ...state,
         isAgregarCategoriaSubcategoria: {
           tipo: 'success',
-          mensaje: 'Torneo Editado',
+          mensaje: 'Se agregó categoría y subcategoría exitosamente.',
           isConsulta: false,
           isCargando: false,
           isExito: true,
@@ -456,11 +480,22 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           subcategoria: '',
         },
       };
+    } */
+    case cargandoCrearZonaTorneo: {
+      return {
+        ...state,
+        isAgregarZona: {
+          tipo: 'cargando',
+          mensaje: 'Agregando Zona.',
+          isCargando: true,
+          isExito: false,
+          isError: false,
+        },
+      };
     }
     case crearZonaTorneoExito: {
       let auxDatosDeTorneo = {};
       Object.assign(auxDatosDeTorneo, state.torneo);
-      console.log(auxDatosDeTorneo);
 
       if (auxDatosDeTorneo.zonas) {
         auxDatosDeTorneo.zonas.push(accion.datos);
@@ -474,14 +509,55 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       return {
         ...state,
         torneo: auxDatosDeTorneo,
-        isEditarTorneo: {
+        isAgregarZona: {
           tipo: 'success',
-          mensaje: 'Torneo Editado',
-          isConsulta: false,
+          mensaje: 'Zona Creada.',
           isCargando: false,
           isExito: true,
           isError: false,
         },
+      };
+    }
+    case crearZonaTorneoError: {
+      return {
+        ...state,
+        isAgregarZona: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, en éste momento no podemos agregar Zona.',
+          isCargando: false,
+          isExito: false,
+          isError: true,
+        },
+      };
+    }
+    case crearZonaTorneoDefault: {
+      return {
+        ...state,
+        isAgregarZona: {
+          tipo: '',
+          mensaje: '',
+          isCargando: false,
+          isExito: false,
+          isError: false,
+        },
+      };
+    }
+    case actualizarListaDeTorneosCrearZona: {
+      let auxTorneos = state.torneos.map(torneoDeArray => {
+        if (torneoDeArray._id === state.torneo._id) {
+          return state.torneo;
+        } else return torneoDeArray;
+      });
+      return {
+        ...state,
+        isAgregarZona: {
+          tipo: '',
+          mensaje: '',
+          isCargando: false,
+          isExito: false,
+          isError: false,
+        },
+        torneos: auxTorneos,
       };
     }
     case cargandoObtenerDatosDeTorneoParaEdicion: {
@@ -634,6 +710,85 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           isExito: false,
           isError: false,
           idZona: '',
+        },
+      };
+    }
+    case consultarEliminarZonasDeTorneo: {
+      return {
+        ...state,
+        isEliminarZonasDeTorneo: {
+          tipo: 'warning',
+          mensaje: '¿Desea eliminar todas las zonas de ésta subcategoría?',
+          isMostrar: true,
+          subcategoria: accion.idSubcategoria,
+        },
+      };
+    }
+    case eliminarZonasDeTorneoCargando: {
+      return {
+        ...state,
+        isEliminarZonasDeTorneo: {
+          tipo: 'cargando',
+          mensaje: 'Eliminando Zonas...',
+          isMostrar: true,
+          subcategoria: state.isEliminarZonasDeTorneo.subcategoria,
+        },
+      };
+    }
+    case eliminarZonasDeTorneoExito: {
+      let auxZonas = state.torneo.zonas.filter(
+        zona => zona.idSubcategoria.keySubcategoria !== accion.subcategoria
+      );
+
+      return {
+        ...state,
+        isEliminarZonasDeTorneo: {
+          tipo: 'success',
+          mensaje: 'Zonas Eliminadas.',
+          isMostrar: true,
+        },
+        torneo: {
+          ...state.torneo,
+          zonas: auxZonas,
+        },
+      };
+    }
+    case eliminarZonasDeTorneoError: {
+      return {
+        ...state,
+        isEliminarZonasDeTorneo: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, en este momento no podemos eliminar zonas.',
+          isMostrar: true,
+        },
+      };
+    }
+    case actualizarListaDeTorneosEliminarZonas: {
+      let auxTorneos = state.torneos.map(torneo => {
+        if (torneo._id === state.torneo._id) {
+          return state.torneo;
+        } else {
+          return torneo;
+        }
+      });
+      return {
+        ...state,
+        torneos: auxTorneos,
+        isEliminarZonasDeTorneo: {
+          tipo: '',
+          mensaje: '',
+          isMostrar: false,
+          subcategoria: '',
+        },
+      };
+    }
+    case eliminarZonasDeTorneoDefault: {
+      return {
+        ...state,
+        isEliminarZonasDeTorneo: {
+          tipo: '',
+          mensaje: '',
+          isMostrar: false,
         },
       };
     }

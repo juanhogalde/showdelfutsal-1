@@ -26,7 +26,6 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
-  z-index: 1;
 }
 .CI-Cabecera-Enfrentamiento p {
   color: #00000080;
