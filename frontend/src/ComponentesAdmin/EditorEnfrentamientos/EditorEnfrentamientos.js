@@ -10,17 +10,20 @@ import {
 } from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 import Enfrentamiento from '../Enfrentamiento/Enfrentamiento';
+import {listarEquipos_accion} from '../../Redux/Equipos/AccionesEquipos';
 
 const EditorEnfrentamientos = () => {
   const dispatch = useDispatch();
   const {torneos, torneo, isObtenerDatosEditarTorneo} = useSelector(state => state.storeTorneos);
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
+  const {equipos} = useSelector(state => state.storeEquipos);
 
   const [datosFiltrados, setDatosFiltrados] = useState('');
   const [isDatosCargados, setIsDatosCargados] = useState(false);
   const [arrayTorneos, setArrayTorneos] = useState();
   const [arraySubCategorias, setArraySubCategorias] = useState('');
   const [arrayZonas, setArrayZonas] = useState('');
+  const [arrayEquiposZona, setArrayEquiposZona] = useState([]);
 
   const escucharSelectorTorneo = value => {
     let auxTorneo = torneos.find(torneo => torneo._id === value.idTorneo);
@@ -67,7 +70,7 @@ const EditorEnfrentamientos = () => {
       return {
         label: zona.nombreZona,
         value: index + 1,
-        zonaId: zona._id,
+        data: zona,
       };
     });
     setArrayZonas(auxZonasParaSelector);
@@ -77,6 +80,7 @@ const EditorEnfrentamientos = () => {
       ...datosFiltrados,
       zona: value,
     });
+    dispatch(listarEquipos_accion());
   };
 
   const obtenerRespuestaDeAlertaEditarTorneo = respuesta => {
@@ -107,9 +111,20 @@ const EditorEnfrentamientos = () => {
         }
       }
     }
-
+    if (equipos.length > 0) {
+      let auxArrayEquiposZona = [];
+      if (datosFiltrados) {
+        if (datosFiltrados.zona) {
+          datosFiltrados.zona.data.equipos.forEach(equipoZona => {
+            let auxEquipo = equipos.find(equipo => equipo._id === equipoZona._id);
+            auxArrayEquiposZona.push(auxEquipo);
+          });
+          setArrayEquiposZona(auxArrayEquiposZona);
+        }
+      }
+    }
     return () => {};
-  }, [torneos, arrayTorneos]);
+  }, [torneos, arrayTorneos, equipos, datosFiltrados]);
 
   if (isDatosCargados) {
     return (
@@ -160,11 +175,16 @@ const EditorEnfrentamientos = () => {
           )}
           {Object.keys(datosFiltrados).length === 4 && (
             <div className="CI-componenteEnfrentamiento">
-              <Enfrentamiento></Enfrentamiento>
+              <Enfrentamiento
+                equipos={arrayEquiposZona}
+                torneoId={datosFiltrados.zona.data.idTorneo}
+                zonaId={datosFiltrados.zona.data._id}
+              ></Enfrentamiento>
             </div>
           )}
           {/* <TarjetaEnfrentamiento></TarjetaEnfrentamiento> */}
         </div>
+
         <Alertas
           tipoDeSweet={isObtenerDatosEditarTorneo.tipo}
           mostrarSweet={
