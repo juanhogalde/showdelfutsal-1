@@ -11,6 +11,7 @@ class ZonasRouter {
 
   routes() {
     this.router.post('/listar', zonasController.listar);
+    this.router.get('/obtenerEquiposPorZona/:idZona', zonasController.obtenerEquiposPorZona);
     this.router.post('/agregar', zonasController.agregar);
     this.router.delete('/eliminar', zonasController.eliminar);
   }
