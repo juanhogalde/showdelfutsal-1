@@ -59,6 +59,22 @@ class EquiposController {
     }
   }
 
+  public async obtenerPorSubCategoria(req: Request, res: Response) {
+    try {
+      let idSubcategoria = req.params.idSubCategoria;
+      const equipos = await modeloEquipos.find({
+        idSubcategorias: idSubcategoria,
+      });
+      if (equipos) {
+        responder.sucess(req, res, equipos);
+      } else {
+        responder.error(req, res, equipos, 'Equipos no encontrados', 400);
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+
   public async modificar(req: Request, res: Response) {
     try {
       const equipoBody = req.body;
