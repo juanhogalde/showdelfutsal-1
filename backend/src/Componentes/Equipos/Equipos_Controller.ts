@@ -1,10 +1,11 @@
 import {Request, Response} from 'express';
+import mongoose from 'mongoose';
 import responder from '../../Middlewares/responder';
 import modeloEquipos from './Equipos_Model';
 import IEquipos from './Equipos_Interface';
 import fs from 'fs';
 import path from 'path';
-
+//import modeloSubcategorias from '../Subcategorias/Subcategorias_Model';
 class EquiposController {
   public async listar(req: Request, res: Response) {
     try {
@@ -62,13 +63,23 @@ class EquiposController {
   public async obtenerPorSubCategoria(req: Request, res: Response) {
     try {
       let idSubcategoria = req.params.idSubCategoria;
+      if (!idSubcategoria) {
+        responder.error(req, res, '', 'Falta id de subcategoria', 400);
+      }
+      console.log(idSubcategoria);
       const equipos = await modeloEquipos.find({
         idSubcategorias: idSubcategoria,
       });
-      if (equipos) {
+      if (equipos.length) {
         responder.sucess(req, res, equipos);
       } else {
-        responder.error(req, res, equipos, 'Equipos no encontrados', 400);
+        responder.error(
+          req,
+          res,
+          equipos,
+          'El id de subcategoría no posee equipos relacionados o tiene error',
+          400
+        );
       }
     } catch (error) {
       responder.error(req, res, error);
