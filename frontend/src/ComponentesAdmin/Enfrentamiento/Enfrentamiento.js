@@ -6,8 +6,15 @@ import Selector from '../Selector/Selector';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
 import Alertas from '../Alertas/Alertas';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  agregarPartidoDefault_accion,
+  agregarPartido_accion,
+} from '../../Redux/Partidos/AccionPartidos';
 
 const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
+  const dispatch = useDispatch();
+  const {isAgregarPartido} = useSelector(state => state.storePartidos);
   const [isMostrarCuerpo, setIsMostrarCuerpo] = useState(false);
   const [equiposSelector, setEquiposSelector] = useState([]);
   const [datosEnfrentamiento, setDatosEnfrentamiento] = useState({
@@ -69,6 +76,7 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
             idZona: zonaId,
             idTorneo: torneoId,
           };
+          dispatch(agregarPartido_accion(auxEnfrentamiento));
         } else {
           setAlertaValidacion({
             tipo: 'error',
@@ -110,6 +118,11 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
         mensaje: '',
       });
     } else {
+    }
+  };
+  const obtenerRespuestaAgregarPartido = respuesta => {
+    if (respuesta) {
+      dispatch(agregarPartidoDefault_accion());
     }
   };
   useLayoutEffect(() => {
@@ -207,6 +220,12 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
         mostrarSweet={alertaValidacion.isMostrar}
         subtitulo={alertaValidacion.mensaje}
         RespuestaDeSweet={obtenerRespuestaAlertaValidacion}
+      ></Alertas>
+      <Alertas
+        tipoDeSweet={isAgregarPartido.tipo}
+        mostrarSweet={isAgregarPartido.isMostrar}
+        subtitulo={isAgregarPartido.mensaje}
+        RespuestaDeSweet={obtenerRespuestaAgregarPartido}
       ></Alertas>
     </div>
   );

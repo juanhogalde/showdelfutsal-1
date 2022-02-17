@@ -1,6 +1,6 @@
 import React, {useLayoutEffect, useState} from 'react';
 import Selector from '../Selector/Selector';
-/* import TarjetaEnfrentamiento from '../TarjetaEnfrentamiento/TarjetaEnfrentamiento'; */
+import TarjetaEnfrentamiento from '../TarjetaEnfrentamiento/TarjetaEnfrentamiento';
 import './EditorEnfrentamientos.css';
 import {useDispatch, useSelector} from 'react-redux';
 import Cargando from '../Cargando/Cargando';
@@ -17,6 +17,7 @@ const EditorEnfrentamientos = () => {
   const {torneos, torneo, isObtenerDatosEditarTorneo} = useSelector(state => state.storeTorneos);
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   const {equipos} = useSelector(state => state.storeEquipos);
+  const {partidos} = useSelector(state => state.storePartidos);
 
   const [datosFiltrados, setDatosFiltrados] = useState('');
   const [isDatosCargados, setIsDatosCargados] = useState(false);
@@ -182,7 +183,10 @@ const EditorEnfrentamientos = () => {
               ></Enfrentamiento>
             </div>
           )}
-          {/* <TarjetaEnfrentamiento></TarjetaEnfrentamiento> */}
+          {partidos.length > 0 &&
+            partidos.map((partido, index) => {
+              return <TarjetaEnfrentamiento key={index} datos={partido}></TarjetaEnfrentamiento>;
+            })}
         </div>
 
         <Alertas
