@@ -158,7 +158,7 @@ class TorneosController {
                   fechaPorJugar: '',
                   horaEnfrentamiento: '',
                   fechaEnfrentamiento: '',
-                  idEstadio: '',
+                  estadio: '',
                   idEquipoLocal: '',
                   idEquipoVisitante: '',
                   idPartido: '',
@@ -179,8 +179,8 @@ class TorneosController {
                   datos.horaEnfrentamiento = torneoBody.horaEnfrentamiento;
                 }
 
-                if (torneoBody.idEstadio) {
-                  datos.idEstadio = torneoBody.idEstadio;
+                if (torneoBody.estadio) {
+                  datos.estadio = torneoBody.estadio;
                 }
 
                 if (torneoBody.fechaPorJugar) {

@@ -1,7 +1,5 @@
 import {Document} from 'mongoose';
 import IEquipos from '../Equipos/Equipos_Interface';
-import IEstadios from '../Estadios/Estadios_Interface';
-import ITablas from '../Tablas/Tablas_Interface';
 import ITorneos from '../Torneos/Torneos_Interface';
 import IZonas from '../Zonas/Zonas_Interface';
 export default interface IPartidos extends Document {
@@ -14,7 +12,7 @@ export default interface IPartidos extends Document {
   penalesVisitante: number;
   fechaPorJugar: number;
   fechaPartido: Date;
-  idEstadio: IEstadios['_id'];
+  estadio: string;
   posicionFixture: number;
   comentarios: Array<object>;
   idZona: IZonas['_id'];
