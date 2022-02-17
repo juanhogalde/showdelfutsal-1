@@ -14,9 +14,6 @@ const TarjetaEnfrentamiento = ({
   siguientePartido = () => {
     console.log('');
   },
-  obtenerDatosParaTarjeta = () => {
-    console.log('');
-  },
 }) => {
   const [isHabilitarEdicionTarjeta, setIsHabilitarEdicionTarjeta] = useState(
     isSeccionInicio ? isSeccionInicio : false
