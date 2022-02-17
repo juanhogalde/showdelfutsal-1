@@ -182,7 +182,9 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
             }
             onChange={value => escucharSelector(value, 'local')}
             noOptionsMessage={
-              !equiposSelector ? 'Debe seleccionar un torneo.' : 'No hay torneos creados'
+              !equiposSelector
+                ? 'Debe seleccionar un torneo.'
+                : 'No hay equipos cargados en la zona'
             }
           ></Selector>
           <Selector
@@ -192,7 +194,9 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
             }
             onChange={value => escucharSelector(value, 'visitante')}
             noOptionsMessage={
-              !equiposSelector ? 'Debe seleccionar un torneo.' : 'No hay torneos creados'
+              !equiposSelector
+                ? 'Debe seleccionar un torneo.'
+                : 'No hay equipos cargados en la zona'
             }
             placeholder="Seleccione Equipo Visitante"
           ></Selector>
