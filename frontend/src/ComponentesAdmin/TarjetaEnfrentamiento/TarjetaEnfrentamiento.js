@@ -8,9 +8,13 @@ import Cargando from '../Cargando/Cargando';
 import './TarjetaEnfrentamiento.css';
 
 const TarjetaEnfrentamiento = ({
+  datos = {},
   isSeccionInicio = false,
   enfrentamiento = {},
   siguientePartido = () => {
+    console.log('');
+  },
+  obtenerDatosParaTarjeta = () => {
     console.log('');
   },
 }) => {
@@ -120,7 +124,7 @@ const TarjetaEnfrentamiento = ({
 
     return () => {};
   }, [enfrentamiento, enfrentamiento.resultadoLocal, enfrentamiento.resultadoVisitante]);
-  console.log(isSeccionInicio);
+
   return (
     <div
       className={
@@ -181,7 +185,9 @@ const TarjetaEnfrentamiento = ({
         <div className={isSeccionInicio ? 'datos-Partido-Inicio' : 'datos-Partido'}>
           {!isSeccionInicio && (
             <React.Fragment>
-              <p className="Zona-TarjetaEnfrentamiento">Zona A</p>
+              <p className="Zona-TarjetaEnfrentamiento">
+                {datos.idZona.nombreZona ? datos.idZona.nombreZona : 'Zona'}
+              </p>
 
               {isCampoDeEdicion.isEstadio ? (
                 <CampoDeEdicion
