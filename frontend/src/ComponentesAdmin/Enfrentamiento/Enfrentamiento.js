@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import './Enfrentamiento.css';
 import iconoFlecha from '../../Static/Admin/iconoAtras.svg';
 import InputDateLowa from '../InputDateLowa/InputDateLowa';
@@ -127,6 +127,14 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
     }
     return () => {};
   }, [equipos, equiposSelector]);
+
+  useEffect(() => {
+    if (equipos.length === 0) {
+      setEquiposSelector([]);
+    }
+    return () => {};
+  }, [equipos]);
+
   return (
     <div className="CP-Enfrentamiento">
       <div
@@ -178,6 +186,7 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
             name="fechaPorJugar"
             type="number"
             placeholder="Fecha por Jugar"
+            value={datosEnfrentamiento.fechaPorJugar ? datosEnfrentamiento.fechaPorJugar : ''}
             onChange={e => escucharInput(e.target.value, e.target.name)}
           ></InputLowa>
 
