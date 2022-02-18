@@ -71,7 +71,7 @@ const Marcador = () => {
         <div className="info-partido">
           <InfoPartido
             fecha={partido.fechaPartido ? partido.fechaPartido : {}}
-            sede={partido.idEstadio ? partido.idEstadio.nombreEstadio : ''}
+            sede={partido.estadio ? partido.estadio : ''}
             siguientePartido={siguientePartido}
           />
         </div>

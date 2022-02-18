@@ -43,14 +43,12 @@ import ICert from '../crt/Cert_Interface';
 process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.19 - 09/02/22';
+const deploy = 'v0.0.21 - 14/02/22';
 
 class Server {
   public app: express.Application;
   private _cadenaDeConexion =
-    process.env.NODE_ENV === 'desarrollo'
-      ? 'mongodb://localhost:27017/Desarrollo'
-      : process.env.DATABASE;
+    process.env.DATABASE || `mongodb://localhost:27017/${process.env.NODE_ENV}`;
   private options = {
     uploadDir: 'public/imagenes/',
     autoClean: false,

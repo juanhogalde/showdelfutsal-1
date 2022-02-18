@@ -62,6 +62,23 @@ class ZonasController {
       responder.error(req, res, error);
     }
   }
+  public async obtenerEquiposPorZona(req: Request, res: Response) {
+    try {
+      let idZona = req.params.idZona;
+      if (!idZona) {
+        responder.error(req, res, '', 'Falta id de zona', 400);
+      } else {
+        const zona = await modeloZonas.findOne({_id: idZona});
+        if (!zona) {
+          responder.error(req, res, '', 'No se encontro la zona', 400);
+        } else {
+          responder.sucess(req, res, zona.equipos);
+        }
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
   public async eliminar(req: Request, res: Response) {
     try {
       if (!req.body._id) {

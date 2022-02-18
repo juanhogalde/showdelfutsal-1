@@ -232,7 +232,7 @@ class PartidosController {
             partido.penalesLocal = partidoBody.penalesLocal;
             partido.penalesVisitante = partidoBody.penalesVisitante;
             partido.fechaPartido = partidoBody.fechaPartido;
-            partido.idEstadio = partidoBody.idEstadio;
+            partido.estadio = partidoBody.estadio;
             partido.posicionFixture = partidoBody.posicionFixture;
             partido.comentarios = partidoBody.comentarios;
             partido.campeonato = partidoBody.campeonato;

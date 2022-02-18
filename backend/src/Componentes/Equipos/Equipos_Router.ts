@@ -12,6 +12,10 @@ class EquiposRouter {
   routes() {
     this.router.get('/listar', equiposController.listar);
     this.router.get('/obtener/:id', equiposController.obtener);
+    this.router.get(
+      '/obtenerPorSubCategoria/:idSubCategoria',
+      equiposController.obtenerPorSubCategoria
+    );
     this.router.put('/modificar', equiposController.modificar);
     this.router.delete('/eliminar', equiposController.eliminar);
     this.router.post('/agregar', equiposController.agregar);

@@ -10,7 +10,7 @@ const PartidosSchema = new Schema({
   penalesVisitante: {type: Number},
   fechaPorJugar: {type: Number},
   fechaPartido: {type: Date},
-  idEstadio: {type: Schema.Types.String, ref: 'modeloEstadios'},
+  estadio: String,
   posicionFixture: {type: Number},
   comentarios: [
     {
