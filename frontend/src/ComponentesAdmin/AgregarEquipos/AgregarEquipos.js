@@ -19,7 +19,7 @@ const AgregarEquipos = () => {
   const {zonaId} = useParams();
   const dispatch = useDispatch();
   const {torneo, isAgregarEquiposZona} = useSelector(state => state.storeTorneos);
-  const zonaTorneo = torneo.zonas.find(zona => zona._id === zonaId);
+  /* const zonaTorneo = torneo.zonas.find(zona => zona._id === zonaId); */
   const {equipos, isListarEquipos} = useSelector(state => state.storeEquipos);
 
   const [arrayEquipos, setArrayEquipos] = useState([]);
@@ -27,6 +27,7 @@ const AgregarEquipos = () => {
   const [equiposAgregados, setEquiposAgregados] = useState([]);
   const [nuevosEquipos, setNuevosEquipos] = useState([]);
   const [isNuevosEquipos, setIsNuevosEquipos] = useState(false);
+  const [zonaTorneo, setZonaTorneo] = useState();
   /* const [isDatosCargados, setIsDatosCargados] = useState(false); */
 
   const agregarEquipoZona = () => {
@@ -37,6 +38,7 @@ const AgregarEquipos = () => {
     dispatch(agregarEquiposZonaTorneo_accion(zonaId, auxEquiposId));
   };
   const escucharSelectorEquipos = respuesta => {
+    console.log(respuesta);
     let auxArrayEquipos = arrayEquipos.filter(equipo => equipo.value !== respuesta.value);
     setArrayEquipos(auxArrayEquipos);
     setEquipoSeleccionado(respuesta);
@@ -45,9 +47,11 @@ const AgregarEquipos = () => {
   };
 
   const crearEnfrentamiento = () => {
-    history.push('/Enfrentamientos');
+    console.log('revisar redireccionamiento');
+    /* history.push('/Enfrentamientos'); */
   };
   const funcionEliminarEquipo = equipoId => {
+    console.log(equiposAgregados);
     let auxEquiposAgregados = equiposAgregados.filter(equipo => equipo._id !== equipoId);
     setEquiposAgregados(auxEquiposAgregados);
   };
@@ -66,11 +70,13 @@ const AgregarEquipos = () => {
     }
   };
   useLayoutEffect(() => {
-    if (arrayEquipos.length === 0) {
+    if (equipos.length === 0) {
       dispatch(listarEquipos_accion());
     }
+
     if (torneo.zonas.length > 0) {
       let auxZona = torneo.zonas.find(zona => zona._id === zonaId);
+      setZonaTorneo(auxZona);
       let auxEquipos = [];
       if (auxZona.equipos.length > 0) {
         auxZona.equipos.forEach(equipoZona => {
@@ -80,7 +86,7 @@ const AgregarEquipos = () => {
         setEquiposAgregados(auxEquipos);
       }
     }
-  }, [arrayEquipos, torneo.zonas, zonaId, equipos, dispatch]);
+  }, [torneo.zonas, zonaId, equipos, dispatch]);
 
   useEffect(() => {
     if (equipos.length > 0) {
@@ -118,6 +124,7 @@ const AgregarEquipos = () => {
         onClick={() => agregarEquipoZona()}
       ></BotonLowa>
       <BotonLowa
+        disabled={equiposAgregados.length > 0 ? false : true}
         tituloboton="Crear Enfrentamiento"
         onClick={() => crearEnfrentamiento()}
       ></BotonLowa>
