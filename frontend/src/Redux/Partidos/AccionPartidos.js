@@ -73,7 +73,7 @@ export const listarPartidosError_accion = () => {
 
 export const listarPartidos_accion = () => {
   return dispatch => {
-    dispatch(listarPartidosCargando_accion());
+    /* dispatch(listarPartidosCargando_accion()); */
     API({
       url: '/Partidos/Listar',
       method: 'get',
@@ -81,11 +81,11 @@ export const listarPartidos_accion = () => {
     })
       .then(res => {
         console.log({res});
-        dispatch(listarPartidosExito_accion(res.data.value));
+        /* dispatch(listarPartidosExito_accion(res.data.value)); */
       })
       .catch(error => {
         console.log({error});
-        dispatch(listarPartidosError_accion());
+        /*  dispatch(listarPartidosError_accion()); */
       });
   };
 };
