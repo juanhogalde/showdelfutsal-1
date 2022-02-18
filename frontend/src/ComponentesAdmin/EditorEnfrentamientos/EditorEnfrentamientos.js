@@ -7,6 +7,7 @@ import Cargando from '../Cargando/Cargando';
 import {
   obtenerDatosDeTorneoParaEdicionDefault_accion,
   obtenerDatosDeTorneoParaEdicion_accion,
+  obtenerEquiposDeZona_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 import Enfrentamiento from '../Enfrentamiento/Enfrentamiento';
@@ -82,7 +83,9 @@ const EditorEnfrentamientos = () => {
       ...datosFiltrados,
       zona: value,
     });
+    console.log(value);
     dispatch(listarEquipos_accion());
+    /* dispatch(obtenerEquiposDeZona_accion(value.data._id)); */
   };
 
   const obtenerRespuestaDeAlertaEditarTorneo = respuesta => {

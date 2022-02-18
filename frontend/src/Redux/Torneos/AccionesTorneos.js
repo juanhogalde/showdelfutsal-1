@@ -660,3 +660,24 @@ export const agregarEquiposZonaTorneo_accion = (zonaId, equiposId) => {
       });
   };
 };
+
+/* OBTENER EQUIPOS DE ZONA */
+
+export const obtenerEquiposDeZona_accion = zonaId => {
+  return dispatch => {
+    dispatch(agregarEquiposZonaTorneoCargando_accion());
+    API({
+      url: 'zonas/obtenerEquiposPorZona',
+      method: 'get',
+      data: {_id: zonaId},
+    })
+      .then(res => {
+        console.log({res});
+        /* dispatch(agregarEquiposZonaTorneoExito_accion(res.data.value)); */
+      })
+      .catch(error => {
+        console.log({error});
+        /*  dispatch(agregarEquiposZonaTorneoError_accion()); */
+      });
+  };
+};
