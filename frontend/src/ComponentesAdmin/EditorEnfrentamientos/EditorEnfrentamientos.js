@@ -11,6 +11,7 @@ import {
 import Alertas from '../Alertas/Alertas';
 import Enfrentamiento from '../Enfrentamiento/Enfrentamiento';
 import {listarEquipos_accion} from '../../Redux/Equipos/AccionesEquipos';
+/* import {listarPartidos_accion} from '../../Redux/Partidos/AccionPartidos'; */
 
 const EditorEnfrentamientos = () => {
   const dispatch = useDispatch();
@@ -121,6 +122,7 @@ const EditorEnfrentamientos = () => {
             auxArrayEquiposZona.push(auxEquipo);
           });
           setArrayEquiposZona(auxArrayEquiposZona);
+          /* dispatch(listarPartidos_accion()); */
         }
       }
     }

@@ -31,7 +31,6 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
   });
 
   const escucharSelector = (value, name) => {
-    console.log(value);
     switch (name) {
       case 'local':
         setDatosEnfrentamiento({

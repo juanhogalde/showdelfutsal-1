@@ -644,9 +644,6 @@ export const agregarEquiposZonaTorneoDefault_accion = () => {
 };
 
 export const agregarEquiposZonaTorneo_accion = (zonaId, equiposId) => {
-  console.log(zonaId);
-  console.log(equiposId);
-
   return dispatch => {
     dispatch(agregarEquiposZonaTorneoCargando_accion());
     API({
@@ -655,7 +652,6 @@ export const agregarEquiposZonaTorneo_accion = (zonaId, equiposId) => {
       data: {_id: zonaId, nuevosEquipos: equiposId},
     })
       .then(res => {
-        console.log({res});
         dispatch(agregarEquiposZonaTorneoExito_accion(res.data.value));
       })
       .catch(error => {

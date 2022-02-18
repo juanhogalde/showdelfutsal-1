@@ -820,7 +820,6 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           return zonaTorneo;
         }
       });
-      console.log(auxZonas);
       return {
         ...state,
         isAgregarEquiposZona: {

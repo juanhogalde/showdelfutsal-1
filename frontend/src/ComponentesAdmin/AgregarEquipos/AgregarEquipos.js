@@ -1,7 +1,7 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {BsPlusCircle} from 'react-icons/bs';
 import {useDispatch, useSelector} from 'react-redux';
-import {useHistory, useParams} from 'react-router-dom';
+import {/* useHistory,  */ useParams} from 'react-router-dom';
 import {listarEquipos_accion} from '../../Redux/Equipos/AccionesEquipos';
 import {
   actualizarListaTorneosAgregarEquiposZona_accion,
@@ -15,7 +15,7 @@ import TarjetaEquipo from '../TarjetaEquipo/TarjetaEquipo';
 import './AgregarEquipos.css';
 
 const AgregarEquipos = () => {
-  const history = useHistory();
+  /*  const history = useHistory(); */
   const {zonaId} = useParams();
   const dispatch = useDispatch();
   const {torneo, isAgregarEquiposZona} = useSelector(state => state.storeTorneos);
@@ -38,7 +38,6 @@ const AgregarEquipos = () => {
     dispatch(agregarEquiposZonaTorneo_accion(zonaId, auxEquiposId));
   };
   const escucharSelectorEquipos = respuesta => {
-    console.log(respuesta);
     let auxArrayEquipos = arrayEquipos.filter(equipo => equipo.value !== respuesta.value);
     setArrayEquipos(auxArrayEquipos);
     setEquipoSeleccionado(respuesta);
@@ -74,19 +73,21 @@ const AgregarEquipos = () => {
       dispatch(listarEquipos_accion());
     }
 
-    if (torneo.zonas.length > 0) {
-      let auxZona = torneo.zonas.find(zona => zona._id === zonaId);
-      setZonaTorneo(auxZona);
-      let auxEquipos = [];
-      if (auxZona.equipos.length > 0) {
-        auxZona.equipos.forEach(equipoZona => {
-          let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
-          auxEquipos.push(aux);
-        });
-        setEquiposAgregados(auxEquipos);
+    if (Object.keys(torneo).length > 0) {
+      if (torneo.zonas.length > 0) {
+        let auxZona = torneo.zonas.find(zona => zona._id === zonaId);
+        setZonaTorneo(auxZona);
+        let auxEquipos = [];
+        if (auxZona.equipos.length > 0) {
+          auxZona.equipos.forEach(equipoZona => {
+            let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
+            auxEquipos.push(aux);
+          });
+          setEquiposAgregados(auxEquipos);
+        }
       }
     }
-  }, [torneo.zonas, zonaId, equipos, dispatch]);
+  }, [torneo, torneo.zonas, zonaId, equipos, dispatch]);
 
   useEffect(() => {
     if (equipos.length > 0) {

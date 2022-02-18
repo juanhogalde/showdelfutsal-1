@@ -28,7 +28,6 @@ export const listarEquipos_accion = () => {
       method: 'get',
     })
       .then(res => {
-        console.log({res});
         dispatch(listarEquiposExito_accion(res.data.value));
       })
       .catch(error => {
