@@ -31,5 +31,5 @@ switch (Enviroment) {
 export const api = _api;
 export const dominio = _dominio;
 export const puerto = _puerto;
-export const server = `http://${_api}:${_puerto}`;
-export const urlEscudos = `${_dominio}/escudos/`;
+export const server = `http://${_api}:${_puerto}`; //urlImagenes
+export const urlEscudos = `${_dominio}/escudos/`; //staticImagenes

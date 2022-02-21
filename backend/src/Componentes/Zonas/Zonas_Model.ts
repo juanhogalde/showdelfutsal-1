@@ -8,7 +8,7 @@ const ZonasSchema = new Schema({
   idCategoria: {type: Schema.Types.String, ref: 'modeloCategorias'},
   equipos: [
     {
-      _id: {type: Schema.Types.ObjectId, ref: 'modeloEquipos'},
+      _id: {type: Schema.Types.String, ref: 'modeloEquipos'},
       partidosG: {type: Number, default: 0},
       partidosE: {type: Number, default: 0},
       partidosP: {type: Number, default: 0},
