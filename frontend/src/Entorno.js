@@ -4,7 +4,7 @@ let Enviroment = 'Desarrollo';
 let _dominio = 'localhost';
 let _api = 'localhost';
 let _puerto = '4000';
-
+let _puertoFront = '3000';
 switch (Enviroment) {
   case 'Produccion':
     _dominio = 'http://testingfutsal.c1470936.ferozo.com';
@@ -32,4 +32,4 @@ export const api = _api;
 export const dominio = _dominio;
 export const puerto = _puerto;
 export const server = `http://${_api}:${_puerto}`; //urlImagenes
-export const urlEscudos = `${_dominio}/escudos/`; //staticImagenes
+export const urlEscudos = `http://${_dominio}:${_puertoFront}/escudos/`; //staticImagenes
