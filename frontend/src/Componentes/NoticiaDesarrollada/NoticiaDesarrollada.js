@@ -1,7 +1,7 @@
 import React from 'react';
 import EtiquetaCategoria from '../EtiquetaCategoria/EtiquetaCategoria';
 import '../NoticiaDesarrollada/NoticiaDesarrollada.css';
-import {urlImagenes} from '../../urlImagenes';
+import {server} from '../../Entorno';
 import formatearFecha from '../../ModulosExternos/FormatearFecha';
 /**
  * Recibe como parametros
@@ -59,7 +59,7 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
         <img
           src={
             datosModelado.idImagen
-              ? urlImagenes + datosModelado.idImagen[0].fuente
+              ? server + datosModelado.idImagen[0].fuente
               : 'https://www.pequenomundo.cl/wp-content/themes/childcare/images/default.png'
           }
           className="imagen-NoticiaDesarrollada"

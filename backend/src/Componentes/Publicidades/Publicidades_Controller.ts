@@ -2,7 +2,6 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloPublicidades from './Publicidades_Model';
 import IPublicidades from './Publicidades_Interface';
-import path from 'path';
 
 class PublicidadesController {
   public async listar(req: Request, res: Response) {

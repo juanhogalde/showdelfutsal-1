@@ -14,7 +14,7 @@ import {
 import Alertas from '../Alertas/Alertas';
 import {useHistory} from 'react-router';
 import {useLayoutEffect} from 'react';
-import {urlImagenes} from '../../urlImagenes';
+import {server} from '../../Entorno';
 import compresor from '../../ModulosExternos/Compresor';
 
 const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = false}) => {
@@ -302,7 +302,7 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
         disabled={isConsulta}
         ocultarIconoLateral={isConsulta}
         name="imagen"
-        src={datosCargados.idImagen ? urlImagenes + datosCargados.idImagen[0].fuente : ''}
+        src={datosCargados.idImagen ? server + datosCargados.idImagen[0].fuente : ''}
         onChange={(name, value) => escucharCambios(name, value)}
       ></InputLowa>
       {/* {isImagenNoticiaNueva.isMostrar && <Cargando />} */}

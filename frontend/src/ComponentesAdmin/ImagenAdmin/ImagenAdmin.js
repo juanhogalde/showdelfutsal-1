@@ -1,6 +1,6 @@
 import React from 'react';
 import './ImagenAdmin.css';
-import {urlImagenes} from '../../urlImagenes';
+import {server} from '../../Entorno';
 import logoCargando from '../../Static/Cargando.gif';
 // import ImagenMiniatura from '../../Static/Img/fondoAdmin.jpg';
 // import imagenBack from 'localhost/imagenes/yOuSjEEjLTCEqSV-J4z7fA-r.jpg';
@@ -25,7 +25,7 @@ const ImagenAdmin = ({
           !isVideo ? (
             <img
               alt=""
-              src={noticiaImagen.fuente ? urlImagenes + noticiaImagen.fuente : noticiaImagen}
+              src={noticiaImagen.fuente ? server + noticiaImagen.fuente : noticiaImagen}
               className="Img-Admin"
             ></img>
           ) : (
@@ -46,7 +46,7 @@ const ImagenAdmin = ({
             alt=""
             src={
               JSON.stringify(noticiaImagen) !== '{}'
-                ? urlImagenes + noticiaImagen.idImagen[0].fuente
+                ? server + noticiaImagen.idImagen[0].fuente
                 : ''
             }
             className="Img-Admin"

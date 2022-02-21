@@ -1,6 +1,6 @@
 import React, {useLayoutEffect, useState} from 'react';
 import '../ImagenesVideo/ImagenesVideo.css';
-import {urlImagenes} from '../../urlImagenes';
+import {server} from '../../Entorno';
 import {AiFillCaretLeft, AiFillCaretRight, AiFillCaretDown, AiFillCaretUp} from 'react-icons/ai';
 const ImagenesVideo = ({
   DatosDeEntrada = [],
@@ -193,8 +193,8 @@ const ImagenesVideo = ({
                 <img
                   src={
                     dataActual.fuente
-                      ? urlImagenes + dataActual.fuente
-                      : urlImagenes + DatosDeEntrada[0].fuente
+                      ? server + dataActual.fuente
+                      : server + DatosDeEntrada[0].fuente
                   }
                   alt="imagen"
                   className={

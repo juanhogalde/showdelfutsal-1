@@ -2,7 +2,7 @@ import React from 'react';
 import EtiquetaCategoria from '../EtiquetaCategoria/EtiquetaCategoria';
 import './NoticiasMiniatura.css';
 import Skeleton from 'react-loading-skeleton';
-import {urlImagenes} from '../../urlImagenes';
+import {server} from '../../Entorno';
 
 /**
  * Recibe como parametros
@@ -61,7 +61,7 @@ const NoticiasMiniatura = ({
               isParaSlider ? (
                 <img
                   className="slider-Imagen-NoticiaMiniatura"
-                  src={urlImagenes + datosModelado.idImagen[0].fuente}
+                  src={server + datosModelado.idImagen[0].fuente}
                   alt="imagen"
                 />
               ) : (
@@ -69,7 +69,7 @@ const NoticiasMiniatura = ({
                   className={`${
                     isSobreImagen ? 'imagenNoticia-Miniatura-Principal' : 'imagenNoticia-Miniatura'
                   }`}
-                  src={urlImagenes + datosModelado.idImagen[0].fuente}
+                  src={server + datosModelado.idImagen[0].fuente}
                   alt="imagen"
                 />
               )

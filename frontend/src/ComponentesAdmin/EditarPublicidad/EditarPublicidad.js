@@ -6,7 +6,7 @@ import InputLowa from '../InputLowa/InputLowa';
 import {useHistory} from 'react-router';
 import InputSwitchLowa from '../InputSwitchLowa/InputSwitchLowa';
 import './EditarPublicidad.css';
-import {urlImagenes} from '../../urlImagenes';
+import {server} from '../../Entorno';
 import {
   guardarPublicidadEditada,
   volverPorDefectoPublicidad_accion,
@@ -167,7 +167,7 @@ const EditarPublicidad = () => {
         name="imagen"
         type="file"
         funcionObtenerTamanioImagen={funcionObtenerTamanioImagen}
-        src={datosCargados.idImagen ? urlImagenes + datosCargados.idImagen[0].fuente : ''}
+        src={datosCargados.idImagen ? server + datosCargados.idImagen[0].fuente : ''}
         onChange={(name, value) => escucharCambios(name, value)}
       ></InputLowa>
       <BotonLowa tituloboton={'Guardar Publicidad'} onClick={() => guardarPublicidad()}></BotonLowa>

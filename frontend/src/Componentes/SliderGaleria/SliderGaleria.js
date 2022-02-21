@@ -2,7 +2,7 @@ import React, {useLayoutEffect, useState} from 'react';
 import {AiFillCaretLeft, AiFillCaretRight} from 'react-icons/ai';
 import {useSelector} from 'react-redux';
 import Slider from 'react-slick';
-import {urlImagenes} from '../../urlImagenes';
+import {server} from '../../Entorno';
 import '../SliderGaleria/SliderGaleria.css';
 function SampleNextArrow(props) {
   const {onClick} = props;
@@ -102,7 +102,7 @@ const SliderGaleria = ({
                   width={tamañoImagen.width}
                   height={tamañoImagen.heigth}
                   alt="imagen"
-                  src={urlImagenes + imagen.fuente}
+                  src={server + imagen.fuente}
                 ></img>
                 {/* <div className="decripcion-galeriaVideo">
                   <h4>{galeriaFiltrada.descripcion}</h4>
