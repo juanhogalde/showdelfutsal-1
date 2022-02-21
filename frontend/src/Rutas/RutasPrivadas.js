@@ -61,6 +61,12 @@ const RutasPrivadas = () => {
           ></Route>
           <Route
             exact
+            component={Zonas}
+            path="/Torneo/Editar/Campeonato/Zonas/:idTorneo/:idCategoria/:idSubcategoria"
+          ></Route>
+
+          <Route
+            exact
             component={NuevoEnfrentamiento}
             path="/Torneo/Nuevo/Campeonato/Zonas/:idTorneo/:idCategoria/:idSubcategoria/Enfrentamientos"
           ></Route>
@@ -71,9 +77,13 @@ const RutasPrivadas = () => {
           <Route
             exact
             component={AgregarEquipos}
-            path="/Torneo/Nuevo/Campeonato/Zonas/Equipos"
+            path="/Torneo/Nuevo/Campeonato/Zonas/Equipos/:zonaId"
           ></Route>
-
+          <Route
+            exact
+            component={AgregarEquipos}
+            path="/Torneo/Editar/Campeonato/Zonas/Equipos/:zonaId"
+          ></Route>
           <Route exact component={PaginaTablaAdmin} path="/Tablas"></Route>
 
           <Route exact component={PaginaGaleriaAdmin} path="/Galerías"></Route>

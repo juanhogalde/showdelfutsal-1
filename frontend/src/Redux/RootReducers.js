@@ -10,6 +10,7 @@ import storeGalerias from './Galerias/ReducerGalerias';
 import storeTorneos from './Torneos/ReducerTorneos';
 import storeVivo from './Vivo/ReducerVivo';
 import storeEquipos from './Equipos/ReducerEquipos';
+import storeEstadios from './Estadios/ReducerEstadios';
 
 const RootReducers = combineReducers({
   storePrueba,
@@ -23,5 +24,6 @@ const RootReducers = combineReducers({
   storeTorneos,
   storeVivo,
   storeEquipos,
+  storeEstadios,
 });
 export default RootReducers;

@@ -61,7 +61,11 @@ const Campeonato = () => {
     }
   }; */
   const redireccionarZona = (categoria, subcategoria) => {
-    history.push(`/Torneo/Nuevo/Campeonato/Zonas/${torneo._id}/${categoria}/${subcategoria}`);
+    if (torneo.isEditar) {
+      history.push(`/Torneo/Editar/Campeonato/Zonas/${torneo._id}/${categoria}/${subcategoria}`);
+    } else {
+      history.push(`/Torneo/Nuevo/Campeonato/Zonas/${torneo._id}/${categoria}/${subcategoria}`);
+    }
   };
 
   // const obtenerExistenciaDeSubcategoria = subcategoria => {

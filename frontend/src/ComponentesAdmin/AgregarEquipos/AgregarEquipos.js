@@ -1,8 +1,17 @@
-import React, {useEffect, useLayoutEffect} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {BsPlusCircle} from 'react-icons/bs';
-import {useDispatch} from 'react-redux';
-import {useHistory} from 'react-router-dom';
-import {listarEquipos_accion} from '../../Redux/Equipos/AccionesEquipos';
+import {useDispatch, useSelector} from 'react-redux';
+import {/* useHistory,  */ useParams} from 'react-router-dom';
+import {
+  equiposPorSubcategoriaDefault_accion,
+  equiposPorSubcategoria_accion,
+  listarEquipos_accion,
+} from '../../Redux/Equipos/AccionesEquipos';
+import {
+  actualizarListaTorneosAgregarEquiposZona_accion,
+  agregarEquiposZonaTorneoDefault_accion,
+  agregarEquiposZonaTorneo_accion,
+} from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import Selector from '../Selector/Selector';
@@ -10,46 +19,173 @@ import TarjetaEquipo from '../TarjetaEquipo/TarjetaEquipo';
 import './AgregarEquipos.css';
 
 const AgregarEquipos = () => {
-  const history = useHistory();
+  /*  const history = useHistory(); */
+  const {zonaId} = useParams();
   const dispatch = useDispatch();
-  // const [isDatosCargados, setIsDatosCargados] = useState(false);
+  const {torneo, isAgregarEquiposZona} = useSelector(state => state.storeTorneos);
+  /* const zonaTorneo = torneo.zonas.find(zona => zona._id === zonaId); */
+  const {equipos, isListarEquipos} = useSelector(state => state.storeEquipos);
+
+  const [arrayEquipos, setArrayEquipos] = useState([]);
+  const [equipoSeleccionado, setEquipoSeleccionado] = useState('');
+  const [equiposAgregados, setEquiposAgregados] = useState([]);
+  const [nuevosEquipos, setNuevosEquipos] = useState([]);
+  const [isNuevosEquipos, setIsNuevosEquipos] = useState(false);
+  const [zonaTorneo, setZonaTorneo] = useState();
+  /* const [isDatosCargados, setIsDatosCargados] = useState(false); */
+
   const agregarEquipoZona = () => {
-    console.log('func para agregar equipos a zona');
+    let auxEquiposId = nuevosEquipos.map(equipo => {
+      return equipo._id;
+    });
+
+    dispatch(agregarEquiposZonaTorneo_accion(zonaId, auxEquiposId));
   };
-  useEffect(() => {
-    dispatch(listarEquipos_accion());
-    return () => {};
-  }, [dispatch]);
+  const escucharSelectorEquipos = respuesta => {
+    let auxArrayEquipos = arrayEquipos.filter(equipo => equipo.value !== respuesta.value);
+    setArrayEquipos(auxArrayEquipos);
+    setEquipoSeleccionado(respuesta);
+    setNuevosEquipos([...nuevosEquipos, respuesta.data]);
+    setIsNuevosEquipos(true);
+  };
+
   const crearEnfrentamiento = () => {
-    history.push('/Enfrentamientos');
+    console.log('revisar redireccionamiento');
+    /* history.push('/Enfrentamientos'); */
   };
-
+  const funcionEliminarEquipo = equipoId => {
+    console.log(equiposAgregados);
+    let auxEquiposAgregados = equiposAgregados.filter(equipo => equipo._id !== equipoId);
+    setEquiposAgregados(auxEquiposAgregados);
+  };
+  const respuestaDeAlertaAgregarEquipos = respuesta => {
+    if (respuesta) {
+      if (isAgregarEquiposZona.tipo === 'success') {
+        setIsNuevosEquipos(false);
+        setNuevosEquipos([]);
+        dispatch(actualizarListaTorneosAgregarEquiposZona_accion());
+      }
+      if (isAgregarEquiposZona.tipo === 'error') {
+        dispatch(agregarEquiposZonaTorneoDefault_accion());
+      }
+    } else {
+      dispatch(agregarEquiposZonaTorneoDefault_accion());
+    }
+  };
+  const respuestaDeAlertaObtenerEquiposPorSubcategoria = () => {
+    dispatch(equiposPorSubcategoriaDefault_accion());
+  };
   useLayoutEffect(() => {
-    return () => {};
-  }, []);
+    if (zonaTorneo) {
+      if (equipos.length === 0)
+        dispatch(equiposPorSubcategoria_accion(zonaTorneo.idSubcategoria.keySubcategoria));
+    }
 
+    /* ELIMINAR AL FINALIZAR IMPLEMENTACIÓN EQUIPOS POR SUBCATEGORIA */
+    /* if (equipos.length === 0) {
+      dispatch(listarEquipos_accion());
+    } */
+
+    if (Object.keys(torneo).length > 0) {
+      let auxZona = torneo.zonas.find(
+        zona => zona._id === zonaId
+      ); /* Recuperar zona de torneo, zonaId parámetro de rutas */
+      setZonaTorneo(auxZona);
+      let auxEquipos = [];
+      if (auxZona.equipos.length > 0) {
+        auxZona.equipos.forEach(equipoZona => {
+          let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
+          auxEquipos.push(aux);
+        });
+        setEquiposAgregados(auxEquipos);
+      } else {
+        if (equipos.length > 0) {
+          let auxEquipos = equipos.map((equipo, index) => {
+            return {
+              label: equipo.nombreClub,
+              value: index + 1,
+              data: equipo,
+            };
+          });
+          setArrayEquipos(auxEquipos);
+        }
+      }
+    }
+  }, [torneo, zonaId, equipos, dispatch, zonaTorneo]);
+
+  /* useEffect(() => {
+    if (equipos.length > 0) {
+      let auxEquipos = equipos.map((equipo, index) => {
+        return {
+          label: equipo.nombreClub,
+          value: index + 1,
+          data: equipo,
+        };
+      });
+      setArrayEquipos(auxEquipos);
+    }
+
+    return () => {};
+  }, [equipos]); */
   return (
     <div className="CP-AgregarEquipos">
       <p>Agregar Equipos</p>
-      <h4>Zona A</h4>
+      <h4>{zonaTorneo ? zonaTorneo.nombreZona : 'Zona'}</h4>
 
       <Selector
         name="equipos"
         placeholder="Seleccione Equipos"
         selectorConIcono={<BsPlusCircle />}
-        /* options={tipoTorneoArray ? tipoTorneoArray : []}
-          noOptionsMessage={'No hay torneos cargados.'}
-          onChange={(opcion, selector) => escucharSelector(opcion.value, selector.name)}
-          opcionSeleccionada={tipoTorneoArray[datosTorneo.tipoTorneo - 1]} */
+        isCerrarMenuAlSeleccionar={true}
+        options={arrayEquipos ? arrayEquipos : []}
+        noOptionsMessage={'No hay equipos cargados.'}
+        onChange={value => escucharSelectorEquipos(value)}
+        opcionSeleccionada={equipoSeleccionado ? equipoSeleccionado : ''}
       ></Selector>
-      <BotonLowa tituloboton="Agregar" onClick={() => agregarEquipoZona()}></BotonLowa>
       <BotonLowa
+        disabled={nuevosEquipos.length > 0 ? false : true}
+        tituloboton="Agregar"
+        onClick={() => agregarEquipoZona()}
+      ></BotonLowa>
+      <BotonLowa
+        disabled={equiposAgregados.length > 0 ? false : true}
         tituloboton="Crear Enfrentamiento"
         onClick={() => crearEnfrentamiento()}
       ></BotonLowa>
+      {isNuevosEquipos &&
+        nuevosEquipos.length > 0 &&
+        nuevosEquipos.map((equipo, index) => {
+          return (
+            <TarjetaEquipo
+              key={index}
+              equipo={equipo}
+              funcionEliminarEquipo={funcionEliminarEquipo}
+            ></TarjetaEquipo>
+          );
+        })}
 
-      <TarjetaEquipo></TarjetaEquipo>
-      <Alertas mostrarSweet={false}></Alertas>
+      {equiposAgregados.length > 0 &&
+        equiposAgregados.map((equipo, index) => {
+          return (
+            <TarjetaEquipo
+              key={index}
+              equipo={equipo}
+              funcionEliminarEquipo={funcionEliminarEquipo}
+            ></TarjetaEquipo>
+          );
+        })}
+      <Alertas
+        mostrarSweet={isListarEquipos.isMostrar}
+        tipoDeSweet={isListarEquipos.tipo}
+        subtitulo={isListarEquipos.mensaje}
+        RespuestaDeSweet={respuestaDeAlertaObtenerEquiposPorSubcategoria}
+      ></Alertas>
+      <Alertas
+        mostrarSweet={isAgregarEquiposZona.isMostrar}
+        tipoDeSweet={isAgregarEquiposZona.tipo}
+        subtitulo={isAgregarEquiposZona.mensaje}
+        RespuestaDeSweet={respuestaDeAlertaAgregarEquipos}
+      ></Alertas>
     </div>
   );
 };

@@ -67,6 +67,12 @@ export const eliminarZonasDeTorneoError = 'eliminarZonasDeTorneoError';
 export const actualizarListaDeTorneosEliminarZonas = 'actualizarListaDeTorneosEliminarZonas';
 export const eliminarZonasDeTorneoDefault = 'eliminarZonasDeTorneoDefault';
 
+export const agregarEquiposZonaTorneoCargando = 'agregarEquiposZonaTorneoCargando';
+export const agregarEquiposZonaTorneoExito = 'agregarEquiposZonaTorneoExito';
+export const actualizarListaTorneosAgregarEquiposZona = 'actualizarListaTorneosAgregarEquiposZona';
+export const agregarEquiposZonaTorneoError = 'agregarEquiposZonaTorneoError';
+export const agregarEquiposZonaTorneoDefault = 'agregarEquiposZonaTorneoDefault';
+
 export const volverPorDefectoUnTorneo_accion = () => {
   return {
     type: volverPorDefectoUnTorneo,
@@ -605,6 +611,73 @@ export const eliminarZonasDeTorneo_accion = (torneoId, subcategoriaId) => {
       .catch(error => {
         console.log({error});
         dispatch(eliminarZonasDeTorneoError_accion());
+      });
+  };
+};
+/* AGREGAR EQUIPOS A ZONA DE TORNEO */
+export const agregarEquiposZonaTorneoCargando_accion = () => {
+  return {
+    type: agregarEquiposZonaTorneoCargando,
+  };
+};
+export const agregarEquiposZonaTorneoExito_accion = nuevaZona => {
+  return {
+    type: agregarEquiposZonaTorneoExito,
+    zona: nuevaZona,
+  };
+};
+export const actualizarListaTorneosAgregarEquiposZona_accion = () => {
+  return {
+    type: actualizarListaTorneosAgregarEquiposZona,
+  };
+};
+export const agregarEquiposZonaTorneoError_accion = () => {
+  return {
+    type: agregarEquiposZonaTorneoError,
+  };
+};
+
+export const agregarEquiposZonaTorneoDefault_accion = () => {
+  return {
+    type: agregarEquiposZonaTorneoDefault,
+  };
+};
+
+export const agregarEquiposZonaTorneo_accion = (zonaId, equiposId) => {
+  return dispatch => {
+    dispatch(agregarEquiposZonaTorneoCargando_accion());
+    API({
+      url: 'zonas/agregarEquipos',
+      method: 'post',
+      data: {_id: zonaId, nuevosEquipos: equiposId},
+    })
+      .then(res => {
+        dispatch(agregarEquiposZonaTorneoExito_accion(res.data.value));
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(agregarEquiposZonaTorneoError_accion());
+      });
+  };
+};
+
+/* OBTENER EQUIPOS DE ZONA */
+
+export const obtenerEquiposDeZona_accion = zonaId => {
+  return dispatch => {
+    dispatch(agregarEquiposZonaTorneoCargando_accion());
+    API({
+      url: 'zonas/obtenerEquiposPorZona',
+      method: 'get',
+      data: {_id: zonaId},
+    })
+      .then(res => {
+        console.log({res});
+        /* dispatch(agregarEquiposZonaTorneoExito_accion(res.data.value)); */
+      })
+      .catch(error => {
+        console.log({error});
+        /*  dispatch(agregarEquiposZonaTorneoError_accion()); */
       });
   };
 };

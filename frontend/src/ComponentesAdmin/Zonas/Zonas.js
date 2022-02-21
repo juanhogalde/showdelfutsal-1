@@ -112,8 +112,12 @@ const Zonas = () => {
     }
   };
 
-  const redireccionarAgregarEquipos = () => {
-    history.push('/Torneo/Nuevo/Campeonato/Zonas/Equipos');
+  const redireccionarAgregarEquipos = zonaId => {
+    if (torneo.isEditar) {
+      history.push(`/Torneo/Editar/Campeonato/Zonas/Equipos/${zonaId}`);
+    } else {
+      history.push(`/Torneo/Nuevo/Campeonato/Zonas/Equipos/${zonaId}`);
+    }
   };
   const redireccionarEnfrentamientos = () => {
     history.push(

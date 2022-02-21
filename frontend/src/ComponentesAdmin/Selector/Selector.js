@@ -83,6 +83,7 @@ const Selector = props => {
         isLoading={isCargando}
         isSearchable={isOpcionBuscar}
         noOptionsMessage={() => noOptionsMessage}
+        isOptionDisabled={options => options.disabled}
         autoFocus
       ></Select>
     </div>

@@ -49,6 +49,11 @@ import {
   eliminarZonasDeTorneoError,
   actualizarListaDeTorneosEliminarZonas,
   eliminarZonasDeTorneoDefault,
+  agregarEquiposZonaTorneoCargando,
+  agregarEquiposZonaTorneoExito,
+  actualizarListaTorneosAgregarEquiposZona,
+  agregarEquiposZonaTorneoError,
+  agregarEquiposZonaTorneoDefault,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -117,6 +122,11 @@ const torneoPorDefecto = {
     mensaje: '',
     isMostrar: false,
     subcategoria: '',
+  },
+  isAgregarEquiposZona: {
+    tipo: '',
+    mensaje: '',
+    isMostrar: false,
   },
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
@@ -582,7 +592,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           isExito: true,
           isError: false,
         },
-        torneo: accion.datos,
+        torneo: {...accion.datos, isEditar: true},
       };
     }
     case obtenerDatosDeTorneoParaEdicionError: {
@@ -786,6 +796,75 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       return {
         ...state,
         isEliminarZonasDeTorneo: {
+          tipo: '',
+          mensaje: '',
+          isMostrar: false,
+        },
+      };
+    }
+    case agregarEquiposZonaTorneoCargando: {
+      return {
+        ...state,
+        isAgregarEquiposZona: {
+          tipo: 'cargando',
+          mensaje: 'Agregando equipos...',
+          isMostrar: true,
+        },
+      };
+    }
+    case agregarEquiposZonaTorneoExito: {
+      let auxZonas = state.torneo.zonas.map(zonaTorneo => {
+        if (zonaTorneo._id === accion.zona._id) {
+          return accion.zona;
+        } else {
+          return zonaTorneo;
+        }
+      });
+      return {
+        ...state,
+        isAgregarEquiposZona: {
+          tipo: 'success',
+          mensaje: 'Equipos Agregados...',
+          isMostrar: true,
+        },
+        torneo: {
+          ...state.torneo,
+          zonas: auxZonas,
+        },
+      };
+    }
+    case actualizarListaTorneosAgregarEquiposZona: {
+      let auxTorneos = state.torneos.map(torneo => {
+        if (torneo._id === state.torneo._id) {
+          return state.torneo;
+        } else {
+          return torneo;
+        }
+      });
+      return {
+        ...state,
+        isAgregarEquiposZona: {
+          tipo: '',
+          mensaje: '',
+          isMostrar: false,
+        },
+        torneos: auxTorneos,
+      };
+    }
+    case agregarEquiposZonaTorneoError: {
+      return {
+        ...state,
+        isAgregarEquiposZona: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, en este momento no podemos agregar equipos...',
+          isMostrar: true,
+        },
+      };
+    }
+    case agregarEquiposZonaTorneoDefault: {
+      return {
+        ...state,
+        isAgregarEquiposZona: {
           tipo: '',
           mensaje: '',
           isMostrar: false,

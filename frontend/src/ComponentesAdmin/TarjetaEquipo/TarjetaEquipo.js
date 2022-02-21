@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
 import './TarjetaEquipo.css';
-import ImagenAdmin from '../ImagenAdmin/ImagenAdmin';
 import {HiDotsVertical} from 'react-icons/hi';
 import {MdDeleteForever} from 'react-icons/md';
-import {FiEdit3} from 'react-icons/fi';
 import {useRef} from 'react';
-
-const TarjetaEquipo = () => {
+import {urlEscudos} from '../../Entorno';
+const TarjetaEquipo = ({
+  equipo = '',
+  funcionEliminarEquipo = () => {
+    console.log('');
+  },
+}) => {
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
   const mostrarAcciones = () => {
@@ -16,15 +19,15 @@ const TarjetaEquipo = () => {
   const ocultarAcciones = () => {
     setIsAcciones(false);
   };
-
+  console.log(equipo);
   return (
     <div className="CP-Tarjeta">
       <div className="CI-Cuerpo-Tarjeta">
         <div className="imagen-Tarjeta">
-          <ImagenAdmin></ImagenAdmin>
+          <img alt="" src={urlEscudos + equipo.escudo}></img>
         </div>
         <div className="info-Tarjeta">
-          <h5>Alianza</h5>
+          <h5>{equipo ? equipo.nombreClub : ''}</h5>
           <p>Masculino</p>
           <p>Divisional A</p>
         </div>
@@ -41,8 +44,10 @@ const TarjetaEquipo = () => {
         tabIndex="1"
         onBlur={() => ocultarAcciones()}
       >
-        <FiEdit3 className={' iconoAcción-ListaImagenes'}></FiEdit3>
-        <MdDeleteForever className={' iconoAcción-ListaImagenes'} />
+        <MdDeleteForever
+          className={' iconoAcción-ListaImagenes'}
+          onClick={() => funcionEliminarEquipo(equipo._id)}
+        />
       </div>
     </div>
   );

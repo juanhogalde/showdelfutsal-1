@@ -1,26 +1,32 @@
 import React, {useLayoutEffect, useState} from 'react';
 import Selector from '../Selector/Selector';
-/* import TarjetaEnfrentamiento from '../TarjetaEnfrentamiento/TarjetaEnfrentamiento'; */
+import TarjetaEnfrentamiento from '../TarjetaEnfrentamiento/TarjetaEnfrentamiento';
 import './EditorEnfrentamientos.css';
 import {useDispatch, useSelector} from 'react-redux';
 import Cargando from '../Cargando/Cargando';
 import {
   obtenerDatosDeTorneoParaEdicionDefault_accion,
   obtenerDatosDeTorneoParaEdicion_accion,
+  obtenerEquiposDeZona_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 import Enfrentamiento from '../Enfrentamiento/Enfrentamiento';
+import {listarEquipos_accion} from '../../Redux/Equipos/AccionesEquipos';
+/* import {listarPartidos_accion} from '../../Redux/Partidos/AccionPartidos'; */
 
 const EditorEnfrentamientos = () => {
   const dispatch = useDispatch();
   const {torneos, torneo, isObtenerDatosEditarTorneo} = useSelector(state => state.storeTorneos);
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
+  const {equipos} = useSelector(state => state.storeEquipos);
+  const {partidos} = useSelector(state => state.storePartidos);
 
   const [datosFiltrados, setDatosFiltrados] = useState('');
   const [isDatosCargados, setIsDatosCargados] = useState(false);
   const [arrayTorneos, setArrayTorneos] = useState();
   const [arraySubCategorias, setArraySubCategorias] = useState('');
   const [arrayZonas, setArrayZonas] = useState('');
+  const [arrayEquiposZona, setArrayEquiposZona] = useState([]);
 
   const escucharSelectorTorneo = value => {
     let auxTorneo = torneos.find(torneo => torneo._id === value.idTorneo);
@@ -43,24 +49,19 @@ const EditorEnfrentamientos = () => {
         subcategoria: '',
       });
     }
-    let auxSubCategoria = [];
-    torneo.idSubcategoria.forEach(subcategoriaTorneo => {
-      if (subcategoriaTorneo.keyCategoria === value.key) {
-        let aux = subcategorias.find(
-          subcategoria => subcategoria.key === subcategoriaTorneo.keySubcategoria
-        );
-        auxSubCategoria.push(aux);
-      }
-    });
-    setArraySubCategorias(auxSubCategoria);
+
+    let auxSubcategoria = subcategorias.filter(
+      subcategoria => subcategoria.keyCategoria === value.key
+    );
+    setArraySubCategorias(auxSubcategoria);
   };
+
   const escucharSelectorSubCategoria = value => {
     setDatosFiltrados({
       ...datosFiltrados,
       subcategoria: value,
     });
     let auxZonas = [];
-
     torneo.zonas.forEach(zonaTorneo => {
       if (zonaTorneo.idSubcategoria.keyCategoria === value.keyCategoria) {
         if (zonaTorneo.idSubcategoria.keySubcategoria === value.key) {
@@ -72,7 +73,7 @@ const EditorEnfrentamientos = () => {
       return {
         label: zona.nombreZona,
         value: index + 1,
-        zonaId: zona._id,
+        data: zona,
       };
     });
     setArrayZonas(auxZonasParaSelector);
@@ -82,6 +83,9 @@ const EditorEnfrentamientos = () => {
       ...datosFiltrados,
       zona: value,
     });
+    console.log(value);
+    dispatch(listarEquipos_accion());
+    /* dispatch(obtenerEquiposDeZona_accion(value.data._id)); */
   };
 
   const obtenerRespuestaDeAlertaEditarTorneo = respuesta => {
@@ -112,9 +116,21 @@ const EditorEnfrentamientos = () => {
         }
       }
     }
-
+    if (equipos.length > 0) {
+      let auxArrayEquiposZona = [];
+      if (datosFiltrados) {
+        if (datosFiltrados.zona) {
+          datosFiltrados.zona.data.equipos.forEach(equipoZona => {
+            let auxEquipo = equipos.find(equipo => equipo._id === equipoZona._id);
+            auxArrayEquiposZona.push(auxEquipo);
+          });
+          setArrayEquiposZona(auxArrayEquiposZona);
+          /* dispatch(listarPartidos_accion()); */
+        }
+      }
+    }
     return () => {};
-  }, [torneos, arrayTorneos]);
+  }, [torneos, arrayTorneos, equipos, datosFiltrados]);
 
   if (isDatosCargados) {
     return (
@@ -165,11 +181,19 @@ const EditorEnfrentamientos = () => {
           )}
           {Object.keys(datosFiltrados).length === 4 && (
             <div className="CI-componenteEnfrentamiento">
-              <Enfrentamiento></Enfrentamiento>
+              <Enfrentamiento
+                equipos={arrayEquiposZona}
+                torneoId={datosFiltrados.zona.data.idTorneo}
+                zonaId={datosFiltrados.zona.data._id}
+              ></Enfrentamiento>
             </div>
           )}
-          {/* <TarjetaEnfrentamiento></TarjetaEnfrentamiento> */}
+          {partidos.length > 0 &&
+            partidos.map((partido, index) => {
+              return <TarjetaEnfrentamiento key={index} datos={partido}></TarjetaEnfrentamiento>;
+            })}
         </div>
+
         <Alertas
           tipoDeSweet={isObtenerDatosEditarTorneo.tipo}
           mostrarSweet={
