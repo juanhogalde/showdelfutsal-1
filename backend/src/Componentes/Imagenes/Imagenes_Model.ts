@@ -8,7 +8,7 @@ const ImagenesSchema = new Schema({
   ancho: {type: Number},
   descripcion: {type: String},
   isGaleria: {type: Boolean, default: false},
-  galeriaId: {type: Schema.Types.ObjectId, ref: 'modeloGaleria'},
+  galeriaId: {type: Schema.Types.String, ref: 'modeloGaleria'},
   fechaCarga: {type: Date},
 });
 

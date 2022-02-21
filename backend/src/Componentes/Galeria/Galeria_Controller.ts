@@ -111,7 +111,9 @@ class GaleriaController {
         throw new Error('No hay archivos para cargar');
       }
 
-      let nuevaGaleria: IGaleria = new modeloGaleria();
+      let nuevaGaleria: IGaleria = new modeloGaleria({
+        _id: req.body?.tituloGaleria.replace(/ /g, '_').concat(`_${Date.now().toString()}`),
+      });
       if (datosBody.archivos.length) {
         datosAEnviar.galeriaId = nuevaGaleria._id;
         for await (const archivo of datosBody.archivos) {

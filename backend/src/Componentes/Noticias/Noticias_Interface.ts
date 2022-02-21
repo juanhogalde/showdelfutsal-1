@@ -1,6 +1,7 @@
 import {Document} from 'mongoose';
 
 export default interface INoticias extends Document {
+  _id: string;
   fecha: Date;
   fechaModificacion: Date;
   urlNoticia: string;
