@@ -66,12 +66,12 @@ export const equiposPorSubcategoriaDefault_accion = () => {
   };
 };
 export const equiposPorSubcategoria_accion = subcategoria => {
+  console.log(subcategoria);
   return dispatch => {
     dispatch(equiposPorSubcategoriaCargando_accion());
     API({
-      url: '/equipos/obtenerPorSubcategoria',
+      url: `/equipos/obtenerPorKeySubCategoria/${subcategoria}`,
       method: 'get',
-      data: {idSubcategoria: subcategoria},
     })
       .then(res => {
         console.log({res});

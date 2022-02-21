@@ -76,15 +76,15 @@ const AgregarEquipos = () => {
     dispatch(equiposPorSubcategoriaDefault_accion());
   };
   useLayoutEffect(() => {
-    /* if (zonaTorneo) {
+    if (zonaTorneo) {
       if (equipos.length === 0)
         dispatch(equiposPorSubcategoria_accion(zonaTorneo.idSubcategoria.keySubcategoria));
-    } */
+    }
 
     /* ELIMINAR AL FINALIZAR IMPLEMENTACIÓN EQUIPOS POR SUBCATEGORIA */
-    if (equipos.length === 0) {
+    /* if (equipos.length === 0) {
       dispatch(listarEquipos_accion());
-    }
+    } */
 
     if (Object.keys(torneo).length > 0) {
       let auxZona = torneo.zonas.find(
