@@ -2,7 +2,11 @@ import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {BsPlusCircle} from 'react-icons/bs';
 import {useDispatch, useSelector} from 'react-redux';
 import {/* useHistory,  */ useParams} from 'react-router-dom';
-import {listarEquipos_accion} from '../../Redux/Equipos/AccionesEquipos';
+import {
+  equiposPorSubcategoriaDefault_accion,
+  equiposPorSubcategoria_accion,
+  listarEquipos_accion,
+} from '../../Redux/Equipos/AccionesEquipos';
 import {
   actualizarListaTorneosAgregarEquiposZona_accion,
   agregarEquiposZonaTorneoDefault_accion,
@@ -68,28 +72,50 @@ const AgregarEquipos = () => {
       dispatch(agregarEquiposZonaTorneoDefault_accion());
     }
   };
+  const respuestaDeAlertaObtenerEquiposPorSubcategoria = () => {
+    dispatch(equiposPorSubcategoriaDefault_accion());
+  };
   useLayoutEffect(() => {
+    /* if (zonaTorneo) {
+      if (equipos.length === 0)
+        dispatch(equiposPorSubcategoria_accion(zonaTorneo.idSubcategoria.keySubcategoria));
+    } */
+
+    /* ELIMINAR AL FINALIZAR IMPLEMENTACIÓN EQUIPOS POR SUBCATEGORIA */
     if (equipos.length === 0) {
       dispatch(listarEquipos_accion());
     }
 
     if (Object.keys(torneo).length > 0) {
-      if (torneo.zonas.length > 0) {
-        let auxZona = torneo.zonas.find(zona => zona._id === zonaId);
-        setZonaTorneo(auxZona);
-        let auxEquipos = [];
-        if (auxZona.equipos.length > 0) {
-          auxZona.equipos.forEach(equipoZona => {
-            let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
-            auxEquipos.push(aux);
+      let auxZona = torneo.zonas.find(
+        zona => zona._id === zonaId
+      ); /* Recuperar zona de torneo, zonaId parámetro de rutas */
+      setZonaTorneo(auxZona);
+      let auxEquipos = [];
+      if (auxZona.equipos.length > 0) {
+        auxZona.equipos.forEach(equipoZona => {
+          let auxEquiposAgregados = equipos.find(
+            equipoStatic => equipoStatic._id === equipoZona._id
+          );
+          auxEquipos.push(auxEquiposAgregados);
+        });
+        setEquiposAgregados(auxEquipos);
+      } else {
+        if (equipos.length > 0) {
+          let auxEquipos = equipos.map((equipo, index) => {
+            return {
+              label: equipo.nombreClub,
+              value: index + 1,
+              data: equipo,
+            };
           });
-          setEquiposAgregados(auxEquipos);
+          setArrayEquipos(auxEquipos);
         }
       }
     }
-  }, [torneo, torneo.zonas, zonaId, equipos, dispatch]);
+  }, [torneo, zonaId, equipos, dispatch, zonaTorneo]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (equipos.length > 0) {
       let auxEquipos = equipos.map((equipo, index) => {
         return {
@@ -102,7 +128,7 @@ const AgregarEquipos = () => {
     }
 
     return () => {};
-  }, [equipos]);
+  }, [equipos]); */
   return (
     <div className="CP-AgregarEquipos">
       <p>Agregar Equipos</p>
@@ -113,7 +139,6 @@ const AgregarEquipos = () => {
         placeholder="Seleccione Equipos"
         selectorConIcono={<BsPlusCircle />}
         isCerrarMenuAlSeleccionar={true}
-        /* isMultipleOpcion={true} */
         options={arrayEquipos ? arrayEquipos : []}
         noOptionsMessage={'No hay equipos cargados.'}
         onChange={value => escucharSelectorEquipos(value)}
@@ -155,6 +180,7 @@ const AgregarEquipos = () => {
         mostrarSweet={isListarEquipos.isMostrar}
         tipoDeSweet={isListarEquipos.tipo}
         subtitulo={isListarEquipos.mensaje}
+        RespuestaDeSweet={respuestaDeAlertaObtenerEquiposPorSubcategoria}
       ></Alertas>
       <Alertas
         mostrarSweet={isAgregarEquiposZona.isMostrar}
