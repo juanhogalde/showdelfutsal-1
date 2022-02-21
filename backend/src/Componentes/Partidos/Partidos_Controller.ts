@@ -302,8 +302,16 @@ class PartidosController {
   public async obtenerPartidosPorIdZona(req: Request, res: Response) {
     try {
       let idZona = req.params.idZona;
-      const partidos = await modeloPartidos.find({idZona: idZona});
-      responder.sucess(req, res, partidos);
+      if (idZona) {
+        const partidos = await modeloPartidos.find({idZona: idZona});
+        if (partidos && partidos.length) {
+          responder.sucess(req, res, partidos);
+        } else {
+          responder.error(req, res, '', 'No se encontró ningun partido', 400);
+        }
+      } else {
+        responder.error(req, res, '', 'No se encontró el id de la zona', 400);
+      }
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -312,16 +320,20 @@ class PartidosController {
   public async eliminarPartidosPorIdZona(req: Request, res: Response) {
     try {
       let idZona = req.params.idZona;
-      const partidos = await modeloPartidos.find({idZona: idZona});
+      if (idZona) {
+        const partidos = await modeloPartidos.find({idZona: idZona});
 
-      if (partidos && partidos.length) {
-        for await (const partido of partidos) {
-          await modeloPartidos.findByIdAndDelete(partido._id);
+        if (partidos && partidos.length) {
+          for await (const partido of partidos) {
+            await modeloPartidos.findByIdAndDelete(partido._id);
+          }
+        } else {
+          responder.error(req, res, 400, 'No se encontraron partidos para eliminar');
         }
+        responder.sucess(req, res, partidos, 'Partidos eliminados correctamente');
       } else {
-        responder.error(req, res, 400, 'No se encontraron partidos para eliminar');
+        responder.error(req, res, '', 'No se encontró el id de la zona', 400);
       }
-      responder.sucess(req, res, partidos, 'Partidos eliminados correctamente');
     } catch (error) {
       responder.error(req, res, error);
     }
