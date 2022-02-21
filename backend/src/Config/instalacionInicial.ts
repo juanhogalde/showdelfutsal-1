@@ -5,11 +5,13 @@ import IMedidasPublicidad from 'src/Componentes/MedidasPublicidad/MedidasPublici
 import modeloUsuarios from '../Componentes/Usuarios/Usuarios_Model';
 import modeloCategorias from '../Componentes/Categorias/Categorias_Model';
 import modeloSubCategorias from '../Componentes/Subcategorias/Subcategorias_Model';
+import modeloEquipos from '../Componentes/Equipos/Equipos_Model';
 import modeloMedidasPublicidad from '../Componentes/MedidasPublicidad/MedidasPublicidad_Model';
-import modeloNoticias from '../Componentes/Noticias/Noticias_Model';
 import {keyCategoria, keySubcategoria} from './enumeradores';
 import responder from '../Middlewares/responder';
 import {Request, Response} from 'express';
+import IEquipos from 'src/Componentes/Equipos/Equipos_Interface';
+import listadoEquipos from './listadoEquipos';
 
 let inicializarCategorias = async () => {
   let enumCategorias = Object.entries(keyCategoria);
@@ -234,140 +236,21 @@ let incializarMedidasPublicitarias = async () => {
   }
 };
 
+let inicializarEquipos = async () => {
+  for await (const equipo of listadoEquipos) {
+    let equipos: IEquipos = new modeloEquipos(equipo);
+    await equipos.save();
+  }
+};
+
 export const instalarBD = async (req: Request, res: Response) => {
   try {
     await inicializarCategorias();
     await inicializarSubCategorias();
     await inicializarUsuarios();
     await incializarMedidasPublicitarias();
+    await inicializarEquipos();
     responder.sucess(req, res, 'Instalacion finalizada');
-  } catch (error) {
-    responder.error(req, res, error);
-  }
-};
-
-export const migrar = async (req: Request, res: Response) => {
-  try {
-    let noticias = await modeloNoticias.find({});
-    noticias.map(async n => {
-      switch (n.keySubcategoria) {
-        case 1: //M A
-          if (n.keyCategoria == 2) {
-            //fem a
-            n.keyCategoria = 2;
-            n.keySubcategoria = 6;
-            n.idSubcategoria = '6';
-            n.idCategoria = '2';
-            await n.save();
-          } else {
-            n.keyCategoria = 1;
-            n.keySubcategoria = 1;
-            n.idSubcategoria = '1';
-            n.idCategoria = '1';
-            await n.save();
-          }
-
-          break;
-        case 2: //M B
-          if (n.keyCategoria == 2) {
-            //fem b
-            n.keyCategoria = 2;
-            n.keySubcategoria = 7;
-            n.idSubcategoria = '7';
-            n.idCategoria = '2';
-            await n.save();
-          } else {
-            n.keyCategoria = 1;
-            n.keySubcategoria = 2;
-            n.idSubcategoria = '2';
-            n.idCategoria = '1';
-            await n.save();
-          }
-          break;
-        case 3: //M C
-          n.keyCategoria = 1;
-          n.keySubcategoria = 3;
-          n.idSubcategoria = '3';
-          n.idCategoria = '1';
-          await n.save();
-          break;
-        case 4: //M D
-          n.keyCategoria = 1;
-          n.keySubcategoria = 4;
-          n.idSubcategoria = '4';
-          n.idCategoria = '1';
-          await n.save();
-          break;
-        case 10: //F A
-          n.keyCategoria = 2;
-          n.keySubcategoria = 6;
-          n.idSubcategoria = '6';
-          n.idCategoria = '2';
-          await n.save();
-          break;
-        case 11: //F B
-          n.keyCategoria = 2;
-          n.keySubcategoria = 7;
-          n.idSubcategoria = '7';
-          n.idCategoria = '2';
-          await n.save();
-          break;
-        case 6: //Regio
-          n.keyCategoria = 3;
-          n.keySubcategoria = 10;
-          n.idSubcategoria = '10';
-          n.idCategoria = '3';
-          await n.save();
-          break;
-        case 5: //Prov
-          n.keyCategoria = 3;
-          n.keySubcategoria = 9;
-          n.idSubcategoria = '9';
-          n.idCategoria = '3';
-          await n.save();
-          break;
-        case 7: //Nac
-          n.keyCategoria = 3;
-          n.keySubcategoria = 11;
-          n.idSubcategoria = '11';
-          n.idCategoria = '3';
-          await n.save();
-          break;
-        case 8: //inf
-          n.keyCategoria = 4;
-          n.keySubcategoria = 12;
-          n.idSubcategoria = '12';
-          n.idCategoria = '4';
-          await n.save();
-          break;
-        case 9: //depa
-          n.keyCategoria = 4;
-          n.keySubcategoria = 13;
-          n.idSubcategoria = '13';
-          n.idCategoria = '4';
-          await n.save();
-          break;
-        case 12: //Copa
-          n.keyCategoria = 4;
-          n.keySubcategoria = 14;
-          n.idSubcategoria = '14';
-          n.idCategoria = '4';
-          await n.save();
-          break;
-        case 13: //Seleccion
-          n.keyCategoria = 4;
-          n.keySubcategoria = 15;
-          n.idSubcategoria = '15';
-          n.idCategoria = '4';
-          await n.save();
-          break;
-
-        default:
-          throw new Error('No se encontro la categoria');
-          break;
-      }
-    });
-    responder.sucess(req, res, 'Migracion finalizada');
   } catch (error) {
     responder.error(req, res, error);
   }

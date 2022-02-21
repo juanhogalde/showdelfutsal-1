@@ -15,7 +15,7 @@ import PieDepagina from '../PieDePagina/PieDepagina';
 import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
 import ModalLowa from '../../ComponentesAdmin/ModalLowa/ModalLowa';
 import publicidadModal from '../../Static/Img/publicidad-modal.png';
-import {urlDominio, urlImagenes} from '../../urlImagenes';
+import {server, dominio} from '../../Entorno';
 import {controlModalPublicidad_accion} from '../../Redux/DatosInciales/AccionesDatosIniciales';
 import TarjetaEnfrentamiento from '../../ComponentesAdmin/TarjetaEnfrentamiento/TarjetaEnfrentamiento';
 import Slider from 'react-slick';
@@ -148,7 +148,7 @@ const Inicio = () => {
         let posinicial = vivo.urlVivo.indexOf('be/') + 3;
         urlFinal = vivo.urlVivo.substr(posinicial, vivo.urlVivo.length - posinicial);
       }
-      let urlChat = `https://www.youtube.com/live_chat?v=${urlFinal}&embed_domain=${urlDominio}`;
+      let urlChat = `https://www.youtube.com/live_chat?v=${urlFinal}&embed_domain=${dominio}`;
       setVideoVivo({fuente: urlFinal, chat: urlChat, isActivo: vivo.isActivo});
     } else {
       setVideoVivo({});
@@ -427,7 +427,7 @@ const Inicio = () => {
               src={
                 publicaciones
                   ? publicaciones.partidoDerecha1
-                    ? urlImagenes + publicaciones.partidoDerecha1.idImagen[0].fuente
+                    ? server + publicaciones.partidoDerecha1.idImagen[0].fuente
                     : publicidadCorta
                   : publicidadCorta
               }
@@ -438,7 +438,7 @@ const Inicio = () => {
               src={
                 publicaciones
                   ? publicaciones.partidoDerecha2
-                    ? urlImagenes + publicaciones.partidoDerecha2.idImagen[0].fuente
+                    ? server + publicaciones.partidoDerecha2.idImagen[0].fuente
                     : publicidadCorta
                   : publicidadCorta
               }
@@ -508,7 +508,7 @@ const Inicio = () => {
               src={
                 publicaciones
                   ? publicaciones.noticiaHorizontalBajo
-                    ? urlImagenes + publicaciones.noticiaHorizontalBajo.idImagen[0].fuente
+                    ? server + publicaciones.noticiaHorizontalBajo.idImagen[0].fuente
                     : publicidadLarga
                   : publicidadLarga
               }
@@ -592,7 +592,7 @@ const Inicio = () => {
           src={
             publicaciones
               ? publicaciones.publicidadInicioModal
-                ? urlImagenes + publicaciones.publicidadInicioModal.idImagen[0].fuente
+                ? server + publicaciones.publicidadInicioModal.idImagen[0].fuente
                 : publicidadModal
               : publicidadModal
           }

@@ -7,7 +7,7 @@ import publicidadCorta from '../../Static/Img/publicidad corta.jpg';
 import {useSelector} from 'react-redux';
 import Animaciones from '../Animaciones/Animaciones';
 import PieDepagina from '../PieDePagina/PieDepagina';
-import {urlImagenes} from '../../urlImagenes';
+import {server} from '../../Entorno';
 
 const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollada'}) => {
   const userAgent = navigator.userAgent;
@@ -65,7 +65,7 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
               src={
                 publicaciones
                   ? publicaciones.publicidadCuardadaDerecha
-                    ? urlImagenes + publicaciones.publicidadCuardadaDerecha.idImagen[0].fuente
+                    ? server + publicaciones.publicidadCuardadaDerecha.idImagen[0].fuente
                     : publicidadCorta
                   : publicidadCorta
               }
@@ -100,7 +100,7 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
             src={
               publicaciones
                 ? publicaciones.publicidadHorizontalInferior
-                  ? urlImagenes + publicaciones.publicidadHorizontalInferior.idImagen[0].fuente
+                  ? server + publicaciones.publicidadHorizontalInferior.idImagen[0].fuente
                   : publicidadLarga
                 : publicidadLarga
             }

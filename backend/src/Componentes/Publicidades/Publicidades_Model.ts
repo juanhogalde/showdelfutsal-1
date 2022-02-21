@@ -16,7 +16,7 @@ const PublicidadesSchema = new Schema({
   // direccion: {type: String},
   idImagen: [
     {
-      type: Schema.Types.ObjectId,
+      type: Schema.Types.String,
       ref: 'modeloImagenes',
     },
   ],

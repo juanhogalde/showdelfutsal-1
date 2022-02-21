@@ -3,8 +3,6 @@ import morgan from 'morgan';
 import fs from 'fs';
 import https from 'https';
 import path from 'path';
-// import helmet from 'helmet';
-// import compression from 'compression';
 import cors from 'cors';
 import formData from 'express-form-data';
 import {baseMongo} from './Config/baseDeDatos';
@@ -31,19 +29,17 @@ import responder from './Middlewares/responder';
 import manejadorErrores from './Middlewares/manejadorErrores';
 import {importarDatos} from './Config/importarDatos';
 import modeloUsuarios from './Componentes/Usuarios/Usuarios_Model';
-import {instalarBD, migrar} from './Config/instalacionInicial';
+import {instalarBD} from './Config/instalacionInicial';
 import medidasPublicidad_Router from './Componentes/MedidasPublicidad/MedidasPublicidad_Router';
 import vivoRouter from './Componentes/Vivo/Vivo_Router';
 
 import ICert from '../crt/Cert_Interface';
-// import {medidasPublicidadRouter} from './Componentes/MedidasPublicidad/MedidasPublicidad_Router'
-// import { comprimirImagen } from './Middlewares/imagemin';
 
 ///// VARIABLES DE ENTORNO
 process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.21 - 14/02/22';
+const deploy = 'v0.0.22 - 21/02/22';
 
 class Server {
   public app: express.Application;
@@ -78,8 +74,6 @@ class Server {
     this.app.use(express.json());
     this.app.use(express.urlencoded({extended: false}));
     this.app.use(express.static('public'));
-    // this.app.use(express.static(path.join(__dirname + '../archivos')));
-    // this.app.use(express.static(path.join(__dirname + '../imagenes')));
   }
 
   routear() {

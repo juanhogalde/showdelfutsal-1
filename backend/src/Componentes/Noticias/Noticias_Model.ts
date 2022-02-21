@@ -29,7 +29,7 @@ const NoticiasSchema = new Schema({
   autor: {type: String},
   idImagen: [
     {
-      type: Schema.Types.ObjectId,
+      type: Schema.Types.String,
       ref: 'modeloImagenes',
     },
   ],

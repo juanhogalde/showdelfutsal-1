@@ -5,7 +5,7 @@ import modeloEquipos from './Equipos_Model';
 import IEquipos from './Equipos_Interface';
 import fs from 'fs';
 import path from 'path';
-//import modeloSubcategorias from '../Subcategorias/Subcategorias_Model';
+
 class EquiposController {
   public async listar(req: Request, res: Response) {
     try {
@@ -30,7 +30,7 @@ class EquiposController {
 
         const equipo: IEquipos = new modeloEquipos();
         equipo.nombreClub = datosBody.nombreClub;
-        equipo.escudo = `${process.env.DNS_FRONT}/imagenes/${nameFile}`;
+        equipo.escudo = `${process.env.DNS_FRONT}/escudos/${nameFile}`;
         // equipo.idCategorias = datosBody.idCategorias;
         equipo.idSubcategorias = datosBody.idSubcategorias;
 
@@ -60,13 +60,39 @@ class EquiposController {
     }
   }
 
-  public async obtenerPorSubCategoria(req: Request, res: Response) {
+  public async obtenerPorKeySubCategoria(req: Request, res: Response) {
     try {
       let idSubcategoria = req.params.idSubCategoria;
       if (!idSubcategoria) {
         responder.error(req, res, '', 'Falta id de subcategoria', 400);
       }
-      console.log(idSubcategoria);
+
+      const equipos = await modeloEquipos.find({
+        keySubcategorias: idSubcategoria,
+      });
+      if (equipos.length) {
+        responder.sucess(req, res, equipos);
+      } else {
+        responder.error(
+          req,
+          res,
+          equipos,
+          'El id de subcategoría no posee equipos relacionados o tiene error',
+          400
+        );
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+
+  public async obtenerPorIdSubCategoria(req: Request, res: Response) {
+    try {
+      let idSubcategoria = req.params.idSubCategoria;
+      if (!idSubcategoria) {
+        responder.error(req, res, '', 'Falta id de subcategoria', 400);
+      }
+
       const equipos = await modeloEquipos.find({
         idSubcategorias: idSubcategoria,
       });

@@ -1,5 +1,5 @@
 import React from 'react';
-import {urlImagenes} from '../../urlImagenes';
+import {server} from '../../Entorno';
 import './ImagenSlider.css';
 
 const ImagenSlider = ({datos = {}, tamañoImagen = {}, descripcion = ''}) => {
@@ -11,7 +11,7 @@ const ImagenSlider = ({datos = {}, tamañoImagen = {}, descripcion = ''}) => {
           // width={tamañoImagen.width ? tamañoImagen.width : ''}
           height={tamañoImagen.height ? tamañoImagen.height : '250px'}
           alt="imagen"
-          src={urlImagenes + datos.fuente}
+          src={server + datos.fuente}
         ></img>
         <div className="I-Descripcion-ImagenSlider">
           <h4>{descripcion}</h4>

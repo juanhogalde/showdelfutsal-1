@@ -1,6 +1,6 @@
 import React from 'react';
 import './TablaDePosiciones.css';
-import escudo_alianza from '../../Static/Img/escudo_alianza.png';
+import escudo_generico from '../../Static/Img/escudo_generico.png';
 /* import escudo_huarpes from '../../Static/Img/escudo_huarpes.png'; */
 
 var arrayTabla = [
@@ -36,7 +36,7 @@ const TablaDeposiciones = props => {
           <div className="CI-Cuerpo-TablaDePosiciones  Flipped">
             <div className="equipo-Cuerpo-Tabla">
               <div className="escudo-Tabla">
-                <img alt="" src={escudo_alianza}></img>
+                <img alt="" src={escudo_generico}></img>
               </div>
               <p>Club Atlético Alianza</p>
             </div>

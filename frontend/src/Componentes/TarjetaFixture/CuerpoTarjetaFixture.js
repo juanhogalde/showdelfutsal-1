@@ -1,7 +1,6 @@
 import React from 'react';
 import './CuerpoTarjetaFixture.css';
-import escudo_alianza from '../../Static/Img/escudo_alianza.png';
-import escudo_huarpes from '../../Static/Img/escudo_huarpes.png';
+import escudo_generico from '../../Static/Img/escudo_generico.png';
 
 const CuerpoTarjetaFixture = () => {
   return (
@@ -13,7 +12,7 @@ const CuerpoTarjetaFixture = () => {
         </div>
 
         <div className="equipo-Fixture posicion-EquipoA-Fixture">
-          <img alt="escudo-Fixture" src={escudo_huarpes}></img>
+          <img alt="escudo-Fixture" src={escudo_generico}></img>
           <p>Huarpes</p>
         </div>
         <div className="marcador-Fixture posicion-MarcadorA-Fixture">
@@ -24,7 +23,7 @@ const CuerpoTarjetaFixture = () => {
           <h3>2</h3>
         </div>
         <div className="equipo-Fixture posicion-Equipo-B-Fixture">
-          <img alt="escudo-Fixture" src={escudo_alianza}></img>
+          <img alt="escudo-Fixture" src={escudo_generico}></img>
           <p>Alianza</p>
         </div>
       </div>

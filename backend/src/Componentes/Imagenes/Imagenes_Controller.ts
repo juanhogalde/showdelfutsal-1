@@ -24,12 +24,12 @@ class ImagenesController {
           let path: string = archivo.path;
           let imagen: IImagenes = new modeloImagenes({
             ...archivo,
+            _id: path.split('/')[2].split('.')[0].toString(),
             fuente: path.replace('public', '').replace('\\', '/').replace('\\', '/'),
             galeria: true,
             descripcion: req.body.descripcion,
           });
           arregloDePath.push(imagen);
-
           await imagen.save();
         });
         responder.sucess(req, res, arregloDePath);
@@ -39,6 +39,7 @@ class ImagenesController {
         // console.log(path);
         const imagen: IImagenes = new modeloImagenes({
           ...req.body,
+          _id: path.split('/')[2].split('.')[0].toString(),
           fuente: path.replace('public', '').replace('\\', '/').replace('\\', '/'),
         });
         // console.log('imagen');
@@ -50,31 +51,6 @@ class ImagenesController {
       responder.error(req, res, error);
     }
   }
-
-  // public async cargarImagenPrueba(req: Request, res: Response) {
-  //   try {
-  //     if (!req.body) {
-  //       responder.error(req, res, 'No se ingresaron datos');
-  //     } else {
-  //       let path: string = req.body.archivos.path.split('\\');
-  //       let pathFileAComprimir: string = `${path[0]}/${path[1]}/${path[2]}`;
-  //       let resultado: any = await comprimirImagen(pathFileAComprimir);
-
-  //       if (resultado) {
-  //         const imagen: IImagenes = new modeloImagenes({
-  //           ...req.body,
-  //           fuente: resultado.path_out_new,
-  //         });
-  //         await imagen.save();
-  //         responder.sucess(req, res, imagen);
-  //       } else {
-  //         responder.error(req, res, new Error('Ocurrió un error al insertar la imagen'));
-  //       }
-  //     }
-  //   } catch (error) {
-  //     responder.error(req, res, error);
-  //   }
-  // }
 
   public async obtener(req: Request, res: Response) {
     try {
@@ -92,6 +68,7 @@ class ImagenesController {
       if (imagenBody._id) {
         modeloImagenes.findById(imagenBody._id).then(async (imagen: any) => {
           if (imagen) {
+            imagen._id = imagenBody._id;
             imagen.fuente = imagenBody.fuente;
             imagen.alto = imagenBody.alto;
             imagen.ancho = imagenBody.ancho;

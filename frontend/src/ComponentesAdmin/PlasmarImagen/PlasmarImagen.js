@@ -1,6 +1,6 @@
 import React from 'react';
 import './PlasmarImagen.css';
-import {urlImagenes} from '../../urlImagenes';
+import {server} from '../../Entorno';
 
 const PlasmarImagen = ({datosImagen = {}, isVideo = false}) => {
   return (
@@ -13,7 +13,7 @@ const PlasmarImagen = ({datosImagen = {}, isVideo = false}) => {
           height="300"
         ></iframe>
       ) : (
-        <img alt="" src={urlImagenes + datosImagen.fuente}></img>
+        <img alt="" src={server + datosImagen.fuente}></img>
       )}
     </div>
   );
