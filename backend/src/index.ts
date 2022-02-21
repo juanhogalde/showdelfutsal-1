@@ -31,13 +31,11 @@ import responder from './Middlewares/responder';
 import manejadorErrores from './Middlewares/manejadorErrores';
 import {importarDatos} from './Config/importarDatos';
 import modeloUsuarios from './Componentes/Usuarios/Usuarios_Model';
-import {instalarBD, migrar} from './Config/instalacionInicial';
+import {instalarBD} from './Config/instalacionInicial';
 import medidasPublicidad_Router from './Componentes/MedidasPublicidad/MedidasPublicidad_Router';
 import vivoRouter from './Componentes/Vivo/Vivo_Router';
 
 import ICert from '../crt/Cert_Interface';
-// import {medidasPublicidadRouter} from './Componentes/MedidasPublicidad/MedidasPublicidad_Router'
-// import { comprimirImagen } from './Middlewares/imagemin';
 
 ///// VARIABLES DE ENTORNO
 process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'desarrollo';
