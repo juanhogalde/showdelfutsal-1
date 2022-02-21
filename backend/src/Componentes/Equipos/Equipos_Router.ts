@@ -13,7 +13,7 @@ class EquiposRouter {
     this.router.get('/listar', equiposController.listar);
     this.router.get('/obtener/:id', equiposController.obtener);
     this.router.get(
-      '/obtenerPorKeySubCategoria/:idSubCategoria',
+      '/obtenerPorKeySubCategoria/:keySubcategoria',
       equiposController.obtenerPorKeySubCategoria
     );
     this.router.get(

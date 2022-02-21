@@ -4,6 +4,6 @@ export default interface IEquipos extends Document {
   _id: string;
   nombreClub: string;
   escudo: string;
-  keySubcategorias: Array<string>;
+  keySubcategorias: Array<number>;
   idSubcategorias: Array<string>;
 }
