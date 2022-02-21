@@ -31,6 +31,11 @@ const AgregarEquipos = () => {
   const [nuevosEquipos, setNuevosEquipos] = useState([]);
   const [isNuevosEquipos, setIsNuevosEquipos] = useState(false);
   const [zonaTorneo, setZonaTorneo] = useState();
+  /* const [isGuardarCambios, setIsGuardarCambios] = useState({
+    tipo: '',
+    isMostrar: false,
+    mensaje: '',
+  }); */
   /* const [isDatosCargados, setIsDatosCargados] = useState(false); */
 
   const agregarEquipoZona = () => {
@@ -111,8 +116,14 @@ const AgregarEquipos = () => {
     }
   }, [zonaTorneo, torneo.zonas, zonaId, dispatch, equipos]);
 
+  /* const respuestaDeAlertaGuardarCambios = respuesta => {}; */
   useEffect(() => {
     return () => {
+      /* setIsGuardarCambios({
+        isMostrar: true,
+        tipo: 'warning',
+        mensaje: '¿Desea guardar los cambios?',
+      }); */
       dispatch(equiposPorSubcategoriaDefault_accion());
     };
   }, [dispatch]);
@@ -134,7 +145,7 @@ const AgregarEquipos = () => {
       ></Selector>
       <BotonLowa
         disabled={nuevosEquipos.length > 0 ? false : true}
-        tituloboton="Agregar"
+        tituloboton="Guardar Cambios"
         onClick={() => agregarEquipoZona()}
       ></BotonLowa>
       <BotonLowa
@@ -170,6 +181,12 @@ const AgregarEquipos = () => {
         subtitulo={isListarEquipos.mensaje}
         RespuestaDeSweet={respuestaDeAlertaObtenerEquiposPorSubcategoria}
       ></Alertas>
+      {/*  <Alertas
+        mostrarSweet={isGuardarCambios.isMostrar}
+        tipoDeSweet={isGuardarCambios.tipo}
+        subtitulo={isGuardarCambios.mensaje}
+        RespuestaDeSweet={respuestaDeAlertaGuardarCambios}
+      ></Alertas> */}
       <Alertas
         mostrarSweet={isAgregarEquiposZona.isMostrar}
         tipoDeSweet={isAgregarEquiposZona.tipo}
