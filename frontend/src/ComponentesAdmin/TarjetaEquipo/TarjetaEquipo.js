@@ -19,7 +19,6 @@ const TarjetaEquipo = ({
   const ocultarAcciones = () => {
     setIsAcciones(false);
   };
-  console.log(equipo);
   return (
     <div className="CP-Tarjeta">
       <div className="CI-Cuerpo-Tarjeta">

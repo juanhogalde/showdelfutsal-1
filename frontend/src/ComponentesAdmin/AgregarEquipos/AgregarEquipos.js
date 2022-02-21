@@ -23,7 +23,6 @@ const AgregarEquipos = () => {
   const {zonaId} = useParams();
   const dispatch = useDispatch();
   const {torneo, isAgregarEquiposZona} = useSelector(state => state.storeTorneos);
-  /* const zonaTorneo = torneo.zonas.find(zona => zona._id === zonaId); */
   const {equipos, isListarEquipos} = useSelector(state => state.storeEquipos);
 
   const [arrayEquipos, setArrayEquipos] = useState([]);
@@ -76,44 +75,20 @@ const AgregarEquipos = () => {
     dispatch(equiposPorSubcategoriaDefault_accion());
   };
   useLayoutEffect(() => {
-    if (zonaTorneo) {
-      if (equipos.length === 0)
-        dispatch(equiposPorSubcategoria_accion(zonaTorneo.idSubcategoria.keySubcategoria));
-    }
+    let auxZona = torneo.zonas.find(zona => zona._id === zonaId);
 
-    /* ELIMINAR AL FINALIZAR IMPLEMENTACIÓN EQUIPOS POR SUBCATEGORIA */
-    /* if (equipos.length === 0) {
-      dispatch(listarEquipos_accion());
-    } */
-
-    if (Object.keys(torneo).length > 0) {
-      let auxZona = torneo.zonas.find(
-        zona => zona._id === zonaId
-      ); /* Recuperar zona de torneo, zonaId parámetro de rutas */
+    if (!zonaTorneo) {
       setZonaTorneo(auxZona);
-      let auxEquipos = [];
-      if (auxZona.equipos.length > 0) {
-        auxZona.equipos.forEach(equipoZona => {
-          let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
-          auxEquipos.push(aux);
-        });
-        setEquiposAgregados(auxEquipos);
-      } else {
-        if (equipos.length > 0) {
-          let auxEquipos = equipos.map((equipo, index) => {
-            return {
-              label: equipo.nombreClub,
-              value: index + 1,
-              data: equipo,
-            };
-          });
-          setArrayEquipos(auxEquipos);
-        }
+      if (equipos.length === 0) {
+        dispatch(equiposPorSubcategoria_accion(auxZona.idSubcategoria.keySubcategoria));
+      }
+    } else {
+      if (auxZona.equipos.length > zonaTorneo.equipos.length) {
+        console.log('cambio el arreglo');
+        setZonaTorneo(auxZona);
       }
     }
-  }, [torneo, zonaId, equipos, dispatch, zonaTorneo]);
 
-  /* useEffect(() => {
     if (equipos.length > 0) {
       let auxEquipos = equipos.map((equipo, index) => {
         return {
@@ -124,9 +99,24 @@ const AgregarEquipos = () => {
       });
       setArrayEquipos(auxEquipos);
     }
+    if (zonaTorneo) {
+      let auxEquipos = [];
+      if (zonaTorneo.equipos.length > 0) {
+        zonaTorneo.equipos.forEach(equipoZona => {
+          let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
+          auxEquipos.push(aux);
+        });
+        setEquiposAgregados(auxEquipos);
+      }
+    }
+  }, [zonaTorneo, torneo.zonas, zonaId, dispatch, equipos]);
 
-    return () => {};
-  }, [equipos]); */
+  useEffect(() => {
+    return () => {
+      dispatch(equiposPorSubcategoriaDefault_accion());
+    };
+  }, [dispatch]);
+
   return (
     <div className="CP-AgregarEquipos">
       <p>Agregar Equipos</p>

@@ -70,7 +70,7 @@ export const equiposPorSubcategoria_accion = subcategoria => {
   return dispatch => {
     dispatch(equiposPorSubcategoriaCargando_accion());
     API({
-      url: `/equipos/obtenerPorKeySubCategoria/${subcategoria}`,
+      url: `/equipos/obtenerPorIdSubCategoria/${subcategoria}`,
       method: 'get',
     })
       .then(res => {
