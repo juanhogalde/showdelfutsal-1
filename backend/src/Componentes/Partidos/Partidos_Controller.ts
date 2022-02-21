@@ -298,6 +298,34 @@ class PartidosController {
 
     return partidosARetornar;
   }
+
+  public async obtenerPartidosPorIdZona(req: Request, res: Response) {
+    try {
+      let idZona = req.params.idZona;
+      const partidos = await modeloPartidos.find({idZona: idZona});
+      responder.sucess(req, res, partidos);
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+
+  public async eliminarPartidosPorIdZona(req: Request, res: Response) {
+    try {
+      let idZona = req.params.idZona;
+      const partidos = await modeloPartidos.find({idZona: idZona});
+
+      if (partidos && partidos.length) {
+        for await (const partido of partidos) {
+          await modeloPartidos.findByIdAndDelete(partido._id);
+        }
+      } else {
+        responder.error(req, res, 400, 'No se encontraron partidos para eliminar');
+      }
+      responder.sucess(req, res, partidos, 'Partidos eliminados correctamente');
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
 }
 export const partidosController = new PartidosController();
 

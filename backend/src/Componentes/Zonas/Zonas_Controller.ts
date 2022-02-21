@@ -79,6 +79,7 @@ class ZonasController {
       responder.error(req, res, error);
     }
   }
+
   public async eliminar(req: Request, res: Response) {
     try {
       if (!req.body._id) {

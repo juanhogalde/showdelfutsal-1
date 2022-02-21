@@ -4,7 +4,6 @@ import modeloImagenes from './Imagenes_Model';
 import IImagenes from './Imagenes_Interface';
 import path from 'path';
 import fs from 'fs';
-// import { comprimirImagen } from '../../Middlewares/imagemin';
 
 class ImagenesController {
   public async listar(req: Request, res: Response) {
