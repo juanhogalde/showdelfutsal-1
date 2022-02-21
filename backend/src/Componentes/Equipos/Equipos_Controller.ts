@@ -30,7 +30,7 @@ class EquiposController {
 
         const equipo: IEquipos = new modeloEquipos();
         equipo.nombreClub = datosBody.nombreClub;
-        equipo.escudo = `${process.env.DNS_FRONT}/imagenes/${nameFile}`;
+        equipo.escudo = `${process.env.DNS_FRONT}/escudos/${nameFile}`;
         // equipo.idCategorias = datosBody.idCategorias;
         equipo.idSubcategorias = datosBody.idSubcategorias;
 

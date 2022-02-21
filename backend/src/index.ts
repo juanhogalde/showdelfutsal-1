@@ -3,8 +3,6 @@ import morgan from 'morgan';
 import fs from 'fs';
 import https from 'https';
 import path from 'path';
-// import helmet from 'helmet';
-// import compression from 'compression';
 import cors from 'cors';
 import formData from 'express-form-data';
 import {baseMongo} from './Config/baseDeDatos';
@@ -41,7 +39,7 @@ import ICert from '../crt/Cert_Interface';
 process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.21 - 14/02/22';
+const deploy = 'v0.0.22 - 21/02/22';
 
 class Server {
   public app: express.Application;
@@ -76,8 +74,6 @@ class Server {
     this.app.use(express.json());
     this.app.use(express.urlencoded({extended: false}));
     this.app.use(express.static('public'));
-    // this.app.use(express.static(path.join(__dirname + '../archivos')));
-    // this.app.use(express.static(path.join(__dirname + '../imagenes')));
   }
 
   routear() {

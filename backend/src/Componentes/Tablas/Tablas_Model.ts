@@ -4,7 +4,7 @@ import ITablas from './Tablas_Interface';
 const TablasSchema = new Schema({
   idEquipos: [
     {
-      type: Schema.Types.ObjectId,
+      type: Schema.Types.String,
       ref: 'modeloEquipos',
     },
   ],
