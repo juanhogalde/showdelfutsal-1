@@ -62,14 +62,15 @@ class EquiposController {
 
   public async obtenerPorKeySubCategoria(req: Request, res: Response) {
     try {
-      let idSubcategoria = req.params.idSubCategoria;
-      if (!idSubcategoria) {
+      let keySubcategoria = parseInt(req.params.keySubcategoria);
+      if (!keySubcategoria) {
         responder.error(req, res, '', 'Falta id de subcategoria', 400);
       }
 
       const equipos = await modeloEquipos.find({
-        keySubcategorias: idSubcategoria,
+        keySubcategorias: keySubcategoria,
       });
+
       if (equipos.length) {
         responder.sucess(req, res, equipos);
       } else {
