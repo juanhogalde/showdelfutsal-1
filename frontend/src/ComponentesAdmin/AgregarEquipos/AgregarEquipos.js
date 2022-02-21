@@ -94,10 +94,8 @@ const AgregarEquipos = () => {
       let auxEquipos = [];
       if (auxZona.equipos.length > 0) {
         auxZona.equipos.forEach(equipoZona => {
-          let auxEquiposAgregados = equipos.find(
-            equipoStatic => equipoStatic._id === equipoZona._id
-          );
-          auxEquipos.push(auxEquiposAgregados);
+          let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
+          auxEquipos.push(aux);
         });
         setEquiposAgregados(auxEquipos);
       } else {
