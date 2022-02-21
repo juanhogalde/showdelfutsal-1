@@ -3,7 +3,7 @@ import './TarjetaEquipo.css';
 import {HiDotsVertical} from 'react-icons/hi';
 import {MdDeleteForever} from 'react-icons/md';
 import {useRef} from 'react';
-
+import {urlEscudos} from '../../Entorno';
 const TarjetaEquipo = ({
   equipo = '',
   funcionEliminarEquipo = () => {
@@ -19,11 +19,12 @@ const TarjetaEquipo = ({
   const ocultarAcciones = () => {
     setIsAcciones(false);
   };
+  console.log(equipo);
   return (
     <div className="CP-Tarjeta">
       <div className="CI-Cuerpo-Tarjeta">
         <div className="imagen-Tarjeta">
-          <img alt="" src={equipo.escudo}></img>
+          <img alt="" src={urlEscudos + equipo.escudo}></img>
         </div>
         <div className="info-Tarjeta">
           <h5>{equipo ? equipo.nombreClub : ''}</h5>
