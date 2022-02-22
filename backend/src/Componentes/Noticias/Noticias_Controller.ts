@@ -124,6 +124,7 @@ class NoticiasController {
 
   public async agregar(req: Request, res: Response) {
     try {
+      req.body._id = req.body?.titulo.replace(/ /g, '_').concat(`_${Date.now().toString()}`);
       const noticia: INoticias = new modeloNoticias(req.body);
       await noticia.save();
       modeloNoticias

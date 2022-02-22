@@ -3,10 +3,11 @@ import INoticias from './Noticias_Interface';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
 const NoticiasSchema = new Schema({
+  _id: {type: String},
   fecha: {type: Date},
   fechaModificacion: {type: Date},
   urlNoticia: String,
-  titulo: {type: String},
+  titulo: {type: String, unique: true},
   copete: {type: String},
   cuerpo: {type: String},
   idEtiquetas: [

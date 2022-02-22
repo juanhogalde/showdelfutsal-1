@@ -79,6 +79,7 @@ class ZonasController {
       responder.error(req, res, error);
     }
   }
+
   public async eliminar(req: Request, res: Response) {
     try {
       if (!req.body._id) {
@@ -188,6 +189,65 @@ class ZonasController {
                   .save()
                   .then((zonaActualizada: any) => {
                     responder.sucess(req, res, zonaActualizada, '', 200);
+                  })
+                  .catch((error: any) => {
+                    responder.error(req, res, error);
+                  });
+              }
+            }
+          })
+          .catch((error: any) => {
+            responder.error(req, res, error);
+          });
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+  public async eliminarEquipo(req: Request, res: Response) {
+    try {
+      if (!req.body._id || !req.body.idEquipo) {
+        responder.error(
+          req,
+          res,
+          '',
+          `Faltan datos requeridos: ${!req.body._id ? 'id zona ,' : ''} ${
+            !req.body.idEquipo ? 'idEquipo ' : ''
+          }`,
+          400
+        );
+      } else {
+        modeloZonas
+          .findById(req.body._id)
+          .then((zonaEncontrada: any) => {
+            if (!zonaEncontrada) {
+              responder.error(
+                req,
+                res,
+                'No se encontro la zona solicitada',
+                'No se encontro la zona solicitada',
+                400
+              );
+            } else {
+              const copiaEquipos = [...zonaEncontrada.equipos];
+
+              zonaEncontrada.equipos = copiaEquipos.filter(
+                (equipo: any) => equipo._id !== req.body.idEquipo
+              );
+
+              if (zonaEncontrada.equipos.length >= copiaEquipos.length) {
+                responder.error(
+                  req,
+                  res,
+                  'El equipo no esta en esta zona,no fue eliminado',
+                  'El equipo no esta en esta zona o no fue eliminado',
+                  400
+                );
+              } else {
+                zonaEncontrada
+                  .save()
+                  .then((zonaActualizada: any) => {
+                    responder.sucess(req, res, zonaActualizada, 'Equipo Eliminado de la zona', 200);
                   })
                   .catch((error: any) => {
                     responder.error(req, res, error);

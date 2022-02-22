@@ -8,6 +8,6 @@ export default interface IImagenes extends Document {
   ancho: number;
   descripcion: string;
   isGaleria: boolean;
-  galeriaId: IGaleria['_id'];
+  galeriaId: string;
   fechaCarga: Date;
 }

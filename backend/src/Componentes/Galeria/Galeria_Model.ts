@@ -2,6 +2,7 @@ import {model, Schema} from 'mongoose';
 import IGaleria from './Galeria_Interface';
 
 const GaleriaSchema = new Schema({
+  _id: String,
   tituloGaleria: String,
   // imagenesId: [{type: Schema.Types.ObjectId, ref: 'modeloImagenes'}],
   fechaCarga: Date,

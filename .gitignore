@@ -19,7 +19,7 @@ frontend/build
 backend/dist
 /backend/dist
 backend\dist
-
+/backend/public/imagenes
 # misc
 .DS_Store
 backend/.env.local
