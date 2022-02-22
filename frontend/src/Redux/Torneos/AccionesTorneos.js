@@ -570,7 +570,6 @@ export const obtenerTorneo_accion = id => {
 };
 /* ELIMINAR TODAS LAS ZONAS DE UNA SUBCATEGORÍA DE TORNEO */
 export const consultarEliminarZonasDeTorneo_accion = subcategoria => {
-  console.log(subcategoria);
   return {
     type: consultarEliminarZonasDeTorneo,
     idSubcategoria: subcategoria,
@@ -603,9 +602,6 @@ export const eliminarZonasDeTorneoDefault_accion = () => {
   };
 };
 export const eliminarZonasDeTorneo_accion = (torneoId, subcategoriaId) => {
-  console.log(torneoId);
-  console.log(subcategoriaId);
-
   return dispatch => {
     dispatch(eliminarZonasDeTorneoCargando_accion());
     API({
@@ -614,7 +610,6 @@ export const eliminarZonasDeTorneo_accion = (torneoId, subcategoriaId) => {
       data: {idTorneo: torneoId, idSubcategoria: `${subcategoriaId}`},
     })
       .then(res => {
-        console.log({res});
         dispatch(eliminarZonasDeTorneoExito_accion(subcategoriaId));
       })
       .catch(error => {
@@ -719,7 +714,6 @@ export const eliminarEquipoDeZona_accion = (zonaId, equipoId) => {
       },
     })
       .then(res => {
-        console.log({res});
         dispatch(eliminarEquipoDeZonaExito_accion(res.data.value, equipoId));
       })
       .catch(error => {

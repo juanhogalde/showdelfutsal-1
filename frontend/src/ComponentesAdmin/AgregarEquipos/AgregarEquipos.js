@@ -31,7 +31,7 @@ const AgregarEquipos = () => {
   const {equipos, isListarEquipos} = useSelector(state => state.storeEquipos);
 
   const [arrayEquipos, setArrayEquipos] = useState([]);
-  const [equipoSeleccionado, setEquipoSeleccionado] = useState('');
+  /*  const [equipoSeleccionado, setEquipoSeleccionado] = useState(''); */
   const [equiposAgregados, setEquiposAgregados] = useState([]);
   const [nuevosEquipos, setNuevosEquipos] = useState([]);
   const [isNuevosEquipos, setIsNuevosEquipos] = useState(false);
@@ -42,20 +42,19 @@ const AgregarEquipos = () => {
     mensaje: '',
   });
 
+  const escucharSelectorEquipos = respuesta => {
+    let auxArrayEquipos = arrayEquipos.filter(equipo => equipo.value !== respuesta.value);
+    setArrayEquipos(auxArrayEquipos);
+    /* setEquipoSeleccionado(respuesta); */
+    setNuevosEquipos([...nuevosEquipos, respuesta.data]);
+    setIsNuevosEquipos(true);
+  };
+
   const agregarEquipoZona = () => {
     let auxEquiposId = nuevosEquipos.map(equipo => {
       return equipo._id;
     });
-
     dispatch(agregarEquiposZonaTorneo_accion(zonaId, auxEquiposId));
-  };
-
-  const escucharSelectorEquipos = respuesta => {
-    let auxArrayEquipos = arrayEquipos.filter(equipo => equipo.value !== respuesta.value);
-    setArrayEquipos(auxArrayEquipos);
-    setEquipoSeleccionado(respuesta);
-    setNuevosEquipos([...nuevosEquipos, respuesta.data]);
-    setIsNuevosEquipos(true);
   };
 
   const crearEnfrentamiento = () => {
@@ -68,11 +67,12 @@ const AgregarEquipos = () => {
   };
 
   const funcionEliminarEquipo = () => {
-    if (isEliminarEquipoZona.isEquipoNuevo) {
+    if (isEliminarEquipoZona.isNuevo) {
       let auxNuevosEquipos = nuevosEquipos.filter(
         equipo => equipo._id !== isEliminarEquipoZona.idEquipo
       );
       setNuevosEquipos(auxNuevosEquipos);
+      dispatch(eliminarEquipoDeZonaDefault_accion());
     } else {
       dispatch(eliminarEquipoDeZona_accion(zonaTorneo._id, isEliminarEquipoZona.idEquipo));
     }
@@ -98,22 +98,18 @@ const AgregarEquipos = () => {
   };
 
   const respuestaDeAlertaGuardarCambios = respuesta => {
+    setIsGuardarCambios({
+      isMostrar: false,
+      tipo: '',
+      mensaje: '',
+    });
     if (respuesta) {
-      setIsGuardarCambios({
-        isMostrar: false,
-        tipo: '',
-        mensaje: '',
-      });
       agregarEquipoZona();
     } else {
-      setIsGuardarCambios({
-        isMostrar: false,
-        tipo: '',
-        mensaje: '',
-      });
       history.goBack();
     }
   };
+
   const respuestaDeAlertaEliminarEquipo = respuesta => {
     if (respuesta) {
       if (isEliminarEquipoZona.tipo === 'warning') {
@@ -148,14 +144,16 @@ const AgregarEquipos = () => {
     }
 
     if (equipos.length > 0) {
-      let auxEquipos = equipos.map((equipo, index) => {
-        return {
-          label: equipo.nombreClub,
-          value: index + 1,
-          data: equipo,
-        };
-      });
-      setArrayEquipos(auxEquipos);
+      if (arrayEquipos.length === 0) {
+        let auxEquipos = equipos.map((equipo, index) => {
+          return {
+            label: equipo.nombreClub,
+            value: index + 1,
+            data: equipo,
+          };
+        });
+        setArrayEquipos(auxEquipos);
+      }
     }
     if (zonaTorneo) {
       let auxEquipos = [];
@@ -185,6 +183,7 @@ const AgregarEquipos = () => {
           tipo: 'warning',
           mensaje: '¿Desea guardar los cambios?',
         });
+        dispatch(estadoComponenteAgregarEquipo_accion(false));
       } else {
         dispatch(estadoComponenteAgregarEquipo_accion(false));
         history.goBack();
@@ -198,6 +197,7 @@ const AgregarEquipos = () => {
     equipos,
     isVerificarAgregarEquipo,
     nuevosEquipos.length,
+    arrayEquipos.length,
     history,
   ]);
 
@@ -220,7 +220,7 @@ const AgregarEquipos = () => {
         options={arrayEquipos ? arrayEquipos : []}
         noOptionsMessage={'No hay equipos cargados.'}
         onChange={value => escucharSelectorEquipos(value)}
-        opcionSeleccionada={equipoSeleccionado ? equipoSeleccionado : ''}
+        /* opcionSeleccionada={equipoSeleccionado ? equipoSeleccionado : ''} */
       ></Selector>
       <BotonLowa
         disabled={nuevosEquipos.length > 0 ? false : true}
