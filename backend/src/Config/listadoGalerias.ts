@@ -1,0 +1,60 @@
+const listadoGalerias = [
+  {
+    _id: 'La_Gloria_Campeón_1645493407653',
+    tituloGaleria: 'La Gloria Campeón',
+    fechaCarga: '2022-01-21T12:02:08.362Z',
+    keyCategoria: 1,
+    idCategoria: '1',
+  },
+  {
+    _id: 'Liga_Nacional_de_Futsal_Argentina_2021_1645493407653',
+    tituloGaleria: 'Liga Nacional de Futsal Argentina 2021',
+    fechaCarga: '2022-01-21T12:06:26.845Z',
+    keyCategoria: 3,
+    idCategoria: '3',
+  },
+  {
+    _id: 'Sp._Club_Rivera_Campeón_2021_1645493407653',
+    tituloGaleria: 'Sp. Club Rivera Campeón 2021',
+    fechaCarga: '2022-01-21T12:09:16.975Z',
+    keyCategoria: 2,
+    idCategoria: '2',
+    fechaModificacion: '2022-01-21T12:51:06.975Z',
+  },
+  {
+    _id: 'Torneo_Local_1645493407653',
+    tituloGaleria: 'Torneo Local',
+    fechaCarga: '2022-01-21T15:32:07.525Z',
+    keyCategoria: 4,
+    idCategoria: '4',
+  },
+  {
+    _id: 'Liga_Nacional:_Fase_Provincial_1645493407653',
+    tituloGaleria: 'Liga Nacional: Fase Provincial',
+    fechaCarga: '2022-01-21T20:49:10.554Z',
+    keyCategoria: 3,
+    idCategoria: '3',
+  },
+  {
+    _id: 'Liga_Nacional:_Fase_Regional__1645493407653',
+    tituloGaleria: 'Liga Nacional: Fase Regional ',
+    fechaCarga: '2022-01-21T20:51:18.864Z',
+    keyCategoria: 3,
+    idCategoria: '3',
+  },
+  {
+    _id: 'Torneo_Provincial_Femenino_-_Calingasta_1645493407653',
+    tituloGaleria: 'Torneo Provincial Femenino - Calingasta',
+    fechaCarga: '2022-01-22T10:14:49.969Z',
+    keyCategoria: 2,
+    idCategoria: '2',
+  },
+  {
+    _id: 'COPA_25_DE_MAYO_1645493407653',
+    tituloGaleria: 'COPA 25 DE MAYO',
+    fechaCarga: '2022-02-08T12:05:51.346Z',
+    idCategoria: '4',
+    keyCategoria: 4,
+  },
+];
+export default listadoGalerias;

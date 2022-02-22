@@ -6,7 +6,7 @@ const VideosSchema = new Schema({
   descripcion: String,
   fechaCarga: Date,
   idGaleria: {
-    type: Schema.Types.ObjectId,
+    type: Schema.Types.String,
     ref: 'modeloGaleria',
   },
 });

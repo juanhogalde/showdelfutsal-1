@@ -2,16 +2,25 @@ import IUsuarios from '../Componentes/Usuarios/Usuarios_Interface';
 import ICategorias from '../Componentes/Categorias/Categorias_Interface';
 import ISubCategorias from 'src/Componentes/Subcategorias/Subcategorias_Interface';
 import IMedidasPublicidad from 'src/Componentes/MedidasPublicidad/MedidasPublicidad_Interface';
+import IImagenes from 'src/Componentes/Imagenes/Imagenes_Interface';
+import INoticias from 'src/Componentes/Noticias/Noticias_Interface';
+import IGaleria from 'src/Componentes/Galeria/Galeria_Interface';
 import modeloUsuarios from '../Componentes/Usuarios/Usuarios_Model';
 import modeloCategorias from '../Componentes/Categorias/Categorias_Model';
 import modeloSubCategorias from '../Componentes/Subcategorias/Subcategorias_Model';
 import modeloEquipos from '../Componentes/Equipos/Equipos_Model';
+import modeloGalerias from '../Componentes/Galeria/Galeria_Model';
+import modeloNoticias from '../Componentes/Noticias/Noticias_Model';
+import modeloImagenes from '../Componentes/Imagenes/Imagenes_Model';
 import modeloMedidasPublicidad from '../Componentes/MedidasPublicidad/MedidasPublicidad_Model';
 import {keyCategoria, keySubcategoria} from './enumeradores';
 import responder from '../Middlewares/responder';
 import {Request, Response} from 'express';
 import IEquipos from 'src/Componentes/Equipos/Equipos_Interface';
 import listadoEquipos from './listadoEquipos';
+import listadoImagenes from './listadoImagenes';
+import listadoNoticias from './listadoNoticias';
+import listadoGalerias from './listadoGalerias';
 
 let inicializarCategorias = async () => {
   let enumCategorias = Object.entries(keyCategoria);
@@ -243,6 +252,26 @@ let inicializarEquipos = async () => {
   }
 };
 
+let inicializarNoticias = async () => {
+  for await (const noticia of listadoNoticias) {
+    let equipos: INoticias = new modeloNoticias(noticia);
+    await equipos.save();
+  }
+};
+let inicializarImagenes = async () => {
+  for await (const imagen of listadoImagenes) {
+    let imagenes: IImagenes = new modeloImagenes(imagen);
+    await imagenes.save();
+  }
+};
+
+let inicializarGalerias = async () => {
+  for await (const galeria of listadoGalerias) {
+    let galerias: IGaleria = new modeloGalerias(galeria);
+    await galerias.save();
+  }
+};
+
 export const instalarBD = async (req: Request, res: Response) => {
   try {
     await inicializarCategorias();
@@ -250,6 +279,9 @@ export const instalarBD = async (req: Request, res: Response) => {
     await inicializarUsuarios();
     await incializarMedidasPublicitarias();
     await inicializarEquipos();
+    await inicializarGalerias();
+    await inicializarNoticias();
+    await inicializarImagenes();
     responder.sucess(req, res, 'Instalacion finalizada');
   } catch (error) {
     responder.error(req, res, error);
