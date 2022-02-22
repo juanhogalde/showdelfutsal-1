@@ -73,6 +73,8 @@ export const actualizarListaTorneosAgregarEquiposZona = 'actualizarListaTorneosA
 export const agregarEquiposZonaTorneoError = 'agregarEquiposZonaTorneoError';
 export const agregarEquiposZonaTorneoDefault = 'agregarEquiposZonaTorneoDefault';
 
+export const estadoComponenteAgregarEquipo = 'estadoComponenteAgregarEquipo';
+
 export const volverPorDefectoUnTorneo_accion = () => {
   return {
     type: volverPorDefectoUnTorneo,
@@ -679,5 +681,14 @@ export const obtenerEquiposDeZona_accion = zonaId => {
         console.log({error});
         /*  dispatch(agregarEquiposZonaTorneoError_accion()); */
       });
+  };
+};
+
+/* VERIFICAR ESTADO DE COMPONENTE AGREGAR EQUIPOS EN TORNEO */
+
+export const estadoComponenteAgregarEquipo_accion = isVerificar => {
+  return {
+    type: estadoComponenteAgregarEquipo,
+    data: isVerificar,
   };
 };

@@ -54,6 +54,7 @@ import {
   actualizarListaTorneosAgregarEquiposZona,
   agregarEquiposZonaTorneoError,
   agregarEquiposZonaTorneoDefault,
+  estadoComponenteAgregarEquipo,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -128,6 +129,7 @@ const torneoPorDefecto = {
     mensaje: '',
     isMostrar: false,
   },
+  isVerificarAgregarEquipo: false,
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
   switch (accion.type) {
@@ -869,6 +871,12 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           mensaje: '',
           isMostrar: false,
         },
+      };
+    }
+    case estadoComponenteAgregarEquipo: {
+      return {
+        ...state,
+        isVerificarAgregarEquipo: accion.data,
       };
     }
     default:
