@@ -1,10 +1,12 @@
 const listadoNoticias = [
   {
-    _id: 'ARRANCA_UNA_NUEVA_ETAPA_LOS_FINES_DE_SEMANA_1645506917255',
-    fecha: '2022-01-21T11:57:02.744Z',
+    _id: {$oid: '61ea8cf2e5099de0d638580e'},
+    fecha: {$date: '2022-01-21T11:57:02.744Z'},
     titulo: 'ARRANCA UNA NUEVA ETAPA LOS FINES DE SEMANA',
     copete:
       'Por primera vez en la historia el la Divisional A disputará sus encuentros sábados y domingos. La Gloria, el actual campeón, buscará retener el título. ',
+    cuerpo:
+      'Este fin de semana el futsal sanjuanino disputará una nueva edición del campeonato de primera división. La particularidad, y uno de los cambios importantes con los que contará el Torneo Clausura, será la disputa de partidos los sábados y domingos, con horarios más tempranos.\n\nCon ganas de grandes cambios, y la búsqueda en la mejor de la disciplina, la Comisión de Futsal estableció que la reserva concretará sus encuentros a las 18 y la primera a las 20 hs. Esta idea surge para permitir que los jugadores, cuerpo técnico, dirigentes, público y nosotros los periodistas podamos disfrutar del espectáculo en horarios más adecuados.\nEn lo netamente futbolístico, el campeonato tendrá una definición exacta a la del Apertura. Contará con 4 zonas de 5 equipos, de los cuales clasificarán los mejores 4. De allí se decidirá en fase de octavos de final, cuartos de final, semifinales y la gran final para determinar al nuevo campeón. \n\nLas zonas están distribuidas de la siguiente manera:\n\nZona A: S.E.C, V. Porres, La Gloria, Krause, Hualilan y Def. Los Andes. \nZona B: F. Miguel Sanchez, Simplemente, Coop. Caucete, Alianza, Unión y Los Olivos\nZona C: San Ricardo, U.D.C, Sp. 25 de Mayo, Ullum, C.Impulso y B° Rivadavia\nZona D: C.O.R.A, Ruta 20, Huarpes, Santo Domingo, Def. de Argentinos y Dep. San Juan    ',
     idEtiquetas: [],
     keyCategoria: 1,
     keySubcategoria: 1,
@@ -14,11 +16,13 @@ const listadoNoticias = [
     idSubcategoria: '1',
   },
   {
-    _id: 'UNA_VEZ_MÁS_SUSPENDIDA_LA_DIVISIONAL_A_1645506917255',
-    fecha: '2022-01-21T12:12:24.119Z',
+    _id: {$oid: '61eaa327e5099de0d6385cf2'},
+    fecha: {$date: '2022-01-21T12:12:24.119Z'},
     titulo: 'UNA VEZ MÁS SUSPENDIDA LA DIVISIONAL A',
     copete:
       'Luego de algunos problemas con los árbitros, la Comisión Directiva del Futsal sanjuanino suspendió hasta nuevo aviso la categoría. ',
+    cuerpo:
+      'Otra vez sopa, y vuelve a perder el futsal. La primera categoría del futsal quedará suspendida hasta nueva reunión de comisión. ¿La razón? Según lo expresado por la Comisión, la tardanza de los árbitros a la hora de llegar a los encuentros los fines de semana.\n\nLuego de los cambios realizados por los dirigentes del futsal sanjuanino, el futsal vuelve a frenarse. A pesar de que la solución para evitar que los partidos terminaran tan tarde, sigue la problemática. En esta oportunidad algunos árbitros se presentaron tarde en los encuentros establecidos.\n\nUno de los ejemplos más polémicos fue la no presentación del crono en el partido de Huarpes y Deportivo San Juan, que derivó en la suspensión del mismo. \nUna vez más la actividad se para. ¿Qué hace falta para que estas cosas no pasen?\n',
     idEtiquetas: [],
     keyCategoria: 1,
     keySubcategoria: 1,
@@ -28,11 +32,13 @@ const listadoNoticias = [
     idSubcategoria: '1',
   },
   {
-    _id: 'PUMAS_Y_BERMEJITO_A_LA_CABEZA_1645506917255',
-    fecha: '2022-01-21T12:15:19.950Z',
+    _id: {$oid: '61eaa3d5e5099de0d6385cf8'},
+    fecha: {$date: '2022-01-21T12:15:19.950Z'},
     titulo: 'PUMAS Y BERMEJITO A LA CABEZA',
     copete:
       'Los dos equipos lograron puntaje ideal luego de tres fechas transcurridas. El último campeón, Estrella Jrs., empató ante Deportivo Chimbas. ',
+    cuerpo:
+      'La divisional D del futsal sanjuanino se pone al rojo vivo luego de 3 capítulos transcurridos. Pumas sigue a paso firma tras vencer a Cuesta del Viento por 4 a 2.\n\nEl otro que lo acompaña con puntaje ideal es Bermejito que luego de una primera parte del año no tan regular, logró su tercer victoria al hilo ante Laprida por 2 a 1. \n\nEl resto de la fecha quedó de la siguiente manera: \n\nDivisional D – Fecha N°3\nTorneo Clausura\n\nReserva: Laprida 4 - 4 Bermejito\nPrimera: Laprida 1 - 2 Bermejito\n\nReserva: Estrella Jrs. 2 – 4 Dep. Chimbas \nPrimera: Estrella Jrs. 3 – 3 Dep. Chimbas\n\nReserva: Cuesta del Viento 1 - 4 Pumas\nPrimera: Cuesta del Viento 2 - 4 Pumas\n\nReserva: San Patricio 2 – 3 Solidaridad \nPrimera: San patricio 4 – 1 Solidaridad \n\nReserva: U.V. Don Bosco 0 - 2 Juventud del Norte.\nPrimera: UV Don Bosco 7 - 4 Juventud del Norte.\n\nReserva: Juv. UTA 2 – 2 El Globo\nPrimera: Juv. UTA 7 – 3 El Globo \n\n\n\n',
     idEtiquetas: [],
     keyCategoria: 1,
     keySubcategoria: 4,
@@ -42,11 +48,13 @@ const listadoNoticias = [
     idSubcategoria: '4',
   },
   {
-    _id: 'MERCEDARIO_Y_DESAMPARADOS_LOS_ASCENDIDOS_A_LA_B_1645506917255',
-    fecha: '2022-01-21T12:19:05.454Z',
+    _id: {$oid: '61eaa4bde5099de0d6385cfe'},
+    fecha: {$date: '2022-01-21T12:19:05.454Z'},
     titulo: 'MERCEDARIO Y DESAMPARADOS LOS ASCENDIDOS A LA B',
     copete:
       'Los dos equipos serán parte de la segunda categoría del futsal sanjuanino luego de una gran temporada 2021.  ',
+    cuerpo:
+      'En un año muy difícil para el deporte en general, y especialmente para el futsal sanjuanino, comenzaron a definirse los campeones y ascenso de cada categoría. En este caso la Divisional C, culminó un gran año tras coronar a dos campeones y dos ascensos. \n\nBarrio Mercedario, uno de los equipos más regulares y contundentes del año, logró quedarse con el primer puesto de la tabla y el primer ascenso. Con un cierre para el infarto, debido a que adeudaba un partido, los dirigidos por Leandro Gonzales pudieron obtener el logro más importante de la institución. \n\nEl otro ascendido, fue Sportivo Desamparados. Dicho logro tuvo que ser un poco más trabajado. El verde logró el Torneo Iniciación que le dio el pase a la definición por otro ascenso, esta vez contra el Sub Campeón del Clausura, Trinidad.\n\nLuego de un encuentro de ida y vuelta, donde el Víbora supo golpear primero logró imponerse por 2 a 1 ante El León. De esta manera el verde vuelve a la categoría luego de unos años de buscar el acenso tan deseado. \n',
     idEtiquetas: [],
     keyCategoria: 1,
     keySubcategoria: 3,
@@ -56,11 +64,13 @@ const listadoNoticias = [
     idSubcategoria: '3',
   },
   {
-    _id: 'LAS_GLORIOSAS_BUSCAN_FUTURO_A_LARGO_PLAZO_1645506917255',
-    fecha: '2022-01-21T12:22:46.862Z',
+    _id: {$oid: '61eaa597e5099de0d6385d04'},
+    fecha: {$date: '2022-01-21T12:22:46.862Z'},
     titulo: 'LAS GLORIOSAS BUSCAN FUTURO A LARGO PLAZO',
     copete:
       'La institución gloriosa será una de los pocos equipos que contará con divisiones inferiores femenina. La idea es tener una etapa formativa dentro de las chicas.',
+    cuerpo:
+      'El trabajo en divisiones inferiores viene siendo uno de los puntos importantes, con respecto a las mejoras a futuro. En este caso instituciones como La Gloria, apuestan fuertemente a la creación de semilleros que permitan seguir sosteniendo la disciplina en el tiempo. Pero este caso hablaremos del femenino, un especio que viene creciendo a pasos agigantadados.\n\nLa cabeza del proyecto, Erika Feliz, nos cuenta de que se trata el trabajo que vienen realizando hace unos meses “Es importante, que en el futsal femenino, trabajemos inferiores para el crecimiento de la disciplina. Cuando arranque con el fútbol nunca vi la posibilidad, en mí, de la práctica de este deporte” nos comenta sobre su arranque en el este deporte.\n\nTambién nos dejó en claro su meta a futuro “La idea es que el proceso puedan hacerlo desde chicas, mediante una etapa formativa”. \n\nLas chicas entrenan de 21 a 22 hs en el predio de Enfermera Medina, lugar donde también combinan trabajos con chicas de futsal recreativo. Ellas no compiten en la liga y solo buscan la recreación en el deporte.\n\nOtro de los puntos es el trabajo de las mayores, quienes debes en cuando acompañan a las más chicas en las prácticas. “Es un trabajo motivacional y de identificación con el club” nos cuenta una de las más experimentadas del club y encargada del proyecto.\n\nHoy por hoy son más de 15 chicas que entrenan los martes y jueves, con la mira puesta en el futuro del futsal sanjuanino. \n\n',
     idEtiquetas: [],
     keyCategoria: 4,
     keySubcategoria: 12,
@@ -70,11 +80,13 @@ const listadoNoticias = [
     idSubcategoria: '12',
   },
   {
-    _id: 'RAWSON_CONSTRUYE_FUTURO_EN_EL_FUTSAL_1645506917255',
-    fecha: '2022-01-21T12:24:34.950Z',
+    _id: {$oid: '61eaa606e5099de0d6385d0a'},
+    fecha: {$date: '2022-01-21T12:24:34.950Z'},
     titulo: 'RAWSON CONSTRUYE FUTURO EN EL FUTSAL',
     copete:
       'El departamento con más cantidad de jugadores en la provincia apuesta por las bases. Con un grupo interdisciplinario de trabajo buscan generar herramientas en las promesas del futsal, a futuro. ',
+    cuerpo:
+      '“No todo está perdido” una frase que resuena en la cabeza de la sociedad, pero todavía hacemos la vista gorda cuando nos toca actuar. En esta oportunidad, desde un grupo de amantes del futsal, profesionales y funcionarios del estado intentan que esto no se repita en una de las zonas más grandes de la provincia.\n\nNos dirigimos al departamento Rawson, donde el proyecto “Construyendo Futuro” es una realidad en las inferiores del futsal sanjuanino. La idea, que hoy por hoy funciona en su plenitud, surge a partir de la creación de un equipo interdisciplinario en la Secretaría de Deportes de la Municipalidad. \n\nCon apoyo del Intendente, Rubén García, la Secretaría de Deportes, Susana Fernández y por el Director de Deportes, Prof. Marcelo González, el equipo trabaja con chicos de categorías Sub 16 y 18. El plantel seleccionado fue elegido de un grupo de chicos compuestos por 26 equipos de futsal pertenecientes al municipio. En cada categoría se presentaron un aproximado de 80 chicos, de los cuales quedaron 13. Además, el proyecto trabaja con la inclusión, y en este caso con un chico que es parte de la selección.\n\nEl objetivo principal del proyecto es darle un salto de calidad en la preparación física de cada chico que integra el seleccionado. La idea es puntualizar el trabajo de cada categoría juvenil, que los chicos puedan vivenciar tener rutinas establecidas por un equipo interdisciplinario. Entre lo que se destaca es el trabajo físico, alimenticio y psicológico en cada uno de los jugadores, y a su vez en conjunto con el apoyo familiar.  \n\nEl staff interdisciplinario está integrado por: coordinador y director técnico, Herman Vega, asistencia técnica, Gustavo Calvo, la Lic. en Nutrución, Ana Laura Costa, la Lic. en Psicología, Florencia Khomasi, y los Preparadores Físicos, Prof. Gustavo Ríos, Prof. Salvador Pascual y Prof. Gabriela Vega. \n\nLas jóvenes promesas del futsal sanjuanino entrenan los días jueves de 19 a 21hs, lo que corresponde a parte física en el Parque de Rawson. Mientras que los domingos de 10 a 12hs, realizan la parte técnica – táctica en el Complejo La Superiora.\n\nUno de los objetivos en cuanto a competencia es el viaje que se realizara en Mar del Plata del 8 al 11 de diciembre. En dicho certamen participarán equipos de Bariloche, Tierra del Fuego, Mar del Plata, Chascomus (Bs.As), Formosa y San Juan.  \n\nEl torneo será de carácter participativo y se planteó con el objetivo de que los jóvenes tengan experiencia y una base de lo que es un torneo a nivel nacional. La idea fue planteada por instructores FIFA de las diferentes provincias. \n\nApostar al futuro es algo que necesitamos en nuestra disciplina, y más teniendo en cuenta que la renovación es parte del crecimiento. Esperamos que este proyecto sea el primero de muchos en cada parte de San Juan, para que podamos seguir apostando a lo que tanto amamos. \n\n',
     idEtiquetas: [],
     keyCategoria: 4,
     keySubcategoria: 12,
@@ -84,11 +96,13 @@ const listadoNoticias = [
     idSubcategoria: '12',
   },
   {
-    _id: 'PODIO_COMPLETO_PARA_LA_SELECCIÓN_DE_RAWSON_EN_LA_FELIZ_1645506917255',
-    fecha: '2022-01-21T12:28:17.374Z',
+    _id: {$oid: '61eaa6e1e5099de0d6385d10'},
+    fecha: {$date: '2022-01-21T12:28:17.374Z'},
     titulo: 'PODIO COMPLETO PARA LA SELECCIÓN DE RAWSON EN LA FELIZ',
     copete:
       'La Selección de Rawson logró un 1er, un 2do y un 3er puesto en la primera edición de la “Mar del Plata Futsal Cup”. Además se finalizó 4to en la categoría sub 16. ',
+    cuerpo:
+      'Este fin de semana el futsal sanjuanino, específicamente el del Departamento Rawson, comenzó a marcar el futuro de la disciplina a nivel nacional. Gracias a una política destinada a las inferiores, los seleccionados de Rawson mostraron los frutos del programa “Construyendo Futuro”\n \nLos más chicos, la categoría Sub 14, se coronaron campeones tras ganar la Copa Amistad a Banco Provincia Mar del Plata y la Copa Desafió a Regatas de Rosario.\n \nEl segundo puesto fue para la Sub 21, que en un encuentro apasionante no pudo ante los locales, quienes se impusieron por 2 a 1. Lucas Tejada se quedó con la valla invicta del torneo. \n \nPor otro lado, la Sub 18, se quedó con el último lugar del podio que completaron Regatas y la Selección de Bariloche. Para la Sub 16 fue un meritorio 4to puesto.\n \nDe esta manera culmina la 1era edición de un evento que comenzó como una idea utópica, que gracias a unos locos del futsal se convirtió en realidad. El año que viene será la 2da edición, en la cual se esperan mayor cantidad de equipos y mucho mejor nivel. \n \nSub 21\n1°- Banco Provincia de Mar del Plata\n2°- Rawson San Juan\n3°- Selección de Bariloche\n4°- Huracan Bs As\n \nSub 18 \n1°- Regatas de Rosario\n2°- Selección de Bariloche\n3°- Rawson San Juan\n4°- Regatas de Santa Fe\n \nSub 16\n1°- Selección de Barloche\n2°- Regatas de Rosario\n3°- Huracan de bs as\n4°- Rawson San juan\n \nSub 14 \nRawson San Juan ganador de la copa Amistad frentre a la Selección de Mar del Plata y\nGanador de la Copa Desafio frente a Regatas de Rosario\n\n',
     idEtiquetas: [],
     keyCategoria: 4,
     keySubcategoria: 12,
@@ -98,11 +112,13 @@ const listadoNoticias = [
     idSubcategoria: '12',
   },
   {
-    _id: 'SAN_JUAN_TENDRÁ_CUATRO_SANJUANINOS_EN_RÍO_CUARTO_1645506917255',
-    fecha: '2022-01-21T12:30:26.373Z',
+    _id: {$oid: '61eaa765e5099de0d6385d16'},
+    fecha: {$date: '2022-01-21T12:30:26.373Z'},
     titulo: 'SAN JUAN TENDRÁ CUATRO SANJUANINOS EN RÍO CUARTO',
     copete:
       'La Gloria, Huarpes, Punta del Médano y A.M.F.A buscarán quedarse con dos de los pasajes para la Fase Final de la Liga Nacional de Futsal.',
+    cuerpo:
+      'Una vez más San Juan hará historia en el futsal, y esta vez a nivel nacional. Con la premisa de hacer el deporte más federal, la provincia logrará incursionar con la mayor participación de equipos en la Fase Regional – Cuyo, de la Liga Nacional de Futsal Argentina. \n\nLuego de las ediciones 2018 y 2019, este año la provincia contará con cuatro instituciones que buscarán demostrar su nivel en Río Cuarto. Pero en esta oportunidad serán tres Ligas las que tendrán sus representantes.\n\nEn primer lugar, la Liga Sanjuanina estará representada por dos viejos conocidos Huarpes y La Gloria. Ambos equipos llegaron a esta instancia tras su paso por la fase provincial, venciendo a Krause y S.E.C, respectivamente.\n\nPor otro lado, la Liga de Sarmientina intentará dejar bien representando a su departamento de la mano de Punta del Medano. Dicho equipo fue campeón en los dos torneos (Apertura y Clausura 2019) que le dieron la clasificación directa.\n\nEl último en la lista proviene del Oeste de la provincia, más precisamente de Calingasta. Asociación Mutual Fronteras Argentina (A.M.F.A), tendrá la difícil tarea de enfrentarse con equipos de mucha experiencia en su primera participación. \n\nA pesar de los años de diferencia entre las diferentes ligas, y la actualidad que los equipos atraviesan, San Juan volverá a tener su lugar en el certamen regional. Pero en esta oportunidad, marcando historia como la provincia con mayor cantidad de representantes. Algo que dejará un precedente en la Liga más importante del país.  \n',
     idEtiquetas: [],
     keyCategoria: 3,
     keySubcategoria: 10,
@@ -112,11 +128,13 @@ const listadoNoticias = [
     idSubcategoria: '10',
   },
   {
-    _id: 'EL_ARBITRAJE_SANJUANINO_ESTARÁ_PRESENTE_EN_EL_REGIONAL_1645506917255',
-    fecha: '2022-01-21T12:31:40.591Z',
+    _id: {$oid: '61eaa7c9e5099de0d6385d1c'},
+    fecha: {$date: '2022-01-21T12:31:40.591Z'},
     titulo: 'EL ARBITRAJE SANJUANINO ESTARÁ PRESENTE EN EL REGIONAL',
     copete:
       'Como en las dos últimas ediciones la provincia contará con dos jueces que serán parte de los encuentros de la Fase Cuyo.',
+    cuerpo:
+      'Del 4 al 7 de noviembre se disputará la 3er edición de la Fase Regional de la Liga Nacional de Futsal Argentina y nuestra provincia tendrá representantes en el arbitraje.\n \nLuciano Rodrigo y Mauro Gómez serán los encargados de impartir justicia junto a 2 árbitros de San Luis, 3 de Río Cuarto y 2 árbitros FIFA. Para el primer de ellos, será la segunda vez en el certamen cuyano.\n \n“Tengo mucho ansiedad de estar en ese momento. Se siente mucha responsabilidad, debido a que San Juan es muy fuerte en la disciplina. Es importante dejar muy bien a nuestro arbitraje. Queremos estar a la altura” Comentó Luciano previo a su viaje\n \nEl otro representante, Mauro Gomez nos cuenta “Tengo sensaciones muy positivas respecto al torneo en Río Cuarto, estoy muy confiado y me siento preparado, esperemos estar a la altura de lo que se juega, siempre con humildad y poniendo lo mejor de uno mismo.Si bien es el primer Torneo Regional al que voy como árbitro, ya que la liga nacional que se jugó en diciembre de 2019 acá en san Juan me tocó estar de tercer árbitro, como te dije anteriormente me siento preparado y tranquilo”\n \nAdemás, contó de sus otras experiencias. “Es mi tercera participación en la Liga Nacional Argentina de Futsal, las anteriores veces fue en el Regional y Fase Final de la temporada 2019. Además, participe en el Regional del Consejo Federal disputado en, Villa Mercedes, San Luis” \n\n',
     idEtiquetas: [],
     keyCategoria: 3,
     keySubcategoria: 10,
@@ -126,11 +144,13 @@ const listadoNoticias = [
     idSubcategoria: '10',
   },
   {
-    _id: 'ESTE_MIÉRCOLES_ARRANCA_LA_FASE_FINAL_DE_LA_LIGA_NACIONAL_1645506917255',
-    fecha: '2022-01-25T11:37:38.104Z',
+    _id: {$oid: '61eaa839e5099de0d6385d22'},
+    fecha: {$date: '2022-01-25T11:37:38.104Z'},
     titulo: 'ESTE MIÉRCOLES ARRANCA LA FASE FINAL DE LA LIGA NACIONAL',
     copete:
       'Con la presencia de Huarpes y La Gloria, la provincia de San Juan recibirá el mejor futsal de la Argentina. El plato fuerte de la 1er fecha será Huarpes-Barracas. ',
+    cuerpo:
+      'Una vez más, nuestra provincia será epicentro del mejor futsal de todo el país. Los equipos de cada región de la Liga Nacional, buscarán arrebatarle el título que consiguiera San Lorenzo en el año 2019, en el mítico Aldo Cantoni. Esta vez el Estadio La Superiora será el lugar elegido para que los 12 equipos busquen su lugar en semifinales.\n\nLos equipos se dividirán en 3 zonas de 4 equipos cada uno, donde los mejores 1eros y el mejor 2do, avanzarán a las semifinales. La fase regular tendrán 6 encuentros por jornada, los cuales se han definido en tres días de competencia. \n\nAhora te mostramos como serán los diferentes días de competencia y los encuentros. \nLiga Nacional 2021 – Fase Final\nFixture\n\nZONA "A"		\nFecha 1 – 15 de diciembre 		\nBARRACAS CTRAL.	   vs.	HUARPES F.C. (SAN JUAN)\nARG. DEL NORTE (TUC.)	vs.	NÁUTICO (ROS.)\n		\nFecha 2 – 16 de diciembre		\nARG. DEL NORTE (TUC.)	vs.	BARRACAS CTRAL.\nNÁUTICO (ROS.)	vs.	HUARPES F.C. (SAN JUAN)\n		\nFecha 3 – 17 de diciembre		\nBARRACAS CTRAL.	  vs.	NÁUTICO (ROS.)\nHUARPES F.C. (SAN JUAN)	vs.	ARG. DEL NORTE (TUC.)\n\n\nZONA "B"		\nFecha 1 – 15 de diciembre		\nBANCO PROVINCIA (MDP)	vs.	LA GLORIA (SAN JUAN)\nCAMIONEROS (R. GRANDE)	vs.	ADEFU (RÍO GRANDE)\n		\nFecha 2 – 16 de diciembre	 	\nCAMIONEROS (R. GRANDE)	vs.	BANCO PROVINCIA (MDP)\nADEFU (RÍO GRANDE)	vs.	LA GLORIA (SAN JUAN)\n		\nFecha 3		\nBANCO PROVINCIA (MDP)	vs.	ADEFU (RÍO GRANDE)\nLA GLORIA (SAN JUAN)	vs.	CAMIONEROS (R. GRANDE)\n\n\nZONA "C"		\nFecha 1 – 15 de diciembre		\nBOCA JRS.	vs.	JOCKEY CLUB (ROS.)\nSAN PEDRO (MZA.)	vs.	SAN LORENZO DE A.\n		\nFecha 2 – 16 de diciembre		\nSAN PEDRO (MZA.)	vs.	BOCA JRS.\nSAN LORENZO DE A.	vs.	JOCKEY CLUB (ROS.)\n		\nFecha 3 – 17 de diciembre		\nBOCA JRS.	vs.	SAN LORENZO DE A.\nJOCKEY CLUB (ROS.)	vs.	SAN PEDRO (MZA.)\n',
     idEtiquetas: [],
     keyCategoria: 3,
     keySubcategoria: 11,
@@ -140,11 +160,13 @@ const listadoNoticias = [
     idSubcategoria: '11',
   },
   {
-    _id: 'DESAMPARADOS_SIGUE_DANDO_QUE_HABLAR_EN_LA_B_1645506917255',
-    fecha: '2022-01-21T12:35:50.390Z',
+    _id: {$oid: '61eaa8bee5099de0d6385d28'},
+    fecha: {$date: '2022-01-21T12:35:50.390Z'},
     titulo: 'DESAMPARADOS SIGUE DANDO QUE HABLAR EN LA B',
     copete:
       'Las víboras consiguieron su cuarta victoria al hilo y sigue como único líder de la zona B. El otro con puntaje ideal es Coop. Caucete.',
+    cuerpo:
+      'Las chicas siguen con su paso triunfal en un nuevo capítulo de la Divisional B. En la Zona B, el gran candidato es el equipo de Desamparados que no para de ganar en lo que va de campeonato.\n\nEn la 4ta fecha no tuvieron piedad ante las chicas de Escobar a las que vencieron por 8 a 2. Las del Barrio Patricia Sanjuanina, siguen punteras y con puntaje ideal, 4 de 4.\nPor otro lado Cooperativa Caucete, campeón del Torneo Iniciación, hizo lo suyo ante Manantial. El resultado fue de 8 a 4 para el lado de las cauceteras.\n\nEl resto de la fecha quedó de la siguiente manera:\n\nTorneo Clausura - Divisional B Femenino\nFecha N°4\n \nTango 5 - 2 ACCJ\nAberastain 2 - 1 El Globo\nÁrea ll 5 – 0 Don Bosco\nB° Escobar 2 – 8 Desamparados \nSarmiento 0 – 3 Pumas \nIndependencia 2 - 6 Rivadavia \nComunicaciones 10 - 3 Las Águilas\nManantial 4 - 8 Coop. Caucete \nBenavides 4 - 1 Juventud del Norte \nCalise 1 - 6 Hualilan\n',
     idEtiquetas: [],
     keyCategoria: 2,
     keySubcategoria: 7,
@@ -154,11 +176,13 @@ const listadoNoticias = [
     idSubcategoria: '7',
   },
   {
-    _id: 'A_LA_ESPERA_DEL_ÚLTIMO_ASCENSO__1645506917255',
-    fecha: '2022-01-21T12:37:15.117Z',
+    _id: {$oid: '61eaa8fce5099de0d6385d2e'},
+    fecha: {$date: '2022-01-21T12:37:15.117Z'},
     titulo: 'A LA ESPERA DEL ÚLTIMO ASCENSO ',
     copete:
       'Cinco equipos tienen su lugar en la máxima categoría del futsal femenino. Todavía resta definirse el sexto equipo que formará parte de la temporada 2022.',
+    cuerpo:
+      'El futsal femenino sigue creciendo a pasos agigantados con la incursión de nuevos equipos y una competencia más importante año tras año. En esta oportunidad, la Divisional B ha mostrado el gran nivel de las chicas, con grandes pasajes de buen juego y partidos emocionantes.\n\nPara la temporada 2022, ya se definieron 5 ascensos. Uno de ellos fe la gran final entre Cooperativa Caucete y Área II, con el gran triunfo de La Coope en el Estadio La Superiora. \n\nLos otros ascensos se dieron en la definición del torneo clausura donde Desamparados, Comunicaciones, Hualilan y Barrio Rivadavia aseguraron su lugar en la primer cateogoría para la próxima temporada. \n\nFalta un puesto que saldrá de los encuentros que se disputen, post Liga Nacional de Futsal, entre Área 2, Benavidez, Pumas y San Lorenzo-Aberastain.\n',
     idEtiquetas: [],
     keyCategoria: 2,
     keySubcategoria: 7,
@@ -168,11 +192,13 @@ const listadoNoticias = [
     idSubcategoria: '7',
   },
   {
-    _id: 'RIVERA_GRITA_FUERTE,_TRICAMPEÓN_1645506917255',
-    fecha: '2022-01-21T12:38:45.101Z',
+    _id: {$oid: '61eaa954e5099de0d6385d34'},
+    fecha: {$date: '2022-01-21T12:38:45.101Z'},
     titulo: 'RIVERA GRITA FUERTE, TRICAMPEÓN',
     copete:
       'El elenco de Chimbas se consagró como el mejor equipo del año 2021, luego de ganar el Apertura y Clausura. Esta vez Palermo se tuvo que conformar con el 2do puesto. ',
+    cuerpo:
+      'Una vez más al futsal femenino tiene dueño y vuelve a repetir formula, por tercera vez en forma consecutiva Club Sp. Rivera se consagra como el mejor equipo en la rama mujeres. \n\nLas dirigidas por Marcelo Vega, volvieron a mostrar contundencia esta vez ante Palermo, que venía de hacer una gran semifinal. El resultado fue de 6 a 1 para las chimberas. \n\nDe esta manera repiten lo conseguido fines del 2019, y el apertura del 2021, derrotaron a Barrio de Pie en el Estadio La Superiora. \n',
     idEtiquetas: [],
     keyCategoria: 2,
     keySubcategoria: 6,
@@ -182,11 +208,13 @@ const listadoNoticias = [
     idSubcategoria: '6',
   },
   {
-    _id: 'TORNEO_PROVINCIAL_FEMENINO_EN_CALINGASTA_1645506917255',
-    fecha: '2022-01-22T10:16:52.146Z',
+    _id: {$oid: '61eab54ee5099de0d6385de9'},
+    fecha: {$date: '2022-01-22T10:16:52.146Z'},
     titulo: 'TORNEO PROVINCIAL FEMENINO EN CALINGASTA',
     copete:
       'La rama femenina buscará a sus dos representantes para la Liga Nacional Femenina de Futsal, en esta oportunidad 3 Ligas de la provincia tendrán sus representantes. ',
+    cuerpo:
+      'Del 21 al 23 de enero, la ciudad de Barreal, tendrá una intensa jornada de futsal femenino es búsqueda del sueño nacional. Luego de los cambios producidos, desde la incorporación de la Liga Sarmientina y Calingastina, el pase será en una especie de triangular en conjunto con la Liga Sanjuanina. En este caso por la liga capitalina, Rivera (Actual tricampeón) y Barrios de Pie (último subcampeón), serán las encargadas de representar.\n\nEl departamento Sarmiento tendrá a C.A. Gral. Belgrano "Las Leonas" y la Asociación Civil "Las Lobas", quienes buscarán llegar a la siguiente instancia. Mismo caso para Calingasta con A.M.F.A y U.B.V. El primero de estos consiguió el pase en la rama masculina, disputando por primera vez una etapa regional. \n\nLos encuentros se llevarán a cabo en Polideportivo José González, desde las 20hs. La entrada será de $50 pesos. Se festejará el aniversario del Departamento Calingasta. \n\n1er Fecha:\n20:00 - Las Leonas vs Club Rivera\n21.30 - Barrio de Pie vs AMFA\n23:00 - U.B,V vs Las Lobas',
     idEtiquetas: [],
     keyCategoria: 2,
     keySubcategoria: 6,
@@ -196,11 +224,13 @@ const listadoNoticias = [
     idSubcategoria: '6',
   },
   {
-    _id: 'LA_GLORIA_Y_HUARPES_SE_VAN_PARA_EL_REGIONAL_1645506917255',
-    fecha: '2022-01-21T18:14:25.347Z',
+    _id: {$oid: '61eaf79ee5099de0d6385f12'},
+    fecha: {$date: '2022-01-21T18:14:25.347Z'},
     titulo: 'LA GLORIA Y HUARPES SE VAN PARA EL REGIONAL',
     copete:
       'Luego de 5 fechas cambiantes, donde la punta tuvo varios dueños, los gloriosos y caciques volverán a ir a la Fase Regional de la Liga Nacional como en el 2018.',
+    cuerpo:
+      'La Fase Provincial de la Liga Nacional se puso fin  en el Estadio La Superiora, donde ya se definieron los equipos que estarán en el Regional. Luego de unas semifinales interesantes, previo de haber pasado por la etapa regular, La Gloria y Huarpes representarán a San Juan en la Zona Cuyo. Así como lo hicieran en el 2018, ambos equipos buscarán un pasaje a la instancia Nacional, la cual se disputarán en San Juan.\n\nLiga Nacional Argentina de Futsal\nEtapa Provincial San Juan\n\nFecha N°1\nHuarpes 2 – 0 Hualilan\nS.E.C 3 – 1 Krause\nCoop. Caucete  1 - 4  La Gloria \n\nFecha N°2\nKrause 6 – 3 Huarpes\nCoop. Caucete 4 - 4  S.E.C\nHualilan 4 – 4 La Gloria \n\nFecha N°3\nHuarpes 4 – 3 La Gloria\nHualilan 3 - 6  S.E.C\nCoop. Caucete *2 – 3  Krause\n\nFecha N°4\nHualilan 3 – 5 Krause\nLa Gloria 5 - 4  S.E.C\nCoop. Caucete 2 – 1  Huarpes\n\nFecha N°5\nHualilan 5 – 7 Coop. Cuacete\nHuarpes  2 – 0  S.E.C\nLa Gloria 2 – 1  Krause\n\nSemifinales\nKrause 1 – 8 Huarpes\nLa Gloria 3 - 1 SEC',
     idEtiquetas: [],
     keyCategoria: 3,
     keySubcategoria: 9,
@@ -210,11 +240,13 @@ const listadoNoticias = [
     idSubcategoria: '9',
   },
   {
-    _id: 'CONSORCIO_EL_NUEVO_CAMPEÓN_DE_CALINGASTA_1645506917255',
-    fecha: '2022-01-21T20:46:02.052Z',
+    _id: {$oid: '61eb1b87e5099de0d6385fac'},
+    fecha: {$date: '2022-01-21T20:46:02.052Z'},
     titulo: 'CONSORCIO EL NUEVO CAMPEÓN DE CALINGASTA',
     copete:
       'En una gran final los nuevos monarcas derrotaron a quien era el campeón reinante AMFA, de esta manera suma su primer estrella',
+    cuerpo:
+      'La Liga Calingastina tiene nuevo monarca y se llama Consorcio, en un gran encuentro derrotó al doble campeón calingastino AMFA. \n\nEn un partido plagado de goles los del consorcio aprovecharon la chances para llevarse el partido por 10 a 7. Con este resultado se adjudicaron el certamen departamental, y una chance para participar de la Liga Regional. Habrá que esperar como se dará el 2022, por los grandes parates que hubieron en el 2021.\n\nHay que recordar que en el 2019, AMFA se había adjudicado el torneo Apertura y Clausura, lo que le dio la chance de participar de la Fase Cuyo, en Río Cuarto. \n\nLiga Calingastina \nFinal: Consorcio 10 - 7 AMFA ',
     idEtiquetas: [],
     keyCategoria: 4,
     keySubcategoria: 13,
@@ -224,11 +256,13 @@ const listadoNoticias = [
     idSubcategoria: '13',
   },
   {
-    _id: 'RIVERA_Y_BARRIOS_DE_PIE_ARRANCARON_GOLEANDO_1645506917255',
-    fecha: '2022-01-22T10:12:58.767Z',
+    _id: {$oid: '61ebd8ade5099de0d6386042'},
+    fecha: {$date: '2022-01-22T10:12:58.767Z'},
     titulo: 'RIVERA Y BARRIOS DE PIE ARRANCARON GOLEANDO',
     copete:
       'Los equipos de la Capital empezaron con el pie derecho tras golear a Belgrano y AMFA respectivamente. Hoy se lleva a cabo el 2do cruce.',
+    cuerpo:
+      'El Torneo Provincial Femenino se puso en marcha en el día de ayer. El estadio José González fue el escenario en donde los equipos de la Liga Sanjuanina de Fútbol arrancarían con todo, su chancha de clasificación al regional. \n\nEn primer turno Rivera no tuvo piedad ante el equipo sarmientino, al que derrotó por 11 a 1. El actual tricampeón local no dejó dudas de que van serias sus chances de campeonar y tener un lugar a nivel nacional.\n\nPor otro lado, Barrios de Pie, uno de los equipos nuevos de la Liga, tuvo un poco más de trabajo para sacarse de encima a AMFA de Calingasta. El resultado fue de 11 a 5, cerrando la jornada de ayer.\n\nHoy los encuentros serán:\n\nTorneo Nacional de Futsal Famenino\nBarreal - Calingasta\n\n20:30hs Barrios de Pie vs AMFA \n21:45hs Club Rivera vs Las Lobas',
     idEtiquetas: [],
     keyCategoria: 2,
     keySubcategoria: 6,
@@ -238,11 +272,13 @@ const listadoNoticias = [
     idSubcategoria: '6',
   },
   {
-    _id: 'LA_GRN_FINAL:_RIVERA_-_B.D.P_SOLIRDARIDAD_1645506917255',
-    fecha: '2022-01-23T14:29:18.890Z',
+    _id: {$oid: '61ed6644e5099de0d6386103'},
+    fecha: {$date: '2022-01-23T14:29:18.890Z'},
     titulo: 'LA GRN FINAL: RIVERA - B.D.P SOLIRDARIDAD',
     copete:
       'Como en el torneo doméstico los dos equipos se medirán por un lugar en el certamen regional. Será a las 18.30 en el Estadio de Barreal.',
+    cuerpo:
+      'Una vez más los mejores equipos del futsal femenino de San Juan se medirán las caras para definir el Torneo Provincial, de cara al Nacional. Rivera y B.D.P. Solidaridad buscarán se medirán en una final para saber quien será parte de la Etapa Regional. \n\nAyer en la primer semifinal, Solidaridad tuvo que trabajar mucho para derrotar a AMFA de Barreal. En un encuentro de ida y vuelto, las capitalinas superaron por 7 a 3 a las locales.\n\nEn la otra llave,  Rivera fue contundente y será el rival a vencer. El resultado fue abultado, donde la contundencia marca el camino de las tricampeonas sanjuaninas. El final concluyó 15 a 2, para las candidatas a llevarse el título.\n\nSemifinal 1: B.D.P. Solidaridad 7 - 3 AMFA\nSemifinal 2: C. Rivera 15 - 2 Las Lobas Sarmiento\n\nFinal\n18:30 - B.D.P Solidaridad - C. Rivera',
     idEtiquetas: [],
     keyCategoria: 2,
     keySubcategoria: 6,
@@ -252,11 +288,13 @@ const listadoNoticias = [
     idSubcategoria: '6',
   },
   {
-    _id: 'CHARLA_Y_ENTRENAMIENTO_DE_FUTSAL_EN_25_DE_MAYO_1645506917255',
-    fecha: '2022-01-27T15:55:21.264Z',
+    _id: {$oid: '61f292cde5099de0d63869bc'},
+    fecha: {$date: '2022-01-27T15:55:21.264Z'},
     titulo: 'CHARLA Y ENTRENAMIENTO DE FUTSAL EN 25 DE MAYO',
     copete:
       'El Profesor Matías Illanes llevó a cabo una capacitación para chicos entre 12 y 16 años, con la finalidad de brindar herramientas para los jóvenes del departamento. La Escuela Municipal 25 de Mayo fue la encargada de la organización del evento. ',
+    cuerpo:
+      'A pesar de no saber a ciencia acierta el arranque de la actividad en la provincia, el futsal sigue trabajando de cara a las bases formativas. En esta oportunidad, el municipio de 25 de Mayo a punta fuerte a las inferiores y fomentar el deportes en la región. En esta oportunidad mediante una charla y entrenamiento para chicos entre 12 y 16 años. \n\nEl Profesor, Matías Illanes, quien en la actualidad se encuentra cumpliendo funciones para la institución porteña de Chacarita, fue el encargado de llevar a cabo la capacitación. "La idea era brindarle fundamentos técnicos, conceptos tácticos básicos, con el fin de que puedan entender cosas específicas de la disciplina. La verdad que les gustó mucho y sentí una gran devolución de parte de ellos. \n\nJunto con el estuvo Gabriel Brito, referente del departamento en lo que respecta al trabajo de la disciplina, quien además colaboró en los entrenamientos de la primera división del club Escuela Municipal 25 de Mayo. \n\n"Chispi" como se lo conoce al profesor continuará ligado al futsal de Buenos Aires una temporada más, en esta oportunidad de la mano del funebrero equipo que milita en la tercer categoría del futsal AFA. "Nuestro objetivo, junto al técnico Mauro Tallarico, es volver a Chaca a la segunda categoría" \n\n"Estoy muy entusiasmado, donde tenemos seis semanas de pretemporada, en la cual habrá una serie de amistosos que tenemos planificados. Se realizaron prueba de jugadores, donde llegaron jugadores interesantes, con su pase en la mano"',
     idEtiquetas: [],
     keyCategoria: 4,
     keySubcategoria: 12,
@@ -266,11 +304,13 @@ const listadoNoticias = [
     idSubcategoria: '12',
   },
   {
-    _id: 'TORNEO_DE_VERANO_EN_LAPRIDA_1645506917255',
-    fecha: '2022-01-28T09:12:46.612Z',
+    _id: {$oid: '61f3b38fe5099de0d6386ac2'},
+    fecha: {$date: '2022-01-28T09:12:46.612Z'},
     titulo: 'TORNEO DE VERANO EN LAPRIDA',
     copete:
       'El certamen contará con la presencia de 8 equipos de categoría Sub 17, con el fin de darle rodaje a los más chicos.',
+    cuerpo:
+      'Las divisiones inferiores se preparan de la mejor manera para este año que arrancó. Con competencias y capacitaciones, los más chicos buscan generar nuevas armas para servir de base a la disciplina que más ha crecido en cantidad de jugadores en estos últimos tiempo. En esta oportunidad, Laprida realizará una competencia de verano con la participación de chicos Sub 17, y algunos que pertenezcan a la categoría 2003.\n\nEl certamen se dividirá en dos zonas de 4 equipos, los cuales clasificarán en su totalidad a cuartos de final. Luego habrá semifinales, y la definición del torneo se llevará a cabo en el prestigioso estadio Marcelo Garcia. \n\nLas instituciones participantes serán: \n\nZona A: \n• UTA\n• Laprida\n• B° Escobar\n• El Rejunte\n\nZona B:\n• B° Mercedario\n• Krause\n• B° Manantial\n• La Nueva Era',
     idEtiquetas: [],
     keyCategoria: 4,
     keySubcategoria: 12,
@@ -280,10 +320,12 @@ const listadoNoticias = [
     idSubcategoria: '12',
   },
   {
-    _id: '¿Y_AHORA?__1645506917255',
-    fecha: '2022-02-07T10:40:03.824Z',
+    _id: {$oid: '6200f702c12379c0de2f24d1'},
+    fecha: {$date: '2022-02-07T10:40:03.824Z'},
     titulo: '¿Y AHORA? ',
     copete: 'El tribunal de faltas de la Liga Sanjuanina renunició y la actividad seguirá parada.',
+    cuerpo:
+      'Una vez más el futsal seguirá en veremos luego de problemas dirigenciales en la Liga Sanjuanina de Fútbol. En este caso luego de la situación dudosa sabre el ascenso de Centenario Olímpico en el fútbol 11, 8 integrantes del Tribunal de Pernas decidieron renunciar a su cargo. Debido a esto la actividad está parada y no continuará hasta nuevo aviso.\n\nUna las categorías más damnificadas, es la Divisional B. Esto se debe a que no tuvo definición de ninguno de sus dos torneos pensados para este año. El primer quedó se finalizó con la idea de que sumara puntos para la segunda parte. Este último estaba en proceso de definición.\n\nHoy por hoy, la realidad muestra que será muy dificil comenzar el 2022 con el panorama que se vive en el futsal. ',
     idEtiquetas: [],
     idCategoria: '1',
     idSubcategoria: '2',
@@ -293,11 +335,13 @@ const listadoNoticias = [
     idImagen: ['Ea27d7zw7BvNakiUL087E1d1.jpg'],
   },
   {
-    _id: 'UN_JUGADOR_DE_CGT_TUVO_UN_ACCIDENTE_Y_CASI_PIERDE_LA_VIDA_1645506917256',
-    fecha: '2022-02-07T10:52:48.886Z',
+    _id: {$oid: '6200f9ffc12379c0de2f24d7'},
+    fecha: {$date: '2022-02-07T10:52:48.886Z'},
     titulo: 'UN JUGADOR DE CGT TUVO UN ACCIDENTE Y CASI PIERDE LA VIDA',
     copete:
       'Lucas Castro jugador de las inferiores del Barrio CGT fue atropellado y quedó en estado de inconsciencia. Ahora se encuentra fuera de peligro pero con una recuperación que llevará mucho tiempo',
+    cuerpo:
+      'El Chino o Koreano, como lo conocen vive un momento que quedará marcado en su historia personal. El juvenil jugador del Barrio, sufrió un accidente cuando una camioneta lo envistió y quedó en estado de inconciencia. El golpe en la cabeza dejó secuelas en su movilidad y en la parte neurológica pero hoy se encuentra estable.\n\n"Está fuera de peligro, se encuentra en una habitación común, ahora comenzó con una rehabilitación para poder hablar bien y caminar. Es muy larga la rehabilitación, están evaluando los médicos de hacer una internación domiciliaria" Las palabras de Maximiliano Castro dirigente del CGT.\n\n"No sabemos nada del tipo que se dio a la fuga, el padre de Lucas está con abogados tratando de darle una solución a este tema" comentó el periodista con respecto a la situación de la persona que atropello al chico y luego se dio a la fuga en una camioneta Toyota. \n\nDesde el equipo, esperamos que la recuperación se pronto y que Lucas pueda volver a la canchas muy pronto. ',
     idEtiquetas: [],
     idCategoria: '1',
     idSubcategoria: '2',
@@ -307,11 +351,13 @@ const listadoNoticias = [
     idImagen: ['CEcgciEeZyWKRzseOgr8kWQ5.jpg'],
   },
   {
-    _id: 'UN_BARRIO_SOLARES_QUIERE_EL_ASCENSO_A_PRIMERA_1645506917256',
-    fecha: '2022-02-07T11:34:03.466Z',
+    _id: {$oid: '620103a9c12379c0de2f24dd'},
+    fecha: {$date: '2022-02-07T11:34:03.466Z'},
     titulo: 'UN BARRIO SOLARES QUIERE EL ASCENSO A PRIMERA',
     copete:
       'Uno de los mejores equipos de la temporada 2021 intentará seguir su marcha triunfal para la primer categoría del futsal sanjuanino. ',
+    cuerpo:
+      'La Divisional B del futsal sanjuanino tendrá una temporada 2022 picante en cuanto a la definición del torneo pasado y lo que se vendrá para este próximo. Uno de los mejores equipos de la categoría sin duda es el Barrio Solares que buscará un nuevo ascenso en su haber para la máxima categoría.\n\nCon la continuidad de Gustavo Muñoz, un gran referentes de la disciplina, los barriales intentarán sumar jugadores con experiencia y peso para este nuevo torneo. Se habla de la llegada de un arquero y un jugador con pasado en equipos importantes de primera. Resta resolver algunas cuestiones de pase, para ver la llegada de estos dos jugadores. \n\nEsta semana arracarán los entrenamientos en el Sindicato de Madereros y Cervantes, con entrenamientos lunes, miércoles y viernes.\n\nPor otro lado, siegue el proyecto de la cancha propia en el barrio, el cual está en proceso por parte de la Municipalidad de la Capital. ',
     idEtiquetas: [],
     idCategoria: '1',
     idSubcategoria: '2',
@@ -321,11 +367,13 @@ const listadoNoticias = [
     idImagen: ['db9gto4KDBUr3WFprGSzycFL.jpg'],
   },
   {
-    _id: 'ARGENTINA_CAMPEÓN_DE_AMÉRICA__1645506917256',
-    fecha: '2022-02-07T14:14:23.545Z',
+    _id: {$oid: '6201293fc12379c0de2f2605'},
+    fecha: {$date: '2022-02-07T14:14:23.545Z'},
     titulo: 'ARGENTINA CAMPEÓN DE AMÉRICA ',
     copete:
       'La Selección Argentina le ganó 1-0 a Paraguay en Asunción y se consagró campeón de América por tercera vez en su historia. El gol lo marcó Alan Brandi en el primer tiempo, donde la Albiceleste fue superior. En el complemento supo aguantar la ventaja y disimuló el desgaste físico de la semifinal ante Brasil.',
+    cuerpo:
+      'La Selección Argentina ratificó una vez más en un torneo continental su condición de potencia. Tras el subcampeonato mundial alcanzado en Lituania, que dejó una sensación de amargura por el gran torneo que había hecho, a pesar de lo meritorio de llegar por segunda vez consecutiva a una final mundial, la Albiceleste se reencontró con otro título. Por tercera vez en la historia ganó una Copa América (las anteriores habían sido en el 2003 también en Paraguay y en el 2015 en Ecuador). Las dos Eliminatorias ganadas, en Gramado 2012 y en Carlos Barbosa 2020, se contabilizan aparte.\n\nLuego de eliminar una vez más a Brasil, esta vez en semifinales por penales, luego del 3-3 en tiempo regular y tras un enorme desgaste físico y mental, el equipo dirigido por Matías Lucuix logró derrotar en la final a un duro equipo paraguayo, apoyado por su público. Fue 1-0 con tanto de Alan Brandi en la primera parte, quien ganó la posición como pivot y luego de la tapada del arquero Giovany González, el jugador del Jaén Paraíso definió en el rebote.\n\nEn el complemento Argentina empezó a sentir el desgaste del día anterior ante Brasil y bajó la línea defensiva, hasta que tuvo que contener el juego de cinco contra cuatro de Paraguay. Maxi Rescia en una heroica pirueta evitó el empate en los pies de Javier Salas y Nicolás Sarmiento volvió a ser determinante como en la serie de penales del sábado.\n\nArgentina se abrazó a la victoria y volvió a consagrarse en Paraguay, como en el 2003, la primera Copa Libertadores conquistada. Esta generación dorada de jugadores volvió a ubicar a la Selección Argentina en lo más alto y empiezan a naturalizar estos títulos que hace unos cuantos años atrás eran impensados.',
     idEtiquetas: [],
     idCategoria: '4',
     idSubcategoria: '15',
@@ -335,11 +383,13 @@ const listadoNoticias = [
     idImagen: ['evK91PthLh4WIrZu7VxYFDJ6.jpg'],
   },
   {
-    _id: 'BRASIL_DECIME_QUE_SE_SIENTE!!!_1645506917256',
-    fecha: '2022-02-07T14:20:03.640Z',
+    _id: {$oid: '62012a91c12379c0de2f2657'},
+    fecha: {$date: '2022-02-07T14:20:03.640Z'},
     titulo: 'BRASIL DECIME QUE SE SIENTE!!!',
     copete:
       'La Selección Argentina derrotó en los penales a Brasil con una estupenda actuación de Nicolás Sarmiento, luego de haber empatado 3-3 en el tiempo regular y jugará la final de la Copa América este domingo, a las 17, ante Paraguay.',
+    cuerpo:
+      'Este 5 de febrero del 2022 será otra fecha que quedará marcada en la historia del Futsal argentino. Por si hubiese sido poco ganarle la final de las Eliminatorias en su casa en el 2020 y haberlo eliminado del Mundial de Lituania en semifinales, la Selección Argentina se tenía guardada otra página de gloria.\n\nEsta vez lo eliminó a Brasil en las semifinales de la Copa América de Asunción. Luego de empatar 3-3 en el tiempo regular con un polémico penal en contra, los dirigidos por Matías Lucuix se impusieron en los penales, con una resonante actuación del arquero Nicolás Sarmiento, que detuvo tres penales y uno había pegado en el palo. Además, de haberle atajado una sexta falta a Ferrao (a quien le detuvo uno de los penales) en la prórroga.\n\nEl espíritu de este equipo argentino no se cansa de ganar, parece diseñado para lograr las proezas. En este tipo de partidos límites surge el carácter ganador, el no sentirse menos que nadie y poner contra las cuerdas a Brasil, algo que viene logrando hace al menos ocho años.\n\nSe había puesto en ventaja Argentina con gol de Lucas Bolo Alemany, que empujó un remate de Cristian Borruto y después, tras un insólito penal pitado por la chilena Valeria Palma a Maxi Rescia, cuando la pelota pegó en su brazo de apoyo luego de deslizarse para bloquear un remate, llegó el empate. Poco le importó a Ferrao, que anotó desde los seis metros el empate.\n\nEn el complemento, Matheus, recuperado de Covid, de tiro libre anotó el 2-1 para Brasil. La reacción argentina llegó gracias al remate de Ángel Claudino, que puso el 2-2. A los 14 minutos, el arquero brasileño Guitta se fue expulsado por evitar el tercer tanto argentino, ya que la tocó con la mano fuera del área cuando estaba amonestado. Leandro Cuzzolino cambió la sexta falta por gol y Argentina pasó al frente 3-2. Pero dos minutos después, otra vez la mala fortuna jugó en contra de la Albiceleste, luego de un tiro de esquina de Marcénio, la pelota rebotó en Borruto y descolocó a Sarmiento.\n\nAl alargue llegaron los dos en quinta falta y Sarmiento evitó la derrota al contenerle una sexta falta a Ferrao. En el tramo final, Argentina fue a buscarlo con Cuzzolino de arquero jugador, pero no se le dio. Fue ahí en los penales, que el ex arquero de River se volvió a transformar en héroe, deteniendo tres penales y otro pegó en el palo. Argentina se clasificó a la final y enfrentará a Paraguay, este domingo a las 17.',
     idEtiquetas: [],
     idCategoria: '4',
     idSubcategoria: '15',
@@ -349,11 +399,13 @@ const listadoNoticias = [
     idImagen: ['U1t4hYpKQvfDOYcqrebT6hWR.jpg'],
   },
   {
-    _id: 'EMPATE_CON_PARAGUAY,_Y_FINAL_CON_BRASIL__1645506917256',
-    fecha: '2022-02-07T14:22:08.215Z',
+    _id: {$oid: '62012b0dc12379c0de2f268d'},
+    fecha: {$date: '2022-02-07T14:22:08.215Z'},
     titulo: 'EMPATE CON PARAGUAY, Y FINAL CON BRASIL ',
     copete:
       'La Selección Argentina le ganó 1-0 a Paraguay en Asunción y se consagró campeón de América por tercera vez en su historia. El gol lo marcó Alan Brandi en el primer tiempo, donde la Albiceleste fue superior. En el complemento supo aguantar la ventaja y disimuló el desgaste físico de la semifinal ante Brasil.',
+    cuerpo:
+      'Por llegar con menor diferencia de gol al choque directo para definir las posiciones del Grupo B, Argentina necesitaba ganarle a Paraguay para ganar la zona y evitar un hipotético cruce ante Brasil. No empezó bien el partido para Argentina, que había tenido dos chances para marcar y no convirtió. La primera que tuvo el conjunto guaraní no la desperdició en los pies de Arnaldo Báez y la Albiceleste empezó el partido de atrás. Promediando el primer tiempo, los guaraníes ampliaron la ventaja con una gran salida de presión y juego colectivo, que culminó Hugo Martínez.\n\nA cuatro minutos del descanso, Matías Lucuix mandó a Matías Edelstein como arquero jugador para incomodar con el ataque cinco contra cuatro. Ahí descontó el ex Hebraica, cuando amagó para afuera, pisó la pelota para adentro y con un puntazo acortó distancias. Pero en la jugada siguiente, en un pase largo, Nicolás Sarmiento no pudo retener la pelota y Francisco Martínez la empujó adentro.\n\nEn el complemento, Argentina siguió con arquero jugador, pero esta vez fue Leandro Cuzzolino en esa función. El conjunto nacional llegó al empate con otro tanto de Edelstein y el gol de Sebastián Corso. Lo siguió buscando hasta el final, pero no se dio. Por eso, Argentina enfrentará el sábado en la semifinal a Brasil, a las 18:30. Mientras que Paraguay irá ante Colombia, a las 15:30.\n\nEn el cierre de la jornada de grupos, Brasil aseguró la primera posición al derrotar 2-0 a Uruguay con un doblete de Pito. Antes, Colombia le había ganado 5-3 a Ecuador y terminó segunda en el Grupo A. En primer turno, ya ambas eliminadas, Venezuela le ganó a Bolivia 3-1.\n\n',
     idEtiquetas: [],
     idCategoria: '4',
     idSubcategoria: '15',
@@ -363,11 +415,13 @@ const listadoNoticias = [
     idImagen: ['FmXb4b1ogjxKg32Y-T0O5NVF.jpg'],
   },
   {
-    _id: 'COPA_25_DE_MAYO__1645506917256',
-    fecha: '2022-02-08T11:11:33.371Z',
+    _id: {$oid: '62013faac12379c0de2f26c4'},
+    fecha: {$date: '2022-02-08T11:11:33.371Z'},
     titulo: 'COPA 25 DE MAYO ',
     copete:
       'Veintidos equipos del departamento, Rawson. 9 de Julio y  Caucete disputan el certamen departamental con el fin de coronarse como el mejor del Este. ',
+    cuerpo:
+      'Uno de los departamentos más futsalero, como lo es 25 de Mayo, no se queda atrás en cuanto a la competencia. Los equipos oficiales esperan el regreso de la actividad oficial disputando la Copa 25 de Mayo, la cual reúne a jugadores de todo el departamento.\n\nEn esta oportunidad 16 escuadras buscan alzarse con la Copa, la cual tiene el respaldo del municipio quien apoya a esta iniciativa. Uno de sus generadores Cristian Fantini,  nos cuanta sus sensaciones "La verdad es una gran convocatoria, que nos permite soñar con que esta disciplina siga creciendo en nuestro departamento y en la provincia"\n\nHay premiación hasta el sexto lugar y los premios son en efectivo más trofeos.\n\nLos equipos participantes son:\n* Aston Birra\n* Bloquera Santa Rosa\n* La Coope \n* Barrio los Algarrobos\n* Los Funebreros\n* Algarrobo Verde A\n* Algarrobo Verde B\n* La Veneziana \n* La Sub  21\n* Sarmiento\n* La Chimbera\n* Ultimo Momento\n* Caucete F.C\n* Un tiki y un par de lobas\n* Cuadrilla Godoy.\n* Los Locos del Mostaza\n* Liverful.\n* Rosa Mística  \n* La 33\n* Sp. 25 de Mayo \n* BEC',
     idEtiquetas: [],
     idCategoria: '4',
     idSubcategoria: '14',
@@ -377,11 +431,13 @@ const listadoNoticias = [
     idImagen: ['PVaM5ARJ_ELrY1jRmaX-SXjA.jpg'],
   },
   {
-    _id: 'TORNEO_INFANTO_JUVENIL_DE_FUTSAL_"GLORIA_SANJUANINA"_1645506917256',
-    fecha: '2022-02-08T08:28:35.377Z',
+    _id: {$oid: '62022914c12379c0de2f26fa'},
+    fecha: {$date: '2022-02-08T08:28:35.377Z'},
     titulo: 'TORNEO INFANTO JUVENIL DE FUTSAL "GLORIA SANJUANINA"',
     copete:
       'Más de 200 chicos participaron del certamen que organizó el último campeón de la Divisional A del futsal sanjuanino. ',
+    cuerpo:
+      'La Gloria sanjuanina sigue apostando al futuro del futsal, gracias a una cantera inagotable de chicos. En esta ocasión apoyando la disciplina a través del un certamen para los pequeños que disfrutaron a lo grande.\n\nFueron 10 días de futsal , triunfos , empates y derrotas , pero lo más importante fue la alegría , compañerismo , amistad y aprendizaje de un deporte tan lindo como lo es el futsal, fueron más de 200 Jugadores los que participaron y eso nos llena de alegría y felicidad.\n\nLos equipos que participaron fueron: \n•Batistella \n•Don Bosco\n•Gremio Futsal\n•Mercedario\n•Niupi\n•V. Seminario\n•La Gloria Sanjuanina \n\n\n',
     idEtiquetas: [],
     idCategoria: '4',
     idSubcategoria: '12',
@@ -391,11 +447,13 @@ const listadoNoticias = [
     idImagen: ['HHu5LLJW4X-Txr7rWsVtymm3.jpg'],
   },
   {
-    _id: 'BARRACAS_EL_NUEVO_CAMPEÓN_DE_LA_LIGA_NACIONAL__1645506917256',
-    fecha: '2022-02-08T11:59:16.526Z',
+    _id: {$oid: '62025b11c12379c0de2f276c'},
+    fecha: {$date: '2022-02-08T11:59:16.526Z'},
     titulo: 'BARRACAS EL NUEVO CAMPEÓN DE LA LIGA NACIONAL ',
     copete:
       'En la última jornada de competencia, el elenco Barraqueño se impuso ante Boca. Y en San Juan, el terruño de la Revolución Deportiva, se coronó como el mejor del torneo.',
+    cuerpo:
+      '¡Qué final! Todo el público presente, que nuevamente acompañó en un buen marco, estuvo todo el tiempo latente de lo que sucedía en la cancha. Fue un partido de ida y vuelta. Un nivel espectacular el de ambos equipos.\n\nEn la primera parte, fue Boca quien tuvo mejor desempeño. De hecho, se fue al descanso por 2 a 1 arriba. En el receso, los revieron sus estrategias y salieron a jugar el complemento con mayor nivel.\n\nPromediando el segundo tiempo, Barracas lo empató. La llave estaba abierta. Pero todo se definió en el tiempo suplementario. El primero de los dos lapsos siguió igualado 3 a 3.\n\nEn los últimos cinco minutos, el destino de la final se inclinó a favor de Barracas. El elenco Rojiblanco terminó cinco a cuatro arriba del tanteador.\n\nGoles del partido:\n\nBoca Juniors (Buenos Aires): Pablo Vidal (2), Agustín Maldonado, Nahuel Bontempo (en propia puerta),\n\nBarracas Central (Buenos Aires): Andrés Teran, Oscar Fernández Novoa (2), Nahuel Bontempo, Matías Usinger.\n\nÁlbum de fotografías: clic aquí.\n\nDomingo 19/12: resultados finales.\nNáutico (Rosario) 5-1 Camioneros (Río Grande).\nHuarpes (San Juan) 0-6 Banco Provincia (Mar del Plata).\nSan Lorenzo (Buenos Aires) 6-2 ADEFU (Río Grande).\nBoca Juniors (Buenos Aires) 4-5 Barracas Central (Buenos Aires).\n\nClasificador final: posiciones\nGoleador del torneo: Oscar Fernández Novoa (Barracas Central) – 7 goles.\n\nValla menos vencida: Banco Provincia (Mar del Plata). Arqueros: Iñaki Vera y David Falchi.\n\nPuesto 1: Barracas Central (Buenos Aires)\nPuesto 2: Boca Juniors (Buenos Aires)\nPuesto 3: San Lorenzo (Buenos Aires)\nPuesto 4: ADEFU (Río Grande)\nPuesto 5: Banco Provincia (Mar del Plata)\nPuesto 6: Huarpes (San Juan)\nPuesto 7: Náutico (Rosario)\nPuesto 8: Camioneros (Río Grande)\nPuesto 9: Jockey (Rosario)\nPuesto 10: San Pedro (Mendoza)\nPuesto 11: Argentinos del Norte (Tucumán)\nPuesto 12: La Gloria (San Juan)',
     idEtiquetas: [],
     idCategoria: '3',
     idSubcategoria: '11',
@@ -405,11 +463,13 @@ const listadoNoticias = [
     idImagen: ['KxFfKM5YDHTOddSmbQNGn7dj.jpg'],
   },
   {
-    _id: 'HUARPES_EL_MEJOR_SANJUANINO_1645506917256',
-    fecha: '2022-02-08T12:03:29.452Z',
+    _id: {$oid: '62025c0ec12379c0de2f2772'},
+    fecha: {$date: '2022-02-08T12:03:29.452Z'},
     titulo: 'HUARPES EL MEJOR SANJUANINO',
     copete:
       'El naranja se quedó con el 6to lugar tras perder con Banco Provincia de Mar del Plata. Mientras que La Gloria se quedó con el último lugar.',
+    cuerpo:
+      'El Naranja sanjuanino no la pasó bien y terminó siendo derrotado ante otro gran equipo como el marplatense. El triunfo de los bonaerenses fue por seis a cero, dejando en claro el gran momento de los bonaerense. Por otro lado San Juan volvió a mostrar un futsal agridulce, con algunos grandes momentos por parte de Huarpes y un pobre nivel de La Gloria que cayó en todas sus presentaciones.\n\n\nHuarpes 0 - 6 Banco Provincia (Mar del Plata)\n\nGoles: \n\nHuarpes (San Juan): no hubo.\n\nBanco Provincia (Mar del Plata): Ezequiel Fernández (2), Matías Alejandro (3) y Matías Gibbs.',
     idEtiquetas: [],
     idCategoria: '3',
     idSubcategoria: '11',
@@ -419,11 +479,13 @@ const listadoNoticias = [
     idImagen: ['92LTaenxD5-j_sIZF3z-EJjg.jpg'],
   },
   {
-    _id: 'ERNESTO_“TITO”_PEZE_NUEVO_TÉCNICO_DE_LAPRIDA_1645506917256',
-    fecha: '2022-02-09T09:51:04.782Z',
+    _id: {$oid: '62038e84c12379c0de2f288c'},
+    fecha: {$date: '2022-02-09T09:51:04.782Z'},
     titulo: 'ERNESTO “TITO” PEZE NUEVO TÉCNICO DE LAPRIDA',
     copete:
       'El ex profesor y ayudante de campo del SEC tendrá una nueva experiencia en la Divisional D del futsal sanjuanino. ',
+    cuerpo:
+      'Una de las categorías interesantes del futsal local es la Divisional D. Con las ganas de sumar experiencia y buscar el ascenso rápidamente, los equipos se ponen en marcha en el mercado de pases. \n\nEl dirigente de la institución pocitana, Walter Luna, posó sus ojos en Ernesto “Tito” Peze, con basta experiencia en la disciplina. Con pasado en Huarpes (Campeón dos veces) y recientemente en el Sindicato de Empleados de Comercio (Ascenso a la A) , buscará llegar al Halcon a su primer ascenso. \n\n" Comencé la pretemporada con el SEC , pero hace tiempo que venía dejando de lado montones de propuestas para trabajar en diferentes clubes , esta ves la propuesta fue del Club Laprida un equipo que está en la D" Comentó "Tito", que será su primera experiencia como DT dejando en claro "Me pareció que la mejor manera era empezar por abajo así que ya llevo 2 semanas de trabajo con un plantel que se sigue agrandando día a día y que tiene muchas ganas por acender"\n\nSus expectativas son altas, y busca dejar lo mejor posible a la institución de Pocito "Voy a tratar de hacer un buen trabajo y dejar todos mis conocimientos para que el Club Laprida salga adelante"\n\n Los refuerzos es un tema del que se habla y mucho, ya que se comentan que buscarán jugadores con experiencia en primera división. Todavía no están definidos, pero las negociaciones están avanzadas. \n',
     idEtiquetas: [],
     idCategoria: '1',
     idSubcategoria: '4',
@@ -433,11 +495,13 @@ const listadoNoticias = [
     idImagen: ['n_2jWu3a-oPtiVV-IphyDGJm.jpeg'],
   },
   {
-    _id: 'SE_VIENE_LA_COPA_POCITO__1645506917256',
-    fecha: '2022-02-09T13:56:08.360Z',
+    _id: {$oid: '6203c5dec12379c0de2f28ac'},
+    fecha: {$date: '2022-02-09T13:56:08.360Z'},
     titulo: 'SE VIENE LA COPA POCITO ',
     copete:
       'El torneo puesta a punto se llevará a cabo en el complejo deportivo Laprida, con la participación de 20 equipos que se medirán a lo largo del certamen departamental.',
+    cuerpo:
+      'A pesar de que el futsal sanjuanino, oficialmente sigue parado, los equipos buscan ponerse puesta a punto para el 2022. En este caso Laprida, gran propulsor de ideas y eventos, buscará darle ruedo a equipos de las diferentes categorías de la disciplina en el Torneo Preparación.\n\nLa modalidad del torneo será de la siguiente manera, los 20 equipos participantes se dividirán en 4 grupos, de 5 integrantes. Los dos primeros de cada zona clasificarán a Copa Oro y los otros dos a Copa Plata.\n\nSe disputarán con arbitros oficiales, dos tiempos de 30 minutos. \n\nEn cuanto a los premios, los tres primeros de la Copa Oro recibirán efectivo, mientras que los que integren el podio de plata recibirán trofeos. \n\nEquipos participantes: \n1) Bermejito\n2) Bermejito B\n3) Alianza\n4) Laprida\n5) CGT\n6) CGT B\n7) Hualilan\n8) Villa Hipódromo\n9) Villa Hipódromo B\n10) Krause\n11) El Globo\n12) Defensores de Argentinos\n13) Defensores de Argentinos B\n14) C.O.R.A.\n15) Andacollo \n16) Andacollo B\n17) Villa Roja\n18) Belgrano\n19) La Banda F.C.\n20) Calise\n',
     idEtiquetas: [],
     idCategoria: '4',
     idSubcategoria: '14',
@@ -447,11 +511,13 @@ const listadoNoticias = [
     idImagen: ['Qtod_aae1eW12HBE7rFv3EeW.jpeg'],
   },
   {
-    _id: 'ASÍ_COMIENZA_LA_COPA_POCITO__1645506917256',
-    fecha: '2022-02-10T08:36:13.386Z',
+    _id: {$oid: '6204ce76c12379c0de2f28e9'},
+    fecha: {$date: '2022-02-10T08:36:13.386Z'},
     titulo: 'ASÍ COMIENZA LA COPA POCITO ',
     copete:
       'Se definieron los grupos que darán comienzo a la 2da edición del certamen departamental. A último momento se agregó F. Miguel Sanchez. ',
+    cuerpo:
+      'Ayer por la noche, en el Club Laprida se llevó a cabo el sorteo de la 2da edición de la Copa Pocito que se llevará integramente en dicho departamento. Con la participación de 20 equipos, y la incorporación de Fundación Miguel Sanchez a último momento, todo está dispuesto para su realización.\n\nAquí te dejamos todo lo que tenes que saber para seguir la competencia:\n\nGrupo 1\n- B° Mercedario\n- Bermejito A\n- Belgrnao\n- Def. de Argentinos B\n- B° CGT B\n\nGrupo 2\n- B° CGT A\n- Krause \n- Hualilan \n- Calise\n- Laprida\n\nGRUPO 3\n-V. Hipódromo B\n- Villa Roja\n- La Banda\n- CORA\n- Bermejito B\n\nGRUPO 4\n-V. Hipódromo A\n- Alianza\n- El Globo\n- F. Miguel Sanchez  \n- Def. de Argentinos A\n\n\nProgramación 1er Fecha\n\nSábado 12\n19:00 - B° Mercedario vs Bermejito A\n20:00 - B° CGT B vs Defensores de Argentinos B\n21:00 - B° CGT A vs Krause\n22:00 - Hualilan vs Calise\n\nDomingo 13\n19:00 - Villa Hipódromo B vs Villa Roja\n20:00 - Villa Hipódromo A vs Alianza\n21:00 - El Globo vs Fundación Sánchez\n22:00 - La Banda vs C.O.R.A\n\nMartes 15\n21:00 - Bermejito A vs CGT B\n22:00 - Defensores de Argentinos B vs Belgrano \n\nJueves 17hs\n21:00 - Krause vs Hualilan\n22:00 - Calise vs Laprida',
     idEtiquetas: [],
     idCategoria: '4',
     idSubcategoria: '14',
@@ -461,11 +527,13 @@ const listadoNoticias = [
     idImagen: ['RbTQ-UFmXvgn9yRK_N6vprhg.jpeg'],
   },
   {
-    _id: '"SE_VIENE_UN_2022_CARGADO_Y_MUCHAS_EXPECTATIVAS"_1645506917256',
-    fecha: '2022-02-10T12:38:59.769Z',
+    _id: {$oid: '62050372c12379c0de2f293e'},
+    fecha: {$date: '2022-02-10T12:38:59.769Z'},
     titulo: '"SE VIENE UN 2022 CARGADO Y MUCHAS EXPECTATIVAS"',
     copete:
       'El DT de Barrio Rivadavia, Lucas Godoy, nos cuenta como se vienen preparando para esta nueva temporada y sobre su ascenso a la primer categoría.',
+    cuerpo:
+      'El 2021 fue un año atípico para todos, pero no fue uno más para la institución de Barrio Rivadavia. En el caso del masculino, teniendo un gran rendimiento deportivo y potenciando a las inferiores y por el otro lado el femenino, logrando su ascenso a la máxima categoría. Uno de los artífices, de que hoy por hoy las chicas  estén en este lugar de privilegio es su técnico, Lucas Godoy, quien seguirá a cargo del celeste por una nueva temporada.\n\n"Se nos viene un 2022 cargado, con muchas expectativa gracias a los nuevos refuerzos que nos encaminan en un nuevo proyecto. Somos concientes que de una categoría a otra hay muchas diferencia, pero confiamos en lo que hacemos" nos cuenta del comienzo del año del celeste.\n\n"La pretemporada arrancó con todo, con caras nuevas que refuerzan al plantel. Pero los más importante es mantener la base del ascenso, de los cual me siento orgulloso". Las chicas entrenan cuatro veces a la semana y dos de ellos bajo la tutela del profe Gianfranco Bongiovanni, un viejo conocido de la caso.\n\nEn el caso de los entrenamientos de fuerza las chicas pasan las horas en el gimnasio San Juan Entrenamiento, donde buscan la puesta a punta para llegar de la mejor manera al arranque de la Divisional A. \n\nPor otro lado, en materia de refuerzos algunos confirmados y otros al caer. Acá te dejamos cuales serían las nuevas caras. \n\nRefuerzos\nPaola Fernandez - Trinidad\nCelina Martin - Trinidad\nMaira Correa - Pumas\nAlejandra Leiva - B° Escobar\nJazmin Pacheco - B° Escobar',
     idEtiquetas: [],
     idCategoria: '2',
     idSubcategoria: '7',
@@ -475,11 +543,13 @@ const listadoNoticias = [
     idImagen: ['GGULVMfWvjhvJbAKT7_TTssM.jpeg'],
   },
   {
-    _id: 'BERMEJITO_SE_PREPARA_CON_TODO_PARA_EL_2022_1645506917256',
-    fecha: '2022-02-10T12:55:58.390Z',
+    _id: {$oid: '62050b56c12379c0de2f2980'},
+    fecha: {$date: '2022-02-10T12:55:58.390Z'},
     titulo: 'BERMEJITO SE PREPARA CON TODO PARA EL 2022',
     copete:
       'El celeste sigue trabajando para una nueva temporada en el 2022 en la Divisional D del futsal masculino',
+    cuerpo:
+      'El Club Bermejito Futsal sigue su crecimiento de igual forma que el año 2021, en cuanto al plantel del masculino siguen manteniendo la base, la cual disputa la Divisional D de Liga Sanjuanina de Futsal.  La novedad para este año es incorporar categoría Senior a nuestro club llegando a disputar diferentes partidos amistosos y campeonatos locales. \n\nEn un nuevo año deportivo para el Club Bermejito Futsal, aspira a seguir creciendo y mantener planteles, equipando a las diferentes categorías tanto con indumentarias como materiales para entrenamientos y brindando un espacio de aprendizaje y contención a través de este hermoso deporte como el futsal. En el mes de Febrero comenzaron con la etapa de pretemporada en el Polideportivo que se encuentra en el Barrio 11 de Junio, departamento Santa Lucia. \n\nEl plantel de Primera Masculino se encuentra bajo el mando de Maximiliano “Cuni” Vila, un conocido en el club que tuvo su paso en anteriores etapas como entrenador, proponiendo objetivos claros y ambiciosos al plante tal es el ansiados ascenso a la Divisional “C”. Actualmente resta disputar los play-off de la Divisional “D”, siendo que el club tiene buen equipo para afrontar esta etapa, de igual forma que el resto de la temporada con varios jugadores tanto de Reserva dirigida por Emanuel “Titi” Moya como Primera. Tras la llegada del “Cuni”, retornaron varios jugadores que supieron vestir los colores del club para aportar su experiencia al equipo tales son Anael Loperena, Peli Ochoa, Dario Tadini, entre otros. \n\nAdemás volvieron algunos jugadores de inferiores de temporadas pasadas como Rodrigo Gomez y Luciano Gonzales. De esta forma, el plantel se amplía de forma notable, sumando a los chicos que suben de categorías y los que se agregan para aprender el deporte. \n\n',
     idEtiquetas: [],
     idCategoria: '1',
     idSubcategoria: '4',
@@ -489,11 +559,13 @@ const listadoNoticias = [
     idImagen: ['HtaQeLFzgQNE0RcSQu5pivyL.jpeg'],
   },
   {
-    _id: 'LAS_BERMEJITAS_BUSCARÁN_EL_NUEVO_ASCENSO_1645506917256',
-    fecha: '2022-02-10T13:14:28.452Z',
+    _id: {$oid: '62050fadc12379c0de2f2986'},
+    fecha: {$date: '2022-02-10T13:14:28.452Z'},
     titulo: 'LAS BERMEJITAS BUSCARÁN EL NUEVO ASCENSO',
     copete:
       'Las celestitas tendrán un nuevo año en la segunda categoría del futsal femenino, en búsqueda de experiencia y ganas de triunfar',
+    cuerpo:
+      'El Club Bermejito Futsal seguirá con la base del plantel femenino para la temporada 2022, en la Divisional B del futsal femenino de la Liga Sanjuanina. En cuanto a sus bases formativas también será un lugar donde se busque mayor trabajo para reforzar el gran plantel que viene trabajando desde el 2021.\n\nLa Primera Femenino dirigida por Alejandro Poblete se prepara con una pretemporada temprana para llegar de la mejor forma para el arranque de la Divisional “B” de la Liga Sanjuanina de Futsal. Con un plantel joven, el equipo sigue buscando afianzarse en la 40x20 y ganar experiencia con los diferentes rivales tanto en amistosos como en los campeonatos. El equipo aun sigue recibiendo chicas que quieran aprender el deporte. \n\nEn un nuevo año deportivo para el Club Bermejito Futsal, aspiramos a seguir creciendo y mantener nuestros planteles, equipando a las diferentes categorías tanto con indumentarias como materiales para entrenamientos y brindando un espacio de aprendizaje y contención a través de este hermoso deporte como el futsal. En el mes de Febrero comenzamos con la etapa de pretemporada en los equipos primera femenino, e iniciaremos con los entrenamientos de los planteles de inferiores con un gran trabajo del entrenador Juan Vera. \n\nTodas estas actividades se desarrollan en el polideportivo 11 de Junio, en el mismo Barrio 11 de Junio en el departamento de Santa Lucia, a partir de la tarde hasta la noche con un gran apoyo de los vecinos del barrio, fundaciones y municipalidad. \n',
     idEtiquetas: [],
     idCategoria: '2',
     idSubcategoria: '7',
@@ -503,10 +575,12 @@ const listadoNoticias = [
     idImagen: ['UNpmm0xxHUGPh93O8gInxGqV.jpeg'],
   },
   {
-    _id: 'CAMPEONATO_FUTSAL_FEMENINO_CAUCETE_2022_1645506917256',
-    fecha: '2022-02-11T09:40:20.432Z',
+    _id: {$oid: '62062efdc12379c0de2f29db'},
+    fecha: {$date: '2022-02-11T09:40:20.432Z'},
     titulo: 'CAMPEONATO FUTSAL FEMENINO CAUCETE 2022',
     copete: 'Este fin de semana se disputará la gran final entre Área II y F-100. ',
+    cuerpo:
+      'Caucete sigue mostrando el gran crecimiento del futsal en esa parte de la provincia. Con una gran cantidad de equipos en el masculino en todas las categorías, el femenino no se queda atrás. Por esta razón dirigentes del futsal caucetero diagramaron el certamen que reunió a 10 equipos del Este.\n\n Hace unos días atrás se llevaron a cabo las semifinales, donde se desprendieron a los que serán finalistas como lo es Área II y F-100, quienes dejaron de lado a Villa Etelvina y La Juve. Estos últimos disputarán el 3er y 4to puesto.\n\nEl cierre del torneo será este sábado, en cancha de Área II donde prevén una gran cantidad de gente que acompañe a los equipos locales. ',
     idEtiquetas: [],
     idCategoria: '4',
     idSubcategoria: '13',
@@ -516,11 +590,13 @@ const listadoNoticias = [
     idImagen: ['GQ6I4-76rZPAuknpSVINxBxc.jpg'],
   },
   {
-    _id: 'UN_EQUIPO_QUE_ASPIRA_AL_ASCENSO_DIRECTO_1645506917256',
-    fecha: '2022-02-11T10:36:07.136Z',
+    _id: {$oid: '620634b8c12379c0de2f2a2f'},
+    fecha: {$date: '2022-02-11T10:36:07.136Z'},
     titulo: 'UN EQUIPO QUE ASPIRA AL ASCENSO DIRECTO',
     copete:
       'Pumas buscará demostrar porque fue uno de los mejores equipos del 2021, cerrando con el broche de oro: el ascenso a la C.',
+    cuerpo:
+      'Una categoría que dio que hablar, sin duda, fue la Divisional D. Equipos con gran calidad de jugadores, mucho entrenamiento y buen futsal demostraron que es una categoría que les queda chica. Una de las instituciones que marcó diferencia en la última parte del año 2021 fue Pumas. Con una buena base de jugadores con experiencia en la otra liga de futsal, lograr adecuarse rápidamente al futsal de A.F.A.\n\nUno de los referentes de la institución, sin lugar a duda, es Sergio Castro. Dirigente, jugador y ahora técnico, nos cuenta que se viene para este 2022. "Para este año esperamos estar en la C, ya que el campeonato del 2021 no termina y tenemos que afrontar los cuartos de final, y la ilusión está intacta ya que se nos escapó en 2 oportunidades, esperemos sea como el richi la tercera la vencida" \n\nUna de las claves fue el plantel, que seguirá vigente para esta temporada "La expectativa es que sigamos haciendo nuestro juego como siempre ya que sólo perdimos 2 partidos en 2021 que fueron la semifinal por penales y el partido contra el campeón Dep. Chimbas"\n\nEn cuanto a refuerzos, la institución no movió mucho el mercado. A punta a un jugador ligado fuertemente a la institución, con paso en la Divisional A, como lo es Gonzalo Scafide. El cierre viene de ser campeón con La Gloria en el 2021, y buscarán traerlo a prestamo. En cuanto a las bajas, Santiago Mariño vuelve a Hualilan donde llego a préstamo por el campeonato.\n\nEl equipo entrena en el parque de Rivadavia y estamos haciendo pretemporada  en el gimnasio Actitud Extrema con el Profesor Facundo Sánchez.\n',
     idEtiquetas: [],
     idCategoria: '1',
     idSubcategoria: '4',
@@ -530,11 +606,13 @@ const listadoNoticias = [
     idImagen: ['35Wpo_ZYbJrYrZgfOHdoktdI.jpg'],
   },
   {
-    _id: 'EL_LECHUZO_VOLVIÓ_A_LOS_ENTRENAMIENTOS_CON_GRAN_CONVOCATORIA_1645506917256',
-    fecha: '2022-02-11T11:16:58.231Z',
+    _id: {$oid: '62064428c12379c0de2f2a6e'},
+    fecha: {$date: '2022-02-11T11:16:58.231Z'},
     titulo: 'EL LECHUZO VOLVIÓ A LOS ENTRENAMIENTOS CON GRAN CONVOCATORIA',
     copete:
       'Más de 40 jugadores conforman parte de los planteles de primera y reserva del equipo más ganador del futsal sanjuanino.',
+    cuerpo:
+      'La historia lo pide. El equipo más ganador del futsal sanjuanino comienza una nueva etapa con algunas caras conocidas, pero una renovación de plantel importante. Con ganas de mejorar su realidad después de varios altibajos en estos últimos años, los dirigidos por Micky Olivera buscan volver a los primeros planos.\n\nEl plantel santaluceño, sigue con sus entrenamientos físicos de la mano de José Castilla, es arquero de la institución. Una de las condiciones para esta temporada es la puesta física, para llegar de la mejor manera al arranque del torneo. Con un plantel joven, que viene armandose desde el año pasado, los lechuzos intentarán encontrar el rumbo de una institución que tuvo años dorados a nivel local y nacional.\n\nEl DT nos cuenta la actualidad del equipo "Nos sorprendió la cantidad de gente que se sumó para este año, pero bueno es entendible porque es un club grande de la provincia. Ya tenemos un refuerzo y estamos por cerrar dos más. La idea es armar un plantel competitivo para lo que se viene"\n\nUna de las novedades es que Miky Olivera volverá a jugar, pero esta vez en la Divisional C. Será en el Club Don Bosco, equipo que comandará Lucas Elias un viejo conocido de la disciplina. \n\n\n',
     idEtiquetas: [],
     idCategoria: '1',
     idSubcategoria: '1',
