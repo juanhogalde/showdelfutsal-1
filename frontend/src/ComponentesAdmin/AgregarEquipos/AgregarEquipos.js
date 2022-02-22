@@ -154,7 +154,6 @@ const AgregarEquipos = () => {
           zonaTorneo.equipos.length ===
           torneo.zonas.find(zona => zona._id === zonaId).equipos.length
         ) {
-          console.log('if');
           zonaTorneo.equipos.forEach(equipoZona => {
             let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
             auxEquipos.push(aux);
