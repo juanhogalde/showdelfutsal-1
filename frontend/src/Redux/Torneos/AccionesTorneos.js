@@ -75,9 +75,9 @@ export const agregarEquiposZonaTorneoDefault = 'agregarEquiposZonaTorneoDefault'
 
 export const estadoComponenteAgregarEquipo = 'estadoComponenteAgregarEquipo';
 
+export const eliminarEquipoDeZonaConsulta = 'eliminarEquipoDeZonaConsulta';
 export const eliminarEquipoDeZonaCargando = 'eliminarEquipoDeZonaCargando';
 export const eliminarEquipoDeZonaExito = 'eliminarEquipoDeZonaExito';
-/* export const actualizarListaTorneosAgregarEquiposZona = 'actualizarListaTorneosAgregarEquiposZona'; */
 export const eliminarEquipoDeZonaError = 'eliminarEquipoDeZonaError';
 export const eliminarEquipoDeZonaDefault = 'eliminarEquipoDeZonaDefault';
 export const actualizarListaTorneosEliminarEquiposZona =
@@ -671,6 +671,13 @@ export const agregarEquiposZonaTorneo_accion = (zonaId, equiposId) => {
 };
 
 /* ELIMINAR EQUIPO DE ZONA DE TORNEO */
+export const eliminarEquipoDeZonaConsulta_accion = (equipoId, isEquipoNuevo) => {
+  return {
+    type: eliminarEquipoDeZonaConsulta,
+    idEquipo: equipoId,
+    isNuevo: isEquipoNuevo,
+  };
+};
 export const eliminarEquipoDeZonaCargando_accion = () => {
   return {
     type: eliminarEquipoDeZonaCargando,

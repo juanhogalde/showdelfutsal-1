@@ -60,6 +60,7 @@ import {
   actualizarListaTorneosEliminarEquiposZona,
   eliminarEquipoDeZonaError,
   eliminarEquipoDeZonaDefault,
+  eliminarEquipoDeZonaConsulta,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -888,7 +889,18 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         isVerificarAgregarEquipo: accion.data,
       };
     }
-
+    case eliminarEquipoDeZonaConsulta: {
+      return {
+        ...state,
+        isEliminarEquipoZona: {
+          tipo: 'warning',
+          mensaje: '¿Desea eliminar equipo de la zona?',
+          isMostrar: true,
+          idEquipo: accion.idEquipo,
+          isNuevo: accion.isNuevo,
+        },
+      };
+    }
     case eliminarEquipoDeZonaCargando: {
       return {
         ...state,

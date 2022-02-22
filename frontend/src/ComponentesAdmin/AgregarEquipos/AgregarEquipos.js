@@ -11,6 +11,7 @@ import {
   actualizarListaTorneosEliminarEquiposZona_accion,
   agregarEquiposZonaTorneoDefault_accion,
   agregarEquiposZonaTorneo_accion,
+  eliminarEquipoDeZonaConsulta_accion,
   eliminarEquipoDeZonaDefault_accion,
   eliminarEquipoDeZona_accion,
   estadoComponenteAgregarEquipo_accion,
@@ -62,12 +63,18 @@ const AgregarEquipos = () => {
     /* history.push('/Enfrentamientos'); */
   };
 
-  const funcionEliminarEquipo = (equipoId, isEquipoNuevo) => {
-    if (isEquipoNuevo) {
-      let auxNuevosEquipos = nuevosEquipos.filter(equipo => equipo._id !== equipoId);
+  const consultaPorEliminarEquipo = (equipoId, isEquipoNuevo) => {
+    dispatch(eliminarEquipoDeZonaConsulta_accion(equipoId, isEquipoNuevo));
+  };
+
+  const funcionEliminarEquipo = () => {
+    if (isEliminarEquipoZona.isEquipoNuevo) {
+      let auxNuevosEquipos = nuevosEquipos.filter(
+        equipo => equipo._id !== isEliminarEquipoZona.idEquipo
+      );
       setNuevosEquipos(auxNuevosEquipos);
     } else {
-      dispatch(eliminarEquipoDeZona_accion(zonaTorneo._id, equipoId));
+      dispatch(eliminarEquipoDeZona_accion(zonaTorneo._id, isEliminarEquipoZona.idEquipo));
     }
   };
 
@@ -109,6 +116,9 @@ const AgregarEquipos = () => {
   };
   const respuestaDeAlertaEliminarEquipo = respuesta => {
     if (respuesta) {
+      if (isEliminarEquipoZona.tipo === 'warning') {
+        funcionEliminarEquipo();
+      }
       if (isEliminarEquipoZona.tipo === 'success') {
         let auxListaEquipos = equiposAgregados.filter(
           equipo => equipo._id !== isEliminarEquipoZona.idEquipo
@@ -230,7 +240,7 @@ const AgregarEquipos = () => {
               key={index}
               equipo={equipo}
               isNuevo={true}
-              funcionEliminarEquipo={funcionEliminarEquipo}
+              funcionEliminarEquipo={consultaPorEliminarEquipo}
             ></TarjetaEquipo>
           );
         })}
@@ -242,7 +252,7 @@ const AgregarEquipos = () => {
               key={index}
               equipo={equipo}
               isNuevo={false}
-              funcionEliminarEquipo={funcionEliminarEquipo}
+              funcionEliminarEquipo={consultaPorEliminarEquipo}
             ></TarjetaEquipo>
           );
         })}
