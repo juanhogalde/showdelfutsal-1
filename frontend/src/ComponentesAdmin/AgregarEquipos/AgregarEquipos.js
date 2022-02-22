@@ -8,8 +8,11 @@ import {
 } from '../../Redux/Equipos/AccionesEquipos';
 import {
   actualizarListaTorneosAgregarEquiposZona_accion,
+  actualizarListaTorneosEliminarEquiposZona_accion,
   agregarEquiposZonaTorneoDefault_accion,
   agregarEquiposZonaTorneo_accion,
+  eliminarEquipoDeZonaDefault_accion,
+  eliminarEquipoDeZona_accion,
   estadoComponenteAgregarEquipo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
@@ -22,9 +25,8 @@ const AgregarEquipos = () => {
   const history = useHistory();
   const {zonaId} = useParams();
   const dispatch = useDispatch();
-  const {torneo, isAgregarEquiposZona, isVerificarAgregarEquipo} = useSelector(
-    state => state.storeTorneos
-  );
+  const {torneo, isAgregarEquiposZona, isEliminarEquipoZona, isVerificarAgregarEquipo} =
+    useSelector(state => state.storeTorneos);
   const {equipos, isListarEquipos} = useSelector(state => state.storeEquipos);
 
   const [arrayEquipos, setArrayEquipos] = useState([]);
@@ -60,10 +62,13 @@ const AgregarEquipos = () => {
     /* history.push('/Enfrentamientos'); */
   };
 
-  const funcionEliminarEquipo = equipoId => {
-    console.log(equiposAgregados);
-    let auxEquiposAgregados = equiposAgregados.filter(equipo => equipo._id !== equipoId);
-    setEquiposAgregados(auxEquiposAgregados);
+  const funcionEliminarEquipo = (equipoId, isEquipoNuevo) => {
+    if (isEquipoNuevo) {
+      let auxNuevosEquipos = nuevosEquipos.filter(equipo => equipo._id !== equipoId);
+      setNuevosEquipos(auxNuevosEquipos);
+    } else {
+      dispatch(eliminarEquipoDeZona_accion(zonaTorneo._id, equipoId));
+    }
   };
 
   const respuestaDeAlertaAgregarEquipos = respuesta => {
@@ -102,7 +107,22 @@ const AgregarEquipos = () => {
       history.goBack();
     }
   };
-
+  const respuestaDeAlertaEliminarEquipo = respuesta => {
+    if (respuesta) {
+      if (isEliminarEquipoZona.tipo === 'success') {
+        let auxListaEquipos = equiposAgregados.filter(
+          equipo => equipo._id !== isEliminarEquipoZona.idEquipo
+        );
+        setEquiposAgregados(auxListaEquipos);
+        dispatch(actualizarListaTorneosEliminarEquiposZona_accion());
+      }
+      if (isEliminarEquipoZona.tipo === 'error') {
+        dispatch(eliminarEquipoDeZonaDefault_accion());
+      }
+    } else {
+      dispatch(eliminarEquipoDeZonaDefault_accion());
+    }
+  };
   useLayoutEffect(() => {
     let auxZona = torneo.zonas.find(zona => zona._id === zonaId);
 
@@ -130,11 +150,23 @@ const AgregarEquipos = () => {
     if (zonaTorneo) {
       let auxEquipos = [];
       if (zonaTorneo.equipos.length > 0) {
-        zonaTorneo.equipos.forEach(equipoZona => {
+        if (
+          zonaTorneo.equipos.length ===
+          torneo.zonas.find(zona => zona._id === zonaId).equipos.length
+        ) {
+          console.log('if');
+          zonaTorneo.equipos.forEach(equipoZona => {
+            let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
+            auxEquipos.push(aux);
+          });
+          setEquiposAgregados(auxEquipos);
+        }
+
+        /* zonaTorneo.equipos.forEach(equipoZona => {
           let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
           auxEquipos.push(aux);
         });
-        setEquiposAgregados(auxEquipos);
+        setEquiposAgregados(auxEquipos); */
       }
     }
     if (isVerificarAgregarEquipo) {
@@ -198,6 +230,7 @@ const AgregarEquipos = () => {
             <TarjetaEquipo
               key={index}
               equipo={equipo}
+              isNuevo={true}
               funcionEliminarEquipo={funcionEliminarEquipo}
             ></TarjetaEquipo>
           );
@@ -209,6 +242,7 @@ const AgregarEquipos = () => {
             <TarjetaEquipo
               key={index}
               equipo={equipo}
+              isNuevo={false}
               funcionEliminarEquipo={funcionEliminarEquipo}
             ></TarjetaEquipo>
           );
@@ -230,6 +264,12 @@ const AgregarEquipos = () => {
         tipoDeSweet={isAgregarEquiposZona.tipo}
         subtitulo={isAgregarEquiposZona.mensaje}
         RespuestaDeSweet={respuestaDeAlertaAgregarEquipos}
+      ></Alertas>
+      <Alertas
+        mostrarSweet={isEliminarEquipoZona.isMostrar}
+        tipoDeSweet={isEliminarEquipoZona.tipo}
+        subtitulo={isEliminarEquipoZona.mensaje}
+        RespuestaDeSweet={respuestaDeAlertaEliminarEquipo}
       ></Alertas>
     </div>
   );

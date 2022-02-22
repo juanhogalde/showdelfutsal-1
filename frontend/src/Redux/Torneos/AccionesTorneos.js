@@ -75,6 +75,13 @@ export const agregarEquiposZonaTorneoDefault = 'agregarEquiposZonaTorneoDefault'
 
 export const estadoComponenteAgregarEquipo = 'estadoComponenteAgregarEquipo';
 
+export const eliminarEquipoDeZonaCargando = 'eliminarEquipoDeZonaCargando';
+export const eliminarEquipoDeZonaExito = 'eliminarEquipoDeZonaExito';
+/* export const actualizarListaTorneosAgregarEquiposZona = 'actualizarListaTorneosAgregarEquiposZona'; */
+export const eliminarEquipoDeZonaError = 'eliminarEquipoDeZonaError';
+export const eliminarEquipoDeZonaDefault = 'eliminarEquipoDeZonaDefault';
+export const actualizarListaTorneosEliminarEquiposZona =
+  'actualizarListaTorneosEliminarEquiposZona';
 export const volverPorDefectoUnTorneo_accion = () => {
   return {
     type: volverPorDefectoUnTorneo,
@@ -663,6 +670,57 @@ export const agregarEquiposZonaTorneo_accion = (zonaId, equiposId) => {
   };
 };
 
+/* ELIMINAR EQUIPO DE ZONA DE TORNEO */
+export const eliminarEquipoDeZonaCargando_accion = () => {
+  return {
+    type: eliminarEquipoDeZonaCargando,
+  };
+};
+export const eliminarEquipoDeZonaExito_accion = (nuevaZona, equipoEliminado) => {
+  return {
+    type: eliminarEquipoDeZonaExito,
+    zona: nuevaZona,
+    equipoId: equipoEliminado,
+  };
+};
+export const actualizarListaTorneosEliminarEquiposZona_accion = () => {
+  return {
+    type: actualizarListaTorneosEliminarEquiposZona,
+  };
+};
+export const eliminarEquipoDeZonaError_accion = () => {
+  return {
+    type: eliminarEquipoDeZonaError,
+  };
+};
+
+export const eliminarEquipoDeZonaDefault_accion = () => {
+  return {
+    type: eliminarEquipoDeZonaDefault,
+  };
+};
+
+export const eliminarEquipoDeZona_accion = (zonaId, equipoId) => {
+  return dispatch => {
+    dispatch(eliminarEquipoDeZonaCargando_accion());
+    API({
+      url: 'zonas/eliminarEquipo',
+      method: 'delete',
+      data: {
+        idEquipo: equipoId,
+        _id: zonaId,
+      },
+    })
+      .then(res => {
+        console.log({res});
+        dispatch(eliminarEquipoDeZonaExito_accion(res.data.value, equipoId));
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(eliminarEquipoDeZonaError_accion());
+      });
+  };
+};
 /* OBTENER EQUIPOS DE ZONA */
 
 export const obtenerEquiposDeZona_accion = zonaId => {
