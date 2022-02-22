@@ -60,6 +60,7 @@ const EditorEnfrentamientos = () => {
     setDatosFiltrados({
       ...datosFiltrados,
       subcategoria: value,
+      zona: '',
     });
     let auxZonas = [];
     torneo.zonas.forEach(zonaTorneo => {
@@ -111,6 +112,7 @@ const EditorEnfrentamientos = () => {
               value: index + 1,
             };
           });
+          console.log('ejecuta carga de torneos');
           setArrayTorneos(auxTorneos);
           setIsDatosCargados(true);
         }
@@ -124,6 +126,8 @@ const EditorEnfrentamientos = () => {
             let auxEquipo = equipos.find(equipo => equipo._id === equipoZona._id);
             auxArrayEquiposZona.push(auxEquipo);
           });
+          console.log('ejecuta carga de equipos');
+
           setArrayEquiposZona(auxArrayEquiposZona);
           /* dispatch(listarPartidos_accion()); */
         }
@@ -179,7 +183,7 @@ const EditorEnfrentamientos = () => {
               }
             ></Selector>
           )}
-          {Object.keys(datosFiltrados).length === 4 && (
+          {/* {Object.keys(datosFiltrados).length === 4 && (
             <div className="CI-componenteEnfrentamiento">
               <Enfrentamiento
                 equipos={arrayEquiposZona}
@@ -187,7 +191,7 @@ const EditorEnfrentamientos = () => {
                 zonaId={datosFiltrados.zona.data._id}
               ></Enfrentamiento>
             </div>
-          )}
+          )} */}
           {partidos.length > 0 &&
             partidos.map((partido, index) => {
               return <TarjetaEnfrentamiento key={index} datos={partido}></TarjetaEnfrentamiento>;

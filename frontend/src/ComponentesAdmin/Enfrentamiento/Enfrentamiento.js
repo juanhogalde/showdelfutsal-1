@@ -209,8 +209,13 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
 
           <InputDateLowa type="date" placeholder="Fecha de Enfrentamiento"></InputDateLowa>
           <InputDateLowa type="time" placeholder="Hora de Enfrentamiento"></InputDateLowa>
-
-          <Selector placeholder="Seleccione Estadio"></Selector>
+          <InputLowa
+            name="estadio"
+            type="text"
+            placeholder="Ingrese Estadio"
+            value={datosEnfrentamiento.estadio ? datosEnfrentamiento.estadio : ''}
+            onChange={e => escucharInput(e.target.value, e.target.name)}
+          ></InputLowa>
           <BotonLowa tituloboton="Eliminar Valores" onClick={() => valoresPorDefecto()}></BotonLowa>
 
           <BotonLowa
