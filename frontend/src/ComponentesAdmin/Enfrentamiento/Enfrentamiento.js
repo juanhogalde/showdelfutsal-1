@@ -145,7 +145,9 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
     if (equipos.length === 0) {
       setEquiposSelector([]);
     }
-    return () => {};
+    return () => {
+      setEquiposSelector([]);
+    };
   }, [equipos]);
 
   return (
@@ -207,8 +209,12 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
             onChange={e => escucharInput(e.target.value, e.target.name)}
           ></InputLowa>
 
-          <InputDateLowa type="date" placeholder="Fecha de Enfrentamiento"></InputDateLowa>
-          <InputDateLowa type="time" placeholder="Hora de Enfrentamiento"></InputDateLowa>
+          <InputDateLowa
+            name="fechaPartido"
+            type="date-time"
+            placeholder="Fecha de Enfrentamiento"
+          ></InputDateLowa>
+          {/* <InputDateLowa type="time" placeholder="Hora de Enfrentamiento"></InputDateLowa> */}
           <InputLowa
             name="estadio"
             type="text"

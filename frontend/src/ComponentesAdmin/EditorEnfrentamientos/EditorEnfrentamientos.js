@@ -24,9 +24,10 @@ const EditorEnfrentamientos = () => {
   const [datosFiltrados, setDatosFiltrados] = useState('');
   const [isDatosCargados, setIsDatosCargados] = useState(false);
   const [arrayTorneos, setArrayTorneos] = useState();
-  const [arraySubCategorias, setArraySubCategorias] = useState('');
-  const [arrayZonas, setArrayZonas] = useState('');
+  const [arraySubCategorias, setArraySubCategorias] = useState([]);
+  const [arrayZonas, setArrayZonas] = useState([]);
   const [arrayEquiposZona, setArrayEquiposZona] = useState([]);
+  const [isMostrarComponenteEnfrentamiento, setIsMostrarComponenteEnfrentamiento] = useState(false);
 
   const escucharSelectorTorneo = value => {
     let auxTorneo = torneos.find(torneo => torneo._id === value.idTorneo);
@@ -34,19 +35,21 @@ const EditorEnfrentamientos = () => {
     setDatosFiltrados({
       torneo: value,
     });
-    setArraySubCategorias('');
-    setArrayZonas('');
+    setArraySubCategorias([]);
+    setArrayZonas([]);
   };
 
   const escucharSelectorCategoria = value => {
-    setDatosFiltrados({
-      ...datosFiltrados,
-      categoria: value,
-    });
     if (datosFiltrados.subcategoria) {
       setDatosFiltrados({
         ...datosFiltrados,
+        categoria: value,
         subcategoria: '',
+      });
+    } else {
+      setDatosFiltrados({
+        ...datosFiltrados,
+        categoria: value,
       });
     }
 
@@ -57,11 +60,20 @@ const EditorEnfrentamientos = () => {
   };
 
   const escucharSelectorSubCategoria = value => {
-    setDatosFiltrados({
-      ...datosFiltrados,
-      subcategoria: value,
-      zona: '',
-    });
+    console.log(value);
+
+    if (datosFiltrados.zona) {
+      setDatosFiltrados({
+        ...datosFiltrados,
+        subcategoria: value,
+        zona: '',
+      });
+    } else {
+      setDatosFiltrados({
+        ...datosFiltrados,
+        subcategoria: value,
+      });
+    }
     let auxZonas = [];
     torneo.zonas.forEach(zonaTorneo => {
       if (zonaTorneo.idSubcategoria.keyCategoria === value.keyCategoria) {
@@ -78,6 +90,7 @@ const EditorEnfrentamientos = () => {
       };
     });
     setArrayZonas(auxZonasParaSelector);
+    setIsMostrarComponenteEnfrentamiento(false);
   };
   const escucharSelectorZona = value => {
     setDatosFiltrados({
@@ -85,6 +98,7 @@ const EditorEnfrentamientos = () => {
       zona: value,
     });
     console.log(value);
+    setIsMostrarComponenteEnfrentamiento(true);
     dispatch(listarEquipos_accion());
     /* dispatch(obtenerEquiposDeZona_accion(value.data._id)); */
   };
@@ -112,7 +126,6 @@ const EditorEnfrentamientos = () => {
               value: index + 1,
             };
           });
-          console.log('ejecuta carga de torneos');
           setArrayTorneos(auxTorneos);
           setIsDatosCargados(true);
         }
@@ -144,7 +157,7 @@ const EditorEnfrentamientos = () => {
             name="torneo"
             placeholder="Seleccione Torneo"
             options={arrayTorneos ? arrayTorneos : []}
-            opcionSeleccionada={datosFiltrados.torneo}
+            /* opcionSeleccionada={datosFiltrados.torneo} */
             onChange={value => escucharSelectorTorneo(value)}
             noOptionsMessage={
               !arrayTorneos ? 'Debe seleccionar un torneo.' : 'No hay torneos creados'
@@ -183,19 +196,19 @@ const EditorEnfrentamientos = () => {
               }
             ></Selector>
           )}
-          {/* {Object.keys(datosFiltrados).length === 4 && (
+          {/* {isMostrarComponenteEnfrentamiento && (
             <div className="CI-componenteEnfrentamiento">
               <Enfrentamiento
-                equipos={arrayEquiposZona}
-                torneoId={datosFiltrados.zona.data.idTorneo}
-                zonaId={datosFiltrados.zona.data._id}
+                equipos={arrayEquiposZona ? arrayEquiposZona : []}
+                torneoId={datosFiltrados.torneo.idTorneo ? datosFiltrados.torneo.idTorneo : ''}
+                zonaId={datosFiltrados.zona ? datosFiltrados.zona.data._id : ''}
               ></Enfrentamiento>
             </div>
-          )} */}
+          )}
           {partidos.length > 0 &&
             partidos.map((partido, index) => {
               return <TarjetaEnfrentamiento key={index} datos={partido}></TarjetaEnfrentamiento>;
-            })}
+            })} */}
         </div>
 
         <Alertas
