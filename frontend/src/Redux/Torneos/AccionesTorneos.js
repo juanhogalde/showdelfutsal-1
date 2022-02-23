@@ -82,6 +82,7 @@ export const eliminarEquipoDeZonaError = 'eliminarEquipoDeZonaError';
 export const eliminarEquipoDeZonaDefault = 'eliminarEquipoDeZonaDefault';
 export const actualizarListaTorneosEliminarEquiposZona =
   'actualizarListaTorneosEliminarEquiposZona';
+
 export const volverPorDefectoUnTorneo_accion = () => {
   return {
     type: volverPorDefectoUnTorneo,
@@ -719,26 +720,6 @@ export const eliminarEquipoDeZona_accion = (zonaId, equipoId) => {
       .catch(error => {
         console.log({error});
         dispatch(eliminarEquipoDeZonaError_accion());
-      });
-  };
-};
-/* OBTENER EQUIPOS DE ZONA */
-
-export const obtenerEquiposDeZona_accion = zonaId => {
-  return dispatch => {
-    dispatch(agregarEquiposZonaTorneoCargando_accion());
-    API({
-      url: 'zonas/obtenerEquiposPorZona',
-      method: 'get',
-      data: {_id: zonaId},
-    })
-      .then(res => {
-        console.log({res});
-        /* dispatch(agregarEquiposZonaTorneoExito_accion(res.data.value)); */
-      })
-      .catch(error => {
-        console.log({error});
-        /*  dispatch(agregarEquiposZonaTorneoError_accion()); */
       });
   };
 };

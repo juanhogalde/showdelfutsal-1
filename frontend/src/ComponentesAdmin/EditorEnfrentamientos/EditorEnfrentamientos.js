@@ -7,18 +7,20 @@ import Cargando from '../Cargando/Cargando';
 import {
   obtenerDatosDeTorneoParaEdicionDefault_accion,
   obtenerDatosDeTorneoParaEdicion_accion,
-  obtenerEquiposDeZona_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 import Enfrentamiento from '../Enfrentamiento/Enfrentamiento';
-import {listarEquipos_accion} from '../../Redux/Equipos/AccionesEquipos';
+import {
+  listarEquipos_accion,
+  obtenerEquiposDeZona_accion,
+} from '../../Redux/Equipos/AccionesEquipos';
 /* import {listarPartidos_accion} from '../../Redux/Partidos/AccionPartidos'; */
 
 const EditorEnfrentamientos = () => {
   const dispatch = useDispatch();
   const {torneos, torneo, isObtenerDatosEditarTorneo} = useSelector(state => state.storeTorneos);
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
-  const {equipos} = useSelector(state => state.storeEquipos);
+  const {equipos, isObtenerEquiposDeZona} = useSelector(state => state.storeEquipos);
   const {partidos} = useSelector(state => state.storePartidos);
 
   const [datosFiltrados, setDatosFiltrados] = useState('');
@@ -35,6 +37,7 @@ const EditorEnfrentamientos = () => {
     setDatosFiltrados({
       torneo: value,
     });
+    setIsMostrarComponenteEnfrentamiento(false);
     setArraySubCategorias([]);
     setArrayZonas([]);
   };
@@ -113,6 +116,7 @@ const EditorEnfrentamientos = () => {
       }
     }
   };
+  const obtenerRespuestaDeAlertaObtenerEquiposDeZona = respuesta => {};
 
   useLayoutEffect(() => {
     if (!arrayTorneos) {
@@ -196,7 +200,7 @@ const EditorEnfrentamientos = () => {
               }
             ></Selector>
           )}
-          {/* {isMostrarComponenteEnfrentamiento && (
+          {isMostrarComponenteEnfrentamiento && (
             <div className="CI-componenteEnfrentamiento">
               <Enfrentamiento
                 equipos={arrayEquiposZona ? arrayEquiposZona : []}
@@ -208,7 +212,7 @@ const EditorEnfrentamientos = () => {
           {partidos.length > 0 &&
             partidos.map((partido, index) => {
               return <TarjetaEnfrentamiento key={index} datos={partido}></TarjetaEnfrentamiento>;
-            })} */}
+            })}
         </div>
 
         <Alertas
@@ -220,6 +224,12 @@ const EditorEnfrentamientos = () => {
           }
           subtitulo={isObtenerDatosEditarTorneo.mensaje}
           RespuestaDeSweet={obtenerRespuestaDeAlertaEditarTorneo}
+        ></Alertas>
+        <Alertas
+          tipoDeSweet={isObtenerEquiposDeZona.tipo}
+          mostrarSweet={isObtenerEquiposDeZona.isMostrar}
+          subtitulo={isObtenerEquiposDeZona.mensaje}
+          RespuestaDeSweet={obtenerRespuestaDeAlertaObtenerEquiposDeZona}
         ></Alertas>
       </React.Fragment>
     );

@@ -6,6 +6,10 @@ import {
   equiposPorSubcategoriaExito,
   equiposPorSubcategoriaError,
   equiposPorSubcategoriaDefault,
+  obtenerEquiposDeZonaCargando,
+  obtenerEquiposDeZonaExito,
+  obtenerEquiposDeZonaError,
+  obtenerEquiposDeZonaDefault,
 } from './AccionesEquipos';
 const equiposPorDefecto = {
   equipos: [],
@@ -14,6 +18,11 @@ const equiposPorDefecto = {
     tipo: '',
     isMostrar: false,
     mensaje: '',
+  },
+  isObtenerEquiposDeZona: {
+    tipo: '',
+    mensaje: '',
+    isMostrar: false,
   },
 };
 
@@ -90,6 +99,47 @@ const storeEquipos = (state = equiposPorDefecto, accion) => {
           mensaje: '',
         },
         equipos: [],
+      };
+    }
+    case obtenerEquiposDeZonaCargando: {
+      return {
+        ...state,
+        isObtenerEquiposDeZona: {
+          tipo: 'cargando',
+          mensaje: 'Obteniendo equipos de zona...',
+          isMostrar: true,
+        },
+      };
+    }
+    case obtenerEquiposDeZonaExito: {
+      return {
+        ...state,
+        isObtenerEquiposDeZona: {
+          tipo: '',
+          mensaje: '',
+          isMostrar: false,
+        },
+        equipos: accion.equiposZona,
+      };
+    }
+    case obtenerEquiposDeZonaError: {
+      return {
+        ...state,
+        isObtenerEquiposDeZona: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, no obtuvimos equipos de zona',
+          isMostrar: true,
+        },
+      };
+    }
+    case obtenerEquiposDeZonaDefault: {
+      return {
+        ...state,
+        isObtenerEquiposDeZona: {
+          tipo: '',
+          mensaje: '',
+          isMostrar: false,
+        },
       };
     }
     default:
