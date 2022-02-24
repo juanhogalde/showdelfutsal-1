@@ -15,6 +15,9 @@ const TarjetaEnfrentamiento = ({
   siguientePartido = () => {
     console.log('');
   },
+  funcionEliminarEnfrentamiento = () => {
+    console.log('');
+  },
 }) => {
   const {equipos} = useSelector(state => state.storeEquipos);
   const [enfrentamiento, setEnfrentamiento] = useState({});
@@ -98,6 +101,8 @@ const TarjetaEnfrentamiento = ({
           ...isCampoDeEdicion,
           isFechaPartido: true,
         });
+        break;
+
       case 'penales':
         setIsCampoDeEdicion({
           ...isCampoDeEdicion,
@@ -140,7 +145,6 @@ const TarjetaEnfrentamiento = ({
 
   useLayoutEffect(() => {
     console.log(equipos);
-    console.log(datos);
     let auxEnfrentamiento = {};
     if (equipos.length > 0) {
       let auxEquipoLocal = equipos.find(equipo => equipo._id === datos.idEquipoLocal);
@@ -156,7 +160,7 @@ const TarjetaEnfrentamiento = ({
     }
     setEnfrentamiento(auxEnfrentamiento);
     return () => {};
-  }, [equipos.length]);
+  }, [equipos.length, datos, equipos]);
 
   return (
     <div
@@ -183,7 +187,7 @@ const TarjetaEnfrentamiento = ({
               onClick={() => habilitarEdicionTarjetaEnfrentamiento()}
             ></FiEdit3>
             <MdDeleteForever
-              /* onClick={() => consultaPorEliminarGaleria()} */
+              onClick={() => funcionEliminarEnfrentamiento(datos._id)}
               className="iconoAcción-TarjetaEnfrentamiento"
             />
           </div>

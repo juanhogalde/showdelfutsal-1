@@ -14,6 +14,11 @@ import {
   listarEquipos_accion,
   /* obtenerEquiposYEnfrentamientosDeZona_accion, */
 } from '../../Redux/Equipos/AccionesEquipos';
+import {
+  eliminarPartidoConsultar_accion,
+  eliminarPartidoDefault_accion,
+  eliminarPartido_accion,
+} from '../../Redux/Partidos/AccionPartidos';
 /* import {listarPartidos_accion} from '../../Redux/Partidos/AccionPartidos'; */
 
 const EditorEnfrentamientos = () => {
@@ -21,7 +26,7 @@ const EditorEnfrentamientos = () => {
   const {torneos, torneo, isObtenerDatosEditarTorneo} = useSelector(state => state.storeTorneos);
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   const {equipos, isObtenerEquiposDeZona} = useSelector(state => state.storeEquipos);
-  const {partidos} = useSelector(state => state.storePartidos);
+  const {partidos, isEliminarPartido} = useSelector(state => state.storePartidos);
 
   const [datosFiltrados, setDatosFiltrados] = useState('');
   const [isDatosCargados, setIsDatosCargados] = useState(false);
@@ -116,6 +121,24 @@ const EditorEnfrentamientos = () => {
     }
   };
   const obtenerRespuestaDeAlertaObtenerEquiposDeZona = respuesta => {};
+  const obtenerRespuestaDeAlertaEliminarPartido = respuesta => {
+    if (respuesta) {
+      if (isEliminarPartido.tipo === 'warning') {
+        dispatch(eliminarPartido_accion(isEliminarPartido.id));
+      }
+      if (isEliminarPartido.tipo === 'success') {
+        dispatch(eliminarPartidoDefault_accion());
+      }
+      if (isEliminarPartido.tipo === 'error') {
+        dispatch(eliminarPartidoDefault_accion());
+      }
+    }
+  };
+
+  const consultarPorEliminarEnfrentamiento = idPartido => {
+    console.log(idPartido);
+    dispatch(eliminarPartidoConsultar_accion(idPartido));
+  };
 
   useLayoutEffect(() => {
     if (!arrayTorneos) {
@@ -213,6 +236,7 @@ const EditorEnfrentamientos = () => {
                   key={index}
                   datos={partido}
                   enfrentamiento={partido}
+                  funcionEliminarEnfrentamiento={consultarPorEliminarEnfrentamiento}
                 ></TarjetaEnfrentamiento>
               );
             })}
@@ -233,6 +257,12 @@ const EditorEnfrentamientos = () => {
           mostrarSweet={isObtenerEquiposDeZona.isMostrar}
           subtitulo={isObtenerEquiposDeZona.mensaje}
           RespuestaDeSweet={obtenerRespuestaDeAlertaObtenerEquiposDeZona}
+        ></Alertas>
+        <Alertas
+          tipoDeSweet={isEliminarPartido.tipo}
+          mostrarSweet={isEliminarPartido.isMostrar}
+          subtitulo={isEliminarPartido.mensaje}
+          RespuestaDeSweet={obtenerRespuestaDeAlertaEliminarPartido}
         ></Alertas>
       </React.Fragment>
     );
