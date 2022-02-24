@@ -1,7 +1,7 @@
 const listadoNoticias = [
   {
-    _id: {$oid: '61ea8cf2e5099de0d638580e'},
-    fecha: {$date: '2022-01-21T11:57:02.744Z'},
+    _id: 'arranca_una_nueva_et_1645548985670',
+    fecha: '2022-01-21T11:57:02.744Z',
     titulo: 'ARRANCA UNA NUEVA ETAPA LOS FINES DE SEMANA',
     copete:
       'Por primera vez en la historia el la Divisional A disputará sus encuentros sábados y domingos. La Gloria, el actual campeón, buscará retener el título. ',
@@ -16,8 +16,8 @@ const listadoNoticias = [
     idSubcategoria: '1',
   },
   {
-    _id: {$oid: '61eaa327e5099de0d6385cf2'},
-    fecha: {$date: '2022-01-21T12:12:24.119Z'},
+    _id: 'una_vez_más_suspendi_1645548985670',
+    fecha: '2022-01-21T12:12:24.119Z',
     titulo: 'UNA VEZ MÁS SUSPENDIDA LA DIVISIONAL A',
     copete:
       'Luego de algunos problemas con los árbitros, la Comisión Directiva del Futsal sanjuanino suspendió hasta nuevo aviso la categoría. ',
@@ -32,8 +32,8 @@ const listadoNoticias = [
     idSubcategoria: '1',
   },
   {
-    _id: {$oid: '61eaa3d5e5099de0d6385cf8'},
-    fecha: {$date: '2022-01-21T12:15:19.950Z'},
+    _id: 'pumas_y_bermejito_a__1645548985670',
+    fecha: '2022-01-21T12:15:19.950Z',
     titulo: 'PUMAS Y BERMEJITO A LA CABEZA',
     copete:
       'Los dos equipos lograron puntaje ideal luego de tres fechas transcurridas. El último campeón, Estrella Jrs., empató ante Deportivo Chimbas. ',
@@ -48,8 +48,8 @@ const listadoNoticias = [
     idSubcategoria: '4',
   },
   {
-    _id: {$oid: '61eaa4bde5099de0d6385cfe'},
-    fecha: {$date: '2022-01-21T12:19:05.454Z'},
+    _id: 'mercedario_y_desampa_1645548985670',
+    fecha: '2022-01-21T12:19:05.454Z',
     titulo: 'MERCEDARIO Y DESAMPARADOS LOS ASCENDIDOS A LA B',
     copete:
       'Los dos equipos serán parte de la segunda categoría del futsal sanjuanino luego de una gran temporada 2021.  ',
@@ -64,8 +64,8 @@ const listadoNoticias = [
     idSubcategoria: '3',
   },
   {
-    _id: {$oid: '61eaa597e5099de0d6385d04'},
-    fecha: {$date: '2022-01-21T12:22:46.862Z'},
+    _id: 'las_gloriosas_buscan_1645548985670',
+    fecha: '2022-01-21T12:22:46.862Z',
     titulo: 'LAS GLORIOSAS BUSCAN FUTURO A LARGO PLAZO',
     copete:
       'La institución gloriosa será una de los pocos equipos que contará con divisiones inferiores femenina. La idea es tener una etapa formativa dentro de las chicas.',
@@ -80,8 +80,8 @@ const listadoNoticias = [
     idSubcategoria: '12',
   },
   {
-    _id: {$oid: '61eaa606e5099de0d6385d0a'},
-    fecha: {$date: '2022-01-21T12:24:34.950Z'},
+    _id: 'rawson_construye_fut_1645548985670',
+    fecha: '2022-01-21T12:24:34.950Z',
     titulo: 'RAWSON CONSTRUYE FUTURO EN EL FUTSAL',
     copete:
       'El departamento con más cantidad de jugadores en la provincia apuesta por las bases. Con un grupo interdisciplinario de trabajo buscan generar herramientas en las promesas del futsal, a futuro. ',
@@ -96,8 +96,8 @@ const listadoNoticias = [
     idSubcategoria: '12',
   },
   {
-    _id: {$oid: '61eaa6e1e5099de0d6385d10'},
-    fecha: {$date: '2022-01-21T12:28:17.374Z'},
+    _id: 'podio_completo_para__1645548985670',
+    fecha: '2022-01-21T12:28:17.374Z',
     titulo: 'PODIO COMPLETO PARA LA SELECCIÓN DE RAWSON EN LA FELIZ',
     copete:
       'La Selección de Rawson logró un 1er, un 2do y un 3er puesto en la primera edición de la “Mar del Plata Futsal Cup”. Además se finalizó 4to en la categoría sub 16. ',
@@ -112,8 +112,8 @@ const listadoNoticias = [
     idSubcategoria: '12',
   },
   {
-    _id: {$oid: '61eaa765e5099de0d6385d16'},
-    fecha: {$date: '2022-01-21T12:30:26.373Z'},
+    _id: 'san_juan_tendrá_cuat_1645548985670',
+    fecha: '2022-01-21T12:30:26.373Z',
     titulo: 'SAN JUAN TENDRÁ CUATRO SANJUANINOS EN RÍO CUARTO',
     copete:
       'La Gloria, Huarpes, Punta del Médano y A.M.F.A buscarán quedarse con dos de los pasajes para la Fase Final de la Liga Nacional de Futsal.',
@@ -128,8 +128,8 @@ const listadoNoticias = [
     idSubcategoria: '10',
   },
   {
-    _id: {$oid: '61eaa7c9e5099de0d6385d1c'},
-    fecha: {$date: '2022-01-21T12:31:40.591Z'},
+    _id: 'el_arbitraje_sanjuan_1645548985670',
+    fecha: '2022-01-21T12:31:40.591Z',
     titulo: 'EL ARBITRAJE SANJUANINO ESTARÁ PRESENTE EN EL REGIONAL',
     copete:
       'Como en las dos últimas ediciones la provincia contará con dos jueces que serán parte de los encuentros de la Fase Cuyo.',
@@ -144,8 +144,8 @@ const listadoNoticias = [
     idSubcategoria: '10',
   },
   {
-    _id: {$oid: '61eaa839e5099de0d6385d22'},
-    fecha: {$date: '2022-01-25T11:37:38.104Z'},
+    _id: 'este_miércoles_arran_1645548985670',
+    fecha: '2022-01-25T11:37:38.104Z',
     titulo: 'ESTE MIÉRCOLES ARRANCA LA FASE FINAL DE LA LIGA NACIONAL',
     copete:
       'Con la presencia de Huarpes y La Gloria, la provincia de San Juan recibirá el mejor futsal de la Argentina. El plato fuerte de la 1er fecha será Huarpes-Barracas. ',
@@ -160,8 +160,8 @@ const listadoNoticias = [
     idSubcategoria: '11',
   },
   {
-    _id: {$oid: '61eaa8bee5099de0d6385d28'},
-    fecha: {$date: '2022-01-21T12:35:50.390Z'},
+    _id: 'desamparados_sigue_d_1645548985670',
+    fecha: '2022-01-21T12:35:50.390Z',
     titulo: 'DESAMPARADOS SIGUE DANDO QUE HABLAR EN LA B',
     copete:
       'Las víboras consiguieron su cuarta victoria al hilo y sigue como único líder de la zona B. El otro con puntaje ideal es Coop. Caucete.',
@@ -176,8 +176,8 @@ const listadoNoticias = [
     idSubcategoria: '7',
   },
   {
-    _id: {$oid: '61eaa8fce5099de0d6385d2e'},
-    fecha: {$date: '2022-01-21T12:37:15.117Z'},
+    _id: 'a_la_espera_del_últi_1645548985671',
+    fecha: '2022-01-21T12:37:15.117Z',
     titulo: 'A LA ESPERA DEL ÚLTIMO ASCENSO ',
     copete:
       'Cinco equipos tienen su lugar en la máxima categoría del futsal femenino. Todavía resta definirse el sexto equipo que formará parte de la temporada 2022.',
@@ -192,8 +192,8 @@ const listadoNoticias = [
     idSubcategoria: '7',
   },
   {
-    _id: {$oid: '61eaa954e5099de0d6385d34'},
-    fecha: {$date: '2022-01-21T12:38:45.101Z'},
+    _id: 'rivera_grita_fuerte,_1645548985671',
+    fecha: '2022-01-21T12:38:45.101Z',
     titulo: 'RIVERA GRITA FUERTE, TRICAMPEÓN',
     copete:
       'El elenco de Chimbas se consagró como el mejor equipo del año 2021, luego de ganar el Apertura y Clausura. Esta vez Palermo se tuvo que conformar con el 2do puesto. ',
@@ -208,8 +208,8 @@ const listadoNoticias = [
     idSubcategoria: '6',
   },
   {
-    _id: {$oid: '61eab54ee5099de0d6385de9'},
-    fecha: {$date: '2022-01-22T10:16:52.146Z'},
+    _id: 'torneo_provincial_fe_1645548985671',
+    fecha: '2022-01-22T10:16:52.146Z',
     titulo: 'TORNEO PROVINCIAL FEMENINO EN CALINGASTA',
     copete:
       'La rama femenina buscará a sus dos representantes para la Liga Nacional Femenina de Futsal, en esta oportunidad 3 Ligas de la provincia tendrán sus representantes. ',
@@ -224,8 +224,8 @@ const listadoNoticias = [
     idSubcategoria: '6',
   },
   {
-    _id: {$oid: '61eaf79ee5099de0d6385f12'},
-    fecha: {$date: '2022-01-21T18:14:25.347Z'},
+    _id: 'la_gloria_y_huarpes__1645548985671',
+    fecha: '2022-01-21T18:14:25.347Z',
     titulo: 'LA GLORIA Y HUARPES SE VAN PARA EL REGIONAL',
     copete:
       'Luego de 5 fechas cambiantes, donde la punta tuvo varios dueños, los gloriosos y caciques volverán a ir a la Fase Regional de la Liga Nacional como en el 2018.',
@@ -240,8 +240,8 @@ const listadoNoticias = [
     idSubcategoria: '9',
   },
   {
-    _id: {$oid: '61eb1b87e5099de0d6385fac'},
-    fecha: {$date: '2022-01-21T20:46:02.052Z'},
+    _id: 'consorcio_el_nuevo_c_1645548985671',
+    fecha: '2022-01-21T20:46:02.052Z',
     titulo: 'CONSORCIO EL NUEVO CAMPEÓN DE CALINGASTA',
     copete:
       'En una gran final los nuevos monarcas derrotaron a quien era el campeón reinante AMFA, de esta manera suma su primer estrella',
@@ -256,8 +256,8 @@ const listadoNoticias = [
     idSubcategoria: '13',
   },
   {
-    _id: {$oid: '61ebd8ade5099de0d6386042'},
-    fecha: {$date: '2022-01-22T10:12:58.767Z'},
+    _id: 'rivera_y_barrios_de__1645548985671',
+    fecha: '2022-01-22T10:12:58.767Z',
     titulo: 'RIVERA Y BARRIOS DE PIE ARRANCARON GOLEANDO',
     copete:
       'Los equipos de la Capital empezaron con el pie derecho tras golear a Belgrano y AMFA respectivamente. Hoy se lleva a cabo el 2do cruce.',
@@ -272,8 +272,8 @@ const listadoNoticias = [
     idSubcategoria: '6',
   },
   {
-    _id: {$oid: '61ed6644e5099de0d6386103'},
-    fecha: {$date: '2022-01-23T14:29:18.890Z'},
+    _id: 'la_grn_final:_rivera_1645548985671',
+    fecha: '2022-01-23T14:29:18.890Z',
     titulo: 'LA GRN FINAL: RIVERA - B.D.P SOLIRDARIDAD',
     copete:
       'Como en el torneo doméstico los dos equipos se medirán por un lugar en el certamen regional. Será a las 18.30 en el Estadio de Barreal.',
@@ -288,8 +288,8 @@ const listadoNoticias = [
     idSubcategoria: '6',
   },
   {
-    _id: {$oid: '61f292cde5099de0d63869bc'},
-    fecha: {$date: '2022-01-27T15:55:21.264Z'},
+    _id: 'charla_y_entrenamien_1645548985671',
+    fecha: '2022-01-27T15:55:21.264Z',
     titulo: 'CHARLA Y ENTRENAMIENTO DE FUTSAL EN 25 DE MAYO',
     copete:
       'El Profesor Matías Illanes llevó a cabo una capacitación para chicos entre 12 y 16 años, con la finalidad de brindar herramientas para los jóvenes del departamento. La Escuela Municipal 25 de Mayo fue la encargada de la organización del evento. ',
@@ -304,8 +304,8 @@ const listadoNoticias = [
     idSubcategoria: '12',
   },
   {
-    _id: {$oid: '61f3b38fe5099de0d6386ac2'},
-    fecha: {$date: '2022-01-28T09:12:46.612Z'},
+    _id: 'torneo_de_verano_en__1645548985671',
+    fecha: '2022-01-28T09:12:46.612Z',
     titulo: 'TORNEO DE VERANO EN LAPRIDA',
     copete:
       'El certamen contará con la presencia de 8 equipos de categoría Sub 17, con el fin de darle rodaje a los más chicos.',
@@ -320,8 +320,8 @@ const listadoNoticias = [
     idSubcategoria: '12',
   },
   {
-    _id: {$oid: '6200f702c12379c0de2f24d1'},
-    fecha: {$date: '2022-02-07T10:40:03.824Z'},
+    _id: '¿y_ahora?__1645548985671',
+    fecha: '2022-02-07T10:40:03.824Z',
     titulo: '¿Y AHORA? ',
     copete: 'El tribunal de faltas de la Liga Sanjuanina renunició y la actividad seguirá parada.',
     cuerpo:
@@ -335,8 +335,8 @@ const listadoNoticias = [
     idImagen: ['Ea27d7zw7BvNakiUL087E1d1.jpg'],
   },
   {
-    _id: {$oid: '6200f9ffc12379c0de2f24d7'},
-    fecha: {$date: '2022-02-07T10:52:48.886Z'},
+    _id: 'un_jugador_de_cgt_tu_1645548985671',
+    fecha: '2022-02-07T10:52:48.886Z',
     titulo: 'UN JUGADOR DE CGT TUVO UN ACCIDENTE Y CASI PIERDE LA VIDA',
     copete:
       'Lucas Castro jugador de las inferiores del Barrio CGT fue atropellado y quedó en estado de inconsciencia. Ahora se encuentra fuera de peligro pero con una recuperación que llevará mucho tiempo',
@@ -351,8 +351,8 @@ const listadoNoticias = [
     idImagen: ['CEcgciEeZyWKRzseOgr8kWQ5.jpg'],
   },
   {
-    _id: {$oid: '620103a9c12379c0de2f24dd'},
-    fecha: {$date: '2022-02-07T11:34:03.466Z'},
+    _id: 'un_barrio_solares_qu_1645548985671',
+    fecha: '2022-02-07T11:34:03.466Z',
     titulo: 'UN BARRIO SOLARES QUIERE EL ASCENSO A PRIMERA',
     copete:
       'Uno de los mejores equipos de la temporada 2021 intentará seguir su marcha triunfal para la primer categoría del futsal sanjuanino. ',
@@ -367,8 +367,8 @@ const listadoNoticias = [
     idImagen: ['db9gto4KDBUr3WFprGSzycFL.jpg'],
   },
   {
-    _id: {$oid: '6201293fc12379c0de2f2605'},
-    fecha: {$date: '2022-02-07T14:14:23.545Z'},
+    _id: 'argentina_campeón_de_1645548985671',
+    fecha: '2022-02-07T14:14:23.545Z',
     titulo: 'ARGENTINA CAMPEÓN DE AMÉRICA ',
     copete:
       'La Selección Argentina le ganó 1-0 a Paraguay en Asunción y se consagró campeón de América por tercera vez en su historia. El gol lo marcó Alan Brandi en el primer tiempo, donde la Albiceleste fue superior. En el complemento supo aguantar la ventaja y disimuló el desgaste físico de la semifinal ante Brasil.',
@@ -383,8 +383,8 @@ const listadoNoticias = [
     idImagen: ['evK91PthLh4WIrZu7VxYFDJ6.jpg'],
   },
   {
-    _id: {$oid: '62012a91c12379c0de2f2657'},
-    fecha: {$date: '2022-02-07T14:20:03.640Z'},
+    _id: 'brasil_decime_que_se_1645548985671',
+    fecha: '2022-02-07T14:20:03.640Z',
     titulo: 'BRASIL DECIME QUE SE SIENTE!!!',
     copete:
       'La Selección Argentina derrotó en los penales a Brasil con una estupenda actuación de Nicolás Sarmiento, luego de haber empatado 3-3 en el tiempo regular y jugará la final de la Copa América este domingo, a las 17, ante Paraguay.',
@@ -399,8 +399,8 @@ const listadoNoticias = [
     idImagen: ['U1t4hYpKQvfDOYcqrebT6hWR.jpg'],
   },
   {
-    _id: {$oid: '62012b0dc12379c0de2f268d'},
-    fecha: {$date: '2022-02-07T14:22:08.215Z'},
+    _id: 'empate_con_paraguay,_1645548985671',
+    fecha: '2022-02-07T14:22:08.215Z',
     titulo: 'EMPATE CON PARAGUAY, Y FINAL CON BRASIL ',
     copete:
       'La Selección Argentina le ganó 1-0 a Paraguay en Asunción y se consagró campeón de América por tercera vez en su historia. El gol lo marcó Alan Brandi en el primer tiempo, donde la Albiceleste fue superior. En el complemento supo aguantar la ventaja y disimuló el desgaste físico de la semifinal ante Brasil.',
@@ -415,8 +415,8 @@ const listadoNoticias = [
     idImagen: ['FmXb4b1ogjxKg32Y-T0O5NVF.jpg'],
   },
   {
-    _id: {$oid: '62013faac12379c0de2f26c4'},
-    fecha: {$date: '2022-02-08T11:11:33.371Z'},
+    _id: 'copa_25_de_mayo__1645548985671',
+    fecha: '2022-02-08T11:11:33.371Z',
     titulo: 'COPA 25 DE MAYO ',
     copete:
       'Veintidos equipos del departamento, Rawson. 9 de Julio y  Caucete disputan el certamen departamental con el fin de coronarse como el mejor del Este. ',
@@ -431,8 +431,8 @@ const listadoNoticias = [
     idImagen: ['PVaM5ARJ_ELrY1jRmaX-SXjA.jpg'],
   },
   {
-    _id: {$oid: '62022914c12379c0de2f26fa'},
-    fecha: {$date: '2022-02-08T08:28:35.377Z'},
+    _id: 'torneo_infanto_juven_1645548985671',
+    fecha: '2022-02-08T08:28:35.377Z',
     titulo: 'TORNEO INFANTO JUVENIL DE FUTSAL "GLORIA SANJUANINA"',
     copete:
       'Más de 200 chicos participaron del certamen que organizó el último campeón de la Divisional A del futsal sanjuanino. ',
@@ -447,8 +447,8 @@ const listadoNoticias = [
     idImagen: ['HHu5LLJW4X-Txr7rWsVtymm3.jpg'],
   },
   {
-    _id: {$oid: '62025b11c12379c0de2f276c'},
-    fecha: {$date: '2022-02-08T11:59:16.526Z'},
+    _id: 'barracas_el_nuevo_ca_1645548985671',
+    fecha: '2022-02-08T11:59:16.526Z',
     titulo: 'BARRACAS EL NUEVO CAMPEÓN DE LA LIGA NACIONAL ',
     copete:
       'En la última jornada de competencia, el elenco Barraqueño se impuso ante Boca. Y en San Juan, el terruño de la Revolución Deportiva, se coronó como el mejor del torneo.',
@@ -463,8 +463,8 @@ const listadoNoticias = [
     idImagen: ['KxFfKM5YDHTOddSmbQNGn7dj.jpg'],
   },
   {
-    _id: {$oid: '62025c0ec12379c0de2f2772'},
-    fecha: {$date: '2022-02-08T12:03:29.452Z'},
+    _id: 'huarpes_el_mejor_san_1645548985671',
+    fecha: '2022-02-08T12:03:29.452Z',
     titulo: 'HUARPES EL MEJOR SANJUANINO',
     copete:
       'El naranja se quedó con el 6to lugar tras perder con Banco Provincia de Mar del Plata. Mientras que La Gloria se quedó con el último lugar.',
@@ -479,8 +479,8 @@ const listadoNoticias = [
     idImagen: ['92LTaenxD5-j_sIZF3z-EJjg.jpg'],
   },
   {
-    _id: {$oid: '62038e84c12379c0de2f288c'},
-    fecha: {$date: '2022-02-09T09:51:04.782Z'},
+    _id: 'ernesto_“tito”_peze__1645548985671',
+    fecha: '2022-02-09T09:51:04.782Z',
     titulo: 'ERNESTO “TITO” PEZE NUEVO TÉCNICO DE LAPRIDA',
     copete:
       'El ex profesor y ayudante de campo del SEC tendrá una nueva experiencia en la Divisional D del futsal sanjuanino. ',
@@ -495,8 +495,8 @@ const listadoNoticias = [
     idImagen: ['n_2jWu3a-oPtiVV-IphyDGJm.jpeg'],
   },
   {
-    _id: {$oid: '6203c5dec12379c0de2f28ac'},
-    fecha: {$date: '2022-02-09T13:56:08.360Z'},
+    _id: 'se_viene_la_copa_poc_1645548985671',
+    fecha: '2022-02-09T13:56:08.360Z',
     titulo: 'SE VIENE LA COPA POCITO ',
     copete:
       'El torneo puesta a punto se llevará a cabo en el complejo deportivo Laprida, con la participación de 20 equipos que se medirán a lo largo del certamen departamental.',
@@ -511,8 +511,8 @@ const listadoNoticias = [
     idImagen: ['Qtod_aae1eW12HBE7rFv3EeW.jpeg'],
   },
   {
-    _id: {$oid: '6204ce76c12379c0de2f28e9'},
-    fecha: {$date: '2022-02-10T08:36:13.386Z'},
+    _id: 'así_comienza_la_copa_1645548985671',
+    fecha: '2022-02-10T08:36:13.386Z',
     titulo: 'ASÍ COMIENZA LA COPA POCITO ',
     copete:
       'Se definieron los grupos que darán comienzo a la 2da edición del certamen departamental. A último momento se agregó F. Miguel Sanchez. ',
@@ -527,8 +527,8 @@ const listadoNoticias = [
     idImagen: ['RbTQ-UFmXvgn9yRK_N6vprhg.jpeg'],
   },
   {
-    _id: {$oid: '62050372c12379c0de2f293e'},
-    fecha: {$date: '2022-02-10T12:38:59.769Z'},
+    _id: '"se_viene_un_2022_ca_1645548985671',
+    fecha: '2022-02-10T12:38:59.769Z',
     titulo: '"SE VIENE UN 2022 CARGADO Y MUCHAS EXPECTATIVAS"',
     copete:
       'El DT de Barrio Rivadavia, Lucas Godoy, nos cuenta como se vienen preparando para esta nueva temporada y sobre su ascenso a la primer categoría.',
@@ -543,8 +543,8 @@ const listadoNoticias = [
     idImagen: ['GGULVMfWvjhvJbAKT7_TTssM.jpeg'],
   },
   {
-    _id: {$oid: '62050b56c12379c0de2f2980'},
-    fecha: {$date: '2022-02-10T12:55:58.390Z'},
+    _id: 'bermejito_se_prepara_1645548985671',
+    fecha: '2022-02-10T12:55:58.390Z',
     titulo: 'BERMEJITO SE PREPARA CON TODO PARA EL 2022',
     copete:
       'El celeste sigue trabajando para una nueva temporada en el 2022 en la Divisional D del futsal masculino',
@@ -559,8 +559,8 @@ const listadoNoticias = [
     idImagen: ['HtaQeLFzgQNE0RcSQu5pivyL.jpeg'],
   },
   {
-    _id: {$oid: '62050fadc12379c0de2f2986'},
-    fecha: {$date: '2022-02-10T13:14:28.452Z'},
+    _id: 'las_bermejitas_busca_1645548985671',
+    fecha: '2022-02-10T13:14:28.452Z',
     titulo: 'LAS BERMEJITAS BUSCARÁN EL NUEVO ASCENSO',
     copete:
       'Las celestitas tendrán un nuevo año en la segunda categoría del futsal femenino, en búsqueda de experiencia y ganas de triunfar',
@@ -575,8 +575,8 @@ const listadoNoticias = [
     idImagen: ['UNpmm0xxHUGPh93O8gInxGqV.jpeg'],
   },
   {
-    _id: {$oid: '62062efdc12379c0de2f29db'},
-    fecha: {$date: '2022-02-11T09:40:20.432Z'},
+    _id: 'campeonato_futsal_fe_1645548985671',
+    fecha: '2022-02-11T09:40:20.432Z',
     titulo: 'CAMPEONATO FUTSAL FEMENINO CAUCETE 2022',
     copete: 'Este fin de semana se disputará la gran final entre Área II y F-100. ',
     cuerpo:
@@ -590,8 +590,8 @@ const listadoNoticias = [
     idImagen: ['GQ6I4-76rZPAuknpSVINxBxc.jpg'],
   },
   {
-    _id: {$oid: '620634b8c12379c0de2f2a2f'},
-    fecha: {$date: '2022-02-11T10:36:07.136Z'},
+    _id: 'un_equipo_que_aspira_1645548985671',
+    fecha: '2022-02-11T10:36:07.136Z',
     titulo: 'UN EQUIPO QUE ASPIRA AL ASCENSO DIRECTO',
     copete:
       'Pumas buscará demostrar porque fue uno de los mejores equipos del 2021, cerrando con el broche de oro: el ascenso a la C.',
@@ -606,8 +606,8 @@ const listadoNoticias = [
     idImagen: ['35Wpo_ZYbJrYrZgfOHdoktdI.jpg'],
   },
   {
-    _id: {$oid: '62064428c12379c0de2f2a6e'},
-    fecha: {$date: '2022-02-11T11:16:58.231Z'},
+    _id: 'el_lechuzo_volvió_a__1645548985671',
+    fecha: '2022-02-11T11:16:58.231Z',
     titulo: 'EL LECHUZO VOLVIÓ A LOS ENTRENAMIENTOS CON GRAN CONVOCATORIA',
     copete:
       'Más de 40 jugadores conforman parte de los planteles de primera y reserva del equipo más ganador del futsal sanjuanino.',
