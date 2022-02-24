@@ -38,7 +38,7 @@ import {findConfigFile} from 'typescript';
 process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.22 - 21/02/22';
+const deploy = 'v0.0.22 - 23/02/22';
 
 class Server {
   public app: express.Application;

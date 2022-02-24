@@ -7,28 +7,6 @@ import './Marcador.css';
 import {useSelector} from 'react-redux';
 import EtiquetaCategoria from '../EtiquetaCategoria/EtiquetaCategoria';
 
-// const partido = {
-//   _id: {},
-//   equipoA: {
-//     nombreClub: 'Huarpes FC',
-//     escudo: '',
-//     resultado: '6',
-//     penales: '4',
-//   },
-//   equipoB: {
-//     nombreClub: 'CAJ Alianza',
-//     escudo: '',
-//     resultado: '6',
-//     penales: '2',
-//   },
-//   fecha: {dia: '30/09/2021', hora: '21:00'},
-//   sede: 'Estadio Aldo Cantoni',
-//   categoria: {
-//     nombre: 'Masculino',
-//     subcategoria: 'Reserva',
-//   },
-// };
-
 const Marcador = () => {
   const {partidos} = useSelector(state => state.storePartidos);
   const [siguiente, setSiguiente] = useState(0);
@@ -78,7 +56,7 @@ const Marcador = () => {
         <div className="escudo-A">
           <img
             alt=""
-            src={partido.equipoLocal ? partido.equipoLocal.escudo : ''}
+            src={partido.equipoLocal ? partido.equipoLocal.escudo : `${urlEscudos}/huarpes.png`}
             className="img-Escudo"
           ></img>
         </div>

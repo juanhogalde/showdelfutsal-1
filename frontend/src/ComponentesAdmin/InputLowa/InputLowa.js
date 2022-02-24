@@ -10,6 +10,7 @@ const InputLowa = props => {
     onClick,
     placeholder,
     onChange,
+    onKeyPress,
     autocomplete,
     required,
     value,
@@ -77,6 +78,7 @@ const InputLowa = props => {
           name={name}
           disabled={disabled}
           multiple={multiple}
+          onKeyPress={onKeyPress}
           onFocus={onFocus}
           onBlur={onBlur}
           accept={type === 'file' ? 'image/png, image/jpeg' : ''}

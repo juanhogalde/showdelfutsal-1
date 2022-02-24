@@ -57,13 +57,13 @@ class UsuariosController {
               throw new Error('Error al generar el token');
             }
           } else {
-            throw new Error('Clave incorrecta');
+            responder.error(req, res, 'Error', 'Contraseña incorrecta', 401);
           }
         } else {
-          throw new Error('Usuario no encontrado o desactivado.');
+          responder.error(req, res, 'Error', 'Usuario no encontrado', 401);
         }
       } else {
-        throw new Error('No se ingresaron datos de usuario');
+        responder.error(req, res, 'Error', 'Faltan datos', 401);
       }
       //responder.sucess(req, res, usuario); //devolver sin pass el token
     } catch (error) {
