@@ -8,10 +8,14 @@ export const equiposPorSubcategoriaExito = 'equiposPorSubcategoriaExito';
 export const equiposPorSubcategoriaError = 'equiposPorSubcategoriaError';
 export const equiposPorSubcategoriaDefault = 'equiposPorSubcategoriaDefault';
 
-export const obtenerEquiposDeZonaCargando = 'obtenerEquiposDeZonaCargando';
-export const obtenerEquiposDeZonaExito = 'obtenerEquiposDeZonaExito';
-export const obtenerEquiposDeZonaError = 'obtenerEquiposDeZonaError';
-export const obtenerEquiposDeZonaDefault = 'obtenerEquiposDeZonaDefault';
+export const obtenerEquiposYEnfrentamientosDeZonaCargando =
+  'obtenerEquiposEnfrentamientoDeZonaCargando';
+export const obtenerEquiposYEnfrentamientosDeZonaExito =
+  'obtenerEquiposYEnfrentamientosDeZonaExito';
+export const obtenerEquiposYEnfrentamientosDeZonaError =
+  'obtenerEquiposYEnfrentamientosDeZonaError';
+export const obtenerEquiposYEnfrentamientosDeZonaDefault =
+  'obtenerEquiposYEnfrentamientosDeZonaDefault';
 
 export const listarEquiposCargando_accion = () => {
   return {
@@ -88,31 +92,32 @@ export const equiposPorSubcategoria_accion = subcategoria => {
   };
 };
 /* OBTENER EQUIPOS DE ZONA */
-export const obtenerEquiposDeZonaCargando_accion = () => {
+export const obtenerEquiposYEnfrentamientosDeZonaCargando_accion = () => {
   return {
-    type: obtenerEquiposDeZonaCargando,
+    type: obtenerEquiposYEnfrentamientosDeZonaCargando,
   };
 };
-export const obtenerEquiposDeZonaExito_accion = equipos => {
+export const obtenerEquiposYEnfrentamientosDeZonaExito_accion = datos => {
   return {
-    type: obtenerEquiposDeZonaExito,
-    equiposZona: equipos,
+    type: obtenerEquiposYEnfrentamientosDeZonaExito,
+    data: datos,
   };
 };
-export const obtenerEquiposDeZonaError_accion = () => {
+export const obtenerEquiposYEnfrentamientosDeZonaError_accion = () => {
   return {
-    type: obtenerEquiposDeZonaError,
+    type: obtenerEquiposYEnfrentamientosDeZonaError,
   };
 };
-export const obtenerEquiposDeZonaDefault_accion = () => {
+export const obtenerEquiposYEnfrentamientosDeZonaDefault_accion = () => {
   return {
-    type: obtenerEquiposDeZonaDefault,
+    type: obtenerEquiposYEnfrentamientosDeZonaDefault,
   };
 };
 
-export const obtenerEquiposDeZona_accion = zonaId => {
+export const obtenerEquiposYEnfrentamientosDeZona_accion = zonaId => {
+  var datos = {};
   return dispatch => {
-    dispatch(obtenerEquiposDeZonaCargando_accion());
+    dispatch(obtenerEquiposYEnfrentamientosDeZonaCargando_accion());
     API({
       url: `zonas/obtenerEquiposPorZona/${zonaId}`,
       method: 'get',
@@ -120,11 +125,24 @@ export const obtenerEquiposDeZona_accion = zonaId => {
     })
       .then(res => {
         console.log({res});
-        dispatch(obtenerEquiposDeZonaExito_accion(res.data.value));
+        datos = {...datos, equiposZona: res.data.value};
+        API({
+          url: `partidos/obtenerPartidosPorIdZona/${zonaId}`,
+          method: 'get',
+          data: {_id: zonaId},
+        })
+          .then(res => {
+            console.log({res});
+            datos = {...datos, partidosZona: res.data.value};
+            dispatch(obtenerEquiposYEnfrentamientosDeZonaExito_accion(datos));
+          })
+          .catch(error => {
+            console.log(error);
+          });
       })
       .catch(error => {
         console.log({error});
-        dispatch(obtenerEquiposDeZonaError_accion());
+        dispatch(obtenerEquiposYEnfrentamientosDeZonaError_accion());
       });
   };
 };

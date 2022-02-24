@@ -33,6 +33,7 @@ export const agregarPartidoDefault_accion = () => {
   };
 };
 export const agregarPartido_accion = enfrentamiento => {
+  console.log(enfrentamiento);
   return dispatch => {
     dispatch(agregarPartidoCargando_accion());
     API({

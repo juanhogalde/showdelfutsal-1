@@ -6,13 +6,14 @@ import {
   equiposPorSubcategoriaExito,
   equiposPorSubcategoriaError,
   equiposPorSubcategoriaDefault,
-  obtenerEquiposDeZonaCargando,
-  obtenerEquiposDeZonaExito,
-  obtenerEquiposDeZonaError,
-  obtenerEquiposDeZonaDefault,
+  obtenerEquiposYEnfrentamientosDeZonaCargando,
+  obtenerEquiposYEnfrentamientosDeZonaExito,
+  obtenerEquiposYEnfrentamientosDeZonaError,
+  obtenerEquiposYEnfrentamientosDeZonaDefault,
 } from './AccionesEquipos';
 const equiposPorDefecto = {
   equipos: [],
+  enfrentamientos: [],
   equipo: {},
   isListarEquipos: {
     tipo: '',
@@ -101,17 +102,17 @@ const storeEquipos = (state = equiposPorDefecto, accion) => {
         equipos: [],
       };
     }
-    case obtenerEquiposDeZonaCargando: {
+    case obtenerEquiposYEnfrentamientosDeZonaCargando: {
       return {
         ...state,
         isObtenerEquiposDeZona: {
           tipo: 'cargando',
-          mensaje: 'Obteniendo equipos de zona...',
+          mensaje: 'Obteniendo datos de enfrentamiento...',
           isMostrar: true,
         },
       };
     }
-    case obtenerEquiposDeZonaExito: {
+    case obtenerEquiposYEnfrentamientosDeZonaExito: {
       return {
         ...state,
         isObtenerEquiposDeZona: {
@@ -119,20 +120,21 @@ const storeEquipos = (state = equiposPorDefecto, accion) => {
           mensaje: '',
           isMostrar: false,
         },
-        equipos: accion.equiposZona,
+        equipos: accion.data.equiposZona,
+        enfrentamientos: accion.data.partidosZona,
       };
     }
-    case obtenerEquiposDeZonaError: {
+    case obtenerEquiposYEnfrentamientosDeZonaError: {
       return {
         ...state,
         isObtenerEquiposDeZona: {
           tipo: 'error',
-          mensaje: 'Lo sentimos, no obtuvimos equipos de zona',
+          mensaje: 'Lo sentimos, no obtuvimos datos de enfrentamientos',
           isMostrar: true,
         },
       };
     }
-    case obtenerEquiposDeZonaDefault: {
+    case obtenerEquiposYEnfrentamientosDeZonaDefault: {
       return {
         ...state,
         isObtenerEquiposDeZona: {
