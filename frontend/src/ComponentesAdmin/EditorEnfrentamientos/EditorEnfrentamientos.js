@@ -12,7 +12,7 @@ import Alertas from '../Alertas/Alertas';
 import Enfrentamiento from '../Enfrentamiento/Enfrentamiento';
 import {
   listarEquipos_accion,
-  obtenerEquiposDeZona_accion,
+  /* obtenerEquiposYEnfrentamientosDeZona_accion, */
 } from '../../Redux/Equipos/AccionesEquipos';
 /* import {listarPartidos_accion} from '../../Redux/Partidos/AccionPartidos'; */
 
@@ -100,10 +100,9 @@ const EditorEnfrentamientos = () => {
       ...datosFiltrados,
       zona: value,
     });
-    console.log(value);
     setIsMostrarComponenteEnfrentamiento(true);
     dispatch(listarEquipos_accion());
-    /* dispatch(obtenerEquiposDeZona_accion(value.data._id)); */
+    /* dispatch(obtenerEquiposYEnfrentamientosDeZona_accion(value.data._id)); */
   };
 
   const obtenerRespuestaDeAlertaEditarTorneo = respuesta => {
@@ -143,8 +142,6 @@ const EditorEnfrentamientos = () => {
             let auxEquipo = equipos.find(equipo => equipo._id === equipoZona._id);
             auxArrayEquiposZona.push(auxEquipo);
           });
-          console.log('ejecuta carga de equipos');
-
           setArrayEquiposZona(auxArrayEquiposZona);
           /* dispatch(listarPartidos_accion()); */
         }
@@ -211,7 +208,13 @@ const EditorEnfrentamientos = () => {
           )}
           {partidos.length > 0 &&
             partidos.map((partido, index) => {
-              return <TarjetaEnfrentamiento key={index} datos={partido}></TarjetaEnfrentamiento>;
+              return (
+                <TarjetaEnfrentamiento
+                  key={index}
+                  datos={partido}
+                  enfrentamiento={partido}
+                ></TarjetaEnfrentamiento>
+              );
             })}
         </div>
 
