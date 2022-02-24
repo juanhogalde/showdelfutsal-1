@@ -6,10 +6,10 @@ import {
   equiposPorSubcategoriaExito,
   equiposPorSubcategoriaError,
   equiposPorSubcategoriaDefault,
-  obtenerEquiposYEnfrentamientosDeZonaCargando,
-  obtenerEquiposYEnfrentamientosDeZonaExito,
-  obtenerEquiposYEnfrentamientosDeZonaError,
-  obtenerEquiposYEnfrentamientosDeZonaDefault,
+  obtenerEquiposDeZonaCargando,
+  obtenerEquiposDeZonaExito,
+  obtenerEquiposDeZonaError,
+  obtenerEquiposDeZonaDefault,
 } from './AccionesEquipos';
 const equiposPorDefecto = {
   equipos: [],
@@ -102,7 +102,7 @@ const storeEquipos = (state = equiposPorDefecto, accion) => {
         equipos: [],
       };
     }
-    case obtenerEquiposYEnfrentamientosDeZonaCargando: {
+    case obtenerEquiposDeZonaCargando: {
       return {
         ...state,
         isObtenerEquiposDeZona: {
@@ -112,7 +112,7 @@ const storeEquipos = (state = equiposPorDefecto, accion) => {
         },
       };
     }
-    case obtenerEquiposYEnfrentamientosDeZonaExito: {
+    case obtenerEquiposDeZonaExito: {
       return {
         ...state,
         isObtenerEquiposDeZona: {
@@ -120,21 +120,20 @@ const storeEquipos = (state = equiposPorDefecto, accion) => {
           mensaje: '',
           isMostrar: false,
         },
-        equipos: accion.data.equiposZona,
-        enfrentamientos: accion.data.partidosZona,
+        equipos: accion.data,
       };
     }
-    case obtenerEquiposYEnfrentamientosDeZonaError: {
+    case obtenerEquiposDeZonaError: {
       return {
         ...state,
         isObtenerEquiposDeZona: {
           tipo: 'error',
-          mensaje: 'Lo sentimos, no obtuvimos datos de enfrentamientos',
+          mensaje: 'Lo sentimos, no obtuvimos equipos de zona.',
           isMostrar: true,
         },
       };
     }
-    case obtenerEquiposYEnfrentamientosDeZonaDefault: {
+    case obtenerEquiposDeZonaDefault: {
       return {
         ...state,
         isObtenerEquiposDeZona: {

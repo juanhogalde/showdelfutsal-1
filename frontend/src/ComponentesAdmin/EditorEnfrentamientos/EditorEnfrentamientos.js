@@ -19,6 +19,7 @@ import {
   eliminarPartidoDefault_accion,
   eliminarPartido_accion,
 } from '../../Redux/Partidos/AccionPartidos';
+import BotonLowa from '../BotonLowa/BotonLowa';
 /* import {listarPartidos_accion} from '../../Redux/Partidos/AccionPartidos'; */
 
 const EditorEnfrentamientos = () => {
@@ -107,7 +108,7 @@ const EditorEnfrentamientos = () => {
     });
     setIsMostrarComponenteEnfrentamiento(true);
     dispatch(listarEquipos_accion());
-    /* dispatch(obtenerEquiposYEnfrentamientosDeZona_accion(value.data._id)); */
+    /* dispatch(obtenerEquiposDeZona_accion(value.data._id)); */
   };
 
   const obtenerRespuestaDeAlertaEditarTorneo = respuesta => {
@@ -170,6 +171,7 @@ const EditorEnfrentamientos = () => {
         }
       }
     }
+
     return () => {};
   }, [torneos, arrayTorneos, equipos, datosFiltrados]);
 
@@ -228,6 +230,9 @@ const EditorEnfrentamientos = () => {
                 zonaId={datosFiltrados.zona ? datosFiltrados.zona.data._id : ''}
               ></Enfrentamiento>
             </div>
+          )}
+          {isMostrarComponenteEnfrentamiento && (
+            <BotonLowa tituloboton="Mostrar Enfrentamientos"></BotonLowa>
           )}
           {partidos.length > 0 &&
             partidos.map((partido, index) => {

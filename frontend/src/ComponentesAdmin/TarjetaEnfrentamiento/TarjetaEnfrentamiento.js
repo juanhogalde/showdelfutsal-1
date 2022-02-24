@@ -36,6 +36,7 @@ const TarjetaEnfrentamiento = ({
   });
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
+  /* TODO: Revisar si son necesarios */
   const [resultadoLocal, setResultadoLocal] = useState(0);
   const [resultadoVisitante, setResultadoVisitante] = useState(0);
   const [estadio, setEstadio] = useState('Estadio');

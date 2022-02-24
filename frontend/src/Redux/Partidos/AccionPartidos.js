@@ -96,6 +96,26 @@ export const listarPartidos_accion = () => {
       });
   };
 };
+/* LISTAR PARTIDOS POR ID DE ZONA */
+/* TODO: falta implementar obtener partidos por zona */
+
+export const obtenerPartidosDeZona_accion = zonaId => {
+  return dispatch => {
+    /* dispatch(obtenerPartidosDeZonaCargando_accion()); */
+    API({
+      url: `partidos/obtenerPartidosPorIdZona/${zonaId}`,
+      method: 'get',
+      data: {_id: zonaId},
+    })
+      .then(res => {
+        console.log({res});
+        /* dispatch(obtenerEquiposYEnfrentamientosDeZonaExito_accion(res.data.value)); */
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
 
 /*  Eliminar Partido  */
 export const eliminarPartidoConsultar_accion = idPartido => {
