@@ -2,19 +2,22 @@ import React, {useLayoutEffect, useRef, useState} from 'react';
 import {FiEdit3} from 'react-icons/fi';
 import {HiDotsVertical} from 'react-icons/hi';
 import {MdDeleteForever} from 'react-icons/md';
+import {useSelector} from 'react-redux';
 import InfoPartido from '../../Componentes/InfoPartido/InfoPartido';
 import CampoDeEdicion from '../CampoDeEdicion/CampoDeEdicion';
 import Cargando from '../Cargando/Cargando';
 import './TarjetaEnfrentamiento.css';
-
+import {urlEscudos} from '../../Entorno';
 const TarjetaEnfrentamiento = ({
   datos = {},
   isSeccionInicio = false,
-  enfrentamiento = {},
+  /*  enfrentamiento = {}, */
   siguientePartido = () => {
     console.log('');
   },
 }) => {
+  const {equipos} = useSelector(state => state.storeEquipos);
+  const [enfrentamiento, setEnfrentamiento] = useState({});
   const [isHabilitarEdicionTarjeta, setIsHabilitarEdicionTarjeta] = useState(
     isSeccionInicio ? isSeccionInicio : false
   );
@@ -24,14 +27,17 @@ const TarjetaEnfrentamiento = ({
     isComentarios: false,
     isEstadio: false,
     isFechaPartido: false,
+    isPenales: false,
+    isPenalesLocal: false,
+    isPenalesVisitante: false,
   });
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
-
   const [resultadoLocal, setResultadoLocal] = useState(0);
   const [resultadoVisitante, setResultadoVisitante] = useState(0);
   const [estadio, setEstadio] = useState('Estadio');
   const [comentarios, setComentarios] = useState('');
+  const [penales, setPenales] = useState();
 
   const escucharCambios = (name, value, isMostrarCampoDeEdicion) => {
     console.log(name);
@@ -53,6 +59,9 @@ const TarjetaEnfrentamiento = ({
       case 'fechaPartido':
         setEstadio(value);
         break;
+        /* case 'penalesLocal':
+        setPenales(value); */
+        break;
       default:
         break;
     }
@@ -61,44 +70,50 @@ const TarjetaEnfrentamiento = ({
     switch (campo) {
       case 'local':
         setIsCampoDeEdicion({
+          ...isCampoDeEdicion,
           isLocal: true,
-          isVisitante: false,
-          isComentarios: false,
-          isEstadio: false,
         });
         break;
       case 'visitante':
         setIsCampoDeEdicion({
-          isLocal: false,
+          ...isCampoDeEdicion,
           isVisitante: true,
-          isComentarios: false,
-          isEstadio: false,
         });
         break;
       case 'comentarios':
         setIsCampoDeEdicion({
-          isLocal: false,
-          isVisitante: false,
+          ...isCampoDeEdicion,
           isComentarios: true,
-          isEstadio: false,
         });
         break;
       case 'estadio':
         setIsCampoDeEdicion({
-          isLocal: false,
-          isVisitante: false,
-          isComentarios: false,
+          ...isCampoDeEdicion,
           isEstadio: true,
         });
         break;
 
       case 'fechaPartido':
         setIsCampoDeEdicion({
-          isLocal: false,
-          isVisitante: false,
-          isComentarios: false,
-          isEstadio: false,
+          ...isCampoDeEdicion,
           isFechaPartido: true,
+        });
+      case 'penales':
+        setIsCampoDeEdicion({
+          ...isCampoDeEdicion,
+          isPenales: true,
+        });
+        break;
+      case 'penalesLocal':
+        setIsCampoDeEdicion({
+          ...isCampoDeEdicion,
+          isPenalesLocal: true,
+        });
+        break;
+      case 'penalesVisitante':
+        setIsCampoDeEdicion({
+          ...isCampoDeEdicion,
+          isPenalesVisitante: true,
         });
         break;
       default:
@@ -113,14 +128,35 @@ const TarjetaEnfrentamiento = ({
     setIsHabilitarEdicionTarjeta(!isHabilitarEdicionTarjeta);
     setIsAcciones(false);
   };
-  useLayoutEffect(() => {
-    if (Object.keys(enfrentamiento).length > 0) {
-      setResultadoLocal(enfrentamiento.resultadoLocal);
-      setResultadoVisitante(enfrentamiento.resultadoVisitante);
-    }
+  const formatearFechaUTC = dato => {
+    let fecha = new Date(dato);
+    let minutos = fecha.getUTCMinutes();
+    return `${fecha.getUTCDate()}/${
+      fecha.getUTCMonth() < 10 ? `0${fecha.getUTCMonth()}` : fecha.getUTCMonth()
+    }/${fecha.getUTCFullYear()} ${fecha.getUTCHours()}:${
+      minutos > 9 ? minutos : `0${minutos}`
+    } Hs.`;
+  };
 
+  useLayoutEffect(() => {
+    console.log(equipos);
+    console.log(datos);
+    let auxEnfrentamiento = {};
+    if (equipos.length > 0) {
+      let auxEquipoLocal = equipos.find(equipo => equipo._id === datos.idEquipoLocal);
+      let auxEquipoVisitante = equipos.find(equipo => equipo._id === datos.idEquipoVisitante);
+      auxEnfrentamiento = {
+        equipoLocal: auxEquipoLocal,
+        equipoVisitante: auxEquipoVisitante,
+      };
+    }
+    if (datos) {
+      if (Object.keys(datos).length > 0) {
+      }
+    }
+    setEnfrentamiento(auxEnfrentamiento);
     return () => {};
-  }, [enfrentamiento, enfrentamiento.resultadoLocal, enfrentamiento.resultadoVisitante]);
+  }, [equipos.length]);
 
   return (
     <div
@@ -173,7 +209,7 @@ const TarjetaEnfrentamiento = ({
           <div className="componente-InfoPartido">
             <InfoPartido
               isSoloTitulo={true}
-              fecha={enfrentamiento.fecha}
+              fecha={datos.fechaPorJugar}
               siguientePartido={siguientePartido}
             ></InfoPartido>
           </div>
@@ -197,12 +233,30 @@ const TarjetaEnfrentamiento = ({
                 />
               ) : (
                 <p tabIndex="0" onFocus={() => habilitarCampoParaEdicion('estadio')}>
-                  {estadio ? estadio : 'Estadio'}
+                  {datos.estadio ? datos.estadio : 'Estadio'}
                 </p>
               )}
             </React.Fragment>
           )}
-
+          {!isSeccionInicio &&
+            (isCampoDeEdicion.isFechaPartido ? (
+              <CampoDeEdicion
+                name="fechaPartido"
+                type="text"
+                min="0"
+                max="30"
+                isCampoDeEdicion={true}
+                respuestaDeComponente={escucharCambios}
+              />
+            ) : (
+              <p
+                name="fechaPartido"
+                tabIndex="0"
+                onFocus={() => habilitarCampoParaEdicion('fechaPartido')}
+              >
+                {datos.fechaPartido ? formatearFechaUTC(datos.fechaPartido) : 'Fecha de Partido'}
+              </p>
+            ))}
           <div className="CI-Resultados">
             {!isSeccionInicio && isCampoDeEdicion.isLocal ? (
               <CampoDeEdicion
@@ -215,7 +269,7 @@ const TarjetaEnfrentamiento = ({
               />
             ) : (
               <h3 tabIndex="0" onFocus={() => habilitarCampoParaEdicion('local')}>
-                {resultadoLocal ? resultadoLocal : '0'}
+                {datos.resultadoLocal ? datos.resultadoLocal : '0'}
               </h3>
             )}
             <h3>-</h3>
@@ -234,35 +288,57 @@ const TarjetaEnfrentamiento = ({
                 tabIndex="0"
                 onFocus={() => habilitarCampoParaEdicion('visitante')}
               >
-                {resultadoVisitante ? resultadoVisitante : '0'}
+                {datos.resultadoVisitante ? datos.resultadoVisitante : '0'}
               </h3>
             )}
           </div>
-          {!isSeccionInicio &&
-            (isCampoDeEdicion.isFechaPartido ? (
-              <CampoDeEdicion
-                name="fechaPartido"
-                type="text"
-                min="0"
-                max="30"
-                isCampoDeEdicion={true}
-                respuestaDeComponente={escucharCambios}
-              />
-            ) : (
-              <p
-                name="visitante"
-                tabIndex="0"
-                onFocus={() => habilitarCampoParaEdicion('fechaPartido')}
-              >
-                {resultadoVisitante ? resultadoVisitante : 'Fecha de Partido'}
-              </p>
-            ))}
-
-          {Object.keys(enfrentamiento).length > 0 && enfrentamiento.penalesLocal.length !== 0 ? (
+          {!isSeccionInicio && isCampoDeEdicion.isPenales ? (
+            <div className="CI-Penales-TarjetaEnfrentamiento">
+              {isCampoDeEdicion.isPenalesLocal ? (
+                <CampoDeEdicion
+                  name="penalesLocal"
+                  type="number"
+                  min="0"
+                  max="30"
+                  isCampoDeEdicion={true}
+                  respuestaDeComponente={escucharCambios}
+                />
+              ) : (
+                <p tabIndex="0" onFocus={() => habilitarCampoParaEdicion('penalesLocal')}>
+                  Penales Local
+                </p>
+              )}
+              -
+              {isCampoDeEdicion.isPenalesVisitante ? (
+                <CampoDeEdicion
+                  name="penalesVisitante"
+                  type="number"
+                  min="0"
+                  max="30"
+                  isCampoDeEdicion={true}
+                  respuestaDeComponente={escucharCambios}
+                />
+              ) : (
+                <p tabIndex="0" onFocus={() => habilitarCampoParaEdicion('penalesVisitante')}>
+                  Penales Visitante
+                </p>
+              )}
+            </div>
+          ) : (
+            <p
+              name="penales"
+              tabIndex="0"
+              onFocus={() => habilitarCampoParaEdicion('penales')}
+              className=""
+            >
+              {enfrentamiento.penalesLocal ? enfrentamiento.penalesLocal : 'Penales'}
+            </p>
+          )}
+          {/* {Object.keys(enfrentamiento).length > 0 && enfrentamiento.penalesLocal ? (
             <p>Penales</p>
           ) : (
-            ''
-          )}
+           
+          )} */}
           {!isSeccionInicio && isCampoDeEdicion.isComentarios ? (
             <CampoDeEdicion
               name="comentarios"
@@ -279,20 +355,20 @@ const TarjetaEnfrentamiento = ({
               onFocus={() => habilitarCampoParaEdicion('comentarios')}
               className="comentarios"
             >
-              {comentarios ? comentarios : 'Comentarios'}
+              {enfrentamiento.comentarios ? enfrentamiento.comentarios : 'Comentarios'}
             </p>
           )}
         </div>
         <div className="equipo-Local">
           {Object.keys(enfrentamiento).length > 0 && enfrentamiento.equipoLocal.escudo ? (
-            <img alt="" src={enfrentamiento.equipoLocal.escudo}></img>
+            <img alt="" src={urlEscudos + enfrentamiento.equipoLocal.escudo}></img>
           ) : (
             <Cargando></Cargando>
           )}
         </div>
         <div className="equipo-Visitante">
           {Object.keys(enfrentamiento).length > 0 && enfrentamiento.equipoVisitante.escudo ? (
-            <img alt="" src={enfrentamiento.equipoVisitante.escudo}></img>
+            <img alt="" src={urlEscudos + enfrentamiento.equipoVisitante.escudo}></img>
           ) : (
             <Cargando></Cargando>
           )}
@@ -304,7 +380,6 @@ const TarjetaEnfrentamiento = ({
         </div>
         <div className="nombre-Equipo-Visitante">
           <p className="textoContenido">
-            {' '}
             {Object.keys(enfrentamiento).length > 0
               ? enfrentamiento.equipoVisitante.nombreClub
               : '-'}
