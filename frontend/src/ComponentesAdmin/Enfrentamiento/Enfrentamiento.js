@@ -106,6 +106,7 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
     setDatosEnfrentamiento({
       equipoLocal: '',
       equipoVisitante: '',
+      fechaPartido: '',
       fechaPorJugar: '',
       idZona: '',
       idTorneo: '',
@@ -124,6 +125,7 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
   };
   const obtenerRespuestaAgregarPartido = respuesta => {
     if (respuesta) {
+      valoresPorDefecto();
       dispatch(agregarPartidoDefault_accion());
     }
   };
@@ -148,7 +150,7 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
       setEquiposSelector([]);
     }
     return () => {
-      setEquiposSelector([]);
+      valoresPorDefecto([]);
     };
   }, [equipos]);
 
@@ -206,11 +208,13 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
           <InputLowa
             name="fechaPorJugar"
             type="number"
+            min="0"
+            max="30"
             placeholder="Fecha por Jugar"
             value={datosEnfrentamiento.fechaPorJugar ? datosEnfrentamiento.fechaPorJugar : ''}
             onChange={e => escucharInput(e.target.value, e.target.name)}
           ></InputLowa>
-
+          {/* TODO: no vuelve por defecto */}
           <InputDateLowa
             name="fechaPartido"
             type="datetime-local"

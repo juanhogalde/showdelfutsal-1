@@ -264,6 +264,7 @@ const EditorEnfrentamientos = () => {
                 <TarjetaEnfrentamiento
                   key={index}
                   datos={partido}
+                  zona={datosFiltrados.zona.data}
                   enfrentamiento={partido}
                   funcionEliminarEnfrentamiento={consultarPorEliminarEnfrentamiento}
                 ></TarjetaEnfrentamiento>

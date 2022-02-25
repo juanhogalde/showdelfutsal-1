@@ -10,6 +10,7 @@ import './TarjetaEnfrentamiento.css';
 import {urlEscudos} from '../../Entorno';
 const TarjetaEnfrentamiento = ({
   datos = {},
+  zona = {},
   isSeccionInicio = false,
   /*  enfrentamiento = {}, */
   siguientePartido = () => {
@@ -19,6 +20,7 @@ const TarjetaEnfrentamiento = ({
     console.log('');
   },
 }) => {
+  console.log(datos);
   const {equipos} = useSelector(state => state.storeEquipos);
   const [enfrentamiento, setEnfrentamiento] = useState({});
   const [isHabilitarEdicionTarjeta, setIsHabilitarEdicionTarjeta] = useState(
@@ -63,9 +65,7 @@ const TarjetaEnfrentamiento = ({
       case 'fechaPartido':
         setEstadio(value);
         break;
-        /* case 'penalesLocal':
-        setPenales(value); */
-        break;
+
       default:
         break;
     }
@@ -147,18 +147,24 @@ const TarjetaEnfrentamiento = ({
   useLayoutEffect(() => {
     console.log(equipos);
     let auxEnfrentamiento = {};
-    if (equipos.length > 0) {
-      let auxEquipoLocal = equipos.find(equipo => equipo._id === datos.idEquipoLocal);
-      let auxEquipoVisitante = equipos.find(equipo => equipo._id === datos.idEquipoVisitante);
+    if (datos) {
+      if (equipos.length > 0) {
+        let auxEquipoLocal = equipos.find(equipo => equipo._id === datos.idEquipoLocal);
+        let auxEquipoVisitante = equipos.find(equipo => equipo._id === datos.idEquipoVisitante);
+        auxEnfrentamiento = {
+          equipoLocal: auxEquipoLocal,
+          equipoVisitante: auxEquipoVisitante,
+        };
+      }
       auxEnfrentamiento = {
-        equipoLocal: auxEquipoLocal,
-        equipoVisitante: auxEquipoVisitante,
+        ...auxEnfrentamiento,
+        comentarios: datos.comentarios,
+        estadio: datos.estadio,
+        fechaPartido: datos.fechaPartido,
+        idTorneo: datos.idTorneo,
       };
     }
-    if (datos) {
-      if (Object.keys(datos).length > 0) {
-      }
-    }
+
     setEnfrentamiento(auxEnfrentamiento);
     return () => {};
   }, [equipos.length, datos, equipos]);
@@ -224,7 +230,7 @@ const TarjetaEnfrentamiento = ({
           {!isSeccionInicio && (
             <React.Fragment>
               <p className="Zona-TarjetaEnfrentamiento">
-                {datos.idZona.nombreZona ? datos.idZona.nombreZona : 'Zona'}
+                {zona.nombreZona ? zona.nombreZona : 'Zona'}
               </p>
 
               {isCampoDeEdicion.isEstadio ? (
@@ -238,7 +244,7 @@ const TarjetaEnfrentamiento = ({
                 />
               ) : (
                 <p tabIndex="0" onFocus={() => habilitarCampoParaEdicion('estadio')}>
-                  {datos.estadio ? datos.estadio : 'Estadio'}
+                  {enfrentamiento.estadio ? enfrentamiento.estadio : 'Estadio'}
                 </p>
               )}
             </React.Fragment>
@@ -259,7 +265,9 @@ const TarjetaEnfrentamiento = ({
                 tabIndex="0"
                 onFocus={() => habilitarCampoParaEdicion('fechaPartido')}
               >
-                {datos.fechaPartido ? formatearFechaUTC(datos.fechaPartido) : 'Fecha de Partido'}
+                {enfrentamiento.fechaPartido
+                  ? formatearFechaUTC(enfrentamiento.fechaPartido)
+                  : 'Fecha de Partido'}
               </p>
             ))}
           <div className="CI-Resultados">
@@ -274,7 +282,7 @@ const TarjetaEnfrentamiento = ({
               />
             ) : (
               <h3 tabIndex="0" onFocus={() => habilitarCampoParaEdicion('local')}>
-                {datos.resultadoLocal ? datos.resultadoLocal : '0'}
+                {enfrentamiento.resultadoLocal ? enfrentamiento.resultadoLocal : '0'}
               </h3>
             )}
             <h3>-</h3>
@@ -293,7 +301,7 @@ const TarjetaEnfrentamiento = ({
                 tabIndex="0"
                 onFocus={() => habilitarCampoParaEdicion('visitante')}
               >
-                {datos.resultadoVisitante ? datos.resultadoVisitante : '0'}
+                {enfrentamiento.resultadoVisitante ? enfrentamiento.resultadoVisitante : '0'}
               </h3>
             )}
           </div>
