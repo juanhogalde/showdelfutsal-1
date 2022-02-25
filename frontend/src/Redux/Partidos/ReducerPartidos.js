@@ -9,6 +9,10 @@ import {
   eliminarPartidoError,
   eliminarPartidoDefault,
   actulizarListaDeEnfrentamientos,
+  obtenerPartidosDeZonaCargando,
+  obtenerPartidosDeZonaExito,
+  obtenerPartidosDeZonaError,
+  obtenerPartidosDeZonaDefault,
 } from './AccionPartidos';
 //Para Desarrollo - al subir
 // import {urlStaticImages} from '../../urlImagenes';
@@ -622,6 +626,12 @@ const partidosPorDefecto = {
     mensaje: '',
     id: '',
   },
+  isObtenerPartidos: {
+    tipo: '',
+    isMostrar: false,
+    mensaje: '',
+    id: '',
+  },
   isPartido: {isMostrar: false, tipo: '', mensaje: '', isExito: false, isError: false},
 };
 const storePartidos = (state = partidosPorDefecto, accion) => {
@@ -727,6 +737,47 @@ const storePartidos = (state = partidosPorDefecto, accion) => {
     case actulizarListaDeEnfrentamientos: {
       return {
         ...state,
+      };
+    }
+    case obtenerPartidosDeZonaCargando: {
+      return {
+        ...state,
+        isObtenerPartidos: {
+          tipo: 'cargando',
+          isMostrar: true,
+          mensaje: 'Obteniendo partidos de zona...',
+        },
+      };
+    }
+    case obtenerPartidosDeZonaExito: {
+      return {
+        ...state,
+        isObtenerPartidos: {
+          tipo: '',
+          isMostrar: false,
+          mensaje: '',
+        },
+        partidos: accion.datos,
+      };
+    }
+    case obtenerPartidosDeZonaError: {
+      return {
+        ...state,
+        isObtenerPartidos: {
+          tipo: 'error',
+          isMostrar: true,
+          mensaje: 'Lo sentimos, no pudimos obtener partidos de zona.',
+        },
+      };
+    }
+    case obtenerPartidosDeZonaDefault: {
+      return {
+        ...state,
+        isObtenerPartidos: {
+          tipo: '',
+          isMostrar: false,
+          mensaje: '',
+        },
       };
     }
     default:

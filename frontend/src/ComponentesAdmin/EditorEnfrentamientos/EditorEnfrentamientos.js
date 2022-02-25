@@ -18,6 +18,8 @@ import {
   eliminarPartidoConsultar_accion,
   eliminarPartidoDefault_accion,
   eliminarPartido_accion,
+  obtenerPartidosDeZonaDefault_accion,
+  obtenerPartidosDeZona_accion,
 } from '../../Redux/Partidos/AccionPartidos';
 import BotonLowa from '../BotonLowa/BotonLowa';
 /* import {listarPartidos_accion} from '../../Redux/Partidos/AccionPartidos'; */
@@ -26,8 +28,10 @@ const EditorEnfrentamientos = () => {
   const dispatch = useDispatch();
   const {torneos, torneo, isObtenerDatosEditarTorneo} = useSelector(state => state.storeTorneos);
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
-  const {equipos, isObtenerEquiposDeZona} = useSelector(state => state.storeEquipos);
-  const {partidos, isEliminarPartido} = useSelector(state => state.storePartidos);
+  const {equipos} = useSelector(state => state.storeEquipos);
+  const {partidos, isEliminarPartido, isObtenerPartidos} = useSelector(
+    state => state.storePartidos
+  );
 
   const [datosFiltrados, setDatosFiltrados] = useState('');
   const [isDatosCargados, setIsDatosCargados] = useState(false);
@@ -108,7 +112,6 @@ const EditorEnfrentamientos = () => {
     });
     setIsMostrarComponenteEnfrentamiento(true);
     dispatch(listarEquipos_accion());
-    /* dispatch(obtenerEquiposDeZona_accion(value.data._id)); */
   };
 
   const obtenerRespuestaDeAlertaEditarTorneo = respuesta => {
@@ -121,7 +124,10 @@ const EditorEnfrentamientos = () => {
       }
     }
   };
-  const obtenerRespuestaDeAlertaObtenerEquiposDeZona = respuesta => {};
+
+  const consultarPorEliminarEnfrentamiento = idPartido => {
+    dispatch(eliminarPartidoConsultar_accion(idPartido));
+  };
   const obtenerRespuestaDeAlertaEliminarPartido = respuesta => {
     if (respuesta) {
       if (isEliminarPartido.tipo === 'warning') {
@@ -136,9 +142,15 @@ const EditorEnfrentamientos = () => {
     }
   };
 
-  const consultarPorEliminarEnfrentamiento = idPartido => {
-    console.log(idPartido);
-    dispatch(eliminarPartidoConsultar_accion(idPartido));
+  const obtenerPartidosDeZona = () => {
+    dispatch(obtenerPartidosDeZona_accion(datosFiltrados.zona.data._id));
+  };
+  const obtenerRespuestaDeAlertaObtenerEquiposDeZona = respuesta => {
+    if (respuesta) {
+      if (isObtenerPartidos.tipo === 'error') {
+        dispatch(obtenerPartidosDeZonaDefault_accion());
+      }
+    }
   };
 
   useLayoutEffect(() => {
@@ -232,7 +244,10 @@ const EditorEnfrentamientos = () => {
             </div>
           )}
           {isMostrarComponenteEnfrentamiento && (
-            <BotonLowa tituloboton="Mostrar Enfrentamientos"></BotonLowa>
+            <BotonLowa
+              tituloboton="Mostrar Enfrentamientos"
+              onClick={obtenerPartidosDeZona}
+            ></BotonLowa>
           )}
           {partidos.length > 0 &&
             partidos.map((partido, index) => {
@@ -258,16 +273,16 @@ const EditorEnfrentamientos = () => {
           RespuestaDeSweet={obtenerRespuestaDeAlertaEditarTorneo}
         ></Alertas>
         <Alertas
-          tipoDeSweet={isObtenerEquiposDeZona.tipo}
-          mostrarSweet={isObtenerEquiposDeZona.isMostrar}
-          subtitulo={isObtenerEquiposDeZona.mensaje}
-          RespuestaDeSweet={obtenerRespuestaDeAlertaObtenerEquiposDeZona}
-        ></Alertas>
-        <Alertas
           tipoDeSweet={isEliminarPartido.tipo}
           mostrarSweet={isEliminarPartido.isMostrar}
           subtitulo={isEliminarPartido.mensaje}
           RespuestaDeSweet={obtenerRespuestaDeAlertaEliminarPartido}
+        ></Alertas>
+        <Alertas
+          tipoDeSweet={isObtenerPartidos.tipo}
+          mostrarSweet={isObtenerPartidos.isMostrar}
+          subtitulo={isObtenerPartidos.mensaje}
+          RespuestaDeSweet={obtenerRespuestaDeAlertaObtenerEquiposDeZona}
         ></Alertas>
       </React.Fragment>
     );

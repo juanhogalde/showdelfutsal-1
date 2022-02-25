@@ -14,6 +14,12 @@ export const eliminarPartidoExito = 'eliminarPartidoExito';
 export const eliminarPartidoError = 'eliminarPartidoError';
 export const eliminarPartidoDefault = 'eliminarPartidoDefault';
 export const actulizarListaDeEnfrentamientos = 'actulizarListaDeEnfrentamientos';
+
+export const obtenerPartidosDeZonaCargando = 'obtenerPartidosDeZonaCargando';
+export const obtenerPartidosDeZonaExito = 'obtenerPartidosDeZonaExito';
+export const obtenerPartidosDeZonaError = 'obtenerPartidosDeZonaError';
+export const obtenerPartidosDeZonaDefault = 'obtenerPartidosDeZonaDefault';
+
 /*  Agregar Partido  */
 export const agregarPartidoCargando_accion = () => {
   return {
@@ -48,7 +54,6 @@ export const agregarPartido_accion = enfrentamiento => {
       data: enfrentamiento,
     })
       .then(res => {
-        console.log({res});
         dispatch(agregarPartidoExito_accion(res.data.value));
       })
       .catch(error => {
@@ -87,7 +92,6 @@ export const listarPartidos_accion = () => {
       /* data: enfrentamiento, */
     })
       .then(res => {
-        console.log({res});
         /* dispatch(listarPartidosExito_accion(res.data.value)); */
       })
       .catch(error => {
@@ -97,22 +101,43 @@ export const listarPartidos_accion = () => {
   };
 };
 /* LISTAR PARTIDOS POR ID DE ZONA */
-/* TODO: falta implementar obtener partidos por zona */
+export const obtenerPartidosDeZonaCargando_accion = () => {
+  return {
+    type: obtenerPartidosDeZonaCargando,
+  };
+};
 
+export const obtenerPartidosDeZonaExito_accion = datos => {
+  return {
+    type: obtenerPartidosDeZonaExito,
+    datos: datos,
+  };
+};
+
+export const obtenerPartidosDeZonaError_accion = () => {
+  return {
+    type: obtenerPartidosDeZonaError,
+  };
+};
+export const obtenerPartidosDeZonaDefault_accion = () => {
+  return {
+    type: obtenerPartidosDeZonaDefault,
+  };
+};
 export const obtenerPartidosDeZona_accion = zonaId => {
   return dispatch => {
-    /* dispatch(obtenerPartidosDeZonaCargando_accion()); */
+    dispatch(obtenerPartidosDeZonaCargando_accion());
     API({
       url: `partidos/obtenerPartidosPorIdZona/${zonaId}`,
       method: 'get',
       data: {_id: zonaId},
     })
       .then(res => {
-        console.log({res});
-        /* dispatch(obtenerEquiposYEnfrentamientosDeZonaExito_accion(res.data.value)); */
+        dispatch(obtenerPartidosDeZonaExito_accion(res.data.value));
       })
       .catch(error => {
         console.log(error);
+        dispatch(obtenerPartidosDeZonaError_accion());
       });
   };
 };
@@ -148,7 +173,6 @@ export const eliminarPartidoDefault_accion = () => {
   };
 };
 export const eliminarPartido_accion = idPartido => {
-  console.log(idPartido);
   return dispatch => {
     dispatch(eliminarPartidoCargando_accion());
     API({
@@ -157,7 +181,6 @@ export const eliminarPartido_accion = idPartido => {
       data: {id: idPartido},
     })
       .then(res => {
-        console.log({res});
         dispatch(eliminarPartidoExito_accion(res.data.value._id));
       })
       .catch(error => {
