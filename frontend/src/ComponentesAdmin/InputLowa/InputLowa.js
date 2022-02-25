@@ -19,6 +19,8 @@ const InputLowa = props => {
     inputConIcono,
     disabled,
     ocultarIconoLateral = false,
+    min,
+    max,
     funcionObtenerTamanioImagen = () => {
       console.log('No se envió función');
     },

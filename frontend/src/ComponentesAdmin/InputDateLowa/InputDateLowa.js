@@ -1,12 +1,14 @@
 import React, {useLayoutEffect, useState} from 'react';
 import './InputDateLowa.css';
 import {FaRegCalendarAlt} from 'react-icons/fa';
-const InputDateLowa = props => {
-  const {type, placeholder, onChange, required, value, name, id} = props;
-
+import {AiOutlineClose} from 'react-icons/ai';
+const InputDateLowa = ({type, placeholder, onChange, required, value, name, id}) => {
   const [inputDateValue, setInputDateValue] = useState('');
   const obtenerValue = e => {
     setInputDateValue(e.target.value);
+  };
+  const valorPorDefecto = () => {
+    setInputDateValue('');
   };
   const formatearFechaUTC = dato => {
     let fecha = new Date(dato);
@@ -52,7 +54,11 @@ const InputDateLowa = props => {
               : inputDateValue
           }`}
         <span className="inputDate-Icono-Lowa">
-          <FaRegCalendarAlt />
+          {inputDateValue ? (
+            <AiOutlineClose className="icon-ResetValue" onClick={() => valorPorDefecto()} />
+          ) : (
+            <FaRegCalendarAlt />
+          )}
         </span>
       </div>
     </div>
