@@ -20,7 +20,6 @@ const TarjetaEnfrentamiento = ({
     console.log('');
   },
 }) => {
-  console.log(datos);
   const {equipos} = useSelector(state => state.storeEquipos);
   const [enfrentamiento, setEnfrentamiento] = useState({});
   const [isHabilitarEdicionTarjeta, setIsHabilitarEdicionTarjeta] = useState(

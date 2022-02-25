@@ -74,8 +74,6 @@ const EditorEnfrentamientos = () => {
   };
 
   const escucharSelectorSubCategoria = value => {
-    console.log(value);
-
     if (datosFiltrados.zona) {
       setDatosFiltrados({
         ...datosFiltrados,
@@ -112,6 +110,8 @@ const EditorEnfrentamientos = () => {
       zona: value,
     });
     setIsMostrarComponenteEnfrentamiento(true);
+    /* TODO: implementar ruta para obtener equipos por id de zona */
+    /* dispatch(obtenerEquiposDeZona_accion(value.data._id)) */
     dispatch(listarEquipos_accion());
   };
 

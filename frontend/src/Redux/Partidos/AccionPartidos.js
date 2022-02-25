@@ -133,6 +133,7 @@ export const obtenerPartidosDeZona_accion = zonaId => {
       data: {_id: zonaId},
     })
       .then(res => {
+        console.log({res});
         dispatch(obtenerPartidosDeZonaExito_accion(res.data.value));
       })
       .catch(error => {
