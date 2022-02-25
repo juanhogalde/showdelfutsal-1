@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import Selector from '../Selector/Selector';
 import TarjetaEnfrentamiento from '../TarjetaEnfrentamiento/TarjetaEnfrentamiento';
 import './EditorEnfrentamientos.css';
@@ -12,6 +12,7 @@ import Alertas from '../Alertas/Alertas';
 import Enfrentamiento from '../Enfrentamiento/Enfrentamiento';
 import {
   listarEquipos_accion,
+  obtenerEquiposDeZonaDefault_accion,
   /* obtenerEquiposYEnfrentamientosDeZona_accion, */
 } from '../../Redux/Equipos/AccionesEquipos';
 import {
@@ -184,8 +185,16 @@ const EditorEnfrentamientos = () => {
       }
     }
 
-    return () => {};
-  }, [torneos, arrayTorneos, equipos, datosFiltrados]);
+    return () => {
+      dispatch(obtenerPartidosDeZonaDefault_accion());
+    };
+  }, [torneos, arrayTorneos, equipos, datosFiltrados, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(obtenerEquiposDeZonaDefault_accion());
+    };
+  }, [dispatch]);
 
   if (isDatosCargados) {
     return (
@@ -290,7 +299,6 @@ const EditorEnfrentamientos = () => {
     return (
       <div className="CP-Cargando-EditorEnfrentamientos">
         <Cargando></Cargando>
-        <h5>Obteniendo Datos...</h5>
       </div>
     );
   }

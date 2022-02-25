@@ -778,6 +778,7 @@ const storePartidos = (state = partidosPorDefecto, accion) => {
           isMostrar: false,
           mensaje: '',
         },
+        partidos: [],
       };
     }
     default:

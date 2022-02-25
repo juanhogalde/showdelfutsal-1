@@ -141,6 +141,7 @@ const storeEquipos = (state = equiposPorDefecto, accion) => {
           mensaje: '',
           isMostrar: false,
         },
+        equipos: [],
       };
     }
     default:
