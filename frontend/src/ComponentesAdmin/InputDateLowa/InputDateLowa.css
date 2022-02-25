@@ -70,3 +70,7 @@
 .inputDate-Lowa::-webkit-inner-spin-button {
   display: none;
 }
+.icon-ResetValue {
+  position: relative;
+  z-index: 1;
+}
