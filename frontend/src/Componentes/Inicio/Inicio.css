@@ -473,7 +473,8 @@
     max-height: 255px;
   }
   .margenes-Responsive-Seccion-Marcador {
-    padding-bottom: 30px;
+    padding-bottom: 60px;
+    height: 100%;
   }
 
   /* NOTICIAS */
@@ -670,8 +671,8 @@
 }
 @media screen and (max-width: 768px) {
   .margenes-Responsive-Seccion-Marcador {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
     height: 100%;
   }
   .CI-Marcador {
@@ -911,10 +912,7 @@
     padding-left: 180px;
     margin-left: 40px;
   }
-  .margenes-Responsive-Seccion-Marcador {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-  }
+
   .CP-Vivo {
     grid-template-rows: 250px 300px 100px 50px;
     /* background-color: red; */

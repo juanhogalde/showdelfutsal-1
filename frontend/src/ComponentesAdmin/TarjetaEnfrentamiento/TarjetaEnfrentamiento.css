@@ -189,6 +189,9 @@
   align-items: center;
 }
 @media screen and (max-width: 480px) {
+  .CP-TarjetaEnfrentamiento {
+    margin-top: 0;
+  }
   .CP-TarjetaEnfrentamiento-Inicio img {
     max-width: 90px;
     max-height: 90px;
