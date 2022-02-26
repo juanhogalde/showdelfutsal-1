@@ -33,7 +33,7 @@ const TablaDeposiciones = props => {
       </div>
       {arrayTabla.map(() => {
         return (
-          <div className="CI-Cuerpo-TablaDePosiciones  Flipped">
+          <div className="CI-Cuerpo-TablaDePosiciones">
             <div className="equipo-Cuerpo-Tabla">
               <div className="escudo-Tabla">
                 <img alt="" src={escudo_generico}></img>

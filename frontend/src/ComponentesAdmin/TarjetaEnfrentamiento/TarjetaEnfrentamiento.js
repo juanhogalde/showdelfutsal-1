@@ -5,9 +5,10 @@ import {MdDeleteForever} from 'react-icons/md';
 import {useSelector} from 'react-redux';
 import InfoPartido from '../../Componentes/InfoPartido/InfoPartido';
 import CampoDeEdicion from '../CampoDeEdicion/CampoDeEdicion';
-import Cargando from '../Cargando/Cargando';
 import './TarjetaEnfrentamiento.css';
 import {urlEscudos} from '../../Entorno';
+import escudo_generico from '../../Static/Img/escudo_generico.png';
+
 const TarjetaEnfrentamiento = ({
   datos = {},
   zona = {},
@@ -144,7 +145,6 @@ const TarjetaEnfrentamiento = ({
   };
 
   useLayoutEffect(() => {
-    console.log(equipos);
     let auxEnfrentamiento = {};
     if (datos) {
       if (equipos.length > 0) {
@@ -162,9 +162,11 @@ const TarjetaEnfrentamiento = ({
         fechaPartido: datos.fechaPartido,
         idTorneo: datos.idTorneo,
       };
+      console.log(datos);
+      if (Object.keys(datos).length > 0) {
+        setEnfrentamiento(auxEnfrentamiento);
+      }
     }
-
-    setEnfrentamiento(auxEnfrentamiento);
     return () => {};
   }, [equipos.length, datos, equipos]);
 
@@ -346,11 +348,7 @@ const TarjetaEnfrentamiento = ({
               {enfrentamiento.penalesLocal ? enfrentamiento.penalesLocal : 'Penales'}
             </p>
           )}
-          {/* {Object.keys(enfrentamiento).length > 0 && enfrentamiento.penalesLocal ? (
-            <p>Penales</p>
-          ) : (
-           
-          )} */}
+
           {!isSeccionInicio && isCampoDeEdicion.isComentarios ? (
             <CampoDeEdicion
               name="comentarios"
@@ -372,29 +370,31 @@ const TarjetaEnfrentamiento = ({
           )}
         </div>
         <div className="equipo-Local">
-          {Object.keys(enfrentamiento).length > 0 && enfrentamiento.equipoLocal.escudo ? (
+          {enfrentamiento.equipoLocal ? (
             <img alt="" src={urlEscudos + enfrentamiento.equipoLocal.escudo}></img>
           ) : (
-            <Cargando></Cargando>
+            <img alt="" src={escudo_generico}></img>
           )}
         </div>
         <div className="equipo-Visitante">
-          {Object.keys(enfrentamiento).length > 0 && enfrentamiento.equipoVisitante.escudo ? (
+          {enfrentamiento.equipoVisitante ? (
             <img alt="" src={urlEscudos + enfrentamiento.equipoVisitante.escudo}></img>
           ) : (
-            <Cargando></Cargando>
+            <img alt="" src={escudo_generico}></img>
           )}
         </div>
         <div className="nombre-Equipo-Local">
           <p>
-            {Object.keys(enfrentamiento).length > 0 ? enfrentamiento.equipoLocal.nombreClub : '-'}
+            {enfrentamiento.equipoLocal && enfrentamiento.equipoLocal.escudos
+              ? enfrentamiento.equipoLocal.nombreClub
+              : 'El show del futsal'}
           </p>
         </div>
         <div className="nombre-Equipo-Visitante">
           <p className="textoContenido">
-            {Object.keys(enfrentamiento).length > 0
+            {enfrentamiento.equipoLocal && enfrentamiento.equipoVisitante.nombreClub
               ? enfrentamiento.equipoVisitante.nombreClub
-              : '-'}
+              : 'El show del futsal'}
           </p>
         </div>
       </div>

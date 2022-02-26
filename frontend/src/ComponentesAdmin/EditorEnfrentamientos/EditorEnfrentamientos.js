@@ -54,11 +54,13 @@ const EditorEnfrentamientos = () => {
   };
 
   const escucharSelectorCategoria = value => {
+    setIsMostrarComponenteEnfrentamiento(false);
     if (datosFiltrados.subcategoria) {
       setDatosFiltrados({
         ...datosFiltrados,
         categoria: value,
         subcategoria: '',
+        zona: '',
       });
     } else {
       setDatosFiltrados({
@@ -74,6 +76,8 @@ const EditorEnfrentamientos = () => {
   };
 
   const escucharSelectorSubCategoria = value => {
+    setIsMostrarComponenteEnfrentamiento(false);
+
     if (datosFiltrados.zona) {
       setDatosFiltrados({
         ...datosFiltrados,
@@ -248,7 +252,7 @@ const EditorEnfrentamientos = () => {
               <Enfrentamiento
                 equipos={arrayEquiposZona ? arrayEquiposZona : []}
                 torneoId={datosFiltrados.torneo.idTorneo ? datosFiltrados.torneo.idTorneo : ''}
-                zonaId={datosFiltrados.zona ? datosFiltrados.zona.data._id : ''}
+                zonaId={datosFiltrados.zona.data ? datosFiltrados.zona.data._id : ''}
               ></Enfrentamiento>
             </div>
           )}
@@ -264,7 +268,9 @@ const EditorEnfrentamientos = () => {
                 <TarjetaEnfrentamiento
                   key={index}
                   datos={partido}
-                  zona={datosFiltrados.zona.data}
+                  zona={
+                    datosFiltrados.zona && datosFiltrados.zona.data ? datosFiltrados.zona.data : {}
+                  }
                   enfrentamiento={partido}
                   funcionEliminarEnfrentamiento={consultarPorEliminarEnfrentamiento}
                 ></TarjetaEnfrentamiento>
