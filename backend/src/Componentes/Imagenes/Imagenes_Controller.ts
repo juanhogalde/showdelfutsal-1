@@ -23,7 +23,7 @@ class ImagenesController {
           let path: string = archivo.path;
           let imagen: IImagenes = new modeloImagenes({
             ...archivo,
-            _id: path.split('/')[2].split('.')[0].toString(),
+            _id: path.split('/')[2].toString(),
             fuente: path.replace('public', '').replace('\\', '/').replace('\\', '/'),
             galeria: true,
             descripcion: req.body.descripcion,

@@ -10,7 +10,7 @@
     "debug": "nodemon --config nodemon.json --inspect-brk src/index.ts",
     "build": "tsc",
     "docker": "deployDocker.bat",
-    "dockermac": "docker build . -t lowa/futsal-backend:latest && docker push lowa/futsal-backend:latest && docker tag lowa/futsal-backend:latest lowa/futsal-backend:v0.0.20 && docker push lowa/futsal-backend:v0.0.20 && git tag \"docker-v0.0.20\""
+    "dockermac": "docker build . -t lowa/futsal-backend:latest && docker push lowa/futsal-backend:latest && docker tag lowa/futsal-backend:latest lowa/futsal-backend:v0.0.22 && docker push lowa/futsal-backend:v0.0.22 && git tag \"docker-v0.0.22\""
   },
   "repository": {
     "type": "git",

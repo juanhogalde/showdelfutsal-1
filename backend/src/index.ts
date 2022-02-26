@@ -27,19 +27,18 @@ import zonasRouter from './Componentes/Zonas/Zonas_Router';
 import tablasRouter from './Componentes/Tablas/Tablas_Router';
 import responder from './Middlewares/responder';
 import manejadorErrores from './Middlewares/manejadorErrores';
-import {importarDatos} from './Config/importarDatos';
-import modeloUsuarios from './Componentes/Usuarios/Usuarios_Model';
 import {instalarBD} from './Config/instalacionInicial';
 import medidasPublicidad_Router from './Componentes/MedidasPublicidad/MedidasPublicidad_Router';
 import vivoRouter from './Componentes/Vivo/Vivo_Router';
-
+import modeloImagenes from './Componentes/Imagenes/Imagenes_Model';
 import ICert from '../crt/Cert_Interface';
+import {findConfigFile} from 'typescript';
 
 ///// VARIABLES DE ENTORNO
 process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.22 - 21/02/22';
+const deploy = 'v0.0.22 - 23/02/22';
 
 class Server {
   public app: express.Application;
@@ -104,6 +103,39 @@ class Server {
     this.app.get('/instalar', (req: Request, res: Response) => {
       instalarBD(req, res);
     });
+    /*
+    this.app.get('/limpiarImg', async (req: Request, res: Response) => {
+     
+      const fs = require('fs');
+      const path = require('path');
+      const files = fs.readdirSync('./public/imagenes/');
+      
+      let eliminar: any[] = [];
+      const imagenesbd = await modeloImagenes.find({});
+      let imgid: string[] = imagenesbd.map((img: any) => {
+        return img._id.toString();
+      });
+
+      // filtrar aquellos files que no esten en la base de datos
+      eliminar = files.filter((ff: string) => !imgid.includes(ff));
+
+      console.group('elim----------');
+      console.warn(eliminar);
+      console.group('elim----------');
+      const dataArr = new Set(eliminar);
+      let result = [...dataArr];
+      eliminar.map(r => {
+        //fs.unlinkSync(path.join('./public/imagenes/', r));
+      });
+
+
+      const imagenesbd = await modeloImagenes.find({
+        _id: {$in: files},
+      });
+
+      res.status(200).json(imagenesbd);
+    });
+*/
 
     this.app.get('*', (req: Request, res: Response) => {
       console.info(`GET 404: ${req.originalUrl}`);

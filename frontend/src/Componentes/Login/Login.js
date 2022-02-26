@@ -20,11 +20,12 @@ const Login = () => {
       [name]: value,
     });
   };
-  const iniciarSesion = () => {
-    dispatch(login(valueInput));
+  const iniciarSesion = event => {
+    if ((event && event == 'click') || event.key === 'Enter') {
+      dispatch(login(valueInput));
+    }
   };
   const mostrarPassword = () => {
-    console.log('ejecturo mostrarContraseña');
     if (type === 'password') {
       setType('text');
     } else {
@@ -37,7 +38,7 @@ const Login = () => {
         <img alt="Marca" src={marca} className="marca-Login"></img>
         <img alt="Iso" src={iso} className="iso-Login"></img>
       </div>
-      <div className="CI-Inputs-Login">
+      <div className="CI-Inputs-Login" onKeyPress={e => iniciarSesion(e)}>
         <h4>Iniciar Sesión</h4>
         <InputLowa
           type="text"
@@ -57,7 +58,7 @@ const Login = () => {
         {isLogueoUsuario.tipo === 'error' && (
           <h6 className="CI-texto-contraseña-usurio">Usuario o Contraseña Incorrectas</h6>
         )}
-        <BotonLowa tituloboton={'Ingresar'} onClick={() => iniciarSesion()}></BotonLowa>
+        <BotonLowa tituloboton={'Ingresar'} onClick={e => iniciarSesion((e = 'click'))}></BotonLowa>
         <div className="CI-link-Login">
           <Link to="/RecuperarContraseña" className="link-Login">
             Cambiar Contraseña
