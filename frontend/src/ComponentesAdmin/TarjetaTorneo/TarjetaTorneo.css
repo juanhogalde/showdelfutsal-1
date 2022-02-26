@@ -26,9 +26,7 @@
   grid-template-columns: minmax(50px, 100px) 1fr;
   grid-template-rows: 1fr;
 }
-.CP-TarjetaTorneo-Campeonato {
-  cursor: pointer;
-}
+
 .CP-TarjetaTorneo-Campeonato:hover {
   background-color: #cddfff !important;
 }
