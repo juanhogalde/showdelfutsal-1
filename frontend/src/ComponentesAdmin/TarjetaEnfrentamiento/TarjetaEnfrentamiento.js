@@ -15,10 +15,10 @@ const TarjetaEnfrentamiento = ({
   isSeccionInicio = false,
   /*  enfrentamiento = {}, */
   siguientePartido = () => {
-    console.log('');
+    console.log('Falta funcion');
   },
   funcionEliminarEnfrentamiento = () => {
-    console.log('');
+    console.log('Falta Funcion');
   },
 }) => {
   const {equipos} = useSelector(state => state.storeEquipos);
@@ -159,7 +159,6 @@ const TarjetaEnfrentamiento = ({
         fechaPartido: datos.fechaPartido,
         idTorneo: datos.idTorneo,
       };
-      console.log(datos);
       if (Object.keys(datos).length > 0) {
         setEnfrentamiento(auxEnfrentamiento);
       }
