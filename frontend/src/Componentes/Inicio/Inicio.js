@@ -132,7 +132,7 @@ const Inicio = () => {
       galeria3: auxGaleriasImagenes[ultimoIndice - 1] ? auxGaleriasImagenes[ultimoIndice - 1] : {},
     });
 
-    var galeriasTipoVideos = galerias.filter(galeria => galeria.videosId.length !== 0);
+    var galeriasTipoVideos = galerias.filter(galeria => galeria.videosId.length);
     if (galeriasTipoVideos.length) {
       setVideosGaleria(galeriasTipoVideos[galeriasTipoVideos.length - 1].videosId);
     }
@@ -320,7 +320,6 @@ const Inicio = () => {
     window.open(url);
   };
   const siguientePartido = respuesta => {
-    console.log(respuesta);
     if (partido.index < partidos.length - 1) {
       if (partido.index >= 0) {
         if (respuesta === 1) {
