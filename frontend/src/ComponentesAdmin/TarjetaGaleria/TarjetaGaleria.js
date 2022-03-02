@@ -27,7 +27,6 @@ const TarjetaGaleria = ({galeria = {}}) => {
       let categoriafiltrada = categorias.filter(
         element => element.key === parseInt(galeria.keyCategoria)
       );
-      console.log(categoriafiltrada);
       setCategoriaDeGaleria(categoriafiltrada);
     }
   }, [categorias, setCategoriaDeGaleria, galeria]);
