@@ -209,7 +209,6 @@ export const modificarGaleriaError_accion = error => {
 }; */
 
 export const modificarGaleria_accion = datosGaleria => {
-  console.log(datosGaleria);
   return dispatch => {
     var auxDatosGaleria = new FormData();
     auxDatosGaleria.append('_id', datosGaleria.id);
@@ -271,7 +270,6 @@ export const guardarGaleriaVideo_accion = (datosGaleria, videosCargados) => {
       data: {tituloGaleria: datosGaleria.tituloGaleria, fechaCarga: datosGaleria.fechaCarga},
     })
       .then(res => {
-        console.log({res});
         var respuestaAgregarGaleria = res.data.value;
         API({
           url: '/videos/agregar',
@@ -279,7 +277,6 @@ export const guardarGaleriaVideo_accion = (datosGaleria, videosCargados) => {
           data: {videos: videosCargados, idGaleria: res.data.value._id},
         })
           .then(res => {
-            console.log({res});
             dispatch(
               agregarGaleriaVideoExito_accion({
                 videos: res.data.value,
