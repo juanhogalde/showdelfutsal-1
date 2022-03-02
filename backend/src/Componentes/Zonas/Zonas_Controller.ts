@@ -1,4 +1,6 @@
 import modeloZonas from './Zonas_Model';
+import modeloEquipos from '../Equipos/Equipos_Model';
+import IEquipo from '../Equipos/Equipos_Interface';
 import IZona from './Zonas_Interface';
 import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
@@ -68,11 +70,18 @@ class ZonasController {
       if (!idZona) {
         responder.error(req, res, '', 'Falta id de zona', 400);
       } else {
-        const zona = await modeloZonas.findOne({_id: idZona});
-        if (!zona) {
-          responder.error(req, res, '', 'No se encontro la zona', 400);
+        const equiposZona = await modeloZonas
+          .findOne({_id: idZona}, {equipos: 1, _id: 0})
+          .populate('equipos._id');
+
+        if (!equiposZona) {
+          responder.error(req, res, '', 'No se encontro la zona o no tiene equipos asignados', 400);
         } else {
-          responder.sucess(req, res, zona.equipos);
+          const eq = equiposZona.equipos.map((equipo: any) => {
+            const e: IEquipo = new modeloEquipos(equipo._id);
+            return e;
+          });
+          responder.sucess(req, res, eq);
         }
       }
     } catch (error) {

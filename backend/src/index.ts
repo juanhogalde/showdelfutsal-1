@@ -144,7 +144,7 @@ class Server {
   }
 
   iniciar() {
-    let infoCertificado: ICert = {cert: '', key: ''};
+    /*  let infoCertificado: ICert = {cert: '', key: ''};
 
     if (process.env.NODE_ENV === 'testing') {
       infoCertificado.cert = fs.readFileSync(
@@ -162,23 +162,22 @@ class Server {
       infoCertificado.key = fs.readFileSync(
         path.join(__dirname, '../crt/production/mi_certificado.key')
       );
-    }
+    } */
 
-    if (process.env.NODE_ENV === 'desarrollo') {
-      this.app.listen(this.app.get('port'), () => {
-        console.log(
-          `⚡️[FUTSAL]: El Servidor http de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
-        );
-        process.env.NODE_ENV == 'desarrollo' ? console.warn(`${deploy}`) : console.log(`${deploy}`);
-      });
-    } else {
-      https.createServer(infoCertificado, this.app).listen(this.app.get('port'), () => {
+    //if (process.env.NODE_ENV === 'desarrollo') {
+    this.app.listen(this.app.get('port'), () => {
+      console.log(
+        `⚡️[FUTSAL ${deploy}]: El Servidor http de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
+      );
+    });
+    //}  else {
+    /* https.createServer(infoCertificado, this.app).listen(this.app.get('port'), () => {
         console.log(
           `⚡️[FUTSAL]: El Servidor https de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
         );
         process.env.NODE_ENV == 'desarrollo' ? console.warn(`${deploy}`) : console.log(`${deploy}`);
       });
-    }
+    } */
   }
 }
 
