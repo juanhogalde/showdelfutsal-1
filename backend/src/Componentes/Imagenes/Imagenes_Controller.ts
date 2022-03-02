@@ -34,15 +34,13 @@ class ImagenesController {
         responder.sucess(req, res, arregloDePath);
       } else {
         let path: string = req.body.archivos.path;
-        // console.log('PATH');
-        // console.log(path);
+
         const imagen: IImagenes = new modeloImagenes({
           ...req.body,
           _id: path.split('/')[2].split('.')[0].toString(),
           fuente: path.replace('public', '').replace('\\', '/').replace('\\', '/'),
         });
-        // console.log('imagen');
-        // console.log(imagen);
+
         await imagen.save();
         responder.sucess(req, res, imagen);
       }
@@ -110,7 +108,6 @@ class ImagenesController {
 
   public async eliminarImagen(idImagen: any) {
     try {
-      // console.log('eliminando imagen...');
       const pr = new Promise(async (resolve: any, reject: any) => {
         const imagen = await modeloImagenes.findOneAndDelete({_id: idImagen}, {new: true});
 
@@ -145,15 +142,13 @@ class ImagenesController {
 
   public async insertarImagen(imagen: any) {
     try {
-      let imagenNew: IImagenes = new modeloImagenes();
+      let imagenNew: IImagenes = new modeloImagenes({_id: imagen.fuente.split('/')[2].toString()});
       imagenNew.fuente = imagen.fuente;
       imagenNew.isGaleria = imagen.isGaleria;
-      if (imagen.galeriaId) {
-        imagenNew.galeriaId = imagen.galeriaId;
-      }
+      imagenNew.galeriaId = imagen.galeriaId;
       imagenNew.fechaCarga = new Date();
-
       const resultado = await imagenNew.save();
+
       return resultado;
     } catch (error) {
       return error;

@@ -1,4 +1,5 @@
 import {Request, Response} from 'express';
+import {Error} from 'mongoose';
 import responder from '../../Middlewares/responder';
 import modeloGaleria from './Galeria_Model';
 import IGaleria from './Galeria_Interface';
@@ -101,65 +102,62 @@ class GaleriaController {
       let pathFile: string = '';
       let arrayInsercionesImagenes = [];
       let arrayIdImagenes = [];
-      let arrayDePath: Array<string> = [];
-      const datosBody = req.body;
-      if (!datosBody) {
-        throw new Error('No se ingresaron datos');
-      }
 
-      if (!datosBody.archivos && !datosBody.archivos.length) {
-        throw new Error('No hay archivos para cargar');
-      }
-
-      let nuevaGaleria: IGaleria = new modeloGaleria({
-        _id: req.body?.tituloGaleria.replace(/ /g, '_').concat(`_${Date.now().toString()}`),
-      });
-      if (datosBody.archivos.length) {
+      if (!req.body?.archivos?.length || !req.body.tituloGaleria) {
+        responder.error(
+          req,
+          res,
+          `Faltan datos requeridos ${req.body?.archivos?.length ? 'Archivos' : ''} ${
+            !req.body?.tituloGaleria ? 'Titulo' : ''
+          }`,
+          `Faltan datos requeridos ${req.body?.archivos.length ? 'Archivos' : ''} ${
+            !req.body?.tituloGaleria ? 'Titulo' : ''
+          }`,
+          400
+        );
+      } else {
+        let nuevaGaleria: IGaleria = new modeloGaleria({
+          _id: req.body.tituloGaleria.replace(/ /g, '_').concat(`_${Date.now().toString()}`),
+        });
         datosAEnviar.galeriaId = nuevaGaleria._id;
-        for await (const archivo of datosBody.archivos) {
+        for await (const archivo of req.body.archivos) {
           pathFile = archivo.path;
-
           datosAEnviar.fuente = pathFile
             .replace('public', '')
             .replace('\\', '/')
             .replace('\\', '/');
           datosAEnviar.isGaleria = true;
           const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
+          console.log(resultado);
           if (resultado) {
             arrayInsercionesImagenes.push(resultado);
             arrayIdImagenes.push(resultado._id);
           }
         }
-      } else {
-        pathFile = datosBody.archivos.path;
-        datosAEnviar.fuente = pathFile.replace('public', '').replace('\\', '/').replace('\\', '/');
-        datosAEnviar.isGaleria = true;
-        const resultado: any = await imagenesController.insertarImagen(datosAEnviar);
-        if (resultado) {
-          arrayInsercionesImagenes.push(resultado);
-          arrayIdImagenes.push(resultado._id);
-        }
-      }
-
-      if (arrayInsercionesImagenes.length) {
-        // const nuevaGaleria: IGaleria = new modeloGaleria();
-        nuevaGaleria.tituloGaleria = datosBody.descripcion;
-        // nuevaGaleria.imagenesId = [...arrayIdImagenes];
-        nuevaGaleria.fechaCarga = new Date();
-        nuevaGaleria.idCategoria = datosBody.idCategoria;
-        nuevaGaleria.keyCategoria = datosBody.keyCategoria;
-        const resultadoOperacion: any = await nuevaGaleria.save();
-
-        if (resultadoOperacion) {
-          datosARetornar.tituloGaleria = resultadoOperacion.tituloGaleria;
-          datosARetornar._id = resultadoOperacion._id;
-          datosARetornar.imagenesId = [...arrayInsercionesImagenes];
-          datosARetornar.idCategoria = datosBody.idCategoria;
-          datosARetornar.keyCategoria = datosBody.keyCategoria;
-          responder.sucess(req, res, datosARetornar);
+        if (!arrayInsercionesImagenes.length) {
+          responder.error(
+            req,
+            res,
+            'Error al insertar las imagenes a la galería',
+            'Error al insertar las imagenes a la galería',
+            400
+          );
         } else {
-          console.log(resultadoOperacion);
-          responder.error(req, res, new Error('Error al insertar la galería'));
+          nuevaGaleria.tituloGaleria = req.body.tituloGaleria;
+          nuevaGaleria.fechaCarga = new Date();
+          nuevaGaleria.idCategoria = req.body.idCategoria;
+          nuevaGaleria.keyCategoria = req.body.keyCategoria;
+          const resultadoOperacion: any = await nuevaGaleria.save();
+          if (!resultadoOperacion) {
+            responder.error(req, res, resultadoOperacion, 'Error al insertar la galería', 400);
+          } else {
+            datosARetornar.tituloGaleria = resultadoOperacion.tituloGaleria;
+            datosARetornar._id = resultadoOperacion._id;
+            datosARetornar.imagenesId = [...arrayInsercionesImagenes];
+            datosARetornar.idCategoria = req.body.idCategoria;
+            datosARetornar.keyCategoria = req.body.keyCategoria;
+            responder.sucess(req, res, datosARetornar);
+          }
         }
       }
     } catch (error) {

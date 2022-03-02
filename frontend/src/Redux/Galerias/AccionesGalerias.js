@@ -67,10 +67,10 @@ export const volverPorDefectoAgregarGaleria_accion = () => {
 export const agregarGaleria_accion = datosGaleria => {
   return dispatch => {
     var auxDatosGaleria = new FormData();
-    Object.values(datosGaleria.imagenes).forEach(file => {
-      auxDatosGaleria.append('archivos', file);
+    datosGaleria.imagenes.forEach(file => {
+      auxDatosGaleria.append('archivos[]', file);
     });
-    auxDatosGaleria.append('descripcion', datosGaleria.descripcion);
+    auxDatosGaleria.append('tituloGaleria', datosGaleria.descripcion);
     auxDatosGaleria.append('idCategoria', datosGaleria.idCategoria);
     auxDatosGaleria.append('keyCategoria', datosGaleria.keyCategoria);
     dispatch(cargandoAgregarGaleria_accion());
@@ -229,8 +229,6 @@ export const modificarGaleria_accion = datosGaleria => {
       data: auxDatosGaleria,
     })
       .then(res => {
-        console.log({res});
-
         dispatch(modificarGaleriaExito_accion(res.data.value));
       })
       .catch(error => {
