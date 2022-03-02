@@ -3,7 +3,7 @@ import './NoticiasFiltradas.css';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 import {useSelector} from 'react-redux';
-import publicidadCorta from '../../Static/Img/publicidad_corta.jpg';
+import publicidadCorta from '../../Static/Img/anuncio2_corta.jpg';
 
 const NoticiasFiltradas = () => {
   // const userAgent = navigator.userAgent;

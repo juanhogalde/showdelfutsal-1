@@ -2,7 +2,7 @@ import React, {useLayoutEffect, useState} from 'react';
 import './SeccionNoticias.css';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import './SeccionNoticias.css';
-/* import publicidadCorta from '../../Static/Img/publicidad_corta.jpg'; */
+/* import publicidadCorta from '../../Static/Img/anuncio2_corta.jpg'; */
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 import {Link} from 'react-router-dom';
 import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
