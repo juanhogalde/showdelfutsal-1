@@ -7,6 +7,12 @@ export const equiposPorSubcategoriaCargando = 'equiposPorSubcategoriaCargando';
 export const equiposPorSubcategoriaExito = 'equiposPorSubcategoriaExito';
 export const equiposPorSubcategoriaError = 'equiposPorSubcategoriaError';
 export const equiposPorSubcategoriaDefault = 'equiposPorSubcategoriaDefault';
+
+export const obtenerEquiposDeZonaCargando = 'obtenerEquiposDeZonaCargando';
+export const obtenerEquiposDeZonaExito = 'obtenerEquiposDeZonaExito';
+export const obtenerEquiposDeZonaError = 'obtenerEquiposDeZonaError';
+export const obtenerEquiposDeZonaDefault = 'obtenerEquiposDeZonaDefault';
+
 export const listarEquiposCargando_accion = () => {
   return {
     type: listarEquiposCargando,
@@ -66,20 +72,59 @@ export const equiposPorSubcategoriaDefault_accion = () => {
   };
 };
 export const equiposPorSubcategoria_accion = subcategoria => {
-  console.log(subcategoria);
   return dispatch => {
     dispatch(equiposPorSubcategoriaCargando_accion());
     API({
-      url: `/equipos/obtenerPorKeySubCategoria/${subcategoria}`,
+      url: `/equipos/obtenerPorIdSubCategoria/${subcategoria}`,
       method: 'get',
     })
       .then(res => {
-        console.log({res});
         dispatch(equiposPorSubcategoriaExito_accion(res.data.value));
       })
       .catch(error => {
         console.log({error});
         dispatch(equiposPorSubcategoriaError_accion());
+      });
+  };
+};
+/* OBTENER EQUIPOS DE ZONA */
+export const obtenerEquiposDeZonaCargando_accion = () => {
+  return {
+    type: obtenerEquiposDeZonaCargando,
+  };
+};
+export const obtenerEquiposDeZonaExito_accion = datos => {
+  return {
+    type: obtenerEquiposDeZonaExito,
+    data: datos,
+  };
+};
+export const obtenerEquiposDeZonaError_accion = () => {
+  return {
+    type: obtenerEquiposDeZonaError,
+  };
+};
+export const obtenerEquiposDeZonaDefault_accion = () => {
+  return {
+    type: obtenerEquiposDeZonaDefault,
+  };
+};
+
+export const obtenerEquiposDeZona_accion = zonaId => {
+  return dispatch => {
+    dispatch(obtenerEquiposDeZonaCargando_accion());
+    API({
+      url: `zonas/obtenerEquiposPorZona/${zonaId}`,
+      method: 'get',
+      data: {_id: zonaId},
+    })
+      .then(res => {
+        console.log({res});
+        dispatch(obtenerEquiposDeZonaExito_accion(res.data.value));
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(obtenerEquiposDeZonaError_accion());
       });
   };
 };

@@ -4,21 +4,22 @@ import {AiFillCaretLeft} from 'react-icons/ai';
 import {AiFillCaretRight} from 'react-icons/ai';
 import FormatearFecha from '../../ModulosExternos/FormatearFecha';
 
-const InfoPartido = props => {
-  const {
-    fecha,
-    sede,
-    siguientePartido = () => {
-      console.log('');
-    },
-    isSoloTitulo,
-    isTablaDePosiciones,
-  } = props;
+const InfoPartido = ({
+  fecha = '',
+  sede = '',
+  siguientePartido = () => {
+    console.log('');
+  },
+  isSoloTitulo = false,
+  isTablaDePosiciones = false,
+}) => {
   return (
     <div className="CP-InfoPartido">
       <div className="CI-InfoPartido">
         {isSoloTitulo ? (
-          <React.Fragment>{isTablaDePosiciones ? <h3>Zona A</h3> : <p>{fecha}</p>}</React.Fragment>
+          <React.Fragment>
+            {isTablaDePosiciones ? <h3>Zona A</h3> : <p>{fecha ? fecha : '-'}</p>}
+          </React.Fragment>
         ) : (
           <React.Fragment>
             <h3>{fecha ? FormatearFecha(fecha, 'hora').substr(0, 5) : '-'}</h3>

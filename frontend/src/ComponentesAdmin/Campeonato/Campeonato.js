@@ -87,8 +87,6 @@ const Campeonato = () => {
     dispatch(consultarEliminarZonasDeTorneo_accion(subcategoria.key));
   };
   const obtenerRespuestasAlertaEliminarZonas = respuesta => {
-    console.log(respuesta);
-
     if (respuesta) {
       if (isEliminarZonasDeTorneo.tipo === 'warning') {
         dispatch(eliminarZonasDeTorneo_accion(torneo._id, isEliminarZonasDeTorneo.subcategoria));

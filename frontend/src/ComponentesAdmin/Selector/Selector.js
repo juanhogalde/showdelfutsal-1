@@ -51,6 +51,7 @@ const Selector = props => {
     options,
     noOptionsMessage,
     opcionSeleccionada,
+    isLimpiarValor,
   } = props;
 
   const componenteConIcono = {
@@ -81,6 +82,7 @@ const Selector = props => {
         className={`${isDisabled ? '' : 'contenedorSelector'}`}
         isDisabled={isDisabled}
         isLoading={isCargando}
+        isClearable={isLimpiarValor}
         isSearchable={isOpcionBuscar}
         noOptionsMessage={() => noOptionsMessage}
         isOptionDisabled={options => options.disabled}

@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import Selector from '../Selector/Selector';
 import TarjetaEnfrentamiento from '../TarjetaEnfrentamiento/TarjetaEnfrentamiento';
 import './EditorEnfrentamientos.css';
@@ -7,11 +7,22 @@ import Cargando from '../Cargando/Cargando';
 import {
   obtenerDatosDeTorneoParaEdicionDefault_accion,
   obtenerDatosDeTorneoParaEdicion_accion,
-  obtenerEquiposDeZona_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 import Enfrentamiento from '../Enfrentamiento/Enfrentamiento';
-import {listarEquipos_accion} from '../../Redux/Equipos/AccionesEquipos';
+import {
+  listarEquipos_accion,
+  obtenerEquiposDeZonaDefault_accion,
+  /* obtenerEquiposYEnfrentamientosDeZona_accion, */
+} from '../../Redux/Equipos/AccionesEquipos';
+import {
+  eliminarPartidoConsultar_accion,
+  eliminarPartidoDefault_accion,
+  eliminarPartido_accion,
+  obtenerPartidosDeZonaDefault_accion,
+  obtenerPartidosDeZona_accion,
+} from '../../Redux/Partidos/AccionPartidos';
+import BotonLowa from '../BotonLowa/BotonLowa';
 /* import {listarPartidos_accion} from '../../Redux/Partidos/AccionPartidos'; */
 
 const EditorEnfrentamientos = () => {
@@ -19,14 +30,17 @@ const EditorEnfrentamientos = () => {
   const {torneos, torneo, isObtenerDatosEditarTorneo} = useSelector(state => state.storeTorneos);
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   const {equipos} = useSelector(state => state.storeEquipos);
-  const {partidos} = useSelector(state => state.storePartidos);
+  const {partidos, isEliminarPartido, isObtenerPartidos} = useSelector(
+    state => state.storePartidos
+  );
 
   const [datosFiltrados, setDatosFiltrados] = useState('');
   const [isDatosCargados, setIsDatosCargados] = useState(false);
   const [arrayTorneos, setArrayTorneos] = useState();
-  const [arraySubCategorias, setArraySubCategorias] = useState('');
-  const [arrayZonas, setArrayZonas] = useState('');
+  const [arraySubCategorias, setArraySubCategorias] = useState([]);
+  const [arrayZonas, setArrayZonas] = useState([]);
   const [arrayEquiposZona, setArrayEquiposZona] = useState([]);
+  const [isMostrarComponenteEnfrentamiento, setIsMostrarComponenteEnfrentamiento] = useState(false);
 
   const escucharSelectorTorneo = value => {
     let auxTorneo = torneos.find(torneo => torneo._id === value.idTorneo);
@@ -34,19 +48,24 @@ const EditorEnfrentamientos = () => {
     setDatosFiltrados({
       torneo: value,
     });
-    setArraySubCategorias('');
-    setArrayZonas('');
+    setIsMostrarComponenteEnfrentamiento(false);
+    setArraySubCategorias([]);
+    setArrayZonas([]);
   };
 
   const escucharSelectorCategoria = value => {
-    setDatosFiltrados({
-      ...datosFiltrados,
-      categoria: value,
-    });
+    setIsMostrarComponenteEnfrentamiento(false);
     if (datosFiltrados.subcategoria) {
       setDatosFiltrados({
         ...datosFiltrados,
+        categoria: value,
         subcategoria: '',
+        zona: '',
+      });
+    } else {
+      setDatosFiltrados({
+        ...datosFiltrados,
+        categoria: value,
       });
     }
 
@@ -57,10 +76,20 @@ const EditorEnfrentamientos = () => {
   };
 
   const escucharSelectorSubCategoria = value => {
-    setDatosFiltrados({
-      ...datosFiltrados,
-      subcategoria: value,
-    });
+    setIsMostrarComponenteEnfrentamiento(false);
+
+    if (datosFiltrados.zona) {
+      setDatosFiltrados({
+        ...datosFiltrados,
+        subcategoria: value,
+        zona: '',
+      });
+    } else {
+      setDatosFiltrados({
+        ...datosFiltrados,
+        subcategoria: value,
+      });
+    }
     let auxZonas = [];
     torneo.zonas.forEach(zonaTorneo => {
       if (zonaTorneo.idSubcategoria.keyCategoria === value.keyCategoria) {
@@ -77,15 +106,17 @@ const EditorEnfrentamientos = () => {
       };
     });
     setArrayZonas(auxZonasParaSelector);
+    setIsMostrarComponenteEnfrentamiento(false);
   };
   const escucharSelectorZona = value => {
     setDatosFiltrados({
       ...datosFiltrados,
       zona: value,
     });
-    console.log(value);
+    setIsMostrarComponenteEnfrentamiento(true);
+    /* TODO: implementar ruta para obtener equipos por id de zona */
+    /* dispatch(obtenerEquiposDeZona_accion(value.data._id)) */
     dispatch(listarEquipos_accion());
-    /* dispatch(obtenerEquiposDeZona_accion(value.data._id)); */
   };
 
   const obtenerRespuestaDeAlertaEditarTorneo = respuesta => {
@@ -95,6 +126,34 @@ const EditorEnfrentamientos = () => {
       }
       if (isObtenerDatosEditarTorneo.isError) {
         dispatch(obtenerDatosDeTorneoParaEdicionDefault_accion());
+      }
+    }
+  };
+
+  const consultarPorEliminarEnfrentamiento = idPartido => {
+    dispatch(eliminarPartidoConsultar_accion(idPartido));
+  };
+  const obtenerRespuestaDeAlertaEliminarPartido = respuesta => {
+    if (respuesta) {
+      if (isEliminarPartido.tipo === 'warning') {
+        dispatch(eliminarPartido_accion(isEliminarPartido.id));
+      }
+      if (isEliminarPartido.tipo === 'success') {
+        dispatch(eliminarPartidoDefault_accion());
+      }
+      if (isEliminarPartido.tipo === 'error') {
+        dispatch(eliminarPartidoDefault_accion());
+      }
+    }
+  };
+
+  const obtenerPartidosDeZona = () => {
+    dispatch(obtenerPartidosDeZona_accion(datosFiltrados.zona.data._id));
+  };
+  const obtenerRespuestaDeAlertaObtenerEquiposDeZona = respuesta => {
+    if (respuesta) {
+      if (isObtenerPartidos.tipo === 'error') {
+        dispatch(obtenerPartidosDeZonaDefault_accion());
       }
     }
   };
@@ -129,8 +188,17 @@ const EditorEnfrentamientos = () => {
         }
       }
     }
-    return () => {};
-  }, [torneos, arrayTorneos, equipos, datosFiltrados]);
+
+    return () => {
+      dispatch(obtenerPartidosDeZonaDefault_accion());
+    };
+  }, [torneos, arrayTorneos, equipos, datosFiltrados, dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(obtenerEquiposDeZonaDefault_accion());
+    };
+  }, [dispatch]);
 
   if (isDatosCargados) {
     return (
@@ -140,7 +208,7 @@ const EditorEnfrentamientos = () => {
             name="torneo"
             placeholder="Seleccione Torneo"
             options={arrayTorneos ? arrayTorneos : []}
-            opcionSeleccionada={datosFiltrados.torneo}
+            /* opcionSeleccionada={datosFiltrados.torneo} */
             onChange={value => escucharSelectorTorneo(value)}
             noOptionsMessage={
               !arrayTorneos ? 'Debe seleccionar un torneo.' : 'No hay torneos creados'
@@ -179,18 +247,34 @@ const EditorEnfrentamientos = () => {
               }
             ></Selector>
           )}
-          {Object.keys(datosFiltrados).length === 4 && (
+          {isMostrarComponenteEnfrentamiento && (
             <div className="CI-componenteEnfrentamiento">
               <Enfrentamiento
-                equipos={arrayEquiposZona}
-                torneoId={datosFiltrados.zona.data.idTorneo}
-                zonaId={datosFiltrados.zona.data._id}
+                equipos={arrayEquiposZona ? arrayEquiposZona : []}
+                torneoId={datosFiltrados.torneo.idTorneo ? datosFiltrados.torneo.idTorneo : ''}
+                zonaId={datosFiltrados.zona.data ? datosFiltrados.zona.data._id : ''}
               ></Enfrentamiento>
             </div>
           )}
+          {isMostrarComponenteEnfrentamiento && (
+            <BotonLowa
+              tituloboton="Mostrar Enfrentamientos"
+              onClick={obtenerPartidosDeZona}
+            ></BotonLowa>
+          )}
           {partidos.length > 0 &&
             partidos.map((partido, index) => {
-              return <TarjetaEnfrentamiento key={index} datos={partido}></TarjetaEnfrentamiento>;
+              return (
+                <TarjetaEnfrentamiento
+                  key={index}
+                  datos={partido}
+                  zona={
+                    datosFiltrados.zona && datosFiltrados.zona.data ? datosFiltrados.zona.data : {}
+                  }
+                  enfrentamiento={partido}
+                  funcionEliminarEnfrentamiento={consultarPorEliminarEnfrentamiento}
+                ></TarjetaEnfrentamiento>
+              );
             })}
         </div>
 
@@ -204,13 +288,24 @@ const EditorEnfrentamientos = () => {
           subtitulo={isObtenerDatosEditarTorneo.mensaje}
           RespuestaDeSweet={obtenerRespuestaDeAlertaEditarTorneo}
         ></Alertas>
+        <Alertas
+          tipoDeSweet={isEliminarPartido.tipo}
+          mostrarSweet={isEliminarPartido.isMostrar}
+          subtitulo={isEliminarPartido.mensaje}
+          RespuestaDeSweet={obtenerRespuestaDeAlertaEliminarPartido}
+        ></Alertas>
+        <Alertas
+          tipoDeSweet={isObtenerPartidos.tipo}
+          mostrarSweet={isObtenerPartidos.isMostrar}
+          subtitulo={isObtenerPartidos.mensaje}
+          RespuestaDeSweet={obtenerRespuestaDeAlertaObtenerEquiposDeZona}
+        ></Alertas>
       </React.Fragment>
     );
   } else {
     return (
       <div className="CP-Cargando-EditorEnfrentamientos">
         <Cargando></Cargando>
-        <h5>Obteniendo Datos...</h5>
       </div>
     );
   }

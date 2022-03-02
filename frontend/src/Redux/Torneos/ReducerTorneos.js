@@ -54,6 +54,13 @@ import {
   actualizarListaTorneosAgregarEquiposZona,
   agregarEquiposZonaTorneoError,
   agregarEquiposZonaTorneoDefault,
+  estadoComponenteAgregarEquipo,
+  eliminarEquipoDeZonaCargando,
+  eliminarEquipoDeZonaExito,
+  actualizarListaTorneosEliminarEquiposZona,
+  eliminarEquipoDeZonaError,
+  eliminarEquipoDeZonaDefault,
+  eliminarEquipoDeZonaConsulta,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -128,6 +135,12 @@ const torneoPorDefecto = {
     mensaje: '',
     isMostrar: false,
   },
+  isEliminarEquipoZona: {
+    tipo: '',
+    mensaje: '',
+    isMostrar: false,
+  },
+  isVerificarAgregarEquipo: false,
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
   switch (accion.type) {
@@ -685,7 +698,6 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       let auxZonas = state.torneo.zonas.filter(zona => zona._id !== state.isEliminarZona.idZona);
       let auxTorneo = {...state.torneo};
       auxTorneo.zonas = auxZonas;
-      console.log(auxTorneo);
       let auxTorneos = state.torneos.map(torneo => {
         if (torneo._id === auxTorneo._id) {
           return auxTorneo;
@@ -871,6 +883,95 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         },
       };
     }
+    case estadoComponenteAgregarEquipo: {
+      return {
+        ...state,
+        isVerificarAgregarEquipo: accion.data,
+      };
+    }
+    case eliminarEquipoDeZonaConsulta: {
+      return {
+        ...state,
+        isEliminarEquipoZona: {
+          tipo: 'warning',
+          mensaje: '¿Desea eliminar equipo de la zona?',
+          isMostrar: true,
+          idEquipo: accion.idEquipo,
+          isNuevo: accion.isNuevo,
+        },
+      };
+    }
+    case eliminarEquipoDeZonaCargando: {
+      return {
+        ...state,
+        isEliminarEquipoZona: {
+          tipo: 'cargando',
+          mensaje: 'Eliminando equipo...',
+          isMostrar: true,
+        },
+      };
+    }
+    case eliminarEquipoDeZonaExito: {
+      let auxZonas = state.torneo.zonas.map(zonaTorneo => {
+        if (zonaTorneo._id === accion.zona._id) {
+          return accion.zona;
+        } else {
+          return zonaTorneo;
+        }
+      });
+      return {
+        ...state,
+        isEliminarEquipoZona: {
+          tipo: 'success',
+          mensaje: 'Equipo Eliminado...',
+          isMostrar: true,
+          idEquipo: accion.equipoId,
+        },
+        torneo: {
+          ...state.torneo,
+          zonas: auxZonas,
+        },
+      };
+    }
+    case actualizarListaTorneosEliminarEquiposZona: {
+      let auxTorneos = state.torneos.map(torneo => {
+        if (torneo._id === state.torneo._id) {
+          return state.torneo;
+        } else {
+          return torneo;
+        }
+      });
+      return {
+        ...state,
+        isEliminarEquipoZona: {
+          tipo: '',
+          mensaje: '',
+          isMostrar: false,
+        },
+        torneos: auxTorneos,
+      };
+    }
+    case eliminarEquipoDeZonaError: {
+      return {
+        ...state,
+        isEliminarEquipoZona: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, en este momento no podemos eliminar este equipo...',
+          isMostrar: true,
+        },
+      };
+    }
+    case eliminarEquipoDeZonaDefault: {
+      return {
+        ...state,
+        isEliminarEquipoZona: {
+          tipo: '',
+          mensaje: '',
+          isMostrar: false,
+        },
+      };
+    }
+
     default:
       return state;
   }

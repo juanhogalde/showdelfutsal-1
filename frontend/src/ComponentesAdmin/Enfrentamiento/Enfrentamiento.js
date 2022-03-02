@@ -73,6 +73,8 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
             idEquipoLocal: datosEnfrentamiento.equipoLocal.data._id,
             idEquipoVisitante: datosEnfrentamiento.equipoVisitante.data._id,
             fechaPorJugar: datosEnfrentamiento.fechaPorJugar,
+            fechaPartido: datosEnfrentamiento.fechaPartido,
+            estadio: datosEnfrentamiento.estadio,
             idZona: zonaId,
             idTorneo: torneoId,
           };
@@ -104,6 +106,7 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
     setDatosEnfrentamiento({
       equipoLocal: '',
       equipoVisitante: '',
+      fechaPartido: '',
       fechaPorJugar: '',
       idZona: '',
       idTorneo: '',
@@ -122,6 +125,7 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
   };
   const obtenerRespuestaAgregarPartido = respuesta => {
     if (respuesta) {
+      valoresPorDefecto();
       dispatch(agregarPartidoDefault_accion());
     }
   };
@@ -145,7 +149,9 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
     if (equipos.length === 0) {
       setEquiposSelector([]);
     }
-    return () => {};
+    return () => {
+      valoresPorDefecto([]);
+    };
   }, [equipos]);
 
   return (
@@ -202,15 +208,27 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
           <InputLowa
             name="fechaPorJugar"
             type="number"
+            min="0"
+            max="30"
             placeholder="Fecha por Jugar"
             value={datosEnfrentamiento.fechaPorJugar ? datosEnfrentamiento.fechaPorJugar : ''}
             onChange={e => escucharInput(e.target.value, e.target.name)}
           ></InputLowa>
+          {/* TODO: no vuelve por defecto */}
+          <InputDateLowa
+            name="fechaPartido"
+            type="datetime-local"
+            placeholder="Fecha de Enfrentamiento"
+            onChange={e => escucharInput(e.target.value, e.target.name)}
+          ></InputDateLowa>
 
-          <InputDateLowa type="date" placeholder="Fecha de Enfrentamiento"></InputDateLowa>
-          <InputDateLowa type="time" placeholder="Hora de Enfrentamiento"></InputDateLowa>
-
-          <Selector placeholder="Seleccione Estadio"></Selector>
+          <InputLowa
+            name="estadio"
+            type="text"
+            placeholder="Ingrese Estadio"
+            value={datosEnfrentamiento.estadio ? datosEnfrentamiento.estadio : ''}
+            onChange={e => escucharInput(e.target.value, e.target.name)}
+          ></InputLowa>
           <BotonLowa tituloboton="Eliminar Valores" onClick={() => valoresPorDefecto()}></BotonLowa>
 
           <BotonLowa

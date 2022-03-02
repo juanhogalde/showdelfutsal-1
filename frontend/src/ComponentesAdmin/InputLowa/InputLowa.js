@@ -20,6 +20,8 @@ const InputLowa = props => {
     inputConIcono,
     disabled,
     ocultarIconoLateral = false,
+    min,
+    max,
     funcionObtenerTamanioImagen = () => {
       console.log('No se envió función');
     },
@@ -81,6 +83,8 @@ const InputLowa = props => {
           onKeyPress={onKeyPress}
           onFocus={onFocus}
           onBlur={onBlur}
+          min={min}
+          max={max}
           accept={type === 'file' ? 'image/png, image/jpeg' : ''}
         ></input>
         {type !== 'file' ? (

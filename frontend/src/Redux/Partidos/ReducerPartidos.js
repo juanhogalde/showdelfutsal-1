@@ -3,11 +3,21 @@ import {
   agregarPartidoExito,
   agregarPartidoError,
   agregarPartidoDefault,
+  eliminarPartidoConsultar,
+  eliminarPartidoCargando,
+  eliminarPartidoExito,
+  eliminarPartidoError,
+  eliminarPartidoDefault,
+  actulizarListaDeEnfrentamientos,
+  obtenerPartidosDeZonaCargando,
+  obtenerPartidosDeZonaExito,
+  obtenerPartidosDeZonaError,
+  obtenerPartidosDeZonaDefault,
 } from './AccionPartidos';
-import {urlEscudos} from '../../Entorno';
+/* import {urlEscudos} from '../../Entorno'; */
 
 const partidosPorDefecto = {
-  partidos: [
+  /* partidos: [
     {
       equipoLocal: {
         nombreClub: 'Huarpes',
@@ -124,12 +134,25 @@ const partidosPorDefecto = {
       },
       idTabla: {},
     },
-  ],
-  //partidos: [],
+  ],  */
+  partidos: [],
+  partido: {},
   isAgregarPartido: {
     tipo: '',
     isMostrar: false,
     mensaje: '',
+  },
+  isEliminarPartido: {
+    tipo: '',
+    isMostrar: false,
+    mensaje: '',
+    id: '',
+  },
+  isObtenerPartidos: {
+    tipo: '',
+    isMostrar: false,
+    mensaje: '',
+    id: '',
   },
   isPartido: {isMostrar: false, tipo: '', mensaje: '', isExito: false, isError: false},
 };
@@ -174,6 +197,110 @@ const storePartidos = (state = partidosPorDefecto, accion) => {
           isMostrar: false,
           mensaje: '',
         },
+      };
+    }
+    case eliminarPartidoConsultar: {
+      return {
+        ...state,
+        isEliminarPartido: {
+          tipo: 'warning',
+          isMostrar: true,
+          mensaje: '¿Desea eliminar este enfrentamiento?',
+          id: accion.partidoId,
+        },
+      };
+    }
+    case eliminarPartidoCargando: {
+      return {
+        ...state,
+        isEliminarPartido: {
+          tipo: 'cargando',
+          isMostrar: true,
+          mensaje: 'Eliminando enfrentamiento...',
+          id: state.isEliminarPartido.partidoId,
+        },
+      };
+    }
+    case eliminarPartidoExito: {
+      let auxPartidos = state.partidos.filter(partido => partido._id !== accion.id);
+      return {
+        ...state,
+        isEliminarPartido: {
+          tipo: 'success',
+          isMostrar: true,
+          mensaje: 'Enfrentamiento eliminado',
+          id: '',
+        },
+        partidos: auxPartidos,
+      };
+    }
+    case eliminarPartidoError: {
+      return {
+        ...state,
+        isEliminarPartido: {
+          tipo: 'error',
+          isMostrar: true,
+          mensaje: 'Lo sentimos, en este momento no podemos eliminar este enfrentamiento...',
+          id: '',
+        },
+      };
+    }
+    case eliminarPartidoDefault: {
+      return {
+        ...state,
+        isEliminarPartido: {
+          tipo: '',
+          isMostrar: false,
+          mensaje: '',
+          id: '',
+        },
+      };
+    }
+    case actulizarListaDeEnfrentamientos: {
+      return {
+        ...state,
+      };
+    }
+    case obtenerPartidosDeZonaCargando: {
+      return {
+        ...state,
+        isObtenerPartidos: {
+          tipo: 'cargando',
+          isMostrar: true,
+          mensaje: 'Obteniendo partidos de zona...',
+        },
+      };
+    }
+    case obtenerPartidosDeZonaExito: {
+      return {
+        ...state,
+        isObtenerPartidos: {
+          tipo: '',
+          isMostrar: false,
+          mensaje: '',
+        },
+        partidos: accion.datos,
+      };
+    }
+    case obtenerPartidosDeZonaError: {
+      return {
+        ...state,
+        isObtenerPartidos: {
+          tipo: 'error',
+          isMostrar: true,
+          mensaje: 'Lo sentimos, no pudimos obtener partidos de zona.',
+        },
+      };
+    }
+    case obtenerPartidosDeZonaDefault: {
+      return {
+        ...state,
+        isObtenerPartidos: {
+          tipo: '',
+          isMostrar: false,
+          mensaje: '',
+        },
+        partidos: [],
       };
     }
     default:

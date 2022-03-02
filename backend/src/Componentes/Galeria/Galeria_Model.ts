@@ -12,7 +12,7 @@ const GaleriaSchema = new Schema({
     ref: 'modeloCategorias',
   },
   keyCategoria: {type: Number},
-  // videosId: [{type: Schema.Types.ObjectId, ref: 'modeloVideos'}],
+  videosId: [{type: Schema.Types.ObjectId, ref: 'modeloVideos'}],
 });
 
 export default model<IGaleria>('modeloGaleria', GaleriaSchema);

@@ -6,6 +6,7 @@ import {BsPower} from 'react-icons/bs';
 import iconoAtras from '../../Static/Admin/iconoAtras.svg';
 import RetornaTituloDeNavegacion from './RetornaTituloDeNavegacion.js/RetornaTituloDeNavegacion';
 import {
+  estadoComponenteAgregarEquipo_accion,
   ultimaUbicacionEditarTorneo_accion,
   volverPorDefectoUnTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
@@ -40,7 +41,11 @@ const BarraDeNavegacionAdmin = ({
           dispatch(ultimaUbicacionEditarTorneo_accion(true));
           historialDeNavegacion.goBack();
         } else {
-          historialDeNavegacion.goBack();
+          if (locacion.pathname.split('/').length === 7) {
+            dispatch(estadoComponenteAgregarEquipo_accion(true));
+          } else {
+            historialDeNavegacion.goBack();
+          }
         }
       }
       if (locacion.pathname.split('/')[1] === 'Vivo') {

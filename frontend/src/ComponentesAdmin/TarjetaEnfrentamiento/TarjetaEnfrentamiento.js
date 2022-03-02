@@ -2,19 +2,27 @@ import React, {useLayoutEffect, useRef, useState} from 'react';
 import {FiEdit3} from 'react-icons/fi';
 import {HiDotsVertical} from 'react-icons/hi';
 import {MdDeleteForever} from 'react-icons/md';
+import {useSelector} from 'react-redux';
 import InfoPartido from '../../Componentes/InfoPartido/InfoPartido';
 import CampoDeEdicion from '../CampoDeEdicion/CampoDeEdicion';
-import Cargando from '../Cargando/Cargando';
 import './TarjetaEnfrentamiento.css';
+import {urlEscudos} from '../../Entorno';
+import escudo_generico from '../../Static/Img/escudo_generico.png';
 
 const TarjetaEnfrentamiento = ({
   datos = {},
+  zona = {},
   isSeccionInicio = false,
-  enfrentamiento = {},
+  /*  enfrentamiento = {}, */
   siguientePartido = () => {
-    console.log('');
+    console.log('Falta funcion');
+  },
+  funcionEliminarEnfrentamiento = () => {
+    console.log('Falta Funcion');
   },
 }) => {
+  const {equipos} = useSelector(state => state.storeEquipos);
+  const [enfrentamiento, setEnfrentamiento] = useState({});
   const [isHabilitarEdicionTarjeta, setIsHabilitarEdicionTarjeta] = useState(
     isSeccionInicio ? isSeccionInicio : false
   );
@@ -24,81 +32,91 @@ const TarjetaEnfrentamiento = ({
     isComentarios: false,
     isEstadio: false,
     isFechaPartido: false,
+    isPenales: false,
+    isPenalesLocal: false,
+    isPenalesVisitante: false,
   });
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
-
-  const [resultadoLocal, setResultadoLocal] = useState(0);
-  const [resultadoVisitante, setResultadoVisitante] = useState(0);
-  const [estadio, setEstadio] = useState('Estadio');
-  const [comentarios, setComentarios] = useState('');
+  /* TODO: Revisar si son necesarios */
+  // const [resultadoLocal, setResultadoLocal] = useState(0);
+  // const [resultadoVisitante, setResultadoVisitante] = useState(0);
+  // const [estadio, setEstadio] = useState('Estadio');
+  // const [comentarios, setComentarios] = useState('');
 
   const escucharCambios = (name, value, isMostrarCampoDeEdicion) => {
-    console.log(name);
-    console.log(value);
     setIsCampoDeEdicion(isMostrarCampoDeEdicion);
-    switch (name) {
-      case 'resultadoLocal':
-        setResultadoLocal(value);
-        break;
-      case 'resultadoVisitante':
-        setResultadoVisitante(value);
-        break;
-      case 'comentarios':
-        setComentarios(value);
-        break;
-      case 'estadio':
-        setEstadio(value);
-        break;
-      case 'fechaPartido':
-        setEstadio(value);
-        break;
-      default:
-        break;
-    }
+    // switch (name) {
+    //   case 'resultadoLocal':
+    //     setResultadoLocal(value);
+    //     break;
+    //   case 'resultadoVisitante':
+    //     setResultadoVisitante(value);
+    //     break;
+    //   case 'comentarios':
+    //     setComentarios(value);
+    //     break;
+    //   case 'estadio':
+    //     setEstadio(value);
+    //     break;
+    //   case 'fechaPartido':
+    //     setEstadio(value);
+    //     break;
+
+    //   default:
+    //     break;
+    // }
   };
   const habilitarCampoParaEdicion = campo => {
     switch (campo) {
       case 'local':
         setIsCampoDeEdicion({
+          ...isCampoDeEdicion,
           isLocal: true,
-          isVisitante: false,
-          isComentarios: false,
-          isEstadio: false,
         });
         break;
       case 'visitante':
         setIsCampoDeEdicion({
-          isLocal: false,
+          ...isCampoDeEdicion,
           isVisitante: true,
-          isComentarios: false,
-          isEstadio: false,
         });
         break;
       case 'comentarios':
         setIsCampoDeEdicion({
-          isLocal: false,
-          isVisitante: false,
+          ...isCampoDeEdicion,
           isComentarios: true,
-          isEstadio: false,
         });
         break;
       case 'estadio':
         setIsCampoDeEdicion({
-          isLocal: false,
-          isVisitante: false,
-          isComentarios: false,
+          ...isCampoDeEdicion,
           isEstadio: true,
         });
         break;
 
       case 'fechaPartido':
         setIsCampoDeEdicion({
-          isLocal: false,
-          isVisitante: false,
-          isComentarios: false,
-          isEstadio: false,
+          ...isCampoDeEdicion,
           isFechaPartido: true,
+        });
+        break;
+
+      case 'penales':
+        setIsCampoDeEdicion({
+          ...isCampoDeEdicion,
+          isPenales: true,
+        });
+        break;
+      case 'penalesLocal':
+        setIsCampoDeEdicion({
+          ...isCampoDeEdicion,
+          isPenalesLocal: true,
+        });
+        break;
+      case 'penalesVisitante':
+        setIsCampoDeEdicion({
+          ...isCampoDeEdicion,
+          isPenalesVisitante: true,
         });
         break;
       default:
@@ -113,14 +131,40 @@ const TarjetaEnfrentamiento = ({
     setIsHabilitarEdicionTarjeta(!isHabilitarEdicionTarjeta);
     setIsAcciones(false);
   };
-  useLayoutEffect(() => {
-    if (Object.keys(enfrentamiento).length > 0) {
-      setResultadoLocal(enfrentamiento.resultadoLocal);
-      setResultadoVisitante(enfrentamiento.resultadoVisitante);
-    }
+  const formatearFechaUTC = dato => {
+    let fecha = new Date(dato);
+    let minutos = fecha.getUTCMinutes();
+    return `${fecha.getUTCDate()}/${
+      fecha.getUTCMonth() < 10 ? `0${fecha.getUTCMonth()}` : fecha.getUTCMonth()
+    }/${fecha.getUTCFullYear()} ${fecha.getUTCHours()}:${
+      minutos > 9 ? minutos : `0${minutos}`
+    } Hs.`;
+  };
 
+  useLayoutEffect(() => {
+    let auxEnfrentamiento = {};
+    if (datos) {
+      if (equipos.length > 0) {
+        let auxEquipoLocal = equipos.find(equipo => equipo._id === datos.idEquipoLocal);
+        let auxEquipoVisitante = equipos.find(equipo => equipo._id === datos.idEquipoVisitante);
+        auxEnfrentamiento = {
+          equipoLocal: auxEquipoLocal,
+          equipoVisitante: auxEquipoVisitante,
+        };
+      }
+      auxEnfrentamiento = {
+        ...auxEnfrentamiento,
+        comentarios: datos.comentarios,
+        estadio: datos.estadio,
+        fechaPartido: datos.fechaPartido,
+        idTorneo: datos.idTorneo,
+      };
+      if (Object.keys(datos).length > 0) {
+        setEnfrentamiento(auxEnfrentamiento);
+      }
+    }
     return () => {};
-  }, [enfrentamiento, enfrentamiento.resultadoLocal, enfrentamiento.resultadoVisitante]);
+  }, [equipos.length, datos, equipos]);
 
   return (
     <div
@@ -147,7 +191,7 @@ const TarjetaEnfrentamiento = ({
               onClick={() => habilitarEdicionTarjetaEnfrentamiento()}
             ></FiEdit3>
             <MdDeleteForever
-              /* onClick={() => consultaPorEliminarGaleria()} */
+              onClick={() => funcionEliminarEnfrentamiento(datos._id)}
               className="iconoAcción-TarjetaEnfrentamiento"
             />
           </div>
@@ -173,7 +217,7 @@ const TarjetaEnfrentamiento = ({
           <div className="componente-InfoPartido">
             <InfoPartido
               isSoloTitulo={true}
-              fecha={enfrentamiento.fecha}
+              fecha={datos.fechaPorJugar}
               siguientePartido={siguientePartido}
             ></InfoPartido>
           </div>
@@ -183,7 +227,7 @@ const TarjetaEnfrentamiento = ({
           {!isSeccionInicio && (
             <React.Fragment>
               <p className="Zona-TarjetaEnfrentamiento">
-                {datos.idZona.nombreZona ? datos.idZona.nombreZona : 'Zona'}
+                {zona.nombreZona ? zona.nombreZona : 'Zona'}
               </p>
 
               {isCampoDeEdicion.isEstadio ? (
@@ -197,12 +241,32 @@ const TarjetaEnfrentamiento = ({
                 />
               ) : (
                 <p tabIndex="0" onFocus={() => habilitarCampoParaEdicion('estadio')}>
-                  {estadio ? estadio : 'Estadio'}
+                  {enfrentamiento.estadio ? enfrentamiento.estadio : 'Estadio'}
                 </p>
               )}
             </React.Fragment>
           )}
-
+          {!isSeccionInicio &&
+            (isCampoDeEdicion.isFechaPartido ? (
+              <CampoDeEdicion
+                name="fechaPartido"
+                type="text"
+                min="0"
+                max="30"
+                isCampoDeEdicion={true}
+                respuestaDeComponente={escucharCambios}
+              />
+            ) : (
+              <p
+                name="fechaPartido"
+                tabIndex="0"
+                onFocus={() => habilitarCampoParaEdicion('fechaPartido')}
+              >
+                {enfrentamiento.fechaPartido
+                  ? formatearFechaUTC(enfrentamiento.fechaPartido)
+                  : 'Fecha de Partido'}
+              </p>
+            ))}
           <div className="CI-Resultados">
             {!isSeccionInicio && isCampoDeEdicion.isLocal ? (
               <CampoDeEdicion
@@ -215,7 +279,7 @@ const TarjetaEnfrentamiento = ({
               />
             ) : (
               <h3 tabIndex="0" onFocus={() => habilitarCampoParaEdicion('local')}>
-                {resultadoLocal ? resultadoLocal : '0'}
+                {enfrentamiento.resultadoLocal ? enfrentamiento.resultadoLocal : '0'}
               </h3>
             )}
             <h3>-</h3>
@@ -234,35 +298,53 @@ const TarjetaEnfrentamiento = ({
                 tabIndex="0"
                 onFocus={() => habilitarCampoParaEdicion('visitante')}
               >
-                {resultadoVisitante ? resultadoVisitante : '0'}
+                {enfrentamiento.resultadoVisitante ? enfrentamiento.resultadoVisitante : '0'}
               </h3>
             )}
           </div>
-          {!isSeccionInicio &&
-            (isCampoDeEdicion.isFechaPartido ? (
-              <CampoDeEdicion
-                name="fechaPartido"
-                type="text"
-                min="0"
-                max="30"
-                isCampoDeEdicion={true}
-                respuestaDeComponente={escucharCambios}
-              />
-            ) : (
-              <p
-                name="visitante"
-                tabIndex="0"
-                onFocus={() => habilitarCampoParaEdicion('fechaPartido')}
-              >
-                {resultadoVisitante ? resultadoVisitante : 'Fecha de Partido'}
-              </p>
-            ))}
-
-          {Object.keys(enfrentamiento).length > 0 && enfrentamiento.penalesLocal.length !== 0 ? (
-            <p>Penales</p>
+          {!isSeccionInicio && isCampoDeEdicion.isPenales ? (
+            <div className="CI-Penales-TarjetaEnfrentamiento">
+              {isCampoDeEdicion.isPenalesLocal ? (
+                <CampoDeEdicion
+                  name="penalesLocal"
+                  type="number"
+                  min="0"
+                  max="30"
+                  isCampoDeEdicion={true}
+                  respuestaDeComponente={escucharCambios}
+                />
+              ) : (
+                <p tabIndex="0" onFocus={() => habilitarCampoParaEdicion('penalesLocal')}>
+                  Penales Local
+                </p>
+              )}
+              -
+              {isCampoDeEdicion.isPenalesVisitante ? (
+                <CampoDeEdicion
+                  name="penalesVisitante"
+                  type="number"
+                  min="0"
+                  max="30"
+                  isCampoDeEdicion={true}
+                  respuestaDeComponente={escucharCambios}
+                />
+              ) : (
+                <p tabIndex="0" onFocus={() => habilitarCampoParaEdicion('penalesVisitante')}>
+                  Penales Visitante
+                </p>
+              )}
+            </div>
           ) : (
-            ''
+            <p
+              name="penales"
+              tabIndex="0"
+              onFocus={() => habilitarCampoParaEdicion('penales')}
+              className=""
+            >
+              {enfrentamiento.penalesLocal ? enfrentamiento.penalesLocal : 'Penales'}
+            </p>
           )}
+
           {!isSeccionInicio && isCampoDeEdicion.isComentarios ? (
             <CampoDeEdicion
               name="comentarios"
@@ -279,35 +361,36 @@ const TarjetaEnfrentamiento = ({
               onFocus={() => habilitarCampoParaEdicion('comentarios')}
               className="comentarios"
             >
-              {comentarios ? comentarios : 'Comentarios'}
+              {enfrentamiento.comentarios ? enfrentamiento.comentarios : 'Comentarios'}
             </p>
           )}
         </div>
         <div className="equipo-Local">
-          {Object.keys(enfrentamiento).length > 0 && enfrentamiento.equipoLocal.escudo ? (
-            <img alt="" src={enfrentamiento.equipoLocal.escudo}></img>
+          {enfrentamiento.equipoLocal ? (
+            <img alt="" src={urlEscudos + enfrentamiento.equipoLocal.escudo}></img>
           ) : (
-            <Cargando></Cargando>
+            <img alt="" src={escudo_generico}></img>
           )}
         </div>
         <div className="equipo-Visitante">
-          {Object.keys(enfrentamiento).length > 0 && enfrentamiento.equipoVisitante.escudo ? (
-            <img alt="" src={enfrentamiento.equipoVisitante.escudo}></img>
+          {enfrentamiento.equipoVisitante ? (
+            <img alt="" src={urlEscudos + enfrentamiento.equipoVisitante.escudo}></img>
           ) : (
-            <Cargando></Cargando>
+            <img alt="" src={escudo_generico}></img>
           )}
         </div>
         <div className="nombre-Equipo-Local">
           <p>
-            {Object.keys(enfrentamiento).length > 0 ? enfrentamiento.equipoLocal.nombreClub : '-'}
+            {enfrentamiento.equipoLocal && enfrentamiento.equipoLocal.escudos
+              ? enfrentamiento.equipoLocal.nombreClub
+              : 'El show del futsal'}
           </p>
         </div>
         <div className="nombre-Equipo-Visitante">
           <p className="textoContenido">
-            {' '}
-            {Object.keys(enfrentamiento).length > 0
+            {enfrentamiento.equipoLocal && enfrentamiento.equipoVisitante.nombreClub
               ? enfrentamiento.equipoVisitante.nombreClub
-              : '-'}
+              : 'El show del futsal'}
           </p>
         </div>
       </div>

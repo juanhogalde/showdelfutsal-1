@@ -1,16 +1,20 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {BsPlusCircle} from 'react-icons/bs';
 import {useDispatch, useSelector} from 'react-redux';
-import {/* useHistory,  */ useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {
   equiposPorSubcategoriaDefault_accion,
   equiposPorSubcategoria_accion,
-  listarEquipos_accion,
 } from '../../Redux/Equipos/AccionesEquipos';
 import {
   actualizarListaTorneosAgregarEquiposZona_accion,
+  actualizarListaTorneosEliminarEquiposZona_accion,
   agregarEquiposZonaTorneoDefault_accion,
   agregarEquiposZonaTorneo_accion,
+  eliminarEquipoDeZonaConsulta_accion,
+  eliminarEquipoDeZonaDefault_accion,
+  eliminarEquipoDeZona_accion,
+  estadoComponenteAgregarEquipo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 import BotonLowa from '../BotonLowa/BotonLowa';
@@ -19,45 +23,61 @@ import TarjetaEquipo from '../TarjetaEquipo/TarjetaEquipo';
 import './AgregarEquipos.css';
 
 const AgregarEquipos = () => {
-  /*  const history = useHistory(); */
+  const history = useHistory();
   const {zonaId} = useParams();
   const dispatch = useDispatch();
-  const {torneo, isAgregarEquiposZona} = useSelector(state => state.storeTorneos);
-  /* const zonaTorneo = torneo.zonas.find(zona => zona._id === zonaId); */
+  const {torneo, isAgregarEquiposZona, isEliminarEquipoZona, isVerificarAgregarEquipo} =
+    useSelector(state => state.storeTorneos);
   const {equipos, isListarEquipos} = useSelector(state => state.storeEquipos);
 
   const [arrayEquipos, setArrayEquipos] = useState([]);
-  const [equipoSeleccionado, setEquipoSeleccionado] = useState('');
+  /*  const [equipoSeleccionado, setEquipoSeleccionado] = useState(''); */
   const [equiposAgregados, setEquiposAgregados] = useState([]);
   const [nuevosEquipos, setNuevosEquipos] = useState([]);
   const [isNuevosEquipos, setIsNuevosEquipos] = useState(false);
   const [zonaTorneo, setZonaTorneo] = useState();
-  /* const [isDatosCargados, setIsDatosCargados] = useState(false); */
+  const [isGuardarCambios, setIsGuardarCambios] = useState({
+    tipo: '',
+    isMostrar: false,
+    mensaje: '',
+  });
+
+  const escucharSelectorEquipos = respuesta => {
+    let auxArrayEquipos = arrayEquipos.filter(equipo => equipo.value !== respuesta.value);
+    setArrayEquipos(auxArrayEquipos);
+    /* setEquipoSeleccionado(respuesta); */
+    setNuevosEquipos([...nuevosEquipos, respuesta.data]);
+    setIsNuevosEquipos(true);
+  };
 
   const agregarEquipoZona = () => {
     let auxEquiposId = nuevosEquipos.map(equipo => {
       return equipo._id;
     });
-
     dispatch(agregarEquiposZonaTorneo_accion(zonaId, auxEquiposId));
-  };
-  const escucharSelectorEquipos = respuesta => {
-    let auxArrayEquipos = arrayEquipos.filter(equipo => equipo.value !== respuesta.value);
-    setArrayEquipos(auxArrayEquipos);
-    setEquipoSeleccionado(respuesta);
-    setNuevosEquipos([...nuevosEquipos, respuesta.data]);
-    setIsNuevosEquipos(true);
   };
 
   const crearEnfrentamiento = () => {
     console.log('revisar redireccionamiento');
     /* history.push('/Enfrentamientos'); */
   };
-  const funcionEliminarEquipo = equipoId => {
-    console.log(equiposAgregados);
-    let auxEquiposAgregados = equiposAgregados.filter(equipo => equipo._id !== equipoId);
-    setEquiposAgregados(auxEquiposAgregados);
+
+  const consultaPorEliminarEquipo = (equipoId, isEquipoNuevo) => {
+    dispatch(eliminarEquipoDeZonaConsulta_accion(equipoId, isEquipoNuevo));
   };
+
+  const funcionEliminarEquipo = () => {
+    if (isEliminarEquipoZona.isNuevo) {
+      let auxNuevosEquipos = nuevosEquipos.filter(
+        equipo => equipo._id !== isEliminarEquipoZona.idEquipo
+      );
+      setNuevosEquipos(auxNuevosEquipos);
+      dispatch(eliminarEquipoDeZonaDefault_accion());
+    } else {
+      dispatch(eliminarEquipoDeZona_accion(zonaTorneo._id, isEliminarEquipoZona.idEquipo));
+    }
+  };
+
   const respuestaDeAlertaAgregarEquipos = respuesta => {
     if (respuesta) {
       if (isAgregarEquiposZona.tipo === 'success') {
@@ -72,61 +92,121 @@ const AgregarEquipos = () => {
       dispatch(agregarEquiposZonaTorneoDefault_accion());
     }
   };
+
   const respuestaDeAlertaObtenerEquiposPorSubcategoria = () => {
     dispatch(equiposPorSubcategoriaDefault_accion());
   };
+
+  const respuestaDeAlertaGuardarCambios = respuesta => {
+    setIsGuardarCambios({
+      isMostrar: false,
+      tipo: '',
+      mensaje: '',
+    });
+    if (respuesta) {
+      agregarEquipoZona();
+    } else {
+      history.goBack();
+    }
+  };
+
+  const respuestaDeAlertaEliminarEquipo = respuesta => {
+    if (respuesta) {
+      if (isEliminarEquipoZona.tipo === 'warning') {
+        funcionEliminarEquipo();
+      }
+      if (isEliminarEquipoZona.tipo === 'success') {
+        let auxListaEquipos = equiposAgregados.filter(
+          equipo => equipo._id !== isEliminarEquipoZona.idEquipo
+        );
+        setEquiposAgregados(auxListaEquipos);
+        dispatch(actualizarListaTorneosEliminarEquiposZona_accion());
+      }
+      if (isEliminarEquipoZona.tipo === 'error') {
+        dispatch(eliminarEquipoDeZonaDefault_accion());
+      }
+    } else {
+      dispatch(eliminarEquipoDeZonaDefault_accion());
+    }
+  };
   useLayoutEffect(() => {
-    if (zonaTorneo) {
-      if (equipos.length === 0)
-        dispatch(equiposPorSubcategoria_accion(zonaTorneo.idSubcategoria.keySubcategoria));
+    let auxZona = torneo.zonas.find(zona => zona._id === zonaId);
+
+    if (!zonaTorneo) {
+      setZonaTorneo(auxZona);
+      if (equipos.length === 0) {
+        dispatch(equiposPorSubcategoria_accion(auxZona.idSubcategoria.keySubcategoria));
+      }
+    } else {
+      if (auxZona.equipos.length > zonaTorneo.equipos.length) {
+        setZonaTorneo(auxZona);
+      }
     }
 
-    /* ELIMINAR AL FINALIZAR IMPLEMENTACIÓN EQUIPOS POR SUBCATEGORIA */
-    /* if (equipos.length === 0) {
-      dispatch(listarEquipos_accion());
-    } */
-
-    if (Object.keys(torneo).length > 0) {
-      let auxZona = torneo.zonas.find(
-        zona => zona._id === zonaId
-      ); /* Recuperar zona de torneo, zonaId parámetro de rutas */
-      setZonaTorneo(auxZona);
+    if (equipos.length > 0) {
+      if (arrayEquipos.length === 0) {
+        let auxEquipos = equipos.map((equipo, index) => {
+          return {
+            label: equipo.nombreClub,
+            value: index + 1,
+            data: equipo,
+          };
+        });
+        setArrayEquipos(auxEquipos);
+      }
+    }
+    if (zonaTorneo) {
       let auxEquipos = [];
-      if (auxZona.equipos.length > 0) {
-        auxZona.equipos.forEach(equipoZona => {
+      if (zonaTorneo.equipos.length > 0) {
+        if (
+          zonaTorneo.equipos.length ===
+          torneo.zonas.find(zona => zona._id === zonaId).equipos.length
+        ) {
+          zonaTorneo.equipos.forEach(equipoZona => {
+            let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
+            auxEquipos.push(aux);
+          });
+          setEquiposAgregados(auxEquipos);
+        }
+
+        /* zonaTorneo.equipos.forEach(equipoZona => {
           let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
           auxEquipos.push(aux);
         });
-        setEquiposAgregados(auxEquipos);
-      } else {
-        if (equipos.length > 0) {
-          let auxEquipos = equipos.map((equipo, index) => {
-            return {
-              label: equipo.nombreClub,
-              value: index + 1,
-              data: equipo,
-            };
-          });
-          setArrayEquipos(auxEquipos);
-        }
+        setEquiposAgregados(auxEquipos); */
       }
     }
-  }, [torneo, zonaId, equipos, dispatch, zonaTorneo]);
-
-  /* useEffect(() => {
-    if (equipos.length > 0) {
-      let auxEquipos = equipos.map((equipo, index) => {
-        return {
-          label: equipo.nombreClub,
-          value: index + 1,
-          data: equipo,
-        };
-      });
-      setArrayEquipos(auxEquipos);
+    if (isVerificarAgregarEquipo) {
+      if (nuevosEquipos.length > 0) {
+        setIsGuardarCambios({
+          isMostrar: true,
+          tipo: 'warning',
+          mensaje: '¿Desea guardar los cambios?',
+        });
+        dispatch(estadoComponenteAgregarEquipo_accion(false));
+      } else {
+        dispatch(estadoComponenteAgregarEquipo_accion(false));
+        history.goBack();
+      }
     }
+  }, [
+    zonaTorneo,
+    torneo.zonas,
+    zonaId,
+    dispatch,
+    equipos,
+    isVerificarAgregarEquipo,
+    nuevosEquipos.length,
+    arrayEquipos.length,
+    history,
+  ]);
 
-    return () => {};
-  }, [equipos]); */
+  useEffect(() => {
+    return () => {
+      dispatch(equiposPorSubcategoriaDefault_accion());
+    };
+  }, [dispatch]);
+
   return (
     <div className="CP-AgregarEquipos">
       <p>Agregar Equipos</p>
@@ -140,11 +220,11 @@ const AgregarEquipos = () => {
         options={arrayEquipos ? arrayEquipos : []}
         noOptionsMessage={'No hay equipos cargados.'}
         onChange={value => escucharSelectorEquipos(value)}
-        opcionSeleccionada={equipoSeleccionado ? equipoSeleccionado : ''}
+        /* opcionSeleccionada={equipoSeleccionado ? equipoSeleccionado : ''} */
       ></Selector>
       <BotonLowa
         disabled={nuevosEquipos.length > 0 ? false : true}
-        tituloboton="Agregar"
+        tituloboton="Guardar Cambios"
         onClick={() => agregarEquipoZona()}
       ></BotonLowa>
       <BotonLowa
@@ -159,7 +239,8 @@ const AgregarEquipos = () => {
             <TarjetaEquipo
               key={index}
               equipo={equipo}
-              funcionEliminarEquipo={funcionEliminarEquipo}
+              isNuevo={true}
+              funcionEliminarEquipo={consultaPorEliminarEquipo}
             ></TarjetaEquipo>
           );
         })}
@@ -170,7 +251,8 @@ const AgregarEquipos = () => {
             <TarjetaEquipo
               key={index}
               equipo={equipo}
-              funcionEliminarEquipo={funcionEliminarEquipo}
+              isNuevo={false}
+              funcionEliminarEquipo={consultaPorEliminarEquipo}
             ></TarjetaEquipo>
           );
         })}
@@ -181,10 +263,22 @@ const AgregarEquipos = () => {
         RespuestaDeSweet={respuestaDeAlertaObtenerEquiposPorSubcategoria}
       ></Alertas>
       <Alertas
+        mostrarSweet={isGuardarCambios.isMostrar}
+        tipoDeSweet={isGuardarCambios.tipo}
+        subtitulo={isGuardarCambios.mensaje}
+        RespuestaDeSweet={respuestaDeAlertaGuardarCambios}
+      ></Alertas>
+      <Alertas
         mostrarSweet={isAgregarEquiposZona.isMostrar}
         tipoDeSweet={isAgregarEquiposZona.tipo}
         subtitulo={isAgregarEquiposZona.mensaje}
         RespuestaDeSweet={respuestaDeAlertaAgregarEquipos}
+      ></Alertas>
+      <Alertas
+        mostrarSweet={isEliminarEquipoZona.isMostrar}
+        tipoDeSweet={isEliminarEquipoZona.tipo}
+        subtitulo={isEliminarEquipoZona.mensaje}
+        RespuestaDeSweet={respuestaDeAlertaEliminarEquipo}
       ></Alertas>
     </div>
   );

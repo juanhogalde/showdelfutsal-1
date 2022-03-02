@@ -2,7 +2,6 @@ import React from 'react';
 import './PaginaSomos.css';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
 /* import foto from '../../Static/Img/fotos_somos.png'; */
-import foto from '../../Static/Img/ImgSomos/05.jpeg';
 import foto2 from '../../Static/Img/ImgSomos/03.jpeg';
 /* import foto2 from '../../Static/Img/foto2.jpg'; */
 import frase from '../../Static/Img/titulo_somos.png';

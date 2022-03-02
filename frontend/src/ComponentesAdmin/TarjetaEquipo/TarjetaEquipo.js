@@ -9,6 +9,7 @@ const TarjetaEquipo = ({
   funcionEliminarEquipo = () => {
     console.log('');
   },
+  isNuevo = false,
 }) => {
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
@@ -19,7 +20,6 @@ const TarjetaEquipo = ({
   const ocultarAcciones = () => {
     setIsAcciones(false);
   };
-  console.log(equipo);
   return (
     <div className="CP-Tarjeta">
       <div className="CI-Cuerpo-Tarjeta">
@@ -46,7 +46,7 @@ const TarjetaEquipo = ({
       >
         <MdDeleteForever
           className={' iconoAcción-ListaImagenes'}
-          onClick={() => funcionEliminarEquipo(equipo._id)}
+          onClick={() => funcionEliminarEquipo(equipo._id, isNuevo)}
         />
       </div>
     </div>

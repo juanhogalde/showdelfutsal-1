@@ -73,6 +73,16 @@ export const actualizarListaTorneosAgregarEquiposZona = 'actualizarListaTorneosA
 export const agregarEquiposZonaTorneoError = 'agregarEquiposZonaTorneoError';
 export const agregarEquiposZonaTorneoDefault = 'agregarEquiposZonaTorneoDefault';
 
+export const estadoComponenteAgregarEquipo = 'estadoComponenteAgregarEquipo';
+
+export const eliminarEquipoDeZonaConsulta = 'eliminarEquipoDeZonaConsulta';
+export const eliminarEquipoDeZonaCargando = 'eliminarEquipoDeZonaCargando';
+export const eliminarEquipoDeZonaExito = 'eliminarEquipoDeZonaExito';
+export const eliminarEquipoDeZonaError = 'eliminarEquipoDeZonaError';
+export const eliminarEquipoDeZonaDefault = 'eliminarEquipoDeZonaDefault';
+export const actualizarListaTorneosEliminarEquiposZona =
+  'actualizarListaTorneosEliminarEquiposZona';
+
 export const volverPorDefectoUnTorneo_accion = () => {
   return {
     type: volverPorDefectoUnTorneo,
@@ -561,7 +571,6 @@ export const obtenerTorneo_accion = id => {
 };
 /* ELIMINAR TODAS LAS ZONAS DE UNA SUBCATEGORÍA DE TORNEO */
 export const consultarEliminarZonasDeTorneo_accion = subcategoria => {
-  console.log(subcategoria);
   return {
     type: consultarEliminarZonasDeTorneo,
     idSubcategoria: subcategoria,
@@ -594,9 +603,6 @@ export const eliminarZonasDeTorneoDefault_accion = () => {
   };
 };
 export const eliminarZonasDeTorneo_accion = (torneoId, subcategoriaId) => {
-  console.log(torneoId);
-  console.log(subcategoriaId);
-
   return dispatch => {
     dispatch(eliminarZonasDeTorneoCargando_accion());
     API({
@@ -605,7 +611,6 @@ export const eliminarZonasDeTorneo_accion = (torneoId, subcategoriaId) => {
       data: {idTorneo: torneoId, idSubcategoria: `${subcategoriaId}`},
     })
       .then(res => {
-        console.log({res});
         dispatch(eliminarZonasDeTorneoExito_accion(subcategoriaId));
       })
       .catch(error => {
@@ -661,23 +666,69 @@ export const agregarEquiposZonaTorneo_accion = (zonaId, equiposId) => {
   };
 };
 
-/* OBTENER EQUIPOS DE ZONA */
+/* ELIMINAR EQUIPO DE ZONA DE TORNEO */
+export const eliminarEquipoDeZonaConsulta_accion = (equipoId, isEquipoNuevo) => {
+  return {
+    type: eliminarEquipoDeZonaConsulta,
+    idEquipo: equipoId,
+    isNuevo: isEquipoNuevo,
+  };
+};
+export const eliminarEquipoDeZonaCargando_accion = () => {
+  return {
+    type: eliminarEquipoDeZonaCargando,
+  };
+};
+export const eliminarEquipoDeZonaExito_accion = (nuevaZona, equipoEliminado) => {
+  return {
+    type: eliminarEquipoDeZonaExito,
+    zona: nuevaZona,
+    equipoId: equipoEliminado,
+  };
+};
+export const actualizarListaTorneosEliminarEquiposZona_accion = () => {
+  return {
+    type: actualizarListaTorneosEliminarEquiposZona,
+  };
+};
+export const eliminarEquipoDeZonaError_accion = () => {
+  return {
+    type: eliminarEquipoDeZonaError,
+  };
+};
 
-export const obtenerEquiposDeZona_accion = zonaId => {
+export const eliminarEquipoDeZonaDefault_accion = () => {
+  return {
+    type: eliminarEquipoDeZonaDefault,
+  };
+};
+
+export const eliminarEquipoDeZona_accion = (zonaId, equipoId) => {
   return dispatch => {
-    dispatch(agregarEquiposZonaTorneoCargando_accion());
+    dispatch(eliminarEquipoDeZonaCargando_accion());
     API({
-      url: 'zonas/obtenerEquiposPorZona',
-      method: 'get',
-      data: {_id: zonaId},
+      url: 'zonas/eliminarEquipo',
+      method: 'delete',
+      data: {
+        idEquipo: equipoId,
+        _id: zonaId,
+      },
     })
       .then(res => {
-        console.log({res});
-        /* dispatch(agregarEquiposZonaTorneoExito_accion(res.data.value)); */
+        dispatch(eliminarEquipoDeZonaExito_accion(res.data.value, equipoId));
       })
       .catch(error => {
         console.log({error});
-        /*  dispatch(agregarEquiposZonaTorneoError_accion()); */
+        dispatch(eliminarEquipoDeZonaError_accion());
       });
+  };
+};
+
+/* VERIFICAR ESTADO DE COMPONENTE AGREGAR EQUIPOS EN TORNEO */
+
+export const estadoComponenteAgregarEquipo_accion = isVerificar => {
+  return {
+    type: estadoComponenteAgregarEquipo,
+    data: isVerificar,
   };
 };

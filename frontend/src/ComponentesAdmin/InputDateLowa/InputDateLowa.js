@@ -1,12 +1,20 @@
 import React, {useLayoutEffect, useState} from 'react';
 import './InputDateLowa.css';
 import {FaRegCalendarAlt} from 'react-icons/fa';
-const InputDateLowa = props => {
-  const {type, placeholder, onChange, required, value, name, id} = props;
-
+import {AiOutlineClose} from 'react-icons/ai';
+const InputDateLowa = ({type, placeholder, onChange, required, value, name, id}) => {
   const [inputDateValue, setInputDateValue] = useState('');
   const obtenerValue = e => {
     setInputDateValue(e.target.value);
+  };
+  const valorPorDefecto = () => {
+    setInputDateValue('');
+  };
+  const formatearFechaUTC = dato => {
+    let fecha = new Date(dato);
+    return `${fecha.getUTCDate()}/${
+      fecha.getUTCMonth() < 10 ? `0${fecha.getUTCMonth()}` : fecha.getUTCMonth()
+    }/${fecha.getUTCFullYear()}`;
   };
   useLayoutEffect(() => {
     if (value) {
@@ -39,9 +47,18 @@ const InputDateLowa = props => {
         min={`${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`}
       ></input>
       <div className="value-InputDateLowa">
-        {inputDateValue && `${inputDateValue}`}
+        {inputDateValue &&
+          `${
+            type === 'datetime-local'
+              ? `${formatearFechaUTC(inputDateValue)} ${inputDateValue.split('T')[1]}Hs `
+              : inputDateValue
+          }`}
         <span className="inputDate-Icono-Lowa">
-          <FaRegCalendarAlt />
+          {inputDateValue ? (
+            <AiOutlineClose className="icon-ResetValue" onClick={() => valorPorDefecto()} />
+          ) : (
+            <FaRegCalendarAlt />
+          )}
         </span>
       </div>
     </div>

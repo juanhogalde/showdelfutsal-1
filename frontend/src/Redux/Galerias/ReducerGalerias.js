@@ -180,7 +180,6 @@ const storeGalerias = (state = galeriaPorDefecto, accion) => {
       };
     }
     case actualizarListaDeGalerias: {
-      console.log(state.isEliminarGaleria.id);
       let auxGalerias = state.galerias.filter(
         galeria => galeria._id !== state.isEliminarGaleria.id
       );
