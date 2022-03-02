@@ -21,7 +21,7 @@ const Login = () => {
     });
   };
   const iniciarSesion = event => {
-    if ((event && event == 'click') || event.key === 'Enter') {
+    if ((event && event === 'click') || event.key === 'Enter') {
       dispatch(login(valueInput));
     }
   };

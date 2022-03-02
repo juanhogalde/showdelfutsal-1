@@ -39,36 +39,33 @@ const TarjetaEnfrentamiento = ({
   const [isAcciones, setIsAcciones] = useState(false);
   const elementoAcciones = useRef();
   /* TODO: Revisar si son necesarios */
-  const [resultadoLocal, setResultadoLocal] = useState(0);
-  const [resultadoVisitante, setResultadoVisitante] = useState(0);
-  const [estadio, setEstadio] = useState('Estadio');
-  const [comentarios, setComentarios] = useState('');
-  const [penales, setPenales] = useState();
+  // const [resultadoLocal, setResultadoLocal] = useState(0);
+  // const [resultadoVisitante, setResultadoVisitante] = useState(0);
+  // const [estadio, setEstadio] = useState('Estadio');
+  // const [comentarios, setComentarios] = useState('');
 
   const escucharCambios = (name, value, isMostrarCampoDeEdicion) => {
-    console.log(name);
-    console.log(value);
     setIsCampoDeEdicion(isMostrarCampoDeEdicion);
-    switch (name) {
-      case 'resultadoLocal':
-        setResultadoLocal(value);
-        break;
-      case 'resultadoVisitante':
-        setResultadoVisitante(value);
-        break;
-      case 'comentarios':
-        setComentarios(value);
-        break;
-      case 'estadio':
-        setEstadio(value);
-        break;
-      case 'fechaPartido':
-        setEstadio(value);
-        break;
+    // switch (name) {
+    //   case 'resultadoLocal':
+    //     setResultadoLocal(value);
+    //     break;
+    //   case 'resultadoVisitante':
+    //     setResultadoVisitante(value);
+    //     break;
+    //   case 'comentarios':
+    //     setComentarios(value);
+    //     break;
+    //   case 'estadio':
+    //     setEstadio(value);
+    //     break;
+    //   case 'fechaPartido':
+    //     setEstadio(value);
+    //     break;
 
-      default:
-        break;
-    }
+    //   default:
+    //     break;
+    // }
   };
   const habilitarCampoParaEdicion = campo => {
     switch (campo) {
