@@ -281,6 +281,15 @@ let incializarMedidasPublicitarias = async () => {
       keyMedidas: 12,
       disponible: true,
     },
+    {
+      _id: '13',
+      ancho: 245,
+      alto: 245,
+      ubicacion: 'cuadrado',
+      direccion: 'Desarrollada->Noticia->Derecha->Inferior',
+      keyMedidas: 13,
+      disponible: true,
+    },
   ];
 
   for await (const medida of medidaArreglo) {

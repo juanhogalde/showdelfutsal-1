@@ -20,6 +20,7 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
     const elemento = document.getElementById('noticiaDesarrollada');
     elemento.scrollIntoView();
     let publicidadCuardadaDerecha;
+    let publicidadCuardadaDerechaInferior;
     let publicidadHorizontalInferior;
     publicidades.forEach(publicidad => {
       switch (publicidad.idMedidas[0].keyMedidas) {
@@ -33,6 +34,11 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
             publicidadHorizontalInferior = publicidad;
           }
           break;
+        case 13:
+          if (publicidad.isActiva) {
+            publicidadCuardadaDerechaInferior = publicidad;
+          }
+          break;
         default:
           break;
       }
@@ -40,6 +46,7 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
     setPublicaciones({
       publicidadCuardadaDerecha: publicidadCuardadaDerecha,
       publicidadHorizontalInferior: publicidadHorizontalInferior,
+      publicidadCuardadaDerechaInferior: publicidadCuardadaDerechaInferior,
     });
   }, [publicidades]);
   const enfocarNoticia = () => {
@@ -91,6 +98,16 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
                 }
               />
             )}
+          </div>
+          <div className="I-ND-Publicidad-corta-inferior">
+            <img
+              alt=""
+              src={
+                publicaciones?.publicidadCuardadaDerechaInferior
+                  ? server + publicaciones.publicidadCuardadaDerechaInferior.idImagen[0].fuente
+                  : publicidadCorta
+              }
+            ></img>
           </div>
         </div>
 
