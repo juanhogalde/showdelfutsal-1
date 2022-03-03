@@ -49,7 +49,7 @@ export const actializarMedidasPublicidades_Accion = datos => {
 export const guardarPublicidad = datosCargados => {
   return dispatch => {
     var imagenPublicidad = new FormData();
-    imagenPublicidad.append('archivos', datosCargados.imagen[0]);
+    imagenPublicidad.append('archivos[]', datosCargados.imagen[0]);
     dispatch(cargandoPublicidad_accion('Guardando...'));
     API({
       url: '/imagenes/agregar',
@@ -57,8 +57,7 @@ export const guardarPublicidad = datosCargados => {
       data: imagenPublicidad,
     })
       .then(respuestaImagen => {
-        datosCargados.idImagen = respuestaImagen.data.value._id;
-        console.log(datosCargados);
+        datosCargados.idImagen = respuestaImagen.data.value;
         API({
           url: '/anuncios/agregar',
           method: 'post',
