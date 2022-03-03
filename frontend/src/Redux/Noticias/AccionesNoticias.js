@@ -210,7 +210,7 @@ export const editarNoticia_accion = (noticiaModelada, datosCargados) => {
   return dispatch => {
     if (datosCargados.imagen && datosCargados.imagen[0].type) {
       var imagenNoticia = new FormData();
-      imagenNoticia.append('archivos', datosCargados.imagen[0]);
+      imagenNoticia.append('archivos[]', datosCargados.imagen[0]);
       dispatch(cargandoEditarNoticia_accion('Editnado...'));
       API({
         url: '/imagenes/agregar',
@@ -218,7 +218,7 @@ export const editarNoticia_accion = (noticiaModelada, datosCargados) => {
         data: imagenNoticia,
       })
         .then(res => {
-          noticiaModelada.idImagen = res.data.value._id;
+          noticiaModelada.idImagen = res.data.value;
           API({
             url: '/Noticias/modificar',
             method: 'put',
