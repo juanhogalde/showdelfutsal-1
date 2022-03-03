@@ -112,7 +112,7 @@ const PaginaNoticias = ({
           subcategoriaNoticia={-1}
         />
       </div>
-      <div className="publicidad-Noticias">
+      <div className="publicidad-ComponenteNoticias">
         <img
           alt=""
           src={publicidadAbajoGaleriaMasculino ? publicidadAbajoGaleriaMasculino : publicidadLarga}
@@ -126,7 +126,7 @@ const PaginaNoticias = ({
           categoriaNoticia={2}
           subcategoriaNoticia={-1}
         />
-        <div className="publicidad-Noticias">
+        <div className="publicidad-ComponenteNoticias">
           <img
             alt=""
             src={publicidadAbajoGaleriaFemenino ? publicidadAbajoGaleriaFemenino : publicidadLarga}
@@ -181,7 +181,7 @@ const PaginaNoticias = ({
           </div>
         </div>
       </div>
-      <div className="publicidad-Noticias">
+      <div className="publicidad-ComponenteNoticias">
         <img
           alt=""
           src={publicidadAbajoGaleriaLNFA ? publicidadAbajoGaleriaLNFA : publicidadLarga}
