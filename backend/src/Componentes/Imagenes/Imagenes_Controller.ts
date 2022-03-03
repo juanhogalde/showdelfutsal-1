@@ -19,30 +19,52 @@ class ImagenesController {
     try {
       if (req.body.archivos.length) {
         let arregloDePath: Array<any> = [];
-        req.body.archivos.forEach(async (archivo: any) => {
-          let path: string = archivo.path;
+        for await (const archivo of req.body.archivos) {
+          let path: string = archivo.path.replace(/(\\)/g, '/');
+
           let imagen: IImagenes = new modeloImagenes({
             ...archivo,
-            _id: path.split('/')[2].toString(),
-            fuente: path.replace('public', '').replace('\\', '/').replace('\\', '/'),
-            galeria: true,
+            _id: path.split('/')[2],
+            fuente: path.replace('public', ''),
             descripcion: req.body.descripcion,
           });
-          arregloDePath.push(imagen);
-          await imagen.save();
-        });
+
+          await imagen
+            .save()
+            .then((imagenAgregada: any) => {
+              arregloDePath.push(imagenAgregada);
+            })
+            .catch(error => {
+              responder.error(
+                req,
+                res,
+                'No se pudo agregar la imagen',
+                'No se pudo agregar la imagen',
+                400
+              );
+            });
+        }
+        // req.body.archivos.forEach(async (archivo: any) => {
+        //   let path: string = archivo.path;
+        //   let imagen: IImagenes = new modeloImagenes({
+        //     ...archivo,
+        //     _id: path.split('/')[2].toString(),
+        //     fuente: path.replace('public', '').replace('\\', '/').replace('\\', '/'),
+        //     galeria: true,
+        //     descripcion: req.body.descripcion,
+        //   });
+        //   arregloDePath.push(imagen);
+        //   await imagen.save();
+        // });
         responder.sucess(req, res, arregloDePath);
       } else {
-        let path: string = req.body.archivos.path;
-
-        const imagen: IImagenes = new modeloImagenes({
-          ...req.body,
-          _id: path.split('/')[2].split('.')[0].toString(),
-          fuente: path.replace('public', '').replace('\\', '/').replace('\\', '/'),
-        });
-
-        await imagen.save();
-        responder.sucess(req, res, imagen);
+        responder.error(
+          req,
+          res,
+          'No se enviaron los archivos',
+          'No se enviaron los archivos',
+          400
+        );
       }
     } catch (error) {
       responder.error(req, res, error);
@@ -148,7 +170,6 @@ class ImagenesController {
       imagenNew.galeriaId = imagen.galeriaId;
       imagenNew.fechaCarga = new Date();
       const resultado = await imagenNew.save();
-
       return resultado;
     } catch (error) {
       return error;
