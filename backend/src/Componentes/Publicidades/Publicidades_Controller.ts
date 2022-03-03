@@ -45,29 +45,27 @@ class PublicidadesController {
 
   public async modificar(req: Request, res: Response) {
     try {
-      const publicidadBody = req.body;
-      if (publicidadBody._id) {
-        modeloPublicidades.findById(publicidadBody._id).then(async (publicidad: any) => {
-          if (publicidad) {
-            publicidad.nombrePublicidad = publicidadBody.nombrePublicidad;
-            // publicidad.ancho = publicidadBody.ancho;
-            // publicidad.alto = publicidadBody.alto;
-            publicidad.isActiva = publicidadBody.isActiva;
-            publicidad.idMedidas = publicidadBody.idMedidas;
-            // publicidad.ubicacion = publicidadBody.ubicacion;
-            // publicidad.direccion = publicidadBody.direccion;
-            publicidad.idImagen = publicidadBody.idImagen;
-
-            const resultado = await publicidad.save({new: true});
-            responder.sucess(req, res, {...publicidadBody, _id: resultado._id});
+      if (!req.body._id) {
+        responder.error(req, res, 'Falta id de publicidad', 'Falta id de publicidad', 400);
+      } else {
+        await modeloPublicidades.findById(req.body._id).then(async (publicidad: any) => {
+          if (!publicidad) {
+            responder.error(req, res, 'Publicidad no encontrada', 'Publicidad no encontrada', 400);
           } else {
-            let error = new Error('Publicidad no encontrada');
-            responder.error(req, res, error);
+            publicidad.nombrePublicidad = req.body.nombrePublicidad;
+            publicidad.isActiva = req.body.isActiva;
+            publicidad.idMedidas = req.body.idMedidas;
+            publicidad.idImagen = req.body.idImagen;
+            await publicidad
+              .save()
+              .then((publicidadEditada: any) => {
+                responder.sucess(req, res, publicidadEditada);
+              })
+              .catch((error: any) => {
+                responder.error(req, res, error, 'No se pudo guardar la publicidad', 400);
+              });
           }
         });
-      } else {
-        let error = new Error('Publicidad no encontrada');
-        responder.error(req, res, error);
       }
     } catch (error) {
       responder.error(req, res, error);
