@@ -29,7 +29,6 @@ class PublicidadesController {
       const resultado = await publicidad.save();
       responder.sucess(req, res, resultado);
     } catch (error) {
-      console.log(error);
       responder.error(req, res, error);
     }
   }
@@ -112,7 +111,6 @@ class PublicidadesController {
         }
       }
     } catch (error) {
-      console.log(error);
       responder.error(req, res);
     }
   }
