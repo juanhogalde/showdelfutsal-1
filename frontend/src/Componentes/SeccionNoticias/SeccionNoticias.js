@@ -17,7 +17,6 @@ const SeccionNoticias = ({
 }) => {
   const dispatch = useDispatch();
   const {noticias} = useSelector(state => state.storeNoticias);
-  console.log(noticias);
   const [noticiaVisualizada, setNoticiaVisualizada] = useState({});
   useLayoutEffect(() => {
     var noticiasAMostrar = {};
