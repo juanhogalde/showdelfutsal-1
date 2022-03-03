@@ -4,7 +4,8 @@ import './Inicio.css';
 import Filtros from '../Filtros/Filtros';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {useDispatch, useSelector} from 'react-redux';
-import publicidadLarga from '../../Static/Img/anuncio2_larga.jpg';
+import publicidadLarga2 from '../../Static/Img/anuncio2_larga.jpg';
+import publicidadLarga from '../../Static/Img/anuncio_larga.jpg';
 import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
 import Vivo from '../Vivo/Vivo';
 import SomosFrase from '../../Static/Img/frase_inicio.png';
@@ -69,6 +70,8 @@ const Inicio = () => {
     let publicidadPartidoDerecha1;
     let publicidadPartidoDerecha2;
     let publicidadNoticiaHorizontalBajo;
+    let publicidadNoticiaHorizontalBajoGaleria;
+    let publicidadNoticiaHorizontalBajoPartidos;
     let publicidadModalInicio;
     publicidades.forEach(publicidad => {
       switch (publicidad.idMedidas[0]?.keyMedidas) {
@@ -91,8 +94,20 @@ const Inicio = () => {
           if (publicidad.isActiva) {
             publicidadNoticiaHorizontalBajo = publicidad;
           }
-          break;
 
+          break;
+        case 8:
+          if (publicidad.isActiva) {
+            publicidadNoticiaHorizontalBajoPartidos = publicidad;
+          }
+
+          break;
+        case 9:
+          if (publicidad.isActiva) {
+            publicidadNoticiaHorizontalBajoGaleria = publicidad;
+          }
+
+          break;
         default:
           break;
       }
@@ -101,6 +116,8 @@ const Inicio = () => {
       partidoDerecha1: publicidadPartidoDerecha1,
       partidoDerecha2: publicidadPartidoDerecha2,
       noticiaHorizontalBajo: publicidadNoticiaHorizontalBajo,
+      publicidadNoticiaHorizontalBajoPartidos: publicidadNoticiaHorizontalBajoPartidos,
+      publicidadNoticiaHorizontalBajoGaleria: publicidadNoticiaHorizontalBajoGaleria,
       publicidadInicioModal: publicidadModalInicio,
     });
     // CARGA DE NOTICIAS
@@ -397,7 +414,7 @@ const Inicio = () => {
               </div>
             </div>
             <div className="CI-Publicidad-Vivo">
-              <img alt="" src={publicidadLarga}></img>
+              <img alt="" src={publicidadLarga2}></img>
             </div>
           </div>
         </div>
@@ -445,6 +462,16 @@ const Inicio = () => {
           </div>
         </div>
       </div>
+      <div className="publicidad-Noticias">
+        <img
+          alt=""
+          src={
+            publicaciones?.publicidadNoticiaHorizontalBajoPartidos
+              ? server + publicaciones.publicidadNoticiaHorizontalBajoPartidos.idImagen[0].fuente
+              : publicidadLarga
+          }
+        ></img>
+      </div>
       {/* SECCION NOTICIAS */}
       <div className="LI-Inicio seccion-noticias  Margen-Noticias">
         <div className="CP-Noticias">
@@ -471,6 +498,7 @@ const Inicio = () => {
               </Link>
             </div>
           </div>
+
           <div className="CI-NoticiasMini">
             <div className="noticia-Miniatura-1">
               <Link
@@ -508,8 +536,8 @@ const Inicio = () => {
                 publicaciones
                   ? publicaciones.noticiaHorizontalBajo
                     ? server + publicaciones.noticiaHorizontalBajo.idImagen[0].fuente
-                    : publicidadLarga
-                  : publicidadLarga
+                    : publicidadLarga2
+                  : publicidadLarga2
               }
             ></img>
           </div>
@@ -577,6 +605,17 @@ const Inicio = () => {
             ></ImagenesVideo>
           </div>
         </div>
+      </div>
+
+      <div className="publicidad-Noticias ">
+        <img
+          alt=""
+          src={
+            publicaciones?.publicidadNoticiaHorizontalBajoGaleria
+              ? server + publicaciones.publicidadNoticiaHorizontalBajoGaleria.idImagen[0].fuente
+              : publicidadLarga
+          }
+        ></img>
       </div>
 
       <PieDepagina isConFondo={true}></PieDepagina>
