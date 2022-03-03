@@ -109,7 +109,7 @@ export const volverPorDefecto_accion = () => {
 export const guardarNoticia_accion = (noticiaModelada, datosCargados) => {
   return dispatch => {
     var imagenNoticia = new FormData();
-    imagenNoticia.append('archivos', datosCargados.imagen[0]);
+    imagenNoticia.append('archivos[]', datosCargados.imagen[0]);
     dispatch(cargandoGuardarNoticia_accion('Guardando...'));
     API({
       url: '/imagenes/agregar',
@@ -117,7 +117,7 @@ export const guardarNoticia_accion = (noticiaModelada, datosCargados) => {
       data: imagenNoticia,
     })
       .then(res => {
-        noticiaModelada.idImagen = res.data.value._id;
+        noticiaModelada.idImagen = res.data.value;
         API({
           url: '/Noticias/agregar',
           method: 'post',
