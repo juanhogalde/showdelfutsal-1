@@ -230,12 +230,37 @@
   padding: 10px;
   /* border: 1px solid red; */
 }
+/*Publicidades*/
+
+.publicidad-ComponenteNoticias {
+  grid-column: 2/4;
+  grid-row: 4/5;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+}
+.publicidad-ComponenteNoticias img {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 @media only screen and (min-device-width: 1300px) and (max-width: 1024) {
   .CI-SN-Galeria-slider-liga {
     grid-column: 2/5;
     grid-row: 4/4;
     margin: 20px 20px 20px 20px;
     background-color: brown;
+  }
+  .publicidad-ComponenteNoticias {
+    grid-column: 1/5;
+    grid-row: 5/6;
+    padding-left: 50px;
+    padding-right: 50px;
   }
 }
 
@@ -252,11 +277,25 @@
   .CP-SN-Liga {
     padding: 10px;
   }
+  .publicidad-ComponenteNoticias {
+    grid-column: 1/5;
+    grid-row: 5/6;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
 }
 
 @media only screen and (min-device-width: 320px) and (max-width: 768px) {
   /* ----- CONTENEDOR PANEL FEMENINO  (MOVIL)----- */
-
+  .publicidad-ComponenteNoticias {
+    grid-column: 1/5;
+    grid-row: 6/7;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .publicidad-ComponenteNoticias img {
+    width: 100%;
+  }
   .CP-SN-Femenino {
     grid-template-columns: 3px 1fr 3px;
     grid-template-rows: 100px 1fr 1fr 200px;
