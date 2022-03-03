@@ -9,4 +9,4 @@ const MedidasPublicidadSchema = new Schema({
   keyMedidas: {type: Number},
   disponible: {type: Boolean, default: true},
 });
-export default model<IMedidasPublicidad>('modeloMedidasPublicidad', MedidasPublicidadSchema);
+export default model<IMedidasPublicidad>('modeloMedidasPublicidades', MedidasPublicidadSchema);
