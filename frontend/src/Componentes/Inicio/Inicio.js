@@ -604,18 +604,17 @@ const Inicio = () => {
               tipoVideo={true}
             ></ImagenesVideo>
           </div>
+          <div className="publicidad-Noticias-Galeria">
+            <img
+              alt=""
+              src={
+                publicaciones?.publicidadNoticiaHorizontalBajoGaleria
+                  ? server + publicaciones.publicidadNoticiaHorizontalBajoGaleria.idImagen[0].fuente
+                  : publicidadLarga
+              }
+            ></img>
+          </div>
         </div>
-      </div>
-
-      <div className="publicidad-Noticias ">
-        <img
-          alt=""
-          src={
-            publicaciones?.publicidadNoticiaHorizontalBajoGaleria
-              ? server + publicaciones.publicidadNoticiaHorizontalBajoGaleria.idImagen[0].fuente
-              : publicidadLarga
-          }
-        ></img>
       </div>
 
       <PieDepagina isConFondo={true}></PieDepagina>
