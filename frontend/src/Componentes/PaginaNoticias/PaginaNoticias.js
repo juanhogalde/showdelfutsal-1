@@ -1,7 +1,7 @@
 import React, {useLayoutEffect, useState} from 'react';
 import './PaginaNoticias.css';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
-/* import {SliderNoticias} from '../SliderNoticias/SliderNoticias'; */
+import publicidadLarga from '../../Static/Img/anuncio_larga.jpg';
 import SeccionNoticias from '../SeccionNoticias/SeccionNoticias';
 import SubMenuBuscadorNoticias from '../SubMenuBuscadorNoticias/SubMenuBuscadorNoticias';
 import Animaciones from '../Animaciones/Animaciones';
@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
 import SliderGaleria from '../SliderGaleria/SliderGaleria';
+import {server} from '../../Entorno';
 
 const PaginaNoticias = ({
   titulo = 'Masculino',
@@ -21,7 +22,39 @@ const PaginaNoticias = ({
   const [noticiaMasculino, setNoticiaMasculino] = useState({});
   const [noticiaFemenino, setNoticiaFemenino] = useState({});
   const [noticiaLiga, setNoticiaLiga] = useState({});
+  const {publicidades} = useSelector(state => state.storePublicidades);
+  const [publicidadAbajoGaleriaMasculino, setPublicidadAbajoGaleriaMasculino] = useState();
+  const [publicidadAbajoGaleriaFemenino, setPublicidadAbajoGaleriaFemenino] = useState();
+  const [publicidadAbajoGaleriaLNFA, setPublicidadAbajoGaleriaLNFA] = useState();
+
   const dispatch = useDispatch();
+  useLayoutEffect(() => {
+    if (publicidades.length) {
+      publicidades.forEach(publicidad => {
+        switch (publicidad.idMedidas[0].keyMedidas) {
+          case 10:
+            if (publicidad.isActiva) {
+              setPublicidadAbajoGaleriaMasculino(server + publicidad.idImagen[0].fuente);
+            }
+            break;
+          case 11:
+            if (publicidad.isActiva) {
+              setPublicidadAbajoGaleriaFemenino(server + publicidad.idImagen[0].fuente);
+            }
+            break;
+          case 12:
+            if (publicidad.isActiva) {
+              setPublicidadAbajoGaleriaLNFA(server + publicidad.idImagen[0].fuente);
+            }
+            break;
+          default:
+            break;
+        }
+      });
+    }
+    return () => {};
+  }, [publicidades]);
+
   useLayoutEffect(() => {
     var noticiasMasculinos = {};
     var noticiasFemenino = {};
@@ -68,9 +101,9 @@ const PaginaNoticias = ({
   };
   return (
     <div className="LP-Seccion-Noticias">
-      {/* SECCION NOTICIAS MASCULINO /> */}
       <SubMenuBuscadorNoticias />
 
+      {/* SECCION NOTICIAS MASCULINO /> */}
       <div className=" LI-Seccion-Noticias ">
         <SeccionNoticias
           tituloSeccionNoticias="Masculino"
@@ -79,6 +112,13 @@ const PaginaNoticias = ({
           subcategoriaNoticia={-1}
         />
       </div>
+      <div className="publicidad-Noticias">
+        <img
+          alt=""
+          src={publicidadAbajoGaleriaMasculino ? publicidadAbajoGaleriaMasculino : publicidadLarga}
+        ></img>
+      </div>
+      {/* SECCION NOTICIAS FEMENINO /> */}
       <div className=" LI-Seccion-Noticias ">
         <SeccionNoticias
           tituloSeccionNoticias="Femenino"
@@ -86,31 +126,14 @@ const PaginaNoticias = ({
           categoriaNoticia={2}
           subcategoriaNoticia={-1}
         />
+        <div className="publicidad-Noticias">
+          <img
+            alt=""
+            src={publicidadAbajoGaleriaFemenino ? publicidadAbajoGaleriaFemenino : publicidadLarga}
+          ></img>
+        </div>
       </div>
-      {/* SECCION NOTICIAS FEMENINO /> */}
 
-      {/* SECCION NOTICIAS INFERIORES /> */}
-      {/* <div className=" LI-Seccion-Noticias ">
-        <Animaciones isAlineado={true} orientacion={'izquierda'} />
-        <div className=" CP-SN-Inferiores ">
-          <div className="CI-SN-Inferiores-titulo">
-            <div className="I-SN-Inferiores-titulo">
-              <p>{noticias2}</p>
-            </div>
-          </div>
-          <div className="CI-SN-Inferiores-general">
-            <div className="I-Noticia-Inferiores">
-              <NoticiasMiniatura isSeccionNoticias={true} isSobreImagen={true}></NoticiasMiniatura>
-            </div>
-          </div>
-          <div className="CI-SN-Inferiores-miniatura">
-            <SliderNoticias cantidadDeElementos={2} isConCopete={true}></SliderNoticias>
-          </div>
-        </div>
-        <div className="CI-SN-Inferiores-miniatura">
-          <div className="CI-SN-Inferiores-slider"></div>
-        </div>
-      </div> */}
       {/* SECCION NOTICIAS COPA Y LIGA /> */}
       <div className=" LI-Seccion-Noticias ">
         <Animaciones isAlineado={false} />
@@ -157,6 +180,12 @@ const PaginaNoticias = ({
             <SliderGaleria categoriaGaleria={3}></SliderGaleria>
           </div>
         </div>
+      </div>
+      <div className="publicidad-Noticias">
+        <img
+          alt=""
+          src={publicidadAbajoGaleriaLNFA ? publicidadAbajoGaleriaLNFA : publicidadLarga}
+        ></img>
       </div>
       <PieDepagina></PieDepagina>
     </div>
