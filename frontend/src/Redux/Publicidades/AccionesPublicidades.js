@@ -143,7 +143,7 @@ export const guardarPublicidadEditada = datosCargados => {
   return dispatch => {
     if (datosCargados.imagen && datosCargados.imagen[0].type) {
       var imagenPublicidad = new FormData();
-      imagenPublicidad.append('archivos', datosCargados.imagen[0]);
+      imagenPublicidad.append('archivos[]', datosCargados.imagen[0]);
       dispatch(cargandoGuardarPublicidadEditada_accion('Editando...'));
       API({
         url: '/imagenes/agregar',
@@ -151,22 +151,23 @@ export const guardarPublicidadEditada = datosCargados => {
         data: imagenPublicidad,
       })
         .then(res => {
-          datosCargados = {...datosCargados, idImagen: [...[], res.data.value]};
+          datosCargados = {...datosCargados, idImagen: res.data.value};
           API({
             url: '/anuncios/modificar',
             method: 'put',
             data: datosCargados,
           })
             .then(res => {
+              console.log(res);
               dispatch(publicidadEditadaExito_accion(res.data));
             })
             .catch(error => {
-              console.log(error);
+              console.log({error});
               dispatch(publicidadEditadaError_accion(error));
             });
         })
         .catch(error => {
-          console.log(error);
+          console.log({error});
           dispatch(publicidadEditadaError_accion(error));
         });
     } else {
@@ -177,10 +178,11 @@ export const guardarPublicidadEditada = datosCargados => {
         data: {...datosCargados},
       })
         .then(res => {
+          console.log(res);
           dispatch(publicidadEditadaExito_accion(res.data));
         })
         .catch(error => {
-          console.log(error);
+          console.log({error});
           dispatch(publicidadEditadaError_accion(error));
         });
     }
