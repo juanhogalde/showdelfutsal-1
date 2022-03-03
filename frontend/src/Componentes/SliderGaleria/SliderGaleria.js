@@ -38,7 +38,6 @@ const SliderGaleria = ({
   const {galerias} = useSelector(state => state.storeGalerias);
   useLayoutEffect(() => {
     var galeriaEncontrada = galerias.filter(element => element.keyCategoria === categoriaGaleria);
-    console.log(galeriaEncontrada);
     if (galeriaEncontrada.length) {
       setGaleriaFiltrada(galeriaEncontrada[galeriaEncontrada.length - 1]);
     }
