@@ -245,7 +245,7 @@
 }
 .publicidad-ComponenteNoticias img {
   width: 100%;
-  max-width: 100%;
+  max-width: 87%;
   height: 100%;
   object-fit: contain;
 }

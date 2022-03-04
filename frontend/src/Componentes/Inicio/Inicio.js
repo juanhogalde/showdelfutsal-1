@@ -460,18 +460,20 @@ const Inicio = () => {
               }
             ></img>
           </div>
+          <div className="publicidad-Noticias-Partidos">
+            <img
+              alt=""
+              src={
+                publicaciones?.publicidadNoticiaHorizontalBajoPartidos
+                  ? server +
+                    publicaciones.publicidadNoticiaHorizontalBajoPartidos.idImagen[0].fuente
+                  : publicidadLarga
+              }
+            ></img>
+          </div>
         </div>
       </div>
-      <div className="publicidad-Noticias">
-        <img
-          alt=""
-          src={
-            publicaciones?.publicidadNoticiaHorizontalBajoPartidos
-              ? server + publicaciones.publicidadNoticiaHorizontalBajoPartidos.idImagen[0].fuente
-              : publicidadLarga
-          }
-        ></img>
-      </div>
+
       {/* SECCION NOTICIAS */}
       <div className="LI-Inicio seccion-noticias  Margen-Noticias">
         <div className="CP-Noticias">

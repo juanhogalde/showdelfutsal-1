@@ -15,7 +15,7 @@
 .nav-container {
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   max-width: 100%;
@@ -118,7 +118,6 @@
     margin-left: 20px;
     cursor: pointer;
     text-decoration: none;
-    flex-grow: 1;
   }
   .logo-movil {
     background-image: url('../../Static/Img/isologo.png');

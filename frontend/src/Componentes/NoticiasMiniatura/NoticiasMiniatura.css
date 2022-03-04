@@ -4,10 +4,7 @@
   grid-template-columns: minmax(0, 1fr);
   position: relative;
 }
-.paddingSlider {
-  padding-left: 10px;
-  padding-right: 10px;
-}
+
 .cuerpo-NoticiaMiniatura {
   display: flex;
   flex-direction: column;

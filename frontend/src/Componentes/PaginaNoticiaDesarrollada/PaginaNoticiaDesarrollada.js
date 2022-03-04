@@ -65,50 +65,49 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
             <NoticiaDesarrollada datosModelado={noticiaSeleccionada} />
           </div>
         </div>
-        <div className="CI-ND-Noticia-miniatura">
-          <div className="I-ND-Publicidad-corta">
-            <img
-              alt=""
-              src={
-                publicaciones
-                  ? publicaciones.publicidadCuardadaDerecha
-                    ? server + publicaciones.publicidadCuardadaDerecha.idImagen[0].fuente
-                    : publicidadCorta
+
+        <div className="I-ND-Publicidad-corta">
+          <img
+            alt=""
+            src={
+              publicaciones
+                ? publicaciones.publicidadCuardadaDerecha
+                  ? server + publicaciones.publicidadCuardadaDerecha.idImagen[0].fuente
                   : publicidadCorta
+                : publicidadCorta
+            }
+          ></img>
+        </div>
+        <div className="I-ND-Noticia-Componente-Slider">
+          {isMobileAndroid !== -1 || isMobileIPhone !== -1 ? (
+            <SliderNoticias
+              cantidadDeElementos={6}
+              isVertical={true}
+              enfocarNoticia={enfocarNoticia}
+              categoriaNoticias={
+                noticiaSeleccionada.keyCategoria ? noticiaSeleccionada.keyCategoria : -1
               }
-            ></img>
-          </div>
-          <div className="I-ND-Noticia-Componente-Slider">
-            {isMobileAndroid !== -1 || isMobileIPhone !== -1 ? (
-              <SliderNoticias
-                cantidadDeElementos={6}
-                isVertical={true}
-                enfocarNoticia={enfocarNoticia}
-                categoriaNoticias={
-                  noticiaSeleccionada.keyCategoria ? noticiaSeleccionada.keyCategoria : -1
-                }
-              />
-            ) : (
-              <SliderNoticias
-                cantidadDeElementos={1}
-                isVertical={true}
-                enfocarNoticia={enfocarNoticia}
-                categoriaNoticias={
-                  noticiaSeleccionada.keyCategoria ? noticiaSeleccionada.keyCategoria : -1
-                }
-              />
-            )}
-          </div>
-          <div className="I-ND-Publicidad-corta-inferior">
-            <img
-              alt=""
-              src={
-                publicaciones?.publicidadCuardadaDerechaInferior
-                  ? server + publicaciones.publicidadCuardadaDerechaInferior.idImagen[0].fuente
-                  : publicidadCorta
+            />
+          ) : (
+            <SliderNoticias
+              cantidadDeElementos={1}
+              isVertical={true}
+              enfocarNoticia={enfocarNoticia}
+              categoriaNoticias={
+                noticiaSeleccionada.keyCategoria ? noticiaSeleccionada.keyCategoria : -1
               }
-            ></img>
-          </div>
+            />
+          )}
+        </div>
+        <div className="I-ND-Publicidad-corta-inferior">
+          <img
+            alt=""
+            src={
+              publicaciones?.publicidadCuardadaDerechaInferior
+                ? server + publicaciones.publicidadCuardadaDerechaInferior.idImagen[0].fuente
+                : publicidadCorta
+            }
+          ></img>
         </div>
 
         <div className="CI-ND-Publicidad">

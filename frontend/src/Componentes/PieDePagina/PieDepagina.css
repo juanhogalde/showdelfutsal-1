@@ -3,6 +3,7 @@
   width: 100%;
   max-height: 20%;
   height: 150px;
+  margin-top: 50px;
 }
 
 .Seccion-footer-inicio {
@@ -18,7 +19,6 @@
 
 .Seccion-footer {
   background-color: #fff;
-  position: relative;
 }
 .imagen-Fondo-Footer {
   background-image: url('../../Static/Img/Footer_transparente.png');
@@ -34,8 +34,8 @@
 /* ====== CONTENEDOR ITEMS DE FOOTER ======*/
 .CI-Pie-Pagina {
   width: 100%;
-  max-width: 1200px;
-  margin: auto;
+
+  margin: 2vh 8vw;
   display: grid;
   grid-template-columns: 5px repeat(3, 1fr) 5px;
   grid-gap: 20px;
@@ -44,18 +44,15 @@
 
 .I-Logo {
   display: flex;
-  width: auto;
-  height: 80%;
+  height: 55%;
   grid-column: 2/3;
-  max-width: 300px;
-  min-width: 150px;
-  max-height: 150px;
+  max-height: 120px;
   min-height: 80px;
   place-content: center;
+  aspect-ratio: 120/60;
 }
 .Logo {
-  width: auto;
-  height: auto;
+  aspect-ratio: 120/60;
 }
 .I-Redes {
   grid-column: 4/5;
@@ -110,14 +107,8 @@
 }
 
 @media screen and (max-width: 800px) {
-  .CP-Pie-pagina {
-    width: 100%;
-    grid-template-rows: 1fr;
-    grid-gap: 5px;
-    padding: 0px;
-  }
   .CI-Pie-Pagina {
-    margin: auto;
+    margin: 2vh 8vw;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     margin-bottom: 10px;
@@ -133,15 +124,14 @@
   }
   .I-Logo {
     grid-column: 1/2;
-    max-width: 300px;
-    min-width: 150px;
     max-height: 150px;
     min-height: 80px;
     align-items: center;
+    aspect-ratio: 120/60;
   }
   .Logo {
-    width: 70%;
-    height: 50%;
+    height: 70%;
+    aspect-ratio: 120/60;
   }
 
   .CI-Pie-Pagina .red-social a {
