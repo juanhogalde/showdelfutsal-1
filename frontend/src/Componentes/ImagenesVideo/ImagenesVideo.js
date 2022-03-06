@@ -22,19 +22,19 @@ const ImagenesVideo = ({
   useLayoutEffect(() => {
     if (DatosDeEntrada.length) {
       setDataActual(DatosDeEntrada[0]);
-      if (DatosDeEntrada.length > 1) {
+      if (DatosDeEntrada.length > 0) {
         setSiguientedataActual(DatosDeEntrada[1]);
       }
     }
-    if (DatosDeEntrada.length === 2 || DatosDeEntrada.length === 1) {
+    if (DatosDeEntrada.length > 0) {
       setOcultarFlechasVideo({
-        flechaArriba: true,
-        flechaAbajo: true,
+        flechaArriba: false,
+        flechaAbajo: false,
       });
     } else {
       setOcultarFlechasVideo({
-        flechaArriba: false,
-        flechaAbajo: true,
+        flechaArriba: true,
+        flechaAbajo: false,
       });
     }
   }, [setDataActual, DatosDeEntrada, setSiguientedataActual, setOcultarFlechasVideo]);
@@ -138,7 +138,7 @@ const ImagenesVideo = ({
         <div className="cuerpo-imagenesVideo">
           {/* VIDEO */}
           {tipoVideo &&
-            (DatosDeEntrada.length > 1 && isMobileAndroid === -1 && isMobileIPhone === -1 ? (
+            (DatosDeEntrada.length >= 1 && isMobileAndroid === -1 && isMobileIPhone === -1 ? (
               <React.Fragment>
                 <div className="CI-Videos">
                   <iframe
@@ -157,11 +157,11 @@ const ImagenesVideo = ({
                     className={
                       isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'
                     }
-                    src={`https://www.youtube-nocookie.com/embed/${siguientedataActual.fuente}`}
+                    src={`https://www.youtube-nocookie.com/embed/${siguientedataActual?.fuente}`}
                     title="video"
                   ></iframe>
                   <div className="decripcion-imagenesVideo2">
-                    <h4>{siguientedataActual.descripcion}</h4>
+                    <h4>{siguientedataActual?.descripcion}</h4>
                   </div>
                 </div>
               </React.Fragment>
