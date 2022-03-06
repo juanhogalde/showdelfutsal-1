@@ -35,8 +35,6 @@ const PaginaGaleriaAdmin = () => {
     setIsMostrarModal(false);
   };
   const obtenerRespuestaDeAlertas = respuesta => {
-    console.log('pepe');
-
     if (respuesta) {
       if (isEliminarGaleria.isConsulta) {
         dispatch(eliminarGaleria_accion(isEliminarGaleria.id));

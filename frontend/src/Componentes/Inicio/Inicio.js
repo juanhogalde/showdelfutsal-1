@@ -151,6 +151,7 @@ const Inicio = () => {
 
     var galeriasTipoVideos = galerias.filter(galeria => galeria.videosId.length);
     if (galeriasTipoVideos.length) {
+      // console.log(galeriasTipoVideos)
       setVideosGaleria(galeriasTipoVideos[galeriasTipoVideos.length - 1].videosId);
     }
 
