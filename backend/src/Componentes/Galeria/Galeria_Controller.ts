@@ -58,8 +58,11 @@ class GaleriaController {
   public async agregarGaleriaParaVideo(req: Request, res: Response) {
     try {
       if (!req.body) {
-        throw new Error('No se ingresaron datos');
+        responder.error(req, res, 400, 'No se ingresaron datos');
       } else {
+        req.body._id = req.body.tituloGaleria
+          .replace(/ /g, '_')
+          .concat(`_${Date.now().toString()}`);
         const galeria: IGaleria = new modeloGaleria(req.body);
         await galeria.save();
         responder.sucess(req, res, galeria);

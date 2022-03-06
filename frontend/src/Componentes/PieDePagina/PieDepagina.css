@@ -49,10 +49,10 @@
   max-height: 120px;
   min-height: 80px;
   place-content: center;
-  aspect-ratio: 120/60;
+  aspect-ratio: 120/55;
 }
 .Logo {
-  aspect-ratio: 120/60;
+  aspect-ratio: 120/55;
 }
 .I-Redes {
   grid-column: 4/5;
@@ -127,11 +127,11 @@
     max-height: 150px;
     min-height: 80px;
     align-items: center;
-    aspect-ratio: 120/60;
+    aspect-ratio: 120/55;
   }
   .Logo {
     height: 70%;
-    aspect-ratio: 120/60;
+    aspect-ratio: 120/55;
   }
 
   .CI-Pie-Pagina .red-social a {
