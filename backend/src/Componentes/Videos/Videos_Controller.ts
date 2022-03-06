@@ -23,6 +23,7 @@ class VideosController {
             const video: IVideos = new modeloVideos({
               ...archivo,
               idGaleria: req.body.idGaleria,
+              _id: archivo.fuente,
             });
             videosAgregados.push(video);
             await video.save();
