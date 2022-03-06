@@ -1,7 +1,7 @@
 .CP-imagenesVideo {
   width: 100%;
   margin-top: 0.8rem;
-  /* height: 100%; */
+  height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -29,8 +29,6 @@
   max-height: 265px;
 }
 .CI-Videos {
-  position: relative;
-  overflow: hidden;
   width: 100%;
   padding-top: 56.25%;
   margin: 20px;
@@ -38,7 +36,8 @@
 .CI-Video {
   position: relative;
   overflow: hidden;
-  width: 100%;
+  aspect-ratio: 16/9;
+  height: 100%;
 }
 .video-imagenesVideo {
   position: absolute;
@@ -80,6 +79,7 @@
 }
 iframe {
   border: none;
+  aspect-ratio: 16/9;
 }
 .flechas-izq-der-imagenesVideo {
   display: flex;
@@ -176,6 +176,7 @@ iframe {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: 200px;
 }
 .cuerpo-imagenesVideo:hover .decripcion-imagenesVideo {
   display: none;

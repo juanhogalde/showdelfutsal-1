@@ -158,7 +158,7 @@ const ImagenesVideo = ({
                       isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'
                     }
                     src={`https://www.youtube-nocookie.com/embed/${siguientedataActual.fuente}`}
-                    title="sadasd"
+                    title="video"
                   ></iframe>
                   <div className="decripcion-imagenesVideo2">
                     <h4>{siguientedataActual.descripcion}</h4>
@@ -170,7 +170,7 @@ const ImagenesVideo = ({
                 <iframe
                   className={isConBorder ? 'video-con-borde-imagenesVideo ' : 'video-imagenesVideo'}
                   src={`https://www.youtube-nocookie.com/embed/${dataActual.fuente}`}
-                  title="sadasd"
+                  title="video"
                 ></iframe>
                 <div className="decripcion-imagenesVideo2">
                   <h4>{dataActual.descripcion}</h4>

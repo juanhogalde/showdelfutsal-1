@@ -422,11 +422,11 @@ const Inicio = () => {
       {/* SECCION MARCADOR */}
       <div className="LI-Inicio seccion-marcador margenes-Responsive-Seccion-Marcador">
         <div className="CP-Marcador">
+          <div className="titulo-Marcador">
+            <h1>PARTIDOS</h1>
+            <br></br>
+          </div>
           <div className="CI-Marcador">
-            <div className="titulo-Marcador">
-              <h1>PARTIDOS</h1>
-              <br></br>
-            </div>
             <div className="componente-Marcador">
               {/* <Marcador /> */}
               <TarjetaEnfrentamiento
