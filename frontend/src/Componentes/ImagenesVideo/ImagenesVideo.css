@@ -29,9 +29,13 @@
   max-height: 265px;
 }
 .CI-Videos {
+  display: flex;
   width: 100%;
   padding-top: 56.25%;
   margin: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-items: flex-start;
 }
 .CI-Video {
   position: relative;
