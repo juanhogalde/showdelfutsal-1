@@ -22,6 +22,7 @@ import TarjetaEnfrentamiento from '../../ComponentesAdmin/TarjetaEnfrentamiento/
 import Slider from 'react-slick';
 import ImagenSlider from '../ImagenSlider/ImagenSlider';
 import {AiFillCaretLeft, AiFillCaretRight} from 'react-icons/ai';
+import YouTube from 'react-youtube';
 
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
@@ -268,6 +269,7 @@ const Inicio = () => {
   ); */
 
   // const videoVivoPrueba = {fuente: 'ZFx0BuHzTxU'};
+
   const obtenerFiltro = filtro => {
     switch (filtro) {
       case 'Masculino':
@@ -361,6 +363,7 @@ const Inicio = () => {
       });
     }
   };
+
   return (
     <div className="LP-Inicio">
       <div className="LI-Inicio Margen-inicio seccion-somos">
@@ -601,11 +604,13 @@ const Inicio = () => {
             </div>
           </div>
           <div className="CI-Galeria-Videos">
-            <ImagenesVideo
+            {/* <ImagenesVideo
               DatosDeEntrada={videosGaleria}
               tipoDeSliderFlecha={true}
               tipoVideo={true}
-            ></ImagenesVideo>
+            ></ImagenesVideo> */}
+            <YouTube videoId="oQo5BjIa6UM" className="yt" />
+            <YouTube videoId="-0yZVOCRvSI" className="yt" />
           </div>
           <div className="publicidad-Noticias-Galeria">
             <img
