@@ -1,5 +1,5 @@
 //*** Info Deploy */
-let _version = 'Version Front v0.0.24 - 06-03-22';
+let _version = 'Version Front v0.0.25 - 07-03-22';
 let Enviroment = 'Desarrollo';
 let _dominio = 'localhost';
 let _api = 'localhost';
