@@ -54,7 +54,9 @@ const Inicio = () => {
 
   const FiltrarNoticias = keyCategoria => {
     return new Promise((resolve, reject) => {
-      var filtradoDeNoticia = noticias.filter(noticia => noticia.keyCategoria === keyCategoria);
+      var filtradoDeNoticia = noticias.filter(
+        noticia => noticia.keyCategoria === keyCategoria && noticia.isDestacada
+      );
       resolve(filtradoDeNoticia);
     });
   };
@@ -122,7 +124,9 @@ const Inicio = () => {
       publicidadInicioModal: publicidadModalInicio,
     });
     // CARGA DE NOTICIAS
-    var noticiasFiltradas = noticias.filter(noticia => noticia.keyCategoria === 2);
+    var noticiasFiltradas = noticias.filter(
+      noticia => noticia.keyCategoria === 2 && noticia.isDestacada
+    );
     if (noticiasFiltradas[0]) {
       setNoticiaP(noticiasFiltradas[0]);
     }

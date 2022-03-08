@@ -18,6 +18,7 @@ class NoticiasController {
       modeloNoticias
         .find({})
         .populate('idImagen')
+        .sort({fecha: 'desc'})
         .then((noticias: any[]) => {
           responder.sucess(req, res, noticias);
         })

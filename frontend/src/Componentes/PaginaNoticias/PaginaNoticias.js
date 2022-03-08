@@ -31,7 +31,7 @@ const PaginaNoticias = ({
   useLayoutEffect(() => {
     if (publicidades.length) {
       publicidades.forEach(publicidad => {
-        switch (publicidad.idMedidas[0].keyMedidas) {
+        switch (publicidad.idMedidas[0]?.keyMedidas) {
           case 10:
             if (publicidad.isActiva) {
               setPublicidadAbajoGaleriaMasculino(server + publicidad.idImagen[0].fuente);
