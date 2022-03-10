@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /administrador/
+
+User-agent: *
+Allow: /
+
+User-agent: Googlebot-Image
+Disallow: /

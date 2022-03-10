@@ -86,10 +86,7 @@
 .I-componente-somos-slider {
   grid-column: 1/2;
   grid-row: 1/2;
-  /* display: grid;
-  grid-template-columns: 20px 1fr 20px;
-  grid-template-rows: 20px minmax(0, 500px) 20px;
-  place-items: center center; */
+
   margin-bottom: 20px;
   padding: 10px;
 }

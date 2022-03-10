@@ -1,7 +1,5 @@
 import express from 'express';
 import morgan from 'morgan';
-import fs from 'fs';
-import https from 'https';
 import path from 'path';
 import cors from 'cors';
 import formData from 'express-form-data';
@@ -31,14 +29,13 @@ import {instalarBD} from './Config/instalacionInicial';
 import medidasPublicidad_Router from './Componentes/MedidasPublicidad/MedidasPublicidad_Router';
 import vivoRouter from './Componentes/Vivo/Vivo_Router';
 import modeloImagenes from './Componentes/Imagenes/Imagenes_Model';
-import ICert from '../crt/Cert_Interface';
 import {findConfigFile} from 'typescript';
 
 ///// VARIABLES DE ENTORNO
 process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : 'desarrollo';
 
 ///// DEPLOY
-const deploy = 'v0.0.26 - 08/03/22';
+const deploy = 'v0.0.28 - 09/03/22';
 
 class Server {
   public app: express.Application;
@@ -79,7 +76,6 @@ class Server {
     this.app.use('/torneos', torneosRouter);
     this.app.use('/categorias', categoriasRouter);
     this.app.use('/estadios', estadiosRouter);
-    //this.app.use('/etiquetas', etiquetasRouter);
     this.app.use('/equipos', equiposRouter);
     this.app.use('/home', homeRouter);
     this.app.use('/imagenes', imagenesRouter);
@@ -144,40 +140,26 @@ class Server {
   }
 
   iniciar() {
-    /*  let infoCertificado: ICert = {cert: '', key: ''};
-
-    if (process.env.NODE_ENV === 'testing') {
-      infoCertificado.cert = fs.readFileSync(
-        path.join(__dirname, '../crt/testing/mi_certificado.crt')
-      );
-      infoCertificado.key = fs.readFileSync(
-        path.join(__dirname, '../crt/testing/mi_certificado.key')
-      );
-    }
-
-    if (process.env.NODE_ENV === 'production') {
-      infoCertificado.cert = fs.readFileSync(
-        path.join(__dirname, '../crt/production/mi_certificado.crt')
-      );
-      infoCertificado.key = fs.readFileSync(
-        path.join(__dirname, '../crt/production/mi_certificado.key')
-      );
-    } */
-
-    //if (process.env.NODE_ENV === 'desarrollo') {
-    this.app.listen(this.app.get('port'), () => {
-      console.log(
-        `⚡️[FUTSAL ${deploy}]: El Servidor http de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
-      );
-    });
-    //}  else {
-    /* https.createServer(infoCertificado, this.app).listen(this.app.get('port'), () => {
+    if (process.env.NODE_ENV === 'produccion') {
+      var fs = require('fs');
+      var https = require('https');
+      var credenciales = {
+        key: fs.readFileSync(path.join(__dirname, '../crt/private.key')).toString(),
+        cert: fs.readFileSync(path.join(__dirname, '../crt/certificate.crt')).toString(),
+        ca: fs.readFileSync(path.join(__dirname, '../crt/ca_bundle.crt')).toString(),
+      };
+      https.createServer(credenciales, this.app).listen(process.env.PORT, () => {
         console.log(
-          `⚡️[FUTSAL]: El Servidor https de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
+          `⚡️[FUTSAL ${deploy}]: Servidor https de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
         );
-        process.env.NODE_ENV == 'desarrollo' ? console.warn(`${deploy}`) : console.log(`${deploy}`);
       });
-    } */
+    } else {
+      this.app.listen(process.env.PORT, () => {
+        console.log(
+          `⚡️[FUTSAL ${deploy}]: El Servidor http de ${process.env.NODE_ENV} esta corriendo en el puerto ${process.env.PORT}`
+        );
+      });
+    }
   }
 }
 
