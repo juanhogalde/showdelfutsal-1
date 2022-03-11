@@ -105,8 +105,8 @@ const NuevaPublicidad = () => {
   const GuardarNuevaPublicidad = () => {
     if (datosCargados.imagen && datosCargados.nombrePublicidad && medidasDePublicidad) {
       if (
-        tamañoImagenCargada.alto <= medidasDePublicidad.alto &&
-        tamañoImagenCargada.ancho <= medidasDePublicidad.ancho
+        tamañoImagenCargada.alto === medidasDePublicidad.alto &&
+        tamañoImagenCargada.ancho === medidasDePublicidad.ancho
       ) {
         dispatch(guardarPublicidad({...datosCargados, idMedidas: medidasDePublicidad.value}));
       } else {
