@@ -8,7 +8,7 @@ import BotonLowa from '../BotonLowa/BotonLowa';
 import {useDispatch, useSelector} from 'react-redux';
 import Alertas from '../Alertas/Alertas';
 import {useHistory} from 'react-router';
-import InputSwitchLowa from '../InputSwitchLowa/InputSwitchLowa';
+// import InputSwitchLowa from '../InputSwitchLowa/InputSwitchLowa';
 import {BsPlusCircle} from 'react-icons/bs';
 import {
   guardarPublicidad,
@@ -36,7 +36,7 @@ const NuevaPublicidad = () => {
     isError: false,
   });
   const [isErrorAlComprimir, setIsErrorAlComprimir] = useState(false);
-  const [datosCargados, setdatosCargados] = useState({});
+  const [datosCargados, setdatosCargados] = useState({isActiva: true});
   const dispatch = useDispatch();
   const escucharCambios = (name, value) => {
     if (name === 'imagen') {
@@ -138,13 +138,13 @@ const NuevaPublicidad = () => {
   return (
     <div className="CP-NuevaPublicidad">
       <h5>Nueva Publicidad</h5>
-      <div className="CI-DesactivarPublicidad">
+      {/* <div className="CI-DesactivarPublicidad">
         <p>Desactivar</p>
         <InputSwitchLowa
           name="isActiva"
           onChange={e => escucharCambios(e.target.name, e.target.checked)}
         ></InputSwitchLowa>
-      </div>
+      </div> */}
       <InputLowa
         name="nombrePublicidad"
         placeholder="Ingrese nombre de publicidad..."
