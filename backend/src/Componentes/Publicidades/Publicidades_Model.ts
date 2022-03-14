@@ -3,7 +3,7 @@ import IPublicidades from './Publicidades_Interface';
 
 const PublicidadesSchema = new Schema({
   nombrePublicidad: {type: String, unique: true, required: true},
-  isActiva: {type: Boolean, default: false},
+  isActiva: {type: Boolean, default: true},
   idMedidas: [
     {
       type: Schema.Types.String,
