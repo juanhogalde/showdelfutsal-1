@@ -11,7 +11,6 @@ import {server} from '../../Entorno';
  **fuenteImg:string, isSobreImagen:boolean, copete:string
  **
  */
-//TODO: luego de probar quitar datosDePrueba
 
 const NoticiasMiniatura = ({
   datosModelado = {},
