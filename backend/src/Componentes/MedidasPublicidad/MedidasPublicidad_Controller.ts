@@ -44,5 +44,25 @@ class MedidasPublicidadController {
       responder.error(req, res, error);
     }
   }
+  public async activarMedidasPublicidad(idMedidas: String) {
+    try {
+      if (!idMedidas) {
+        throw new Error('Falta id de medida');
+      } else {
+        return await modeloMedidasPublicidad
+          .findById(idMedidas)
+          .then(async (medidasPublicidad: any) => {
+            if (medidasPublicidad) {
+              medidasPublicidad.disponible = true;
+              return await medidasPublicidad.save();
+            } else {
+              throw Error('Medida No encontrada');
+            }
+          });
+      }
+    } catch (error) {
+      return error;
+    }
+  }
 }
 export const medidasPublicidadController = new MedidasPublicidadController();
