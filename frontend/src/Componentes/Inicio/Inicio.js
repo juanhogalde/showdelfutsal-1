@@ -6,7 +6,7 @@ import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import {useDispatch, useSelector} from 'react-redux';
 import publicidadLarga2 from '../../Static/Img/anuncio2_larga.jpg';
 import publicidadLarga from '../../Static/Img/anuncio_larga.jpg';
-import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
+// import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
 import Vivo from '../Vivo/Vivo';
 import SomosFrase from '../../Static/Img/frase_inicio.png';
 import {BsInstagram, BsYoutube} from 'react-icons/bs';
@@ -43,7 +43,7 @@ const Inicio = () => {
     data: {},
     index: 0,
   });
-  const [videosGaleria, setVideosGaleria] = useState([]);
+  const [, /*videosGaleria*/ setVideosGaleria] = useState([]);
   // const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   const [videoVivo, setVideoVivo] = useState({});
   const [noticiaP, setNoticiaP] = useState({});
