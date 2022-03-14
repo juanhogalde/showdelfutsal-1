@@ -127,6 +127,22 @@ class ImagenesController {
       responder.error(req, res, error);
     }
   }
+  public async eliminarImagenPorId(idImagen: string) {
+    try {
+      await modeloImagenes
+        .findById(idImagen)
+        .then(async (ImagenAEliminar: any) => {
+          const resultado = await ImagenAEliminar.delete();
+          fs.unlinkSync(path.join('./public/imagenes/', idImagen));
+          return resultado;
+        })
+        .catch((error: any) => {
+          return error;
+        });
+    } catch (error) {
+      return error;
+    }
+  }
 
   public async eliminarImagen(idImagen: any) {
     try {

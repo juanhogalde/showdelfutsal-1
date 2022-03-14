@@ -3,6 +3,8 @@ import responder from '../../Middlewares/responder';
 import modeloPublicidades from './Publicidades_Model';
 import IPublicidades from './Publicidades_Interface';
 import {medidasPublicidadController} from '../MedidasPublicidad/MedidasPublicidad_Controller';
+import {imagenesController} from '../Imagenes/Imagenes_Controller';
+
 import fs from 'fs';
 import path from 'path';
 class PublicidadesController {
@@ -105,7 +107,9 @@ class PublicidadesController {
         publicidadAEliminar
           .delete()
           .then(async () => {
-            fs.unlinkSync(path.join('./public/imagenes/', publicidadAEliminar.idImagen.toString()));
+            await imagenesController.eliminarImagenPorId(
+              publicidadAEliminar.idImagen[0].toString()
+            );
             medidasPublicidadController
               .activarMedidasPublicidad(publicidadAEliminar.idMedidas[0])
               .then(() => {
