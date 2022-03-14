@@ -28,11 +28,11 @@
   justify-content: flex-end;
   align-items: center;
 }
-.iconoAcción-ItemPublicidad {
+
+.iconoAcción-ListaImagenesPublicidad {
   font-size: 25px;
-  color: #2a2ac0;
-}
-.textoModificar-ItemPublicidad {
-  margin-left: 10px;
-  color: #2a2ac0;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: #0000008f;
+  cursor: pointer;
 }
