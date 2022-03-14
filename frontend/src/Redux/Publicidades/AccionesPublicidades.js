@@ -1,3 +1,4 @@
+import {activarMedidaPublicidad_accion} from '../DatosInciales/AccionesDatosIniciales';
 import API from './../Configuracion/api';
 export const cargandoPublicidad = 'cargandoPublicidad';
 export const publicidadExito = 'publicidadExito';
@@ -158,7 +159,6 @@ export const guardarPublicidadEditada = datosCargados => {
             data: datosCargados,
           })
             .then(res => {
-              console.log(res);
               dispatch(publicidadEditadaExito_accion(res.data));
             })
             .catch(error => {
@@ -178,7 +178,6 @@ export const guardarPublicidadEditada = datosCargados => {
         data: {...datosCargados},
       })
         .then(res => {
-          console.log(res);
           dispatch(publicidadEditadaExito_accion(res.data));
         })
         .catch(error => {
@@ -186,5 +185,51 @@ export const guardarPublicidadEditada = datosCargados => {
           dispatch(publicidadEditadaError_accion(error));
         });
     }
+  };
+};
+
+// Eliminar publicidad
+export const modalPaginaPublicidadAccion = 'modalPaginaPublicidadAccion';
+export const eliminarPublicidadExito = 'eliminarPublicidadExito';
+
+export const modalPaginaPublicidad_accion = datosModal => {
+  return {
+    type: modalPaginaPublicidadAccion,
+    datosModal: datosModal,
+  };
+};
+export const eliminarPublicidadExito_accion = idPublicidad => {
+  return {
+    type: eliminarPublicidadExito,
+    _id: idPublicidad,
+  };
+};
+
+export const eliminarPublicidad = idPublicidad => {
+  return (dispatch, getStore) => {
+    dispatch(
+      modalPaginaPublicidad_accion({isMostrar: true, tipo: 'cargando', mensaje: 'Cargando...'})
+    );
+    API({
+      url: '/anuncios/eliminar',
+      method: 'delete',
+      data: {_id: idPublicidad},
+    })
+      .then(respuesta => {
+        dispatch(eliminarPublicidadExito_accion(respuesta.data.value.idPublicidad));
+        if (respuesta.data.status === 200) {
+          dispatch(activarMedidaPublicidad_accion(respuesta.data.value.idMedida));
+        }
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(
+          modalPaginaPublicidad_accion({
+            isMostrar: true,
+            tipo: 'error',
+            mensaje: 'No se pudo eliminar la publicidad',
+          })
+        );
+      });
   };
 };
