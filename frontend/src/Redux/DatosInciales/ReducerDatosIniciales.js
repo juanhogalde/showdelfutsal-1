@@ -4,6 +4,7 @@ import {
   cargaDatosInicialesError,
   controlModalPublicidad,
   gurdarCategoriaSeleccionada,
+  activarMedidaPublicidad,
 } from './AccionesDatosIniciales';
 import {actualizarDisponibilidadMedidasPublicidad} from '../Publicidades/AccionesPublicidades';
 const datosInicialesPorDefecto = {
@@ -56,7 +57,7 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
           value: subcategoria._id,
           label: subcategoria.nombreSubcategoria,
           key: subcategoria.keySubcategoria,
-          keyCategoria:subcategoria.keyCategoria
+          keyCategoria: subcategoria.keyCategoria,
         };
       });
       var medidasPublicidad = accion.datosIniciales.medidasPublicidad.map(medidas => {
@@ -93,9 +94,34 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
     case actualizarDisponibilidadMedidasPublicidad: {
       return {
         ...state,
-        medidasPublicidad: state.medidasPublicidad.filter(
-          element => element.value !== accion.medidas.value._id
-        ),
+        medidasPublicidad: state.medidasPublicidad.map(medida => {
+          if (medida.value === accion._id) {
+            return {
+              ...medida,
+
+              disponible: false,
+            };
+          } else {
+            return medida;
+          }
+        }),
+      };
+    }
+    case activarMedidaPublicidad: {
+      var medidasPublicidadActivadas = state.medidasPublicidad.map(medida => {
+        if (medida.value === accion._id) {
+          return {
+            ...medida,
+
+            disponible: true,
+          };
+        } else {
+          return medida;
+        }
+      });
+      return {
+        ...state,
+        medidasPublicidad: medidasPublicidadActivadas,
       };
     }
     default:
