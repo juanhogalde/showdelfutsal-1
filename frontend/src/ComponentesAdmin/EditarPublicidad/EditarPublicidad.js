@@ -4,7 +4,7 @@ import {useDispatch} from 'react-redux';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
 import {useHistory} from 'react-router';
-import InputSwitchLowa from '../InputSwitchLowa/InputSwitchLowa';
+// import InputSwitchLowa from '../InputSwitchLowa/InputSwitchLowa';
 import './EditarPublicidad.css';
 import {server} from '../../Entorno';
 import {
@@ -129,14 +129,14 @@ const EditarPublicidad = () => {
   return (
     <div className="CP-EditarPublicidad">
       <h5>Publicidad Inicio</h5>
-      <div className="CI-DesactivarPublicidad">
+      {/* <div className="CI-DesactivarPublicidad">
         <p>Desactivar</p>
         <InputSwitchLowa
           name="isActiva"
           checked={datosCargados.isActiva ? datosCargados.isActiva : false}
           onChange={e => escucharCambios(e.target.name, e.target.checked)}
         ></InputSwitchLowa>
-      </div>
+      </div> */}
       <InputLowa
         name="nombrePublicidad"
         ocultarIconoLateral={true}
