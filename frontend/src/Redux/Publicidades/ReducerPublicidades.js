@@ -7,6 +7,8 @@ import {
   buscarPublicidadAEditar,
   publicidadEditadaExito,
   volverPorDefectoPublicidad,
+  eliminarPublicidadExito,
+  modalPaginaPublicidadAccion,
 } from './AccionesPublicidades';
 
 const noticiaPorDefecto = {
@@ -18,6 +20,11 @@ const noticiaPorDefecto = {
     isExito: false,
     isError: false,
     isPublicidadSeleccionada: false,
+  },
+  modalPaginaPublicidad: {
+    isMostrar: false,
+    tipo: '',
+    mensaje: '',
   },
   publicidadSeleccionadaEdit: {},
 };
@@ -140,6 +147,30 @@ const storePublicidades = (state = noticiaPorDefecto, accion) => {
           isExito: true,
           isError: false,
           isPublicidadSeleccionada: false,
+        },
+      };
+    }
+    case modalPaginaPublicidadAccion: {
+      return {
+        ...state,
+        modalPaginaPublicidad: {
+          isMostrar: accion.datosModal.isMostrar,
+          tipo: accion.datosModal.tipo,
+          mensaje: accion.datosModal.mensaje,
+        },
+      };
+    }
+    case eliminarPublicidadExito: {
+      const publicidadesEditadas = state.publicidades.filter(
+        publicidad => publicidad._id !== accion._id
+      );
+      return {
+        ...state,
+        publicidades: publicidadesEditadas,
+        modalPaginaPublicidad: {
+          isMostrar: true,
+          tipo: 'success',
+          mensaje: 'Publicidad Eliminada con exito',
         },
       };
     }
