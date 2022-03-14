@@ -6,27 +6,20 @@ import {BsSearch} from 'react-icons/bs';
 import ItemPublicidad from '../ItemPublicidad/ItemPublicidad';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import {useHistory} from 'react-router';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import Alertas from '../Alertas/Alertas';
+import {modalPaginaPublicidad_accion} from '../../Redux/Publicidades/AccionesPublicidades';
 
 const PaginaPublicidadAdmin = () => {
-  const {publicidades} = useSelector(state => state.storePublicidades);
+  const {publicidades, modalPaginaPublicidad} = useSelector(state => state.storePublicidades);
   const {medidasPublicidad} = useSelector(state => state.sotreDatosIniciales);
-  // const [isFiltroActivo, setIsFiltroActivo] = useState(true);
-  // const [isFiltroActivoParrafo, setIsFiltroActivoParrafo] = useState({
-  //   activo: true,
-  //   desactivado: false,
-  // });
+  const dispatch = useDispatch();
+
   const historialDeNavegacion = useHistory();
   const redireccionarNuevaPublicidad = () => {
     historialDeNavegacion.push('/Publicidad/Nueva');
   };
-  // const activarDesactivarFiltro = () => {
-  //   setIsFiltroActivo(!isFiltroActivo);
-  //   setIsFiltroActivoParrafo({
-  //     activo: !isFiltroActivoParrafo.activo,
-  //     desactivado: !isFiltroActivoParrafo.desactivado,
-  //   });
-  // };
+
   return (
     <div className="CP-PaginaPublicidadAdmin">
       {medidasPublicidad.length &&
@@ -34,38 +27,25 @@ const PaginaPublicidadAdmin = () => {
         <BotonLowa onClick={redireccionarNuevaPublicidad} tituloboton={'Agregar'} />
       ) : null}
       <InputLowa placeholder={'Buscar'} inputConIcono={<BsSearch></BsSearch>} />
-      {/* <FiltroActivo
-        activarDesactivarFiltro={activarDesactivarFiltro}
-        isFiltroActivo={isFiltroActivo}
-        isFiltroActivoParrafo={isFiltroActivoParrafo}
-      ></FiltroActivo> */}
-      {publicidades.map(publicidad => {
-        return (
-          <ItemPublicidad publicidad={publicidad} linkTo={'/Publicidad/Editar'}></ItemPublicidad>
-        );
-        // if (isFiltroActivo) {
-        //   if (publicidad.isActiva) {
 
-        //   } else {
-        //     return <></>;
-        //   }
-        // } else {
-        //   if (!publicidad.isActiva) {
-        //     return (
-        //       <ItemPublicidad
-        //         publicidad={publicidad}
-        //         linkTo={'/Publicidad/Editar'}
-        //       ></ItemPublicidad>
-        //     );
-        //   } else {
-        //     return <></>;
-        //   }
-        // }
+      {publicidades.map((publicidad, i) => {
+        return (
+          <ItemPublicidad
+            key={i}
+            publicidad={publicidad}
+            linkTo={'/Publicidad/Editar'}
+          ></ItemPublicidad>
+        );
       })}
 
-      {/* <ItemPublicidad ubicacion={'Pagina 1'} linkTo={'/Publicidad/Editar'}></ItemPublicidad>
-      <ItemPublicidad ubicacion={'Pagina 2'} linkTo={'/Publicidad/Editar'}></ItemPublicidad>
-      <ItemPublicidad ubicacion={'Pagina 3'} linkTo={'/Publicidad/Editar'}></ItemPublicidad> */}
+      <Alertas
+        mostrarSweet={modalPaginaPublicidad.isMostrar}
+        tipoDeSweet={modalPaginaPublicidad.tipo}
+        subtitulo={modalPaginaPublicidad.mensaje}
+        RespuestaDeSweet={() => {
+          dispatch(modalPaginaPublicidad_accion({isMostrar: false, tipo: '', mensaje: ''}));
+        }}
+      />
     </div>
   );
 };
