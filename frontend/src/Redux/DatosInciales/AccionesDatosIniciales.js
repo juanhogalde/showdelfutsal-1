@@ -93,3 +93,11 @@ export const controlModalPublicidad_accion = () => {
     type: controlModalPublicidad,
   };
 };
+export const activarMedidaPublicidad = 'activarMedidaPublicidad';
+
+export const activarMedidaPublicidad_accion = id => {
+  return {
+    type: activarMedidaPublicidad,
+    _id: id,
+  };
+};
