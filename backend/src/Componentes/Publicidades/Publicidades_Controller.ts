@@ -2,7 +2,9 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloPublicidades from './Publicidades_Model';
 import IPublicidades from './Publicidades_Interface';
-
+import {medidasPublicidadController} from '../MedidasPublicidad/MedidasPublicidad_Controller';
+import fs from 'fs';
+import path from 'path';
 class PublicidadesController {
   public async listar(req: Request, res: Response) {
     try {
@@ -23,7 +25,6 @@ class PublicidadesController {
   public async agregar(req: Request, res: Response) {
     try {
       var fechaActual = new Date();
-      console.log(req.body);
 
       const publicidad: IPublicidades = new modeloPublicidades({
         nombrePublicidad: req.body.nombrePublicidad,
@@ -81,9 +82,55 @@ class PublicidadesController {
 
   public async eliminar(req: Request, res: Response) {
     try {
-      let id = req.body.id;
-      const publicidadEliminada = await modeloPublicidades.findOneAndDelete({_id: id}, {new: true});
-      responder.sucess(req, res, publicidadEliminada);
+      if (!req.body._id) {
+        responder.error(
+          req,
+          res,
+          'No se envio el id de la publicidad',
+          'No se envio el id de la publicidad',
+          400
+        );
+      }
+      const publicidadAEliminar = await modeloPublicidades.findById(req.body._id);
+
+      if (!publicidadAEliminar) {
+        responder.error(
+          req,
+          res,
+          'No se encontro la publicidad solicitada',
+          'No se encontro la publicidad solicitada',
+          400
+        );
+      } else {
+        publicidadAEliminar
+          .delete()
+          .then(async () => {
+            fs.unlinkSync(path.join('./public/imagenes/', publicidadAEliminar.idImagen.toString()));
+            medidasPublicidadController
+              .activarMedidasPublicidad(publicidadAEliminar.idMedidas[0])
+              .then(() => {
+                responder.sucess(
+                  req,
+                  res,
+                  {idPublicidad: req.body._id, idMedida: publicidadAEliminar.idMedidas[0]},
+                  'publicidad Eliminada',
+                  200
+                );
+              })
+              .catch((error: any) => {
+                responder.error(
+                  req,
+                  res,
+                  error,
+                  'La publicidad fue eliminada pero no se pudo activar su medida',
+                  202
+                );
+              });
+          })
+          .catch((error: any) => {
+            responder.error(req, res, error, 'Error interno del servidor', 500);
+          });
+      }
     } catch (error) {
       responder.error(req, res, error);
     }
