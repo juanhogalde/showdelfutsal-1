@@ -8,13 +8,6 @@ import {keyCategoria} from '../../Config/enumeradores';
 class NoticiasController {
   public async listar(req: Request, res: Response) {
     try {
-      //TODO: ale necesito la paginacion con el populate de idImagen
-      // const opcionesPaginado = {
-      //   limit: parseInt(req.body.limite ? req.body.limite : 20, 10) || 20,
-      //   page: parseInt(req.body.page ? req.body.page : 1, 10) || 1,
-      // };
-
-      // const Noticias = await modeloNoticias.paginate({}, opcionesPaginado);
       modeloNoticias
         .find({})
         .populate('idImagen')
@@ -25,11 +18,6 @@ class NoticiasController {
         .catch((error: any[]) => {
           responder.error(req, res, error);
         });
-      // if (datos.docs.length) {
-      //   responder.sucess(req, res, datos);
-      // } else {
-      //   responder.sucess(req, res, 'No existen datos para los filtros ingresados');
-      // }
     } catch (error) {
       responder.error(req, res, error);
     }

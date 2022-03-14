@@ -1,13 +1,7 @@
 import React from 'react';
 import '../Filtros/Filtros.css';
 import logoBarra from '../../Logos/barra-filtros-large.png';
-/* import {Link} from 'react-router-dom'; */
-//TODO: Luego borrar Filtro y asignare a filtros = [] un arreglo vacio
-// const Filtro = [
-//   {nombre: 'Femenino', link: '/link'},
-//   {nombre: 'Masculino', link: '/link'},
-//   {nombre: 'Inferiores', link: '/NoticiaDesarrollada'},
-// ];
+
 const Filtros = ({
   filtros = [],
   obtenerFiltro = () => {
