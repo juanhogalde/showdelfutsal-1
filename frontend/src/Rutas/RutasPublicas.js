@@ -25,7 +25,7 @@ const RutasPublicas = () => {
         <Route exact component={RecuperarContraseña} path="/RecuperarContraseña"></Route>
         <Route exact component={PaginaSomos} path="/Somos"></Route>
         <Route exact component={PaginaNoticias} path="/Noticias"></Route>
-        <Route exact component={PaginaNoticiaDesarrollada} path="/Noticia/Desarrollada"></Route>
+        <Route exact component={PaginaNoticiaDesarrollada} path="/Noticia/Desarrollada/:id"></Route>
         <Route exact component={PaginaSecciones} path="/Seccion"></Route>
         <Route exact component={PaginaSecciones} path="/Seccion/:id"></Route>
         <Route exact component={NoticiasFiltradas} path="/Noticias/Filtradas"></Route>
