@@ -5,8 +5,7 @@ import './SeccionNoticias.css';
 /* import publicidadCorta from '../../Static/Img/anuncio2_corta.jpg'; */
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 import {Link} from 'react-router-dom';
-import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import SliderGaleria from '../SliderGaleria/SliderGaleria';
 
 const SeccionNoticias = ({
@@ -15,7 +14,6 @@ const SeccionNoticias = ({
   categoriaNoticia = 1,
   subcategoriaNoticia = -1,
 }) => {
-  const dispatch = useDispatch();
   const {noticias} = useSelector(state => state.storeNoticias);
   const [noticiaVisualizada, setNoticiaVisualizada] = useState({});
   useLayoutEffect(() => {
@@ -43,9 +41,7 @@ const SeccionNoticias = ({
     }
     setNoticiaVisualizada(noticiasAMostrar);
   }, [noticias, setNoticiaVisualizada, categoriaNoticia, subcategoriaNoticia]);
-  const noticiaSeleccionada = noticiaRecibida => {
-    dispatch(guardarNoticiaMiniaturaSeleccionada_accion(noticiaRecibida));
-  };
+
   return (
     <div
       className={`${
@@ -66,10 +62,7 @@ const SeccionNoticias = ({
         <div className="I-Noticia-Componente">
           {noticiaVisualizada.noticia1 ? (
             <Link
-              to="/Noticia/Desarrollada"
-              onClick={() => {
-                noticiaSeleccionada(noticiaVisualizada.noticia1 ? noticiaVisualizada.noticia1 : {});
-              }}
+              to={`/Noticia/Desarrollada/${noticiaVisualizada.noticia1_id}`}
               className="estilos-Link"
             >
               <NoticiasMiniatura
@@ -85,10 +78,7 @@ const SeccionNoticias = ({
         <div className="I-Noticia-Componente-miniatura">
           {noticiaVisualizada.noticia2 ? (
             <Link
-              to="/Noticia/Desarrollada"
-              onClick={() => {
-                noticiaSeleccionada(noticiaVisualizada.noticia2 ? noticiaVisualizada.noticia2 : {});
-              }}
+              to={`/Noticia/Desarrollada/${noticiaVisualizada.noticia2_id}`}
               className="estilos-Link"
             >
               <NoticiasMiniatura
@@ -100,10 +90,7 @@ const SeccionNoticias = ({
           ) : null}
           {noticiaVisualizada.noticia3 ? (
             <Link
-              to="/Noticia/Desarrollada"
-              onClick={() => {
-                noticiaSeleccionada(noticiaVisualizada.noticia3 ? noticiaVisualizada.noticia3 : {});
-              }}
+              to={`/Noticia/Desarrollada/${noticiaVisualizada.noticia3_id}`}
               className="estilos-Link"
             >
               <NoticiasMiniatura
