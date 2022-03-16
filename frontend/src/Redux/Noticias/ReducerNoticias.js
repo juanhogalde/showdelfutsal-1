@@ -23,12 +23,16 @@ import {
   desestacarNoticiaError,
   destacarNoticiaExito,
   destacarNoticiaError,
+  cargandoObtenerNoticiaSeleccionada,
+  obtenerNoticiaSeleccionadaExito,
+  obtenerNoticiaSeleccionadaError,
 } from './AccionesNoticias';
 
 const noticiaPorDefecto = {
   noticias: [],
   noticiaDeBusqueda: '',
-  noticiaSeleccionada: {},
+  noticiaSeleccionada: null,
+  noticiaSeleccionadaError: null,
   isObteniendoNoticia: {isMostrar: false, tipo: '', mensaje: ''},
   noticiaEliminada: {},
   isNoticiaGurdada: {
@@ -40,6 +44,9 @@ const noticiaPorDefecto = {
     isEditada: false,
     isEliminado: false,
   },
+  cargandoNoticiaDesarrollada: true,
+  noticiaDesarrolada: null,
+  noticiaDesarrolladaError: null,
 };
 const storeNoticias = (state = noticiaPorDefecto, accion) => {
   switch (accion.type) {
@@ -147,10 +154,20 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
       };
     }
     case guardarNoticiaMiniaturaSeleccionada: {
-      return {
-        ...state,
-        noticiaSeleccionada: {...accion.noticia},
-      };
+      const noticiaSeleccionada = state.noticias.find(noticia => noticia._id === accion.id);
+      if (noticiaSeleccionada) {
+        return {
+          ...state,
+          noticiaSeleccionada: noticiaSeleccionada,
+          noticiaSeleccionadaError: null,
+        };
+      } else {
+        return {
+          ...state,
+          noticiaSeleccionada: null,
+          noticiaSeleccionadaError: 'No se encontro la noticia solicitada',
+        };
+      }
     }
     case cargandoEditarNoticia: {
       return {
@@ -334,6 +351,30 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           isEditada: false,
           isEliminado: false,
         },
+      };
+    }
+    case cargandoObtenerNoticiaSeleccionada: {
+      return {
+        ...state,
+        cargandoNoticiaDesarrollada: true,
+        noticiaDesarrolada: null,
+        noticiaDesarrolladaError: null,
+      };
+    }
+    case obtenerNoticiaSeleccionadaExito: {
+      return {
+        ...state,
+        noticiaDesarrolada: accion.noticia,
+        noticiaDesarrolladaError: null,
+        cargandoNoticiaDesarrollada: false,
+      };
+    }
+    case obtenerNoticiaSeleccionadaError: {
+      return {
+        ...state,
+        noticiaDesarrolladaError: accion.error,
+        noticiaDesarrolada: null,
+        cargandoNoticiaDesarrollada: false,
       };
     }
     default:
