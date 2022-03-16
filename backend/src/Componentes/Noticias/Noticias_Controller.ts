@@ -137,8 +137,28 @@ class NoticiasController {
   public async obtener(req: Request, res: Response) {
     try {
       let idNoticia = req.params.id;
-      const noticia = await modeloNoticias.find({_id: idNoticia});
-      responder.sucess(req, res, noticia);
+      if (!req.params.id) {
+        responder.error(req, res, 'Falta id de la noticia', 'Falta id de la noticia', 400);
+      } else {
+        modeloNoticias
+          .findById({_id: idNoticia})
+          .then((noticia: any) => {
+            if (!noticia) {
+              responder.error(
+                req,
+                res,
+                'No se encontro la noticia que buscas',
+                'No se encontro la noticia que buscas',
+                400
+              );
+            } else {
+              responder.sucess(req, res, noticia, '', 200);
+            }
+          })
+          .catch((error: any) => {
+            responder.error(req, res, error);
+          });
+      }
     } catch (error) {
       responder.error(req, res, error);
     }
