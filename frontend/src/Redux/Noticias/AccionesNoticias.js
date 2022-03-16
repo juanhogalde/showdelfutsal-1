@@ -173,10 +173,10 @@ export const listarNoticia_accion = () => {
   };
 };
 
-export const guardarNoticiaMiniaturaSeleccionada_accion = noticiaMiniatura => {
+export const guardarNoticiaMiniaturaSeleccionada_accion = id => {
   return {
     type: guardarNoticiaMiniaturaSeleccionada,
-    noticia: noticiaMiniatura,
+    id: id,
   };
 };
 
@@ -367,6 +367,44 @@ export const destacarNoticia_accion = noticia => {
       .catch(error => {
         console.log(error);
         dispatch(destacarNoticiaError_accion(error));
+      });
+  };
+};
+
+// Obtener noticia seleccionada
+export const cargandoObtenerNoticiaSeleccionada = 'cargandoObtenerNoticiaSeleccionada';
+export const obtenerNoticiaSeleccionadaExito = 'obtenerNoticiaSeleccionadaExito';
+export const obtenerNoticiaSeleccionadaError = 'obtenerNoticiaSeleccionadaError';
+export const cargandoObtenerNoticiaSeleccionada_accion = () => {
+  return {
+    type: cargandoObtenerNoticiaSeleccionada,
+  };
+};
+export const obtenerNoticiaSeleccionadaExito_accion = noticia => {
+  return {
+    type: obtenerNoticiaSeleccionadaExito,
+    noticia: noticia,
+  };
+};
+export const obtenerNoticiaSeleccionadaError_accion = error => {
+  return {
+    type: obtenerNoticiaSeleccionadaError,
+    error: error,
+  };
+};
+export const obtenerNoticiaSeleccionada = id => {
+  return dispatch => {
+    dispatch(cargandoObtenerNoticiaSeleccionada_accion());
+    API({
+      url: `/Noticias//obtener/${id}`,
+      method: 'get',
+    })
+      .then(res => {
+        dispatch(obtenerNoticiaSeleccionadaExito_accion(res.data.value));
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(obtenerNoticiaSeleccionadaError_accion('No se pudo obtener la noticia'));
       });
   };
 };
