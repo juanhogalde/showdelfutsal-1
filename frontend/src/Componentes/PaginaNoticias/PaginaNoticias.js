@@ -6,9 +6,8 @@ import SeccionNoticias from '../SeccionNoticias/SeccionNoticias';
 import SubMenuBuscadorNoticias from '../SubMenuBuscadorNoticias/SubMenuBuscadorNoticias';
 import Animaciones from '../Animaciones/Animaciones';
 import PieDepagina from '../PieDePagina/PieDepagina';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
 import SliderGaleria from '../SliderGaleria/SliderGaleria';
 import {server} from '../../Entorno';
 
@@ -27,7 +26,6 @@ const PaginaNoticias = ({
   const [publicidadAbajoGaleriaFemenino, setPublicidadAbajoGaleriaFemenino] = useState();
   const [publicidadAbajoGaleriaLNFA, setPublicidadAbajoGaleriaLNFA] = useState();
 
-  const dispatch = useDispatch();
   useLayoutEffect(() => {
     if (publicidades.length) {
       publicidades.forEach(publicidad => {
@@ -96,9 +94,7 @@ const PaginaNoticias = ({
     }
     setNoticiaLiga(noticiasLiga);
   }, [noticias, setNoticiaMasculino]);
-  const noticiaSeleccionada = noticiaRecibida => {
-    dispatch(guardarNoticiaMiniaturaSeleccionada_accion(noticiaRecibida));
-  };
+
   return (
     <div className="LP-Seccion-Noticias">
       <SubMenuBuscadorNoticias />
@@ -147,10 +143,7 @@ const PaginaNoticias = ({
           <div className="CI-SN-Liga-general">
             <div className="I-Noticia-Liga">
               <Link
-                to="/Noticia/Desarrollada"
-                onClick={() => {
-                  noticiaSeleccionada(noticiaLiga.noticia1 ? noticiaLiga.noticia1 : {});
-                }}
+                to={`/Noticia/Desarrollada/${noticiaLiga.noticia1._id}`}
                 className="estilos-Link"
               >
                 <NoticiasMiniatura
@@ -162,10 +155,7 @@ const PaginaNoticias = ({
             </div>
             <div className="I-Noticia-Liga">
               <Link
-                to="/Noticia/Desarrollada"
-                onClick={() => {
-                  noticiaSeleccionada(noticiaLiga.noticia2 ? noticiaLiga.noticia2 : {});
-                }}
+                to={`/Noticia/Desarrollada/${noticiaLiga.noticia2._id}`}
                 className="estilos-Link"
               >
                 <NoticiasMiniatura
