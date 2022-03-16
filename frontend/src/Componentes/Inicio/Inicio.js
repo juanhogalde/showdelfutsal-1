@@ -13,7 +13,7 @@ import {BsInstagram, BsYoutube} from 'react-icons/bs';
 import {FaFacebookF} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 import PieDepagina from '../PieDePagina/PieDepagina';
-import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
+// import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
 import ModalLowa from '../../ComponentesAdmin/ModalLowa/ModalLowa';
 import publicidadModal from '../../Static/Img/anuncio-modal.png';
 import {server, dominio} from '../../Entorno';
@@ -60,9 +60,9 @@ const Inicio = () => {
       resolve(filtradoDeNoticia);
     });
   };
-  const noticiaSeleccionada = noticiaRecibida => {
-    dispatch(guardarNoticiaMiniaturaSeleccionada_accion(noticiaRecibida));
-  };
+  // const noticiaSeleccionada = noticiaRecibida => {
+  //   dispatch(guardarNoticiaMiniaturaSeleccionada_accion(noticiaRecibida));
+  // };
   useLayoutEffect(() => {
     //CARGA DE PARTIDOS
     setPartido({
@@ -494,10 +494,10 @@ const Inicio = () => {
           <div className="CI-NoticiaPrincipal">
             <div className="componenteNoticiaPrincipal">
               <Link
-                to="/Noticia/Desarrollada"
-                onClick={() => {
-                  noticiaSeleccionada(noticiaP);
-                }}
+                to={`/Noticia/Desarrollada/${noticiaP._id}`}
+                // onClick={() => {
+                //   noticiaSeleccionada(noticiaP);
+                // }}
                 className="estilos-Link"
               >
                 <NoticiasMiniatura
@@ -512,10 +512,10 @@ const Inicio = () => {
           <div className="CI-NoticiasMini">
             <div className="noticia-Miniatura-1">
               <Link
-                to="/Noticia/Desarrollada"
-                onClick={() => {
-                  noticiaSeleccionada(noticia1);
-                }}
+                to={`/Noticia/Desarrollada/${noticia1._id}`}
+                // onClick={() => {
+                //   noticiaSeleccionada(noticia1);
+                // }}
                 className="estilos-Link"
               >
                 <NoticiasMiniatura
@@ -526,10 +526,10 @@ const Inicio = () => {
             </div>
             <div className="noticia-Miniatura-2">
               <Link
-                to="/Noticia/Desarrollada"
-                onClick={() => {
-                  noticiaSeleccionada(noticia2);
-                }}
+                to={`/Noticia/Desarrollada/${noticia2._id}`}
+                // onClick={() => {
+                //   noticiaSeleccionada(noticia2);
+                // }}
                 className="estilos-Link"
               >
                 <NoticiasMiniatura
