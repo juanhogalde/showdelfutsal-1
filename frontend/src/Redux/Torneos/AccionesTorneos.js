@@ -343,7 +343,6 @@ export const crearZonaTorneo_accion = torneo => {
 };
 /****** LISTAR ZONA ******/
 export const listarZonasTorneo_accion = id => {
-  console.log(id);
   return dispatch => {
     /* dispatch(cargandoListarTorneo_accion()); */
     API({
@@ -352,7 +351,6 @@ export const listarZonasTorneo_accion = id => {
       data: {idTorneo: id},
     })
       .then(res => {
-        console.log({res});
         /* dispatch(listarZonaTorneoExito_accion(res.data.value)); */
       })
       .catch(error => {
@@ -412,7 +410,6 @@ export const eliminarZona_accion = idZona => {
       },
     })
       .then(res => {
-        console.log({res});
         dispatch(eliminarZonaExito_accion(idZona));
       })
       .catch(error => {
@@ -624,10 +621,10 @@ export const agregarEquiposZonaTorneoCargando_accion = () => {
     type: agregarEquiposZonaTorneoCargando,
   };
 };
-export const agregarEquiposZonaTorneoExito_accion = nuevaZona => {
+export const agregarEquiposZonaTorneoExito_accion = equipos => {
   return {
     type: agregarEquiposZonaTorneoExito,
-    zona: nuevaZona,
+    equipos: equipos,
   };
 };
 export const actualizarListaTorneosAgregarEquiposZona_accion = () => {
@@ -649,7 +646,13 @@ export const agregarEquiposZonaTorneoDefault_accion = () => {
 
 export const agregarEquiposZonaTorneo_accion = (zonaId, equiposId) => {
   return dispatch => {
-    dispatch(agregarEquiposZonaTorneoCargando_accion());
+    dispatch(
+      modalGenericoAgregarEquipos_accion({
+        tipo: 'cargando',
+        mensaje: 'Agregando eqiopo/s...',
+        isMostrar: true,
+      })
+    );
     API({
       url: 'zonas/agregarEquipos',
       method: 'post',
@@ -681,10 +684,10 @@ export const modalGenericoAgregarEquipos_accion = datos => {
     datos: datos,
   };
 };
-export const eliminarEquipoDeZonaExito_accion = idEquipo => {
+export const eliminarEquipoDeZonaExito_accion = equipo => {
   return {
     type: eliminarEquipoDeZonaExito,
-    idEquipo: idEquipo,
+    equipo: equipo,
   };
 };
 export const actualizarListaTorneosEliminarEquiposZona_accion = () => {
@@ -704,7 +707,7 @@ export const eliminarEquipoDeZonaDefault_accion = () => {
   };
 };
 
-export const eliminarEquipoDeZona_accion = (zonaId, equipoId) => {
+export const eliminarEquipoDeZona_accion = (zonaId, equipo) => {
   return dispatch => {
     dispatch(
       modalGenericoAgregarEquipos_accion({
@@ -717,12 +720,12 @@ export const eliminarEquipoDeZona_accion = (zonaId, equipoId) => {
       url: 'zonas/eliminarEquipo',
       method: 'delete',
       data: {
-        idEquipo: equipoId,
+        idEquipo: equipo._id,
         _id: zonaId,
       },
     })
       .then(res => {
-        dispatch(eliminarEquipoDeZonaExito_accion(equipoId));
+        dispatch(eliminarEquipoDeZonaExito_accion(equipo));
       })
       .catch(error => {
         console.log({error});
@@ -774,8 +777,8 @@ export const obtenerZonaAgregarEquipos = zonaId => {
           url: `/equipos/obtenerPorIdSubCategoria/${res.data.value.idSubcategoria}`,
           method: 'get',
         })
-          .then(equipos => {
-            res.data.value.equiposDisponibles = equipos;
+          .then(RespuestaEquipos => {
+            res.data.value.equiposDisponibles = RespuestaEquipos.data.value;
             dispatch(ZonaAgregarEquiposExito_accion(res.data.value));
           })
           .catch(error => {

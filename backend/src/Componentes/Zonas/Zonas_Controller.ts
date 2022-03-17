@@ -197,7 +197,15 @@ class ZonasController {
                 zonaEncontrada
                   .save()
                   .then((zonaActualizada: any) => {
-                    responder.sucess(req, res, zonaActualizada, '', 200);
+                    responder.sucess(
+                      req,
+                      res,
+                      zonaActualizada.equipos.map((equipo: any) => {
+                        return equipo._id;
+                      }),
+                      '',
+                      200
+                    );
                   })
                   .catch((error: any) => {
                     responder.error(req, res, error);

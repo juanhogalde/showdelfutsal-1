@@ -52,6 +52,7 @@ const Selector = props => {
     noOptionsMessage,
     opcionSeleccionada,
     isLimpiarValor,
+    onBlur,
   } = props;
 
   const componenteConIcono = {
@@ -70,6 +71,7 @@ const Selector = props => {
   return (
     <div className="CP-Selector">
       <Select
+        onBlur={onBlur}
         name={name}
         styles={estilosPersonalizados}
         closeMenuOnSelect={!isCerrarMenuAlSeleccionar}

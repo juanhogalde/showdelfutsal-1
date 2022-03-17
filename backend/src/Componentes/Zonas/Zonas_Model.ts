@@ -28,7 +28,7 @@ const ZonasSchema = new Schema({
   idTorneo: {type: Schema.Types.ObjectId, ref: 'modeloTorneos'},
 });
 ZonasSchema.post('save', function (doc, next) {
-  doc.populate('idSubcategoria').then(function () {
+  doc.populate('equipos._id').then(function () {
     next();
   });
 });

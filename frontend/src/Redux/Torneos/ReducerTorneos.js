@@ -414,9 +414,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       };
     }
     case recuperarTorneo: {
-      console.log(accion.id);
       let auxTorneo = state.torneos.find(torneo => torneo._id === accion.id);
-      console.log(auxTorneo);
       return {
         ...state,
       };
@@ -827,27 +825,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         },
       };
     }
-    case agregarEquiposZonaTorneoExito: {
-      let auxZonas = state.torneo.zonas.map(zonaTorneo => {
-        if (zonaTorneo._id === accion.zona._id) {
-          return accion.zona;
-        } else {
-          return zonaTorneo;
-        }
-      });
-      return {
-        ...state,
-        isAgregarEquiposZona: {
-          tipo: 'success',
-          mensaje: 'Equipos Agregados...',
-          isMostrar: true,
-        },
-        torneo: {
-          ...state.torneo,
-          zonas: auxZonas,
-        },
-      };
-    }
+
     case actualizarListaTorneosAgregarEquiposZona: {
       let auxTorneos = state.torneos.map(torneo => {
         if (torneo._id === state.torneo._id) {
@@ -866,16 +844,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         torneos: auxTorneos,
       };
     }
-    case agregarEquiposZonaTorneoError: {
-      return {
-        ...state,
-        isAgregarEquiposZona: {
-          tipo: 'error',
-          mensaje: 'Lo sentimos, en este momento no podemos agregar equipos...',
-          isMostrar: true,
-        },
-      };
-    }
+
     case agregarEquiposZonaTorneoDefault: {
       return {
         ...state,
@@ -950,7 +919,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       const equiposObtenidos = accion.zona.equiposDisponibles.map((equipo, index) => {
         return {
           label: equipo.nombreClub,
-          value: index + 1,
+          value: equipo._id,
           data: equipo,
         };
       });
@@ -979,9 +948,31 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       return {
         ...state,
         modalGenericoAgregarEquipos: {
+          ...accion.datos,
           tipo: accion.datos.tipo,
           mensaje: accion.datos.mensaje,
           isMostrar: accion.datos.isMostrar,
+        },
+      };
+    }
+    case agregarEquiposZonaTorneoExito: {
+      const equiposYaAgregados = accion.equipos.map(equipo => {
+        return equipo._id;
+      });
+      return {
+        ...state,
+        modalGenericoAgregarEquipos: {
+          tipo: 'success',
+          mensaje: 'Equipos Agregados...',
+          isMostrar: true,
+          agregandoEquipos: true,
+        },
+        entidadZonaAgregarEquipos: {
+          ...state.entidadZonaAgregarEquipos,
+          equiposDisponibles: state.entidadZonaAgregarEquipos.equiposDisponibles.filter(
+            equipo => !equiposYaAgregados.includes(equipo.value)
+          ),
+          equipos: accion.equipos,
         },
       };
     }
@@ -991,12 +982,30 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         entidadZonaAgregarEquipos: {
           ...state.entidadZonaAgregarEquipos,
           equipos: state.entidadZonaAgregarEquipos.equipos.filter(
-            equipo => equipo._id !== accion.idEquipo
+            equipo => equipo._id !== accion.equipo._id
           ),
+          equiposDisponibles: [
+            ...state.entidadZonaAgregarEquipos.equiposDisponibles,
+            {
+              label: accion.equipo.nombreClub,
+              value: accion.equipo._id,
+              data: accion.equipo,
+            },
+          ],
         },
         modalGenericoAgregarEquipos: {
           tipo: 'succes',
           mensaje: 'Equipo eliminado con exito',
+          isMostrar: true,
+        },
+      };
+    }
+    case agregarEquiposZonaTorneoError: {
+      return {
+        ...state,
+        modalGenericoAgregarEquipos: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, en este momento no podemos agregar equipos...',
           isMostrar: true,
         },
       };
