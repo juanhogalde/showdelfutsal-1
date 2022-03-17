@@ -101,69 +101,72 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
     }
   };
   useLayoutEffect(() => {
-    if (!isNueva) {
-      setdatosCargados(noticiaSeleccionada);
-      setCategoria(
-        noticiaSeleccionada.idCategoria
-          ? categorias.find(elemnt => elemnt.value === noticiaSeleccionada.idCategoria)
-          : ''
-      );
-      setSubCategoria(
-        noticiaSeleccionada.idSubcategoria
-          ? subcategorias.find(elemnt => elemnt.value === noticiaSeleccionada.idSubcategoria)
-          : ''
-      );
-    }
-    switch (noticiaSeleccionada.keyCategoria) {
-      case 1:
-        let subcategoriasParaMasculino = [];
-        subcategorias.forEach(element => {
-          if (element.key === 1 || element.key === 2 || element.key === 3 || element.key === 4) {
-            subcategoriasParaMasculino = [...subcategoriasParaMasculino, element];
-          }
-        });
-        setArregloDeSubCategorias(subcategoriasParaMasculino);
-        setArregloDeCategorias(categorias);
-        break;
-      case 2:
-        let subcategoriasParaFemenino = [];
-        subcategorias.forEach(element => {
-          if (element.key === 1 || element.key === 2) {
-            subcategoriasParaFemenino = [...subcategoriasParaFemenino, element];
-          }
-        });
-        setArregloDeSubCategorias(subcategoriasParaFemenino);
-        setArregloDeCategorias(categorias);
-        break;
-      case 3:
-        let subcategoriasParaLiga = [];
-        subcategorias.forEach(element => {
-          if (element.key === 9 || element.key === 10 || element.key === 11) {
-            subcategoriasParaLiga = [...subcategoriasParaLiga, element];
-          }
-        });
-        setArregloDeSubCategorias(subcategoriasParaLiga);
-        setArregloDeCategorias(categorias);
-        break;
-      case 4:
-        let subcategoriasParaOtras = [];
-        subcategorias.forEach(element => {
-          if (
-            element.key === 12 ||
-            element.key === 13 ||
-            element.key === 14 ||
-            element.key === 15
-          ) {
-            subcategoriasParaOtras = [...subcategoriasParaOtras, element];
-          }
-        });
-        setArregloDeSubCategorias(subcategoriasParaOtras);
-        setArregloDeCategorias(categorias);
-        break;
-      default:
-        setArregloDeCategorias(categorias);
-        setArregloDeSubCategorias(subcategorias);
-        break;
+    if (noticiaSeleccionada) {
+      if (!isNueva) {
+        setdatosCargados(noticiaSeleccionada);
+        setCategoria(
+          noticiaSeleccionada.idCategoria
+            ? categorias.find(elemnt => elemnt.value === noticiaSeleccionada.idCategoria)
+            : ''
+        );
+        setSubCategoria(
+          noticiaSeleccionada.idSubcategoria
+            ? subcategorias.find(elemnt => elemnt.value === noticiaSeleccionada.idSubcategoria)
+            : ''
+        );
+      }
+
+      switch (noticiaSeleccionada.keyCategoria) {
+        case 1:
+          let subcategoriasParaMasculino = [];
+          subcategorias.forEach(element => {
+            if (element.key === 1 || element.key === 2 || element.key === 3 || element.key === 4) {
+              subcategoriasParaMasculino = [...subcategoriasParaMasculino, element];
+            }
+          });
+          setArregloDeSubCategorias(subcategoriasParaMasculino);
+          setArregloDeCategorias(categorias);
+          break;
+        case 2:
+          let subcategoriasParaFemenino = [];
+          subcategorias.forEach(element => {
+            if (element.key === 1 || element.key === 2) {
+              subcategoriasParaFemenino = [...subcategoriasParaFemenino, element];
+            }
+          });
+          setArregloDeSubCategorias(subcategoriasParaFemenino);
+          setArregloDeCategorias(categorias);
+          break;
+        case 3:
+          let subcategoriasParaLiga = [];
+          subcategorias.forEach(element => {
+            if (element.key === 9 || element.key === 10 || element.key === 11) {
+              subcategoriasParaLiga = [...subcategoriasParaLiga, element];
+            }
+          });
+          setArregloDeSubCategorias(subcategoriasParaLiga);
+          setArregloDeCategorias(categorias);
+          break;
+        case 4:
+          let subcategoriasParaOtras = [];
+          subcategorias.forEach(element => {
+            if (
+              element.key === 12 ||
+              element.key === 13 ||
+              element.key === 14 ||
+              element.key === 15
+            ) {
+              subcategoriasParaOtras = [...subcategoriasParaOtras, element];
+            }
+          });
+          setArregloDeSubCategorias(subcategoriasParaOtras);
+          setArregloDeCategorias(categorias);
+          break;
+        default:
+          setArregloDeCategorias(categorias);
+          setArregloDeSubCategorias(subcategorias);
+          break;
+      }
     }
   }, [noticiaSeleccionada, setCategoria, setSubCategoria, isNueva, categorias, subcategorias]);
   const eventoGuardar = () => {
