@@ -66,11 +66,11 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
     elementoEnfocar.scrollIntoView();
   };
   useLayoutEffect(() => {
-    if (id && !noticiaDesarrolada) {
+    if (id) {
       dispatch(obtenerNoticiaSeleccionada(id));
     }
     return () => {};
-  }, [id, noticiaDesarrolada, dispatch]);
+  }, [id, dispatch]);
   useLayoutEffect(() => {
     return () => {
       dispatch(cargandoObtenerNoticiaSeleccionada_accion());
