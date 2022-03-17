@@ -154,7 +154,7 @@ const EditorEnfrentamientos = () => {
   };
 
   useLayoutEffect(() => {
-    if (equipos.length > 0) {
+    if (equipos?.length > 0) {
       let auxArrayEquiposZona = [];
       if (datosFiltrados) {
         if (datosFiltrados.zona) {

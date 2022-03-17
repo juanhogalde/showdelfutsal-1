@@ -76,7 +76,6 @@ export const agregarEquiposZonaTorneoDefault = 'agregarEquiposZonaTorneoDefault'
 export const estadoComponenteAgregarEquipo = 'estadoComponenteAgregarEquipo';
 
 export const eliminarEquipoDeZonaConsulta = 'eliminarEquipoDeZonaConsulta';
-export const eliminarEquipoDeZonaCargando = 'eliminarEquipoDeZonaCargando';
 export const eliminarEquipoDeZonaExito = 'eliminarEquipoDeZonaExito';
 export const eliminarEquipoDeZonaError = 'eliminarEquipoDeZonaError';
 export const eliminarEquipoDeZonaDefault = 'eliminarEquipoDeZonaDefault';
@@ -265,7 +264,7 @@ export const volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion = () => {
     type: volverPorDefectoAgregarCategoriaSubcategoriaTorneo,
   };
 };
-export const agregarCategoriaSubcategoriaTorneo_accion = torneo => {
+export const obtenerEntidadZonaAgregarEquipos = torneo => {
   return dispatch => {
     dispatch(cargandoAgregarCategoriaSubcategoria_accion());
     API({
@@ -667,6 +666,8 @@ export const agregarEquiposZonaTorneo_accion = (zonaId, equiposId) => {
 };
 
 /* ELIMINAR EQUIPO DE ZONA DE TORNEO */
+export const controlModalGenericoAgregarEquipos = 'controlModalGenericoAgregarEquipos';
+
 export const eliminarEquipoDeZonaConsulta_accion = (equipoId, isEquipoNuevo) => {
   return {
     type: eliminarEquipoDeZonaConsulta,
@@ -674,16 +675,16 @@ export const eliminarEquipoDeZonaConsulta_accion = (equipoId, isEquipoNuevo) => 
     isNuevo: isEquipoNuevo,
   };
 };
-export const eliminarEquipoDeZonaCargando_accion = () => {
+export const modalGenericoAgregarEquipos_accion = datos => {
   return {
-    type: eliminarEquipoDeZonaCargando,
+    type: controlModalGenericoAgregarEquipos,
+    datos: datos,
   };
 };
-export const eliminarEquipoDeZonaExito_accion = (nuevaZona, equipoEliminado) => {
+export const eliminarEquipoDeZonaExito_accion = idEquipo => {
   return {
     type: eliminarEquipoDeZonaExito,
-    zona: nuevaZona,
-    equipoId: equipoEliminado,
+    idEquipo: idEquipo,
   };
 };
 export const actualizarListaTorneosEliminarEquiposZona_accion = () => {
@@ -705,7 +706,13 @@ export const eliminarEquipoDeZonaDefault_accion = () => {
 
 export const eliminarEquipoDeZona_accion = (zonaId, equipoId) => {
   return dispatch => {
-    dispatch(eliminarEquipoDeZonaCargando_accion());
+    dispatch(
+      modalGenericoAgregarEquipos_accion({
+        tipo: 'cargando',
+        mensaje: 'Cargando...',
+        isMostrar: true,
+      })
+    );
     API({
       url: 'zonas/eliminarEquipo',
       method: 'delete',
@@ -715,7 +722,7 @@ export const eliminarEquipoDeZona_accion = (zonaId, equipoId) => {
       },
     })
       .then(res => {
-        dispatch(eliminarEquipoDeZonaExito_accion(res.data.value, equipoId));
+        dispatch(eliminarEquipoDeZonaExito_accion(equipoId));
       })
       .catch(error => {
         console.log({error});
@@ -730,5 +737,63 @@ export const estadoComponenteAgregarEquipo_accion = isVerificar => {
   return {
     type: estadoComponenteAgregarEquipo,
     data: isVerificar,
+  };
+};
+
+// Seccion Agregar equipos a zona
+export const cargandoObtenerZonaAgregarEquipos = 'cargandoObtenerZonaAgregarEquipos';
+export const ZonaAgregarEquiposExito = 'ZonaAgregarEquiposExito';
+export const ZonaAgregarEquiposError = 'ZonaAgregarEquiposError';
+
+export const cargandoobtenerZonaAgregarEquipos_accion = () => {
+  return {
+    type: cargandoObtenerZonaAgregarEquipos,
+  };
+};
+export const ZonaAgregarEquiposExito_accion = zona => {
+  return {
+    type: ZonaAgregarEquiposExito,
+    zona: zona,
+  };
+};
+export const ZonaAgregarEquiposError_accion = mensajeError => {
+  return {
+    type: ZonaAgregarEquiposError,
+    mensajeError: mensajeError,
+  };
+};
+export const obtenerZonaAgregarEquipos = zonaId => {
+  return dispatch => {
+    dispatch(cargandoobtenerZonaAgregarEquipos_accion());
+    API({
+      url: `zonas/obtenerPorId/${zonaId}`,
+      method: 'get',
+    })
+      .then(res => {
+        API({
+          url: `/equipos/obtenerPorIdSubCategoria/${res.data.value.idSubcategoria}`,
+          method: 'get',
+        })
+          .then(equipos => {
+            res.data.value.equiposDisponibles = equipos;
+            dispatch(ZonaAgregarEquiposExito_accion(res.data.value));
+          })
+          .catch(error => {
+            console.log({error});
+            dispatch(
+              ZonaAgregarEquiposError_accion(
+                error?.response?.data?.message || 'Error interno del servidor'
+              )
+            );
+          });
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(
+          ZonaAgregarEquiposError_accion(
+            error?.response?.data?.message || 'Error interno del servidor'
+          )
+        );
+      });
   };
 };

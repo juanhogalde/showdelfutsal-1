@@ -24,6 +24,7 @@ import {
   destacarNoticiaExito,
   destacarNoticiaError,
   cargandoObtenerNoticiaSeleccionada,
+  volverPorDefectoNoticiasDesarrollada,
   obtenerNoticiaSeleccionadaExito,
   obtenerNoticiaSeleccionadaError,
 } from './AccionesNoticias';
@@ -357,6 +358,14 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
       return {
         ...state,
         cargandoNoticiaDesarrollada: true,
+        noticiaDesarrolada: null,
+        noticiaDesarrolladaError: null,
+      };
+    }
+    case volverPorDefectoNoticiasDesarrollada: {
+      return {
+        ...state,
+        cargandoNoticiaDesarrollada: false,
         noticiaDesarrolada: null,
         noticiaDesarrolladaError: null,
       };

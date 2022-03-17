@@ -12,7 +12,7 @@ import {
   obtenerEquiposDeZonaDefault,
 } from './AccionesEquipos';
 const equiposPorDefecto = {
-  equipos: [],
+  equipos: null,
   enfrentamientos: [],
   equipo: {},
   isListarEquipos: {

@@ -1,23 +1,24 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {BsPlusCircle} from 'react-icons/bs';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHistory, useParams} from 'react-router-dom';
-import {
-  equiposPorSubcategoriaDefault_accion,
-  equiposPorSubcategoria_accion,
-} from '../../Redux/Equipos/AccionesEquipos';
+// import {equiposPorSubcategoria_accion} from '../../Redux/Equipos/AccionesEquipos';
 import {
   actualizarListaTorneosAgregarEquiposZona_accion,
   actualizarListaTorneosEliminarEquiposZona_accion,
   agregarEquiposZonaTorneoDefault_accion,
   agregarEquiposZonaTorneo_accion,
-  eliminarEquipoDeZonaConsulta_accion,
+  // eliminarEquipoDeZonaConsulta_accion,
   eliminarEquipoDeZonaDefault_accion,
   eliminarEquipoDeZona_accion,
-  estadoComponenteAgregarEquipo_accion,
+  // estadoComponenteAgregarEquipo_accion,
+  modalGenericoAgregarEquipos_accion,
+  obtenerZonaAgregarEquipos,
+  ZonaAgregarEquiposError_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 import BotonLowa from '../BotonLowa/BotonLowa';
+import Cargando from '../Cargando/Cargando';
 import Selector from '../Selector/Selector';
 import TarjetaEquipo from '../TarjetaEquipo/TarjetaEquipo';
 import './AgregarEquipos.css';
@@ -26,16 +27,28 @@ const AgregarEquipos = () => {
   const history = useHistory();
   const {zonaId} = useParams();
   const dispatch = useDispatch();
-  const {torneo, isAgregarEquiposZona, isEliminarEquipoZona, isVerificarAgregarEquipo} =
-    useSelector(state => state.storeTorneos);
-  const {equipos, isListarEquipos} = useSelector(state => state.storeEquipos);
+  const {
+    // torneo,
+    isAgregarEquiposZona,
+    isEliminarEquipoZona,
+    // isVerificarAgregarEquipo,
+    errorZonaAgregarEquipos,
+    entidadZonaAgregarEquipos,
+    isCargandoZonaAgregarEquipos,
+    modalGenericoAgregarEquipos,
+  } = useSelector(state => state.storeTorneos);
+  // const {equipos} = useSelector(state => state.storeEquipos);
 
-  const [arrayEquipos, setArrayEquipos] = useState([]);
+  const [arrayEquipos, setArrayEquipos] = useState();
+  const [modal, setModal] = useState({
+    tipo: '',
+    mensaje: '',
+    isMostrar: false,
+  });
   /*  const [equipoSeleccionado, setEquipoSeleccionado] = useState(''); */
   const [equiposAgregados, setEquiposAgregados] = useState([]);
   const [nuevosEquipos, setNuevosEquipos] = useState([]);
   const [isNuevosEquipos, setIsNuevosEquipos] = useState(false);
-  const [zonaTorneo, setZonaTorneo] = useState();
   const [isGuardarCambios, setIsGuardarCambios] = useState({
     tipo: '',
     isMostrar: false,
@@ -63,18 +76,32 @@ const AgregarEquipos = () => {
   };
 
   const consultaPorEliminarEquipo = (equipoId, isEquipoNuevo) => {
-    dispatch(eliminarEquipoDeZonaConsulta_accion(equipoId, isEquipoNuevo));
+    setModal({
+      tipo: 'warning',
+      mensaje: '¿Desea eliminar equipo de la zona?',
+      isMostrar: true,
+      idEquipo: equipoId,
+      isNuevo: isEquipoNuevo,
+    });
   };
 
   const funcionEliminarEquipo = () => {
-    if (isEliminarEquipoZona.isNuevo) {
-      let auxNuevosEquipos = nuevosEquipos.filter(
-        equipo => equipo._id !== isEliminarEquipoZona.idEquipo
-      );
+    if (modal.isNuevo) {
+      let auxNuevosEquipos = nuevosEquipos.filter(equipo => equipo._id !== modal.idEquipo);
       setNuevosEquipos(auxNuevosEquipos);
+      setModal({
+        tipo: '',
+        mensaje: '',
+        isMostrar: false,
+      });
       dispatch(eliminarEquipoDeZonaDefault_accion());
     } else {
-      dispatch(eliminarEquipoDeZona_accion(zonaTorneo._id, isEliminarEquipoZona.idEquipo));
+      dispatch(eliminarEquipoDeZona_accion(entidadZonaAgregarEquipos._id, modal.idEquipo));
+      setModal({
+        tipo: '',
+        mensaje: '',
+        isMostrar: false,
+      });
     }
   };
 
@@ -93,10 +120,6 @@ const AgregarEquipos = () => {
     }
   };
 
-  const respuestaDeAlertaObtenerEquiposPorSubcategoria = () => {
-    dispatch(equiposPorSubcategoriaDefault_accion());
-  };
-
   const respuestaDeAlertaGuardarCambios = respuesta => {
     setIsGuardarCambios({
       isMostrar: false,
@@ -109,6 +132,38 @@ const AgregarEquipos = () => {
       history.goBack();
     }
   };
+  useLayoutEffect(() => {
+    if (zonaId) {
+      dispatch(obtenerZonaAgregarEquipos(zonaId));
+    } else {
+      dispatch(ZonaAgregarEquiposError_accion('Falta id de Zona'));
+    }
+    return () => {};
+  }, [zonaId, dispatch]);
+  // useLayoutEffect(() => {
+  //   if (!arrayEquipos && equipos && entidadZonaAgregarEquipos) {
+  //     const equiposYaAgregados = entidadZonaAgregarEquipos.equipos.map(equipo => {
+  //       return equipo.nombreClub;
+  //     });
+
+  //     const equiposObtenidos = equipos.map((equipo, index) => {
+  //       return {
+  //         label: equipo.nombreClub,
+  //         value: index + 1,
+  //         data: equipo,
+  //       };
+  //     });
+
+  //     setArrayEquipos(
+  //       equiposObtenidos.filter(equipo => !equiposYaAgregados.includes(equipo.label))
+  //     );
+  //   } else {
+  //     if (entidadZonaAgregarEquipos && !equipos) {
+  //       dispatch(equiposPorSubcategoria_accion(entidadZonaAgregarEquipos.idSubcategoria));
+  //     }
+  //   }
+  //   return () => {};
+  // }, [equipos, entidadZonaAgregarEquipos, arrayEquipos]);
 
   const respuestaDeAlertaEliminarEquipo = respuesta => {
     if (respuesta) {
@@ -129,124 +184,78 @@ const AgregarEquipos = () => {
       dispatch(eliminarEquipoDeZonaDefault_accion());
     }
   };
-  useLayoutEffect(() => {
-    let auxZona = torneo.zonas.find(zona => zona._id === zonaId);
-
-    if (!zonaTorneo) {
-      setZonaTorneo(auxZona);
-      if (equipos.length === 0) {
-        dispatch(equiposPorSubcategoria_accion(auxZona.idSubcategoria.keySubcategoria));
+  const respuestaModal = respuesta => {
+    if (respuesta) {
+      if (modal.tipo === 'warning') {
+        funcionEliminarEquipo();
+      }
+      if (modal.tipo === 'success') {
+        let auxListaEquipos = equiposAgregados.filter(equipo => equipo._id !== modal.idEquipo);
+        setEquiposAgregados(auxListaEquipos);
+        dispatch(actualizarListaTorneosEliminarEquiposZona_accion());
+      }
+      if (modal.tipo === 'error') {
+        dispatch(eliminarEquipoDeZonaDefault_accion());
       }
     } else {
-      if (auxZona.equipos.length > zonaTorneo.equipos.length) {
-        setZonaTorneo(auxZona);
-      }
+      setModal({
+        tipo: '',
+        isMostrar: false,
+        mensaje: '',
+      });
     }
+  };
 
-    if (equipos.length > 0) {
-      if (arrayEquipos.length === 0) {
-        let auxEquipos = equipos.map((equipo, index) => {
-          return {
-            label: equipo.nombreClub,
-            value: index + 1,
-            data: equipo,
-          };
-        });
-        setArrayEquipos(auxEquipos);
-      }
-    }
-    if (zonaTorneo) {
-      let auxEquipos = [];
-      if (zonaTorneo.equipos.length > 0) {
-        if (
-          zonaTorneo.equipos.length ===
-          torneo.zonas.find(zona => zona._id === zonaId).equipos.length
-        ) {
-          zonaTorneo.equipos.forEach(equipoZona => {
-            let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
-            auxEquipos.push(aux);
-          });
-          setEquiposAgregados(auxEquipos);
-        }
+  if (isCargandoZonaAgregarEquipos) {
+    return (
+      <div className="ContenedorCargandoAgregarEquipos">
+        <Cargando />;
+      </div>
+    );
+  } else {
+    return errorZonaAgregarEquipos ? (
+      <div className="ContenedorCargandoAgregarEquipos">
+        <span>{errorZonaAgregarEquipos}</span>
+      </div>
+    ) : (
+      <div className="CP-AgregarEquipos">
+        <p>Agregar Equipos</p>
+        <h4>{entidadZonaAgregarEquipos ? entidadZonaAgregarEquipos.nombreZona : 'Zona'}</h4>
 
-        /* zonaTorneo.equipos.forEach(equipoZona => {
-          let aux = equipos.find(equipoStatic => equipoStatic._id === equipoZona._id);
-          auxEquipos.push(aux);
-        });
-        setEquiposAgregados(auxEquipos); */
-      }
-    }
-    if (isVerificarAgregarEquipo) {
-      if (nuevosEquipos.length > 0) {
-        setIsGuardarCambios({
-          isMostrar: true,
-          tipo: 'warning',
-          mensaje: '¿Desea guardar los cambios?',
-        });
-        dispatch(estadoComponenteAgregarEquipo_accion(false));
-      } else {
-        dispatch(estadoComponenteAgregarEquipo_accion(false));
-        history.goBack();
-      }
-    }
-  }, [
-    zonaTorneo,
-    torneo.zonas,
-    zonaId,
-    dispatch,
-    equipos,
-    isVerificarAgregarEquipo,
-    nuevosEquipos.length,
-    arrayEquipos.length,
-    history,
-  ]);
+        <Selector
+          name="equipos"
+          placeholder="Seleccione Equipos"
+          selectorConIcono={<BsPlusCircle />}
+          isCerrarMenuAlSeleccionar={true}
+          options={arrayEquipos ? arrayEquipos : []}
+          noOptionsMessage={'No hay equipos cargados.'}
+          onChange={value => escucharSelectorEquipos(value)}
+          /* opcionSeleccionada={equipoSeleccionado ? equipoSeleccionado : ''} */
+        ></Selector>
+        <BotonLowa
+          disabled={nuevosEquipos.length > 0 ? false : true}
+          tituloboton="Guardar Cambios"
+          onClick={() => agregarEquipoZona()}
+        ></BotonLowa>
+        <BotonLowa
+          disabled={equiposAgregados.length > 0 ? false : true}
+          tituloboton="Crear Enfrentamiento"
+          onClick={() => crearEnfrentamiento()}
+        ></BotonLowa>
+        {isNuevosEquipos &&
+          nuevosEquipos.length > 0 &&
+          nuevosEquipos.map((equipo, index) => {
+            return (
+              <TarjetaEquipo
+                key={index}
+                equipo={equipo}
+                isNuevo={true}
+                funcionEliminarEquipo={consultaPorEliminarEquipo}
+              ></TarjetaEquipo>
+            );
+          })}
 
-  useEffect(() => {
-    return () => {
-      dispatch(equiposPorSubcategoriaDefault_accion());
-    };
-  }, [dispatch]);
-
-  return (
-    <div className="CP-AgregarEquipos">
-      <p>Agregar Equipos</p>
-      <h4>{zonaTorneo ? zonaTorneo.nombreZona : 'Zona'}</h4>
-
-      <Selector
-        name="equipos"
-        placeholder="Seleccione Equipos"
-        selectorConIcono={<BsPlusCircle />}
-        isCerrarMenuAlSeleccionar={true}
-        options={arrayEquipos ? arrayEquipos : []}
-        noOptionsMessage={'No hay equipos cargados.'}
-        onChange={value => escucharSelectorEquipos(value)}
-        /* opcionSeleccionada={equipoSeleccionado ? equipoSeleccionado : ''} */
-      ></Selector>
-      <BotonLowa
-        disabled={nuevosEquipos.length > 0 ? false : true}
-        tituloboton="Guardar Cambios"
-        onClick={() => agregarEquipoZona()}
-      ></BotonLowa>
-      <BotonLowa
-        disabled={equiposAgregados.length > 0 ? false : true}
-        tituloboton="Crear Enfrentamiento"
-        onClick={() => crearEnfrentamiento()}
-      ></BotonLowa>
-      {isNuevosEquipos &&
-        nuevosEquipos.length > 0 &&
-        nuevosEquipos.map((equipo, index) => {
-          return (
-            <TarjetaEquipo
-              key={index}
-              equipo={equipo}
-              isNuevo={true}
-              funcionEliminarEquipo={consultaPorEliminarEquipo}
-            ></TarjetaEquipo>
-          );
-        })}
-
-      {equiposAgregados.length > 0 &&
-        equiposAgregados.map((equipo, index) => {
+        {entidadZonaAgregarEquipos.equipos.map((equipo, index) => {
           return (
             <TarjetaEquipo
               key={index}
@@ -256,31 +265,48 @@ const AgregarEquipos = () => {
             ></TarjetaEquipo>
           );
         })}
-      <Alertas
-        mostrarSweet={isListarEquipos.isMostrar}
-        tipoDeSweet={isListarEquipos.tipo}
-        subtitulo={isListarEquipos.mensaje}
-        RespuestaDeSweet={respuestaDeAlertaObtenerEquiposPorSubcategoria}
-      ></Alertas>
-      <Alertas
-        mostrarSweet={isGuardarCambios.isMostrar}
-        tipoDeSweet={isGuardarCambios.tipo}
-        subtitulo={isGuardarCambios.mensaje}
-        RespuestaDeSweet={respuestaDeAlertaGuardarCambios}
-      ></Alertas>
-      <Alertas
-        mostrarSweet={isAgregarEquiposZona.isMostrar}
-        tipoDeSweet={isAgregarEquiposZona.tipo}
-        subtitulo={isAgregarEquiposZona.mensaje}
-        RespuestaDeSweet={respuestaDeAlertaAgregarEquipos}
-      ></Alertas>
-      <Alertas
-        mostrarSweet={isEliminarEquipoZona.isMostrar}
-        tipoDeSweet={isEliminarEquipoZona.tipo}
-        subtitulo={isEliminarEquipoZona.mensaje}
-        RespuestaDeSweet={respuestaDeAlertaEliminarEquipo}
-      ></Alertas>
-    </div>
-  );
+
+        <Alertas
+          mostrarSweet={isGuardarCambios.isMostrar}
+          tipoDeSweet={isGuardarCambios.tipo}
+          subtitulo={isGuardarCambios.mensaje}
+          RespuestaDeSweet={respuestaDeAlertaGuardarCambios}
+        ></Alertas>
+        <Alertas
+          mostrarSweet={isAgregarEquiposZona.isMostrar}
+          tipoDeSweet={isAgregarEquiposZona.tipo}
+          subtitulo={isAgregarEquiposZona.mensaje}
+          RespuestaDeSweet={respuestaDeAlertaAgregarEquipos}
+        ></Alertas>
+        <Alertas
+          mostrarSweet={isEliminarEquipoZona.isMostrar}
+          tipoDeSweet={isEliminarEquipoZona.tipo}
+          subtitulo={isEliminarEquipoZona.mensaje}
+          RespuestaDeSweet={respuestaDeAlertaEliminarEquipo}
+        ></Alertas>
+        <Alertas
+          mostrarSweet={modalGenericoAgregarEquipos.isMostrar}
+          tipoDeSweet={modalGenericoAgregarEquipos.tipo}
+          subtitulo={modalGenericoAgregarEquipos.mensaje}
+          RespuestaDeSweet={() =>
+            dispatch(
+              modalGenericoAgregarEquipos_accion({
+                tipo: '',
+                mensaje: '',
+                isMostrar: false,
+              })
+            )
+          }
+        ></Alertas>
+
+        <Alertas
+          mostrarSweet={modal.isMostrar}
+          tipoDeSweet={modal.tipo}
+          subtitulo={modal.mensaje}
+          RespuestaDeSweet={respuestaModal}
+        ></Alertas>
+      </div>
+    );
+  }
 };
 export default AgregarEquipos;

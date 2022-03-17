@@ -144,7 +144,7 @@ const TarjetaEnfrentamiento = ({
   useLayoutEffect(() => {
     let auxEnfrentamiento = {};
     if (datos) {
-      if (equipos.length > 0) {
+      if (equipos?.length > 0) {
         let auxEquipoLocal = equipos.find(equipo => equipo._id === datos.idEquipoLocal);
         let auxEquipoVisitante = equipos.find(equipo => equipo._id === datos.idEquipoVisitante);
         auxEnfrentamiento = {
@@ -164,7 +164,7 @@ const TarjetaEnfrentamiento = ({
       }
     }
     return () => {};
-  }, [equipos.length, datos, equipos]);
+  }, [equipos, datos]);
 
   return (
     <div

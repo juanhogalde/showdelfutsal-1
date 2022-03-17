@@ -373,11 +373,17 @@ export const destacarNoticia_accion = noticia => {
 
 // Obtener noticia seleccionada
 export const cargandoObtenerNoticiaSeleccionada = 'cargandoObtenerNoticiaSeleccionada';
+export const volverPorDefectoNoticiasDesarrollada = 'volverPorDefectoNoticiasDesarrollada';
 export const obtenerNoticiaSeleccionadaExito = 'obtenerNoticiaSeleccionadaExito';
 export const obtenerNoticiaSeleccionadaError = 'obtenerNoticiaSeleccionadaError';
 export const cargandoObtenerNoticiaSeleccionada_accion = () => {
   return {
     type: cargandoObtenerNoticiaSeleccionada,
+  };
+};
+export const volverPorDefectoNoticiasDesarrollada_accion = () => {
+  return {
+    type: volverPorDefectoNoticiasDesarrollada,
   };
 };
 export const obtenerNoticiaSeleccionadaExito_accion = noticia => {

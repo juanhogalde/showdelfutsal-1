@@ -55,12 +55,16 @@ import {
   agregarEquiposZonaTorneoError,
   agregarEquiposZonaTorneoDefault,
   estadoComponenteAgregarEquipo,
-  eliminarEquipoDeZonaCargando,
+  controlModalGenericoAgregarEquipos,
   eliminarEquipoDeZonaExito,
   actualizarListaTorneosEliminarEquiposZona,
   eliminarEquipoDeZonaError,
   eliminarEquipoDeZonaDefault,
   eliminarEquipoDeZonaConsulta,
+  // trabajadores Agregar Equipos Zona
+  cargandoObtenerZonaAgregarEquipos,
+  ZonaAgregarEquiposExito,
+  ZonaAgregarEquiposError,
 } from './AccionesTorneos';
 
 const torneoPorDefecto = {
@@ -90,15 +94,6 @@ const torneoPorDefecto = {
     isExito: false,
     isError: false,
   },
-  /* isAgregarCategoriaSubcategoria: {
-    tipo: '',
-    mensaje: '',
-    isCargando: false,
-    isExito: false,
-    isError: false,
-    categoria: '',
-    subcategoria: '',
-  }, */
   isObtenerDatosEditarTorneo: {
     tipo: '',
     mensaje: '',
@@ -138,6 +133,14 @@ const torneoPorDefecto = {
   isEliminarEquipoZona: {
     tipo: '',
     mensaje: '',
+    isMostrar: false,
+  },
+  isCargandoZonaAgregarEquipos: true,
+  errorZonaAgregarEquipos: null,
+  entidadZonaAgregarEquipos: null,
+  modalGenericoAgregarEquipos: {
+    mensaje: '',
+    tipo: '',
     isMostrar: false,
   },
   isVerificarAgregarEquipo: false,
@@ -901,38 +904,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         },
       };
     }
-    case eliminarEquipoDeZonaCargando: {
-      return {
-        ...state,
-        isEliminarEquipoZona: {
-          tipo: 'cargando',
-          mensaje: 'Eliminando equipo...',
-          isMostrar: true,
-        },
-      };
-    }
-    case eliminarEquipoDeZonaExito: {
-      let auxZonas = state.torneo.zonas.map(zonaTorneo => {
-        if (zonaTorneo._id === accion.zona._id) {
-          return accion.zona;
-        } else {
-          return zonaTorneo;
-        }
-      });
-      return {
-        ...state,
-        isEliminarEquipoZona: {
-          tipo: 'success',
-          mensaje: 'Equipo Eliminado...',
-          isMostrar: true,
-          idEquipo: accion.equipoId,
-        },
-        torneo: {
-          ...state.torneo,
-          zonas: auxZonas,
-        },
-      };
-    }
+
     case actualizarListaTorneosEliminarEquiposZona: {
       let auxTorneos = state.torneos.map(torneo => {
         if (torneo._id === state.torneo._id) {
@@ -951,16 +923,7 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         torneos: auxTorneos,
       };
     }
-    case eliminarEquipoDeZonaError: {
-      return {
-        ...state,
-        isEliminarEquipoZona: {
-          tipo: 'error',
-          mensaje: 'Lo sentimos, en este momento no podemos eliminar este equipo...',
-          isMostrar: true,
-        },
-      };
-    }
+
     case eliminarEquipoDeZonaDefault: {
       return {
         ...state,
@@ -968,6 +931,83 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
           tipo: '',
           mensaje: '',
           isMostrar: false,
+        },
+      };
+    }
+    case cargandoObtenerZonaAgregarEquipos: {
+      return {
+        ...state,
+        isCargandoZonaAgregarEquipos: true,
+        errorZonaAgregarEquipos: null,
+        entidadZonaAgregarEquipos: null,
+      };
+    }
+    case ZonaAgregarEquiposExito: {
+      const equiposYaAgregados = accion.zona.equipos.map(equipo => {
+        return equipo.nombreClub;
+      });
+
+      const equiposObtenidos = accion.zona.equiposDisponibles.map((equipo, index) => {
+        return {
+          label: equipo.nombreClub,
+          value: index + 1,
+          data: equipo,
+        };
+      });
+
+      return {
+        ...state,
+        errorZonaAgregarEquipos: null,
+        entidadZonaAgregarEquipos: {
+          ...accion.zona,
+          equiposDisponibles: equiposObtenidos.filter(
+            equipo => !equiposYaAgregados.includes(equipo.label)
+          ),
+        },
+        isCargandoZonaAgregarEquipos: false,
+      };
+    }
+    case ZonaAgregarEquiposError: {
+      return {
+        ...state,
+        errorZonaAgregarEquipos: accion.mensajeError ? accion.mensajeError : 'Error desconocido',
+        entidadZonaAgregarEquipos: null,
+        isCargandoZonaAgregarEquipos: false,
+      };
+    }
+    case controlModalGenericoAgregarEquipos: {
+      return {
+        ...state,
+        modalGenericoAgregarEquipos: {
+          tipo: accion.datos.tipo,
+          mensaje: accion.datos.mensaje,
+          isMostrar: accion.datos.isMostrar,
+        },
+      };
+    }
+    case eliminarEquipoDeZonaExito: {
+      return {
+        ...state,
+        entidadZonaAgregarEquipos: {
+          ...state.entidadZonaAgregarEquipos,
+          equipos: state.entidadZonaAgregarEquipos.equipos.filter(
+            equipo => equipo._id !== accion.idEquipo
+          ),
+        },
+        modalGenericoAgregarEquipos: {
+          tipo: 'succes',
+          mensaje: 'Equipo eliminado con exito',
+          isMostrar: true,
+        },
+      };
+    }
+    case eliminarEquipoDeZonaError: {
+      return {
+        ...state,
+        modalGenericoAgregarEquipos: {
+          tipo: 'error',
+          mensaje: 'Lo sentimos, en este momento no podemos eliminar este equipo...',
+          isMostrar: true,
         },
       };
     }
