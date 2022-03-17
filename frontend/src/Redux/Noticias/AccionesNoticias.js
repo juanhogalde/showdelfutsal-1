@@ -402,7 +402,7 @@ export const obtenerNoticiaSeleccionada = id => {
   return dispatch => {
     dispatch(cargandoObtenerNoticiaSeleccionada_accion());
     API({
-      url: `/Noticias//obtener/${id}`,
+      url: `/Noticias/obtener/${id}`,
       method: 'get',
     })
       .then(res => {

@@ -142,6 +142,7 @@ class NoticiasController {
       } else {
         modeloNoticias
           .findById({_id: idNoticia})
+          .populate('idImagen')
           .then((noticia: any) => {
             if (!noticia) {
               responder.error(
