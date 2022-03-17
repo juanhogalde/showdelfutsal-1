@@ -414,7 +414,6 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       };
     }
     case recuperarTorneo: {
-      let auxTorneo = state.torneos.find(torneo => torneo._id === accion.id);
       return {
         ...state,
       };
