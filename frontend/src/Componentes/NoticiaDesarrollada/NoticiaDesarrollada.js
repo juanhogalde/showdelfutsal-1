@@ -22,12 +22,19 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
   return (
     <div className="CP-Noticias-Desarrollada">
       <MetaTags>
-        <title>{datosModelado.titulo ? datosModelado.titulo : 'El Show del Futsal'}</title>
+        <meta property="og:locale" content="es_ES" />
+        <meta property="og:type" content="website" />
         <meta
-          name="description"
-          content={datosModelado.titulo ? datosModelado.titulo : 'Sin descripcion'}
+          property="og:title"
+          content={datosModelado.titulo ? datosModelado.titulo : 'Sin titulo'}
         />
-        <meta property="og:title" content="El Show del Futsal" />
+        <meta
+          property="og:description"
+          content={datosModelado.copete ? datosModelado.copete : 'Sin Descripción'}
+        />
+        <meta property="og:url" content={`https://${dominio}`} />
+        <meta property="og:site_name" content="El Show del Futsal" />
+
         <meta
           property="og:image"
           content={
@@ -36,6 +43,49 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
               : 'https://' + dominio + '/LogoShowDelFutsal.png'
           }
         />
+        <meta
+          property="og:image:secure_url"
+          content={
+            datosModelado.idImagen
+              ? server + datosModelado.idImagen[0].fuente
+              : 'https://' + dominio + '/LogoShowDelFutsal.png'
+          }
+        />
+        <meta property="og:image:width" content="670" />
+        <meta property="og:image:height" content="400" />
+        <meta property="og:image:alt" content="El Show del Futsal" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:description" content={datosModelado.copete ? datosModelado.copete : 'Sin Descripción'} />
+        <meta name="twitter:title" content={datosModelado.titulo ? datosModelado.titulo : 'Sin titulo'} />
+        <meta
+          name="twitter:image"
+          content={
+            datosModelado.idImagen
+              ? server + datosModelado.idImagen[0].fuente
+              : 'https://' + dominio + '/LogoShowDelFutsal.png'
+          }
+        />
+
+        <meta
+          property="og:image"
+          content={
+            datosModelado.idImagen
+              ? server + datosModelado.idImagen[0].fuente
+              : 'https://' + dominio + '/LogoShowDelFutsal.png'
+          }
+        />
+        <meta
+          property="og:image:secure_url"
+          content={
+            datosModelado.idImagen
+              ? server + datosModelado.idImagen[0].fuente
+              : 'https://' + dominio + '/LogoShowDelFutsal.png'
+          }
+        />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="300" />
+        <meta property="og:image:height" content="300" />
       </MetaTags>
       <div className="CI-Cabecera-Noticia-Desarrollada">
         <div className="Categoria-Titulo-Noticia-Desarrollada">
