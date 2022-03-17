@@ -94,7 +94,6 @@ const PaginaNoticias = ({
     }
     setNoticiaLiga(noticiasLiga);
   }, [noticias, setNoticiaMasculino]);
-
   return (
     <div className="LP-Seccion-Noticias">
       <SubMenuBuscadorNoticias />
@@ -143,11 +142,11 @@ const PaginaNoticias = ({
           <div className="CI-SN-Liga-general">
             <div className="I-Noticia-Liga">
               <Link
-                to={`/Noticia/Desarrollada/${noticiaLiga.noticia1._id}`}
+                to={`/Noticia/Desarrollada/${noticiaLiga.noticia1?._id}`}
                 className="estilos-Link"
               >
                 <NoticiasMiniatura
-                  datosModelado={noticiaLiga.noticia1 ? noticiaLiga.noticia1 : {}}
+                  datosModelado={noticiaLiga?.noticia1 ? noticiaLiga.noticia1 : {}}
                   isSeccionNoticias={true}
                   isSobreImagen={true}
                 ></NoticiasMiniatura>
@@ -155,11 +154,11 @@ const PaginaNoticias = ({
             </div>
             <div className="I-Noticia-Liga">
               <Link
-                to={`/Noticia/Desarrollada/${noticiaLiga.noticia2._id}`}
+                to={`/Noticia/Desarrollada/${noticiaLiga?.noticia2?._id}`}
                 className="estilos-Link"
               >
                 <NoticiasMiniatura
-                  datosModelado={noticiaLiga.noticia2 ? noticiaLiga.noticia2 : {}}
+                  datosModelado={noticiaLiga?.noticia2 ? noticiaLiga.noticia2 : {}}
                   isSeccionNoticias={true}
                   isSobreImagen={true}
                 ></NoticiasMiniatura>

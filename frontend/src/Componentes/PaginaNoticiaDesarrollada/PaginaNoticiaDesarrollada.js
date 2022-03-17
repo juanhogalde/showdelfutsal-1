@@ -9,7 +9,10 @@ import Animaciones from '../Animaciones/Animaciones';
 import PieDepagina from '../PieDePagina/PieDepagina';
 import {server} from '../../Entorno';
 import {useParams} from 'react-router';
-import {obtenerNoticiaSeleccionada} from '../../Redux/Noticias/AccionesNoticias';
+import {
+  obtenerNoticiaSeleccionada,
+  cargandoObtenerNoticiaSeleccionada_accion,
+} from '../../Redux/Noticias/AccionesNoticias';
 import Cargando from '../../ComponentesAdmin/Cargando/Cargando';
 
 const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollada'}) => {
@@ -68,6 +71,11 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
     }
     return () => {};
   }, [id, noticiaDesarrolada, dispatch]);
+  useLayoutEffect(() => {
+    return () => {
+      dispatch(cargandoObtenerNoticiaSeleccionada_accion());
+    };
+  }, [dispatch]);
   if (cargandoNoticiaDesarrollada) {
     return (
       <div className="ContenedorCargandoNoticiaDesarrollada">

@@ -62,7 +62,7 @@ const SeccionNoticias = ({
         <div className="I-Noticia-Componente">
           {noticiaVisualizada.noticia1 ? (
             <Link
-              to={`/Noticia/Desarrollada/${noticiaVisualizada.noticia1_id}`}
+              to={`/Noticia/Desarrollada/${noticiaVisualizada.noticia1._id}`}
               className="estilos-Link"
             >
               <NoticiasMiniatura
@@ -78,7 +78,7 @@ const SeccionNoticias = ({
         <div className="I-Noticia-Componente-miniatura">
           {noticiaVisualizada.noticia2 ? (
             <Link
-              to={`/Noticia/Desarrollada/${noticiaVisualizada.noticia2_id}`}
+              to={`/Noticia/Desarrollada/${noticiaVisualizada.noticia2._id}`}
               className="estilos-Link"
             >
               <NoticiasMiniatura
@@ -90,7 +90,7 @@ const SeccionNoticias = ({
           ) : null}
           {noticiaVisualizada.noticia3 ? (
             <Link
-              to={`/Noticia/Desarrollada/${noticiaVisualizada.noticia3_id}`}
+              to={`/Noticia/Desarrollada/${noticiaVisualizada.noticia3._id}`}
               className="estilos-Link"
             >
               <NoticiasMiniatura
