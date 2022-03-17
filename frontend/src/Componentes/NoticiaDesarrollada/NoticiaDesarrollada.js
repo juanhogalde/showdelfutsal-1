@@ -1,8 +1,9 @@
 import React from 'react';
 import EtiquetaCategoria from '../EtiquetaCategoria/EtiquetaCategoria';
 import '../NoticiaDesarrollada/NoticiaDesarrollada.css';
-import {server} from '../../Entorno';
+import {server, dominio} from '../../Entorno';
 import formatearFecha from '../../ModulosExternos/FormatearFecha';
+import MetaTags from 'react-meta-tags';
 /**
  * Recibe como parametros
  ** datosModelado que es un objeto con los siguiente atributo:
@@ -20,6 +21,22 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
   /* const formatearFecha = formatearFecha(); */
   return (
     <div className="CP-Noticias-Desarrollada">
+      <MetaTags>
+        <title>{datosModelado.titulo ? datosModelado.titulo : 'El Show del Futsal'}</title>
+        <meta
+          name="description"
+          content={datosModelado.titulo ? datosModelado.titulo : 'Sin descripcion'}
+        />
+        <meta property="og:title" content="El Show del Futsal" />
+        <meta
+          property="og:image"
+          content={
+            datosModelado.idImagen
+              ? server + datosModelado.idImagen[0].fuente
+              : 'https://' + dominio + '/LogoShowDelFutsal.png'
+          }
+        />
+      </MetaTags>
       <div className="CI-Cabecera-Noticia-Desarrollada">
         <div className="Categoria-Titulo-Noticia-Desarrollada">
           <div className="Fondo-Categorias-Noticia-Desarrollada">
@@ -60,7 +77,7 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
           src={
             datosModelado.idImagen
               ? server + datosModelado.idImagen[0].fuente
-              : 'https://www.pequenomundo.cl/wp-content/themes/childcare/images/default.png'
+              : 'https://' + dominio + '/LogoShowDelFutsal.png'
           }
           className="imagen-NoticiaDesarrollada"
           alt="imagen"
