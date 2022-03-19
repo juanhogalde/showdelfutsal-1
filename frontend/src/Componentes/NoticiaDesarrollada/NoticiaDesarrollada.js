@@ -3,7 +3,7 @@ import EtiquetaCategoria from '../EtiquetaCategoria/EtiquetaCategoria';
 import '../NoticiaDesarrollada/NoticiaDesarrollada.css';
 import {server, dominio} from '../../Entorno';
 import formatearFecha from '../../ModulosExternos/FormatearFecha';
-import MetaTags from 'react-meta-tags';
+// import MetaTags from 'react-meta-tags';
 /**
  * Recibe como parametros
  ** datosModelado que es un objeto con los siguiente atributo:
@@ -21,7 +21,7 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
   /* const formatearFecha = formatearFecha(); */
   return (
     <div className="CP-Noticias-Desarrollada">
-      <MetaTags>
+      {/* <MetaTags>
         <title>{datosModelado.titulo ? datosModelado.titulo : 'El Show del Futsal'}</title>
         <meta
           name="description"
@@ -36,7 +36,7 @@ const NoticiaDesarrollada = ({datosModelado = {}}) => {
               : 'https://' + dominio + '/LogoShowDelFutsal.png'
           }
         />
-      </MetaTags>
+      </MetaTags> */}
       <div className="CI-Cabecera-Noticia-Desarrollada">
         <div className="Categoria-Titulo-Noticia-Desarrollada">
           <div className="Fondo-Categorias-Noticia-Desarrollada">
