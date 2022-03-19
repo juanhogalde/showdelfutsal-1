@@ -15,9 +15,9 @@ import RecuperarContraseña from '../Componentes/RecuperarContraseña/RecuperarC
 const RutasPublicas = () => {
   return (
     <React.Fragment>
-      {!['/Administrador', '/RecuperarContraseña'].includes(useLocation().pathname) && (
-        <BarraDeNavegacion />
-      )}
+      {!['/administrador', '/recuperarcontraseña'].includes(
+        useLocation().pathname.toLowerCase()
+      ) && <BarraDeNavegacion />}
       {/* {!useLocation().pathname.includes('/Administrador') && <BarraDeNavegacion />} */}
       <Switch>
         <Route exact component={Inicio} path="/"></Route>
