@@ -1,120 +1,92 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React from 'react';
 import './SeccionNoticias.css';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
 import './SeccionNoticias.css';
 /* import publicidadCorta from '../../Static/Img/anuncio2_corta.jpg'; */
 import {SliderNoticias} from '../SliderNoticias/SliderNoticias';
 import {Link} from 'react-router-dom';
-import {useSelector} from 'react-redux';
 import SliderGaleria from '../SliderGaleria/SliderGaleria';
 
 const SeccionNoticias = ({
   tituloSeccionNoticias = 'Título',
   isTitulo = true,
-  categoriaNoticia = 1,
-  subcategoriaNoticia = -1,
+  subcategoriaNoticia,
+  noticias,
 }) => {
-  const {noticias} = useSelector(state => state.storeNoticias);
-  const [noticiaVisualizada, setNoticiaVisualizada] = useState({});
-  useLayoutEffect(() => {
-    var noticiasAMostrar = {};
-    var noticiasFiltradasFinal = [];
-    var noticiasFiltradasCategoria = noticias.filter(
-      noticia => noticia.keyCategoria === categoriaNoticia
-    );
-    if (subcategoriaNoticia !== -1) {
-      noticiasFiltradasFinal = noticiasFiltradasCategoria.filter(
-        noticia => noticia.keySubcategoria === parseInt(subcategoriaNoticia)
-      );
-    } else {
-      noticiasFiltradasFinal = [...noticiasFiltradasCategoria];
-    }
-    // Masculino
-    if (noticiasFiltradasFinal[0]) {
-      noticiasAMostrar = {...noticiasAMostrar, noticia1: noticiasFiltradasFinal[0]};
-    }
-    if (noticiasFiltradasFinal[1]) {
-      noticiasAMostrar = {...noticiasAMostrar, noticia2: noticiasFiltradasFinal[1]};
-    }
-    if (noticiasFiltradasFinal[2]) {
-      noticiasAMostrar = {...noticiasAMostrar, noticia3: noticiasFiltradasFinal[2]};
-    }
-    setNoticiaVisualizada(noticiasAMostrar);
-  }, [noticias, setNoticiaVisualizada, categoriaNoticia, subcategoriaNoticia]);
-
-  return (
-    <div
-      className={`${
-        isTitulo
-          ? ' CP-SN-Noticias Fondo-seccion-noticias'
-          : 'CP-SN-Noticias-SinTitulo Fondo-seccion-noticias'
-      }`}
-    >
-      {isTitulo && (
-        <div className="CI-SN-Noticia-titulo">
-          <div className="I-SN-Noticia-titulo">
-            <p>{tituloSeccionNoticias}</p>
-          </div>
-        </div>
-      )}
-
+  if (!noticias) {
+    return (
       <div className="CI-SN-Noticia-general">
         <div className="I-Noticia-Componente">
-          {noticiaVisualizada.noticia1 ? (
-            <Link
-              to={`/Noticia/Desarrollada/${noticiaVisualizada.noticia1._id}`}
-              className="estilos-Link"
-            >
-              <NoticiasMiniatura
-                datosModelado={noticiaVisualizada.noticia1 ? noticiaVisualizada.noticia1 : {}}
-                isSeccionNoticias={true}
-                isSobreImagen={true}
-              ></NoticiasMiniatura>
-            </Link>
-          ) : null}
+          <h1>No hay noticias</h1>
         </div>
       </div>
-      <div className="CI-SN-Noticia-miniatura">
-        <div className="I-Noticia-Componente-miniatura">
-          {noticiaVisualizada.noticia2 ? (
-            <Link
-              to={`/Noticia/Desarrollada/${noticiaVisualizada.noticia2._id}`}
-              className="estilos-Link"
-            >
-              <NoticiasMiniatura
-                datosModelado={noticiaVisualizada.noticia2 ? noticiaVisualizada.noticia2 : {}}
-                isSeccionNoticias={true}
-                // isSobreImagen={true}
-              ></NoticiasMiniatura>
-            </Link>
-          ) : null}
-          {noticiaVisualizada.noticia3 ? (
-            <Link
-              to={`/Noticia/Desarrollada/${noticiaVisualizada.noticia3._id}`}
-              className="estilos-Link"
-            >
-              <NoticiasMiniatura
-                datosModelado={noticiaVisualizada.noticia3 ? noticiaVisualizada.noticia3 : {}}
-                isSeccionNoticias={true}
-                // isSobreImagen={true}
-              ></NoticiasMiniatura>
-            </Link>
-          ) : null}
-          {/* <img alt="" src={publicidadCorta}></img>
+    );
+  } else {
+    return (
+      <div
+        className={`${
+          isTitulo
+            ? ' CP-SN-Noticias Fondo-seccion-noticias'
+            : 'CP-SN-Noticias-SinTitulo Fondo-seccion-noticias'
+        }`}
+      >
+        {isTitulo && (
+          <div className="CI-SN-Noticia-titulo">
+            <div className="I-SN-Noticia-titulo">
+              <p>{tituloSeccionNoticias}</p>
+            </div>
+          </div>
+        )}
+
+        <div className="CI-SN-Noticia-general">
+          <div className="I-Noticia-Componente">
+            {noticias[0] && (
+              <Link to={`/Noticia/Desarrollada/${noticias[0]._id}`} className="estilos-Link">
+                <NoticiasMiniatura
+                  datosModelado={noticias[0] ? noticias[0] : {}}
+                  isSeccionNoticias={true}
+                  isSobreImagen={true}
+                ></NoticiasMiniatura>
+              </Link>
+            )}
+          </div>
+        </div>
+        <div className="CI-SN-Noticia-miniatura">
+          <div className="I-Noticia-Componente-miniatura">
+            {noticias[1] && (
+              <Link to={`/Noticia/Desarrollada/${noticias[1]._id}`} className="estilos-Link">
+                <NoticiasMiniatura
+                  datosModelado={noticias[1] ? noticias[1] : {}}
+                  isSeccionNoticias={true}
+                  // isSobreImagen={true}
+                ></NoticiasMiniatura>
+              </Link>
+            )}
+            {noticias[2] && (
+              <Link to={`/Noticia/Desarrollada/${noticias[2]._id}`} className="estilos-Link">
+                <NoticiasMiniatura
+                  datosModelado={noticias[2] ? noticias[2] : {}}
+                  isSeccionNoticias={true}
+                  // isSobreImagen={true}
+                ></NoticiasMiniatura>
+              </Link>
+            )}
+            {/* <img alt="" src={publicidadCorta}></img>
           <img alt="" src={publicidadCorta}></img> */}
+          </div>
+        </div>
+        <div className="CI-SN-Noticia-slider">
+          <SliderNoticias
+            categoriaNoticias={subcategoriaNoticia.keyCategoria}
+            subcategoriaNoticia={subcategoriaNoticia.key}
+          ></SliderNoticias>
+        </div>
+        <div className="CI-SN-Galeria-slider">
+          <SliderGaleria categoriaGaleria={subcategoriaNoticia.keyCategoria}></SliderGaleria>
         </div>
       </div>
-      <div className="CI-SN-Noticia-slider">
-        <SliderNoticias
-          categoriaNoticias={categoriaNoticia}
-          subcategoriaNoticia={subcategoriaNoticia}
-        ></SliderNoticias>
-      </div>
-      <div className="CI-SN-Galeria-slider">
-        <SliderGaleria categoriaGaleria={categoriaNoticia}></SliderGaleria>
-      </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default SeccionNoticias;

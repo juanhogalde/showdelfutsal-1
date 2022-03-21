@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import './PaginaSecciones.css';
 import SeccionNoticias from '../SeccionNoticias/SeccionNoticias';
 import SeccionFixture from '../SeccionFixture/SeccionFixture';
@@ -6,20 +6,26 @@ import SeccionTablaDePosiciones from '../SeccionTablaDePosiciones/SeccionTablaDe
 import SubMenuSecciones from '../SubMenuSecciones/SubMenuSecciones';
 import {useParams} from 'react-router';
 import PieDepagina from '../PieDePagina/PieDepagina';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import Cargando from '../../ComponentesAdmin/Cargando/Cargando';
+import {obtenerNoticiasParaSeccion} from '../../Redux/Noticias/AccionesNoticias';
 
 const PaginaSecciones = () => {
   let {id} = useParams();
-  console.log(id);
-  const {categoriaSeleccionada, subcategorias} = useSelector(state => state.sotreDatosIniciales);
+  const {isCargandoSeccion, noticasSeccion, isErrrorSeccion, subCategoriaSeleccionada} =
+    useSelector(state => state.storeNoticias);
+  const {subcategorias} = useSelector(state => state.sotreDatosIniciales);
+  const dispatch = useDispatch();
 
-  const [categoria, setCategoria] = useState(null);
-  const [isSeccionNoticias, setIsSeccionNoticias] = useState(false);
+  const [isSeccionNoticias, setIsSeccionNoticias] = useState(true);
   const [isSeccionFixture, setIsSeccionFixture] = useState(false);
   const [isSeccionTabla, setIsSeccionTabla] = useState(false);
   useLayoutEffect(() => {
-    setCategoria(categoriaSeleccionada);
-  }, [categoriaSeleccionada]);
+    if (id && subcategorias.length) {
+      dispatch(obtenerNoticiasParaSeccion(id, subcategorias));
+    }
+  }, [id, dispatch, subcategorias]);
+
   const obtenerSeccion = respuesta => {
     switch (respuesta) {
       case 1:
@@ -39,45 +45,47 @@ const PaginaSecciones = () => {
         setIsSeccionFixture(false);
         break;
       default:
-        console.log('default');
     }
   };
-  useEffect(() => {
-    setIsSeccionNoticias(true);
-    return () => {
-      setIsSeccionNoticias(true);
-    };
-  }, []);
-  return (
-    <div className="CP-PaginaSecciones">
-      <SubMenuSecciones
-        obtenerSeccion={obtenerSeccion}
-        subcategoria={subcategorias.find(element => element.key === parseInt(id))}
-      />
-
-      <div className="CI-Cuerpo-PaginaSecciones">
-        {isSeccionNoticias && (
-          <div className="componente-SeccionNoticias">
-            <SeccionNoticias
-              categoriaNoticia={categoria}
-              subcategoriaNoticia={id}
-              isTitulo={false}
-            ></SeccionNoticias>
-          </div>
-        )}
-        {isSeccionFixture && (
-          <div className="fondo-Tabla-Fixture">
-            <SeccionFixture></SeccionFixture>
-          </div>
-        )}
-        {isSeccionTabla && (
-          <div className="fondo-Tabla-Fixture">
-            <SeccionTablaDePosiciones></SeccionTablaDePosiciones>
-          </div>
-        )}
+  if (isCargandoSeccion) {
+    return (
+      <div>
+        <Cargando />
       </div>
-      <PieDepagina></PieDepagina>
-    </div>
-  );
+    );
+  } else {
+    return isErrrorSeccion ? (
+      <div>
+        <span>{isErrrorSeccion}</span>
+      </div>
+    ) : (
+      <div className="CP-PaginaSecciones">
+        <SubMenuSecciones obtenerSeccion={obtenerSeccion} subcategoria={subCategoriaSeleccionada} />
+
+        <div className="CI-Cuerpo-PaginaSecciones">
+          {isSeccionNoticias && (
+            <div className="componente-SeccionNoticias">
+              <SeccionNoticias
+                subcategoriaNoticia={subCategoriaSeleccionada}
+                noticias={noticasSeccion}
+                isTitulo={false}
+              ></SeccionNoticias>
+            </div>
+          )}
+          {isSeccionFixture && (
+            <div className="fondo-Tabla-Fixture">
+              <SeccionFixture></SeccionFixture>
+            </div>
+          )}
+          {isSeccionTabla && (
+            <div className="fondo-Tabla-Fixture">
+              <SeccionTablaDePosiciones></SeccionTablaDePosiciones>
+            </div>
+          )}
+        </div>
+        <PieDepagina></PieDepagina>
+      </div>
+    );
+  }
 };
 export default PaginaSecciones;

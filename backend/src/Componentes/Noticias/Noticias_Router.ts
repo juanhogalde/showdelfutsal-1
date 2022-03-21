@@ -12,6 +12,7 @@ class NoticiasRouter {
   routes() {
     this.router.get('/listar', noticiasController.listar);
     this.router.get('/obtener/:id', noticiasController.obtener);
+    this.router.get('/obtenerPorSubCategoria/:id', noticiasController.obtenerPorSubcategoria);
     this.router.put('/modificar', noticiasController.modificar);
     this.router.put('/destacar', noticiasController.destacarNoticia);
     this.router.put('/desestacar', noticiasController.desestacarNoticia);

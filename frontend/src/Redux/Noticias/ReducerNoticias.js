@@ -27,6 +27,10 @@ import {
   volverPorDefectoNoticiasDesarrollada,
   obtenerNoticiaSeleccionadaExito,
   obtenerNoticiaSeleccionadaError,
+  //Obtener Noticias para seccion
+  cargandoObtenerNoticiasParaSeccion,
+  obtenerNoticiasParaSeccionExito,
+  obtenerNoticiasParaSeccionError,
 } from './AccionesNoticias';
 
 const noticiaPorDefecto = {
@@ -48,6 +52,10 @@ const noticiaPorDefecto = {
   cargandoNoticiaDesarrollada: true,
   noticiaDesarrolada: null,
   noticiaDesarrolladaError: null,
+  isCargandoSeccion: true,
+  noticasSeccion: null,
+  isErrrorSeccion: null,
+  subCategoriaSeleccionada: null,
 };
 const storeNoticias = (state = noticiaPorDefecto, accion) => {
   switch (accion.type) {
@@ -384,6 +392,34 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
         noticiaDesarrolladaError: accion.error,
         noticiaDesarrolada: null,
         cargandoNoticiaDesarrollada: false,
+      };
+    }
+    //Obtener noticia Seccion
+    case cargandoObtenerNoticiasParaSeccion: {
+      return {
+        ...state,
+        isCargandoSeccion: true,
+        noticasSeccion: null,
+        subCategoriaSeleccionada: null,
+        isErrrorSeccion: null,
+      };
+    }
+    case obtenerNoticiasParaSeccionExito: {
+      return {
+        ...state,
+        noticasSeccion: accion.noticias,
+        subCategoriaSeleccionada: accion.subCategoriaSeleccionada,
+        isErrrorSeccion: null,
+        isCargandoSeccion: false,
+      };
+    }
+    case obtenerNoticiasParaSeccionError: {
+      return {
+        ...state,
+        isErrrorSeccion: accion.error,
+        noticasSeccion: null,
+        subCategoriaSeleccionada: null,
+        isCargandoSeccion: false,
       };
     }
     default:

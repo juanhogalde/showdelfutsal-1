@@ -232,7 +232,6 @@ class NoticiasController {
               return value;
             })
             .catch((error: any) => {
-              console.log(error);
               responder.error(req, res);
             });
 
@@ -380,6 +379,38 @@ class NoticiasController {
         }
       } else {
         responder.error(req, res, 'No existen datos para importar');
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
+  public async obtenerPorSubcategoria(req: Request, res: Response) {
+    try {
+      let idNoticia = req.params.id;
+      if (!req.params.id) {
+        responder.error(req, res, 'Falta id de subcategoria', 'Falta id de subcategoria', 400);
+      } else {
+        modeloNoticias
+          .find({idSubcategoria: req.params.id})
+          .sort({fecha: 1})
+          .limit(3)
+          .populate('idImagen')
+          .then((noticia: any) => {
+            if (!noticia) {
+              responder.error(
+                req,
+                res,
+                'No se encontro la noticia que buscas',
+                'No se encontro la noticia que buscas',
+                400
+              );
+            } else {
+              responder.sucess(req, res, noticia, '', 200);
+            }
+          })
+          .catch((error: any) => {
+            responder.error(req, res, error);
+          });
       }
     } catch (error) {
       responder.error(req, res, error);

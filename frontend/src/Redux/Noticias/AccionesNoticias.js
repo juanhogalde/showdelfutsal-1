@@ -68,7 +68,6 @@ export const buscarNoticia = titulo => {
         },
       })
         .then(res => {
-          console.log(res);
           dispatch(buscarNoticiaExito_accion(res.data));
         })
         .catch(error => {
@@ -411,6 +410,46 @@ export const obtenerNoticiaSeleccionada = id => {
       .catch(error => {
         console.log({error});
         dispatch(obtenerNoticiaSeleccionadaError_accion('No se pudo obtener la noticia'));
+      });
+  };
+};
+///Obtener Noticias Para Seccion
+export const cargandoObtenerNoticiasParaSeccion = 'cargandoObtenerNoticiasParaSeccion';
+export const obtenerNoticiasParaSeccionExito = 'obtenerNoticiasParaSeccionExito';
+export const obtenerNoticiasParaSeccionError = 'obtenerNoticiasParaSeccionError';
+export const cargandoObtenerNoticiasParaSeccion_accion = () => {
+  return {
+    type: cargandoObtenerNoticiasParaSeccion,
+  };
+};
+
+export const obtenerNoticiasParaSeccionExito_accion = (noticias, subCategoriaSeleccionada) => {
+  return {
+    type: obtenerNoticiasParaSeccionExito,
+    noticias: noticias,
+    subCategoriaSeleccionada: subCategoriaSeleccionada,
+  };
+};
+export const obtenerNoticiasParaSeccionError_accion = error => {
+  return {
+    type: obtenerNoticiasParaSeccionError,
+    error: error,
+  };
+};
+export const obtenerNoticiasParaSeccion = (id, subcategorias) => {
+  return dispatch => {
+    const subCategoriaSeleccionada = subcategorias?.find(element => element.key === parseInt(id));
+    dispatch(cargandoObtenerNoticiasParaSeccion_accion());
+    API({
+      url: `/Noticias/obtenerPorSubCategoria/${id}`,
+      method: 'get',
+    })
+      .then(res => {
+        dispatch(obtenerNoticiasParaSeccionExito_accion(res.data.value, subCategoriaSeleccionada));
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(obtenerNoticiasParaSeccionError_accion('No se pudieron obtener las noticias'));
       });
   };
 };

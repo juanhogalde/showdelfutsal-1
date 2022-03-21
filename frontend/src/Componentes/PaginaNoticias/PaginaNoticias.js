@@ -18,6 +18,7 @@ const PaginaNoticias = ({
   noticias3 = 'LNFA',
 }) => {
   const {noticias} = useSelector(state => state.storeNoticias);
+
   const [noticiaMasculino, setNoticiaMasculino] = useState({});
   const [noticiaFemenino, setNoticiaFemenino] = useState({});
   const [noticiaLiga, setNoticiaLiga] = useState({});
@@ -54,45 +55,18 @@ const PaginaNoticias = ({
   }, [publicidades]);
 
   useLayoutEffect(() => {
-    var noticiasMasculinos = {};
-    var noticiasFemenino = {};
-    var noticiasLiga = {};
     var noticiasFiltradasF = noticias.filter(noticia => noticia.keyCategoria === 2);
     var noticiasFiltradasM = noticias.filter(noticia => noticia.keyCategoria === 1);
     var noticiasFiltradasLiga = noticias.filter(noticia => noticia.keyCategoria === 3);
     // Masculino
-    if (noticiasFiltradasM[0]) {
-      noticiasMasculinos = {...noticiasMasculinos, noticia1: noticiasFiltradasM[0]};
-    }
-    if (noticiasFiltradasM[1]) {
-      noticiasMasculinos = {...noticiasMasculinos, noticia2: noticiasFiltradasM[1]};
-    }
-    if (noticiasFiltradasM[2]) {
-      noticiasMasculinos = {...noticiasMasculinos, noticia3: noticiasFiltradasM[2]};
-    }
-    setNoticiaMasculino(noticiasMasculinos);
+
+    setNoticiaMasculino(noticiasFiltradasM);
     // Femenino
-    if (noticiasFiltradasF[0]) {
-      noticiasFemenino = {...noticiasFemenino, noticia1: noticiasFiltradasF[0]};
-    }
-    if (noticiasFiltradasF[1]) {
-      noticiasFemenino = {...noticiasFemenino, noticia2: noticiasFiltradasF[1]};
-    }
-    if (noticiasFiltradasF[2]) {
-      noticiasFemenino = {...noticiasFemenino, noticia3: noticiasFiltradasF[2]};
-    }
-    setNoticiaFemenino(noticiasFemenino);
+
+    setNoticiaFemenino(noticiasFiltradasF);
     //Liga
-    if (noticiasFiltradasLiga[0]) {
-      noticiasLiga = {...noticiasLiga, noticia1: noticiasFiltradasLiga[0]};
-    }
-    if (noticiasFiltradasLiga[1]) {
-      noticiasLiga = {...noticiasLiga, noticia2: noticiasFiltradasLiga[1]};
-    }
-    if (noticiasFiltradasLiga[2]) {
-      noticiasLiga = {...noticiasLiga, noticia3: noticiasFiltradasLiga[2]};
-    }
-    setNoticiaLiga(noticiasLiga);
+
+    setNoticiaLiga(noticiasFiltradasLiga);
   }, [noticias, setNoticiaMasculino]);
   return (
     <div className="LP-Seccion-Noticias">

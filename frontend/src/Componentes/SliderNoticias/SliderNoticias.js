@@ -29,20 +29,18 @@ function SamplePrevArrow(props) {
 export const SliderNoticias = ({
   cantidadDeElementos = 4,
   isVertical = false,
-  enfocarNoticia = () => {
-    console.log('');
-  },
+
   isConCopete = false,
-  categoriaNoticias = -1,
-  subcategoriaNoticia = -1,
+  categoriaNoticias,
+  subcategoriaNoticia,
 }) => {
   const {noticias} = useSelector(state => state.storeNoticias);
   const [noticiaAmostrar, setNoticiaAmostrar] = useState([]);
   /* const noticia = useSelector(state => state.storePrueba.noticias3); */
   useLayoutEffect(() => {
-    if (categoriaNoticias !== -1) {
+    if (categoriaNoticias) {
       var noticiasFiltradas = [];
-      if (subcategoriaNoticia !== -1) {
+      if (subcategoriaNoticia) {
         noticiasFiltradas = noticias.filter(
           noticia =>
             noticia.keyCategoria === categoriaNoticias &&
