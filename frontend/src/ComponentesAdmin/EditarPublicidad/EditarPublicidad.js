@@ -44,7 +44,7 @@ const EditarPublicidad = () => {
         setError('No se encontro la publicidad seleccionada');
       }
     }
-  }, [id, dispatch, publicidades]);
+  }, [id, dispatch, publicidades, datosCargados]);
 
   const [alertaComprimir, setAlertaComprimir] = useState({
     tipo: '',
