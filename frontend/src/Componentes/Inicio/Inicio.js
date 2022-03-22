@@ -22,7 +22,6 @@ import TarjetaEnfrentamiento from '../../ComponentesAdmin/TarjetaEnfrentamiento/
 import Slider from 'react-slick';
 import ImagenSlider from '../ImagenSlider/ImagenSlider';
 import {AiFillCaretLeft, AiFillCaretRight} from 'react-icons/ai';
-import YouTube from 'react-youtube';
 
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
@@ -49,6 +48,9 @@ const Inicio = () => {
   const [noticiaP, setNoticiaP] = useState({});
   const [noticia1, setNoticia1] = useState({});
   const [noticia2, setNoticia2] = useState({});
+  const [noticia3, setNoticia3] = useState({});
+  const [noticia4, setNoticia4] = useState({});
+
   const [publicaciones, setPublicaciones] = useState(null);
   const [galeria, setGaleria] = useState({galeria1: [], galeria2: [], galeria3: []});
 
@@ -135,6 +137,16 @@ const Inicio = () => {
     }
     if (noticiasFiltradas[2]) {
       setNoticia2(noticiasFiltradas[2]);
+    }
+    if (noticiasFiltradas[3]) {
+      setNoticia3(noticiasFiltradas[3]);
+    } else {
+      setNoticia3({});
+    }
+    if (noticiasFiltradas[4]) {
+      setNoticia4(noticiasFiltradas[4]);
+    } else {
+      setNoticia4({});
     }
     //CARGA DE GALERIAS
 
@@ -293,6 +305,16 @@ const Inicio = () => {
           } else {
             setNoticia2({});
           }
+          if (noticiasFiltradas[3]) {
+            setNoticia3(noticiasFiltradas[3]);
+          } else {
+            setNoticia3({});
+          }
+          if (noticiasFiltradas[4]) {
+            setNoticia4(noticiasFiltradas[4]);
+          } else {
+            setNoticia4({});
+          }
         });
         break;
       case 'Femenino':
@@ -312,6 +334,16 @@ const Inicio = () => {
           } else {
             setNoticia2({});
           }
+          if (noticiasFiltradas[3]) {
+            setNoticia3(noticiasFiltradas[3]);
+          } else {
+            setNoticia3({});
+          }
+          if (noticiasFiltradas[4]) {
+            setNoticia4(noticiasFiltradas[4]);
+          } else {
+            setNoticia4({});
+          }
         });
         break;
       case 'Liga':
@@ -330,6 +362,16 @@ const Inicio = () => {
             setNoticia2(noticiasFiltradas[2]);
           } else {
             setNoticia2({});
+          }
+          if (noticiasFiltradas[3]) {
+            setNoticia3(noticiasFiltradas[3]);
+          } else {
+            setNoticia3({});
+          }
+          if (noticiasFiltradas[4]) {
+            setNoticia4(noticiasFiltradas[4]);
+          } else {
+            setNoticia4({});
           }
         });
         break;
@@ -608,13 +650,36 @@ const Inicio = () => {
             </div>
           </div>
           <div className="CI-Galeria-Videos">
-            {/* <ImagenesVideo
-              DatosDeEntrada={videosGaleria}
-              tipoDeSliderFlecha={true}
-              tipoVideo={true}
-            ></ImagenesVideo> */}
-            <YouTube videoId="oQo5BjIa6UM" className="yt" />
-            <YouTube videoId="-0yZVOCRvSI" className="yt" />
+            <div className="CI-NoticiasMini">
+              <div className="noticia-Miniatura-1">
+                <Link
+                  to={`/Noticia/Desarrollada/${noticia3._id}`}
+                  // onClick={() => {
+                  //   noticiaSeleccionada(noticia1);
+                  // }}
+                  className="estilos-Link"
+                >
+                  <NoticiasMiniatura
+                    isSeccionNoticias={true}
+                    datosModelado={noticia3}
+                  ></NoticiasMiniatura>
+                </Link>
+              </div>
+              <div className="noticia-Miniatura-2">
+                <Link
+                  to={`/Noticia/Desarrollada/${noticia4._id}`}
+                  // onClick={() => {
+                  //   noticiaSeleccionada(noticia2);
+                  // }}
+                  className="estilos-Link"
+                >
+                  <NoticiasMiniatura
+                    isSeccionNoticias={true}
+                    datosModelado={noticia4}
+                  ></NoticiasMiniatura>
+                </Link>
+              </div>
+            </div>
           </div>
           <div className="publicidad-Noticias-Galeria">
             <img
