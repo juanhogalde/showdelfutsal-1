@@ -13,7 +13,7 @@ const SubMenuSecciones = ({
         <h4>{subcategoria.label}</h4>
       </div>
       <div className="CI-Noticias-Menu">
-        <div className="I-Noticias-fixture" onClick={() => obtenerSeccion(1)}>
+        {/* <div className="I-Noticias-fixture" onClick={() => obtenerSeccion(1)}>
           <h5>Fixture</h5>
         </div>
         <div className="I-Noticias-tabla-posiciones" onClick={() => obtenerSeccion(2)}>
@@ -21,7 +21,7 @@ const SubMenuSecciones = ({
         </div>
         <div className="I-Noticias-categoria" onClick={() => obtenerSeccion(3)}>
           <h5>Noticias</h5>
-        </div>
+        </div> */}
       </div>
       <div className="I-Barra"></div>
     </div>
