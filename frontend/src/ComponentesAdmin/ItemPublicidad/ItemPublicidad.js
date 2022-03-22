@@ -2,10 +2,7 @@ import './ItemPublicidad.css';
 import React, {useState} from 'react';
 import {FiEdit3} from 'react-icons/fi';
 import {useHistory} from 'react-router';
-import {
-  buscarPublicidadAEditar_accion,
-  eliminarPublicidad,
-} from '../../Redux/Publicidades/AccionesPublicidades';
+import {eliminarPublicidad} from '../../Redux/Publicidades/AccionesPublicidades';
 import {useDispatch} from 'react-redux';
 import {MdDeleteForever} from 'react-icons/md';
 import Alertas from '../Alertas/Alertas';
@@ -16,8 +13,7 @@ const ItemPublicidad = ({publicidad = {}, linkTo = '/', ubicacion = 'Ubicación'
   const dispatch = useDispatch();
 
   const irAEditarPublicidad = () => {
-    dispatch(buscarPublicidadAEditar_accion(publicidad._id));
-    historialDeNavegacion.push(linkTo);
+    historialDeNavegacion.push(`/Publicidad/Editar/${publicidad._id}`);
   };
   const respuestaModalEliminar = respuesta => {
     setMostrarAlertEliminarPublicidad(false);
