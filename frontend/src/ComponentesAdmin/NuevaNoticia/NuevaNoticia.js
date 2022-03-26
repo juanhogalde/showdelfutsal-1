@@ -167,6 +167,8 @@ const NuevaNoticia = ({tituloBoton = 'Guardar', isNueva = true, isConsulta = fal
           setArregloDeSubCategorias(subcategorias);
           break;
       }
+    } else {
+      setArregloDeCategorias(categorias);
     }
   }, [noticiaSeleccionada, setCategoria, setSubCategoria, isNueva, categorias, subcategorias]);
   const eventoGuardar = () => {
