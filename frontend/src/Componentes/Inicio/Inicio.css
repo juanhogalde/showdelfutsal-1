@@ -152,7 +152,7 @@
 .CP-Marcador {
   width: 100%;
   display: grid;
-  grid-template-columns: 65% 35%;
+  grid-template-columns: 1fr auto;
   grid-template-rows: auto 1fr auto auto;
 }
 .margenes-Responsive-Seccion-Marcador {
@@ -303,7 +303,7 @@
   height: 100%;
 }
 .publicidad-Noticias-Partidos img {
-  max-width: 100%;
+  width: -webkit-fill-available;
   height: 100%;
   object-fit: contain;
 }
