@@ -139,29 +139,22 @@ let inicializarUsuarios = async () => {
     {
       nombreUsuario: 'admin.lowa',
       email: 'admin@lowa.com',
-      password: '0000',
+      password: 'Lowa.S3rv3r!',
       keyRol: 1,
       token: '',
     },
     {
       nombreUsuario: 'editor1',
       email: 'editor1@lowa.com',
-      password: 12345,
+      password: 'Lowa.S3rv3r!',
       keyRol: 3,
       token: '',
     },
     {
       nombreUsuario: 'editor2',
       email: 'editor2@lowa.com',
-      password: 12345,
+      password: 'Lowa.S3rv3r!',
       keyRol: 3,
-      token: '',
-    },
-    {
-      nombreUsuario: 'eliana',
-      email: 'elianabernaldez@gmail.com',
-      password: 12345,
-      keyRol: 2,
       token: '',
     },
   ];
@@ -194,7 +187,7 @@ let incializarMedidasPublicitarias = async () => {
     {
       _id: '3',
       ancho: 1136,
-      alto: 199,
+      alto: 99,
       ubicacion: 'horizontal',
       direccion: 'Inicio->Vivo->Abajo',
       keyMedidas: 3,
@@ -221,7 +214,7 @@ let incializarMedidasPublicitarias = async () => {
     {
       _id: '6',
       ancho: 1136,
-      alto: 199,
+      alto: 99,
       ubicacion: 'horizontal',
       direccion: 'Inicio->Noticia->Abajo',
       keyMedidas: 6,
@@ -230,7 +223,7 @@ let incializarMedidasPublicitarias = async () => {
     {
       _id: '7',
       ancho: 1136,
-      alto: 199,
+      alto: 99,
       ubicacion: 'horizontal',
       direccion: 'Desarrollada->Noticia->Abajo',
       keyMedidas: 7,
@@ -239,7 +232,7 @@ let incializarMedidasPublicitarias = async () => {
     {
       _id: '8',
       ancho: 1136,
-      alto: 199,
+      alto: 99,
       ubicacion: 'horizontal',
       direccion: 'Inicio->Partidos->Abajo',
       keyMedidas: 8,
@@ -248,7 +241,7 @@ let incializarMedidasPublicitarias = async () => {
     {
       _id: '9',
       ancho: 1136,
-      alto: 199,
+      alto: 99,
       ubicacion: 'horizontal',
       direccion: 'Inicio->Galeria->Abajo',
       keyMedidas: 9,
@@ -257,7 +250,7 @@ let incializarMedidasPublicitarias = async () => {
     {
       _id: '10',
       ancho: 1136,
-      alto: 199,
+      alto: 99,
       ubicacion: 'horizontal',
       direccion: 'Noticias->Galeria->Masculino->Abajo',
       keyMedidas: 10,
@@ -266,7 +259,7 @@ let incializarMedidasPublicitarias = async () => {
     {
       _id: '11',
       ancho: 1136,
-      alto: 199,
+      alto: 99,
       ubicacion: 'horizontal',
       direccion: 'Noticias->Galeria->Femenino->Abajo',
       keyMedidas: 11,
@@ -275,7 +268,7 @@ let incializarMedidasPublicitarias = async () => {
     {
       _id: '12',
       ancho: 1136,
-      alto: 199,
+      alto: 99,
       ubicacion: 'horizontal',
       direccion: 'Noticias->Galeria->LNFA->Abajo',
       keyMedidas: 12,
