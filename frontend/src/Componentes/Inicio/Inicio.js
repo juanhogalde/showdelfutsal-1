@@ -48,11 +48,15 @@ const Inicio = () => {
   const [noticiaP, setNoticiaP] = useState({});
   const [noticia1, setNoticia1] = useState({});
   const [noticia2, setNoticia2] = useState({});
-  const [noticia3, setNoticia3] = useState({});
-  const [noticia4, setNoticia4] = useState({});
 
   const [publicaciones, setPublicaciones] = useState(null);
-  const [galeria, setGaleria] = useState({galeria1: [], galeria2: [], galeria3: []});
+  const [galeria, setGaleria] = useState({
+    galeria1: [],
+    galeria2: [],
+    galeria3: [],
+    galeria4: [],
+    galeria5: [],
+  });
 
   const FiltrarNoticias = keyCategoria => {
     return new Promise((resolve, reject) => {
@@ -138,32 +142,25 @@ const Inicio = () => {
     if (noticiasFiltradas[2]) {
       setNoticia2(noticiasFiltradas[2]);
     }
-    if (noticiasFiltradas[3]) {
-      setNoticia3(noticiasFiltradas[3]);
-    } else {
-      setNoticia3({});
-    }
-    if (noticiasFiltradas[4]) {
-      setNoticia4(noticiasFiltradas[4]);
-    } else {
-      setNoticia4({});
-    }
+
     //CARGA DE GALERIAS
 
     var auxGaleriasImagenes = [];
     if (galerias.length) {
       auxGaleriasImagenes = galerias.filter(element => element.imagenesId.length !== 0);
+      auxGaleriasImagenes.reverse();
       // auxGaleriasImagenes = galerias.for(galeria => {
       //   if (Object.keys(galeria).length > 0 && galeria.imagenesId.length !== 0) {
       //     return galeria;
       //   }
       // });
     }
-    var ultimoIndice = auxGaleriasImagenes.length;
     setGaleria({
-      galeria1: auxGaleriasImagenes[ultimoIndice - 3] ? auxGaleriasImagenes[ultimoIndice - 3] : {},
-      galeria2: auxGaleriasImagenes[ultimoIndice - 2] ? auxGaleriasImagenes[ultimoIndice - 2] : {},
-      galeria3: auxGaleriasImagenes[ultimoIndice - 1] ? auxGaleriasImagenes[ultimoIndice - 1] : {},
+      galeria1: auxGaleriasImagenes[0] ? auxGaleriasImagenes[0] : {},
+      galeria2: auxGaleriasImagenes[1] ? auxGaleriasImagenes[1] : {},
+      galeria3: auxGaleriasImagenes[2] ? auxGaleriasImagenes[2] : {},
+      galeria4: auxGaleriasImagenes[3] ? auxGaleriasImagenes[3] : {},
+      galeria5: auxGaleriasImagenes[4] ? auxGaleriasImagenes[4] : {},
     });
 
     var galeriasTipoVideos = galerias.filter(galeria => galeria.videosId.length);
@@ -305,16 +302,6 @@ const Inicio = () => {
           } else {
             setNoticia2({});
           }
-          if (noticiasFiltradas[3]) {
-            setNoticia3(noticiasFiltradas[3]);
-          } else {
-            setNoticia3({});
-          }
-          if (noticiasFiltradas[4]) {
-            setNoticia4(noticiasFiltradas[4]);
-          } else {
-            setNoticia4({});
-          }
         });
         break;
       case 'Femenino':
@@ -334,16 +321,6 @@ const Inicio = () => {
           } else {
             setNoticia2({});
           }
-          if (noticiasFiltradas[3]) {
-            setNoticia3(noticiasFiltradas[3]);
-          } else {
-            setNoticia3({});
-          }
-          if (noticiasFiltradas[4]) {
-            setNoticia4(noticiasFiltradas[4]);
-          } else {
-            setNoticia4({});
-          }
         });
         break;
       case 'Liga':
@@ -362,16 +339,6 @@ const Inicio = () => {
             setNoticia2(noticiasFiltradas[2]);
           } else {
             setNoticia2({});
-          }
-          if (noticiasFiltradas[3]) {
-            setNoticia3(noticiasFiltradas[3]);
-          } else {
-            setNoticia3({});
-          }
-          if (noticiasFiltradas[4]) {
-            setNoticia4(noticiasFiltradas[4]);
-          } else {
-            setNoticia4({});
           }
         });
         break;
@@ -648,39 +615,38 @@ const Inicio = () => {
                 )}
               </div>
             </div>
-          </div>
-          <div className="CI-Galeria-Videos">
-            <div className="CI-NoticiasMini">
-              <div className="noticia-Miniatura-1">
-                <Link
-                  to={`/Noticia/Desarrollada/${noticia3._id}`}
-                  // onClick={() => {
-                  //   noticiaSeleccionada(noticia1);
-                  // }}
-                  className="estilos-Link"
-                >
-                  <NoticiasMiniatura
-                    isSeccionNoticias={true}
-                    datosModelado={noticia3}
-                  ></NoticiasMiniatura>
-                </Link>
+            <div className="galeria-Imagenes-C">
+              <div className="I-Contenedor-slider-imagenes">
+                {galeria.galeria4.imagenesId && (
+                  <Slider {...settings} cantidadDeElementos={1}>
+                    {galeria.galeria4.imagenesId.map(datoGaleria => {
+                      return (
+                        <ImagenSlider
+                          datos={datoGaleria}
+                          descripcion={galeria.galeria4.tituloGaleria}
+                        ></ImagenSlider>
+                      );
+                    })}
+                  </Slider>
+                )}
               </div>
-              <div className="noticia-Miniatura-2">
-                <Link
-                  to={`/Noticia/Desarrollada/${noticia4._id}`}
-                  // onClick={() => {
-                  //   noticiaSeleccionada(noticia2);
-                  // }}
-                  className="estilos-Link"
-                >
-                  <NoticiasMiniatura
-                    isSeccionNoticias={true}
-                    datosModelado={noticia4}
-                  ></NoticiasMiniatura>
-                </Link>
+              <div className="I-Contenedor-slider-imagenes">
+                {galeria.galeria5.imagenesId && (
+                  <Slider {...settings} cantidadDeElementos={0}>
+                    {galeria.galeria5.imagenesId.map(datoGaleria => {
+                      return (
+                        <ImagenSlider
+                          datos={datoGaleria}
+                          descripcion={galeria.galeria5.tituloGaleria}
+                        ></ImagenSlider>
+                      );
+                    })}
+                  </Slider>
+                )}
               </div>
             </div>
           </div>
+
           <div className="publicidad-Noticias-Galeria">
             <img
               alt=""

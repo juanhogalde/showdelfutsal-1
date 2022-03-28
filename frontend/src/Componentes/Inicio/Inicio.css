@@ -362,6 +362,15 @@
   justify-content: space-evenly;
   padding: 30px;
 }
+.galeria-Imagenes-C {
+  grid-column: 2/3;
+  grid-row: 1/4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 30px;
+}
+
 .CI-Galeria-Videos {
   grid-column: 2/3;
   display: flex;

@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Animaciones from '../Animaciones/Animaciones';
 import PieDepagina from '../PieDePagina/PieDepagina';
 import {server} from '../../Entorno';
-import {useParams, useLocation} from 'react-router';
+import {useParams} from 'react-router';
 import {
   obtenerNoticiaSeleccionada,
   cargandoObtenerNoticiaSeleccionada_accion,
@@ -25,7 +25,6 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
   const {noticiaDesarrolladaError, noticiaDesarrolada, cargandoNoticiaDesarrollada} = useSelector(
     state => state.storeNoticias
   );
-  let location = useLocation();
   const {publicidades} = useSelector(state => state.storePublicidades);
   useEffect(() => {
     const elemento = document.getElementById('noticiaDesarrollada');
