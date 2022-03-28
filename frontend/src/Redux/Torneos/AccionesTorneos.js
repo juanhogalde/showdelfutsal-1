@@ -1,18 +1,5 @@
 import API from './../Configuracion/api';
 
-export const cargandoAgregarTorneo = 'cargandoAgregarTorneo';
-export const agregarTorneoExito = 'agregarTorneoExito';
-export const agregarTorneoError = 'agregarTorneoError';
-export const volverPorDefectoAgregarTorneo = 'volverPorDefectoAgregarTorneo';
-
-export const consultarPorEditarTorneo = 'consultarPorEditarTorneo';
-export const cargandoEditarTorneo = 'cargandoEditarTorneo';
-export const editarTorneoExito = 'editarTorneoExito';
-export const editarTorneoError = 'editarTorneoError';
-export const volverPorDefectoEditarTorneo = 'volverPorDefectoEditarTorneo';
-
-export const cargarDatosDeTorneoParaEdicion = 'cargarDatosDeTorneoParaEdicion';
-
 export const consultarPorEliminarTorneo = 'consultarPorEliminarTorneo';
 export const cargandoEliminarTorneo = 'cargandoEliminarTorneo';
 export const eliminarTorneoExito = 'eliminarTorneoExito';
@@ -88,36 +75,39 @@ export const volverPorDefectoUnTorneo_accion = () => {
   };
 };
 
-/****** AGREGAR TORNEO ******/
-export const cargandoAgregarTorneo_accion = () => {
+/****** COMPONENTE NUEVO TORENO ******/
+
+export const controlModalNuevoTorneo = 'controlModalNuevoTorneo';
+export const agregarTorneoExito = 'agregarTorneoExito';
+export const agregarTorneoError = 'agregarTorneoError';
+export const controlModalNuevoTorneo_accion = datos => {
   return {
-    type: cargandoAgregarTorneo,
+    type: controlModalNuevoTorneo,
+    datos: datos,
   };
 };
-
 export const agregarTorneoExito_accion = datos => {
   return {
     type: agregarTorneoExito,
     datos: datos,
   };
 };
-
 export const agregarTorneoError_accion = error => {
   return {
     type: agregarTorneoError,
     error: error,
   };
 };
-
-export const volverPorDefectoAgregarTorneo_accion = () => {
-  return {
-    type: volverPorDefectoAgregarTorneo,
-  };
-};
-
 export const agregarTorneo_accion = datosTorneo => {
   return dispatch => {
-    dispatch(cargandoAgregarTorneo_accion());
+    dispatch(
+      controlModalNuevoTorneo_accion({
+        tipo: 'cargando',
+        mensaje: 'Agregando Torneo.',
+        isMostrar: true,
+        datosAdicionales: null,
+      })
+    );
     API({
       url: '/torneos/agregar',
       method: 'post',
@@ -134,16 +124,9 @@ export const agregarTorneo_accion = datosTorneo => {
 };
 
 /****** EDITAR TORNEO ******/
-export const consultarPorEditarTorneo_accion = () => {
-  return {
-    type: consultarPorEditarTorneo,
-  };
-};
-export const cargandoEditarTorneo_accion = () => {
-  return {
-    type: cargandoEditarTorneo,
-  };
-};
+
+export const editarTorneoExito = 'editarTorneoExito';
+export const editarTorneoError = 'editarTorneoError';
 
 export const editarTorneoExito_accion = datos => {
   return {
@@ -159,12 +142,6 @@ export const editarTorneoError_accion = error => {
   };
 };
 
-export const volverPorDefectoEditarTorneo_accion = () => {
-  return {
-    type: volverPorDefectoEditarTorneo,
-  };
-};
-
 /***** DATOS DE TORNEO PARA EDICIÓN *****/
 export const cargandoObtenerDatosDeTorneoParaEdicion_accion = () => {
   return {
@@ -177,9 +154,10 @@ export const obtenerDatosDeTorneoParaEdicionExito_accion = torneo => {
     datos: torneo,
   };
 };
-export const obtenerDatosDeTorneoParaEdicionError_accion = () => {
+export const obtenerDatosDeTorneoParaEdicionError_accion = error => {
   return {
     type: obtenerDatosDeTorneoParaEdicionError,
+    error: error,
   };
 };
 export const obtenerDatosDeTorneoParaEdicionDefault_accion = () => {
@@ -193,7 +171,7 @@ export const ultimaUbicacionEditarTorneo_accion = datos => {
     datos: datos,
   };
 };
-export const obtenerDatosDeTorneoParaEdicion_accion = torneo => {
+export const obtenerDatosDeTorneoParaEdicion = torneo => {
   return dispatch => {
     dispatch(cargandoObtenerDatosDeTorneoParaEdicion_accion());
     API({
@@ -207,14 +185,24 @@ export const obtenerDatosDeTorneoParaEdicion_accion = torneo => {
       })
       .catch(error => {
         console.log({error});
-        dispatch(obtenerDatosDeTorneoParaEdicionError_accion());
+        dispatch(
+          obtenerDatosDeTorneoParaEdicionError_accion(
+            'Lo sentimos, en este momento no podemos editar éste torneo.'
+          )
+        );
       });
   };
 };
-
 export const editarTorneo_accion = torneo => {
   return dispatch => {
-    dispatch(cargandoEditarTorneo_accion());
+    dispatch(
+      controlModalNuevoTorneo_accion({
+        isMostrar: true,
+        tipo: 'cargando',
+        mensaje: 'Editando Torneo.',
+        datosAdicionales: null,
+      })
+    );
     API({
       url: '/torneos/modificar',
       method: 'put',

@@ -5,7 +5,7 @@ import './EditorEnfrentamientos.css';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   obtenerDatosDeTorneoParaEdicionDefault_accion,
-  obtenerDatosDeTorneoParaEdicion_accion,
+  obtenerDatosDeTorneoParaEdicion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 import Enfrentamiento from '../Enfrentamiento/Enfrentamiento';
@@ -39,7 +39,7 @@ const EditorEnfrentamientos = () => {
 
   const escucharSelectorTorneo = value => {
     let auxTorneo = torneos.find(torneo => torneo._id === value.idTorneo);
-    dispatch(obtenerDatosDeTorneoParaEdicion_accion(auxTorneo));
+    dispatch(obtenerDatosDeTorneoParaEdicion(auxTorneo));
     setDatosFiltrados({
       torneo: value,
     });

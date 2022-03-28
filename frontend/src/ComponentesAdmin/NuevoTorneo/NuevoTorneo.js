@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useState} from 'react';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputDateLowa from '../InputDateLowa/InputDateLowa';
 import InputLowa from '../InputLowa/InputLowa';
@@ -9,15 +9,12 @@ import {useHistory} from 'react-router';
 import Alertas from '../Alertas/Alertas';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  actualizarListaDeTorneos_accion,
   agregarTorneo_accion,
-  consultarPorEditarTorneo_accion,
+  controlModalNuevoTorneo_accion,
   editarTorneo_accion,
-  volverPorDefectoAgregarTorneo_accion,
-  volverPorDefectoEditarTorneo_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
 import compararObjetos from '../../ModulosExternos/CompararObjetos';
-import {useParams} from 'react-router-dom';
+import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
 
 const tipoTorneoArray = [
   {value: 1, label: 'Campeonato'},
@@ -25,14 +22,14 @@ const tipoTorneoArray = [
   {value: 3, label: 'Copa'},
 ];
 
-const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
-  const {id} = useParams();
+const NuevoTorneo = ({datosParaEditar = {}}) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const {torneo, isAgregarTorneo, isEditarTorneo} = useSelector(state => state.storeTorneos);
+  const {subcategorias} = useSelector(state => state.sotreDatosIniciales);
 
-  const [datosTorneo, setDatosTorneo] = useState({});
-  const [isFinalizoEdicion, setIsFinalizoEdicion] = useState(false);
+  const {isModalNuevoTorneo} = useSelector(state => state.storeTorneos);
+  const [datosTorneo, setDatosTorneo] = useState(datosParaEditar);
+  const [isFinalizoEdicion, setIsFinalizoEdicion] = useState(true);
   const [alertaFechas, setAlertaFechas] = useState({
     tipo: '',
     mensaje: '',
@@ -40,21 +37,19 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
   });
 
   const escucharCambios = (name, value) => {
+    setIsFinalizoEdicion(value === datosParaEditar[name]);
     setDatosTorneo({...datosTorneo, [name]: value});
   };
 
   const escucharSelector = (value, name) => {
+    setIsFinalizoEdicion(value === datosParaEditar[name]);
     setDatosTorneo({...datosTorneo, [name]: value});
   };
 
   const siguientePantallaNuevoTorneo = () => {
     switch (datosTorneo.tipoTorneo) {
       case 1:
-        if (isEditarTorneoProps) {
-          history.push(`/Torneo/Editar/Campeonato/${id}`);
-        } else {
-          history.push(`/Torneo/Nuevo/Campeonato`);
-        }
+        history.push(`/Torneo/Editar/Campeonato/${datosTorneo._id}`);
         break;
       default:
         break;
@@ -62,56 +57,35 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
   };
 
   const validarCamposNuevoTorneo = () => {
-    if (Object.keys(torneo).length !== 0) {
-      if (compararObjetos(datosTorneo, torneo)) {
-        siguientePantallaNuevoTorneo(torneo._id);
+    if (datosTorneo._id) {
+      //TODO:si hay cambios hay que llamar al editar torneo  dispatch(editarTorneo_accion(datosTorneo));
+      if (compararObjetos(datosTorneo, datosParaEditar)) {
+        siguientePantallaNuevoTorneo(datosTorneo._id);
       } else {
-        dispatch(consultarPorEditarTorneo_accion());
+        dispatch(editarTorneo_accion(datosTorneo));
       }
     } else {
-      if (datosTorneo.tipoTorneo) {
-        if (datosTorneo.tituloTorneo) {
-          if (datosTorneo.fechaInicio) {
-            if (datosTorneo.fechaFin) {
-              if (
-                new Date(datosTorneo.fechaInicio).getTime() >
-                new Date(datosTorneo.fechaFin).getTime()
-              ) {
-                setAlertaFechas({
-                  tipo: 'error',
-                  mensaje: 'Fechas inválidas, por favor verificar.',
-                  isMostrar: true,
-                });
-              } else {
-                if (Object.keys(datosTorneo).length > 0) {
-                  dispatch(agregarTorneo_accion(datosTorneo));
-                }
-              }
-            } else {
-              setAlertaFechas({
-                tipo: 'error',
-                mensaje: 'Debe seleccionar fecha de fin de torneo.',
-                isMostrar: true,
-              });
-            }
-          } else {
-            setAlertaFechas({
-              tipo: 'error',
-              mensaje: 'Debe seleccionar fecha de inicio de torneo.',
-              isMostrar: true,
-            });
-          }
-        } else {
-          setAlertaFechas({
-            tipo: 'error',
-            mensaje: 'Debe completar titulo de torneo.',
-            isMostrar: true,
-          });
-        }
+      if (
+        datosTorneo.tipoTorneo &&
+        datosTorneo.tituloTorneo &&
+        datosTorneo.fechaInicio &&
+        datosTorneo.fechaFin
+      ) {
+        dispatch(agregarTorneo_accion(datosTorneo));
       } else {
         setAlertaFechas({
           tipo: 'error',
-          mensaje: 'Debe seleccionar tipo de torneo.',
+          mensaje: `Verifique los siguientes datos:
+            ${!datosTorneo.tipoTorneo ? '-Tipo de torneo' : ''} 
+            ${!datosTorneo.tituloTorneo ? '-Titulo torneo' : ''} 
+            ${!datosTorneo.fechaInicio ? '-Fecha inicio' : ''} ${
+            !datosTorneo.fechaFin ? '-Fecha fin' : ''
+          } ${
+            new Date(datosTorneo.fechaInicio).getTime() > new Date(datosTorneo.fechaFin).getTime()
+              ? '-Fechas inválidas'
+              : ''
+          }
+              `,
           isMostrar: true,
         });
       }
@@ -119,9 +93,21 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
   };
 
   const respuestaDeAlertasAgregarTorneo = respuesta => {
+    dispatch(
+      controlModalNuevoTorneo_accion({
+        isMostrar: false,
+        tipo: '',
+        datosAdicionales: null,
+        mensaje: '',
+      })
+    );
     if (respuesta) {
-      dispatch(volverPorDefectoAgregarTorneo_accion());
-      siguientePantallaNuevoTorneo();
+      if (isModalNuevoTorneo.tipo === 'success') {
+        if (isModalNuevoTorneo.datosAdicionales) {
+          history.push(`/Torneo/Editar/${isModalNuevoTorneo.datosAdicionales}`);
+        }
+        history.push(`/Torneo/Editar/Campeonato/${isModalNuevoTorneo.datosAdicionales}`);
+      }
     }
   };
   const respuestaDeAlertaFechas = respuesta => {
@@ -133,34 +119,6 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
       });
     }
   };
-
-  const obtenerRespuestaDeAlertasEditarTorneo = respuesta => {
-    if (respuesta) {
-      if (isEditarTorneo.isConsulta) {
-        dispatch(editarTorneo_accion(datosTorneo));
-      }
-      if (isEditarTorneo.isExito) {
-        dispatch(actualizarListaDeTorneos_accion());
-        setIsFinalizoEdicion(true);
-      }
-      if (isEditarTorneo.isError) {
-        dispatch(volverPorDefectoEditarTorneo_accion());
-      }
-    } else {
-      dispatch(volverPorDefectoEditarTorneo_accion());
-    }
-  };
-
-  useLayoutEffect(() => {
-    if (torneo) {
-      if (Object.keys(torneo).length > 0) {
-        setDatosTorneo(torneo);
-      }
-    }
-    /*  if (Object.keys(datosParaEditar).length > 0) {
-      setDatosTorneo(datosParaEditar);
-    } */
-  }, [datosParaEditar, torneo]);
 
   return (
     <div className="CP-NuevoTorneo">
@@ -195,24 +153,67 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
         placeholder="Fecha Fin"
         value={datosTorneo.fechaFin ? datosTorneo.fechaFin : ''}
       />
-      {isEditarTorneoProps ? (
-        <BotonLowa
-          tituloboton={isFinalizoEdicion ? 'Siguiente' : 'Editar Torneo'}
-          onClick={() => validarCamposNuevoTorneo()}
-        ></BotonLowa>
+      {datosParaEditar._id ? (
+        <React.Fragment>
+          <BotonLowa
+            tituloboton={datosParaEditar._id && isFinalizoEdicion ? 'Siguiente' : 'Editar Torneo'}
+            onClick={() => validarCamposNuevoTorneo()}
+          ></BotonLowa>
+          <div className="CP-Campeonato">
+            <div className="CI-CampeonatoMasculino">
+              <p>Masculino</p>
+
+              {subcategorias.map((subcategoria, index) => {
+                return (
+                  subcategoria.keyCategoria === 1 && (
+                    <TarjetaTorneo
+                      isExisteSubcategoria={datosParaEditar.zonas?.some(
+                        zona => zona.idSubcategoria.keySubcategoria === subcategoria.key
+                      )}
+                      // categoria={categoriaMasculino}
+                      subcategoria={subcategoria}
+                      key={index}
+                      isCampeonato={true}
+                      // redireccionarZona={redireccionarZona}
+                      // consultarPorEliminarZonasDeTorneo={consultarPorEliminarZonasDeTorneo}
+                    />
+                  )
+                );
+              })}
+            </div>
+            <div className="CI-CampeonatoMasculino">
+              <p>Femenino</p>
+              {subcategorias.map((subcategoria, index) => {
+                return (
+                  subcategoria.keyCategoria === 2 && (
+                    <TarjetaTorneo
+                      isExisteSubcategoria={datosParaEditar.zonas?.some(
+                        zona => zona.idSubcategoria.keySubcategoria === subcategoria.key
+                      )}
+                      // categoria={categoriaFemenino}
+                      subcategoria={subcategoria}
+                      key={index}
+                      isCampeonato={true}
+                      // redireccionarZona={redireccionarZona}
+                      // consultarPorEliminarZonasDeTorneo={consultarPorEliminarZonasDeTorneo}
+                    ></TarjetaTorneo>
+                  )
+                );
+              })}
+            </div>
+          </div>
+        </React.Fragment>
       ) : (
         <BotonLowa
-          tituloboton={Object.keys(torneo).length >= 4 ? 'Siguiente' : 'Crear Torneo'}
+          tituloboton={isFinalizoEdicion ? 'Siguiente' : 'Crear Torneo'}
           onClick={() => validarCamposNuevoTorneo()}
         ></BotonLowa>
       )}
 
       <Alertas
-        tipoDeSweet={isAgregarTorneo.tipo}
-        subtitulo={isAgregarTorneo.mensaje}
-        mostrarSweet={
-          isAgregarTorneo.isCargando || isAgregarTorneo.isExito || isAgregarTorneo.isError
-        }
+        tipoDeSweet={isModalNuevoTorneo.tipo}
+        subtitulo={isModalNuevoTorneo.mensaje}
+        mostrarSweet={isModalNuevoTorneo.isMostrar}
         RespuestaDeSweet={respuestaDeAlertasAgregarTorneo}
       ></Alertas>
       <Alertas
@@ -220,12 +221,6 @@ const NuevoTorneo = ({isEditarTorneoProps = false, datosParaEditar = {}}) => {
         subtitulo={alertaFechas.mensaje}
         mostrarSweet={alertaFechas.isMostrar}
         RespuestaDeSweet={respuestaDeAlertaFechas}
-      ></Alertas>
-      <Alertas
-        mostrarSweet={true}
-        tipoDeSweet={isEditarTorneo.tipo}
-        subtitulo={isEditarTorneo.mensaje}
-        RespuestaDeSweet={obtenerRespuestaDeAlertasEditarTorneo}
       ></Alertas>
     </div>
   );

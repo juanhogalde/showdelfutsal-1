@@ -23,73 +23,29 @@ const Campeonato = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
-  const {torneo, isEliminarZonasDeTorneo} = useSelector(state => state.storeTorneos);
+  const {torneoEditar, isEliminarZonasDeTorneo} = useSelector(state => state.storeTorneos);
   const categoriaMasculino = useSelector(state =>
     state.sotreDatosIniciales.categorias.find(categoria => categoria.key === 1)
   );
   const categoriaFemenino = useSelector(state =>
     state.sotreDatosIniciales.categorias.find(categoria => categoria.key === 2)
   );
-  /* const consultarPorAgregarCategoriaSubcategoria = (keyCategoria, keySubcategoria) => {
-    let auxKeyCategoria = keyCategoria;
-    let auxKeySubCategoria = keySubcategoria;
-    dispatch(
-      consultarPoragregarCategoriaSubcategoriaTorneo_accion(auxKeyCategoria, auxKeySubCategoria)
-    );
-  }; */
-  /* const obtenerRespuestaDeAlertas = respuesta => {
-    if (respuesta) {
-      if (isAgregarCategoriaSubcategoria.isConsulta) {
-        let auxDatosDeTorneo = {};
-        Object.assign(auxDatosDeTorneo, torneo);
-        auxDatosDeTorneo.nuevaCategoria = isAgregarCategoriaSubcategoria.categoria;
-        auxDatosDeTorneo.nuevaSubcategoria = isAgregarCategoriaSubcategoria.subcategoria;
-        dispatch(agregarCategoriaSubcategoriaTorneo_accion(auxDatosDeTorneo));
-      }
-      if (isAgregarCategoriaSubcategoria.isExito) {
-        dispatch(actualizarListaDeTorneosConSubcategoria_accion());
-        redireccionarZona(
-          isAgregarCategoriaSubcategoria.categoria,
-          isAgregarCategoriaSubcategoria.subcategoria
-        );
-      }
-      if (isAgregarCategoriaSubcategoria.isError) {
-        dispatch(volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion());
-      }
-    } else {
-      dispatch(volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion());
-    }
-  }; */
+
   const redireccionarZona = (categoria, subcategoria) => {
-    if (torneo.isEditar) {
-      history.push(`/Torneo/Editar/Campeonato/Zonas/${torneo._id}/${categoria}/${subcategoria}`);
-    } else {
-      history.push(`/Torneo/Nuevo/Campeonato/Zonas/${torneo._id}/${categoria}/${subcategoria}`);
-    }
+    history.push(
+      `/Torneo/Editar/Campeonato/Zonas/${torneoEditar._id}/${categoria}/${subcategoria}`
+    );
   };
 
-  // const obtenerExistenciaDeSubcategoria = subcategoria => {
-  //   let resultadoDeBusqueda = false;
-  //   torneo.idSubcategoria.forEach(subCategoriaTorneo => {
-  //     if (subcategoria.keyCategoria === subCategoriaTorneo.keyCategoria) {
-  //       if (subcategoria.key === subCategoriaTorneo.keySubcategoria) resultadoDeBusqueda = true;
-  //     }
-  //   });
-  //   return resultadoDeBusqueda;
-  // };
-
-  /* useEffect(() => {
-    return () => {
-      dispatch(volverPorDefectoAgregarCategoriaSubcategoriaTorneo_accion());
-    };
-  }, [dispatch]); */
   const consultarPorEliminarZonasDeTorneo = subcategoria => {
     dispatch(consultarEliminarZonasDeTorneo_accion(subcategoria.key));
   };
   const obtenerRespuestasAlertaEliminarZonas = respuesta => {
     if (respuesta) {
       if (isEliminarZonasDeTorneo.tipo === 'warning') {
-        dispatch(eliminarZonasDeTorneo_accion(torneo._id, isEliminarZonasDeTorneo.subcategoria));
+        dispatch(
+          eliminarZonasDeTorneo_accion(torneoEditar._id, isEliminarZonasDeTorneo.subcategoria)
+        );
       }
       if (isEliminarZonasDeTorneo.tipo === 'success') {
         dispatch(actualizarListaDeTorneosEliminarZonas_accion());
@@ -108,11 +64,10 @@ const Campeonato = () => {
           <p>{categoriaMasculino.label ? categoriaMasculino.label : ''}</p>
 
           {subcategorias.map((subcategoria, index) => {
-            // const aux = obtenerExistenciaDeSubcategoria(subcategoria);
             return (
               subcategoria.keyCategoria === 1 && (
                 <TarjetaTorneo
-                  isExisteSubcategoria={torneo.zonas?.some(
+                  isExisteSubcategoria={torneoEditar.zonas?.some(
                     zona => zona.idSubcategoria.keySubcategoria === subcategoria.key
                   )}
                   categoria={categoriaMasculino}
@@ -121,9 +76,6 @@ const Campeonato = () => {
                   isCampeonato={true}
                   redireccionarZona={redireccionarZona}
                   consultarPorEliminarZonasDeTorneo={consultarPorEliminarZonasDeTorneo}
-                  /* consultarPorAgregarCategoriaSubcategoria={
-                    consultarPorAgregarCategoriaSubcategoria
-                  } */
                 />
               )
             );
@@ -135,19 +87,15 @@ const Campeonato = () => {
             return (
               subcategoria.keyCategoria === 2 && (
                 <TarjetaTorneo
-                  isExisteSubcategoria={torneo.zonas?.some(
+                  isExisteSubcategoria={torneoEditar.zonas?.some(
                     zona => zona.idSubcategoria.keySubcategoria === subcategoria.key
                   )}
-                  // categoria={categoriaFemenino.label}
                   categoria={categoriaFemenino}
                   subcategoria={subcategoria}
                   key={index}
                   isCampeonato={true}
                   redireccionarZona={redireccionarZona}
                   consultarPorEliminarZonasDeTorneo={consultarPorEliminarZonasDeTorneo}
-                  /* consultarPorAgregarCategoriaSubcategoria={
-                    consultarPorAgregarCategoriaSubcategoria
-                  } */
                 ></TarjetaTorneo>
               )
             );

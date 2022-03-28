@@ -30,7 +30,9 @@ const Zonas = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {idTorneo, idCategoria, idSubcategoria} = useParams();
-  const {torneo, torneos, isAgregarZona, isEliminarZona} = useSelector(state => state.storeTorneos);
+  const {torneoEditar, torneos, isAgregarZona, isEliminarZona} = useSelector(
+    state => state.storeTorneos
+  );
   const [categoria, setCategoria] = useState();
   const [subcategoria, setSubcategoria] = useState();
   const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
@@ -49,7 +51,7 @@ const Zonas = () => {
     let auxDatosZona = {};
     if (datosZona !== '') {
       if (tipo !== '') {
-        Object.assign(auxDatosZona, torneo);
+        Object.assign(auxDatosZona, torneoEditar);
         auxDatosZona.nombreZona = datosZona.nombreZona;
         auxDatosZona.tipoZona = tipo.value;
         auxDatosZona.idCategoria = idCategoria;
@@ -71,7 +73,7 @@ const Zonas = () => {
       });
     }
 
-    Object.assign(auxDatosZona, torneo);
+    Object.assign(auxDatosZona, torneoEditar);
     auxDatosZona.nombreZona = datosZona.nombreZona;
     auxDatosZona.tipoZona = tipo.value;
     auxDatosZona.idCategoria = idCategoria;
@@ -92,7 +94,7 @@ const Zonas = () => {
   };
 
   const funcionEliminarZona = id => {
-    dispatch(consultarPorEliminarZona_accion(torneo._id, id));
+    dispatch(consultarPorEliminarZona_accion(torneoEditar._id, id));
   };
   const obtenerRespuestaDeAlertaEliminarZona = respuesta => {
     if (respuesta) {
@@ -113,7 +115,7 @@ const Zonas = () => {
   };
 
   const redireccionarAgregarEquipos = zonaId => {
-    if (torneo.isEditar) {
+    if (torneoEditar.isEditar) {
       history.push(`/Torneo/Editar/Campeonato/Zonas/Equipos/${zonaId}`);
     } else {
       history.push(`/Torneo/Nuevo/Campeonato/Zonas/Equipos/${zonaId}`);
@@ -121,7 +123,7 @@ const Zonas = () => {
   };
   const redireccionarEnfrentamientos = () => {
     history.push(
-      `/Torneo/Nuevo/Campeonato/Zonas/${torneo._id}/${idCategoria}/${idSubcategoria}/Enfrentamientos`
+      `/Torneo/Nuevo/Campeonato/Zonas/${torneoEditar._id}/${idCategoria}/${idSubcategoria}/Enfrentamientos`
     );
   };
   const obtenerRespuestaDeAlertaCamposVacios = respuesta => {
@@ -135,9 +137,9 @@ const Zonas = () => {
   };
 
   useLayoutEffect(() => {
-    if (Object.keys(torneo).length > 0) {
-      if (torneo.zonas) {
-        let auxZonas = torneo.zonas.filter(
+    if (Object.keys(torneoEditar).length > 0) {
+      if (torneoEditar.zonas) {
+        let auxZonas = torneoEditar.zonas.filter(
           zona =>
             zona.idSubcategoria.keyCategoria === parseInt(idCategoria) &&
             zona.idSubcategoria.keySubcategoria === parseInt(idSubcategoria)
@@ -155,9 +157,18 @@ const Zonas = () => {
     setSubcategoria(auxSubCategoria);
 
     return () => {};
-  }, [dispatch, torneos, torneo, idTorneo, idCategoria, idSubcategoria, categorias, subcategorias]);
+  }, [
+    dispatch,
+    torneos,
+    torneoEditar,
+    idTorneo,
+    idCategoria,
+    idSubcategoria,
+    categorias,
+    subcategorias,
+  ]);
 
-  if (Object.keys(torneo).length > 0) {
+  if (Object.keys(torneoEditar).length > 0) {
     return (
       <div className="CP-Zonas">
         <div>

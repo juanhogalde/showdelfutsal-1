@@ -6,10 +6,8 @@ import {MdDeleteForever} from 'react-icons/md';
 import {FiEdit3} from 'react-icons/fi';
 import {useRef} from 'react';
 import {useDispatch} from 'react-redux';
-import {
-  consultarPorEliminarTorneo_accion,
-  obtenerDatosDeTorneoParaEdicion_accion,
-} from '../../Redux/Torneos/AccionesTorneos';
+import {consultarPorEliminarTorneo_accion} from '../../Redux/Torneos/AccionesTorneos';
+import {useHistory} from 'react-router-dom';
 
 const TarjetaTorneo = ({
   isCampeonato = false,
@@ -31,11 +29,14 @@ const TarjetaTorneo = ({
     setIsAcciones(!isAcciones);
     elementoAcciones.current.focus();
   };
+  const historialDeNavegacion = useHistory();
   const ocultarAcciones = () => {
     setIsAcciones(false);
   };
   const editarTorneo = id => {
-    dispatch(obtenerDatosDeTorneoParaEdicion_accion(torneo));
+    historialDeNavegacion.push(`/Torneo/Editar/${id}`);
+
+    // dispatch(obtenerDatosDeTorneoParaEdicion_accion(torneo));
   };
   const consultaPorEliminarTorneo = id => {
     dispatch(consultarPorEliminarTorneo_accion(id));
@@ -102,7 +103,7 @@ const TarjetaTorneo = ({
           onClick={
             isCampeonato
               ? () => redireccionarZona(categoria.value, subcategoria.value)
-              : () => editarTorneo(torneo)
+              : () => editarTorneo(torneo._id)
           }
         ></FiEdit3>
         <MdDeleteForever

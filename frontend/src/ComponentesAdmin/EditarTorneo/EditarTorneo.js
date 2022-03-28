@@ -1,46 +1,50 @@
-import React, {useCallback, useLayoutEffect, useState} from 'react';
+import React, {useLayoutEffect} from 'react';
 import './EditarTorneo.css';
 import Cargando from '../Cargando/Cargando';
 import {useParams} from 'react-router-dom';
 import NuevoTorneo from '../NuevoTorneo/NuevoTorneo';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {obtenerDatosDeTorneoParaEdicion_accion} from '../../Redux/Torneos/AccionesTorneos';
+import {
+  obtenerDatosDeTorneoParaEdicion,
+  obtenerDatosDeTorneoParaEdicionError_accion,
+} from '../../Redux/Torneos/AccionesTorneos';
 const EditarTorneo = () => {
   const {id} = useParams();
-  const {torneo, torneos} = useSelector(state => state.storeTorneos);
+  const {torneoEditar, isCargandoTorneoEditar, isErrorTorneoEditar, torneos} = useSelector(
+    state => state.storeTorneos
+  );
   const dispatch = useDispatch();
-  const [isTorneo, setIsTorneo] = useState(false);
-
-  const cargaDeDatos = useCallback(async () => {
-    let bandera = (await torneos.length) === 1;
-    return bandera;
-  }, [torneos]);
 
   useLayoutEffect(() => {
-    cargaDeDatos();
-
-    if (torneo) {
-      if (Object.keys(torneo).length > 0) {
-        setIsTorneo(true);
+    if (id && torneos.length && !torneoEditar) {
+      let auxTorneo = torneos.find(torneo => torneo._id === id);
+      if (auxTorneo) {
+        dispatch(obtenerDatosDeTorneoParaEdicion(auxTorneo));
       } else {
-        dispatch(obtenerDatosDeTorneoParaEdicion_accion(id));
+        dispatch(
+          obtenerDatosDeTorneoParaEdicionError_accion('No se encontro el torneo solicitado')
+        );
       }
-    } else {
-      dispatch(obtenerDatosDeTorneoParaEdicion_accion(id));
     }
-  }, [torneo, dispatch, id, cargaDeDatos]);
 
-  if (isTorneo) {
+    return () => {};
+  }, [dispatch, id, torneos, torneoEditar]);
+
+  if (isCargandoTorneoEditar) {
     return (
-      <div className="CP-EditarGaleria">
-        <NuevoTorneo datosParaEditar={torneo} isEditarTorneoProps={true}></NuevoTorneo>
+      <div className="CP-EditarTorneo-Cargando ">
+        <Cargando></Cargando>
       </div>
     );
   } else {
-    return (
+    return isErrorTorneoEditar ? (
       <div className="CP-EditarTorneo-Cargando">
-        <Cargando></Cargando>
+        <span>{isErrorTorneoEditar}</span>
+      </div>
+    ) : (
+      <div className="CP-EditarGaleria">
+        <NuevoTorneo datosParaEditar={torneoEditar} isEditarTorneoProps={true}></NuevoTorneo>
       </div>
     );
   }

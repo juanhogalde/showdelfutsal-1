@@ -1,14 +1,9 @@
 import {
-  cargandoAgregarTorneo,
+  controlModalNuevoTorneo,
   agregarTorneoExito,
   agregarTorneoError,
-  volverPorDefectoAgregarTorneo,
-  consultarPorEditarTorneo,
-  cargandoEditarTorneo,
   editarTorneoExito,
   editarTorneoError,
-  volverPorDefectoEditarTorneo,
-  cargarDatosDeTorneoParaEdicion,
   consultarPorEliminarTorneo,
   cargandoEliminarTorneo,
   eliminarTorneoExito,
@@ -26,12 +21,6 @@ import {
   crearZonaTorneoError,
   crearZonaTorneoDefault,
   actualizarListaDeTorneosCrearZona,
-  /* consultarPoragregarCategoriaSubcategoriaTorneo,
-  cargandoAgregarCategoriaSubcategoria,
-  agregarCategoriaSubcategoriaTorneoExito,
-  agregarCategoriaSubcategoriaTorneoError,
-  volverPorDefectoAgregarCategoriaSubcategoriaTorneo,
-  actualizarListaDeTorneosConSubcategoria, */
   cargandoObtenerDatosDeTorneoParaEdicion,
   obtenerDatosDeTorneoParaEdicionExito,
   obtenerDatosDeTorneoParaEdicionError,
@@ -61,7 +50,6 @@ import {
   eliminarEquipoDeZonaError,
   eliminarEquipoDeZonaDefault,
   eliminarEquipoDeZonaConsulta,
-  // trabajadores Agregar Equipos Zona
   cargandoObtenerZonaAgregarEquipos,
   ZonaAgregarEquiposExito,
   ZonaAgregarEquiposError,
@@ -70,12 +58,11 @@ import {
 const torneoPorDefecto = {
   torneos: [],
   torneo: {},
-  isAgregarTorneo: {
+  isModalNuevoTorneo: {
     tipo: '',
     mensaje: '',
-    isCargando: false,
-    isExito: false,
-    isError: false,
+    isMostrar: false,
+    datosAdicionales: null,
   },
   isEliminarTorneo: {
     tipo: '',
@@ -86,14 +73,7 @@ const torneoPorDefecto = {
     isError: false,
     id: '',
   },
-  isEditarTorneo: {
-    tipo: '',
-    mensaje: '',
-    isConsulta: false,
-    isCargando: false,
-    isExito: false,
-    isError: false,
-  },
+
   isObtenerDatosEditarTorneo: {
     tipo: '',
     mensaje: '',
@@ -144,141 +124,79 @@ const torneoPorDefecto = {
     isMostrar: false,
   },
   isVerificarAgregarEquipo: false,
+  torneoEditar: null,
+  isCargandoTorneoEditar: true,
+  isErrorTorneoEditar: null,
 };
 const storeTorneos = (state = torneoPorDefecto, accion) => {
   switch (accion.type) {
-    case cargandoAgregarTorneo: {
+    case controlModalNuevoTorneo: {
       return {
         ...state,
-        isAgregarTorneo: {
-          tipo: 'cargando',
-          mensaje: 'Agregando Torneo.',
-          isCargando: true,
-          isExito: false,
-          isError: false,
+        isModalNuevoTorneo: {
+          tipo: accion.datos.tipo,
+          mensaje: accion.datos.mensaje,
+          isMostrar: accion.datos.isMostrar,
+          datosAdicionales: accion.datos.datosAdicionales,
         },
       };
     }
     case agregarTorneoExito: {
       return {
         ...state,
-        isAgregarTorneo: {
+        isModalNuevoTorneo: {
           tipo: 'success',
           mensaje: 'Torneo cargado con exito.',
-          isCargando: false,
-          isExito: true,
-          isError: false,
+          isMostrar: true,
+          datosAdicionales: accion.datos._id,
         },
         torneos: [...state.torneos, accion.datos],
-        torneo: accion.datos,
       };
     }
     case agregarTorneoError: {
       return {
         ...state,
-        isAgregarTorneo: {
+        isModalNuevoTorneo: {
           tipo: 'error',
           mensaje: 'Lo sentimos, en este momento no podemos agregar su torneo.',
-          isCargando: false,
-          isExito: false,
-          isError: true,
+          isMostrar: true,
+          datosAdicionales: null,
         },
         torneo: {},
       };
     }
-    case volverPorDefectoAgregarTorneo: {
-      return {
-        ...state,
-        isAgregarTorneo: {
-          tipo: '',
-          mensaje: '',
-          isCargando: false,
-          isExito: false,
-          isError: false,
-        },
-      };
-    }
-    case consultarPorEditarTorneo: {
-      return {
-        ...state,
-        isEditarTorneo: {
-          tipo: 'warning',
-          mensaje: '¿Desea editar el torneo?',
-          isConsulta: true,
-          isCargando: false,
-          isExito: false,
-          isError: false,
-        },
-      };
-    }
-    case cargandoEditarTorneo: {
-      return {
-        ...state,
-        isEditarTorneo: {
-          tipo: 'cargando',
-          mensaje: 'Editando torneo...',
-          isConsulta: false,
-          isCargando: true,
-          isExito: false,
-          isError: false,
-          categoria: state.isEditarTorneo.categoria,
-          subcategoria: state.isEditarTorneo.subcategoria,
-        },
-      };
-    }
     case editarTorneoExito: {
+      let listaTorneoEditado = state.torneos.map(torneo => {
+        if (torneo._id === accion.datos._id) {
+          return accion.datos;
+        } else {
+          return torneo;
+        }
+      });
       return {
         ...state,
-        isEditarTorneo: {
+        torneos: listaTorneoEditado,
+        torneoEditar: accion.datos,
+        isModalNuevoTorneo: {
           tipo: 'success',
-          mensaje: 'Torneo Editado',
-          isConsulta: false,
-          isCargando: false,
-          isExito: true,
-          isError: false,
-          categoria: state.isEditarTorneo.categoria,
-          subcategoria: state.isEditarTorneo.subcategoria,
+          mensaje: 'Torneo editado con exito.',
+          isMostrar: true,
+          datosAdicionales: accion.datos._id,
         },
-        torneo: accion.datos,
       };
     }
     case editarTorneoError: {
       return {
         ...state,
-        isEditarTorneo: {
+        isModalNuevoTorneo: {
           tipo: 'error',
-          mensaje: 'Lo sentimos, no se pudo editar el torneo.',
-          isConsulta: false,
-          isCargando: false,
-          isExito: false,
-          isError: true,
-          categoria: '',
-          subcategoria: '',
+          mensaje: 'Lo sentimos, en este momento no podemos editar su torneo.',
+          isMostrar: true,
+          datosAdicionales: null,
         },
       };
     }
-    case volverPorDefectoEditarTorneo: {
-      return {
-        ...state,
-        isEditarTorneo: {
-          tipo: '',
-          mensaje: '',
-          isConsulta: false,
-          isCargando: false,
-          isExito: false,
-          isError: false,
-          categoria: '',
-          subcategoria: '',
-        },
-      };
-    }
-    case cargarDatosDeTorneoParaEdicion: {
-      let auxDatosDeTorneo = state.torneos.filter(torneo => torneo._id === accion.datos);
-      return {
-        ...state,
-        torneo: auxDatosDeTorneo[0],
-      };
-    }
+
     case consultarPorEliminarTorneo: {
       return {
         ...state,
@@ -326,28 +244,11 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
       if (state.isEliminarTorneo.id) {
         auxTorneos = state.torneos.filter(torneo => torneo._id !== state.isEliminarTorneo.id);
       }
-      if (state.isEditarTorneo.isExito) {
-        auxTorneos = state.torneos.map(torneoDeArray => {
-          if (torneoDeArray._id === state.torneo._id) {
-            return state.torneo;
-          } else {
-            return torneoDeArray;
-          }
-        });
-      }
+
       return {
         ...state,
         torneos: auxTorneos,
         isEliminarTorneo: {
-          tipo: '',
-          mensaje: ' ',
-          isConsulta: false,
-          isCargando: false,
-          isExito: false,
-          isError: false,
-          datos: '',
-        },
-        isEditarTorneo: {
           tipo: '',
           mensaje: ' ',
           isConsulta: false,
@@ -418,92 +319,6 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
         ...state,
       };
     }
-    /* case consultarPoragregarCategoriaSubcategoriaTorneo: {
-      return {
-        ...state,
-        isAgregarCategoriaSubcategoria: {
-          tipo: 'warning',
-          mensaje: '¿Desea agregar categoría y subcategría al torneo?',
-          isConsulta: true,
-          isCargando: false,
-          isExito: false,
-          isError: false,
-          categoria: accion.keyCategoria,
-          subcategoria: accion.keySubcategoria,
-        },
-      };
-    }
-    case cargandoAgregarCategoriaSubcategoria: {
-      return {
-        ...state,
-        isAgregarCategoriaSubcategoria: {
-          tipo: 'cargando',
-          mensaje: 'Agregando categoría y subcategoría al torneo...',
-          isConsulta: false,
-          isCargando: true,
-          isExito: false,
-          isError: false,
-          categoria: state.isAgregarCategoriaSubcategoria.categoria,
-          subcategoria: state.isAgregarCategoriaSubcategoria.subcategoria,
-        },
-      };
-    }
-    case agregarCategoriaSubcategoriaTorneoExito: {
-      return {
-        ...state,
-        isAgregarCategoriaSubcategoria: {
-          tipo: 'success',
-          mensaje: 'Se agregó categoría y subcategoría exitosamente.',
-          isConsulta: false,
-          isCargando: false,
-          isExito: true,
-          isError: false,
-          categoria: state.isAgregarCategoriaSubcategoria.categoria,
-          subcategoria: state.isAgregarCategoriaSubcategoria.subcategoria,
-        },
-        torneo: accion.datos,
-      };
-    }
-    case agregarCategoriaSubcategoriaTorneoError: {
-      return {
-        ...state,
-      };
-    }
-    case volverPorDefectoAgregarCategoriaSubcategoriaTorneo: {
-      return {
-        ...state,
-        isAgregarCategoriaSubcategoria: {
-          tipo: '',
-          mensaje: '',
-          isConsulta: false,
-          isCargando: false,
-          isExito: false,
-          isError: false,
-          categoria: '',
-          subcategoria: '',
-        },
-      };
-    }
-    case actualizarListaDeTorneosConSubcategoria: {
-      let auxTorneos = state.torneos.map(torneoDeArray => {
-        if (torneoDeArray._id === state.torneo._id) {
-          return state.torneo;
-        } else return torneoDeArray;
-      });
-      return {
-        ...state,
-        torneos: auxTorneos,
-        isAgregarCategoriaSubcategoria: {
-          tipo: '',
-          mensaje: '',
-          isCargando: false,
-          isExito: false,
-          isError: false,
-          categoria: '',
-          subcategoria: '',
-        },
-      };
-    } */
     case cargandoCrearZonaTorneo: {
       return {
         ...state,
@@ -586,38 +401,27 @@ const storeTorneos = (state = torneoPorDefecto, accion) => {
     case cargandoObtenerDatosDeTorneoParaEdicion: {
       return {
         ...state,
-        isObtenerDatosEditarTorneo: {
-          tipo: 'cargando',
-          mensaje: 'Obteniendo datos para editar torneo.',
-          isCargando: true,
-          isExito: false,
-          isError: false,
-        },
+        isCargandoTorneoEditar: true,
+        torneoEditar: null,
+        isErrorTorneoEditar: null,
       };
     }
     case obtenerDatosDeTorneoParaEdicionExito: {
       return {
         ...state,
-        isObtenerDatosEditarTorneo: {
-          tipo: 'success',
-          mensaje: 'Datos de torneo listos para editar.',
-          isCargando: false,
-          isExito: true,
-          isError: false,
-        },
-        torneo: {...accion.datos, isEditar: true},
+        torneoEditar: {...accion.datos},
+        isErrorTorneoEditar: null,
+        isCargandoTorneoEditar: false,
       };
     }
     case obtenerDatosDeTorneoParaEdicionError: {
       return {
         ...state,
-        isObtenerDatosEditarTorneo: {
-          tipo: 'error',
-          mensaje: 'Lo sentimos, en este momento no podemos editar éste torneo.',
-          isCargando: false,
-          isExito: false,
-          isError: true,
-        },
+
+        ...state,
+        isErrorTorneoEditar: accion.error,
+        torneoEditar: null,
+        isCargandoTorneoEditar: false,
       };
     }
     case obtenerDatosDeTorneoParaEdicionDefault: {
