@@ -235,7 +235,7 @@ const Inicio = () => {
   const settings = {
     arrows: false,
     fade: true,
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 2000,
     slidesToShow: 1,
@@ -566,84 +566,82 @@ const Inicio = () => {
       {/* SECCION GALERIA */}
       <div className="LI-Inicio seccion-galeria margenes-Galeria">
         <div className="CP-Galeria">
-          <div className="CI-Galeria-Imagenes">
-            <h1 className="titulo-Galeria">GALERÍA</h1>
-            <div className="galeria-Imagenes-A">
-              <div className="I-Contenedor-slider-imagenes">
-                {galeria.galeria2.imagenesId && (
-                  <Slider {...settings} cantidadDeElementos={1}>
-                    {galeria.galeria2.imagenesId.map(datoGaleria => {
-                      return (
-                        <ImagenSlider
-                          tamañoImagen={{height: '700px'}}
-                          datos={datoGaleria}
-                          descripcion={galeria.galeria2.tituloGaleria}
-                        ></ImagenSlider>
-                      );
-                    })}
-                  </Slider>
-                )}
-              </div>
+          <h1 className="titulo-Galeria">GALERÍA</h1>
+          <div className="galeria-Imagenes-A">
+            <div className="I-Contenedor-slider-imagenes">
+              {galeria.galeria2.imagenesId && (
+                <Slider {...settings} cantidadDeElementos={1}>
+                  {galeria.galeria2.imagenesId.map(datoGaleria => {
+                    return (
+                      <ImagenSlider
+                        tamañoImagen={{height: '700px'}}
+                        datos={datoGaleria}
+                        descripcion={galeria.galeria2.tituloGaleria}
+                      ></ImagenSlider>
+                    );
+                  })}
+                </Slider>
+              )}
             </div>
-            <div className="galeria-Imagenes-B">
-              <div className="I-Contenedor-slider-imagenes">
-                {galeria.galeria1.imagenesId && (
-                  <Slider {...settings} cantidadDeElementos={1}>
-                    {galeria.galeria1.imagenesId.map(datoGaleria => {
-                      return (
-                        <ImagenSlider
-                          datos={datoGaleria}
-                          descripcion={galeria.galeria1.tituloGaleria}
-                        ></ImagenSlider>
-                      );
-                    })}
-                  </Slider>
-                )}
-              </div>
-              <div className="I-Contenedor-slider-imagenes">
-                {galeria.galeria3.imagenesId && (
-                  <Slider {...settings} cantidadDeElementos={0}>
-                    {galeria.galeria3.imagenesId.map(datoGaleria => {
-                      return (
-                        <ImagenSlider
-                          datos={datoGaleria}
-                          descripcion={galeria.galeria3.tituloGaleria}
-                        ></ImagenSlider>
-                      );
-                    })}
-                  </Slider>
-                )}
-              </div>
+          </div>
+          <div className="galeria-Imagenes-B">
+            <div className="I-Contenedor-slider-imagenes">
+              {galeria.galeria1.imagenesId && (
+                <Slider {...settings} cantidadDeElementos={1}>
+                  {galeria.galeria1.imagenesId.map(datoGaleria => {
+                    return (
+                      <ImagenSlider
+                        datos={datoGaleria}
+                        descripcion={galeria.galeria1.tituloGaleria}
+                      ></ImagenSlider>
+                    );
+                  })}
+                </Slider>
+              )}
             </div>
-            <div className="galeria-Imagenes-C">
-              <div className="I-Contenedor-slider-imagenes">
-                {galeria.galeria4.imagenesId && (
-                  <Slider {...settings} cantidadDeElementos={1}>
-                    {galeria.galeria4.imagenesId.map(datoGaleria => {
-                      return (
-                        <ImagenSlider
-                          datos={datoGaleria}
-                          descripcion={galeria.galeria4.tituloGaleria}
-                        ></ImagenSlider>
-                      );
-                    })}
-                  </Slider>
-                )}
-              </div>
-              <div className="I-Contenedor-slider-imagenes">
-                {galeria.galeria5.imagenesId && (
-                  <Slider {...settings} cantidadDeElementos={0}>
-                    {galeria.galeria5.imagenesId.map(datoGaleria => {
-                      return (
-                        <ImagenSlider
-                          datos={datoGaleria}
-                          descripcion={galeria.galeria5.tituloGaleria}
-                        ></ImagenSlider>
-                      );
-                    })}
-                  </Slider>
-                )}
-              </div>
+            <div className="I-Contenedor-slider-imagenes">
+              {galeria.galeria3.imagenesId && (
+                <Slider {...settings} cantidadDeElementos={0}>
+                  {galeria.galeria3.imagenesId.map(datoGaleria => {
+                    return (
+                      <ImagenSlider
+                        datos={datoGaleria}
+                        descripcion={galeria.galeria3.tituloGaleria}
+                      ></ImagenSlider>
+                    );
+                  })}
+                </Slider>
+              )}
+            </div>
+          </div>
+          <div className="galeria-Imagenes-C">
+            <div className="I-Contenedor-slider-imagenes">
+              {galeria.galeria4.imagenesId && (
+                <Slider {...settings} cantidadDeElementos={1}>
+                  {galeria.galeria4.imagenesId.map(datoGaleria => {
+                    return (
+                      <ImagenSlider
+                        datos={datoGaleria}
+                        descripcion={galeria.galeria4.tituloGaleria}
+                      ></ImagenSlider>
+                    );
+                  })}
+                </Slider>
+              )}
+            </div>
+            <div className="I-Contenedor-slider-imagenes">
+              {galeria.galeria5.imagenesId && (
+                <Slider {...settings} cantidadDeElementos={0}>
+                  {galeria.galeria5.imagenesId.map(datoGaleria => {
+                    return (
+                      <ImagenSlider
+                        datos={datoGaleria}
+                        descripcion={galeria.galeria5.tituloGaleria}
+                      ></ImagenSlider>
+                    );
+                  })}
+                </Slider>
+              )}
             </div>
           </div>
 

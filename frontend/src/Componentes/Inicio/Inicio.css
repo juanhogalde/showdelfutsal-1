@@ -309,8 +309,8 @@
 }
 
 .publicidad-Noticias-Galeria {
-  grid-column: 1/3;
-  grid-row: 2/3;
+  grid-column: 1/4;
+  grid-row: 3/4;
 }
 .publicidad-Noticias-Galeria img {
   width: 100%;
@@ -322,19 +322,10 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 70% 30%;
-  grid-template-rows: 1fr auto;
-  /* padding-top: -50px; */
+  grid-template-columns: 50% 25% 25%;
+  grid-template-rows: 12% 1fr auto;
 }
-.CI-Galeria-Imagenes {
-  grid-column: 1/2;
-  grid-row: 1/2;
-  display: grid;
-  grid-template-columns: 60% 40%;
-  grid-template-rows: 20% 1fr 35%;
-  width: 100%;
-  min-width: 100%;
-}
+
 .titulo-Galeria {
   grid-row: 1/2;
   grid-column: 1/2;
@@ -345,7 +336,7 @@
 }
 .galeria-Imagenes-A {
   grid-column: 1/2;
-  grid-row: 2/4;
+  grid-row: 2/3;
   padding-left: 30px;
   padding-right: 30px;
   display: flex;
@@ -356,34 +347,19 @@
 
 .galeria-Imagenes-B {
   grid-column: 2/3;
-  grid-row: 1/4;
+  grid-row: 1/3;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  padding: 30px;
+  padding: 10px;
 }
 .galeria-Imagenes-C {
-  grid-column: 2/3;
-  grid-row: 1/4;
+  grid-column: 3/4;
+  grid-row: 1/3;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  padding: 30px;
-}
-
-.CI-Galeria-Videos {
-  grid-column: 2/3;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  gap: 12px;
-}
-.yt {
-  max-height: 250px;
-  width: 100%;
-  aspect-ratio: 16/9;
+  padding: 10px;
 }
 
 .seccion-galeria {
@@ -404,6 +380,8 @@
 .I-Contenedor-slider-imagenes {
   width: 100%;
   height: auto;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 
 .flechaSiguiente {
@@ -524,17 +502,6 @@
     display: flex;
   }
 
-  /* MARCADOR */
-
-  /* .margenes-Responsive-Seccion-Marcador {
-    padding: 50px !important;
-  } */
-  /* .margenes-Responsive-Seccion-Marcador {
-    padding-top: 140px;
-    padding-right: 30px;
-    padding-left: 70px;
-  } */
-
   .titulo-Marcador {
     grid-column: 1/2;
     grid-row: 1/2;
@@ -588,50 +555,59 @@
     padding: 50px;
     height: auto;
   }
+
   .CP-Galeria {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 10% 1fr auto auto;
   }
+
   .titulo-Galeria {
     grid-row: 1/2;
     grid-column: 1/2;
-    font-size: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
   }
-  .CI-Galeria-Imagenes {
-    grid-column: 1/2;
-    grid-row: 1/2;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 10% repeat(2, minmax(0, 1fr));
-  }
-
   .galeria-Imagenes-A {
-    display: none;
-  }
-  .galeria-Imagenes-B {
-    grid-column: 1/2;
-    grid-row: 2/4;
-    padding-left: 30px;
-    padding-right: 30px;
-    gap: 35px;
-  }
-  .CI-Galeria-Videos {
-    grid-column: 1/2;
+    grid-column: 1/3;
     grid-row: 2/3;
     display: flex;
-    align-items: center;
-    flex-direction: row;
-    align-content: center;
+    flex-direction: column;
     justify-content: center;
-    gap: 8px;
+    align-items: center;
   }
-  .yt {
-    width: 100%;
-    aspect-ratio: 16/9;
+
+  .galeria-Imagenes-B {
+    grid-column: 1/2;
+    grid-row: 3/4;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    min-height: 600px;
   }
+
+  .galeria-Imagenes-C {
+    grid-column: 2/3;
+    grid-row: 3/4;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    min-height: 600px;
+  }
+
   .publicidad-Noticias-Galeria {
     grid-column: 1/3;
-    grid-row: 3/4;
-    margin-top: 40px;
+    grid-row: 4/5;
+    margin-top: 0px;
+    margin-bottom: 50px;
     height: 100px;
     display: flex;
     align-items: flex-end;
@@ -665,20 +641,59 @@
     aspect-ratio: 1/1;
     padding: 10px;
   }
-  .galeria-Imagenes-B {
-    gap: 25px;
-  }
-  .publicidad-Noticias-Galeria {
-    grid-column: 1/3;
-    grid-row: 3/4;
-    margin-top: 40px;
-    height: 100px;
-    display: flex;
-    align-items: flex-end;
-  }
+
   .publicidad-Noticias-Partidos {
     grid-column: 1/3;
     grid-row: 4/5;
+  }
+  .CP-Galeria {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto 1fr auto auto;
+  }
+
+  .titulo-Galeria {
+    grid-row: 1/2;
+    grid-column: 1/2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  .galeria-Imagenes-A {
+    grid-column: 1/3;
+    grid-row: 2/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .galeria-Imagenes-B {
+    grid-column: 1/3;
+    grid-row: 3/4;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    min-height: 600px;
+  }
+
+  .galeria-Imagenes-C {
+    display: none;
+  }
+
+  .publicidad-Noticias-Galeria {
+    grid-column: 1/3;
+    grid-row: 4/5;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    height: 100px;
+    display: flex;
+    align-items: flex-end;
   }
 }
 @media screen and (max-width: 690px) {
