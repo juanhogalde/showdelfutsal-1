@@ -10,9 +10,10 @@ export const gurdarCategoriaSeleccionada_accion = categoria => {
     categoria: categoria,
   };
 };
-export const cargandoDatosIniciales_accion = () => {
+export const cargandoDatosIniciales_accion = datos => {
   return {
     type: cargandoDatosIniciales,
+    datos: datos,
   };
 };
 export const cargaDatosInicialesExito_accion = datosIniciales => {
@@ -33,9 +34,7 @@ export const obtenerDatosIniciales = () => {
   return dispatch => {
     var datosIniciales;
     dispatch(cargandoDatosIniciales_accion());
-    // setTimeout(() => {
-    //   dispatch(cargaDatosInicialesExito_accion({}));
-    // }, 3000);
+
     API({
       url: '/categorias/listar',
       method: 'get',
@@ -71,20 +70,6 @@ export const obtenerDatosIniciales = () => {
         console.log(error);
         dispatch(cargaDatosInicialesError_accion(error));
       });
-    //TODO: descomentar API
-    // API({
-    //   url: '/usuarios/login',
-    //   method: 'post',
-    //   data: datosDeLogueo,
-    // })
-    //   .then(res => {
-    //     const usuario = jwt.decode(res.data.value);
-    //     dispatch(loginExito_accion(res.data.value, usuario));
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //     dispatch(loginError_accion(error));
-    //   });
   };
 };
 
@@ -99,5 +84,71 @@ export const activarMedidaPublicidad_accion = id => {
   return {
     type: activarMedidaPublicidad,
     _id: id,
+  };
+};
+
+// Inicio Obtener Datos iniciales Publicos
+export const cargandoDatosInicialesPublicos = 'cargandoDatosInicialesPublicos';
+export const cargaDatosInicialesPublicosExito = 'cargaDatosInicialesPublicosExito';
+export const cargaDatosInicialesPulbicosError = 'cargaDatosInicialesPulbicosError';
+
+export const cargandoDatosInicialesPublicos_accion = datos => {
+  return {
+    type: cargandoDatosInicialesPublicos,
+    datos: datos,
+  };
+};
+export const cargaDatosInicialesPublicosExito_accion = datos => {
+  return {
+    type: cargaDatosInicialesPublicosExito,
+    payload: datos,
+  };
+};
+export const cargaDatosInicialesPulbicosError_accion = error => {
+  return {
+    type: cargaDatosInicialesPulbicosError,
+    payload: error,
+  };
+};
+
+export const obtenerDatosInicialesPublicos = () => {
+  return dispatch => {
+    dispatch(cargandoDatosInicialesPublicos_accion());
+
+    API({
+      // url: '/datosIniciales/publicos',
+      method: 'get',
+    })
+      .then(res => {
+        //TODO:CAMBIAR URL Y DATOS CAUNDO ESTE LISTA LA RUTA
+        const respuestaSimulada = {
+          noticias: {
+            masculino: {
+              noticiaP: {},
+              noticia1: {},
+              noticia2: {},
+            },
+            femenino: {
+              noticiaP: {},
+              noticia1: {},
+              noticia2: {},
+            },
+            liga: {
+              noticiaP: {},
+              noticia1: {},
+              noticia2: {},
+            },
+          },
+          partidos: [],
+          videoVivo: {},
+          galerias: [],
+          publicaciones: {},
+        };
+        dispatch(cargaDatosInicialesPublicosExito_accion(respuestaSimulada));
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(cargaDatosInicialesPulbicosError_accion(error));
+      });
   };
 };
