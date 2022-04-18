@@ -13,14 +13,19 @@ const ModalLowa = props => {
 
   return (
     <div className={`${isMostrar ? 'CP-ModalLowa CP-ModalLowa-Mostrar' : 'CP-ModalLowa'}`}>
-      <div className="CI-IconoCerrar" onClick={() => cerrarModalLowa()}>
-        <AiOutlineCloseCircle
-          className={
-            isPlasmarImagen ? ' iconoCerrar-ModalLowa iconoCerrarPlasmar' : 'iconoCerrar-ModalLowa'
-          }
-        ></AiOutlineCloseCircle>
+      <div className="CI-Contenido-ModalLowa">
+        {' '}
+        <div className="CI-IconoCerrar" onClick={() => cerrarModalLowa()}>
+          <AiOutlineCloseCircle
+            className={
+              isPlasmarImagen
+                ? ' iconoCerrar-ModalLowa iconoCerrarPlasmar'
+                : 'iconoCerrar-ModalLowa'
+            }
+          ></AiOutlineCloseCircle>
+        </div>
+        {props.children}
       </div>
-      <div className="CI-Contenido-ModalLowa">{props.children}</div>
     </div>
   );
 };

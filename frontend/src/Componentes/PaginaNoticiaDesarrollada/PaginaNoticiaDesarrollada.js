@@ -7,14 +7,14 @@ import publicidadCorta from '../../Static/Img/anuncio_corta.jpg';
 import {useDispatch, useSelector} from 'react-redux';
 import Animaciones from '../Animaciones/Animaciones';
 import PieDepagina from '../PieDePagina/PieDepagina';
-import {dominio, server} from '../../Entorno';
-import {useParams, useLocation} from 'react-router';
+import {server} from '../../Entorno';
+import {useParams} from 'react-router';
 import {
   obtenerNoticiaSeleccionada,
   cargandoObtenerNoticiaSeleccionada_accion,
 } from '../../Redux/Noticias/AccionesNoticias';
 import Cargando from '../../ComponentesAdmin/Cargando/Cargando';
-import DocumentMeta from 'react-document-meta';
+
 const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollada'}) => {
   const userAgent = navigator.userAgent;
   let {id} = useParams();
@@ -25,7 +25,6 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
   const {noticiaDesarrolladaError, noticiaDesarrolada, cargandoNoticiaDesarrollada} = useSelector(
     state => state.storeNoticias
   );
-  let location = useLocation();
   const {publicidades} = useSelector(state => state.storePublicidades);
   useEffect(() => {
     const elemento = document.getElementById('noticiaDesarrollada');
@@ -89,94 +88,77 @@ const PaginaNoticiaDesarrollada = ({tituloSeccionNoticias = 'Noticia Desarrollad
         <span>{noticiaDesarrolladaError}</span>
       </div>
     ) : (
-      <DocumentMeta
-        {...{
-          title: noticiaDesarrolada.titulo,
-          description: noticiaDesarrolada.copete,
-          canonical: `https://${dominio}/${location.pathname}`,
-          meta: {
-            charset: 'utf-8',
-            name: {
-              property: 'og:image',
-              content: noticiaDesarrolada.idImagen
-                ? server + noticiaDesarrolada.idImagen[0].fuente
-                : 'https://' + dominio + '/LogoShowDelFutsal.png',
-            },
-          },
-        }}
+      <div
+        id="noticiaDesarrollada"
+        className="LI-ND-Noticia-Desarrollada Fondo-seccion-noticia-desarrollada"
       >
-        <div
-          id="noticiaDesarrollada"
-          className="LI-ND-Noticia-Desarrollada Fondo-seccion-noticia-desarrollada"
-        >
-          <Animaciones isAlineado={true} orientacion={'derecha'} />
-          <div className="CP-ND-Noticias">
-            <div className="CI-ND-Noticia-general">
-              <div className="I-Noticia-desarrollada-Componente">
-                <NoticiaDesarrollada datosModelado={noticiaDesarrolada} />
-              </div>
-            </div>
-
-            <div className="I-ND-Publicidad-corta">
-              <img
-                alt=""
-                src={
-                  publicaciones
-                    ? publicaciones.publicidadCuardadaDerecha
-                      ? server + publicaciones.publicidadCuardadaDerecha.idImagen[0].fuente
-                      : publicidadCorta
-                    : publicidadCorta
-                }
-              ></img>
-            </div>
-            <div className="I-ND-Noticia-Componente-Slider">
-              {isMobileAndroid !== -1 || isMobileIPhone !== -1 ? (
-                <SliderNoticias
-                  cantidadDeElementos={6}
-                  isVertical={true}
-                  enfocarNoticia={enfocarNoticia}
-                  categoriaNoticias={
-                    noticiaDesarrolada.keyCategoria ? noticiaDesarrolada.keyCategoria : -1
-                  }
-                />
-              ) : (
-                <SliderNoticias
-                  cantidadDeElementos={1}
-                  isVertical={true}
-                  enfocarNoticia={enfocarNoticia}
-                  categoriaNoticias={
-                    noticiaDesarrolada.keyCategoria ? noticiaDesarrolada.keyCategoria : -1
-                  }
-                />
-              )}
-            </div>
-            <div className="I-ND-Publicidad-corta-inferior">
-              <img
-                alt=""
-                src={
-                  publicaciones?.publicidadCuardadaDerechaInferior
-                    ? server + publicaciones.publicidadCuardadaDerechaInferior.idImagen[0].fuente
-                    : publicidadCorta
-                }
-              ></img>
-            </div>
-
-            <div className="CI-ND-Publicidad">
-              <img
-                alt=""
-                src={
-                  publicaciones
-                    ? publicaciones.publicidadHorizontalInferior
-                      ? server + publicaciones.publicidadHorizontalInferior.idImagen[0].fuente
-                      : publicidadLarga
-                    : publicidadLarga
-                }
-              ></img>
+        <Animaciones isAlineado={true} orientacion={'derecha'} />
+        <div className="CP-ND-Noticias">
+          <div className="CI-ND-Noticia-general">
+            <div className="I-Noticia-desarrollada-Componente">
+              <NoticiaDesarrollada datosModelado={noticiaDesarrolada} />
             </div>
           </div>
-          <PieDepagina></PieDepagina>
+
+          <div className="I-ND-Publicidad-corta">
+            <img
+              alt=""
+              src={
+                publicaciones
+                  ? publicaciones.publicidadCuardadaDerecha
+                    ? server + publicaciones.publicidadCuardadaDerecha.idImagen[0].fuente
+                    : publicidadCorta
+                  : publicidadCorta
+              }
+            ></img>
+          </div>
+          <div className="I-ND-Noticia-Componente-Slider">
+            {isMobileAndroid !== -1 || isMobileIPhone !== -1 ? (
+              <SliderNoticias
+                cantidadDeElementos={6}
+                isVertical={true}
+                enfocarNoticia={enfocarNoticia}
+                categoriaNoticias={
+                  noticiaDesarrolada.keyCategoria ? noticiaDesarrolada.keyCategoria : -1
+                }
+              />
+            ) : (
+              <SliderNoticias
+                cantidadDeElementos={1}
+                isVertical={true}
+                enfocarNoticia={enfocarNoticia}
+                categoriaNoticias={
+                  noticiaDesarrolada.keyCategoria ? noticiaDesarrolada.keyCategoria : -1
+                }
+              />
+            )}
+          </div>
+          <div className="I-ND-Publicidad-corta-inferior">
+            <img
+              alt=""
+              src={
+                publicaciones?.publicidadCuardadaDerechaInferior
+                  ? server + publicaciones.publicidadCuardadaDerechaInferior.idImagen[0].fuente
+                  : publicidadCorta
+              }
+            ></img>
+          </div>
+
+          <div className="CI-ND-Publicidad">
+            <img
+              alt=""
+              src={
+                publicaciones
+                  ? publicaciones.publicidadHorizontalInferior
+                    ? server + publicaciones.publicidadHorizontalInferior.idImagen[0].fuente
+                    : publicidadLarga
+                  : publicidadLarga
+              }
+            ></img>
+          </div>
         </div>
-      </DocumentMeta>
+        <PieDepagina></PieDepagina>
+      </div>
     );
   }
 };

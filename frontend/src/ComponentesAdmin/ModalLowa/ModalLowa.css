@@ -63,11 +63,11 @@
   -webkit-appearance: none;
 }
 .CI-IconoCerrar {
-  position: absolute;
-  right: 10%;
-  top: 10%;
+  position: relative;
   color: white;
   cursor: pointer;
+  top: 0;
+  left: 95%;
 }
 .iconoCerrar-ModalLowa {
   width: 30px;

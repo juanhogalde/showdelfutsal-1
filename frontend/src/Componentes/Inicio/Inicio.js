@@ -1,9 +1,8 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useState} from 'react';
 import publicidadCorta from '../../Static/Img/anuncio2_corta.jpg';
 import './Inicio.css';
 import Filtros from '../Filtros/Filtros';
 import NoticiasMiniatura from '../NoticiasMiniatura/NoticiasMiniatura';
-import {useDispatch, useSelector} from 'react-redux';
 import publicidadLarga2 from '../../Static/Img/anuncio2_larga.jpg';
 import publicidadLarga from '../../Static/Img/anuncio_larga.jpg';
 // import ImagenesVideo from '../ImagenesVideo/ImagenesVideo';
@@ -16,13 +15,12 @@ import PieDepagina from '../PieDePagina/PieDepagina';
 // import {guardarNoticiaMiniaturaSeleccionada_accion} from '../../Redux/Noticias/AccionesNoticias';
 import ModalLowa from '../../ComponentesAdmin/ModalLowa/ModalLowa';
 import publicidadModal from '../../Static/Img/anuncio-modal.png';
-import {server, dominio} from '../../Entorno';
-import {controlModalPublicidad_accion} from '../../Redux/DatosInciales/AccionesDatosIniciales';
+import {server} from '../../Entorno';
 import TarjetaEnfrentamiento from '../../ComponentesAdmin/TarjetaEnfrentamiento/TarjetaEnfrentamiento';
 import Slider from 'react-slick';
 import ImagenSlider from '../ImagenSlider/ImagenSlider';
 import {AiFillCaretLeft, AiFillCaretRight} from 'react-icons/ai';
-
+import {useSelector} from 'react-redux';
 const Filtro = [
   {nombre: 'Femenino', link: '/link'},
   {nombre: 'Masculino', link: '/link'},
@@ -30,178 +28,17 @@ const Filtro = [
 ];
 
 const Inicio = () => {
-  const dispatch = useDispatch();
-  const {noticias} = useSelector(state => state.storeNoticias);
-  const {partidos} = useSelector(state => state.storePartidos);
-  const {isMostrarModalPublicidad} = useSelector(state => state.sotreDatosIniciales);
-  const {vivo} = useSelector(state => state.storeVivo);
-  const {publicidades} = useSelector(state => state.storePublicidades);
-
-  const {galerias} = useSelector(state => state.storeGalerias);
+  const {datosPublicos} = useSelector(state => state.sotreDatosIniciales);
   const [partido, setPartido] = useState({
-    data: {},
+    data: datosPublicos.partidos[0],
     index: 0,
   });
-  const [, /*videosGaleria*/ setVideosGaleria] = useState([]);
-  // const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
-  const [videoVivo, setVideoVivo] = useState({});
-  const [noticiaP, setNoticiaP] = useState({});
-  const [noticia1, setNoticia1] = useState({});
-  const [noticia2, setNoticia2] = useState({});
-  const [noticia3, setNoticia3] = useState({});
-  const [noticia4, setNoticia4] = useState({});
 
-  const [publicaciones, setPublicaciones] = useState(null);
-  const [galeria, setGaleria] = useState({galeria1: [], galeria2: [], galeria3: []});
+  const [isMostrarModalPublicidad, setIsMostrarModalPublicidad] = useState(true);
 
-  const FiltrarNoticias = keyCategoria => {
-    return new Promise((resolve, reject) => {
-      var filtradoDeNoticia = noticias.filter(
-        noticia => noticia.keyCategoria === keyCategoria && noticia.isDestacada
-      );
-      resolve(filtradoDeNoticia);
-    });
-  };
-  // const noticiaSeleccionada = noticiaRecibida => {
-  //   dispatch(guardarNoticiaMiniaturaSeleccionada_accion(noticiaRecibida));
-  // };
-  useLayoutEffect(() => {
-    //CARGA DE PARTIDOS
-    setPartido({
-      data: partidos[0],
-      index: 0,
-    });
-    // CARGA DE PUBLICIDADES
-    let publicidadPartidoDerecha1;
-    let publicidadPartidoDerecha2;
-    let publicidadNoticiaHorizontalBajo;
-    let publicidadNoticiaHorizontalBajoGaleria;
-    let publicidadNoticiaHorizontalBajoPartidos;
-    let publicidadModalInicio;
-    publicidades.forEach(publicidad => {
-      switch (publicidad.idMedidas[0]?.keyMedidas) {
-        case 1:
-          if (publicidad.isActiva) {
-            publicidadPartidoDerecha1 = publicidad;
-          }
-          break;
-        case 2:
-          if (publicidad.isActiva) {
-            publicidadPartidoDerecha2 = publicidad;
-          }
-          break;
-        case 5:
-          if (publicidad.isActiva) {
-            publicidadModalInicio = publicidad;
-          }
-          break;
-        case 6:
-          if (publicidad.isActiva) {
-            publicidadNoticiaHorizontalBajo = publicidad;
-          }
-
-          break;
-        case 8:
-          if (publicidad.isActiva) {
-            publicidadNoticiaHorizontalBajoPartidos = publicidad;
-          }
-
-          break;
-        case 9:
-          if (publicidad.isActiva) {
-            publicidadNoticiaHorizontalBajoGaleria = publicidad;
-          }
-
-          break;
-        default:
-          break;
-      }
-    });
-    setPublicaciones({
-      partidoDerecha1: publicidadPartidoDerecha1,
-      partidoDerecha2: publicidadPartidoDerecha2,
-      noticiaHorizontalBajo: publicidadNoticiaHorizontalBajo,
-      publicidadNoticiaHorizontalBajoPartidos: publicidadNoticiaHorizontalBajoPartidos,
-      publicidadNoticiaHorizontalBajoGaleria: publicidadNoticiaHorizontalBajoGaleria,
-      publicidadInicioModal: publicidadModalInicio,
-    });
-    // CARGA DE NOTICIAS
-    var noticiasFiltradas = noticias.filter(
-      noticia => noticia.keyCategoria === 2 && noticia.isDestacada
-    );
-    if (noticiasFiltradas[0]) {
-      setNoticiaP(noticiasFiltradas[0]);
-    }
-    if (noticiasFiltradas[1]) {
-      setNoticia1(noticiasFiltradas[1]);
-    }
-    if (noticiasFiltradas[2]) {
-      setNoticia2(noticiasFiltradas[2]);
-    }
-    if (noticiasFiltradas[3]) {
-      setNoticia3(noticiasFiltradas[3]);
-    } else {
-      setNoticia3({});
-    }
-    if (noticiasFiltradas[4]) {
-      setNoticia4(noticiasFiltradas[4]);
-    } else {
-      setNoticia4({});
-    }
-    //CARGA DE GALERIAS
-
-    var auxGaleriasImagenes = [];
-    if (galerias.length) {
-      auxGaleriasImagenes = galerias.filter(element => element.imagenesId.length !== 0);
-      // auxGaleriasImagenes = galerias.for(galeria => {
-      //   if (Object.keys(galeria).length > 0 && galeria.imagenesId.length !== 0) {
-      //     return galeria;
-      //   }
-      // });
-    }
-    var ultimoIndice = auxGaleriasImagenes.length;
-    setGaleria({
-      galeria1: auxGaleriasImagenes[ultimoIndice - 3] ? auxGaleriasImagenes[ultimoIndice - 3] : {},
-      galeria2: auxGaleriasImagenes[ultimoIndice - 2] ? auxGaleriasImagenes[ultimoIndice - 2] : {},
-      galeria3: auxGaleriasImagenes[ultimoIndice - 1] ? auxGaleriasImagenes[ultimoIndice - 1] : {},
-    });
-
-    var galeriasTipoVideos = galerias.filter(galeria => galeria.videosId.length);
-    if (galeriasTipoVideos.length) {
-      // console.log(galeriasTipoVideos)
-      setVideosGaleria(galeriasTipoVideos[galeriasTipoVideos.length - 1].videosId);
-    }
-
-    //CARGA DE VIDEO EN VIVO
-    if (vivo.urlVivo) {
-      let urlFinal;
-      if (vivo.urlVivo.indexOf('video') !== -1) {
-        let posinicial = vivo.urlVivo.indexOf('video') + 6;
-        let posicionFinal = vivo.urlVivo.indexOf('/livestreaming');
-        urlFinal = vivo.urlVivo.substr(posinicial, posicionFinal - posinicial);
-      } else {
-        let posinicial = vivo.urlVivo.indexOf('be/') + 3;
-        urlFinal = vivo.urlVivo.substr(posinicial, vivo.urlVivo.length - posinicial);
-      }
-      let urlChat = `https://www.youtube.com/live_chat?v=${urlFinal}&embed_domain=${dominio}`;
-      setVideoVivo({fuente: urlFinal, chat: urlChat, isActivo: vivo.isActivo});
-    } else {
-      setVideoVivo({});
-    }
-  }, [
-    partidos,
-    setNoticiaP,
-    setNoticia1,
-    setNoticia2,
-    noticias,
-    setGaleria,
-    galerias,
-    publicidades,
-    setVideosGaleria,
-    vivo,
-  ]);
-
-  /* =========== COMPONENTE SLIDER =========== */
+  const [noticiaP, setNoticiaP] = useState(datosPublicos.noticias.femenino.noticiaP);
+  const [noticia1, setNoticia1] = useState(datosPublicos.noticias.femenino.noticia1);
+  const [noticia2, setNoticia2] = useState(datosPublicos.noticias.femenino.noticia2);
 
   function SampleNextArrow(props) {
     const {onClick} = props;
@@ -238,7 +75,7 @@ const Inicio = () => {
   const settings = {
     arrows: false,
     fade: true,
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 2000,
     slidesToShow: 1,
@@ -278,133 +115,40 @@ const Inicio = () => {
     ],
   };
 
-  /* =========== FIN COMPONENTE SLIDER =========== */
-
-  /* const {DatosDePruebaImagenes, DatosDePruebaImagenes2, DatosDePruebaImagenes3} = useSelector(
-    state => state.storePrueba
-  ); */
-
-  // const videoVivoPrueba = {fuente: 'ZFx0BuHzTxU'};
-
   const obtenerFiltro = filtro => {
-    switch (filtro) {
-      case 'Masculino':
-        FiltrarNoticias(1).then(noticiasFiltradas => {
-          if (noticiasFiltradas[0]) {
-            setNoticiaP(noticiasFiltradas[0]);
-          } else {
-            setNoticiaP({});
-          }
-          if (noticiasFiltradas[1]) {
-            setNoticia1(noticiasFiltradas[1]);
-          } else {
-            setNoticia1({});
-          }
-          if (noticiasFiltradas[2]) {
-            setNoticia2(noticiasFiltradas[2]);
-          } else {
-            setNoticia2({});
-          }
-          if (noticiasFiltradas[3]) {
-            setNoticia3(noticiasFiltradas[3]);
-          } else {
-            setNoticia3({});
-          }
-          if (noticiasFiltradas[4]) {
-            setNoticia4(noticiasFiltradas[4]);
-          } else {
-            setNoticia4({});
-          }
-        });
-        break;
-      case 'Femenino':
-        FiltrarNoticias(2).then(noticiasFiltradas => {
-          if (noticiasFiltradas[0]) {
-            setNoticiaP(noticiasFiltradas[0]);
-          } else {
-            setNoticiaP({});
-          }
-          if (noticiasFiltradas[1]) {
-            setNoticia1(noticiasFiltradas[1]);
-          } else {
-            setNoticia1({});
-          }
-          if (noticiasFiltradas[2]) {
-            setNoticia2(noticiasFiltradas[2]);
-          } else {
-            setNoticia2({});
-          }
-          if (noticiasFiltradas[3]) {
-            setNoticia3(noticiasFiltradas[3]);
-          } else {
-            setNoticia3({});
-          }
-          if (noticiasFiltradas[4]) {
-            setNoticia4(noticiasFiltradas[4]);
-          } else {
-            setNoticia4({});
-          }
-        });
-        break;
-      case 'Liga':
-        FiltrarNoticias(3).then(noticiasFiltradas => {
-          if (noticiasFiltradas[0]) {
-            setNoticiaP(noticiasFiltradas[0]);
-          } else {
-            setNoticiaP({});
-          }
-          if (noticiasFiltradas[1]) {
-            setNoticia1(noticiasFiltradas[1]);
-          } else {
-            setNoticia1({});
-          }
-          if (noticiasFiltradas[2]) {
-            setNoticia2(noticiasFiltradas[2]);
-          } else {
-            setNoticia2({});
-          }
-          if (noticiasFiltradas[3]) {
-            setNoticia3(noticiasFiltradas[3]);
-          } else {
-            setNoticia3({});
-          }
-          if (noticiasFiltradas[4]) {
-            setNoticia4(noticiasFiltradas[4]);
-          } else {
-            setNoticia4({});
-          }
-        });
-        break;
-      default:
-        break;
-    }
+    setNoticiaP(datosPublicos.noticias[filtro.toLowerCase()].noticiaP);
+    setNoticia1(datosPublicos.noticias[filtro.toLowerCase()].noticia1);
+    setNoticia2(datosPublicos.noticias[filtro.toLowerCase()].noticia2);
   };
   const cerrarModalPublicidad = () => {
-    dispatch(controlModalPublicidad_accion());
+    setIsMostrarModalPublicidad(false);
   };
   const redireccionar = url => {
     window.open(url);
   };
   const siguientePartido = respuesta => {
-    if (partido.index < partidos.length - 1) {
+    if (partido.index < datosPublicos.partidos.length - 1) {
       if (partido.index >= 0) {
         if (respuesta === 1) {
           setPartido({
-            data: partidos[partido.index + 1],
+            data: datosPublicos.partidos[partido.index + 1],
             index: partido.index + 1,
           });
         } else {
-          setPartido({data: partidos[partido.index - respuesta], index: partido.index - 1});
+          setPartido({
+            data: datosPublicos.partidos[partido.index - respuesta],
+            index: partido.index - 1,
+          });
         }
       } else {
         setPartido({
-          data: partidos[0],
+          data: datosPublicos.partidos[0],
           index: 0,
         });
       }
     } else {
       setPartido({
-        data: partidos[0],
+        data: datosPublicos.partidos[0],
         index: 0,
       });
     }
@@ -446,18 +190,18 @@ const Inicio = () => {
         </div>
       </div>
       {/* SECCION VIVO */}
-      {videoVivo.isActivo && (
+      {datosPublicos.videoVivo?.isActivo && (
         <div className="LI-Inicio seccion-vivo Margen-Vivo">
           <div className="CP-Vivo">
             <div className="CI-Componente-Vivo">
-              <Vivo video={videoVivo} />
+              <Vivo video={datosPublicos.videoVivo} />
             </div>
             <div className="CI-Chat-Vivo">
               <p>MINUTO A MINUTO</p>
               <div className="componente-Chat-Vivo">
                 <iframe
                   title="Vivo"
-                  src={videoVivo.chat ? videoVivo.chat : ''}
+                  src={datosPublicos.videoVivo?.chat ? datosPublicos.videoVivo.chat : ''}
                   width="100%"
                   height="100%"
                 ></iframe>
@@ -491,10 +235,8 @@ const Inicio = () => {
               alt=""
               className="img-Publicidad-Marcador"
               src={
-                publicaciones
-                  ? publicaciones.partidoDerecha1
-                    ? server + publicaciones.partidoDerecha1.idImagen[0].fuente
-                    : publicidadCorta
+                datosPublicos.publicaciones?.partidoDerecha1?.idImagen[0]?.fuente
+                  ? server + datosPublicos.publicaciones.partidoDerecha1.idImagen[0].fuente
                   : publicidadCorta
               }
             ></img>
@@ -502,10 +244,8 @@ const Inicio = () => {
               className="img-Publicidad-Marcador"
               alt=""
               src={
-                publicaciones
-                  ? publicaciones.partidoDerecha2
-                    ? server + publicaciones.partidoDerecha2.idImagen[0].fuente
-                    : publicidadCorta
+                datosPublicos.publicaciones?.partidoDerecha2?.idImagen[0]?.fuente
+                  ? server + datosPublicos.publicaciones.partidoDerecha2.idImagen[0].fuente
                   : publicidadCorta
               }
             ></img>
@@ -514,9 +254,11 @@ const Inicio = () => {
             <img
               alt=""
               src={
-                publicaciones?.publicidadNoticiaHorizontalBajoPartidos
+                datosPublicos.publicaciones?.publicidadNoticiaHorizontalBajoPartidos?.idImagen[0]
+                  ?.fuente
                   ? server +
-                    publicaciones.publicidadNoticiaHorizontalBajoPartidos.idImagen[0].fuente
+                    datosPublicos.publicaciones.publicidadNoticiaHorizontalBajoPartidos.idImagen[0]
+                      .fuente
                   : publicidadLarga
               }
             ></img>
@@ -585,10 +327,8 @@ const Inicio = () => {
             <img
               alt=""
               src={
-                publicaciones
-                  ? publicaciones.noticiaHorizontalBajo
-                    ? server + publicaciones.noticiaHorizontalBajo.idImagen[0].fuente
-                    : publicidadLarga2
+                datosPublicos.publicaciones?.noticiaHorizontalBajo?.idImagen[0]?.fuente
+                  ? server + datosPublicos.publicaciones.noticiaHorizontalBajo.idImagen[0].fuente
                   : publicidadLarga2
               }
             ></img>
@@ -599,94 +339,93 @@ const Inicio = () => {
       {/* SECCION GALERIA */}
       <div className="LI-Inicio seccion-galeria margenes-Galeria">
         <div className="CP-Galeria">
-          <div className="CI-Galeria-Imagenes">
-            <h1 className="titulo-Galeria">GALERÍA</h1>
-            <div className="galeria-Imagenes-A">
-              <div className="I-Contenedor-slider-imagenes">
-                {galeria.galeria2.imagenesId && (
-                  <Slider {...settings} cantidadDeElementos={1}>
-                    {galeria.galeria2.imagenesId.map(datoGaleria => {
-                      return (
-                        <ImagenSlider
-                          tamañoImagen={{height: '700px'}}
-                          datos={datoGaleria}
-                          descripcion={galeria.galeria2.tituloGaleria}
-                        ></ImagenSlider>
-                      );
-                    })}
-                  </Slider>
-                )}
-              </div>
-            </div>
-            <div className="galeria-Imagenes-B">
-              <div className="I-Contenedor-slider-imagenes">
-                {galeria.galeria1.imagenesId && (
-                  <Slider {...settings} cantidadDeElementos={1}>
-                    {galeria.galeria1.imagenesId.map(datoGaleria => {
-                      return (
-                        <ImagenSlider
-                          datos={datoGaleria}
-                          descripcion={galeria.galeria1.tituloGaleria}
-                        ></ImagenSlider>
-                      );
-                    })}
-                  </Slider>
-                )}
-              </div>
-              <div className="I-Contenedor-slider-imagenes">
-                {galeria.galeria3.imagenesId && (
-                  <Slider {...settings} cantidadDeElementos={0}>
-                    {galeria.galeria3.imagenesId.map(datoGaleria => {
-                      return (
-                        <ImagenSlider
-                          datos={datoGaleria}
-                          descripcion={galeria.galeria3.tituloGaleria}
-                        ></ImagenSlider>
-                      );
-                    })}
-                  </Slider>
-                )}
-              </div>
+          <h1 className="titulo-Galeria">GALERÍA</h1>
+          <div className="galeria-Imagenes-A">
+            <div className="I-Contenedor-slider-imagenes">
+              {datosPublicos.galerias?.galeria2?.imagenesId && (
+                <Slider {...settings} cantidadDeElementos={1}>
+                  {datosPublicos.galerias.galeria2.imagenesId.map(datoGaleria => {
+                    return (
+                      <ImagenSlider
+                        tamañoImagen={{height: '700px'}}
+                        datos={datoGaleria}
+                        descripcion={datosPublicos.galerias.galeria2.tituloGaleria}
+                      ></ImagenSlider>
+                    );
+                  })}
+                </Slider>
+              )}
             </div>
           </div>
-          <div className="CI-Galeria-Videos">
-            <div className="CI-NoticiasMini">
-              <div className="noticia-Miniatura-1">
-                <Link
-                  to={`/Noticia/Desarrollada/${noticia3._id}`}
-                  // onClick={() => {
-                  //   noticiaSeleccionada(noticia1);
-                  // }}
-                  className="estilos-Link"
-                >
-                  <NoticiasMiniatura
-                    isSeccionNoticias={true}
-                    datosModelado={noticia3}
-                  ></NoticiasMiniatura>
-                </Link>
-              </div>
-              <div className="noticia-Miniatura-2">
-                <Link
-                  to={`/Noticia/Desarrollada/${noticia4._id}`}
-                  // onClick={() => {
-                  //   noticiaSeleccionada(noticia2);
-                  // }}
-                  className="estilos-Link"
-                >
-                  <NoticiasMiniatura
-                    isSeccionNoticias={true}
-                    datosModelado={noticia4}
-                  ></NoticiasMiniatura>
-                </Link>
-              </div>
+          <div className="galeria-Imagenes-B">
+            <div className="I-Contenedor-slider-imagenes">
+              {datosPublicos.galerias?.galeria1?.imagenesId && (
+                <Slider {...settings} cantidadDeElementos={1}>
+                  {datosPublicos.galerias.galeria1.imagenesId.map(datoGaleria => {
+                    return (
+                      <ImagenSlider
+                        datos={datoGaleria}
+                        descripcion={datosPublicos.galerias.galeria1.tituloGaleria}
+                      ></ImagenSlider>
+                    );
+                  })}
+                </Slider>
+              )}
+            </div>
+            <div className="I-Contenedor-slider-imagenes">
+              {datosPublicos.galerias?.galeria3?.imagenesId && (
+                <Slider {...settings} cantidadDeElementos={0}>
+                  {datosPublicos.galerias.galeria3.imagenesId.map(datoGaleria => {
+                    return (
+                      <ImagenSlider
+                        datos={datoGaleria}
+                        descripcion={datosPublicos.galerias.galeria3.tituloGaleria}
+                      ></ImagenSlider>
+                    );
+                  })}
+                </Slider>
+              )}
             </div>
           </div>
+          <div className="galeria-Imagenes-C">
+            <div className="I-Contenedor-slider-imagenes">
+              {datosPublicos.galerias?.galeria4?.imagenesId && (
+                <Slider {...settings} cantidadDeElementos={1}>
+                  {datosPublicos.galerias.galeria4.imagenesId.map(datoGaleria => {
+                    return (
+                      <ImagenSlider
+                        datos={datoGaleria}
+                        descripcion={datosPublicos.galerias.galeria4.tituloGaleria}
+                      ></ImagenSlider>
+                    );
+                  })}
+                </Slider>
+              )}
+            </div>
+            <div className="I-Contenedor-slider-imagenes">
+              {datosPublicos.galerias?.galeria5?.imagenesId && (
+                <Slider {...settings} cantidadDeElementos={0}>
+                  {datosPublicos.galerias.galeria5.imagenesId.map(datoGaleria => {
+                    return (
+                      <ImagenSlider
+                        datos={datoGaleria}
+                        descripcion={datosPublicos.galerias.galeria5.tituloGaleria}
+                      ></ImagenSlider>
+                    );
+                  })}
+                </Slider>
+              )}
+            </div>
+          </div>
+
           <div className="publicidad-Noticias-Galeria">
             <img
               alt=""
               src={
-                publicaciones?.publicidadNoticiaHorizontalBajoGaleria
-                  ? server + publicaciones.publicidadNoticiaHorizontalBajoGaleria.idImagen[0].fuente
+                datosPublicos.publicaciones?.publicidadNoticiaHorizontalBajoGaleria?.idImagen[0]
+                  ? server +
+                    datosPublicos.publicaciones.publicidadNoticiaHorizontalBajoGaleria.idImagen[0]
+                      .fuente
                   : publicidadLarga
               }
             ></img>
@@ -704,10 +443,8 @@ const Inicio = () => {
           alt=""
           className="publicidadModalLowa"
           src={
-            publicaciones
-              ? publicaciones.publicidadInicioModal
-                ? server + publicaciones.publicidadInicioModal.idImagen[0].fuente
-                : publicidadModal
+            datosPublicos.publicaciones?.publicidadInicioModal?.idImagen[0]
+              ? server + datosPublicos.publicaciones.publicidadInicioModal.idImagen[0]
               : publicidadModal
           }
         ></img>

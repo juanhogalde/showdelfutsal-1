@@ -5,6 +5,9 @@ import {
   controlModalPublicidad,
   gurdarCategoriaSeleccionada,
   activarMedidaPublicidad,
+  cargandoDatosInicialesPublicos,
+  cargaDatosInicialesPublicosExito,
+  cargaDatosInicialesPulbicosError,
 } from './AccionesDatosIniciales';
 import {actualizarDisponibilidadMedidasPublicidad} from '../Publicidades/AccionesPublicidades';
 const datosInicialesPorDefecto = {
@@ -27,8 +30,10 @@ const datosInicialesPorDefecto = {
   categorias: [],
   subcategorias: [],
   medidasPublicidad: [],
-  isMostrarModalPublicidad: true,
   categoriaSeleccionada: null,
+  cargandoDatosPublicos: true,
+  isErrorDatosPublicos: false,
+  datosPublicos: null,
 };
 const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
   switch (accion.type) {
@@ -88,7 +93,6 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
     case controlModalPublicidad: {
       return {
         ...state,
-        isMostrarModalPublicidad: !state.isMostrarModalPublicidad,
       };
     }
     case actualizarDisponibilidadMedidasPublicidad: {
@@ -122,6 +126,30 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
       return {
         ...state,
         medidasPublicidad: medidasPublicidadActivadas,
+      };
+    }
+    case cargandoDatosInicialesPublicos: {
+      return {
+        ...state,
+        cargandoDatosPublicos: true,
+        isErrorDatosPublicos: false,
+        datosPublicos: null,
+      };
+    }
+    case cargaDatosInicialesPublicosExito: {
+      return {
+        ...state,
+        datosPublicos: accion.payload,
+        isErrorDatosPublicos: false,
+        cargandoDatosPublicos: false,
+      };
+    }
+    case cargaDatosInicialesPulbicosError: {
+      return {
+        ...state,
+        isErrorDatosPublicos: 'No se pudieron cargar los datos necesarios',
+        datosPublicos: null,
+        cargandoDatosPublicos: false,
       };
     }
     default:
