@@ -2,75 +2,95 @@ import {Request, Response} from 'express';
 import responder from '../../Middlewares/responder';
 import modeloHomes from './Home_Model';
 import IHomes from './Home_Interface';
-import {noticiasController} from '../Noticias/Noticias_Controller';
-import {partidosController} from '../Partidos/Partidos_Controller';
-import {imagenesController} from '../Imagenes/Imagenes_Controller';
+import Vivo_Model from '../Vivo/Vivo_Model';
 import {keyCategoria} from '../../Config/enumeradores';
+import Noticias_Model from '../Noticias/Noticias_Model';
+import Imagenes_Model from '../Imagenes/Imagenes_Model';
+import Partidos_Model from '../Partidos/Partidos_Model';
+import Publicidades_Model from '../Publicidades/Publicidades_Model';
 
 class HomesController {
   public async obtenerDatosIniciales(req: Request, res: Response) {
     try {
-      var contNoticiaMasc: number = 0;
-      var contNoticiaFem: number = 0;
-      var contNoticiaInf: number = 0;
-
-      var objetoFinal = {
-        noticias: <any>[],
-        vivo: {},
-        partidos: <any>[],
-        galeriaFoto: {},
-        galeriaVideo: {},
+      let datosIniciales: any = {
+        noticias: {
+          masculino: {
+            noticiaP: {},
+            noticia1: {},
+            noticia2: {},
+          },
+          femenino: {
+            noticiaP: {},
+            noticia1: {},
+            noticia2: {},
+          },
+          liga: {
+            noticiaP: {},
+            noticia1: {},
+            noticia2: {},
+          },
+        },
       };
-
-      const noticiasDestacadas = await noticiasController.obtenerNoticiasDestacadas();
-
-      if (noticiasDestacadas && noticiasDestacadas.length) {
-        for await (const noticia of noticiasDestacadas) {
-          if (noticia.keyCategoria === keyCategoria.Masculino) {
-            contNoticiaMasc++;
-            if (contNoticiaMasc !== 3) {
-              objetoFinal.noticias.push(noticia);
-            }
-          } else if (noticia.keyCategoria === keyCategoria.Femenino) {
-            contNoticiaFem++;
-            if (contNoticiaFem !== 3) {
-              objetoFinal.noticias.push(noticia);
-            }
-          } else if (noticia.keyCategoria === keyCategoria.LNFA) {
-            contNoticiaInf++;
-            if (contNoticiaInf !== 3) {
-              objetoFinal.noticias.push(noticia);
-            }
+      //Publicidades
+      await Publicidades_Model.find({})
+        .then(publicidades => {
+          datosIniciales.publicaciones = publicidades;
+        })
+        .catch(error => {
+          responder.error(req, res, error);
+        });
+      // Vivo
+      Vivo_Model.find({})
+        .then(vivo => {
+          if (vivo.length > 0) {
+            datosIniciales.videoVivo = vivo[0];
           }
-        }
-      }
-
-      const vivo = await modeloHomes.find({isVivoActivo: true});
-
-      if (vivo && vivo.length) {
-        objetoFinal.vivo = {...vivo};
-      }
-
-      const partidos = await partidosController.obtenerPartidos();
-      if (partidos && partidos.lenght) {
-        objetoFinal.partidos = [...partidos];
-      }
-
-      if (req.body.galeria) {
-        const galeria = await imagenesController.obtenerGaleria(req.body.galeria);
-        if (galeria && galeria.length) {
-          objetoFinal.galeriaFoto = [...galeria];
-        }
-      }
-
-      if (req.body.galeriaVideo) {
-        const galeriaVideo = await imagenesController.obtenerGaleriaVideo(req.body.galeriaVideo);
-        if (galeriaVideo && galeriaVideo.length) {
-          objetoFinal.galeriaVideo = [...galeriaVideo];
-        }
-      }
-
-      responder.sucess(req, res, objetoFinal);
+        })
+        .catch(error => {
+          responder.error(req, res, error);
+        });
+      //imagenes con populate galerias
+      await Imagenes_Model.find({isGaleria: true})
+        .populate('galeriaId')
+        .then(async (imagenes: any) => {
+          datosIniciales.galerias = imagenes;
+        })
+        .catch(error => {
+          responder.error(req, res, error);
+        });
+      //filtrado de noticias destacadas
+      await Noticias_Model.find({isDestacada: true})
+        .sort({fecha: 1})
+        .then(noticias => {
+          let noticias_masc = noticias.filter(x => x.keyCategoria === keyCategoria.Masculino);
+          let noticias_fem = noticias.filter(x => x.keyCategoria === keyCategoria.Femenino);
+          let noticias_liga = noticias.filter(x => x.keyCategoria === keyCategoria.LNFA);
+          datosIniciales.noticias.masculino.noticiaP = noticias_masc[0];
+          datosIniciales.noticias.masculino.noticia1 = noticias_masc[1];
+          datosIniciales.noticias.masculino.noticia2 = noticias_masc[2];
+          datosIniciales.noticias.femenino.noticiaP = noticias_fem[0];
+          datosIniciales.noticias.femenino.noticia1 = noticias_fem[1];
+          datosIniciales.noticias.femenino.noticia2 = noticias_fem[2];
+          datosIniciales.noticias.liga.noticiaP = noticias_liga[0];
+          datosIniciales.noticias.liga.noticia1 = noticias_liga[1];
+          datosIniciales.noticias.liga.noticia2 = noticias_liga[2];
+        })
+        .catch(error => {
+          responder.error(req, res, error);
+        });
+      //filtrado de partidos
+      await Partidos_Model.find({})
+        .populate('idTorneo')
+        .sort({fecha: 1})
+        .then((partidos: any[]) => {
+          datosIniciales.partidos = [
+            ...partidos.filter(
+              (partido: any) =>
+                new Date().getFullYear() === new Date(partido.idTorneo.fechaInicio).getFullYear()
+            ),
+          ];
+        });
+      responder.sucess(req, res, datosIniciales);
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -145,27 +165,3 @@ class HomesController {
   }
 }
 export const homesController = new HomesController();
-
-/*
-
-Que espera el front como modelo de galeria
-[
-{
-fuente:string, // para video el id y para imagen el path
-descripcion:string
-}
-]
-
-que espera el front como modelo de partidos
-partido: {
-_id: ObjectId,
-equipoA: {
-	nombreClub: string,
-	escudo:  string (ruta a una imagen),
-	resultado:int,
-	penales: int,
-}
-}
-
-
- */

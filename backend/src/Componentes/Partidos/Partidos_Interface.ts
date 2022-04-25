@@ -1,4 +1,4 @@
-import {Document} from 'mongoose';
+import {Document, Types} from 'mongoose';
 import IEquipos from '../Equipos/Equipos_Interface';
 import ITorneos from '../Torneos/Torneos_Interface';
 import IZonas from '../Zonas/Zonas_Interface';
@@ -15,6 +15,6 @@ export default interface IPartidos extends Document {
   estadio: string;
   posicionFixture: number;
   comentarios: Array<object>;
-  idZona: IZonas['_id'];
-  idTorneo: ITorneos['_id'];
+  idZona:Types.ObjectId;
+  idTorneo: Types.ObjectId
 }
