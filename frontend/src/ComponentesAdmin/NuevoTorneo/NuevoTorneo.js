@@ -18,18 +18,23 @@ import TarjetaTorneo from '../TarjetaTorneo/TarjetaTorneo';
 
 const tipoTorneoArray = [
   {value: 1, label: 'Campeonato'},
-  {value: 2, label: 'Liga'},
-  {value: 3, label: 'Copa'},
+  // {value: 2, label: 'Liga'},
+  // {value: 3, label: 'Copa'},
 ];
 
-const NuevoTorneo = ({datosParaEditar = {}}) => {
+const NuevoTorneo = ({datosParaEditar = {}, mostrarZonas}) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {subcategorias} = useSelector(state => state.sotreDatosIniciales);
-
+  const categoriaMasculino = useSelector(state =>
+    state.sotreDatosIniciales.categorias.find(categoria => categoria.key === 1)
+  );
+  const categoriaFemenino = useSelector(state =>
+    state.sotreDatosIniciales.categorias.find(categoria => categoria.key === 2)
+  );
   const {isModalNuevoTorneo} = useSelector(state => state.storeTorneos);
   const [datosTorneo, setDatosTorneo] = useState(datosParaEditar);
-  const [isFinalizoEdicion, setIsFinalizoEdicion] = useState(true);
+  const [isFinalizoEdicion, setIsFinalizoEdicion] = useState(false);
   const [alertaFechas, setAlertaFechas] = useState({
     tipo: '',
     mensaje: '',
@@ -37,12 +42,12 @@ const NuevoTorneo = ({datosParaEditar = {}}) => {
   });
 
   const escucharCambios = (name, value) => {
-    setIsFinalizoEdicion(value === datosParaEditar[name]);
+    setIsFinalizoEdicion(value !== datosParaEditar[name]);
     setDatosTorneo({...datosTorneo, [name]: value});
   };
 
   const escucharSelector = (value, name) => {
-    setIsFinalizoEdicion(value === datosParaEditar[name]);
+    setIsFinalizoEdicion(value !== datosParaEditar[name]);
     setDatosTorneo({...datosTorneo, [name]: value});
   };
 
@@ -103,10 +108,10 @@ const NuevoTorneo = ({datosParaEditar = {}}) => {
     );
     if (respuesta) {
       if (isModalNuevoTorneo.tipo === 'success') {
-        if (isModalNuevoTorneo.datosAdicionales) {
-          history.push(`/Torneo/Editar/${isModalNuevoTorneo.datosAdicionales}`);
-        }
-        history.push(`/Torneo/Editar/Campeonato/${isModalNuevoTorneo.datosAdicionales}`);
+        // if (isModalNuevoTorneo.datosAdicionales) {
+        history.push(`/Torneo/Editar/${isModalNuevoTorneo.datosAdicionales}`);
+        // }
+        // history.push(`/Torneo/Editar/Campeonato/${isModalNuevoTorneo.datosAdicionales}`);
       }
     }
   };
@@ -118,6 +123,13 @@ const NuevoTorneo = ({datosParaEditar = {}}) => {
         isMostrar: true,
       });
     }
+  };
+  const redireccionarZona = (categoria, subcategoria) => {
+    mostrarZonas({categoria, subcategoria});
+
+    // history.push(
+    //   `/Torneo/Editar/Campeonato/Zonas/${datosParaEditar._id}/${categoria}/${subcategoria}`
+    // );
   };
 
   return (
@@ -153,12 +165,14 @@ const NuevoTorneo = ({datosParaEditar = {}}) => {
         placeholder="Fecha Fin"
         value={datosTorneo.fechaFin ? datosTorneo.fechaFin : ''}
       />
-      {datosParaEditar._id ? (
+      {isFinalizoEdicion && (
+        <BotonLowa
+          tituloboton={datosParaEditar._id ? 'Editar Torneo' : 'Crear Torneo'}
+          onClick={() => validarCamposNuevoTorneo()}
+        ></BotonLowa>
+      )}
+      {datosParaEditar._id && (
         <React.Fragment>
-          <BotonLowa
-            tituloboton={datosParaEditar._id && isFinalizoEdicion ? 'Siguiente' : 'Editar Torneo'}
-            onClick={() => validarCamposNuevoTorneo()}
-          ></BotonLowa>
           <div className="CP-Campeonato">
             <div className="CI-CampeonatoMasculino">
               <p>Masculino</p>
@@ -170,11 +184,11 @@ const NuevoTorneo = ({datosParaEditar = {}}) => {
                       isExisteSubcategoria={datosParaEditar.zonas?.some(
                         zona => zona.idSubcategoria.keySubcategoria === subcategoria.key
                       )}
-                      // categoria={categoriaMasculino}
+                      categoria={categoriaMasculino}
                       subcategoria={subcategoria}
                       key={index}
                       isCampeonato={true}
-                      // redireccionarZona={redireccionarZona}
+                      redireccionarZona={redireccionarZona}
                       // consultarPorEliminarZonasDeTorneo={consultarPorEliminarZonasDeTorneo}
                     />
                   )
@@ -190,11 +204,11 @@ const NuevoTorneo = ({datosParaEditar = {}}) => {
                       isExisteSubcategoria={datosParaEditar.zonas?.some(
                         zona => zona.idSubcategoria.keySubcategoria === subcategoria.key
                       )}
-                      // categoria={categoriaFemenino}
+                      categoria={categoriaFemenino}
                       subcategoria={subcategoria}
                       key={index}
                       isCampeonato={true}
-                      // redireccionarZona={redireccionarZona}
+                      redireccionarZona={redireccionarZona}
                       // consultarPorEliminarZonasDeTorneo={consultarPorEliminarZonasDeTorneo}
                     ></TarjetaTorneo>
                   )
@@ -203,11 +217,6 @@ const NuevoTorneo = ({datosParaEditar = {}}) => {
             </div>
           </div>
         </React.Fragment>
-      ) : (
-        <BotonLowa
-          tituloboton={isFinalizoEdicion ? 'Siguiente' : 'Crear Torneo'}
-          onClick={() => validarCamposNuevoTorneo()}
-        ></BotonLowa>
       )}
 
       <Alertas
