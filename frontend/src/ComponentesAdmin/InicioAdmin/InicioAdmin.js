@@ -45,7 +45,7 @@ const InicioAdmin = () => {
             <TarjetaPanel
               tituloPanel={'Editor de Enfrentamientos'}
               url={img6}
-              linkTo="Enfrentamientos/Editor"
+              linkTo="Enfrentamientos/Nuevo"
             ></TarjetaPanel>
           </div>
         </div>
