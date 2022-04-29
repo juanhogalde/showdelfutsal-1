@@ -1,4 +1,4 @@
-import React, {useLayoutEffect} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import './EditarTorneo.css';
 import Cargando from '../Cargando/Cargando';
 import {useParams} from 'react-router-dom';
@@ -9,13 +9,33 @@ import {
   obtenerDatosDeTorneoParaEdicion,
   obtenerDatosDeTorneoParaEdicionError_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
+import Zonas from '../Zonas/Zonas';
 const EditarTorneo = () => {
   const {id} = useParams();
   const {torneoEditar, isCargandoTorneoEditar, isErrorTorneoEditar, torneos} = useSelector(
     state => state.storeTorneos
   );
+  const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
+  const [datosZonas, setDatosZonas] = useState({isMostrar: false, zonas: []});
   const dispatch = useDispatch();
+  const mostrarZonas = datos => {
+    const zonasFiltradas = torneoEditar.zonas.filter(
+      zona => zona.idSubcategoria._id === datos.subcategoria
+    );
+    const categoriaEncontrada = categorias.find(
+      categoria => categoria.key === parseInt(datos.categoria)
+    );
+    const subcategoriaEncontrada = subcategorias.find(
+      subcategoria => subcategoria.key === parseInt(datos.subcategoria)
+    );
 
+    setDatosZonas({
+      isMostrar: true,
+      zonas: zonasFiltradas,
+      categoriaSeleccionada: categoriaEncontrada,
+      subCategoriaSeleccionada: subcategoriaEncontrada,
+    });
+  };
   useLayoutEffect(() => {
     if (id && torneos.length && !torneoEditar) {
       let auxTorneo = torneos.find(torneo => torneo._id === id);
@@ -44,7 +64,20 @@ const EditarTorneo = () => {
       </div>
     ) : (
       <div className="CP-EditarGaleria">
-        <NuevoTorneo datosParaEditar={torneoEditar} isEditarTorneoProps={true}></NuevoTorneo>
+        {datosZonas.isMostrar ? (
+          <Zonas
+            zonas={datosZonas.zonas}
+            categoriaSeleccionada={datosZonas.categoriaSeleccionada}
+            subCategoriaSeleccionada={datosZonas.subCategoriaSeleccionada}
+            idTorneo={id}
+          />
+        ) : (
+          <NuevoTorneo
+            mostrarZonas={mostrarZonas}
+            datosParaEditar={torneoEditar}
+            isEditarTorneoProps={true}
+          ></NuevoTorneo>
+        )}
       </div>
     );
   }
