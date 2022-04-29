@@ -1,249 +1,202 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useState} from 'react';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
 import Selector from '../Selector/Selector';
 import TarjetaZona from '../TarjetaZona/TarjetaZona';
 import './Zonas.css';
 import {BsPlusCircle} from 'react-icons/bs';
-import {useHistory, useParams} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import Alertas from '../Alertas/Alertas';
 import {
-  actualizarListaDeTorneosCrearZona_accion,
-  actualizarListaDeZonas_accion,
-  consultarPorEliminarZona_accion,
-  crearZonaTorneoDefault_accion,
+  // actualizarListaDeTorneosCrearZona_accion,
+  // actualizarListaDeZonas_accion,
+  // consultarPorEliminarZona_accion,
+  controlModalZonas_accion,
+  // crearZonaTorneoDefault_accion,
   crearZonaTorneo_accion,
   eliminarZona_accion,
-  volverPorDefectoEliminarZona_accion,
+  // volverPorDefectoEliminarZona_accion,
 } from '../../Redux/Torneos/AccionesTorneos';
-import Cargando from '../Cargando/Cargando';
 
 const options = [
-  {value: 1, label: 'Eliminatoria'},
+  // {value: 1, label: 'Eliminatoria'},
   {value: 2, label: 'Grupo'},
-  {value: 3, label: 'Eliminatoria con Dif. Goles'},
+  // {value: 3, label: 'Eliminatoria con Dif. Goles'},
 ];
-const Zonas = () => {
+const Zonas = ({zonas, categoriaSeleccionada, subCategoriaSeleccionada, idTorneo}) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const {idTorneo, idCategoria, idSubcategoria} = useParams();
-  const {torneoEditar, torneos, isAgregarZona, isEliminarZona} = useSelector(
-    state => state.storeTorneos
-  );
-  const [categoria, setCategoria] = useState();
-  const [subcategoria, setSubcategoria] = useState();
-  const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
-  const [datosZona, setDatosZona] = useState('');
-  const [tipo, setTipo] = useState('');
-  const [arrayZonasCreadas, setArrayZonasCreadas] = useState([]);
-  const [alertaCamposVacios, setAlertaCamposVacios] = useState({
+  const {modalZonas} = useSelector(state => state.storeTorneos);
+  const [datosZona, setDatosZona] = useState({
+    idSubcategoria: subCategoriaSeleccionada.key,
+    idCategoria: categoriaSeleccionada.key,
+    idTorneo: idTorneo,
+  });
+  const [zonasLocales, setZonasLocales] = useState(zonas);
+  const [alertaLocal, setAlertaLocal] = useState({
     tipo: '',
     mensaje: '',
     isMostrar: false,
+    datos: null,
   });
   const escucharCambios = (name, value) => {
-    setDatosZona({...datosZona, [name]: value});
+    if (name === 'tipoZona') {
+      setDatosZona({
+        ...datosZona,
+        [name]: options.find(opcion => opcion.value === value),
+      });
+    } else {
+      setDatosZona({...datosZona, [name]: value});
+    }
   };
   const agregarZona = () => {
-    let auxDatosZona = {};
-    if (datosZona !== '') {
-      if (tipo !== '') {
-        Object.assign(auxDatosZona, torneoEditar);
-        auxDatosZona.nombreZona = datosZona.nombreZona;
-        auxDatosZona.tipoZona = tipo.value;
-        auxDatosZona.idCategoria = idCategoria;
-        auxDatosZona.idSubcategoria = idSubcategoria;
-
-        dispatch(crearZonaTorneo_accion(auxDatosZona));
-        setDatosZona('');
-        setTipo('');
+    if (datosZona.nombreZona && datosZona.nombreZona.trim() !== '') {
+      if (datosZona.tipoZona) {
+        dispatch(crearZonaTorneo_accion({...datosZona, tipoZona: datosZona.tipoZona.value}));
       } else {
-        setAlertaCamposVacios({
+        setAlertaLocal({
           tipo: 'error',
           mensaje: 'Debe seleccionar Tipo de Zona.',
+          isMostrar: true,
         });
       }
     } else {
-      setAlertaCamposVacios({
+      setAlertaLocal({
         tipo: 'error',
-        mensaje: 'Debe completar el Nombre/Zona.',
+        mensaje: 'El campo Nombre de la Zona no puede estar vacío',
+        isMostrar: true,
       });
     }
-
-    Object.assign(auxDatosZona, torneoEditar);
-    auxDatosZona.nombreZona = datosZona.nombreZona;
-    auxDatosZona.tipoZona = tipo.value;
-    auxDatosZona.idCategoria = idCategoria;
-    auxDatosZona.idSubcategoria = idSubcategoria;
   };
 
   const obtenerRespuestaDeAlertas = respuesta => {
     if (respuesta) {
-      if (isAgregarZona.isExito) {
-        dispatch(actualizarListaDeTorneosCrearZona_accion());
+      if (modalZonas.datos.tipo === 'eliminar') {
+        console.log(zonasLocales);
+        const zonasFiltradas = zonasLocales.filter(zona => zona._id !== modalZonas.datos.id);
+        setZonasLocales(zonasFiltradas);
       }
-      if (isAgregarZona.isError) {
-        dispatch(crearZonaTorneoDefault_accion());
+      if (modalZonas.datos.tipo === 'crear') {
+        setZonasLocales([...zonasLocales, modalZonas.datos.zona]);
       }
-    } else {
-      dispatch(crearZonaTorneoDefault_accion());
+
+      setDatosZona({
+        idSubcategoria: subCategoriaSeleccionada.key,
+        idCategoria: categoriaSeleccionada.key,
+        idTorneo: idTorneo,
+      });
     }
+    dispatch(controlModalZonas_accion({isMostrar: false, datos: null, tipo: '', mensaje: ''}));
   };
 
   const funcionEliminarZona = id => {
-    dispatch(consultarPorEliminarZona_accion(torneoEditar._id, id));
-  };
-  const obtenerRespuestaDeAlertaEliminarZona = respuesta => {
-    if (respuesta) {
-      if (isEliminarZona.isConsulta) {
-        dispatch(eliminarZona_accion(isEliminarZona.idZona));
-      }
-      if (isEliminarZona.isExito) {
-        dispatch(actualizarListaDeZonas_accion());
-        setDatosZona('');
-        setTipo('');
-      }
-      if (isEliminarZona.isError) {
-        dispatch(volverPorDefectoEliminarZona_accion());
-      }
-    } else {
-      dispatch(volverPorDefectoEliminarZona_accion());
-    }
+    setAlertaLocal({
+      tipo: 'warning',
+      mensaje: '¿Está seguro de eliminar la Zona?',
+      isMostrar: true,
+      datos: id,
+    });
   };
 
   const redireccionarAgregarEquipos = zonaId => {
-    if (torneoEditar.isEditar) {
-      history.push(`/Torneo/Editar/Campeonato/Zonas/Equipos/${zonaId}`);
-    } else {
-      history.push(`/Torneo/Nuevo/Campeonato/Zonas/Equipos/${zonaId}`);
-    }
+    history.push(`/Equipos/${zonaId}`);
   };
-  const redireccionarEnfrentamientos = () => {
-    history.push(
-      `/Torneo/Nuevo/Campeonato/Zonas/${torneoEditar._id}/${idCategoria}/${idSubcategoria}/Enfrentamientos`
-    );
+  const redireccionarEnfrentamientos = zonaId => {
+    history.push(`/Enfrentamientos/${zonaId}`);
   };
   const obtenerRespuestaDeAlertaCamposVacios = respuesta => {
     if (respuesta) {
-      setAlertaCamposVacios({
+      if (alertaLocal.tipo === 'warning') {
+        dispatch(eliminarZona_accion(alertaLocal.datos));
+      }
+      setAlertaLocal({
         tipo: '',
         mensaje: '',
         isMostrar: false,
+        datos: null,
       });
     }
   };
 
-  useLayoutEffect(() => {
-    if (Object.keys(torneoEditar).length > 0) {
-      if (torneoEditar.zonas) {
-        let auxZonas = torneoEditar.zonas.filter(
-          zona =>
-            zona.idSubcategoria.keyCategoria === parseInt(idCategoria) &&
-            zona.idSubcategoria.keySubcategoria === parseInt(idSubcategoria)
-        );
-        setArrayZonasCreadas(auxZonas);
-      }
-    }
+  return (
+    <div className="CP-Zonas">
+      <div>
+        <h5>
+          {categoriaSeleccionada && categoriaSeleccionada.label ? (
+            categoriaSeleccionada.label
+          ) : (
+            <Skeleton width="15%" />
+          )}
+        </h5>
+        <h6>
+          {categoriaSeleccionada && subCategoriaSeleccionada.label ? (
+            subCategoriaSeleccionada.label
+          ) : (
+            <Skeleton width="10%" />
+          )}
+        </h6>
 
-    let auxCategoria = categorias.find(categoria => categoria.key === parseInt(idCategoria));
+        <InputLowa
+          name="nombreZona"
+          value={datosZona.nombreZona ? datosZona.nombreZona : ''}
+          placeholder={'Ingrese Nombre/Zona'}
+          onChange={e => escucharCambios(e.target.name, e.target.value)}
+        ></InputLowa>
+        <Selector
+          name="tipoZona"
+          opcionSeleccionada={datosZona.tipoZona ? datosZona.tipoZona : ''}
+          placeholder="Seleccione Tipo"
+          selectorConIcono={<BsPlusCircle />}
+          options={options ? options : []}
+          onChange={e => escucharCambios('tipoZona', e.value)}
+        ></Selector>
+        <BotonLowa tituloboton="Agregar" onClick={() => agregarZona()}></BotonLowa>
 
-    setCategoria(auxCategoria);
-    let auxSubCategoria = subcategorias.find(
-      subcategoria => subcategoria.key === parseInt(idSubcategoria)
-    );
-    setSubcategoria(auxSubCategoria);
-
-    return () => {};
-  }, [
-    dispatch,
-    torneos,
-    torneoEditar,
-    idTorneo,
-    idCategoria,
-    idSubcategoria,
-    categorias,
-    subcategorias,
-  ]);
-
-  if (Object.keys(torneoEditar).length > 0) {
-    return (
-      <div className="CP-Zonas">
-        <div>
-          <h5>{categoria && categoria.label ? categoria.label : <Skeleton width="15%" />}</h5>
-          <h6>{categoria && subcategoria.label ? subcategoria.label : <Skeleton width="10%" />}</h6>
-
-          <InputLowa
-            name="nombreZona"
-            placeholder={'Ingrese Nombre/Zona'}
-            onChange={e => escucharCambios(e.target.name, e.target.value)}
-          ></InputLowa>
-          <Selector
-            name="tipoZona"
-            placeholder="Seleccione Tipo"
-            selectorConIcono={<BsPlusCircle />}
-            options={options ? options : []}
-            onChange={setTipo}
-          ></Selector>
-          <BotonLowa tituloboton="Agregar" onClick={() => agregarZona()}></BotonLowa>
-          {arrayZonasCreadas && (
-            <div className="CI-ZonasCreadas">
-              <p className="titulo-ZonasCreadas">Zonas creadas</p>
-
-              {arrayZonasCreadas.map((zona, index) => {
-                return (
-                  <TarjetaZona
-                    redireccionar={
-                      zona.tipoZona === 1 || zona.tipoZona === 3
-                        ? redireccionarEnfrentamientos
-                        : redireccionarAgregarEquipos
-                    }
-                    key={index}
-                    indice={index}
-                    categoria={categoria ? categoria : ''}
-                    subcategoria={subcategoria ? subcategoria : ''}
-                    datos={zona}
-                    funcionEliminarZona={funcionEliminarZona}
-                  ></TarjetaZona>
-                );
-              })}
-            </div>
+        <div className="CI-ZonasCreadas">
+          <p className="titulo-ZonasCreadas">Zonas creadas</p>
+          {zonasLocales.length ? (
+            zonasLocales.map((zona, index) => {
+              return (
+                <TarjetaZona
+                  redireccionar={
+                    zona.tipoZona === 1 || zona.tipoZona === 3
+                      ? redireccionarEnfrentamientos
+                      : redireccionarAgregarEquipos
+                  }
+                  key={index}
+                  indice={index}
+                  categoriaSeleccionada={categoriaSeleccionada ? categoriaSeleccionada : ''}
+                  subCategoriaSeleccionada={
+                    subCategoriaSeleccionada ? subCategoriaSeleccionada : ''
+                  }
+                  datos={zona}
+                  funcionEliminarZona={funcionEliminarZona}
+                ></TarjetaZona>
+              );
+            })
+          ) : (
+            <span>Aun no hay zonas creadas</span>
           )}
         </div>
+      </div>
 
-        <Alertas
-          mostrarSweet={isAgregarZona.isCargando || isAgregarZona.isExito || isAgregarZona.isError}
-          tipoDeSweet={isAgregarZona.tipo}
-          subtitulo={isAgregarZona.mensaje}
-          RespuestaDeSweet={obtenerRespuestaDeAlertas}
-        ></Alertas>
-        <Alertas
-          mostrarSweet={
-            isEliminarZona.isConsulta ||
-            isEliminarZona.isCargando ||
-            isEliminarZona.isExito ||
-            isEliminarZona.isError
-          }
-          tipoDeSweet={isEliminarZona.tipo}
-          subtitulo={isEliminarZona.mensaje}
-          RespuestaDeSweet={obtenerRespuestaDeAlertaEliminarZona}
-        ></Alertas>
-        <Alertas
-          mostrarSweet={alertaCamposVacios.isMostrar}
-          tipoDeSweet={alertaCamposVacios.tipo}
-          subtitulo={alertaCamposVacios.mensaje}
-          RespuestaDeSweet={obtenerRespuestaDeAlertaCamposVacios}
-        ></Alertas>
-      </div>
-    );
-  } else {
-    return (
-      <div className="CP-EditarTorneo-Cargando">
-        <Cargando></Cargando>
-      </div>
-    );
-  }
+      <Alertas
+        mostrarSweet={modalZonas.isMostrar}
+        tipoDeSweet={modalZonas.tipo}
+        subtitulo={modalZonas.mensaje}
+        RespuestaDeSweet={obtenerRespuestaDeAlertas}
+      ></Alertas>
+
+      <Alertas
+        mostrarSweet={alertaLocal.isMostrar}
+        tipoDeSweet={alertaLocal.tipo}
+        subtitulo={alertaLocal.mensaje}
+        RespuestaDeSweet={obtenerRespuestaDeAlertaCamposVacios}
+      ></Alertas>
+    </div>
+  );
 };
 export default Zonas;
