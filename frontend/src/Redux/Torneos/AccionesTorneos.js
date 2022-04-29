@@ -29,6 +29,8 @@ export const volverPorDefectoAgregarCategoriaSubcategoriaTorneo =
 export const actualizarListaDeTorneosConSubcategoria = 'actualizarListaDeTorneosConSubcategoria'; */
 
 export const cargandoCrearZonaTorneo = 'cargandoCrearZonaTorneo';
+export const controlModalZonas = 'controlModalZonas';
+
 export const crearZonaTorneoExito = 'crearZonaTorneoExito';
 export const crearZonaTorneoError = 'crearZonaTorneoError';
 export const crearZonaTorneoDefault = 'crearZonaTorneoDefault';
@@ -40,12 +42,9 @@ export const obtenerDatosDeTorneoParaEdicionError = 'obtenerDatosDeTorneoParaEdi
 export const obtenerDatosDeTorneoParaEdicionDefault = 'obtenerDatosDeTorneoParaEdicionDefault';
 export const ultimaUbicacionEditarTorneo = 'ultimaUbicacionEditarTorneo';
 
-export const consultarPorEliminarZona = 'consultarPorEliminarZona';
-export const cargandoEliminarZona = 'cargandoEliminarZona';
 export const eliminarZonaExito = 'eliminarZonaExito';
 export const eliminarZonaError = 'eliminarZonaError';
 export const volverPorDefectoEliminarZona = 'volverPorDefectoEliminarZona';
-export const actualizarListaDeZonas = 'actualizarListaDeZonas';
 
 export const consultarEliminarZonasDeTorneo = 'consultarEliminarZonasDeTorneo';
 export const eliminarZonasDeTorneoCargando = 'eliminarZonasDeTorneoCargando';
@@ -282,6 +281,12 @@ export const cargandoCrearZonaTorneo_accion = datos => {
     datos: datos,
   };
 };
+export const controlModalZonas_accion = datos => {
+  return {
+    type: controlModalZonas,
+    payload: datos,
+  };
+};
 export const crearZonaTorneoExito_accion = datos => {
   return {
     type: crearZonaTorneoExito,
@@ -306,18 +311,25 @@ export const actualizarListaDeTorneosCrearZona_accion = datos => {
     datos: datos,
   };
 };
-export const crearZonaTorneo_accion = torneo => {
+export const crearZonaTorneo_accion = nuevaZona => {
   return dispatch => {
-    dispatch(cargandoCrearZonaTorneo_accion());
+    dispatch(
+      controlModalZonas_accion({
+        isMostrar: true,
+        tipo: 'cargando',
+        mensaje: 'Creando Zona.',
+        datosAdicionales: null,
+      })
+    );
     API({
       url: '/zonas/agregar',
       method: 'post',
       data: {
-        nombreZona: torneo.nombreZona,
-        tipoZona: torneo.tipoZona,
-        idSubcategoria: torneo.idSubcategoria,
-        idCategoria: torneo.idCategoria,
-        idTorneo: torneo._id,
+        nombreZona: nuevaZona.nombreZona,
+        tipoZona: nuevaZona.tipoZona,
+        idSubcategoria: nuevaZona.idSubcategoria,
+        idCategoria: nuevaZona.idCategoria,
+        idTorneo: nuevaZona.idTorneo,
       },
     })
       .then(res => {
@@ -348,19 +360,6 @@ export const listarZonasTorneo_accion = id => {
   };
 };
 /****** ELIMINAR ZONA DE TORNEO ******/
-export const consultarPorEliminarZona_accion = (idTorneo, datos) => {
-  return {
-    type: consultarPorEliminarZona,
-    idTorneo: idTorneo,
-    datos: datos,
-  };
-};
-
-export const cargandoEliminarZona_accion = () => {
-  return {
-    type: cargandoEliminarZona,
-  };
-};
 
 export const eliminarZonaExito_accion = datos => {
   return {
@@ -381,15 +380,17 @@ export const volverPorDefectoEliminarZona_accion = () => {
   };
 };
 
-export const actualizarListaDeZonas_accion = () => {
-  return {
-    type: actualizarListaDeZonas,
-  };
-};
-
 export const eliminarZona_accion = idZona => {
   return dispatch => {
-    dispatch(cargandoEliminarZona_accion());
+    dispatch(
+      controlModalZonas_accion({
+        isMostrar: true,
+        datos: null,
+        tipo: 'cargando',
+        mensaje: 'Eliminando Zona..',
+      })
+    );
+    // dispatch(cargandoEliminarZona_accion());
     API({
       url: '/zonas/eliminar',
       method: 'delete',
@@ -398,11 +399,27 @@ export const eliminarZona_accion = idZona => {
       },
     })
       .then(res => {
-        dispatch(eliminarZonaExito_accion(idZona));
+        dispatch(
+          controlModalZonas_accion({
+            isMostrar: true,
+            datos: {id: idZona, tipo: 'eliminar'},
+            tipo: 'success',
+            mensaje: 'Zona eliminada con exito',
+          })
+        );
+        // dispatch(eliminarZonaExito_accion(idZona));
       })
       .catch(error => {
         console.log({error});
-        dispatch(eliminarZonaError_accion());
+        dispatch(
+          controlModalZonas_accion({
+            isMostrar: true,
+            datos: null,
+            tipo: 'error',
+            mensaje: 'Error al eliminar la zona',
+          })
+        );
+        // dispatch(eliminarZonaError_accion());
       });
   };
 };
