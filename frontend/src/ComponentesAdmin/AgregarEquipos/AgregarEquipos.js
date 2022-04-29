@@ -1,7 +1,7 @@
 import React, {useLayoutEffect} from 'react';
 import {BsPlusCircle} from 'react-icons/bs';
 import {useDispatch, useSelector} from 'react-redux';
-import {useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {
   agregarEquiposZonaTorneo_accion,
   eliminarEquipoDeZona_accion,
@@ -17,7 +17,7 @@ import TarjetaEquipo from '../TarjetaEquipo/TarjetaEquipo';
 import './AgregarEquipos.css';
 
 const AgregarEquipos = () => {
-  // const history = useHistory();
+  const history = useHistory();
   const {zonaId} = useParams();
   const dispatch = useDispatch();
   const {
@@ -43,8 +43,8 @@ const AgregarEquipos = () => {
   };
 
   const crearEnfrentamiento = () => {
-    console.log('revisar redireccionamiento');
-    /* history.push('/Enfrentamientos'); */
+    // console.log('revisar redireccionamiento');
+    history.push(`/Enfrentamientos/${zonaId}`);
   };
 
   const respuestaModalGenerico = respuesta => {
