@@ -133,7 +133,6 @@ export const obtenerPartidosDeZona_accion = zonaId => {
       data: {_id: zonaId},
     })
       .then(res => {
-        console.log({res});
         dispatch(obtenerPartidosDeZonaExito_accion(res.data.value));
       })
       .catch(error => {
@@ -195,5 +194,56 @@ export const actulizarListaDeEnfrentamientos_accion = partidoId => {
   return {
     type: actulizarListaDeEnfrentamientos,
     partidoId: partidoId,
+  };
+};
+
+// Restructurando TODO REDUCER ENFRENTAMIENTOS
+export const controlModalGenericoEditorEnfrentamiento = 'controlModalGenericoEditorEnfrentamiento';
+
+export const controlModalGenericoEditorEnfrentamiento_accion = datos => {
+  return {
+    type: controlModalGenericoEditorEnfrentamiento,
+    modal: datos,
+  };
+};
+
+export const cargarZonasParaEditorEnfrentamiento = 'cargarZonasParaEditorEnfrentamiento';
+export const cargarZonasParaEditorEnfrentamiento_accion = zonas => {
+  return {
+    type: cargarZonasParaEditorEnfrentamiento,
+    payload: zonas,
+  };
+};
+export const obtenerZonasParaEditorEnfrentamiento = id => {
+  return dispatch => {
+    dispatch(
+      controlModalGenericoEditorEnfrentamiento_accion({
+        tipo: 'cargando',
+        mensaje: 'Obteniendo Zonas del torneo seleccionado..',
+        datos: null,
+        isMostrar: true,
+      })
+    );
+    API({
+      url: '/zonas/listar',
+      method: 'post',
+      data: {idTorneo: id},
+    })
+      .then(res => {
+        console.log({res});
+        dispatch(cargarZonasParaEditorEnfrentamiento_accion(res.data.value));
+        // dispatch(obtenerDatosDeTorneoParaEdicionExito_accion(res.data.value));
+      })
+      .catch(error => {
+        console.log({error});
+        dispatch(
+          controlModalGenericoEditorEnfrentamiento_accion({
+            tipo: 'error',
+            mensaje: 'No se pudieron obtener las zonas de este torneo',
+            datos: 'zonas',
+            isMostrar: true,
+          })
+        );
+      });
   };
 };

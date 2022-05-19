@@ -22,12 +22,14 @@ import Campeonato from '../ComponentesAdmin/Campeonato/Campeonato';
 import NuevaPublicidad from '../ComponentesAdmin/NuevaPublicidad/NuevaPublicidad';
 import EditarTorneo from '../ComponentesAdmin/EditarTorneo/EditarTorneo';
 import NuevoEnfrentamiento from '../ComponentesAdmin/NuevoEnfrentamiento/NuevoEnfrentamiento';
-import Zonas from '../ComponentesAdmin/Zonas/Zonas';
+import CargarEnfrentamiento from '../ComponentesAdmin/NuevoEnfrentamiento/CargarEnfrentamiento';
+
+// import Zonas from '../ComponentesAdmin/Zonas/Zonas';
 import NuevaGaleriaVideo from '../ComponentesAdmin/NuevaGaleriaVideo/NuevaGaleriaVideo';
 import PaginaVivoAdmin from '../ComponentesAdmin/PaginaVivoAdmin/PaginaVivoAdmin';
 import NuevoVivo from '../ComponentesAdmin/NuevoVivo/NuevoVivo';
 import AgregarEquipos from '../ComponentesAdmin/AgregarEquipos/AgregarEquipos';
-import EditorEnfrentamientos from '../ComponentesAdmin/EditorEnfrentamientos/EditorEnfrentamientos';
+// import EditorEnfrentamientos from '../ComponentesAdmin/EditorEnfrentamientos/EditorEnfrentamientos';
 
 const RutasPrivadas = () => {
   const {usuarioLogueado} = useSelector(state => state.storeLogueo);
@@ -42,7 +44,6 @@ const RutasPrivadas = () => {
       <React.Fragment>
         <Switch>
           <Route exact component={InicioAdmin} path="/"></Route>
-          {/* <Route exact component={PaginasSeccionesAdmin} path="/Secciones"></Route> */}
 
           <Route exact component={PaginaPublicidadAdmin} path="/Publicidad"></Route>
           <Route exact component={EditarPublicidad} path="/Publicidad/Editar/:id"></Route>
@@ -54,36 +55,13 @@ const RutasPrivadas = () => {
 
           <Route exact component={Campeonato} path="/Torneo/Nuevo/Campeonato"></Route>
           <Route exact component={Campeonato} path="/Torneo/Editar/Campeonato/:id"></Route>
-          <Route
-            exact
-            component={Zonas}
-            path="/Torneo/Nuevo/Campeonato/Zonas/:idTorneo/:idCategoria/:idSubcategoria"
-          ></Route>
-          <Route
-            exact
-            component={Zonas}
-            path="/Torneo/Editar/Campeonato/Zonas/:idTorneo/:idCategoria/:idSubcategoria"
-          ></Route>
 
-          <Route
-            exact
-            component={NuevoEnfrentamiento}
-            path="/Torneo/Nuevo/Campeonato/Zonas/:idTorneo/:idCategoria/:idSubcategoria/Enfrentamientos"
-          ></Route>
+          <Route exact component={NuevoEnfrentamiento} path="/Enfrentamientos/nuevo"></Route>
+          <Route exact component={CargarEnfrentamiento} path="/Enfrentamientos/:zonaId"></Route>
 
-          <Route exact component={NuevoEnfrentamiento} path="/Enfrentamientos"></Route>
-          <Route exact component={EditorEnfrentamientos} path="/Enfrentamientos/Editor"></Route>
+          {/* <Route exact component={EditorEnfrentamientos} path="/Enfrentamientos/Editor"></Route> */}
 
-          <Route
-            exact
-            component={AgregarEquipos}
-            path="/Torneo/Nuevo/Campeonato/Zonas/Equipos/:zonaId"
-          ></Route>
-          <Route
-            exact
-            component={AgregarEquipos}
-            path="/Torneo/Editar/Campeonato/Zonas/Equipos/:zonaId"
-          ></Route>
+          <Route exact component={AgregarEquipos} path="/Equipos/:zonaId"></Route>
           <Route exact component={PaginaTablaAdmin} path="/Tablas"></Route>
 
           <Route exact component={PaginaGaleriaAdmin} path="/Galerías"></Route>

@@ -3,10 +3,7 @@ import Selector from '../Selector/Selector';
 import TarjetaEnfrentamiento from '../TarjetaEnfrentamiento/TarjetaEnfrentamiento';
 import './EditorEnfrentamientos.css';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  obtenerDatosDeTorneoParaEdicionDefault_accion,
-  obtenerDatosDeTorneoParaEdicion,
-} from '../../Redux/Torneos/AccionesTorneos';
+import {obtenerDatosDeTorneoParaEdicionDefault_accion} from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 import Enfrentamiento from '../Enfrentamiento/Enfrentamiento';
 import {
@@ -14,56 +11,43 @@ import {
   obtenerEquiposDeZonaDefault_accion,
 } from '../../Redux/Equipos/AccionesEquipos';
 import {
+  controlModalGenericoEditorEnfrentamiento_accion,
   eliminarPartidoConsultar_accion,
   eliminarPartidoDefault_accion,
   eliminarPartido_accion,
   obtenerPartidosDeZonaDefault_accion,
   obtenerPartidosDeZona_accion,
+  obtenerZonasParaEditorEnfrentamiento,
 } from '../../Redux/Partidos/AccionPartidos';
 import BotonLowa from '../BotonLowa/BotonLowa';
 
-const EditorEnfrentamientos = () => {
+const EditorEnfrentamientos = ({datosSeleccionados, categorias = [], subcategorias = []}) => {
   const dispatch = useDispatch();
   const {torneos, torneo, isObtenerDatosEditarTorneo} = useSelector(state => state.storeTorneos);
-  const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
-  const {equipos} = useSelector(state => state.storeEquipos);
-  const {partidos, isEliminarPartido, isObtenerPartidos} = useSelector(
-    state => state.storePartidos
-  );
 
-  const [datosFiltrados, setDatosFiltrados] = useState('');
+  const {equipos} = useSelector(state => state.storeEquipos);
+  const {zonas, partidos, isEliminarPartido, isObtenerPartidos, modalEditorEnfrentamiento} =
+    useSelector(state => state.storePartidos);
+
+  const [datosFiltrados, setDatosFiltrados] = useState(datosSeleccionados);
   const [arraySubCategorias, setArraySubCategorias] = useState([]);
   const [arrayZonas, setArrayZonas] = useState([]);
   const [arrayEquiposZona, setArrayEquiposZona] = useState([]);
   const [isMostrarComponenteEnfrentamiento, setIsMostrarComponenteEnfrentamiento] = useState(false);
 
   const escucharSelectorTorneo = value => {
-    let auxTorneo = torneos.find(torneo => torneo._id === value.idTorneo);
-    dispatch(obtenerDatosDeTorneoParaEdicion(auxTorneo));
     setDatosFiltrados({
       torneo: value,
     });
-    setIsMostrarComponenteEnfrentamiento(false);
-    setArraySubCategorias([]);
-    setArrayZonas([]);
+    dispatch(obtenerZonasParaEditorEnfrentamiento(value.idTorneo));
   };
 
   const escucharSelectorCategoria = value => {
-    setIsMostrarComponenteEnfrentamiento(false);
-    if (datosFiltrados.subcategoria) {
-      setDatosFiltrados({
-        ...datosFiltrados,
-        categoria: value,
-        subcategoria: '',
-        zona: '',
-      });
-    } else {
-      setDatosFiltrados({
-        ...datosFiltrados,
-        categoria: value,
-      });
-    }
-
+    // setIsMostrarComponenteEnfrentamiento(false);
+    setDatosFiltrados({
+      torneo: datosFiltrados.torneo,
+      categoria: value,
+    });
     let auxSubcategoria = subcategorias.filter(
       subcategoria => subcategoria.keyCategoria === value.key
     );
@@ -71,28 +55,17 @@ const EditorEnfrentamientos = () => {
   };
 
   const escucharSelectorSubCategoria = value => {
-    setIsMostrarComponenteEnfrentamiento(false);
-
-    if (datosFiltrados.zona) {
-      setDatosFiltrados({
-        ...datosFiltrados,
-        subcategoria: value,
-        zona: '',
-      });
-    } else {
-      setDatosFiltrados({
-        ...datosFiltrados,
-        subcategoria: value,
-      });
-    }
-    let auxZonas = [];
-    torneo.zonas.forEach(zonaTorneo => {
-      if (zonaTorneo.idSubcategoria.keyCategoria === value.keyCategoria) {
-        if (zonaTorneo.idSubcategoria.keySubcategoria === value.key) {
-          auxZonas.push(zonaTorneo);
-        }
-      }
+    setDatosFiltrados({
+      torneo: datosFiltrados.torneo,
+      categoria: datosFiltrados.categoria,
+      subcategoria: value,
     });
+
+    const auxZonas = zonas.filter(
+      zonaTorneo =>
+        zonaTorneo.idSubcategoria.keyCategoria === value.keyCategoria &&
+        zonaTorneo.idSubcategoria.keySubcategoria === value.key
+    );
     let auxZonasParaSelector = auxZonas.map((zona, index) => {
       return {
         label: zona.nombreZona,
@@ -101,23 +74,42 @@ const EditorEnfrentamientos = () => {
       };
     });
     setArrayZonas(auxZonasParaSelector);
-    setIsMostrarComponenteEnfrentamiento(false);
   };
   const escucharSelectorZona = value => {
     setDatosFiltrados({
       ...datosFiltrados,
       zona: value,
     });
+    console.log(value);
+    const equiposParaSelector = value.data.equipos.map((equipo, index) => {
+      return {
+        label: equipo.nombreClub,
+        value: index + 1,
+        data: equipo,
+      };
+    });
+    setArrayEquiposZona(equiposParaSelector);
     setIsMostrarComponenteEnfrentamiento(true);
     /* TODO: implementar ruta para obtener equipos por id de zona */
     /* dispatch(obtenerEquiposDeZona_accion(value.data._id)) */
-    dispatch(listarEquipos_accion());
+    // dispatch(listarEquipos_accion());
   };
 
   const obtenerRespuestaDeAlertaEditarTorneo = respuesta => {
     if (respuesta) {
-      if (isObtenerDatosEditarTorneo.isExito) {
-        dispatch(obtenerDatosDeTorneoParaEdicionDefault_accion());
+      if (
+        modalEditorEnfrentamiento.tipo === 'error' &&
+        modalEditorEnfrentamiento.datos === 'zonas'
+      ) {
+        setDatosFiltrados({});
+        dispatch(
+          controlModalGenericoEditorEnfrentamiento_accion({
+            isMostrar: false,
+            datos: null,
+            mensaje: '',
+            tipo: '',
+          })
+        );
       }
       if (isObtenerDatosEditarTorneo.isError) {
         dispatch(obtenerDatosDeTorneoParaEdicionDefault_accion());
@@ -153,31 +145,31 @@ const EditorEnfrentamientos = () => {
     }
   };
 
-  useLayoutEffect(() => {
-    if (equipos?.length > 0) {
-      let auxArrayEquiposZona = [];
-      if (datosFiltrados) {
-        if (datosFiltrados.zona) {
-          datosFiltrados.zona.data.equipos.forEach(equipoZona => {
-            let auxEquipo = equipos.find(equipo => equipo._id === equipoZona._id);
-            auxArrayEquiposZona.push(auxEquipo);
-          });
-          setArrayEquiposZona(auxArrayEquiposZona);
-          /* dispatch(listarPartidos_accion()); */
-        }
-      }
-    }
+  // useLayoutEffect(() => {
+  //   if (equipos?.length > 0) {
+  //     let auxArrayEquiposZona = [];
+  //     if (datosFiltrados) {
+  //       if (datosFiltrados.zona) {
+  //         datosFiltrados.zona.data.equipos.forEach(equipoZona => {
+  //           let auxEquipo = equipos.find(equipo => equipo._id === equipoZona._id);
+  //           auxArrayEquiposZona.push(auxEquipo);
+  //         });
+  //         setArrayEquiposZona(auxArrayEquiposZona);
+  //         /* dispatch(listarPartidos_accion()); */
+  //       }
+  //     }
+  //   }
 
-    return () => {
-      dispatch(obtenerPartidosDeZonaDefault_accion());
-    };
-  }, [torneos, equipos, datosFiltrados, dispatch]);
+  //   return () => {
+  //     dispatch(obtenerPartidosDeZonaDefault_accion());
+  //   };
+  // }, [torneos, equipos, datosFiltrados, dispatch]);
 
-  useEffect(() => {
-    return () => {
-      dispatch(obtenerEquiposDeZonaDefault_accion());
-    };
-  }, [dispatch]);
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(obtenerEquiposDeZonaDefault_accion());
+  //   };
+  // }, [dispatch]);
 
   return (
     <React.Fragment>
@@ -187,35 +179,35 @@ const EditorEnfrentamientos = () => {
           placeholder="Seleccione Torneo"
           options={
             torneos
-              ? torneos.map((torneo, index) => {
+              ? torneos.map(torneo => {
                   return {
                     idTorneo: torneo._id,
                     label: torneo.tituloTorneo,
-                    value: index + 1,
+                    value: torneo._id,
                   };
                 })
               : []
           }
-          /* opcionSeleccionada={datosFiltrados.torneo} */
+          opcionSeleccionada={datosFiltrados?.torneo ? datosFiltrados.torneo : null}
           onChange={value => escucharSelectorTorneo(value)}
           noOptionsMessage={
             torneos.length ? 'Debe seleccionar un torneo.' : 'No hay torneos creados'
           }
         ></Selector>
-        {datosFiltrados && (
+        {datosFiltrados?.torneo && (
           <Selector
             placeholder="Seleccione Categoría"
-            options={categorias ? categorias : []}
-            opcionSeleccionada={datosFiltrados.categoria ? datosFiltrados.categoria : ''}
+            options={categorias}
+            opcionSeleccionada={datosFiltrados.categoria ? datosFiltrados.categoria : null}
             onChange={value => escucharSelectorCategoria(value)}
             noOptionsMessage={'No hay categorías.'}
           ></Selector>
         )}
-        {datosFiltrados.categoria && (
+        {datosFiltrados?.categoria && (
           <Selector
             placeholder="Seleccione Subcategoría"
             options={arraySubCategorias ? arraySubCategorias : []}
-            opcionSeleccionada={datosFiltrados.subcategoria ? datosFiltrados.subcategoria : ''}
+            opcionSeleccionada={datosFiltrados.subcategoria ? datosFiltrados.subcategoria : null}
             onChange={value => escucharSelectorSubCategoria(value)}
             noOptionsMessage={
               !arraySubCategorias
@@ -224,32 +216,37 @@ const EditorEnfrentamientos = () => {
             }
           ></Selector>
         )}
-        {datosFiltrados.subcategoria && (
+        {zonas && datosFiltrados?.subcategoria && (
           <Selector
             placeholder="Seleccione Zona"
             options={arrayZonas ? arrayZonas : []}
             opcionSeleccionada={datosFiltrados.zona ? datosFiltrados.zona : ''}
             onChange={value => escucharSelectorZona(value)}
-            noOptionsMessage={
-              !arrayZonas ? 'Debe seleccionar subcategoría.' : 'No hay zonas creadas'
-            }
+            noOptionsMessage={'No hay Zonas.'}
           ></Selector>
         )}
         {isMostrarComponenteEnfrentamiento && (
           <div className="CI-componenteEnfrentamiento">
-            <Enfrentamiento
-              equipos={arrayEquiposZona ? arrayEquiposZona : []}
-              torneoId={datosFiltrados.torneo.idTorneo ? datosFiltrados.torneo.idTorneo : ''}
-              zonaId={datosFiltrados.zona.data ? datosFiltrados.zona.data._id : ''}
-            ></Enfrentamiento>
+            {arrayEquiposZona.length ? (
+              <React.Fragment>
+                <Enfrentamiento
+                  equipos={arrayEquiposZona ? arrayEquiposZona : []}
+                  torneoId={datosFiltrados.torneo.idTorneo ? datosFiltrados.torneo.idTorneo : ''}
+                  zonaId={datosFiltrados.zona.data ? datosFiltrados.zona.data._id : ''}
+                ></Enfrentamiento>
+                <BotonLowa
+                  tituloboton="Mostrar Enfrentamientos"
+                  onClick={obtenerPartidosDeZona}
+                ></BotonLowa>
+              </React.Fragment>
+            ) : (
+              <div className="CP-EditorEnfrentamientos-sinEquipos">
+                <span>No hay equipos en esta zona</span>
+              </div>
+            )}
           </div>
         )}
-        {isMostrarComponenteEnfrentamiento && (
-          <BotonLowa
-            tituloboton="Mostrar Enfrentamientos"
-            onClick={obtenerPartidosDeZona}
-          ></BotonLowa>
-        )}
+
         {partidos.length > 0 &&
           partidos.map((partido, index) => {
             return (
@@ -265,7 +262,12 @@ const EditorEnfrentamientos = () => {
             );
           })}
       </div>
-
+      <Alertas
+        tipoDeSweet={modalEditorEnfrentamiento.tipo}
+        mostrarSweet={modalEditorEnfrentamiento.isMostrar}
+        subtitulo={modalEditorEnfrentamiento.mensaje}
+        RespuestaDeSweet={obtenerRespuestaDeAlertaEditarTorneo}
+      ></Alertas>
       <Alertas
         tipoDeSweet={isObtenerDatosEditarTorneo.tipo}
         mostrarSweet={

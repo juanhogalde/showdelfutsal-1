@@ -25,6 +25,7 @@ const Rutas = () => {
       dispatch(listarTorneo_accion());
       dispatch(listarVivo_accion());
       dispatch(listarNoticia_accion());
+      dispatch(obtenerDatosIniciales());
     } else {
       dispatch(obtenerDatosIniciales());
       dispatch(obtenerDatosInicialesPublicos());

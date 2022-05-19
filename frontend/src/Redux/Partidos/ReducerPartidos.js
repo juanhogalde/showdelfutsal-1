@@ -13,128 +13,12 @@ import {
   obtenerPartidosDeZonaExito,
   obtenerPartidosDeZonaError,
   obtenerPartidosDeZonaDefault,
+  controlModalGenericoEditorEnfrentamiento,
+  cargarZonasParaEditorEnfrentamiento,
 } from './AccionPartidos';
 /* import {urlEscudos} from '../../Entorno'; */
 
 const partidosPorDefecto = {
-  /* partidos: [
-    {
-      equipoLocal: {
-        nombreClub: 'Huarpes',
-        escudo: urlEscudos + 'huarpes.png',
-      },
-      equipoVisitante: {
-        nombreClub: 'Hualilán',
-        escudo: urlEscudos + 'hualilan.png',
-      },
-      resultadoLocal: 2,
-      resultadoVisitante: 0,
-      penalesLocal: '',
-      penalesVisitante: '',
-      fechaPartido: '',
-      fecha: 'Fecha N° 1',
-      idEstadio: {
-        nombreEstadio: '',
-        direccion: '',
-      },
-      posicionFixture: '',
-      comentarios: [],
-      campeonato: {
-        tituloCampeonato: '',
-        fechaInicio: '',
-        fechaFin: '',
-        keyCategoria: '',
-      },
-      idTabla: {},
-    },
-    {
-      equipoLocal: {
-        nombreClub: 'S.E.C',
-        escudo: urlEscudos + 'sindicatoempleadosdecomercio.png',
-      },
-      equipoVisitante: {
-        nombreClub: 'Krause',
-        escudo: urlEscudos + 'krause.png',
-      },
-      resultadoLocal: 3,
-      resultadoVisitante: 1,
-      penalesLocal: '',
-      penalesVisitante: '',
-      fechaPartido: '',
-      fecha: 'Fecha N° 1',
-      idEstadio: {
-        nombreEstadio: '',
-        direccion: '',
-      },
-      posicionFixture: '',
-      comentarios: [],
-      campeonato: {
-        tituloCampeonato: '',
-        fechaInicio: '',
-        fechaFin: '',
-        keyCategoria: '',
-      },
-      idTabla: {},
-    },
-    {
-      equipoLocal: {
-        nombreClub: 'Coop. Caucete',
-        escudo: urlEscudos + 'cooperativacaucete.png',
-      },
-      equipoVisitante: {
-        nombreClub: 'La Gloria',
-        escudo: urlEscudos + 'lagloria.png',
-      },
-      resultadoLocal: 1,
-      resultadoVisitante: 4,
-      penalesLocal: '',
-      penalesVisitante: '',
-      fechaPartido: '',
-      fecha: 'Fecha N° 1',
-      idEstadio: {
-        nombreEstadio: '',
-        direccion: '',
-      },
-      posicionFixture: '',
-      comentarios: [],
-      campeonato: {
-        tituloCampeonato: '',
-        fechaInicio: '',
-        fechaFin: '',
-        keyCategoria: '',
-      },
-      idTabla: {},
-    },
-    {
-      equipoLocal: {
-        nombreClub: 'Krause',
-        escudo: urlEscudos + 'krause.png',
-      },
-      equipoVisitante: {
-        nombreClub: 'Huarpes',
-        escudo: urlEscudos + 'huarpes.png',
-      },
-      resultadoLocal: 6,
-      resultadoVisitante: 3,
-      penalesLocal: '',
-      penalesVisitante: '',
-      fechaPartido: '',
-      fecha: 'Fecha N° 2',
-      idEstadio: {
-        nombreEstadio: '',
-        direccion: '',
-      },
-      posicionFixture: '',
-      comentarios: [],
-      campeonato: {
-        tituloCampeonato: '',
-        fechaInicio: '',
-        fechaFin: '',
-        keyCategoria: '',
-      },
-      idTabla: {},
-    },
-  ],  */
   partidos: [],
   partido: {},
   isAgregarPartido: {
@@ -155,9 +39,29 @@ const partidosPorDefecto = {
     id: '',
   },
   isPartido: {isMostrar: false, tipo: '', mensaje: '', isExito: false, isError: false},
+  isCargandoEditorEnfrentamiento: true,
+  errrorEditorEnfrentamiento: null,
+  datosEditorEnfrentamiento: null,
+  modalEditorEnfrentamiento: {
+    tipo: '',
+    isMostrar: false,
+    mensaje: '',
+    datos: null,
+  },
 };
 const storePartidos = (state = partidosPorDefecto, accion) => {
   switch (accion.type) {
+    case controlModalGenericoEditorEnfrentamiento: {
+      return {
+        ...state,
+        modalEditorEnfrentamiento: {
+          tipo: accion.modal.tipo,
+          isMostrar: accion.modal.isMostrar,
+          mensaje: accion.modal.mensaje,
+          datos: accion.modal.datos,
+        },
+      };
+    }
     case agregarPartidoCargando: {
       return {
         ...state,
@@ -301,6 +205,19 @@ const storePartidos = (state = partidosPorDefecto, accion) => {
           mensaje: '',
         },
         partidos: [],
+      };
+    }
+    //Restructurando
+    case cargarZonasParaEditorEnfrentamiento: {
+      return {
+        ...state,
+        zonas: accion.payload,
+        modalEditorEnfrentamiento: {
+          tipo: '',
+          mensaje: '',
+          datos: '',
+          isMostrar: false,
+        },
       };
     }
     default:

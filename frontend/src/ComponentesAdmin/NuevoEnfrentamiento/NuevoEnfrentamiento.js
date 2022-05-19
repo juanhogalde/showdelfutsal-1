@@ -1,13 +1,17 @@
 import React from 'react';
-import Enfrentamiento from '../Enfrentamiento/Enfrentamiento';
-import TarjetaEnfrentamiento from '../TarjetaEnfrentamiento/TarjetaEnfrentamiento';
+import {useSelector} from 'react-redux';
+import EditorEnfrentamientos from '../EditorEnfrentamientos/EditorEnfrentamientos';
+
 import './NuevoEnfrentamiento.css';
 
 const NuevoEnfrentamiento = () => {
+  const {categorias, subcategorias} = useSelector(state => state.sotreDatosIniciales);
   return (
     <div className="CP-NuevoEnfrentamiento">
-      <Enfrentamiento></Enfrentamiento>
-      <TarjetaEnfrentamiento></TarjetaEnfrentamiento>
+      <EditorEnfrentamientos
+        categorias={categorias}
+        subcategorias={subcategorias}
+      ></EditorEnfrentamientos>
     </div>
   );
 };

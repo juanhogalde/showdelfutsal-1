@@ -14,6 +14,7 @@ import {
 
 const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
   const dispatch = useDispatch();
+  console.log(equipos);
   const {isAgregarPartido} = useSelector(state => state.storePartidos);
   const [isMostrarCuerpo, setIsMostrarCuerpo] = useState(false);
   const [equiposSelector, setEquiposSelector] = useState([]);
@@ -130,28 +131,29 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
     }
   };
   useLayoutEffect(() => {
-    if (equipos.length > 0) {
-      if (equiposSelector.length === 0) {
-        let auxEquiposSelector = equipos.map((equipo, index) => {
-          return {
-            label: equipo.nombreClub,
-            value: index + 1,
-            data: equipo,
-          };
-        });
-        setEquiposSelector(auxEquiposSelector);
-      }
-    }
-    return () => {};
+    // if (equipos.length > 0) {
+    //   if (equiposSelector.length === 0) {
+    //     let auxEquiposSelector = equipos.map((equipo, index) => {
+    //       return {
+    //         label: equipo.nombreClub,
+    //         value: index + 1,
+    //         data: equipo,
+    //       };
+    //     });
+    //     setEquiposSelector(auxEquiposSelector);
+    //   }
+    // }
+    // return () => {};
   }, [equipos, equiposSelector]);
 
   useEffect(() => {
-    if (equipos.length === 0) {
-      setEquiposSelector([]);
-    }
-    return () => {
-      valoresPorDefecto([]);
-    };
+    //TODO:RENDERIZADO INFINITO
+    // if (equipos.length === 0) {
+    //   setEquiposSelector([]);
+    // }
+    // return () => {
+    //   valoresPorDefecto([]);
+    // };
   }, [equipos]);
 
   return (
