@@ -13,3 +13,4 @@ const ImagenesSchema = new Schema({
 });
 
 export default model<IImagenes>('modeloImagenes', ImagenesSchema);
+

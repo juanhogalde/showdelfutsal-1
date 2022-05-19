@@ -1,6 +1,8 @@
 .CP-Cargando {
-  width: 100%;
-  max-width: 180px;
+  height: 100vh;
+  margin-top: 35vh;
+  width: min(100% - 2rem, 180px);
+  margin-inline: auto;
 }
 .CP-Cargando img {
   width: 100%;
