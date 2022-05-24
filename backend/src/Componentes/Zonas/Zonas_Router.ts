@@ -13,6 +13,7 @@ class ZonasRouter {
     this.router.post('/listar', zonasController.listar);
     this.router.get('/obtenerEquiposPorZona/:idZona', zonasController.obtenerEquiposPorZona);
     this.router.get('/obtenerPorId/:idZona', zonasController.obtenerZonaPorId);
+    this.router.get('/obtenerDatosEnfrentamiento/:idZona', zonasController.obtenerDatosEnfrentamiento);
 
     this.router.post('/agregar', zonasController.agregar);
     this.router.delete('/eliminar', zonasController.eliminar);

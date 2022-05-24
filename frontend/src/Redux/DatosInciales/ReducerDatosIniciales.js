@@ -137,6 +137,7 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
       };
     }
     case cargaDatosInicialesPublicosExito: {
+      console.log(accion.payload);
       return {
         ...state,
         datosPublicos: accion.payload,

@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Selector from '../Selector/Selector';
 import TarjetaEnfrentamiento from '../TarjetaEnfrentamiento/TarjetaEnfrentamiento';
 import './EditorEnfrentamientos.css';
@@ -6,10 +6,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {obtenerDatosDeTorneoParaEdicionDefault_accion} from '../../Redux/Torneos/AccionesTorneos';
 import Alertas from '../Alertas/Alertas';
 import Enfrentamiento from '../Enfrentamiento/Enfrentamiento';
-import {
-  listarEquipos_accion,
-  obtenerEquiposDeZonaDefault_accion,
-} from '../../Redux/Equipos/AccionesEquipos';
 import {
   controlModalGenericoEditorEnfrentamiento_accion,
   eliminarPartidoConsultar_accion,
@@ -23,17 +19,14 @@ import BotonLowa from '../BotonLowa/BotonLowa';
 
 const EditorEnfrentamientos = ({datosSeleccionados, categorias = [], subcategorias = []}) => {
   const dispatch = useDispatch();
-  const {torneos, torneo, isObtenerDatosEditarTorneo} = useSelector(state => state.storeTorneos);
-
-  const {equipos} = useSelector(state => state.storeEquipos);
+  
+  const {torneos, isObtenerDatosEditarTorneo} = useSelector(state => state.storeTorneos);
   const {zonas, partidos, isEliminarPartido, isObtenerPartidos, modalEditorEnfrentamiento} =
     useSelector(state => state.storePartidos);
-
   const [datosFiltrados, setDatosFiltrados] = useState(datosSeleccionados);
   const [arraySubCategorias, setArraySubCategorias] = useState([]);
   const [arrayZonas, setArrayZonas] = useState([]);
-  const [arrayEquiposZona, setArrayEquiposZona] = useState([]);
-  const [isMostrarComponenteEnfrentamiento, setIsMostrarComponenteEnfrentamiento] = useState(false);
+  const [isMostrarComponenteEnfrentamiento, setIsMostrarComponenteEnfrentamiento] = useState(datosSeleccionados?true:false);
 
   const escucharSelectorTorneo = value => {
     setDatosFiltrados({
@@ -43,7 +36,6 @@ const EditorEnfrentamientos = ({datosSeleccionados, categorias = [], subcategori
   };
 
   const escucharSelectorCategoria = value => {
-    // setIsMostrarComponenteEnfrentamiento(false);
     setDatosFiltrados({
       torneo: datosFiltrados.torneo,
       categoria: value,
@@ -76,23 +68,19 @@ const EditorEnfrentamientos = ({datosSeleccionados, categorias = [], subcategori
     setArrayZonas(auxZonasParaSelector);
   };
   const escucharSelectorZona = value => {
-    setDatosFiltrados({
-      ...datosFiltrados,
-      zona: value,
-    });
-    console.log(value);
     const equiposParaSelector = value.data.equipos.map((equipo, index) => {
       return {
-        label: equipo.nombreClub,
+        label: equipo._id,
         value: index + 1,
         data: equipo,
       };
     });
-    setArrayEquiposZona(equiposParaSelector);
+    setDatosFiltrados({
+      ...datosFiltrados,
+      zona: value,
+      equipos: equiposParaSelector,
+    });
     setIsMostrarComponenteEnfrentamiento(true);
-    /* TODO: implementar ruta para obtener equipos por id de zona */
-    /* dispatch(obtenerEquiposDeZona_accion(value.data._id)) */
-    // dispatch(listarEquipos_accion());
   };
 
   const obtenerRespuestaDeAlertaEditarTorneo = respuesta => {
@@ -144,33 +132,6 @@ const EditorEnfrentamientos = ({datosSeleccionados, categorias = [], subcategori
       }
     }
   };
-
-  // useLayoutEffect(() => {
-  //   if (equipos?.length > 0) {
-  //     let auxArrayEquiposZona = [];
-  //     if (datosFiltrados) {
-  //       if (datosFiltrados.zona) {
-  //         datosFiltrados.zona.data.equipos.forEach(equipoZona => {
-  //           let auxEquipo = equipos.find(equipo => equipo._id === equipoZona._id);
-  //           auxArrayEquiposZona.push(auxEquipo);
-  //         });
-  //         setArrayEquiposZona(auxArrayEquiposZona);
-  //         /* dispatch(listarPartidos_accion()); */
-  //       }
-  //     }
-  //   }
-
-  //   return () => {
-  //     dispatch(obtenerPartidosDeZonaDefault_accion());
-  //   };
-  // }, [torneos, equipos, datosFiltrados, dispatch]);
-
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(obtenerEquiposDeZonaDefault_accion());
-  //   };
-  // }, [dispatch]);
-
   return (
     <React.Fragment>
       <div className="CP-EditorEnfrentamientos">
@@ -216,7 +177,7 @@ const EditorEnfrentamientos = ({datosSeleccionados, categorias = [], subcategori
             }
           ></Selector>
         )}
-        {zonas && datosFiltrados?.subcategoria && (
+        {datosFiltrados?.subcategoria && (
           <Selector
             placeholder="Seleccione Zona"
             options={arrayZonas ? arrayZonas : []}
@@ -227,10 +188,10 @@ const EditorEnfrentamientos = ({datosSeleccionados, categorias = [], subcategori
         )}
         {isMostrarComponenteEnfrentamiento && (
           <div className="CI-componenteEnfrentamiento">
-            {arrayEquiposZona.length ? (
+            {datosFiltrados?.equipos?.length ? (
               <React.Fragment>
                 <Enfrentamiento
-                  equipos={arrayEquiposZona ? arrayEquiposZona : []}
+                  equipos={datosFiltrados.equipos ? datosFiltrados.equipos : []}
                   torneoId={datosFiltrados.torneo.idTorneo ? datosFiltrados.torneo.idTorneo : ''}
                   zonaId={datosFiltrados.zona.data ? datosFiltrados.zona.data._id : ''}
                 ></Enfrentamiento>

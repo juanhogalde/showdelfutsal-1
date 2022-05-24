@@ -116,33 +116,18 @@ export const obtenerDatosInicialesPublicos = () => {
     dispatch(cargandoDatosInicialesPublicos_accion());
 
     API({
-      // url: '/datosIniciales/publicos',
+      url: 'home/datosIniciales/',
       method: 'get',
     })
       .then(res => {
+        // console.log(res.data.value)
         //TODO:CAMBIAR URL Y DATOS CAUNDO ESTE LISTA LA RUTA
         const respuestaSimulada = {
-          noticias: {
-            masculino: {
-              noticiaP: {},
-              noticia1: {},
-              noticia2: {},
-            },
-            femenino: {
-              noticiaP: {},
-              noticia1: {},
-              noticia2: {},
-            },
-            liga: {
-              noticiaP: {},
-              noticia1: {},
-              noticia2: {},
-            },
-          },
-          partidos: [],
+          noticias: res.data.value.noticias,
+          partidos: res.data.value.partidos,
           videoVivo: {},
-          galerias: [],
-          publicaciones: {},
+          galerias: res.data.value.galerias,
+          publicaciones:  res.data.value.publicaciones,
         };
         dispatch(cargaDatosInicialesPublicosExito_accion(respuestaSimulada));
       })

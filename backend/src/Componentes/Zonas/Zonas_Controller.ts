@@ -313,6 +313,42 @@ class ZonasController {
       responder.error(req, res, error);
     }
   }
+  public async obtenerDatosEnfrentamiento(req: Request, res: Response) {
+    try {
+      let idZona = req.params.idZona;
+      if (!idZona) {
+        responder.error(req, res, '', 'Falta id de zona', 400);
+      } else {
+        modeloZonas
+          .findById(idZona)
+          .populate('equipos._id')
+          .populate('idTorneo')
+          .populate('idCategoria')
+          .populate('idSubcategoria')
+          .then((zona: any) => {
+            if (!zona) {
+              responder.error(
+                req,
+                res,
+                'No se enctoro la zona solicitada',
+                'No se enctoro la zona solicitada',
+                400
+              );
+            } else {
+              const eq = zona.equipos.map((equipo: any) => {
+                return equipo._id;
+              });
+              responder.sucess(req, res, {...zona._doc, equipos: eq});
+            }
+          })
+          .catch((error: any) => {
+            responder.error(req, res, error);
+          });
+      }
+    } catch (error) {
+      responder.error(req, res, error);
+    }
+  }
 }
 
 export const zonasController = new ZonasController();

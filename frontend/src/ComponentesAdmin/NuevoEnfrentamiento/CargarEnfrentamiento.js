@@ -1,6 +1,7 @@
 import React, {useLayoutEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
+import { obtenerDatosParaCargarEnfrentamientos } from '../../Redux/Partidos/AccionPartidos';
 import Cargando from '../Cargando/Cargando';
 import EditorEnfrentamientos from '../EditorEnfrentamientos/EditorEnfrentamientos';
 
@@ -14,10 +15,10 @@ const CargarEnfrentamiento = () => {
     useSelector(state => state.storePartidos);
   useLayoutEffect(() => {
     if (zonaId) {
-      // dispatch(obtenerDatosZonaParaCargarEnfrentamientos(zonaId));
-    }
+      dispatch(obtenerDatosParaCargarEnfrentamientos(zonaId));
+    } 
     return () => {};
-  }, [zonaId]);
+  }, [zonaId,dispatch]);
   if (isCargandoEditorEnfrentamiento) {
     return (
       <div className="CP-NuevoEnfrentamiento">
@@ -33,6 +34,7 @@ const CargarEnfrentamiento = () => {
           <EditorEnfrentamientos
             categorias={categorias}
             subcategorias={subcategorias}
+            datosSeleccionados={datosEditorEnfrentamiento}
           ></EditorEnfrentamientos>
         )}
       </div>

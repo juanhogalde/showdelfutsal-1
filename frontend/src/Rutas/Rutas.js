@@ -27,7 +27,7 @@ const Rutas = () => {
       dispatch(listarNoticia_accion());
       dispatch(obtenerDatosIniciales());
     } else {
-      dispatch(obtenerDatosIniciales());
+      // dispatch(obtenerDatosIniciales());
       dispatch(obtenerDatosInicialesPublicos());
     }
   }, [dispatch, usuarioLogueado]);

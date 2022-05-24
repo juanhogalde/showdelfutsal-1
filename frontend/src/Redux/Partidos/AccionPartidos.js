@@ -4,9 +4,7 @@ export const agregarPartidoExito = 'agregarPartidoExito';
 export const agregarPartidoError = 'agregarPartidoError';
 export const agregarPartidoDefault = 'agregarPartidoDefault';
 
-export const listarPartidosCargando = 'listarPartidosCargando';
-export const listarPartidosExito = 'listarPartidosExito';
-export const listarPartidosError = 'listarPartidosError';
+
 
 export const eliminarPartidoConsultar = 'eliminarPartidoConsultar';
 export const eliminarPartidoCargando = 'eliminarPartidoCargando';
@@ -63,40 +61,42 @@ export const agregarPartido_accion = enfrentamiento => {
   };
 };
 
-/*  Listar Partido  */
-export const listarPartidosCargando_accion = () => {
+/*  Cargar Enfrentamiento  */
+export const obtenerDatosParaCargarEnfrentamientosCargando = 'obtenerDatosParaCargarEnfrentamientosCargando';
+export const obtenerDatosParaCargarEnfrentamientosExito = 'obtenerDatosParaCargarEnfrentamientosExito';
+export const obtenerDatosParaCargarEnfrentamientosError = 'obtenerDatosParaCargarEnfrentamientosError';
+export const obtenerDatosParaCargarEnfrentamientosCargando_accion = () => {
   return {
-    type: listarPartidosCargando,
+    type: obtenerDatosParaCargarEnfrentamientosCargando,
   };
 };
 
-export const listarPartidosExito_accion = datos => {
+export const obtenerDatosParaCargarEnfrentamientosExito_accion = datos => {
   return {
-    type: listarPartidosExito,
-    datos: datos,
+    type: obtenerDatosParaCargarEnfrentamientosExito,
+    payload: datos,
   };
 };
 
-export const listarPartidosError_accion = () => {
+export const obtenerDatosParaCargarEnfrentamientosError_accion = (error) => {
   return {
-    type: listarPartidosError,
+    type: obtenerDatosParaCargarEnfrentamientosError,
+    payload:error
   };
 };
 
-export const listarPartidos_accion = () => {
+export const obtenerDatosParaCargarEnfrentamientos = (id) => {
   return dispatch => {
-    /* dispatch(listarPartidosCargando_accion()); */
+     dispatch(obtenerDatosParaCargarEnfrentamientosCargando_accion());
     API({
-      url: '/Partidos/Listar',
+      url: `zonas/obtenerDatosEnfrentamiento/${id}`,
       method: 'get',
-      /* data: enfrentamiento, */
     })
       .then(res => {
-        /* dispatch(listarPartidosExito_accion(res.data.value)); */
+        dispatch(obtenerDatosParaCargarEnfrentamientosExito_accion(res.data.value));
       })
       .catch(error => {
-        console.log({error});
-        /*  dispatch(listarPartidosError_accion()); */
+          dispatch(obtenerDatosParaCargarEnfrentamientosError_accion(error)); 
       });
   };
 };
@@ -230,9 +230,7 @@ export const obtenerZonasParaEditorEnfrentamiento = id => {
       data: {idTorneo: id},
     })
       .then(res => {
-        console.log({res});
         dispatch(cargarZonasParaEditorEnfrentamiento_accion(res.data.value));
-        // dispatch(obtenerDatosDeTorneoParaEdicionExito_accion(res.data.value));
       })
       .catch(error => {
         console.log({error});

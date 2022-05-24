@@ -15,6 +15,10 @@ import {
   obtenerPartidosDeZonaDefault,
   controlModalGenericoEditorEnfrentamiento,
   cargarZonasParaEditorEnfrentamiento,
+  /*  Cargar Enfrentamiento  */
+  obtenerDatosParaCargarEnfrentamientosCargando,
+obtenerDatosParaCargarEnfrentamientosExito,
+obtenerDatosParaCargarEnfrentamientosError,
 } from './AccionPartidos';
 /* import {urlEscudos} from '../../Entorno'; */
 
@@ -39,15 +43,17 @@ const partidosPorDefecto = {
     id: '',
   },
   isPartido: {isMostrar: false, tipo: '', mensaje: '', isExito: false, isError: false},
-  isCargandoEditorEnfrentamiento: true,
-  errrorEditorEnfrentamiento: null,
-  datosEditorEnfrentamiento: null,
   modalEditorEnfrentamiento: {
     tipo: '',
     isMostrar: false,
     mensaje: '',
     datos: null,
   },
+  /*  Cargar Enfrentamiento  */
+  isCargandoEditorEnfrentamiento: true,
+  datosEditorEnfrentamiento: null,
+  errrorEditorEnfrentamiento: null,
+
 };
 const storePartidos = (state = partidosPorDefecto, accion) => {
   switch (accion.type) {
@@ -220,6 +226,62 @@ const storePartidos = (state = partidosPorDefecto, accion) => {
         },
       };
     }
+    case obtenerDatosParaCargarEnfrentamientosCargando :{
+      return {
+        ...state,
+        isCargandoEditorEnfrentamiento: true,
+        datosEditorEnfrentamiento: null,
+        errrorEditorEnfrentamiento: null,
+        
+      }
+    }
+case obtenerDatosParaCargarEnfrentamientosExito :{
+  const datosModelados = {
+    torneo: {
+      idTorneo:accion.payload.idTorneo._id,
+      label:accion.payload.idTorneo.tituloTorneo,
+      value:accion.payload.idTorneo._id
+    }, 
+    categoria: {
+      label:accion.payload.idCategoria.nombreCategoria,
+      value:accion.payload.idCategoria.keyCategoria,
+      key:accion.payload.idCategoria.keyCategoria
+    },
+    subcategoria:{
+      label:accion.payload.idSubcategoria.nombreSubcategoria,
+      value:accion.payload.idSubcategoria.keyCategoria,
+      key:accion.payload.idSubcategoria.keySubcategoria,
+      keyCategoria:accion.payload.idSubcategoria.keyCategoria
+    },
+     zona : {
+       data:accion.payload,
+      label:accion.payload.nombreZona,
+      value:1
+      },
+     equipos: accion.payload.equipos.map((equipo,index) =>{
+       return{
+          data:equipo,
+          label:equipo.nombreClub,
+          value:index
+       }
+     }) 
+    };
+  return {
+    ...state,
+    datosEditorEnfrentamiento: datosModelados,
+    errrorEditorEnfrentamiento: null,
+    isCargandoEditorEnfrentamiento: false,    
+  }
+}
+case obtenerDatosParaCargarEnfrentamientosError :{
+  console.log(accion.payload)
+  return {
+    ...state,
+    errrorEditorEnfrentamiento: "No se pudieron obtener los datos",
+    datosEditorEnfrentamiento: null,
+    isCargandoEditorEnfrentamiento: false,
+  }
+}
     default:
       return state;
   }

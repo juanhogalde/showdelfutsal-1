@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import './Enfrentamiento.css';
 import iconoFlecha from '../../Static/Admin/iconoAtras.svg';
 import InputDateLowa from '../InputDateLowa/InputDateLowa';
@@ -14,10 +14,9 @@ import {
 
 const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
   const dispatch = useDispatch();
-  console.log(equipos);
   const {isAgregarPartido} = useSelector(state => state.storePartidos);
   const [isMostrarCuerpo, setIsMostrarCuerpo] = useState(false);
-  const [equiposSelector, setEquiposSelector] = useState([]);
+  const [equiposSelector, setEquiposSelector] = useState(equipos);
   const [datosEnfrentamiento, setDatosEnfrentamiento] = useState({
     equipoLocal: '',
     equipoVisitante: '',
@@ -48,7 +47,7 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
       default:
         break;
     }
-    let auxEquiposSelector = equiposSelector.filter(equipo => equipo.data._id !== value.data._id);
+    let auxEquiposSelector = equipos.filter(equipo => equipo.data._id !== value.data._id);
     setEquiposSelector(auxEquiposSelector);
   };
 
@@ -112,7 +111,7 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
       idZona: '',
       idTorneo: '',
     });
-    setEquiposSelector([]);
+    setEquiposSelector(equipos);
   };
   const obtenerRespuestaAlertaValidacion = respuesta => {
     if (respuesta) {
@@ -130,32 +129,6 @@ const Enfrentamiento = ({equipos = [], torneoId = '', zonaId = ''}) => {
       dispatch(agregarPartidoDefault_accion());
     }
   };
-  useLayoutEffect(() => {
-    // if (equipos.length > 0) {
-    //   if (equiposSelector.length === 0) {
-    //     let auxEquiposSelector = equipos.map((equipo, index) => {
-    //       return {
-    //         label: equipo.nombreClub,
-    //         value: index + 1,
-    //         data: equipo,
-    //       };
-    //     });
-    //     setEquiposSelector(auxEquiposSelector);
-    //   }
-    // }
-    // return () => {};
-  }, [equipos, equiposSelector]);
-
-  useEffect(() => {
-    //TODO:RENDERIZADO INFINITO
-    // if (equipos.length === 0) {
-    //   setEquiposSelector([]);
-    // }
-    // return () => {
-    //   valoresPorDefecto([]);
-    // };
-  }, [equipos]);
-
   return (
     <div className="CP-Enfrentamiento">
       <div
