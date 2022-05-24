@@ -29,6 +29,7 @@ import NuevaGaleriaVideo from '../ComponentesAdmin/NuevaGaleriaVideo/NuevaGaleri
 import PaginaVivoAdmin from '../ComponentesAdmin/PaginaVivoAdmin/PaginaVivoAdmin';
 import NuevoVivo from '../ComponentesAdmin/NuevoVivo/NuevoVivo';
 import AgregarEquipos from '../ComponentesAdmin/AgregarEquipos/AgregarEquipos';
+import EditorEquipos from '../ComponentesAdmin/EditorEquipos/EditorEquipos';
 // import EditorEnfrentamientos from '../ComponentesAdmin/EditorEnfrentamientos/EditorEnfrentamientos';
 
 const RutasPrivadas = () => {
@@ -75,6 +76,7 @@ const RutasPrivadas = () => {
           <Route exact component={PaginaVivoAdmin} path="/Vivo"></Route>
           <Route exact component={NuevoVivo} path="/Vivo/Nuevo/:tipo"></Route>
           <Route exact component={NuevoVivo} path="/Vivo/Editar/:tipo"></Route>
+          <Route exact component={EditorEquipos} path="/Equipos"></Route>
 
           <Route exact path="/fixture">
             <h1>Fixture</h1>
