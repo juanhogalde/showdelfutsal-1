@@ -152,3 +152,121 @@ export const obtenerDatosInicialesPublicos = () => {
       });
   };
 };
+
+// Seccion editor equipos
+
+export const controlModalGenericoEditorEquipo = 'controlModalGenericoEditorEquipo';
+export const controlModalGenericoEditorEquipo_accion = datos => {
+  return {
+    type: controlModalGenericoEditorEquipo,
+    payload: datos,
+  };
+};
+
+export const crearEquiposExito = 'crearEquiposExito';
+export const crearEquiposExito_accion = equipo => {
+  return {
+    type: crearEquiposExito,
+    payload: equipo,
+  };
+};
+export const crearEquiposError = 'crearEquiposError';
+export const crearEquiposError_accion = error => {
+  return {
+    type: crearEquiposError,
+    payload: error,
+  };
+};
+export const agregarEquipoNuevo = equipo => {
+  return dispatch => {
+    dispatch(
+      controlModalGenericoEditorEquipo_accion({
+        isMostar: true,
+        tipo: 'cargando',
+        mensaje: 'cargando',
+        data: 'nuevo',
+      })
+    );
+    if (equipo.nombre && equipo.subcategoria && equipo.categoria && equipo.escudo) {
+      const equipoFormateado = new FormData();
+      equipoFormateado.append('escudo', equipo.escudo);
+      equipoFormateado.append('nombre', equipo.nombre);
+      equipoFormateado.append('categoria', equipo.categoria);
+      equipoFormateado.append('subcategoria', equipo.subcategoria);
+      API({
+        url: 'equipos/agregar',
+        method: 'post',
+        data: equipoFormateado,
+      })
+        .then(res => {
+          dispatch(crearEquiposExito_accion(res.data.value));
+        })
+        .catch(error => {
+          dispatch(crearEquiposError_accion(error));
+        });
+    } else {
+      dispatch(
+        controlModalGenericoEditorEquipo_accion({
+          isMostar: true,
+          tipo: 'error',
+          mensaje: 'Faltan datos requeridos',
+          data: null,
+        })
+      );
+    }
+  };
+};
+export const editorEquiposExito = 'editorEquiposExito';
+export const editorEquiposExito_accion = equipo => {
+  return {
+    type: editorEquiposExito,
+    payload: equipo,
+  };
+};
+export const editorEquiposError = 'editorEquiposError';
+export const editorEquiposError_accion = error => {
+  return {
+    type: editorEquiposError,
+    payload: error,
+  };
+};
+export const modificarEquipo = equipo => {
+  return dispatch => {
+    dispatch(
+      controlModalGenericoEditorEquipo_accion({
+        isMostar: true,
+        tipo: 'cargando',
+        mensaje: 'cargando',
+        data: 'modificar',
+      })
+    );
+    if (equipo.nombre && equipo.subcategoria && equipo.categoria && equipo._id) {
+      let body;
+      if (equipo.escudo) {
+        body = new FormData();
+        body.append('escudo', equipo.escudo);
+        body.append('nombre', equipo.nombre);
+        body.append('categoria', equipo.categoria);
+        body.append('subcategoria', equipo.subcategoria);
+      } else {
+        body = equipo;
+      }
+      API({url: 'equipos/modificar', method: 'put', data: body})
+        .then(res => {
+          dispatch(editorEquiposExito_accion(res.data.value));
+        })
+        .catch(error => {
+          dispatch(editorEquiposError_accion(error));
+        });
+    } else {
+      dispatch(
+        controlModalGenericoEditorEquipo_accion({
+          isMostar: true,
+          tipo: 'error',
+          mensaje: 'Faltan datos requeridos',
+          data: null,
+        })
+      );
+    }
+  };
+};

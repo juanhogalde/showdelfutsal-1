@@ -18,6 +18,7 @@ const Rutas = () => {
   const {usuarioLogueado} = useSelector(state => state.storeLogueo);
 
   const dispatch = useDispatch();
+  //TODO:FALTA CONTROLAR DATOS INCIALES PRIVADOS
   useEffect(() => {
     if (usuarioLogueado) {
       dispatch(listarPublicidades_accion());
