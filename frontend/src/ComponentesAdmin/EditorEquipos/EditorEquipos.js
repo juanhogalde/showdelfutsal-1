@@ -2,7 +2,7 @@ import Selector from '../Selector/Selector';
 import InputLowa from '../InputLowa/InputLowa';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import Alertas from '../Alertas/Alertas';
-import React, {useState, useLayoutEffect} from 'react';
+import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import './EditorEquipos.css';
 import {
@@ -13,7 +13,7 @@ import {
 
 const EditorEquipos = () => {
   const dispatch = useDispatch();
-  const [equipos, setEquipos] = useState();
+  // const [equipos, setEquipos] = useState();
   const [equipo, setEquipo] = useState();
   const [equipoSeleccionado, setEquipoSeleccionado] = useState();
   const {categorias, subcategorias, listaEquipos, modalGenericoEditorEquipo} = useSelector(

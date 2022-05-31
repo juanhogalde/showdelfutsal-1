@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, { useState} from 'react';
 import './Enfrentamiento.css';
 import iconoFlecha from '../../Static/Admin/iconoAtras.svg';
 import InputDateLowa from '../InputDateLowa/InputDateLowa';
