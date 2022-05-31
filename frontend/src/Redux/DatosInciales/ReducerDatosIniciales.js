@@ -8,6 +8,11 @@ import {
   cargandoDatosInicialesPublicos,
   cargaDatosInicialesPublicosExito,
   cargaDatosInicialesPulbicosError,
+  controlModalGenericoEditorEquipo,
+  crearEquiposExito,
+  crearEquiposError,
+  editorEquiposExito,
+  editorEquiposError,
 } from './AccionesDatosIniciales';
 import {actualizarDisponibilidadMedidasPublicidad} from '../Publicidades/AccionesPublicidades';
 const datosInicialesPorDefecto = {
@@ -28,6 +33,25 @@ const datosInicialesPorDefecto = {
   isDatosIniciales: {isMostrar: false, tipo: '', mensaje: ''},
   datosIniciales: null,
   categorias: [],
+  listaEquipos: [
+    {
+      _id: 1,
+      nombre: 'Equipo 1',
+      escudo:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Logo_FC_Barcelona.svg/1200px-Logo_FC_Barcelona.svg.png',
+      categoria: {value: '1', label: 'Masculino', key: 1},
+      subcategoria: {value: '1', label: 'Divisional A', key: 1, keyCategoria: 1},
+    },
+    {
+      _id: 2,
+      nombre: 'Equipo 2',
+      escudo:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Logo_FC_Barcelona.svg/1200px-Logo_FC_Barcelona.svg.png',
+      categoria: {value: '1', label: 'Masculino', key: 1},
+      subcategoria: {value: '1', label: 'Divisional A', key: 1, keyCategoria: 1},
+    },
+  ],
+  modalGenericoEditorEquipo: {isMostrar: false, tipo: '', mensaje: '', data: null},
   subcategorias: [],
   medidasPublicidad: [],
   categoriaSeleccionada: null,
@@ -151,6 +175,73 @@ const sotreDatosIniciales = (state = datosInicialesPorDefecto, accion) => {
         isErrorDatosPublicos: 'No se pudieron cargar los datos necesarios',
         datosPublicos: null,
         cargandoDatosPublicos: false,
+      };
+    }
+    case controlModalGenericoEditorEquipo: {
+      return {
+        ...state,
+        modalGenericoEditorEquipo: {
+          isMostrar: accion.payload.isMostrar,
+          tipo: accion.payload.tipo,
+          mensaje: accion.payload.mensaje,
+          data: accion.payload.dato,
+        },
+      };
+    }
+    case crearEquiposExito: {
+      return {
+        ...state,
+        listaEquipos: [...state.listaEquipos, accion.payload],
+        modalGenericoEditorEquipo: {
+          isMostrar: true,
+          tipo: 'success',
+          mensaje: 'Equipo agregado',
+          data: 'nuevo',
+        },
+      };
+    }
+    case crearEquiposError: {
+      console.log(accion.payload);
+      return {
+        ...state,
+        listaEquipos: [...state.listaEquipos, accion.payload],
+        modalGenericoEditorEquipo: {
+          isMostrar: true,
+          tipo: 'error',
+          mensaje: 'No se pudo agregar el equipo',
+          data: 'nuevo',
+        },
+      };
+    }
+    case editorEquiposExito: {
+      const listaEquiposEditado = state.listaEquipos.map(equipo => {
+        if (equipo._id === accion.payload._id) {
+          return accion.payload;
+        } else {
+          return equipo;
+        }
+      });
+      return {
+        ...state,
+        listaEquipos: listaEquiposEditado,
+        modalGenericoEditorEquipo: {
+          isMostrar: true,
+          tipo: 'success',
+          mensaje: 'Equipo agregado',
+          data: accion.payload,
+        },
+      };
+    }
+    case editorEquiposError: {
+      console.log(accion.payload);
+      return {
+        ...state,
+        modalGenericoEditorEquipo: {
+          isMostrar: true,
+          tipo: 'error',
+          mensaje: 'No se pudo editar el equipo',
+          data: accion.payload,
+        },
       };
     }
     default:

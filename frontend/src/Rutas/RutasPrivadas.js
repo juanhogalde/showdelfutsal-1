@@ -29,6 +29,7 @@ import NuevaGaleriaVideo from '../ComponentesAdmin/NuevaGaleriaVideo/NuevaGaleri
 import PaginaVivoAdmin from '../ComponentesAdmin/PaginaVivoAdmin/PaginaVivoAdmin';
 import NuevoVivo from '../ComponentesAdmin/NuevoVivo/NuevoVivo';
 import AgregarEquipos from '../ComponentesAdmin/AgregarEquipos/AgregarEquipos';
+import EditorEquipos from '../ComponentesAdmin/EditorEquipos/EditorEquipos';
 // import EditorEnfrentamientos from '../ComponentesAdmin/EditorEnfrentamientos/EditorEnfrentamientos';
 
 const RutasPrivadas = () => {
@@ -51,6 +52,7 @@ const RutasPrivadas = () => {
           <Route exact component={PaginaTorneosAdmin} path="/Torneos"></Route>
           <Route exact component={PaginaVivoAdmin} path="/Vivo"></Route>
           <Route exact component={NuevoEnfrentamiento} path="/Enfrentamientos/nuevo"></Route>
+          <Route exact component={EditorEquipos} path="/Equipos"></Route>
            {/*FIN RUTAS INICIALES */}
           <Route exact component={InicioAdmin} path="/"></Route>
           <Route exact component={EditarPublicidad} path="/Publicidad/Editar/:id"></Route>

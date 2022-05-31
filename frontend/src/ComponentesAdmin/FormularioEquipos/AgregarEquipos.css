@@ -1,0 +1,19 @@
+.CP-AgregarEquipos {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 50px;
+}
+.ContenedorCargandoAgregarEquipos {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}

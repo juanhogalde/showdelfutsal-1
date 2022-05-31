@@ -18,7 +18,8 @@ class EquiposController {
 
   public async agregar(req: Request, res: Response) {
     try {
-      const datosBody = req.body;
+      console.log(req.body);
+      /* const datosBody = req.body;
       if (!datosBody) {
         responder.error(req, res, 'No se ingresaron datos');
       } else {
@@ -39,8 +40,8 @@ class EquiposController {
           responder.sucess(req, res, resultado);
         } else {
           responder.error(req, res, 'Error al agregar el equipo');
-        }
-      }
+        } */
+      responder.sucess(req, res, req.body);
     } catch (error) {
       responder.error(req, res, error);
     }
@@ -116,7 +117,10 @@ class EquiposController {
   public async modificar(req: Request, res: Response) {
     try {
       const equipoBody = req.body;
-      if (equipoBody._id) {
+      if (equipoBody) {
+        console.log(equipoBody);
+      }
+      /* if (equipoBody._id) {
         modeloEquipos.findById(equipoBody._id).then(async (equipo: any) => {
           if (equipo) {
             let nameNewFile: string = '';
@@ -162,7 +166,8 @@ class EquiposController {
       } else {
         let error = new Error('Equipo no encontrado');
         responder.error(req, res, error);
-      }
+      } */
+      responder.sucess(req, res, equipoBody);
     } catch (error) {
       responder.error(req, res, error);
     }

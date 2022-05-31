@@ -1,0 +1,22 @@
+.CP-EditarEquipos {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 50px;
+}
+
+.CI-Grilla-Form {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 100px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}

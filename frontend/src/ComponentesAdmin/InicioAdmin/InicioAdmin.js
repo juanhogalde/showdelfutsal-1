@@ -47,6 +47,7 @@ const InicioAdmin = () => {
               url={img6}
               linkTo="Enfrentamientos/Nuevo"
             ></TarjetaPanel>
+            <TarjetaPanel tituloPanel={'Editor Equipos'} url={img5} linkTo="Equipos"></TarjetaPanel>
           </div>
         </div>
       </React.Fragment>

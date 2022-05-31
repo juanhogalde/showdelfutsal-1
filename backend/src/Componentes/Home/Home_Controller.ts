@@ -65,15 +65,16 @@ class HomesController {
           let noticias_masc = noticias.filter(x => x.keyCategoria === keyCategoria.Masculino);
           let noticias_fem = noticias.filter(x => x.keyCategoria === keyCategoria.Femenino);
           let noticias_liga = noticias.filter(x => x.keyCategoria === keyCategoria.LNFA);
-          datosIniciales.noticias.masculino.noticiaP = noticias_masc[0];
-          datosIniciales.noticias.masculino.noticia1 = noticias_masc[1];
-          datosIniciales.noticias.masculino.noticia2 = noticias_masc[2];
-          datosIniciales.noticias.femenino.noticiaP = noticias_fem[0];
-          datosIniciales.noticias.femenino.noticia1 = noticias_fem[1];
-          datosIniciales.noticias.femenino.noticia2 = noticias_fem[2];
-          datosIniciales.noticias.liga.noticiaP = noticias_liga[0];
-          datosIniciales.noticias.liga.noticia1 = noticias_liga[1];
-          datosIniciales.noticias.liga.noticia2 = noticias_liga[2];
+          datosIniciales.noticias.masculino.noticiaP = noticias_masc[0] ? noticias_masc[0] : {};
+          datosIniciales.noticias.masculino.noticia1 = noticias_masc[1] ? noticias_masc[0] : {};
+          datosIniciales.noticias.masculino.noticia2 = noticias_masc[2] ? noticias_masc[0] : {};
+          datosIniciales.noticias.femenino.noticiaP = noticias_fem[0] ? noticias_fem[0] : {};
+          datosIniciales.noticias.femenino.noticia1 = noticias_fem[1] ? noticias_fem[1] : {};
+          datosIniciales.noticias.femenino.noticia2 = noticias_fem[2] ? noticias_fem[2] : {};
+          datosIniciales.noticias.liga.noticiaP = noticias_liga[0] ? noticias_liga[0] : {};
+          datosIniciales.noticias.liga.noticia1 = noticias_liga[1] ? noticias_liga[1] : {};
+          datosIniciales.noticias.liga.noticia2 = noticias_liga[2] ? noticias_liga[2] : {};
+          console.log(datosIniciales.noticias.masculino.noticiaP);
         })
         .catch(error => {
           responder.error(req, res, error);
