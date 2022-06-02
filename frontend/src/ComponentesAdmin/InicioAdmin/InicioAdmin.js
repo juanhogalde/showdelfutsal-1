@@ -1,36 +1,33 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import './InicioAdmin.css';
+import CargandoInicioAdmin from './CargandoInicioAdmin/CargandoInicioAdmin';
 import img1 from '../../Static/Admin/imgPanel.png';
 import img2 from '../../Static/Admin/imgPanel2.png';
 import img3 from '../../Static/Admin/imgPanel3.png';
 import img4 from '../../Static/Admin/imgPanel4.png';
 import img5 from '../../Static/Admin/imgPanel5.png';
 import img6 from '../../Static/Admin/imgPanel6.png';
-import InputLowa from '../InputLowa/InputLowa';
-import {BsSearch} from 'react-icons/bs';
-import TarjetaPanel from '../TarjetaPanel/TarjetaPanel';
-import {useSelector} from 'react-redux';
-import CargandoInicioAdmin from './CargandoInicioAdmin/CargandoInicioAdmin';
-
+const TarjetaPanel = React.lazy(() => import('../TarjetaPanel/TarjetaPanel'));
 const InicioAdmin = () => {
-  const {datosIniciales} = useSelector(state => state.sotreDatosIniciales);
 
-  const escucharCambios = e => {
-    console.log(e);
-  };
+  // const escucharCambios = e => {
+  //   console.log(e);
+  // };
 
-  if (datosIniciales) {
+
     return (
-      <React.Fragment>
+      <Suspense fallback={ <CargandoInicioAdmin
+        cargandoDatosIniciales={true}
+      ></CargandoInicioAdmin>}>
         <div className="LP-HomePrivada">
-          <div className="LI-ComponenteBuscar">
+          {/* <div className="LI-ComponenteBuscar">
             <InputLowa
               type="text"
               placeholder={'Buscar'}
               inputConIcono={<BsSearch></BsSearch>}
               onChange={e => escucharCambios(e)}
             ></InputLowa>
-          </div>
+          </div> */}
           <div className="LI-Tarjetas">
             <TarjetaPanel
               tituloPanel={'Tabla de Posiciones'}
@@ -50,16 +47,7 @@ const InicioAdmin = () => {
             <TarjetaPanel tituloPanel={'Editor Equipos'} url={img5} linkTo="Equipos"></TarjetaPanel>
           </div>
         </div>
-      </React.Fragment>
+      </Suspense>
     );
-  } else {
-    return (
-      <React.Fragment>
-        <CargandoInicioAdmin
-          cargandoDatosIniciales={datosIniciales ? false : true}
-        ></CargandoInicioAdmin>
-      </React.Fragment>
-    );
-  }
 };
 export default InicioAdmin;
