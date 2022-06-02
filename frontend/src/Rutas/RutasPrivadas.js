@@ -44,6 +44,7 @@ const RutasPrivadas = () => {
     return (
       <React.Fragment>
         <Switch>
+        <Route exact component={InicioAdmin} path="/"></Route>
           {/*RUTAS INICIALES */}
           <Route exact component={PaginaTablaAdmin} path="/Tablas"></Route>
           <Route exact component={PaginaPublicidadAdmin} path="/Publicidad"></Route>
@@ -54,7 +55,7 @@ const RutasPrivadas = () => {
           <Route exact component={NuevoEnfrentamiento} path="/Enfrentamientos/nuevo"></Route>
           <Route exact component={EditorEquipos} path="/Equipos"></Route>
            {/*FIN RUTAS INICIALES */}
-          <Route exact component={InicioAdmin} path="/"></Route>
+          
           <Route exact component={EditarPublicidad} path="/Publicidad/Editar/:id"></Route>
           <Route exact component={NuevaPublicidad} path="/Publicidad/Nueva"></Route>
           <Route exact component={NuevoTorneo} path="/Torneo/Nuevo"></Route>
