@@ -2,13 +2,19 @@ import {
   cargandoPublicidad,
   publicidadExito,
   publicidadError,
-  listarPublicidadesExito,
-  listarPublicidadesError,
   buscarPublicidadAEditar,
   publicidadEditadaExito,
   volverPorDefectoPublicidad,
   eliminarPublicidadExito,
   modalPaginaPublicidadAccion,
+  //pagina publicidad admin
+  cargandoPublicidadAdmin,
+  obtenerDatosPaginaPublicidadAdminExito,
+  obtenerDatosPaginaPublicidadAdminError,
+  //NuevaPublicidad
+  cargandoNuevaPublicidad,
+  medidasParaNuevaPublicidadExito,
+  medidasParaNuevaPublicidadError,
 } from './AccionesPublicidades';
 
 const noticiaPorDefecto = {
@@ -27,6 +33,12 @@ const noticiaPorDefecto = {
     mensaje: '',
   },
   publicidadSeleccionadaEdit: {},
+  isCargandoPaginaPublicidad : true,
+  isErrorPaginaPublicidad:null,
+  publicidadesPaginaPublicidad: null,
+  isCargandoComponenteNuevaPublicidad : true,
+  isErrorComponenteNuevaPublicidad:null,
+  medidasParaNuevaPublicidad: null,
 };
 const storePublicidades = (state = noticiaPorDefecto, accion) => {
   switch (accion.type) {
@@ -55,7 +67,6 @@ const storePublicidades = (state = noticiaPorDefecto, accion) => {
           isError: false,
           isPublicidadSeleccionada: false,
         },
-        publicidadSeleccionadaEdit: {},
       };
     }
     case publicidadExito: {
@@ -85,33 +96,7 @@ const storePublicidades = (state = noticiaPorDefecto, accion) => {
         },
       };
     }
-    case listarPublicidadesExito: {
-      return {
-        ...state,
-        publicidades: accion.respuesta,
-        isPublicidad: {
-          isMostrar: false,
-          tipo: '',
-          mensaje: '',
-          isExito: false,
-          isError: false,
-          isPublicidadSeleccionada: false,
-        },
-      };
-    }
-    case listarPublicidadesError: {
-      return {
-        ...state,
-        isPublicidad: {
-          isMostrar: false,
-          tipo: 'error',
-          mensaje: 'accion.error.message',
-          isExito: false,
-          isError: true,
-          isPublicidadSeleccionada: false,
-        },
-      };
-    }
+ 
     case buscarPublicidadAEditar: {
       var resultadoFiltrar = state.publicidades.find(publicidad => publicidad._id === accion.id);
 
@@ -129,24 +114,20 @@ const storePublicidades = (state = noticiaPorDefecto, accion) => {
       };
     }
     case publicidadEditadaExito: {
-      var indexDePublicidad = state.publicidades.findIndex(
-        element => element._id === accion.publicidad.value._id
-      );
-
-      var copiaPublicidades = state.publicidades.slice();
-
-      copiaPublicidades[indexDePublicidad] = accion.publicidad.value;
-
       return {
         ...state,
-        publicidades: copiaPublicidades,
+        publicidadesPaginaPublicidad: state.publicidadesPaginaPublicidad.map(publicidad => {
+          if(publicidad._id === accion.publicidad.value._id){
+            return accion.publicidad.value;
+          }
+          else{
+            return publicidad
+          }
+        }),
         isPublicidad: {
-          isMostrar: false,
+          isMostrar: true,
           tipo: 'success',
           mensaje: 'Publicidad editada',
-          isExito: true,
-          isError: false,
-          isPublicidadSeleccionada: false,
         },
       };
     }
@@ -174,7 +155,68 @@ const storePublicidades = (state = noticiaPorDefecto, accion) => {
         },
       };
     }
+    //Pagina Publicidad Admin
+    case cargandoPublicidadAdmin: {
+      return {
+        ...state,
+        isCargandoPaginaPublicidad:true,
+        publicidadesPaginaPublicidad:null,
+        isErrorPaginaPublicidad:null
+      };
+    }
+    case obtenerDatosPaginaPublicidadAdminExito: {
+      return {
+        ...state,
+        publicidadesPaginaPublicidad: accion.payload,
+        isErrorPaginaPublicidad:null,
+        isCargandoPaginaPublicidad:false,
 
+      };
+    }
+    case obtenerDatosPaginaPublicidadAdminError: {
+      return {
+        ...state,
+        isErrorPaginaPublicidad:"No se pudieron obtener los datos necesarios",
+        publicidadesPaginaPublicidad: null,
+        isCargandoPaginaPublicidad:false,
+      };
+    }
+    case cargandoNuevaPublicidad: {
+      return {
+        ...state,
+        isCargandoComponenteNuevaPublicidad:true,
+        isErrorComponenteNuevaPublicidad:null,
+        medidasParaNuevaPublicidad:null
+      };
+    }
+    case medidasParaNuevaPublicidadExito: {
+      const medidasPublicidad = accion.payload.map(medidas => {
+        return {
+          value: medidas._id,
+          label: medidas.direccion + '->' + medidas.ancho + 'x' + medidas.alto,
+          key: medidas.keyMedidas,
+          ancho: medidas.ancho,
+          alto: medidas.alto,
+          disponible: medidas.disponible,
+        };
+      });
+      return {
+        ...state,
+        medidasParaNuevaPublicidad: medidasPublicidad?.filter(medida => medida.disponible),
+        isErrorComponenteNuevaPublicidad:null,
+        isCargandoComponenteNuevaPublicidad:false,
+
+      };
+    }
+    case medidasParaNuevaPublicidadError: {
+      console.log(accion.payload)
+      return {
+        ...state,
+        isErrorComponenteNuevaPublicidad:"No se pudieron obtener los datos necesarios",
+        medidasParaNuevaPublicidad: null,
+        isCargandoComponenteNuevaPublicidad:false,
+      };
+    }
     default:
       return state;
   }

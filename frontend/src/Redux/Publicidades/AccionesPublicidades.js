@@ -3,8 +3,7 @@ import API from './../Configuracion/api';
 export const cargandoPublicidad = 'cargandoPublicidad';
 export const publicidadExito = 'publicidadExito';
 export const publicidadError = 'publicidadError';
-export const listarPublicidadesExito = 'listarPublicidadesExito';
-export const listarPublicidadesError = 'listarPublicidadesError';
+
 export const buscarPublicidadAEditar = 'buscarPublicidadAEditar';
 export const publicidadEditadaExito = 'publicidadEditadaExito';
 export const volverPorDefectoPublicidad = 'volverPorDefectoPublicidad';
@@ -41,7 +40,7 @@ export const publicidadError_accion = error => {
     error: error,
   };
 };
-export const actializarMedidasPublicidades_Accion = datos => {
+export const actualizarMedidasPublicidades_Accion = datos => {
   return {
     type: actualizarDisponibilidadMedidasPublicidad,
     medidas: datos,
@@ -72,7 +71,7 @@ export const guardarPublicidad = datosCargados => {
               data: {_id: datosCargados.idMedidas},
             })
               .then(respuestaMedida => {
-                dispatch(actializarMedidasPublicidades_Accion(respuestaMedida.data));
+                dispatch(actualizarMedidasPublicidades_Accion(respuestaMedida.data));
                 dispatch(publicidadExito_accion(respuestaExitoGuardarPublicidad));
               })
               .catch(error => {
@@ -88,35 +87,6 @@ export const guardarPublicidad = datosCargados => {
       .catch(error => {
         console.log({error});
         dispatch(publicidadError_accion(error));
-      });
-  };
-};
-
-export const ListarPublicidadesExito_accion = publicidades => {
-  return {
-    type: listarPublicidadesExito,
-    respuesta: publicidades,
-  };
-};
-export const ListarPublicidadesError_accion = error => {
-  return {
-    type: listarPublicidadesError,
-    error: error,
-  };
-};
-export const listarPublicidades_accion = () => {
-  return dispatch => {
-    // dispatch(cargandoListarNoticia_accion());
-    API({
-      url: '/anuncios/listar',
-      method: 'get',
-    })
-      .then(res => {
-        dispatch(ListarPublicidadesExito_accion(res.data.value));
-      })
-      .catch(error => {
-        console.log({error});
-        dispatch(ListarPublicidadesError_accion(error));
       });
   };
 };
@@ -142,24 +112,24 @@ export const publicidadEditadaError_accion = error => {
 
 export const guardarPublicidadEditada = datosCargados => {
   return dispatch => {
+    dispatch(cargandoGuardarPublicidadEditada_accion('Editando...'));
     if (datosCargados.imagen && datosCargados.imagen[0].type) {
       var imagenPublicidad = new FormData();
       imagenPublicidad.append('archivos[]', datosCargados.imagen[0]);
-      dispatch(cargandoGuardarPublicidadEditada_accion('Editando...'));
       API({
         url: '/imagenes/agregar',
         method: 'post',
         data: imagenPublicidad,
       })
         .then(res => {
-          datosCargados = {...datosCargados, idImagen: res.data.value};
+          //  datosCargados = {...datosCargados, idImagen: res.data.value};
           API({
             url: '/anuncios/modificar',
             method: 'put',
             data: datosCargados,
           })
             .then(res => {
-              dispatch(publicidadEditadaExito_accion(res.data));
+              dispatch(publicidadEditadaExito_accion(datosCargados));
             })
             .catch(error => {
               console.log({error});
@@ -230,6 +200,84 @@ export const eliminarPublicidad = idPublicidad => {
             mensaje: 'No se pudo eliminar la publicidad',
           })
         );
+      });
+  };
+};
+
+
+// pagina publicidad admin
+export const cargandoPublicidadAdmin = 'cargandoPublicidadAdmin';
+export const obtenerDatosPaginaPublicidadAdminExito = 'obtenerDatosPaginaPublicidadAdminExito';
+export const obtenerDatosPaginaPublicidadAdminError = 'obtenerDatosPaginaPublicidadAdminError';
+export const cargandoPublicidadAdmin_accion = () => {
+  return {
+    type: cargandoPublicidadAdmin,
+  };
+};
+export const obtenerDatosPaginaPublicidadAdminExito_accion = datos => {
+  return {
+    type: obtenerDatosPaginaPublicidadAdminExito,
+    payload: datos,
+  };
+};
+export const obtenerDatosPaginaPublicidadAdminError_accion = error => {
+  return {
+    type: obtenerDatosPaginaPublicidadAdminError,
+    error: error,
+  };
+};
+export const obtenerDatosPaginaPublicidadAdmin = () => {
+  return dispatch => {
+     dispatch(cargandoPublicidadAdmin_accion());
+    API({
+      url: '/anuncios/listar',
+      method: 'get',
+    })
+      .then(res => {
+        dispatch(obtenerDatosPaginaPublicidadAdminExito_accion(res.data.value));
+      })
+      .catch(error => {
+        dispatch(obtenerDatosPaginaPublicidadAdminError_accion(error));
+      });
+  };
+};
+
+
+
+//NuevaPublicidad
+export const cargandoNuevaPublicidad = 'cargandoNuevaPublicidad';
+export const medidasParaNuevaPublicidadExito = 'medidasParaNuevaPublicidadExito';
+export const medidasParaNuevaPublicidadError = 'medidasParaNuevaPublicidadError';
+export const cargandoNuevaPublicidad_accion = () => {
+  return {
+    type: cargandoNuevaPublicidad,
+  };
+};
+export const medidasParaNuevaPublicidadExito_accion = datos => {
+  return {
+    type: medidasParaNuevaPublicidadExito,
+    payload: datos,
+  };
+};
+export const medidasParaNuevaPublicidadError_accion = error => {
+  return {
+    type: medidasParaNuevaPublicidadError,
+    error: error,
+  };
+};
+export const obtenerMedidasPublicidad = () => {
+  return dispatch => {
+    dispatch(cargandoNuevaPublicidad_accion())
+    API({
+      url: '/medidasPublicidad/listar',
+      method: 'get',
+    })
+      .then(res => {
+        dispatch(medidasParaNuevaPublicidadExito_accion(res.data.value));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(medidasParaNuevaPublicidadError_accion (error));
       });
   };
 };
