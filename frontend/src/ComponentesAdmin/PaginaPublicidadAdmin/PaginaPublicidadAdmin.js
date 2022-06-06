@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import InputLowa from '../InputLowa/InputLowa';
 import './PaginaPublicidadAdmin.css';
 import {BsSearch} from 'react-icons/bs';
@@ -8,32 +8,47 @@ import BotonLowa from '../BotonLowa/BotonLowa';
 import {useHistory} from 'react-router';
 import {useDispatch, useSelector} from 'react-redux';
 import Alertas from '../Alertas/Alertas';
-import {modalPaginaPublicidad_accion} from '../../Redux/Publicidades/AccionesPublicidades';
+import {modalPaginaPublicidad_accion, obtenerDatosPaginaPublicidadAdmin} from '../../Redux/Publicidades/AccionesPublicidades';
+import Cargando from '../Cargando/Cargando';
+import EditarPublicidad from '../EditarPublicidad/EditarPublicidad';
 
 const PaginaPublicidadAdmin = () => {
-  const {publicidades, modalPaginaPublicidad} = useSelector(state => state.storePublicidades);
-  const {medidasPublicidad} = useSelector(state => state.sotreDatosIniciales);
+  const {publicidadesPaginaPublicidad, modalPaginaPublicidad,isCargandoPaginaPublicidad,isErrorPaginaPublicidad} = useSelector(state => state.storePublicidades);
+  const [editarPublicidad, setEditarPublicidad] = useState()
   const dispatch = useDispatch();
 
   const historialDeNavegacion = useHistory();
   const redireccionarNuevaPublicidad = () => {
     historialDeNavegacion.push('/Publicidad/Nueva');
   };
+ useLayoutEffect(() => {
+  dispatch(obtenerDatosPaginaPublicidadAdmin())
 
-  return (
-    <div className="CP-PaginaPublicidadAdmin">
-      {medidasPublicidad.length &&
-      medidasPublicidad.filter(element => element.disponible).length ? (
-        <BotonLowa onClick={redireccionarNuevaPublicidad} tituloboton={'Agregar'} />
-      ) : null}
+   return () => {
+     
+   };
+ },[dispatch])
+ if(isCargandoPaginaPublicidad){
+   return <Cargando/>
+ }
+ if(isErrorPaginaPublicidad){
+  <span>{isErrorPaginaPublicidad}</span>
+ }
+ else{
+   return (
+     editarPublicidad?
+     <EditarPublicidad publicidadParaEditar={editarPublicidad} eventoCancelar={setEditarPublicidad}/>:
+     
+       <div className="CP-PaginaPublicidadAdmin">
+       <BotonLowa onClick={redireccionarNuevaPublicidad} tituloboton={'Agregar'} />
       <InputLowa placeholder={'Buscar'} inputConIcono={<BsSearch></BsSearch>} />
 
-      {publicidades.map((publicidad, i) => {
+      {publicidadesPaginaPublicidad.map((publicidad, i) => {
         return (
           <ItemPublicidad
             key={i}
             publicidad={publicidad}
-            linkTo={'/Publicidad/Editar'}
+            seleccionEditar={setEditarPublicidad}
           ></ItemPublicidad>
         );
       })}
@@ -45,8 +60,10 @@ const PaginaPublicidadAdmin = () => {
         RespuestaDeSweet={() => {
           dispatch(modalPaginaPublicidad_accion({isMostrar: false, tipo: '', mensaje: ''}));
         }}
-      />
-    </div>
-  );
-};
+        />
+        </div>
+     )
+
+ }
+}
 export default PaginaPublicidadAdmin;
