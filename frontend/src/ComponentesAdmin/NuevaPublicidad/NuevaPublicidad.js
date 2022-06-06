@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import './NuevaPublicidad.css';
 // import Selector from '../Selector/Selector';
 // import TextAreaLowa from '../TextAreaLowa/TextAreaLowa';
@@ -12,15 +12,16 @@ import {useHistory} from 'react-router';
 import {BsPlusCircle} from 'react-icons/bs';
 import {
   guardarPublicidad,
+  obtenerMedidasPublicidad,
   volverPorDefectoPublicidad_accion,
 } from '../../Redux/Publicidades/AccionesPublicidades';
 import Selector from '../Selector/Selector';
 import compresor from '../../ModulosExternos/Compresor';
+import Cargando from '../Cargando/Cargando';
 
 const NuevaPublicidad = () => {
   const history = useHistory();
-  const {isPublicidad} = useSelector(state => state.storePublicidades);
-  const {medidasPublicidad} = useSelector(state => state.sotreDatosIniciales);
+  const {isPublicidad,isCargandoComponenteNuevaPublicidad,isErrorComponenteNuevaPublicidad,medidasParaNuevaPublicidad} = useSelector(state => state.storePublicidades);
   const [medidasDePublicidad, setMedidasDePublicidad] = useState(null);
   const [tamañoImagenCargada, setTamañoImagenCargada] = useState({alto: '', ancho: ''});
   const [advertenciaCargadoDeDatos, setAdvertenciaCargadoDeDatos] = useState({
@@ -64,7 +65,6 @@ const NuevaPublicidad = () => {
               return res;
             })
             .catch(error => {
-              console.log(error);
               setAlertaComprimir({
                 tipo: 'error',
                 mensaje: 'No se logró comprimir la imagen.',
@@ -135,70 +135,76 @@ const NuevaPublicidad = () => {
   const funcionObtenerTamanioImagen = img => {
     setTamañoImagenCargada({alto: img.current.naturalHeight, ancho: img.current.naturalWidth});
   };
-  return (
-    <div className="CP-NuevaPublicidad">
-      <h5>Nueva Publicidad</h5>
-      {/* <div className="CI-DesactivarPublicidad">
-        <p>Desactivar</p>
-        <InputSwitchLowa
-          name="isActiva"
-          onChange={e => escucharCambios(e.target.name, e.target.checked)}
-        ></InputSwitchLowa>
-      </div> */}
-      <InputLowa
-        name="nombrePublicidad"
-        placeholder="Ingrese nombre de publicidad..."
-        onChange={e => escucharCambios(e.target.name, e.target.value)}
-      ></InputLowa>
-      <Selector
-        name="idMedidas"
-        placeholder="Seleccione medida y ubicación"
-        selectorConIcono={<BsPlusCircle />}
-        options={
-          medidasPublicidad.length !== 0
-            ? medidasPublicidad.filter(medida => medida.disponible)
-            : []
-        }
-        onChange={setMedidasDePublicidad}
-      ></Selector>
-      <InputLowa
-        name="imagen"
-        type="file"
-        funcionObtenerTamanioImagen={funcionObtenerTamanioImagen}
-        onChange={(name, value) => escucharCambios(name, value)}
-      ></InputLowa>
-      <BotonLowa
-        tituloboton={'Guardar Publicidad'}
-        onClick={() => GuardarNuevaPublicidad()}
-      ></BotonLowa>
-      <Alertas
-        mostrarSweet={isPublicidad.isMostrar}
-        tipoDeSweet={isPublicidad.tipo}
-        subtitulo={isPublicidad.mensaje}
-      />
-      <Alertas
-        mostrarSweet={
-          isPublicidad.isExito || isPublicidad.isError || advertenciaCargadoDeDatos.mostrar
-        }
-        subtitulo={isPublicidad.mensaje || advertenciaCargadoDeDatos.mensaje}
-        tipoDeSweet={isPublicidad.tipo || advertenciaCargadoDeDatos.tipo}
-        RespuestaDeSweet={RespuestaDeAlertaVolverPorDefecto}
-      />
-      <Alertas
-        mostrarSweet={advertenciaCargadoDeDatos.mostrar}
-        subtitulo={advertenciaCargadoDeDatos.mensaje}
-        tipoDeSweet={advertenciaCargadoDeDatos.tipo}
-        RespuestaDeSweet={RespuestaDeAlerta}
-      />
-      <Alertas
-        tipoDeSweet={alertaComprimir.tipo}
-        mostrarSweet={
-          alertaComprimir.isCargando || alertaComprimir.isExito || alertaComprimir.isError
-        }
-        subtitulo={alertaComprimir.mensaje}
-        RespuestaDeSweet={respuestaDeSweetAlComprimir}
-      ></Alertas>
-    </div>
-  );
+  useLayoutEffect(() => {
+   if(!medidasParaNuevaPublicidad){
+     dispatch(obtenerMedidasPublicidad())
+   }
+    return () => {
+    };
+  }, [medidasParaNuevaPublicidad,dispatch])
+  if(isCargandoComponenteNuevaPublicidad){
+    return(
+      <Cargando/>
+    )
+  }
+  else{
+    return (
+      isErrorComponenteNuevaPublicidad? <span>{isErrorComponenteNuevaPublicidad}</span>:
+      <div className="CP-NuevaPublicidad">
+        <h5>Nueva Publicidad</h5>
+        <InputLowa
+          name="nombrePublicidad"
+          placeholder="Ingrese nombre de publicidad..."
+          onChange={e => escucharCambios(e.target.name, e.target.value)}
+        ></InputLowa>
+        <Selector
+          name="idMedidas"
+          placeholder="Seleccione medida y ubicación"
+          selectorConIcono={<BsPlusCircle />}
+          options={ medidasParaNuevaPublicidad}
+          onChange={setMedidasDePublicidad}
+          noOptionsMessage={"No hay espacio publicitario disponible"}
+        ></Selector>
+        <InputLowa
+          name="imagen"
+          type="file"
+          funcionObtenerTamanioImagen={funcionObtenerTamanioImagen}
+          onChange={(name, value) => escucharCambios(name, value)}
+        ></InputLowa>
+        <BotonLowa
+          tituloboton={'Guardar Publicidad'}
+          onClick={() => GuardarNuevaPublicidad()}
+        ></BotonLowa>
+        <Alertas
+          mostrarSweet={isPublicidad.isMostrar}
+          tipoDeSweet={isPublicidad.tipo}
+          subtitulo={isPublicidad.mensaje}
+        />
+        <Alertas
+          mostrarSweet={
+            isPublicidad.isExito || isPublicidad.isError || advertenciaCargadoDeDatos.mostrar
+          }
+          subtitulo={isPublicidad.mensaje || advertenciaCargadoDeDatos.mensaje}
+          tipoDeSweet={isPublicidad.tipo || advertenciaCargadoDeDatos.tipo}
+          RespuestaDeSweet={RespuestaDeAlertaVolverPorDefecto}
+        />
+        <Alertas
+          mostrarSweet={advertenciaCargadoDeDatos.mostrar}
+          subtitulo={advertenciaCargadoDeDatos.mensaje}
+          tipoDeSweet={advertenciaCargadoDeDatos.tipo}
+          RespuestaDeSweet={RespuestaDeAlerta}
+        />
+        <Alertas
+          tipoDeSweet={alertaComprimir.tipo}
+          mostrarSweet={
+            alertaComprimir.isCargando || alertaComprimir.isExito || alertaComprimir.isError
+          }
+          subtitulo={alertaComprimir.mensaje}
+          RespuestaDeSweet={respuestaDeSweetAlComprimir}
+        ></Alertas>
+      </div>
+    );
+  }
+  
 };
 export default NuevaPublicidad;
