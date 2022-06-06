@@ -1,10 +1,8 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import BotonLowa from '../BotonLowa/BotonLowa';
 import InputLowa from '../InputLowa/InputLowa';
-import {useHistory, useParams} from 'react-router';
-// import InputSwitchLowa from '../InputSwitchLowa/InputSwitchLowa';
 import './EditarPublicidad.css';
 import {server} from '../../Entorno';
 import {
@@ -13,16 +11,10 @@ import {
 } from '../../Redux/Publicidades/AccionesPublicidades';
 import Alertas from '../Alertas/Alertas';
 import compresor from '../../ModulosExternos/Compresor';
-import Cargando from '../Cargando/Cargando';
 
-const EditarPublicidad = () => {
-  const {id} = useParams();
-
-  const [datosCargados, setdatosCargados] = useState();
-  const [error, setError] = useState();
-  const history = useHistory();
-  const [isCargando, setIsCargando] = useState(true);
-  const {publicidades, isPublicidad} = useSelector(state => state.storePublicidades);
+const EditarPublicidad = ({publicidadParaEditar={},eventoCancelar =()=>{}}) => {
+  const [datosCargados, setdatosCargados] = useState(publicidadParaEditar);
+  const {isPublicidad} = useSelector(state => state.storePublicidades);
   const [tamañoImagenCargada, setTamañoImagenCargada] = useState({alto: '', ancho: ''});
   const [isErrorAlComprimir, setIsErrorAlComprimir] = useState(false);
   const dispatch = useDispatch();
@@ -31,21 +23,6 @@ const EditarPublicidad = () => {
     mensaje: '',
     tipo: '',
   });
-
-  useLayoutEffect(() => {
-    if (id && publicidades.length && !datosCargados) {
-      setIsCargando(true);
-      var resultadoFiltrar = publicidades.find(publicidad => publicidad._id === id);
-      if (resultadoFiltrar) {
-        setdatosCargados(resultadoFiltrar);
-        setIsCargando(false);
-      } else {
-        setIsCargando(false);
-        setError('No se encontro la publicidad seleccionada');
-      }
-    }
-  }, [id, dispatch, publicidades, datosCargados]);
-
   const [alertaComprimir, setAlertaComprimir] = useState({
     tipo: '',
     mensaje: '',
@@ -57,7 +34,6 @@ const EditarPublicidad = () => {
   const escucharCambios = (name, value) => {
     if (name === 'imagen') {
       if (value.length > 0) {
-        /* setCantidadDeArchivos(value.length + datosGaleria.imagenes.length); */
         setAlertaComprimir({
           tipo: 'cargando',
           mensaje: 'Comprimiendo Imagen...',
@@ -105,7 +81,7 @@ const EditarPublicidad = () => {
       tamañoImagenCargada.alto <= datosCargados.idMedidas[0].alto &&
       tamañoImagenCargada.ancho <= datosCargados.idMedidas[0].ancho
     ) {
-      dispatch(guardarPublicidadEditada({...datosCargados, _id: id}));
+      dispatch(guardarPublicidadEditada({...datosCargados}));
     } else {
       setAdvertenciaCargadoDeDatos({
         mostrar: true,
@@ -134,7 +110,7 @@ const EditarPublicidad = () => {
   };
   const RespuestaDeAlertaVolverPorDefecto = () => {
     dispatch(volverPorDefectoPublicidad_accion());
-    history.push('/Publicidad');
+    eventoCancelar()
   };
   const funcionObtenerTamanioImagen = img => {
     setTamañoImagenCargada({alto: img.current.naturalHeight, ancho: img.current.naturalWidth});
@@ -142,18 +118,7 @@ const EditarPublicidad = () => {
   const RespuestaDeAlerta = () => {
     setAdvertenciaCargadoDeDatos({mostrar: false, mensaje: '', tipo: ''});
   };
-  if (isCargando) {
-    return (
-      <div className="CP-EditarPublicidad">
-        <Cargando />
-      </div>
-    );
-  } else {
-    return error ? (
-      <div className="CP-EditarPublicidad">
-        <span>{error}</span>
-      </div>
-    ) : (
+    return(
       <div className="CP-EditarPublicidad">
         <h5>Publicidad Inicio</h5>
         <InputLowa
@@ -189,21 +154,24 @@ const EditarPublicidad = () => {
           src={datosCargados.idImagen ? server + datosCargados.idImagen[0].fuente : ''}
           onChange={(name, value) => escucharCambios(name, value)}
         ></InputLowa>
+          <BotonLowa
+           tituloboton={'Cancelar'}
+           onClick={() => eventoCancelar()}
+         ></BotonLowa>
+         {(datosCargados.imagen || datosCargados.nombrePublicidad !== publicidadParaEditar.nombrePublicidad) &&
         <BotonLowa
-          tituloboton={'Guardar Publicidad'}
-          onClick={() => guardarPublicidad()}
+          tituloboton={'Guardar Cambios'}
+         
+           onClick={() => guardarPublicidad()}
         ></BotonLowa>
+         }
         <Alertas
           mostrarSweet={isPublicidad.isMostrar}
           tipoDeSweet={isPublicidad.tipo}
           subtitulo={isPublicidad.mensaje}
-        />
-        <Alertas
-          mostrarSweet={isPublicidad.isExito || isPublicidad.isError}
-          subtitulo={isPublicidad.mensaje}
-          tipoDeSweet={isPublicidad.tipo}
           RespuestaDeSweet={RespuestaDeAlertaVolverPorDefecto}
         />
+
         <Alertas
           mostrarSweet={advertenciaCargadoDeDatos.mostrar}
           subtitulo={advertenciaCargadoDeDatos.mensaje}
@@ -220,6 +188,5 @@ const EditarPublicidad = () => {
         ></Alertas>
       </div>
     );
-  }
 };
 export default EditarPublicidad;
