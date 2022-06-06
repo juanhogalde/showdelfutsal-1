@@ -56,7 +56,6 @@ const EditarPublicidad = ({publicidadParaEditar={},eventoCancelar =()=>{}}) => {
               return res;
             })
             .catch(error => {
-              console.log(error);
               setAlertaComprimir({
                 tipo: 'error',
                 mensaje: 'No se logró comprimir la imagen.',
