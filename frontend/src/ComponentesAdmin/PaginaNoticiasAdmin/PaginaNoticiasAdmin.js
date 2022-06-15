@@ -17,7 +17,7 @@ const PaginaNoticiasAdmin = () => {
     cargandoNoticiasAdmin,
     errorPaginaNoticiasAdmin,
     categorias,
-    subcategorias,
+    // subcategorias,
   } = useSelector((state) => state.storeNoticias);
   const [filtroSeleccionado, setFiltroSeleccionado] = useState("");
   // const { categorias } = useSelector((state) => state.sotreDatosIniciales);
@@ -43,11 +43,7 @@ const PaginaNoticiasAdmin = () => {
     if (filtroSeleccionado.index === -1) {
       let indice = filtroSeleccionado.index + 1;
       setFiltroSeleccionado({ ...categorias[indice], index: indice });
-      setNoticiasFiltradas(
-        noticiasPaginaAdmin.filter(
-          (noticia) => noticia.keyCategoria === categorias[indice].key
-        )
-      );
+      setNoticiasFiltradas(noticiasPaginaAdmin.filter((noticia) => noticia.keyCategoria === categorias[indice].key));
     } else {
       if (filtroSeleccionado.index === categorias.length - 1) {
         setFiltroSeleccionado({
@@ -59,11 +55,7 @@ const PaginaNoticiasAdmin = () => {
       } else {
         let indice = filtroSeleccionado.index + 1;
         setFiltroSeleccionado({ ...categorias[indice], index: indice });
-        setNoticiasFiltradas(
-          noticiasPaginaAdmin.filter(
-            (noticia) => noticia.keyCategoria === categorias[indice].key
-          )
-        );
+        setNoticiasFiltradas(noticiasPaginaAdmin.filter((noticia) => noticia.keyCategoria === categorias[indice].key));
       }
     }
   };
@@ -83,16 +75,10 @@ const PaginaNoticiasAdmin = () => {
         <div className="CP2-PaginaNoticiasAdmin">
           <div className="CI-PaginaNoticiasAdmin-Cabecera">
             <div className="I-Boton-PaginaNoticiasAdmin">
-              <BotonLowa
-                onClick={redireccionarNuevaNoticia}
-                tituloboton={"Agregar"}
-              />
+              <BotonLowa onClick={redireccionarNuevaNoticia} tituloboton={"Agregar"} />
             </div>
             <div className="I-Filtros-PaginaNoticiasAdmin">
-              <FiltroNoticiasAdmin
-                tituloFiltro={filtroSeleccionado.label}
-                escucharCambioFiltros={escucharCambioFiltros}
-              />
+              <FiltroNoticiasAdmin tituloFiltro={filtroSeleccionado.label} escucharCambioFiltros={escucharCambioFiltros} />
             </div>
           </div>
           <div className="CI2-PaginaNoticiasAdmin">

@@ -4,7 +4,7 @@ import { Redirect, Route } from "react-router";
 import { Switch } from "react-router-dom";
 import CambiarContraseña from "../Componentes/CambiarContraseña/CambiarContraseña";
 import NuevaGaleria from "../ComponentesAdmin/NuevaGaleria/NuevaGaleria";
-import EditarNoticia from "../ComponentesAdmin/EditarNoticia/EditarNoticia";
+// import EditarNoticia from "../ComponentesAdmin/EditarNoticia/EditarNoticia";
 // import HomePrivada from '../ComponentesAdmin/HomePrivada/HomePrivada';
 import InicioAdmin from "../ComponentesAdmin/InicioAdmin/InicioAdmin";
 import NuevaNoticia from "../ComponentesAdmin/NuevaNoticia/NuevaNoticia";
@@ -16,7 +16,7 @@ import PaginaTablaAdmin from "../ComponentesAdmin/PaginaTablaAdmin/PaginaTablaAd
 import PaginaTorneosAdmin from "../ComponentesAdmin/PaginaTorneosAdmin/PaginaTorneosAdmin";
 import VistaPreviaNoticia from "../ComponentesAdmin/VistaPreviaNoticia/VistaPreviaNoticia";
 import EditarGaleria from "../ComponentesAdmin/EditarGaleria/EditarGaleria";
-import EditarPublicidad from "../ComponentesAdmin/EditarPublicidad/EditarPublicidad";
+// import EditarPublicidad from "../ComponentesAdmin/EditarPublicidad/EditarPublicidad";
 import NuevoTorneo from "../ComponentesAdmin/NuevoTorneo/NuevoTorneo";
 import Campeonato from "../ComponentesAdmin/Campeonato/Campeonato";
 import NuevaPublicidad from "../ComponentesAdmin/NuevaPublicidad/NuevaPublicidad";

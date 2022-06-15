@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from "react";
-import InputLowa from "../InputLowa/InputLowa";
+// import InputLowa from "../InputLowa/InputLowa";
 import "./PaginaPublicidadAdmin.css";
-import { BsSearch } from "react-icons/bs";
+// import { BsSearch } from "react-icons/bs";
 // import FiltroActivo from '../FiltroActivo/FiltroActivo';
 import ItemPublicidad from "../ItemPublicidad/ItemPublicidad";
 import BotonLowa from "../BotonLowa/BotonLowa";
