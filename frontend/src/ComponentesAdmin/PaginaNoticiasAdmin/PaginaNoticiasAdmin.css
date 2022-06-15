@@ -3,3 +3,50 @@
   width: 100%;
   height: 100%;
 }
+.CP2-PaginaNoticiasAdmin {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.CI-PaginaNoticiasAdmin-Cabecera {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1px 1fr 1px;
+  grid-template-rows: 15px 40px 60px 5px;
+  gap: 5px;
+  background-color: #ffffff;
+  /* z-index: 15; */
+  box-shadow: 0px 15px 10px -20px;
+  /* position: fixed; */
+}
+
+.I-Boton-PaginaNoticiasAdmin {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  display: flex;
+  place-content: center;
+  align-items: center;
+}
+.I-Filtros-PaginaNoticiasAdmin {
+  grid-column: 2/3;
+  grid-row: 3/4;
+  margin-top: 10px;
+}
+.CI2-PaginaNoticiasAdmin {
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: 1px 1fr 1px;
+  grid-template-rows: 5px 1fr 5px;
+  /* padding-left: 10px;
+  padding-right: 10px; */
+}
+.I-PaginaNoticiasAdmin {
+  grid-column: 2/3;
+  grid-row: 4/5;
+  background-color: orange;
+}
