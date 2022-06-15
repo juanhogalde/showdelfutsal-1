@@ -3,22 +3,20 @@ import API from "./../Configuracion/api";
 export const cargandoBuscarNoticias = "cargandoBuscarNoticias";
 export const buscarNoticiaExito = "buscarNoticiaExito";
 export const buscarNoticiaError = "buscarNoticiaError";
-export const volverProdefectoNoticiasBusqueda =
-  "volverProdefectoNoticiasBusqueda";
+export const volverProdefectoNoticiasBusqueda = "volverProdefectoNoticiasBusqueda";
 export const guardarNoticiaSeleccionada = "guardarNoticiaSeleccionada";
 export const cargandoGuardarNoticia = "cargandoGuardarNoticia";
 export const guardarNoticiaExito = "guardarNoticiaExito";
 export const guardarNoticiaError = "guardarNoticiaError";
 export const volverPorDefecto = "volverPorDefecto";
-export const guardarNoticiaMiniaturaSeleccionada =
-  "guardarNoticiaMiniaturaSeleccionada";
+export const guardarNoticiaMiniaturaSeleccionada = "guardarNoticiaMiniaturaSeleccionada";
 export const cargandoEditarNoticia = "cargandoEditarNoticia";
 export const edicionNoticiaExito = "edicionNoticiaExito";
 export const edicionNoticiaError = "edicionNoticiaError";
 export const cargandoEliminarNoticia = "cargandoEliminarNoticia";
 export const eliminarNoticiaExito = "eliminarNoticiaExito";
 export const eliminarNoticiaError = "eliminarNoticiaError";
-export const actualizarListaNoticias = "actualizarListaNoticias";
+
 export const cargandoDestacarNoticia = "cargandoDestacarNoticia";
 export const desestacarNoticiaExito = "desestacarNoticiaExito";
 export const desestacarNoticiaError = "desestacarNoticiaError";
@@ -236,12 +234,7 @@ export const eliminarNoticiaError_accion = (error) => {
     error: error,
   };
 };
-export const actualizarListaNoticias_accion = (id) => {
-  return {
-    type: actualizarListaNoticias,
-    id: id,
-  };
-};
+
 export const eliminarNoticia_accion = (noticia) => {
   return (dispatch) => {
     dispatch(cargandoEliminarNoticia_accion("Eliminando"));
@@ -336,14 +329,10 @@ export const destacarNoticia_accion = (noticia) => {
 };
 
 // Obtener noticia seleccionada
-export const cargandoObtenerNoticiaSeleccionada =
-  "cargandoObtenerNoticiaSeleccionada";
-export const volverPorDefectoNoticiasDesarrollada =
-  "volverPorDefectoNoticiasDesarrollada";
-export const obtenerNoticiaSeleccionadaExito =
-  "obtenerNoticiaSeleccionadaExito";
-export const obtenerNoticiaSeleccionadaError =
-  "obtenerNoticiaSeleccionadaError";
+export const cargandoObtenerNoticiaSeleccionada = "cargandoObtenerNoticiaSeleccionada";
+export const volverPorDefectoNoticiasDesarrollada = "volverPorDefectoNoticiasDesarrollada";
+export const obtenerNoticiaSeleccionadaExito = "obtenerNoticiaSeleccionadaExito";
+export const obtenerNoticiaSeleccionadaError = "obtenerNoticiaSeleccionadaError";
 export const cargandoObtenerNoticiaSeleccionada_accion = () => {
   return {
     type: cargandoObtenerNoticiaSeleccionada,
@@ -378,31 +367,21 @@ export const obtenerNoticiaSeleccionada = (id) => {
       })
       .catch((error) => {
         console.log({ error });
-        dispatch(
-          obtenerNoticiaSeleccionadaError_accion(
-            "No se pudo obtener la noticia"
-          )
-        );
+        dispatch(obtenerNoticiaSeleccionadaError_accion("No se pudo obtener la noticia"));
       });
   };
 };
 ///Obtener Noticias Para Seccion
-export const cargandoObtenerNoticiasParaSeccion =
-  "cargandoObtenerNoticiasParaSeccion";
-export const obtenerNoticiasParaSeccionExito =
-  "obtenerNoticiasParaSeccionExito";
-export const obtenerNoticiasParaSeccionError =
-  "obtenerNoticiasParaSeccionError";
+export const cargandoObtenerNoticiasParaSeccion = "cargandoObtenerNoticiasParaSeccion";
+export const obtenerNoticiasParaSeccionExito = "obtenerNoticiasParaSeccionExito";
+export const obtenerNoticiasParaSeccionError = "obtenerNoticiasParaSeccionError";
 export const cargandoObtenerNoticiasParaSeccion_accion = () => {
   return {
     type: cargandoObtenerNoticiasParaSeccion,
   };
 };
 
-export const obtenerNoticiasParaSeccionExito_accion = (
-  noticias,
-  subCategoriaSeleccionada
-) => {
+export const obtenerNoticiasParaSeccionExito_accion = (noticias, subCategoriaSeleccionada) => {
   return {
     type: obtenerNoticiasParaSeccionExito,
     noticias: noticias,
@@ -417,29 +396,18 @@ export const obtenerNoticiasParaSeccionError_accion = (error) => {
 };
 export const obtenerNoticiasParaSeccion = (id, subcategorias) => {
   return (dispatch) => {
-    const subCategoriaSeleccionada = subcategorias?.find(
-      (element) => element.key === parseInt(id)
-    );
+    const subCategoriaSeleccionada = subcategorias?.find((element) => element.key === parseInt(id));
     dispatch(cargandoObtenerNoticiasParaSeccion_accion());
     API({
       url: `/Noticias/obtenerPorSubCategoria/${id}`,
       method: "get",
     })
       .then((res) => {
-        dispatch(
-          obtenerNoticiasParaSeccionExito_accion(
-            res.data.value,
-            subCategoriaSeleccionada
-          )
-        );
+        dispatch(obtenerNoticiasParaSeccionExito_accion(res.data.value, subCategoriaSeleccionada));
       })
       .catch((error) => {
         console.log({ error });
-        dispatch(
-          obtenerNoticiasParaSeccionError_accion(
-            "No se pudieron obtener las noticias"
-          )
-        );
+        dispatch(obtenerNoticiasParaSeccionError_accion("No se pudieron obtener las noticias"));
       });
   };
 };

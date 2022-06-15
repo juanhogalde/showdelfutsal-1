@@ -14,7 +14,7 @@ import PaginaPublicidadAdmin from "../ComponentesAdmin/PaginaPublicidadAdmin/Pag
 /* import PaginasSeccionesAdmin from '../ComponentesAdmin/PaginasSeccionesAdmin/PaginasSeccionesAdmin'; */
 import PaginaTablaAdmin from "../ComponentesAdmin/PaginaTablaAdmin/PaginaTablaAdmin";
 import PaginaTorneosAdmin from "../ComponentesAdmin/PaginaTorneosAdmin/PaginaTorneosAdmin";
-import VistaPreviaNoticia from "../ComponentesAdmin/VistaPreviaNoticia/VistaPreviaNoticia";
+// import VistaPreviaNoticia from "../ComponentesAdmin/VistaPreviaNoticia/VistaPreviaNoticia";
 import EditarGaleria from "../ComponentesAdmin/EditarGaleria/EditarGaleria";
 // import EditarPublicidad from "../ComponentesAdmin/EditarPublicidad/EditarPublicidad";
 import NuevoTorneo from "../ComponentesAdmin/NuevoTorneo/NuevoTorneo";
@@ -70,7 +70,7 @@ const RutasPrivadas = () => {
           <Route exact component={NuevaGaleria} path="/Galería/Nueva"></Route>
           <Route exact component={NuevaGaleriaVideo} path="/Galería/Video/:tipo"></Route>
           <Route exact component={EditarGaleria} path="/Galería/Editar/:id"></Route>
-          <Route exact component={VistaPreviaNoticia} path="/Noticia/Ver"></Route>
+          {/* <Route exact component={VistaPreviaNoticia} path="/Noticia/Ver"></Route> */}
           <Route exact component={NuevoVivo} path="/Vivo/Nuevo/:tipo"></Route>
           <Route exact component={NuevoVivo} path="/Vivo/Editar/:tipo"></Route>
           <Route exact path="/fixture">

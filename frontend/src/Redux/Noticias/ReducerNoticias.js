@@ -17,7 +17,6 @@ import {
   cargandoEliminarNoticia,
   eliminarNoticiaExito,
   eliminarNoticiaError,
-  actualizarListaNoticias,
   cargandoDestacarNoticia,
   desestacarNoticiaExito,
   desestacarNoticiaError,
@@ -45,10 +44,6 @@ const noticiaPorDefecto = {
     isMostrar: false,
     tipo: "",
     mensaje: "",
-    isExito: false,
-    isError: false,
-    isEditada: false,
-    isEliminado: false,
   },
   cargandoNoticiaDesarrollada: true,
   noticiaDesarrolada: null,
@@ -88,10 +83,7 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
     case buscarNoticiaExito: {
       return {
         ...state,
-        noticiaDeBusqueda:
-          typeof accion.noticia.value !== "string"
-            ? accion.noticia.value
-            : [{ titulo: "sin resultado" }],
+        noticiaDeBusqueda: typeof accion.noticia.value !== "string" ? accion.noticia.value : [{ titulo: "sin resultado" }],
         isObteniendoNoticia: { isMostrar: false, tipo: "", mensaje: "" },
       };
     }
@@ -118,10 +110,6 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           isMostrar: true,
           tipo: "cargando",
           mensaje: accion.mensaje,
-          isExito: false,
-          isError: false,
-          isEditada: false,
-          isEliminado: false,
         },
       };
     }
@@ -129,28 +117,21 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
       return {
         ...state,
         isNoticiaGurdada: {
-          isMostrar: false,
+          isMostrar: true,
           tipo: "success",
           mensaje: "Noticia Guardada",
-          isExito: true,
-          isError: false,
-          isEditada: false,
-          isEliminado: false,
         },
         noticias: [...state.noticias, accion.respuesta.value],
       };
     }
     case guardarNoticiaError: {
+      console.log(accion.error);
       return {
         ...state,
         isNoticiaGurdada: {
-          isMostrar: false,
+          isMostrar: true,
           tipo: "error",
-          mensaje: accion.error.message,
-          isExito: false,
-          isError: true,
-          isEditada: false,
-          isEliminado: false,
+          mensaje: "No se pudo guardar la noticia",
         },
       };
     }
@@ -161,17 +142,11 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           isMostrar: false,
           tipo: "",
           mensaje: "",
-          isExito: false,
-          isError: false,
-          isEditada: false,
-          isEliminado: false,
         },
       };
     }
     case guardarNoticiaMiniaturaSeleccionada: {
-      const noticiaSeleccionada = state.noticias.find(
-        (noticia) => noticia._id === accion.id
-      );
+      const noticiaSeleccionada = state.noticias.find((noticia) => noticia._id === accion.id);
       if (noticiaSeleccionada) {
         return {
           ...state,
@@ -193,44 +168,27 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           isMostrar: true,
           tipo: "cargando",
           mensaje: accion.mensaje,
-          isExito: false,
-          isError: false,
-          isEditada: false,
-          isEliminado: false,
         },
       };
     }
     case edicionNoticiaExito: {
-      let index = state.noticias.findIndex(
-        (element) => element._id === accion.noticia.value._id
-      );
-      let copia = [...state.noticias];
-      copia[index] = accion.noticia.value;
       return {
         ...state,
         isNoticiaGurdada: {
-          isMostrar: false,
+          isMostrar: true,
           tipo: "success",
           mensaje: "Noticia editada",
-          isExito: false,
-          isError: false,
-          isEditada: true,
-          isEliminado: false,
         },
-        noticias: copia,
       };
     }
     case edicionNoticiaError: {
+      console.log(accion.error);
       return {
         ...state,
         isNoticiaGurdada: {
-          isMostrar: false,
+          isMostrar: true,
           tipo: "error",
-          mensaje: accion.error.message,
-          isExito: false,
-          isError: true,
-          isEditada: false,
-          isEliminado: false,
+          mensaje: "No se pudo editar la noticia",
         },
       };
     }
@@ -241,55 +199,27 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           isMostrar: true,
           tipo: "cargando",
           mensaje: "Eliminando",
-          isExito: false,
-          isError: false,
-          isEditada: false,
-          isEliminado: false,
         },
       };
     }
     case eliminarNoticiaExito: {
       return {
         ...state,
-        noticiaEliminada: accion.noticia,
         isNoticiaGurdada: {
-          isMostrar: false,
+          isMostrar: true,
           tipo: "success",
           mensaje: "Noticia eliminada",
-          isExito: false,
-          isError: false,
-          isEditada: false,
-          isEliminado: true,
         },
       };
     }
     case eliminarNoticiaError: {
+      console.log(accion.error);
       return {
         ...state,
         isNoticiaGurdada: {
-          isMostrar: false,
+          isMostrar: true,
           tipo: "error",
-          mensaje: accion.error.message,
-          isExito: false,
-          isError: true,
-          isEditada: false,
-          isEliminado: false,
-        },
-      };
-    }
-    case actualizarListaNoticias: {
-      let copia = state.noticias.filter((element) => element._id !== accion.id);
-      return {
-        ...state,
-        noticias: copia,
-        isNoticiaGurdada: {
-          isMostrar: false,
-          tipo: "",
-          mensaje: "",
-          isExito: false,
-          isError: false,
-          isEditada: false,
-          isEliminado: false,
+          mensaje: "No se pudo eliminar la noticia",
         },
       };
     }
@@ -300,79 +230,48 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
           isMostrar: true,
           tipo: "cargando",
           mensaje: accion.mensaje,
-          isExito: false,
-          isError: false,
-          isEditada: false,
-          isEliminado: false,
-          isDestacada: false,
         },
       };
     }
     case desestacarNoticiaExito: {
-      let index = state.noticias.findIndex(
-        (element) => element._id === accion.noticia._id
-      );
-      let copia = [...state.noticias];
-      copia[index] = accion.noticia;
       return {
         ...state,
-        noticias: copia,
         isNoticiaGurdada: {
-          isMostrar: false,
-          tipo: "",
-          mensaje: "",
-          isExito: false,
-          isError: false,
-          isEditada: false,
-          isEliminado: false,
+          isMostrar: true,
+          tipo: "success",
+          mensaje: "Se ha desestacado la noticia",
         },
       };
     }
     case desestacarNoticiaError: {
+      console.log(accion.error);
       return {
         ...state,
         isNoticiaGurdada: {
-          isMostrar: false,
+          isMostrar: true,
           tipo: "error",
-          mensaje: accion.error.message,
-          isExito: false,
-          isError: true,
-          isEditada: false,
-          isEliminado: false,
+          mensaje: "No se pudo desestacar la noticia",
         },
       };
     }
     case destacarNoticiaExito: {
-      let index = state.noticias.findIndex(
-        (element) => element._id === accion.noticia._id
-      );
-      let copia = [...state.noticias];
-      copia[index] = accion.noticia;
       return {
         ...state,
-        noticias: copia,
         isNoticiaGurdada: {
-          isMostrar: false,
-          tipo: "",
-          mensaje: "",
-          isExito: false,
-          isError: false,
-          isEditada: false,
-          isEliminado: false,
+          isMostrar: true,
+          tipo: "success",
+          mensaje: "Noticia Destacada con exito",
         },
       };
     }
     case destacarNoticiaError: {
+      console.log(accion.error);
       return {
         ...state,
         isNoticiaGurdada: {
-          isMostrar: false,
+          isMostrar: true,
           tipo: "error",
-          mensaje: accion.error.message,
-          isExito: false,
-          isError: true,
-          isEditada: false,
-          isEliminado: false,
+          mensaje: "No se pudo destacar la noticia",
         },
       };
     }
@@ -446,26 +345,9 @@ const storeNoticias = (state = noticiaPorDefecto, accion) => {
       };
     }
     case listarNoticiaExito: {
-      const categorias = accion.payload.categorias.map((categoria) => {
-        return {
-          value: categoria._id,
-          label: categoria.nombreCategoria,
-          key: categoria.keyCategoria,
-        };
-      });
-      const subCategorias = accion.payload.subcategorias.map((subcategoria) => {
-        return {
-          value: subcategoria._id,
-          label: subcategoria.nombreSubcategoria,
-          key: subcategoria.keySubcategoria,
-          keyCategoria: subcategoria.keyCategoria,
-        };
-      });
       return {
         ...state,
-        noticiasPaginaAdmin: accion.payload.noticias,
-        categorias: categorias,
-        subcategorias: subCategorias,
+        noticiasPaginaAdmin: accion.payload,
         errorPaginaNoticiasAdmin: null,
         cargandoNoticiasAdmin: false,
       };
